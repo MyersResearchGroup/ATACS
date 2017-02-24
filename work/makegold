@@ -1,0 +1,14 @@
+#!/bin/csh -f
+foreach result ( */*.{gold,night} )
+    setenv subDir  `dirname ${result}`
+    if( "unc2l" == ${subDir} ) then
+        setenv type unc
+    else
+        setenv type ${subDir}
+    endif
+    setenv nogold `basename ${result} .gold`
+    setenv prs    `basename ${nogold} .night`
+    setenv spec   `basename ${prs}    .prs`.${type}
+    mkdir -p ${1}/${subDir}
+    cp    -p ${subDir}/${spec} ${result} ${1}/${subDir}
+end

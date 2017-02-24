@@ -1,0 +1,20 @@
+module alloc_outbound;
+
+input req={true};
+input ackctl={true};
+input ackbus={false};
+input nakbus={false};
+output ack={false};
+output busctl={true};
+output reqbus={true};
+output y1={false};
+input y0={false};
+
+process alloc_outbound;
+*[[ skip -> ackbus+; y1+; reqbus-; ackbus-; busctl-; ackctl-; ack+; req-; 
+            y1-; ack-; req+; busctl+ 
+    | skip -> nakbus+; y0+; reqbus-; nakbus-; busctl-; ackctl-; busctl+; y0- 
+  ];
+  ackctl+; reqbus+]
+endprocess
+endmodule

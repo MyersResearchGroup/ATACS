@@ -1,0 +1,8 @@
+module a;
+
+input a;
+
+process main;
+*[ a+; a+ ]
+endprocess
+endmodule

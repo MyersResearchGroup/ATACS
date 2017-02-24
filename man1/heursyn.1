@@ -1,0 +1,28 @@
+.SH NAME
+.PP
+heursyn - a direct synthesis of timed circuits
+.SH SYNOPSIS
+.PP
+heursyn 
+.SH DESCRIPTION
+.PP
+This  command  turns on the direct method for synthesis which
+does not generate a state graph. 
+Because the direct method uses the heuristic timing analysis,
+the command, "heuristic", must be issued also.
+This routine only works on event-based specifications
+with the unique state coding. 
+For other specifications, the  result  may  be
+incorrect.
+.SH OPTIONS
+.PP
+None
+.SH FILES
+.PP
+filename.prs : the synthesis results
+.SH SEE ALSO
+.PP
+heuristic, doall
+.SH BUGS
+.PP
+Currently only the marked graph specifications can be handled

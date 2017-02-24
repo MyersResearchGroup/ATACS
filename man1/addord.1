@@ -1,0 +1,24 @@
+.SH NAME
+.PP
+addord - add causal rules to fix ordering rule violations.
+.SH SYNOPSIS
+.PP
+addord <filename>
+.SH DESCRIPTION
+.PP
+This function detects ordering rules which are not redundant,
+and either adds them as causal rules if the enabled event is
+on output signal, or, if possible, finds a causal rule to add
+which solves this ordering rule violation.  A list of the
+rules added are stored to a file named <filename>.ors in the
+following form:
+.PP
+<enabling event> <enabled event> <epsilon> <lower bound> <upper bound>
+.SH OPTIONS
+.PP
+.SH FILES
+.PP
+.SH SEE ALSO
+.PP
+.SH BUGS
+.PP

@@ -1,0 +1,25 @@
+/* timed micropipeline */
+module stage;
+
+delay gatedelay=<1,2>;
+
+input Rin = {<4,inf;2,3>};
+input Aout = {<1,inf>};
+output Ain = {<0,0>};
+output Rout = {<4,6;2,3>};
+output phi = {gatedelay};
+
+process ctrl;
+*[ [Aout-@ & Rin+]; phi+; (Ain+ || Rout+); 
+   [Aout+ & Rin-]; phi-; (Ain- || Rout-) ]
+endprocess
+
+testbench left;
+*[ Rin+; [Ain+]; Rin-; [Ain-] ]
+endtestbench
+
+testbench right;
+*[ [Rout+]; Aout+; [Rout-]; Aout- ]
+endtestbench
+endmodule
+

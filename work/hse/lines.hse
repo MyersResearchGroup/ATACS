@@ -1,0 +1,30 @@
+/*****************************************************************************/
+/* Lines' WCHB */
+/*****************************************************************************/
+module wchb;
+
+delay gatedelay = <90,110>;
+
+input l0={gatedelay};
+input l1={gatedelay};
+input ra={gatedelay};
+output la={gatedelay};
+output r0={gatedelay};
+output r1={gatedelay};
+
+process main;
+*[ [l0 -> r0+ | l1 -> r1+]; 
+    ((la+; [~l0 & ~l1]; la-) || ([ra & r0 -> r0- | ra & r1 -> r1-]; [~ra]))
+ ]
+endprocess
+
+testbench r;
+*[[r0 | r1]; ra+; [~r0 & ~r1]; ra-]
+endtestbench
+
+testbench l;
+*[[ skip -> l0+; [la]; l0-; [~la]
+  | skip -> l1+; [la]; l1-; [~la]
+ ]]
+endtestbench
+endmodule

@@ -1,0 +1,13 @@
+;Name VANBEK_AD_OPT_E
+
+input LA 0
+input DA 1
+input ZA 1
+
+output LR 0
+output DR 0
+output ZR 0
+
+  0  1   ZA- DA-      |   LR+
+  1  2   LA+          |   ZR+ DR+ LR-
+  2  0   ZA+ DA+ LA-  |   ZR- DR-

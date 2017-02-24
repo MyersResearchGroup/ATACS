@@ -1,0 +1,14 @@
+module sm;
+
+input s;
+input m;
+output q;
+
+process main;
+*[[ skip -> s+; q+; [ skip -> m+; s-; m-
+                    | skip -> s-
+                    ]  
+  | skip -> m+; s+; q+; s-; m-
+ ]; q-]
+endprocess
+endmodule

@@ -1,0 +1,5 @@
+time ../../bin/atacs -oa -on -tp -oq -va stari4 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari4 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari4 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari4 stage4
+

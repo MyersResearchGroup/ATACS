@@ -1,0 +1,12 @@
+.name disable
+.inputs x y 
+.outputs z
+#@.init_state [000]
+x- x+ #@ <~z>d
+x+ x- 
+y- y+ #@ <~z>d
+y+ y- #@ <z>d
+z- z+ #@ <x&y>d
+z+ z- #@ <~x&~y>d
+.marking {<x-,x+><y-,y+><z-,z+>}
+.end

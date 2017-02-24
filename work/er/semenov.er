@@ -1,0 +1,64 @@
+# Pipeline control for an async processor described in A. Semenov's et al.
+# paper: "Time Petri Net Unfoldings and Hardware Verification"
+# This paper is a technical report that was found at citeseer.nj.nec.com/cs
+.e 13
+.i 0
+.r 16
+.n 0
+.d 0
+.c 9
+.s 0
+reset
+# 
+# DUMMY EVENTS:
+# 
+$MARw $MARr
+$MEMr $MEMw
+$PC
+$IR
+$STORE
+$ARITH
+$ALU
+$ACCr
+$enbl_MARr
+$enbl_IR
+#
+# RULES
+#
+$PC         $enbl_MARr    0  0  0 
+$MARr       $PC           0  2  6
+$MARr       $MEMr         0  4  7
+$MEMr       $enbl_IR      0  0  0
+#
+# BOTTOM BRANCH
+#
+$IR         $ARITH        0  1  2
+$ARITH      $enbl_MARr    0  0  0
+$ARITH      $ALU          0  1  5
+$ALU        $ACCr         0  1  2
+$ACCr       $enbl_IR      1  0  0
+# 
+# TOP BRANCH
+$IR         $STORE        0  1  2
+$STORE      $MARw         0  1  2
+$MARw       $MEMw         0  3  6
+$MEMw       $enbl_MARr    0  0  0
+$MEMw       $enbl_IR      1  0  0
+#
+# Sync rule necessary to prevent findred from introducing
+# deadlock state
+# 
+$enbl_MARr  $MARr         1  1  2
+$enbl_IR    $IR           0  1  2
+#
+# CONFLICTS
+#
+$STORE $ARITH
+$STORE $ALU
+$STORE $ACCr
+$MARw $ARITH
+$MARw $ALU
+$MARw $ACCr
+$MEMw $ARITH
+$MEMw $ALU
+$MEMw $ACCr

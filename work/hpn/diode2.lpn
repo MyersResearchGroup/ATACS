@@ -1,0 +1,730 @@
+.dummy dx2_0 dx1_0 x2u_0 x1u_0 dx2_1 dx1_1 x2u_1 x1u_1 x1d_1 dx2_2 dx1_2 x2u_2 x1u_2 x1d_2 dx2_3 dx1_3 x2u_3 x1u_3 x1d_3 dx2_4 dx1_4 x2u_4 x1u_4 x1d_4 dx2_5 dx1_5 x2u_5 x1d_5 dx2_6 dx1_6 x2u_6 x2d_6 x1u_6 dx2_7 dx1_7 x2u_7 x2d_7 x1u_7 x1d_7 dx2_8 dx1_8 x2u_8 x2d_8 x1u_8 x1d_8 dx2_9 dx1_9 x2u_9 x2d_9 x1u_9 x1d_9 dx2_10 dx1_10 x2u_10 x2d_10 x1u_10 x1d_10 dx2_11 dx1_11 x2u_11 x2d_11 x1d_11 dx2_12 dx1_12 x2u_12 x2d_12 x1u_12 dx2_13 dx1_13 x2u_13 x2d_13 x1u_13 x1d_13 dx2_14 dx1_14 x2u_14 x2d_14 x1u_14 x1d_14 dx2_15 dx1_15 x2u_15 x2d_15 x1u_15 x1d_15 dx2_16 dx1_16 x2u_16 x2d_16 x1u_16 x1d_16 dx2_17 dx1_17 x2u_17 x2d_17 x1d_17 dx2_18 dx1_18 x2u_18 x2d_18 x1u_18 dx2_19 dx1_19 x2u_19 x2d_19 x1u_19 x1d_19 dx2_20 dx1_20 x2u_20 x2d_20 x1u_20 x1d_20 dx2_21 dx1_21 x2u_21 x2d_21 x1u_21 x1d_21 dx2_22 dx1_22 x2u_22 x2d_22 x1u_22 x1d_22 dx2_23 dx1_23 x2u_23 x2d_23 x1d_23 dx2_24 dx1_24 x2u_24 x2d_24 x1u_24 dx2_25 dx1_25 x2u_25 x2d_25 x1u_25 x1d_25 dx2_26 dx1_26 x2u_26 x2d_26 x1u_26 x1d_26 dx2_27 dx1_27 x2u_27 x2d_27 x1u_27 x1d_27 dx2_28 dx1_28 x2u_28 x2d_28 x1u_28 x1d_28 dx2_29 dx1_29 x2u_29 x2d_29 x1d_29 dx2_30 dx1_30 x2d_30 x1u_30 dx2_31 dx1_31 x2d_31 x1u_31 x1d_31 dx2_32 dx1_32 x2d_32 x1u_32 x1d_32 dx2_33 dx1_33 x2d_33 x1u_33 x1d_33 dx2_34 dx1_34 x2d_34 x1u_34 x1d_34 dx2_35 dx1_35 x2d_35 x1d_35 
+
+# Region 0
+# Continuous Arcs
+dx2_0 x2
+dx1_0 x1
+# Intra-region Arcs
+p_0 x1u_0 #@ [0,0]
+p_0 x2u_0 #@ [0,0]
+# Inter-region Arcs
+x1d_1 p_0 #@ [0,0]
+x2d_6 p_0 #@ [0,0]
+# Test Arcs
+p_0 dx2_0
+p_0 dx1_0
+x1 x1u_0 #@ /510;inf\ [0,0]
+x2 x2u_0 #@ /1110;inf\ [0,0]
+
+# Region 1
+# Continuous Arcs
+dx2_1 x2
+x1 dx1_1
+# Intra-region Arcs
+p_1 x1d_1 #@ [0,0]
+p_1 x1u_1 #@ [0,0]
+p_1 x2u_1 #@ [0,0]
+# Inter-region Arcs
+x1d_2 p_1 #@ [0,0]
+x1u_0 p_1 #@ [0,0]
+x2d_7 p_1 #@ [0,0]
+# Test Arcs
+p_1 dx2_1
+p_1 dx1_1
+x1 x1d_1 #@ /0;490\ [0,0]
+x1 x1u_1 #@ /1510;inf\ [0,0]
+x2 x2u_1 #@ /1110;inf\ [0,0]
+
+# Region 2
+# Continuous Arcs
+dx2_2 x2
+x1 dx1_2
+# Intra-region Arcs
+p_2 x1d_2 #@ [0,0]
+p_2 x1u_2 #@ [0,0]
+p_2 x2u_2 #@ [0,0]
+# Inter-region Arcs
+x1d_3 p_2 #@ [0,0]
+x1u_1 p_2 #@ [0,0]
+x2d_8 p_2 #@ [0,0]
+# Test Arcs
+p_2 dx2_2
+p_2 dx1_2
+x1 x1d_2 #@ /0;1490\ [0,0]
+x1 x1u_2 #@ /2510;inf\ [0,0]
+x2 x2u_2 #@ /1110;inf\ [0,0]
+
+# Region 3
+# Continuous Arcs
+dx2_3 x2
+x1 dx1_3
+# Intra-region Arcs
+p_3 x1d_3 #@ [0,0]
+p_3 x1u_3 #@ [0,0]
+p_3 x2u_3 #@ [0,0]
+# Inter-region Arcs
+x1d_4 p_3 #@ [0,0]
+x1u_2 p_3 #@ [0,0]
+x2d_9 p_3 #@ [0,0]
+# Test Arcs
+p_3 dx2_3
+p_3 dx1_3
+x1 x1d_3 #@ /0;2490\ [0,0]
+x1 x1u_3 #@ /3510;inf\ [0,0]
+x2 x2u_3 #@ /1110;inf\ [0,0]
+
+# Region 4
+# Continuous Arcs
+x2 dx2_4
+x1 dx1_4
+# Intra-region Arcs
+p_4 x1d_4 #@ [0,0]
+p_4 x1u_4 #@ [0,0]
+p_4 x2u_4 #@ [0,0]
+# Inter-region Arcs
+x1d_5 p_4 #@ [0,0]
+x1u_3 p_4 #@ [0,0]
+x2d_10 p_4 #@ [0,0]
+# Test Arcs
+p_4 dx2_4
+p_4 dx1_4
+x1 x1d_4 #@ /0;3490\ [0,0]
+x1 x1u_4 #@ /4510;inf\ [0,0]
+x2 x2u_4 #@ /1110;inf\ [0,0]
+
+# Region 5
+# Continuous Arcs
+x2 dx2_5
+x1 dx1_5
+# Intra-region Arcs
+p_5 x1d_5 #@ [0,0]
+p_5 x2u_5 #@ [0,0]
+# Inter-region Arcs
+x1u_4 p_5 #@ [0,0]
+x2d_11 p_5 #@ [0,0]
+# Test Arcs
+p_5 dx2_5
+p_5 dx1_5
+x1 x1d_5 #@ /0;4490\ [0,0]
+x2 x2u_5 #@ /1110;inf\ [0,0]
+
+# Region 6
+# Continuous Arcs
+dx2_6 x2
+dx1_6 x1
+# Intra-region Arcs
+p_6 x1u_6 #@ [0,0]
+p_6 x2d_6 #@ [0,0]
+p_6 x2u_6 #@ [0,0]
+# Inter-region Arcs
+x1d_7 p_6 #@ [0,0]
+x2d_12 p_6 #@ [0,0]
+x2u_0 p_6 #@ [0,0]
+# Test Arcs
+p_6 dx2_6
+p_6 dx1_6
+x1 x1u_6 #@ /510;inf\ [0,0]
+x2 x2d_6 #@ /0;1090\ [0,0]
+x2 x2u_6 #@ /3310;inf\ [0,0]
+
+# Region 7
+# Continuous Arcs
+dx2_7 x2
+x1 dx1_7
+# Intra-region Arcs
+p_7 x1d_7 #@ [0,0]
+p_7 x1u_7 #@ [0,0]
+p_7 x2d_7 #@ [0,0]
+p_7 x2u_7 #@ [0,0]
+# Inter-region Arcs
+x1d_8 p_7 #@ [0,0]
+x1u_6 p_7 #@ [0,0]
+x2d_13 p_7 #@ [0,0]
+x2u_1 p_7 #@ [0,0]
+# Test Arcs
+p_7 dx2_7
+p_7 dx1_7
+x1 x1d_7 #@ /0;490\ [0,0]
+x1 x1u_7 #@ /1510;inf\ [0,0]
+x2 x2d_7 #@ /0;1090\ [0,0]
+x2 x2u_7 #@ /3310;inf\ [0,0]
+
+# Region 8
+# Continuous Arcs
+dx2_8 x2
+x1 dx1_8
+# Intra-region Arcs
+p_8 x1d_8 #@ [0,0]
+p_8 x1u_8 #@ [0,0]
+p_8 x2d_8 #@ [0,0]
+p_8 x2u_8 #@ [0,0]
+# Inter-region Arcs
+x1d_9 p_8 #@ [0,0]
+x1u_7 p_8 #@ [0,0]
+x2d_14 p_8 #@ [0,0]
+x2u_2 p_8 #@ [0,0]
+# Test Arcs
+p_8 dx2_8
+p_8 dx1_8
+x1 x1d_8 #@ /0;1490\ [0,0]
+x1 x1u_8 #@ /2510;inf\ [0,0]
+x2 x2d_8 #@ /0;1090\ [0,0]
+x2 x2u_8 #@ /3310;inf\ [0,0]
+
+# Region 9
+# Continuous Arcs
+x2 dx2_9
+dx1_9 x1
+# Intra-region Arcs
+p_9 x1d_9 #@ [0,0]
+p_9 x1u_9 #@ [0,0]
+p_9 x2d_9 #@ [0,0]
+p_9 x2u_9 #@ [0,0]
+# Inter-region Arcs
+x1d_10 p_9 #@ [0,0]
+x1u_8 p_9 #@ [0,0]
+x2d_15 p_9 #@ [0,0]
+x2u_3 p_9 #@ [0,0]
+# Test Arcs
+p_9 dx2_9
+p_9 dx1_9
+x1 x1d_9 #@ /0;2490\ [0,0]
+x1 x1u_9 #@ /3510;inf\ [0,0]
+x2 x2d_9 #@ /0;1090\ [0,0]
+x2 x2u_9 #@ /3310;inf\ [0,0]
+
+# Region 10
+# Continuous Arcs
+x2 dx2_10
+dx1_10 x1
+# Intra-region Arcs
+p_10 x1d_10 #@ [0,0]
+p_10 x1u_10 #@ [0,0]
+p_10 x2d_10 #@ [0,0]
+p_10 x2u_10 #@ [0,0]
+# Inter-region Arcs
+x1d_11 p_10 #@ [0,0]
+x1u_9 p_10 #@ [0,0]
+x2d_16 p_10 #@ [0,0]
+x2u_4 p_10 #@ [0,0]
+# Test Arcs
+p_10 dx2_10
+p_10 dx1_10
+x1 x1d_10 #@ /0;3490\ [0,0]
+x1 x1u_10 #@ /4510;inf\ [0,0]
+x2 x2d_10 #@ /0;1090\ [0,0]
+x2 x2u_10 #@ /3310;inf\ [0,0]
+
+# Region 11
+# Continuous Arcs
+x2 dx2_11
+x1 dx1_11
+# Intra-region Arcs
+p_11 x1d_11 #@ [0,0]
+p_11 x2d_11 #@ [0,0]
+p_11 x2u_11 #@ [0,0]
+# Inter-region Arcs
+x1u_10 p_11 #@ [0,0]
+x2d_17 p_11 #@ [0,0]
+x2u_5 p_11 #@ [0,0]
+# Test Arcs
+p_11 dx2_11
+p_11 dx1_11
+x1 x1d_11 #@ /0;4490\ [0,0]
+x2 x2d_11 #@ /0;1090\ [0,0]
+x2 x2u_11 #@ /3310;inf\ [0,0]
+
+# Region 12
+# Continuous Arcs
+dx2_12 x2
+dx1_12 x1
+# Intra-region Arcs
+p_12 x1u_12 #@ [0,0]
+p_12 x2d_12 #@ [0,0]
+p_12 x2u_12 #@ [0,0]
+# Inter-region Arcs
+x1d_13 p_12 #@ [0,0]
+x2d_18 p_12 #@ [0,0]
+x2u_6 p_12 #@ [0,0]
+# Test Arcs
+p_12 dx2_12
+p_12 dx1_12
+x1 x1u_12 #@ /510;inf\ [0,0]
+x2 x2d_12 #@ /0;3290\ [0,0]
+x2 x2u_12 #@ /5510;inf\ [0,0]
+
+# Region 13
+# Continuous Arcs
+dx2_13 x2
+x1 dx1_13
+# Intra-region Arcs
+p_13 x1d_13 #@ [0,0]
+p_13 x1u_13 #@ [0,0]
+p_13 x2d_13 #@ [0,0]
+p_13 x2u_13 #@ [0,0]
+# Inter-region Arcs
+x1d_14 p_13 #@ [0,0]
+x1u_12 p_13 #@ [0,0]
+x2d_19 p_13 #@ [0,0]
+x2u_7 p_13 #@ [0,0]
+# Test Arcs
+p_13 dx2_13
+p_13 dx1_13
+x1 x1d_13 #@ /0;490\ [0,0]
+x1 x1u_13 #@ /1510;inf\ [0,0]
+x2 x2d_13 #@ /0;3290\ [0,0]
+x2 x2u_13 #@ /5510;inf\ [0,0]
+
+# Region 14
+# Continuous Arcs
+x2 dx2_14
+x1 dx1_14
+# Intra-region Arcs
+p_14 x1d_14 #@ [0,0]
+p_14 x1u_14 #@ [0,0]
+p_14 x2d_14 #@ [0,0]
+p_14 x2u_14 #@ [0,0]
+# Inter-region Arcs
+x1d_15 p_14 #@ [0,0]
+x1u_13 p_14 #@ [0,0]
+x2d_20 p_14 #@ [0,0]
+x2u_8 p_14 #@ [0,0]
+# Test Arcs
+p_14 dx2_14
+p_14 dx1_14
+x1 x1d_14 #@ /0;1490\ [0,0]
+x1 x1u_14 #@ /2510;inf\ [0,0]
+x2 x2d_14 #@ /0;3290\ [0,0]
+x2 x2u_14 #@ /5510;inf\ [0,0]
+
+# Region 15
+# Continuous Arcs
+x2 dx2_15
+dx1_15 x1
+# Intra-region Arcs
+p_15 x1d_15 #@ [0,0]
+p_15 x1u_15 #@ [0,0]
+p_15 x2d_15 #@ [0,0]
+p_15 x2u_15 #@ [0,0]
+# Inter-region Arcs
+x1d_16 p_15 #@ [0,0]
+x1u_14 p_15 #@ [0,0]
+x2d_21 p_15 #@ [0,0]
+x2u_9 p_15 #@ [0,0]
+# Test Arcs
+p_15 dx2_15
+p_15 dx1_15
+x1 x1d_15 #@ /0;2490\ [0,0]
+x1 x1u_15 #@ /3510;inf\ [0,0]
+x2 x2d_15 #@ /0;3290\ [0,0]
+x2 x2u_15 #@ /5510;inf\ [0,0]
+
+# Region 16
+# Continuous Arcs
+x2 dx2_16
+dx1_16 x1
+# Intra-region Arcs
+p_16 x1d_16 #@ [0,0]
+p_16 x1u_16 #@ [0,0]
+p_16 x2d_16 #@ [0,0]
+p_16 x2u_16 #@ [0,0]
+# Inter-region Arcs
+x1d_17 p_16 #@ [0,0]
+x1u_15 p_16 #@ [0,0]
+x2d_22 p_16 #@ [0,0]
+x2u_10 p_16 #@ [0,0]
+# Test Arcs
+p_16 dx2_16
+p_16 dx1_16
+x1 x1d_16 #@ /0;3490\ [0,0]
+x1 x1u_16 #@ /4510;inf\ [0,0]
+x2 x2d_16 #@ /0;3290\ [0,0]
+x2 x2u_16 #@ /5510;inf\ [0,0]
+
+# Region 17
+# Continuous Arcs
+x2 dx2_17
+x1 dx1_17
+# Intra-region Arcs
+p_17 x1d_17 #@ [0,0]
+p_17 x2d_17 #@ [0,0]
+p_17 x2u_17 #@ [0,0]
+# Inter-region Arcs
+x1u_16 p_17 #@ [0,0]
+x2d_23 p_17 #@ [0,0]
+x2u_11 p_17 #@ [0,0]
+# Test Arcs
+p_17 dx2_17
+p_17 dx1_17
+x1 x1d_17 #@ /0;4490\ [0,0]
+x2 x2d_17 #@ /0;3290\ [0,0]
+x2 x2u_17 #@ /5510;inf\ [0,0]
+
+# Region 18
+# Continuous Arcs
+dx2_18 x2
+dx1_18 x1
+# Intra-region Arcs
+p_18 x1u_18 #@ [0,0]
+p_18 x2d_18 #@ [0,0]
+p_18 x2u_18 #@ [0,0]
+# Inter-region Arcs
+x1d_19 p_18 #@ [0,0]
+x2d_24 p_18 #@ [0,0]
+x2u_12 p_18 #@ [0,0]
+# Test Arcs
+p_18 dx2_18
+p_18 dx1_18
+x1 x1u_18 #@ /510;inf\ [0,0]
+x2 x2d_18 #@ /0;5490\ [0,0]
+x2 x2u_18 #@ /7710;inf\ [0,0]
+
+# Region 19
+# Continuous Arcs
+dx2_19 x2
+x1 dx1_19
+# Intra-region Arcs
+p_19 x1d_19 #@ [0,0]
+p_19 x1u_19 #@ [0,0]
+p_19 x2d_19 #@ [0,0]
+p_19 x2u_19 #@ [0,0]
+# Inter-region Arcs
+x1d_20 p_19 #@ [0,0]
+x1u_18 p_19 #@ [0,0]
+x2d_25 p_19 #@ [0,0]
+x2u_13 p_19 #@ [0,0]
+# Test Arcs
+p_19 dx2_19
+p_19 dx1_19
+x1 x1d_19 #@ /0;490\ [0,0]
+x1 x1u_19 #@ /1510;inf\ [0,0]
+x2 x2d_19 #@ /0;5490\ [0,0]
+x2 x2u_19 #@ /7710;inf\ [0,0]
+
+# Region 20
+# Continuous Arcs
+x2 dx2_20
+dx1_20 x1
+# Intra-region Arcs
+p_20 x1d_20 #@ [0,0]
+p_20 x1u_20 #@ [0,0]
+p_20 x2d_20 #@ [0,0]
+p_20 x2u_20 #@ [0,0]
+# Inter-region Arcs
+x1d_21 p_20 #@ [0,0]
+x1u_19 p_20 #@ [0,0]
+x2d_26 p_20 #@ [0,0]
+x2u_14 p_20 #@ [0,0]
+# Test Arcs
+p_20 dx2_20
+p_20 dx1_20
+x1 x1d_20 #@ /0;1490\ [0,0]
+x1 x1u_20 #@ /2510;inf\ [0,0]
+x2 x2d_20 #@ /0;5490\ [0,0]
+x2 x2u_20 #@ /7710;inf\ [0,0]
+
+# Region 21
+# Continuous Arcs
+x2 dx2_21
+dx1_21 x1
+# Intra-region Arcs
+p_21 x1d_21 #@ [0,0]
+p_21 x1u_21 #@ [0,0]
+p_21 x2d_21 #@ [0,0]
+p_21 x2u_21 #@ [0,0]
+# Inter-region Arcs
+x1d_22 p_21 #@ [0,0]
+x1u_20 p_21 #@ [0,0]
+x2d_27 p_21 #@ [0,0]
+x2u_15 p_21 #@ [0,0]
+# Test Arcs
+p_21 dx2_21
+p_21 dx1_21
+x1 x1d_21 #@ /0;2490\ [0,0]
+x1 x1u_21 #@ /3510;inf\ [0,0]
+x2 x2d_21 #@ /0;5490\ [0,0]
+x2 x2u_21 #@ /7710;inf\ [0,0]
+
+# Region 22
+# Continuous Arcs
+x2 dx2_22
+dx1_22 x1
+# Intra-region Arcs
+p_22 x1d_22 #@ [0,0]
+p_22 x1u_22 #@ [0,0]
+p_22 x2d_22 #@ [0,0]
+p_22 x2u_22 #@ [0,0]
+# Inter-region Arcs
+x1d_23 p_22 #@ [0,0]
+x1u_21 p_22 #@ [0,0]
+x2d_28 p_22 #@ [0,0]
+x2u_16 p_22 #@ [0,0]
+# Test Arcs
+p_22 dx2_22
+p_22 dx1_22
+x1 x1d_22 #@ /0;3490\ [0,0]
+x1 x1u_22 #@ /4510;inf\ [0,0]
+x2 x2d_22 #@ /0;5490\ [0,0]
+x2 x2u_22 #@ /7710;inf\ [0,0]
+
+# Region 23
+# Continuous Arcs
+x2 dx2_23
+x1 dx1_23
+# Intra-region Arcs
+p_23 x1d_23 #@ [0,0]
+p_23 x2d_23 #@ [0,0]
+p_23 x2u_23 #@ [0,0]
+# Inter-region Arcs
+x1u_22 p_23 #@ [0,0]
+x2d_29 p_23 #@ [0,0]
+x2u_17 p_23 #@ [0,0]
+# Test Arcs
+p_23 dx2_23
+p_23 dx1_23
+x1 x1d_23 #@ /0;4490\ [0,0]
+x2 x2d_23 #@ /0;5490\ [0,0]
+x2 x2u_23 #@ /7710;inf\ [0,0]
+
+# Region 24
+# Continuous Arcs
+dx2_24 x2
+dx1_24 x1
+# Intra-region Arcs
+p_24 x1u_24 #@ [0,0]
+p_24 x2d_24 #@ [0,0]
+p_24 x2u_24 #@ [0,0]
+# Inter-region Arcs
+x1d_25 p_24 #@ [0,0]
+x2d_30 p_24 #@ [0,0]
+x2u_18 p_24 #@ [0,0]
+# Test Arcs
+p_24 dx2_24
+p_24 dx1_24
+x1 x1u_24 #@ /510;inf\ [0,0]
+x2 x2d_24 #@ /0;7690\ [0,0]
+x2 x2u_24 #@ /9910;inf\ [0,0]
+
+# Region 25
+# Continuous Arcs
+x2 dx2_25
+x1 dx1_25
+# Intra-region Arcs
+p_25 x1d_25 #@ [0,0]
+p_25 x1u_25 #@ [0,0]
+p_25 x2d_25 #@ [0,0]
+p_25 x2u_25 #@ [0,0]
+# Inter-region Arcs
+x1d_26 p_25 #@ [0,0]
+x1u_24 p_25 #@ [0,0]
+x2d_31 p_25 #@ [0,0]
+x2u_19 p_25 #@ [0,0]
+# Test Arcs
+p_25 dx2_25
+p_25 dx1_25
+x1 x1d_25 #@ /0;490\ [0,0]
+x1 x1u_25 #@ /1510;inf\ [0,0]
+x2 x2d_25 #@ /0;7690\ [0,0]
+x2 x2u_25 #@ /9910;inf\ [0,0]
+
+# Region 26
+# Continuous Arcs
+x2 dx2_26
+dx1_26 x1
+# Intra-region Arcs
+p_26 x1d_26 #@ [0,0]
+p_26 x1u_26 #@ [0,0]
+p_26 x2d_26 #@ [0,0]
+p_26 x2u_26 #@ [0,0]
+# Inter-region Arcs
+x1d_27 p_26 #@ [0,0]
+x1u_25 p_26 #@ [0,0]
+x2d_32 p_26 #@ [0,0]
+x2u_20 p_26 #@ [0,0]
+# Test Arcs
+p_26 dx2_26
+p_26 dx1_26
+x1 x1d_26 #@ /0;1490\ [0,0]
+x1 x1u_26 #@ /2510;inf\ [0,0]
+x2 x2d_26 #@ /0;7690\ [0,0]
+x2 x2u_26 #@ /9910;inf\ [0,0]
+
+# Region 27
+# Continuous Arcs
+x2 dx2_27
+dx1_27 x1
+# Intra-region Arcs
+p_27 x1d_27 #@ [0,0]
+p_27 x1u_27 #@ [0,0]
+p_27 x2d_27 #@ [0,0]
+p_27 x2u_27 #@ [0,0]
+# Inter-region Arcs
+x1d_28 p_27 #@ [0,0]
+x1u_26 p_27 #@ [0,0]
+x2d_33 p_27 #@ [0,0]
+x2u_21 p_27 #@ [0,0]
+# Test Arcs
+p_27 dx2_27
+p_27 dx1_27
+x1 x1d_27 #@ /0;2490\ [0,0]
+x1 x1u_27 #@ /3510;inf\ [0,0]
+x2 x2d_27 #@ /0;7690\ [0,0]
+x2 x2u_27 #@ /9910;inf\ [0,0]
+
+# Region 28
+# Continuous Arcs
+x2 dx2_28
+dx1_28 x1
+# Intra-region Arcs
+p_28 x1d_28 #@ [0,0]
+p_28 x1u_28 #@ [0,0]
+p_28 x2d_28 #@ [0,0]
+p_28 x2u_28 #@ [0,0]
+# Inter-region Arcs
+x1d_29 p_28 #@ [0,0]
+x1u_27 p_28 #@ [0,0]
+x2d_34 p_28 #@ [0,0]
+x2u_22 p_28 #@ [0,0]
+# Test Arcs
+p_28 dx2_28
+p_28 dx1_28
+x1 x1d_28 #@ /0;3490\ [0,0]
+x1 x1u_28 #@ /4510;inf\ [0,0]
+x2 x2d_28 #@ /0;7690\ [0,0]
+x2 x2u_28 #@ /9910;inf\ [0,0]
+
+# Region 29
+# Continuous Arcs
+x2 dx2_29
+x1 dx1_29
+# Intra-region Arcs
+p_29 x1d_29 #@ [0,0]
+p_29 x2d_29 #@ [0,0]
+p_29 x2u_29 #@ [0,0]
+# Inter-region Arcs
+x1u_28 p_29 #@ [0,0]
+x2d_35 p_29 #@ [0,0]
+x2u_23 p_29 #@ [0,0]
+# Test Arcs
+p_29 dx2_29
+p_29 dx1_29
+x1 x1d_29 #@ /0;4490\ [0,0]
+x2 x2d_29 #@ /0;7690\ [0,0]
+x2 x2u_29 #@ /9910;inf\ [0,0]
+
+# Region 30
+# Continuous Arcs
+dx2_30 x2
+dx1_30 x1
+# Intra-region Arcs
+p_30 x1u_30 #@ [0,0]
+p_30 x2d_30 #@ [0,0]
+# Inter-region Arcs
+x1d_31 p_30 #@ [0,0]
+x2u_24 p_30 #@ [0,0]
+# Test Arcs
+p_30 dx2_30
+p_30 dx1_30
+x1 x1u_30 #@ /510;inf\ [0,0]
+x2 x2d_30 #@ /0;9890\ [0,0]
+
+# Region 31
+# Continuous Arcs
+x2 dx2_31
+dx1_31 x1
+# Intra-region Arcs
+p_31 x1d_31 #@ [0,0]
+p_31 x1u_31 #@ [0,0]
+p_31 x2d_31 #@ [0,0]
+# Inter-region Arcs
+x1d_32 p_31 #@ [0,0]
+x1u_30 p_31 #@ [0,0]
+x2u_25 p_31 #@ [0,0]
+# Test Arcs
+p_31 dx2_31
+p_31 dx1_31
+x1 x1d_31 #@ /0;490\ [0,0]
+x1 x1u_31 #@ /1510;inf\ [0,0]
+x2 x2d_31 #@ /0;9890\ [0,0]
+
+# Region 32
+# Continuous Arcs
+x2 dx2_32
+dx1_32 x1
+# Intra-region Arcs
+p_32 x1d_32 #@ [0,0]
+p_32 x1u_32 #@ [0,0]
+p_32 x2d_32 #@ [0,0]
+# Inter-region Arcs
+x1d_33 p_32 #@ [0,0]
+x1u_31 p_32 #@ [0,0]
+x2u_26 p_32 #@ [0,0]
+# Test Arcs
+p_32 dx2_32
+p_32 dx1_32
+x1 x1d_32 #@ /0;1490\ [0,0]
+x1 x1u_32 #@ /2510;inf\ [0,0]
+x2 x2d_32 #@ /0;9890\ [0,0]
+
+# Region 33
+# Continuous Arcs
+x2 dx2_33
+dx1_33 x1
+# Intra-region Arcs
+p_33 x1d_33 #@ [0,0]
+p_33 x1u_33 #@ [0,0]
+p_33 x2d_33 #@ [0,0]
+# Inter-region Arcs
+x1d_34 p_33 #@ [0,0]
+x1u_32 p_33 #@ [0,0]
+x2u_27 p_33 #@ [0,0]
+# Test Arcs
+p_33 dx2_33
+p_33 dx1_33
+x1 x1d_33 #@ /0;2490\ [0,0]
+x1 x1u_33 #@ /3510;inf\ [0,0]
+x2 x2d_33 #@ /0;9890\ [0,0]
+
+# Region 34
+# Continuous Arcs
+x2 dx2_34
+dx1_34 x1
+# Intra-region Arcs
+p_34 x1d_34 #@ [0,0]
+p_34 x1u_34 #@ [0,0]
+p_34 x2d_34 #@ [0,0]
+# Inter-region Arcs
+x1d_35 p_34 #@ [0,0]
+x1u_33 p_34 #@ [0,0]
+x2u_28 p_34 #@ [0,0]
+# Test Arcs
+p_34 dx2_34
+p_34 dx1_34
+x1 x1d_34 #@ /0;3490\ [0,0]
+x1 x1u_34 #@ /4510;inf\ [0,0]
+x2 x2d_34 #@ /0;9890\ [0,0]
+
+# Region 35
+# Continuous Arcs
+x2 dx2_35
+dx1_35 x1
+# Intra-region Arcs
+p_35 x1d_35 #@ [0,0]
+p_35 x2d_35 #@ [0,0]
+# Inter-region Arcs
+x1u_34 p_35 #@ [0,0]
+x2u_29 p_35 #@ [0,0]
+# Test Arcs
+p_35 dx2_35
+p_35 dx1_35
+x1 x1d_35 #@ /0;4490\ [0,0]
+x2 x2d_35 #@ /0;9890\ [0,0]
+
+
+#@.rates {<dx2_0 = 300><dx1_0 = 0><dx2_1 = 200><dx1_1 = 944><dx2_2 = 100><dx1_2 = 565><dx2_3 = 0><dx1_3 = 175><dx2_4 = 100><dx1_4 = 138><dx2_5 = 200><dx1_5 = 1000><dx2_6 = 247><dx1_6 = 220><dx2_7 = 147><dx1_7 = 724><dx2_8 = 47><dx1_8 = 345><dx2_9 = 53><dx1_9 = 45><dx2_10 = 153><dx1_10 = 82><dx2_11 = 253><dx1_11 = 780><dx2_12 = 193><dx1_12 = 440><dx2_13 = 93><dx1_13 = 504><dx2_14 = 7><dx1_14 = 125><dx2_15 = 107><dx1_15 = 265><dx2_16 = 207><dx1_16 = 302><dx2_17 = 307><dx1_17 = 560><dx2_18 = 140><dx1_18 = 660><dx2_19 = 40><dx1_19 = 284><dx2_20 = 60><dx1_20 = 95><dx2_21 = 160><dx1_21 = 485><dx2_22 = 260><dx1_22 = 522><dx2_23 = 360><dx1_23 = 340><dx2_24 = 87><dx1_24 = 880><dx2_25 = 13><dx1_25 = 64><dx2_26 = 113><dx1_26 = 315><dx2_27 = 213><dx1_27 = 705><dx2_28 = 313><dx1_28 = 742><dx2_29 = 413><dx1_29 = 120><dx2_30 = 34><dx1_30 = 1100><dx2_31 = 66><dx1_31 = 156><dx2_32 = 166><dx1_32 = 535><dx2_33 = 266><dx1_33 = 925><dx2_34 = 366><dx1_34 = 962><dx2_35 = 466><dx1_35 = 100>}
+
+#@.continuous x2 x1 dx2_0 dx1_0 dx2_1 dx1_1 dx2_2 dx1_2 dx2_3 dx1_3 dx2_4 dx1_4 dx2_5 dx1_5 dx2_6 dx1_6 dx2_7 dx1_7 dx2_8 dx1_8 dx2_9 dx1_9 dx2_10 dx1_10 dx2_11 dx1_11 dx2_12 dx1_12 dx2_13 dx1_13 dx2_14 dx1_14 dx2_15 dx1_15 dx2_16 dx1_16 dx2_17 dx1_17 dx2_18 dx1_18 dx2_19 dx1_19 dx2_20 dx1_20 dx2_21 dx1_21 dx2_22 dx1_22 dx2_23 dx1_23 dx2_24 dx1_24 dx2_25 dx1_25 dx2_26 dx1_26 dx2_27 dx1_27 dx2_28 dx1_28 dx2_29 dx1_29 dx2_30 dx1_30 dx2_31 dx1_31 dx2_32 dx1_32 dx2_33 dx1_33 dx2_34 dx1_34 dx2_35 dx1_35 
+
+.marking{p_0}
+.end
+

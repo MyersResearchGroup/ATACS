@@ -1,0 +1,16 @@
+module jordi4;
+
+output x0;
+output x1;
+
+process c;
+    *[ x0+; x0-; [x1+] ]
+endprocess
+
+process d;
+    *[ [x0+]; x1+; x1- ]
+endprocess
+
+endmodule
+
+  

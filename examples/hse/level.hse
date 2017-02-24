@@ -1,0 +1,13 @@
+module level;
+
+input a;
+output b;
+
+process one;
+*[ [a]; b+; [~a]; b- ]
+endprocess
+
+process two;
+*[ a+; [b]; a-; [~b] ]
+endprocess
+endmodule

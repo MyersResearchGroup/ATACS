@@ -1,0 +1,71 @@
+* sring - a ring oscillator with bridges
+*-----------------------------------------------------------
+* Libraries, parameters and models
+*-----------------------------------------------------------
+*.protect
+*.lib '/user/cad/process/tsmc65/model/spice/g+/v1.0/local/fets.lib' TT
+*.lib ./cln90g_lk.l  TT 
+*.unprotect
+.model pch pmos level=14
+.model nch nmos level=14
+
+*-----------------------------------------------------------
+* Operating point
+*-----------------------------------------------------------
+.temp 30
+.param supplyVoltage=1.5V 
+*-----------------------------------------------------------
+* Initial conditions and stimuli
+*-----------------------------------------------------------
+
+
+*Figure out how to provide this initial condition
+.ic v(A2)='supplyVoltage*1'
+*.ic v(B2)='supplyVoltage/2.'
+v1 vdd gnd dc supplyVoltage 
+
+
+*-----------------------------------------------------------
+* Simulation netlist
+*-----------------------------------------------------------
+
+.param lp=1.0u  ln=1.0u 
+.param  wnbridge=2u wpbridge=4u 
+* Circuit ceases to oscillate above this ratio
+*.param ratioChainToBridge = 1.972
+*
+*Circuit ceases to oscillate below  this ratio
+*.param ratioChainToBridge = 0.31
+*
+*SRL - oscillation ratio changes based on the transistor model
+.param ratioChainToBridge = 1.5
+.param wnchain = 'wnbridge*ratioChainToBridge'
+.param wpchain = 'wpbridge*ratioChainToBridge'
+
+.global vdd gnd
+
+.subckt INV in out psource nsource
+  mpullup    out in psource vdd pch l=lp w=wp
+	mpulldown  out in nsource gnd nch l=ln w=wn
+.ends  INV
+
+.subckt  CELL inp inm outp outm
+	xinv1  inp  outm vdd gnd INV wp='wpchain'  wn='wnchain'
+	xinv2  inm  outp vdd gnd INV wp='wpchain'  wn='wnchain'
+	xinv3  outp outm vdd gnd INV wp='wpbridge' wn='wnbridge'
+	xinv4  outm outp vdd gnd INV wp='wpbridge' wn='wnbridge'
+.ends CELL
+
+.subckt CHAINOFCELLS2   ina inb outa outb    
+	xCell1  ina inb oa1  ob1   CELL  
+	xCell2  oa1 ob1 outa outb  CELL  
+.ends CHAINOFCELLS2 
+
+xChainOfCells2  A2 B2 B2 A2  CHAINOFCELLS2
+
+*-----------------------------------------------------------
+* Simulation controls
+*-----------------------------------------------------------
+.tran 25ps 40000ps uic
+.plot  A2 B2
+

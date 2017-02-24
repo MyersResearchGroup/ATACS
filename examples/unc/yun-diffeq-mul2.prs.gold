@@ -1,0 +1,6 @@
+[+Prech: (EvDone)]
+[-Prech: (~EvDone & A2M & A1M & ~M2A2)]
+[+M2A2: (EvDone)]
+[-M2A2: (~EvDone & ~A2M & ~A1M)]
+[+LM2: (EvDone)]
+[-LM2: (~EvDone & ~A2M & ~A1M)]

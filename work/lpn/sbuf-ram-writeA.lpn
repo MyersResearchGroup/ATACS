@@ -1,0 +1,39 @@
+.name sbuf_ram_writeA
+.inputs wsldin wenin done req precharged 
+.outputs CSC0 ack prbar wen wsen wsld
+#@.init_state [00100100010]
+.graph
+wsldin+/1 wsld-/1
+wsldin-/1 prbar-/1
+wsldin-/1 wsen+/1
+wsldin-/1 ack-/1
+wenin+/1 wen-/1
+wenin+/1 wsen-/1
+wenin+/1 ack+/1
+wenin-/1 wsld+/1
+done+/1 wen-/1
+done+/1 wsen-/1
+done+/1 ack+/1
+done-/1 prbar+/1
+req+/1 prbar+/1
+req-/1 prbar-/1
+req-/1 wsen+/1
+req-/1 ack-/1
+precharged+/1 prbar+/1
+precharged-/1 wen+/1
+prbar+/1 precharged-/1
+prbar-/1 precharged+/1
+prbar-/1 CSC0-/1
+wen+/1 wenin+/1
+wen+/1 done+/1
+wen-/1 wenin-/1
+wsld+/1 wsldin+/1
+wsld+/1 CSC0+/1
+wsld-/1 wsldin-/1
+wsen+/1 done-/1
+wsen-/1 wenin-/1
+ack+/1 req-/1
+ack-/1 req+/1
+CSC0-/1 prbar+/1
+.marking {<prbar-/1,precharged+/1><wsen+/1,done-/1><ack-/1,req+/1><CSC0-/1,prbar+/1>}
+.end

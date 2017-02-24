@@ -1,0 +1,23 @@
+module rev;
+input a;
+input b;
+input c;
+input d;
+input e;
+input f;
+input g;
+input h;
+output s;
+
+process rev;
+*[[ skip -> e+; s+; a+; e-; s-; a-
+  | skip -> d+; c+; d-;
+    [ skip -> c-
+    | skip -> f+; b+; f-;
+      [ skip -> b-
+      | skip -> g+; a+; g-; a-; *
+      ]; *
+    ]
+ ]]
+endprocess
+endmodule

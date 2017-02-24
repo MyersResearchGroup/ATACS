@@ -1,0 +1,38 @@
+.TH PRINTSTAT 1 "28 September 2001" "" ""
+.SH NAME
+printstat \- Prints a reduced state graph (RSG) with statistics
+.SH SYNOPSIS
+.nf
+.BI atacs " -pz <filename>"
+.br
+.BI atacs> " printstat <filename>"
+.fi
+.SH DESCRIPTION
+.B printstat
+prints the current reduced state graph
+using Tom Rokicki's parg program or Bell Lab's Dot program depending on
+whether the dot options is selected or not.  The state graph is annotated
+with steady state probability of being in each state.
+.SH OPTIONS
+.TP
+.BI \-pz
+Prints a reduced state graph (RSG) with statistics from the command line.
+.TP
+.BI printstat
+Prints a reduced state graph (RSG) with statistics from the interactive 
+shell.
+.SH CREDITS
+.B printstat
+was primarily written by Eric Mercer (eemercer@vlsigroup.ece.utah.edu),
+Chris Myers (myers@vlsigroup.ece.utah.edu), and Jeff Cuthbert.
+.SH "SEE ALSO"
+.BR shower (1)
+.BR showrsg (1)
+.BR showstat (1)
+.BR shownet (1)
+.BR printer (1)
+.BR printrsg (1)
+.BR printreg (1)
+.BR printnet (1)
+.BR dot (1)
+.BR http://www.async.ece.utah.edu

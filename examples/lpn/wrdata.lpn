@@ -1,0 +1,27 @@
+# stg for writing data from multiplexed address 
+# and data TAXI port to parallel DAC port.
+# state = 13
+.name wrdata
+.inputs DSTRB
+.outputs Areq Dreq WR T
+#@.init_state [00000]
+.graph
+
+DSTRB+/1 Areq+ 
+DSTRB-/1 Areq-
+Areq+ DSTRB-/1 T+
+Areq- DSTRB+/2
+
+DSTRB+/2 Dreq+
+DSTRB-/2 Dreq-
+Dreq+ DSTRB-/2 WR+ T-
+Dreq- WR- DSTRB+/1
+
+T+ Areq-
+T- Dreq-
+
+WR+ Dreq- 
+WR- Dreq+
+
+.marking { <Dreq-,DSTRB+/1> <WR-,Dreq+> }
+.end

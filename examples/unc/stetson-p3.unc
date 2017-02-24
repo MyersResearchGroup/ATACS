@@ -1,0 +1,27 @@
+; 3D Burst-Mode Spec
+; Generated at 2:24 pm on Mon, Aug 23, 1993
+;
+;   FSM Name:   two_ticks_if
+;   States  :    8
+;   Inputs  :    4
+;   Outputs :    2
+;
+input  ITEventReq             0
+input  ITEvent2Ticks          0
+input  ITEventStop            0
+input  ITSoftResetReq         1
+;
+output IntEventReq            0
+output TwoTicksResetAck       1
+;
+  0    1  ITSoftResetReq- | TwoTicksResetAck- 
+  1    2  ITEventReq+ | IntEventReq+ 
+  2    3  ITEventStop+ | 
+  3    4  ITEventReq- | IntEventReq- 
+  4    1  ITEventStop- | 
+  2    0  ITSoftResetReq+ ITEventReq- | IntEventReq- TwoTicksResetAck+ 
+  2    5  ITEvent2Ticks+ | 
+  5    6  ITEventReq- | 
+  6    7  ITEvent2Ticks- | 
+  7    2  ITEventReq+ | 
+  7    0  ITSoftResetReq+ | IntEventReq- TwoTicksResetAck+ 

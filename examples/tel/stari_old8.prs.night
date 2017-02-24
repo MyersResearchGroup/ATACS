@@ -1,0 +1,34 @@
+[ x1t: (x0t)] Combinational
+[ x1f: (x0f)] Combinational
+[ ack1: (~x1t & ~x1f)] Combinational
+[ x2t: (x1t)] Combinational
+[ x2f: (x1f)] Combinational
+[ ack2: (~x2t & ~x2f)] Combinational
+[ x3t: (x2t)] Combinational
+[ x3f: (x2f)] Combinational
+[ ack3: (~x3t & ~x3f)] Combinational
+[+x4t: (x3t & ack5)]
+[-x4t: (~x3t & ~ack5)]
+[+x4f: (x3f & ack5)]
+[-x4f: (~x3f & ~ack5)]
+[ ack4: (~x4t & ~x4f)] Combinational
+[+x5t: (x4t & ack6)]
+[-x5t: (~x4t & ~ack6)]
+[+x5f: (x4f & ack6)]
+[-x5f: (~x4f & ~ack6)]
+[ ack5: (~x5t & ~x5f)] Combinational
+[+x6t: (x5t & ack7)]
+[-x6t: (~ack7)]
+[+x6f: (x5f & ack7)]
+[-x6f: (~ack7)]
+[ ack6: (~x6t & ~x6f)] Combinational
+[+x7t: (x6t & ack8)]
+[-x7t: (~ack8)]
+[+x7f: (x6f & ack8)]
+[-x7f: (~ack8)]
+[ ack7: (~x7t & ~x7f)] Combinational
+[+x8t: (ack9 & x7t)]
+[-x8t: (~ack9)]
+[+x8f: (ack9 & x7f)]
+[-x8f: (~ack9)]
+[ ack8: (~x8t & ~x8f)] Combinational

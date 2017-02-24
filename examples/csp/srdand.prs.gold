@@ -1,0 +1,3 @@
+[ x: (~a)] Combinational
+[+a: (i2 & i1)]
+[-a: (~x)]

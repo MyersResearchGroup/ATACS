@@ -1,0 +1,30 @@
+# DFF from AFSM by Chu; STG manually derived by Chu
+.inputs phi D
+.outputs Q
+.internal y1 
+.graph
+phi+/1 Q-
+Q- phi-/1 place1_0
+phi-/1 place1_1
+place1_0 D+/1
+place1_1 y1+/1
+D+/1 y1+/1
+y1+/1 place3
+place3 phi+/2 D-/1
+D-/1 y1-/1
+y1-/1 place1_0 place1_1
+
+phi+/2 Q+
+Q+ phi-/2 place2_0
+phi-/2 place2_1
+place2_0 D-/2
+place2_1 y1-/2
+D-/2 y1-/2
+y1-/2 place4
+place4 phi+/1 D+/2
+D+/2 y1+/2
+y1+/2 place2_0 place2_1
+
+.marking { place1_0 place1_1 }
+.end
+

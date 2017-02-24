@@ -1,0 +1,45 @@
+.dummy tempcontrollerXrod2T tempcontrollerXrod1T tempcontrollerXnorods2T tempcontrollerXnorods1T tempcontrollerXnorodsT tempcontrollerXshutdownXx2T tempcontrollerXshutdownXx1T tempcontrollerXshutdownXtT tempcontrollerXrod2Xx2T tempcontrollerXrod2Xx1T tempcontrollerXrod2XtT tempcontrollerXrod1Xx2T tempcontrollerXrod1Xx1T tempcontrollerXrod1XtT tempcontrollerXnorodsXx2T tempcontrollerXnorodsXx1T tempcontrollerXnorodsXtT
+#@.property AG (~tempcontrollerXshutdown)
+tempcontrollerXshutdownXx2T x2 #@ [0,inf]
+tempcontrollerXshutdownXx1T x1 #@ [0,inf]
+tempcontrollerXshutdownXtT t #@ [0,inf]
+tempcontrollerXrod2T tempcontrollerXnorods #@ [0,inf]
+tempcontrollerXrod2T x2 #@ /0;0\ [0,inf]
+tempcontrollerXrod2Xx2T x2 #@ [0,inf]
+tempcontrollerXrod2Xx1T x1 #@ [0,inf]
+tempcontrollerXrod1T tempcontrollerXnorods #@ [0,inf]
+tempcontrollerXrod1T x1 #@ /0;0\ [0,inf]
+tempcontrollerXrod1Xx2T x2 #@ [0,inf]
+tempcontrollerXrod1Xx1T x1 #@ [0,inf]
+tempcontrollerXshutdown tempcontrollerXshutdownXx2T
+tempcontrollerXshutdown tempcontrollerXshutdownXx1T
+tempcontrollerXshutdown tempcontrollerXshutdownXtT
+tempcontrollerXnorods2T tempcontrollerXshutdown #@ [0,inf]
+tempcontrollerXrod2 tempcontrollerXrod2T #@ [0,inf]
+tempcontrollerXrod2 tempcontrollerXrod2Xx2T
+tempcontrollerXrod2 tempcontrollerXrod2Xx1T
+tempcontrollerXrod2 tempcontrollerXrod2XtT
+tempcontrollerXnorods1T tempcontrollerXrod2 #@ [0,inf]
+tempcontrollerXrod1 tempcontrollerXrod1T #@ [0,inf]
+tempcontrollerXrod1 tempcontrollerXrod1Xx2T
+tempcontrollerXrod1 tempcontrollerXrod1Xx1T
+tempcontrollerXrod1 tempcontrollerXrod1XtT
+tempcontrollerXnorodsT tempcontrollerXrod1 #@ [0,inf]
+tempcontrollerXnorodsXx2T x2 #@ [0,inf]
+tempcontrollerXnorodsXx1T x1 #@ [0,inf]
+tempcontrollerXnorodsXtT t #@ [0,inf]
+tempcontrollerXnorods tempcontrollerXnorods2T #@ [0,inf]
+tempcontrollerXnorods tempcontrollerXnorods1T #@ [0,inf]
+tempcontrollerXnorods tempcontrollerXnorodsT #@ [0,inf]
+tempcontrollerXnorods tempcontrollerXnorodsXx2T
+tempcontrollerXnorods tempcontrollerXnorodsXx1T
+tempcontrollerXnorods tempcontrollerXnorodsXtT
+t tempcontrollerXrod2XtT #@ [0,inf]
+t tempcontrollerXrod1XtT #@ [0,inf]
+.marking { tempcontrollerXnorods }
+#@.marking {<t = 0><x1 = 1360><x2 = 1360>}
+#@.rates {<tempcontrollerXshutdownXx2T=1><tempcontrollerXshutdownXx1T=1><tempcontrollerXshutdownXtT=1><tempcontrollerXrod2Xx2T=1><tempcontrollerXrod2Xx1T=1><tempcontrollerXrod2XtT=10><tempcontrollerXrod1Xx2T=1><tempcontrollerXrod1Xx1T=1><tempcontrollerXrod1XtT=25><tempcontrollerXnorodsXx2T=1><tempcontrollerXnorodsXx1T=1><tempcontrollerXnorodsXtT=34>}
+#@.invariants { <tempcontrollerXrod2=[t>=4250]> <tempcontrollerXrod1=[t>=4250]> <tempcontrollerXnorods=[t<=18700]>}
+#@.enablings {<tempcontrollerXnorodsT=[t>=18700;x1>=1360]><tempcontrollerXnorodsT=[t>=18700;x1>=1360]><tempcontrollerXnorods1T=[t>=18700;x2>=1360]><tempcontrollerXnorods1T=[t>=18700;x2>=1360]><tempcontrollerXnorods2T=[t>=18700;x1<=1360;x2<=1360]><tempcontrollerXnorods2T=[t>=18700;x1<=1360;x2<=1360]><tempcontrollerXnorods2T=[t>=18700;x1<=1360;x2<=1360]><tempcontrollerXrod1T=[t<=4250]><tempcontrollerXrod2T=[t<=4250]>}
+#@.continuous tempcontrollerXshutdownXx2T tempcontrollerXshutdownXx1T tempcontrollerXshutdownXtT tempcontrollerXrod2Xx2T tempcontrollerXrod2Xx1T tempcontrollerXrod2XtT tempcontrollerXrod1Xx2T tempcontrollerXrod1Xx1T tempcontrollerXrod1XtT tempcontrollerXnorodsXx2T tempcontrollerXnorodsXx1T tempcontrollerXnorodsXtT t x2 x1
+.end

@@ -1,0 +1,102 @@
+/************************************************************************/
+/*  Cory Woody Walton, CS/EE 547-1					*/
+/*  SCSI Controller w/Syncronous Interface				*/
+/************************************************************************/
+
+module scsi;
+
+/********************************************************/
+/* Input & Output Section				*/
+/********************************************************/
+
+/*  Signals for SCSI Bus				*/
+output ACK = {<2,8>};		/* SCSI Acknowledge out		*/
+input REQ = {<20,50>};		/* SCSI Request in		*/
+input MSG = {<20,50>};		/* SCSI Message in		*/
+input CD = {<20,50>};		/* SCSI Command/Data in		*/
+input IO = {<20,50>};		/* SCSI Input/Output in		*/
+output DATIenb = {<0,4>};	/* SCSI Data In Bus enable	*/
+output DATOenb = {<0,4>};	/* SCSI Data Out Bus enable	*/
+
+/*  Signals for synchronous interface modules		*/
+input DRack = {<0,4>};		/* Data Read ACK in		*/
+output DRreq = {<0,4>};		/* Data Read out		*/
+input DWreq = {<2,6>};		/* Data Write REQ in		*/
+output DWack = {<0,4>};		/* Data Write ACK out		*/
+
+/*  Misc datapath stuff (timers, parity, latches)	*/
+input PTYEack = {<8,12>};	/* Parity Error Check ACK in	*/
+output PTYEreq = {<0,4>};	/* Parity Error Check REQ out	*/
+input PTYOack = {<8,12>};	/* Parity Output ACK in		*/
+output PTYOreq = {<0,4>};	/* Parity Output REQ out	*/
+
+output x = {<0,4>};
+
+/************************************************************************/
+/* Control Section							*/
+/************************************************************************/
+
+process scsictrl;
+*[
+  DATIenb+;
+  [ REQ ->
+
+/* SCSI phases */
+    /* Data In */
+    [ IO -> DRreq+; x+; PTYEreq+; [DRack & PTYEack];
+	    (DRreq- || PTYEreq-); [~DRack & ~PTYEack]; ACK+; x-; [~REQ];
+            DATIenb-; ACK-
+
+    /* Data Out */
+    | ~IO & DWreq -> DATIenb-; DWack+; PTYOreq+;
+                     DATOenb+; [~DWreq & PTYOack]; ACK+; PTYOreq-;
+                     [~REQ & ~PTYOack]; DATOenb-; ACK-; DWack-
+    ]
+  ]
+]
+endprocess
+
+/************************************************************************/
+/*  Enviroment & Datapath Section					*/
+/************************************************************************/
+
+/********************************************************/
+/*  SCSI I/O Bus definitions				*/
+/********************************************************/
+process SCSI;
+*[
+  [ IO -> [ true -> IO-; REQ+ 
+          | true -> REQ+ 
+          ]
+  |~IO -> [ true -> IO+; REQ+ 
+          | true -> REQ+
+          ]
+  ]; [ACK]; REQ-; [~ACK]
+]
+endprocess
+
+/********************************************************/
+/*  Synchronous Interface DataPath Units		*/
+/********************************************************/
+
+/* Data Input (from SCSI Bus to Host Interface) */
+process DPDataIn;
+*[[DRreq]; DRack+; [~DRreq]; DRack-]
+endprocess
+
+/* Data Output (from Host Interface to SCSI Bus) */
+process DPDataOut;
+*[DWreq+; [DWack]; DWreq-; [~DWack]]
+endprocess
+
+/* Parity Check */
+process DPPtyChk;
+*[[PTYEreq]; PTYEack+; [~PTYEreq]; PTYEack-]
+endprocess
+
+/* Parity Generation */
+process DPPtyGen;
+*[[PTYOreq]; PTYOack+; [~PTYOreq]; PTYOack-]
+endprocess
+
+endmodule

@@ -1,0 +1,42 @@
+module box;
+
+input wsapi;
+output wsapo;
+input suminci;
+output suminco;
+input clkapi;
+output clkapo;
+input sumsendi;
+output sumsendo;
+input sumreseti;
+output sumreseto;
+
+process block1ctrl;
+*[[wsapi+ -> suminco+; [suminci+]; wsapo+; suminco-; [suminci-]; 
+	 [wsapi-]; wsapo- 
+  | clkapi+ -> sumsendo+; [sumsendi+]; sumreseto+; [sumreseti+];
+	clkapo+; sumsendo-; [sumsendi-]; sumreseto-; [sumreseti-]; 
+	[clkapi-]; clkapo-
+]]	
+endprocess
+
+process wsaclkaenv;
+*[[skip -> wsapi+; [wsapo+]; wsapi-; [wsapo-]
+| skip -> clkapi+; [clkapo+]; clkapi-; [clkapo-]
+]]
+endprocess
+
+process sumincenv;
+*[[suminco+]; suminci+; [suminco-]; suminci-]
+endprocess
+
+process sumsendenv;
+*[[sumsendo+]; sumsendi+; [sumsendo-]; sumsendi- ]
+endprocess
+
+process sumresetenv;
+*[[sumreseto+]; sumreseti+; [sumreseto-]; sumreseti- ]
+endprocess
+
+endmodule
+

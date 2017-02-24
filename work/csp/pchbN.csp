@@ -1,0 +1,36 @@
+include pchb;
+
+/*****************************************************************************/
+/* A collection of N pchb stages                                             */
+/*      In order to add a stage, simply copy a lapb instance and increment   */
+/*      all the numbers.  Also, increment the numbers in the rightenv.       */
+/*****************************************************************************/
+
+module main;
+
+delay env = <90,inf>;
+
+input b00 = {env};
+input b01 = {env};
+input be2 = {env};
+
+pchb pchb1(l0 => b00, l1 => b01, le => be0, 
+           r0 => b10, r1 => b11, re => be1);
+
+pchb pchb2(l0 => b10, l1 => b11, le => be1, 
+           r0 => b20, r1 => b21, re => be2);
+
+testbench l;
+*[[be0+]; [ skip -> b00+; [be0-]; b00-
+          | skip -> b01+; [be0-]; b01-
+ ]]
+endtestbench
+
+testbench r;
+*[be2+; [ b20+ -> be2-; [b20-]
+        | b21+ -> be2-; [b21-]
+        ]
+]
+endtestbench
+
+endmodule

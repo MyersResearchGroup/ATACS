@@ -1,0 +1,8 @@
+[~idlebar: (~acksend & ~latchaddress & y0_sbufsendctl & ~y1_sbufsendctl)] Combinational
+[+latchaddress: (y0_sbufsendctl & y1_sbufsendctl)]
+[-latchaddress: (~y0_sbufsendctl & ~y1_sbufsendctl)]
+[ reqsend: (~beginsend & ~y0_sbufsendctl)] Combinational
+[+y0_sbufsendctl: (acksend & ~rejpkt)]
+[-y0_sbufsendctl: (beginsend)]
+[+y1_sbufsendctl: (rejpkt)]
+[-y1_sbufsendctl: (beginsend)]

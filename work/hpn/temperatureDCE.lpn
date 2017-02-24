@@ -1,0 +1,41 @@
+.dummy tempcontroller_rod2T tempcontroller_rod1T tempcontroller_norods2T tempcontroller_norods1T tempcontroller_norodsT tempcontroller_shutdown_x2T tempcontroller_shutdown_x1T tempcontroller_shutdown_tT tempcontroller_rod2_x2T tempcontroller_rod2_x1T tempcontroller_rod2_tT tempcontroller_rod1_x2T tempcontroller_rod1_x1T tempcontroller_rod1_tT tempcontroller_norods_x2T tempcontroller_norods_x1T tempcontroller_norods_tT
+tempcontroller_shutdown_x2T x2 #@ [0,inf]
+tempcontroller_shutdown_x1T x1 #@ [0,inf]
+tempcontroller_shutdown_tT t #@ [0,inf]
+tempcontroller_rod2T tempcontroller_norods #@ [0,inf]
+tempcontroller_rod2T x2 #@ /0;0\ [0,inf]
+tempcontroller_rod2_x2T x2 #@ [0,inf]
+tempcontroller_rod2_x1T x1 #@ [0,inf]
+tempcontroller_rod1T tempcontroller_norods #@ [0,inf]
+tempcontroller_rod1T x1 #@ /0;0\ [0,inf]
+tempcontroller_rod1_x2T x2 #@ [0,inf]
+tempcontroller_rod1_x1T x1 #@ [0,inf]
+tempcontroller_norods2T tempcontroller_shutdown #@ [0,inf]
+tempcontroller_rod2 tempcontroller_rod2T #@ [0,inf]
+tempcontroller_norods1T tempcontroller_rod2 #@ [0,inf]
+tempcontroller_rod1 tempcontroller_rod1T #@ [0,inf]
+tempcontroller_norodsT tempcontroller_rod1 #@ [0,inf]
+tempcontroller_norods_x2T x2 #@ [0,inf]
+tempcontroller_norods_x1T x1 #@ [0,inf]
+tempcontroller_norods_tT t #@ [0,inf]
+tempcontroller_norods tempcontroller_norods2T #@ [0,inf]
+tempcontroller_norods tempcontroller_norods1T #@ [0,inf]
+tempcontroller_norods tempcontroller_norodsT #@ [0,inf]
+t tempcontroller_rod2T #@ /4250;4250\ [0,inf]
+t tempcontroller_rod2_tT #@ [0,inf]
+t tempcontroller_rod1T #@ /4250;4250\ [0,inf]
+t tempcontroller_rod1_tT #@ [0,inf]
+t tempcontroller_norods2T #@ /18700;18700\ [0,inf]
+t tempcontroller_norods1T #@ /18700;18700\ [0,inf]
+t tempcontroller_norodsT #@ /18700;18700\ [0,inf]
+x2 tempcontroller_norods2T #@ /0;1360\ [0,inf]
+x2 tempcontroller_norods1T #@ /1360;inf\ [0,inf]
+x1 tempcontroller_norods2T #@ /0;1360\ [0,inf]
+x1 tempcontroller_norodsT #@ /1360;inf\ [0,inf]
+.marking { tempcontroller_norods }
+#@.marking {<t = 0><x1 = 1360><x2 = 1360>}
+#@.rates {<tempcontroller_shutdown_x2T=1><tempcontroller_shutdown_x1T=1><tempcontroller_shutdown_tT=1><tempcontroller_rod2_x2T=1><tempcontroller_rod2_x1T=1><tempcontroller_rod2_tT=10><tempcontroller_rod1_x2T=1><tempcontroller_rod1_x1T=1><tempcontroller_rod1_tT=25><tempcontroller_norods_x2T=1><tempcontroller_norods_x1T=1><tempcontroller_norods_tT=34>}
+#@.invariants { <tempcontroller_rod2=[t>=4250]> <tempcontroller_rod1=[t>=4250]> <tempcontroller_norods=[t<=18700]>}
+#@.enablings {<tempcontroller_norods_tT=[tempcontroller_norods=1]><tempcontroller_norods_x1T=[tempcontroller_norods=1]><tempcontroller_norods_x2T=[tempcontroller_norods=1]><tempcontroller_rod1_tT=[tempcontroller_rod1=1]><tempcontroller_rod1_x1T=[tempcontroller_rod1=1]><tempcontroller_rod1_x2T=[tempcontroller_rod1=1]><tempcontroller_rod2_tT=[tempcontroller_rod2=1]><tempcontroller_rod2_x1T=[tempcontroller_rod2=1]><tempcontroller_rod2_x2T=[tempcontroller_rod2=1]><tempcontroller_shutdown_tT=[tempcontroller_shutdown=1]><tempcontroller_shutdown_x1T=[tempcontroller_shutdown=1]><tempcontroller_shutdown_x2T=[tempcontroller_shutdown=1]>}
+#@.continuous tempcontroller_shutdown_x2T tempcontroller_shutdown_x1T tempcontroller_shutdown_tT tempcontroller_rod2_x2T tempcontroller_rod2_x1T tempcontroller_rod2_tT tempcontroller_rod1_x2T tempcontroller_rod1_x1T tempcontroller_rod1_tT tempcontroller_norods_x2T tempcontroller_norods_x1T tempcontroller_norods_tT t x2 x1
+.end

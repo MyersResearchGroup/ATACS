@@ -1,0 +1,43 @@
+eval "set PATH=/usr/bin:/usr/local/bin:/Perl/bin:${PATH};exec perl -S $0 $*"
+    if $running_under_some_shell;#above line won't run if we're already in Perl
+
+if (! @ARGV[0]) { die " Usage: bm2parg filename\n"; }
+$arg = @ARGV[0];
+if ( ! -r $arg) { die "ERROR: Cannot read specified file: ".$arg."\n"; }
+
+open(FILE,$arg);
+@file = <FILE>;
+close(FILE);
+$arg =~ s/\.nounc$|\.unc$//;
+
+$connect_num = 0; $edge_num = 0;
+foreach $line (@file) {
+    $line =~ s/\s*\n//;
+    $line =~ s/;.*//;
+    if ($line =~ /\d+\s+\d+\s+\w+/) {
+	$curr_state = $line;
+	$next_state = $line;
+	$in_burst = $line;
+	$out_burst = $line;
+	$curr_state =~ s/\s*(\d+).*/$1/;
+	$next_state =~ s/\s*\d+\s+(\d+).*/$1/;
+	$in_burst =~ s/\s*\d+\s+\d+\s+(.*?)\s*\|\s*.*/$1\//;
+	$out_burst =~ s/\s*\d+\s+\d+\s+.*?\s*\|\s*(.*)/$1/;
+	$in_burst =~ s/\s+/,/g;
+	$out_burst =~ s/\s+/,/g;
+        if ($curr_state eq "0") { $parg_nodes{$curr_state} = "N M _St".$curr_state." ".$curr_state; }
+        else { $parg_nodes{$curr_state} = "N P _St".$curr_state." ".$curr_state; }
+	$parg_edges{"_Tri".$edge_num} = "N I _Tri".$edge_num." ".$in_burst;
+	$parg_edges{"_Tro".$edge_num} = "N I _Tro".$edge_num." ".$out_burst;
+	$parg_connect{$connect_num++} = "E P _St$curr_state 0 _Tri".$edge_num." 0";
+	$parg_connect{$connect_num++} = "E P _Tri".$edge_num." 0 _Tro".$edge_num." 0";
+	$parg_connect{$connect_num++} = "E P _Tro".$edge_num." 0 _St".$next_state." 0";
+	$edge_num++; }
+}
+$parg = "N F _Pname $arg\nE P _Pname 0 _Pname 0\nE P _Pname 0 _Pname 0\nE P _Pname 0 _Pname 0\nE P _Pname 0 _Pname 0\nE P _Pname 0 _Pname 0\nE P _Pname 0 _Pname 0\n\n";
+while (($key,$value) = each(%parg_nodes)) { $parg .= $value."\n"; }
+while (($key,$value) = each(%parg_edges)) { $parg .= $value."\n"; }
+while (($key,$value) = each(%parg_connect)) { $parg .= $value."\n"; }
+open(FILE,"> ".$arg.".grf");
+print FILE $parg;
+close(FILE);

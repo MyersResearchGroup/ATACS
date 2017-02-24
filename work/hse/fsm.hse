@@ -1,0 +1,35 @@
+include FF;
+
+module main;
+    input  clk = {true} ;
+    input  xin          ;
+    output zout         ;
+    output d0;    output q0;
+    output d1;    output q1;
+
+    FF FF0(clk => clk, d => d0, q => q0);
+    FF FF1(clk => clk, d => d1, q => q1);
+
+    gate                                     d0;
+     q1 &  q0  |  q1 &	xin		->   d0+
+    ~q1	       | ~q0 & ~xin		->   d0-
+    endgate
+
+    gate                                     d1;
+     q1 & ~q0  |  q1 & ~xin | ~q1 & xin ->   d1+
+    ~q1 & ~xin |  q1 &  q0 & xin	->   d1-
+    endgate
+
+    gate                                   zout;
+    ~q1 &  q0  |  q1 & ~q0		-> zout+
+    ~q1 & ~q0  |  q1 &  q0		-> zout-
+    endgate
+
+    testbench env;
+    *[
+	[ skip -> clk-;       clk+
+	| skip -> clk-; xin+; clk+; xin-
+	]
+     ]
+    endtestbench
+endmodule

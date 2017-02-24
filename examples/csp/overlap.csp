@@ -1,0 +1,15 @@
+/*****************************************************************************/
+/* Example with overlapping excitation regions.                              */
+/*****************************************************************************/
+module overlap;
+
+input  a;
+input  b;
+output c;
+input  d;
+
+process overlap;
+*[ a+; d+; (c+ || a-); a+; d-; c-; b+; d+; (c+ || b-); d-; c-; a- ] 
+endprocess
+
+endmodule

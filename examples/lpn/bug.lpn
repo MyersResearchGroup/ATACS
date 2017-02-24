@@ -1,0 +1,22 @@
+.inputs a d e f ss x
+.outputs z
+#@.init_state [1000000]
+.graph
+a+ z+
+z+ x+
+x+ ss+/1 d+
+ss+/1 e+
+d+ e+
+e+ x-
+x- ss-/1
+ss-/1 f+ d-
+f+ e-
+d- e-
+e- ss+/2
+ss+/2 f- z-
+f- a+
+z- a-
+a- ss-/2
+ss-/2 a+
+.marking {<a+,z+>}
+.end

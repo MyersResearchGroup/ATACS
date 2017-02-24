@@ -1,0 +1,49 @@
+/*******************************************/
+/*** OUTPUT FROM ttt's aStraDG COMPILER. ***/
+/***       USE AT YOUR OWN RISK!!!       ***/
+/*******************************************/
+module fib;
+    delay	outdel = <3,inf; 3,5>;
+    delay	shiftdel = <3,5; 3,5>;
+    delay	adddel = <3,15; 3,5>;
+    delay 	gatedelay = <1,2; 1,2>;
+    
+    output	Outo	= {false,gatedelay};
+    input 	Outi	= {false,outdel};
+
+    output	Shift1o	= {false,gatedelay};
+    input 	Shift1i	= {false,shiftdel};
+
+    output	Shift2o	= {false,gatedelay};
+    input 	Shift2i	= {false,shiftdel};
+
+    output	Addo	= {false,gatedelay};
+    input 	Addi	= {false,adddel};
+
+
+    process FIB;
+        *[
+            [Addi-@]; Addo+; [Addi+]; (([Outi-@]; Outo+) || 
+		([Shift2i-@]; Shift2o+; [Shift1i-@ & Shift2i+]; 
+		    Shift1o+; Shift2o-)); [Outi+ & Shift1i+]; 
+	    (Outo- || Addo- || Shift1o-) 
+         ]
+    endprocess
+
+    process AddsdgENV;
+        *[ [Addo+]; Addi+; [Addo-]; Addi- ]
+    endprocess
+
+    process OutsdgENV;
+        *[ [Outo+]; Outi+; [Outo-]; Outi- ]
+    endprocess
+
+    process Shift2sdgENV;
+        *[ [Shift2o+]; Shift2i+; [Shift2o-]; Shift2i- ]
+    endprocess
+
+    process Shift1sdgENV;
+        *[ [Shift1o+]; Shift1i+; [Shift1o-]; Shift1i- ]
+    endprocess
+
+endmodule

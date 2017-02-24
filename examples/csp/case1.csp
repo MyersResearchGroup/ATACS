@@ -1,0 +1,14 @@
+module case1;
+
+input a;
+input b;
+input c;
+output ss;
+
+process case1;
+*[[ skip -> a+; ss+; a-
+  | skip -> b+; ss+; b-
+ ];
+ c+; ss-; c-]
+endprocess
+endmodule

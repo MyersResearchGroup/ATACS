@@ -1,0 +1,49 @@
+/*****************************************************************************/
+/* Furber's enhanced dynamic pipeline latch controller. Async96 fig. 5       */
+/* (Simplified but equivalent specification - JS 1996-05-07)                 */
+/*****************************************************************************/
+module JSPelatch;
+ 
+    input	Rin	= {false};
+    input	Aout	= {false};
+    input	D	= {false};
+    output	Ain	= {false};
+    output	Rout	= {false};
+    output	E	= {false};
+    output	A	= {false};
+    output	Lt	= {false};
+
+process leftenv;
+    *[ Rin+; [Ain+]; Rin-; [Ain-] ]
+endprocess
+
+process rightenv;
+    *[ [Rout+]; Aout+; [Rout-]; Aout- ]
+endprocess
+
+process topenv;
+    *[ [E+]; D+; [E-]; D- ]
+endprocess
+
+process Ain;
+    *[ [E+]; Ain+; [E-]; Ain- ]
+endprocess
+
+process Rout;
+    *[ [A+]; Rout+; [A-]; Rout- ]
+endprocess
+
+process A;
+    *[ [D+]; A+; [D- & Aout+]; A-; [Lt-] ]
+endprocess
+
+process E;
+    *[ [Rin+]; E+; [Rin- & Lt+]; E-; [A-] ]
+endprocess
+
+process Lt;
+    *[ [A+]; Lt+; [Aout-]; Lt- ]
+endprocess
+
+endmodule
+

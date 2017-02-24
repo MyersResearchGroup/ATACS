@@ -1,0 +1,4 @@
+[+csc0: (dsr & ~ldtack)]
+[-csc0: (~dsr)]
+[ d: (ldtack & csc0)] Combinational
+[ lds: (csc0)] Combinational

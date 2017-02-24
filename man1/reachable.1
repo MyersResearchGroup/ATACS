@@ -1,0 +1,38 @@
+.TH REACHABLE 1 "30 March 2002" "" ""
+.SH NAME
+reachable \- Toggle pruning of redundant rules according to reachability
+.SH SYNOPSIS
+.B atacs -PR
+.br
+.B atacs> reachable
+.SH DESCRIPTION
+.B reachable
+toggles the pruning of redundant rules according to reachability
+during automatic concurrency reduction.  By default, atacs does not
+add any rule for which there is already some path of rules from the
+enabling event of the candidate rule to the enabled event of the
+candidate rule even in the absence of the candidate rule.  The first
+invocation of the \fBreachable\fR command disables this policy.  The
+second invocation of the \fBreachable\fR command re-enables the
+policy, and so on.
+
+.PP
+.SH OPTIONS
+.TP
+.BI \-PR
+This atacs option toggles the pruning of redundant rules according to
+reachability during automated concurrency reduction from the Unix
+shell command line.
+.TP
+.BI reachable
+This atacs command toggles the pruning of redundant rules according to
+reachability during automated concurrency reduction from within the
+atacs interactive shell.
+.SH CREDITS
+This pruning method and this command were written by Eric Robert
+Peskin (peskin@vlsigroup.ece.utah.edu).
+.SH BUGS
+See http://www.async.ece.utah.edu/cgi-bin/atacs
+.SH "SEE ALSO"
+.BR reduction (1), 
+.BR http://www.async.ece.utah.edu

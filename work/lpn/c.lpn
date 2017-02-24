@@ -1,0 +1,39 @@
+.inputs a b
+.outputs  c
+.dummy dummy_0 dummy_1 dummy_2 dummy_3
+#@.init_state [000]
+.graph
+a+/1 p1
+c+/1 p1
+p1 dummy_0
+dummy_0 p2
+p2 a-/1
+p2 c+/1
+
+b+/1 p3
+c+/1 p3
+p3 dummy_1
+dummy_1 p4
+p4 b-/1
+p4 c+/1
+
+a-/1 p5
+c-/1 p5
+p5 dummy_2
+dummy_2 p6
+p6 a+/1
+p6 c-/1
+
+b-/1 p7
+c-/1 p7
+p7 dummy_3
+dummy_3 p8
+p8 b+/1
+p8 c-/1
+
+c+/1 p9
+c-/1 p10
+p9 c-/1
+p10 c+/1
+.marking {p6 p8 p10}
+.end

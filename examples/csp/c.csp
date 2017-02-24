@@ -1,0 +1,12 @@
+module c;
+
+input a = {<2,5>};
+input b = {<2,5>};
+output c = {<2,5>};
+
+process foo;
+*[[ true (75.0) -> a+; c+; a-
+  | true (25.0) -> b+; c+; b-
+ ]; c- ]
+endprocess
+endmodule 

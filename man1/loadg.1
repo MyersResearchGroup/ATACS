@@ -1,0 +1,42 @@
+.TH LOADG 1 "28 September 2001" "" ""
+.SH NAME
+loadg \- Loads a G File
+.SH SYNOPSIS
+.nf
+.BI atacs " -lg <filename>"
+.br
+.BI atacs> " loadg <filename>"
+.fi
+.SH DESCRIPTION
+.B loadg
+loads files in the Petri-net graph format used by tools such as SIS and
+PETRIFY and converts them to timed event-rule (ER) structures.  It reads the
+input file <filename>.g and writes to the output file <filename>.er.
+The graph file is augmented with the initial state in the following format:
+.PP
+#@.init_state [0101]
+.PP
+The graph file may also need to be modified to match required naming
+conventions (i.e., all or none events on a signal must have /# and 
+the /# should start with /1 and go up).
+.SH OPTIONS
+.TP
+.BI \-lg
+Loads a G file from the command line.
+.TP
+.BI loadg
+Loads a G file from the interactive shell.
+.SH CREDITS
+.B loadg
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR loadfile (1)
+.BR loadcsp (1)
+.BR loadhse (1)
+.BR loadvhdl (1)
+.BR loader (1)
+.BR loadtel (1)
+.BR loadxbm (1)
+.BR loadrsg (1)
+.BR loadprs (1)
+.BR http://www.async.ece.utah.edu

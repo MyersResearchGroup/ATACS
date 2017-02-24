@@ -1,0 +1,14 @@
+/*****************************************************************************/
+/* Example different when gC versus gatelevel (see Beerel TCAD March 98).    */
+/*****************************************************************************/
+module ex1;
+
+input  a = {false};
+input  b = {false};
+output c = {false};
+output d = {false};
+
+process ex1;
+*[ a+; b+; d+; c+; d-; a-; b-; c-; b+; c+; b-; c- ]
+endprocess
+endmodule

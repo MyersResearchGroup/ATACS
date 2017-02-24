@@ -1,0 +1,62 @@
+.e 29
+.i 8
+.r 28
+.n 0
+.c 3
+.s 0001001001100
+#
+# EVENTS
+#
+
+reset
+clk+ clk-
+x0t+ x0t-
+x0f+ x0f-
+ack4+ ack4-
+x1t+ x1t-
+x1f+ x1f-
+ack1+ ack1-
+x2t+ x2t-
+x2f+ x2f-
+ack2+ ack2-
+x3t+ x3t-
+x3f+ x3f-
+ack3+ ack3-
+$1 $2
+#
+# RULES
+#
+clk- clk+ 1 12 12
+clk+ clk- 0 12 12
+x0t- x0t+ [(clk)] 1 1 1
+x0t- x0f+ [(clk)] 1 1 1
+x0f- x0t+ [(clk)] 1 1 1
+x0f- x0f+ [(clk)] 1 1 1
+x0t+ x0t- [(~clk)] 0 1 1
+x0f+ x0f- [(~clk)] 0 1 1
+ack4+ ack4- [(clk)] 1 1 1
+ack4- ack4+ [(~clk)] 0 1 1
+x1t- x1t+ [(ack2 & x0t)] 1 1 2
+x1t+ x1t- [(~ack2 & ~x0t)] 0 1 2
+x1f- x1f+ [(ack2 & x0f)] 1 1 2
+x1f+ x1f- [(~ack2 & ~x0f)] 0 1 2
+ack1+ ack1- [(x1t) | (x1f)] 1 1 2
+ack1- ack1+ [(~x1t & ~x1f)] 0 1 2
+x2t- x2t+ [(ack3 & x1t)] 1 1 2
+x2t+ x2t- [(~ack3 & ~x1t)] 0 1 2
+x2f- x2f+ [(ack3 & x1f)] 1 1 2
+x2f+ x2f- [(~ack3 & ~x1f)] 0 1 2
+ack2+ ack2- [(x2t) | (x2f)] 1 1 2
+ack2- ack2+ [(~x2t & ~x2f)] 0 1 2
+x3t- x3t+ [(ack4 & x2t)] 0 1 2
+x3t+ x3t- [(~ack4 & ~x2t)] 1 1 2
+x3f- x3f+ [(ack4 & x2f)] 1 1 2
+x3f+ x3f- [(~ack4 & ~x2f)] 0 1 2
+ack3+ ack3- [(x3t) | (x3f)] 0 1 2
+ack3- ack3+ [(~x3t & ~x3f)] 1 1 2
+#
+# CONFLICTS
+#
+x0t+ x0f+
+x0t- x0f-
+x3t+ x3f+

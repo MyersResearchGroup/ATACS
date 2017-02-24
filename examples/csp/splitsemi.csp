@@ -1,0 +1,54 @@
+module splitsemi;
+
+input RLin = {<2,inf>};
+input RHin = {<2,inf>};
+input Aout = {<2,3>};
+output RLout = {<0,2>};
+output RHout = {<0,2>};
+output Ain = {<0,2>};
+output A = {<0,2>};
+output L = {<2,3>};
+output B = {<0,2>};
+output H = {<2,3>};
+
+process leftenv;
+    *[[ skip -> RLin+; [Ain+]; RLin-; [Ain-]
+     |  skip -> RHin+; [Ain+]; RHin-; [Ain-]
+     ]]
+endprocess
+
+process rightenv;
+    *[[ RLout+ -> Aout+; [RLout-]; Aout-
+     |  RHout+ -> Aout+; [RHout-]; Aout-
+     ]]
+endprocess
+
+process AB;
+    *[[ RLin+ -> A+; [RLin- & Aout+]; A-; [RLout-]
+     |  RHin+ -> D1; (A+ || B+); [RHin- & Aout+]; (A- || B-); D2; [RHout-]
+     ]]
+endprocess
+
+process L;
+    *[[ A+ -> L+; [A-]; L-
+     |  A+ -> L+; [A-]; L-
+     ]]
+endprocess
+
+process H;
+    *[ [B+]; H+; [B-]; H- ]
+endprocess
+
+process Ain;
+    *[[L+ -> Ain+; [L-]; Ain-
+     | L+ & H+ -> Ain+; [L- & H-]; Ain-
+     ]]
+endprocess
+
+process RLHout;
+    *[[A+ -> RLout+; [A-]; RLout-; [Aout-]
+     | A+ & B+ -> RHout+; [A- & B-]; RHout-; [Aout-]
+     ]]
+endprocess
+
+endmodule

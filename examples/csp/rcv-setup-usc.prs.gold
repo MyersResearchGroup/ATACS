@@ -1,0 +1,5 @@
+[+usc0: (reqrcv & sending)]
+[-usc0: (~reqrcv & ~enwoq)]
+[+rejsend: (sending & usc0)]
+[-rejsend: (acksend & ~sending)]
+[ enwoq: (~acksend & reqrcv & ~sending & ~rejsend)] Combinational

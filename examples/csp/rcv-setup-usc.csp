@@ -1,0 +1,21 @@
+module rcvsetup;
+
+input reqrcv;
+input sending;
+input acksend;
+output enwoq; 
+output rejsend; 
+output usc0;
+
+process rcvsetup;
+*[ 
+  [  skip -> sending+ ; 
+      [ skip -> sending-
+         | skip -> reqrcv+; usc0+; rejsend+; (acksend+ || sending-);
+                   rejsend-; acksend-; enwoq+; reqrcv-; enwoq-; usc0-
+        ]
+   | skip -> reqrcv+; enwoq+; reqrcv-; enwoq-
+  ]
+ ]
+endprocess
+endmodule

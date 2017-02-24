@@ -1,0 +1,43 @@
+.TH BAG 1 "15 Novermber 2000" "" ""
+.SH NAME
+bag \- Bourne Again Geometric Timing Analysis
+.SH SYNOPSIS
+.nf
+.BI atacs " -tb"
+.br
+.BI atacs> " bag"
+.fi
+.SH DESCRIPTION
+.B bag
+is a timing analysis method that uses zones represented by difference
+bound matrices to explore a reachable state space.  It builds on the
+geometric method, but uses a new conflict semantics.  The new conflict
+semantics are this: if 2 events, a and b, conflict; and b is ready to
+fire, but c has enough enabled rules that at some instance it could
+fire, then explore the case where b fires now, as well as where b does
+not fire and c does.  This is a significant change from the old
+semantics where due to timing assumptions, certain branches of choice
+conflicts are not explored.  For an example of the new semantics see
+.I "atacs/examples/tel/pchb.tel"
+.SH OPTIONS
+.TP
+.BI \-tb
+Enables the bag method from the command line.
+.TP
+.BI bag
+Enables the bag method in the interactive shell.
+.SH CREDITS
+.B bag
+was primarily written by Wendy Belluomini
+(wendy@vlsigroup.elen.utah.edu). The new conflict semantics and
+various optimizations are implemented by Eric G Mercer
+(eemercer@vlsigroup.elen.utah.edu).
+.SH BUGS
+.SH FILES
+.SH "SEE ALSO"
+.BR untimed (1)
+.BR geometric (1)
+.BR posets (1)
+.BR bap (1)
+.BR baptdc (1)
+.BR http://www.async.ece.utah.edu

@@ -1,0 +1,57 @@
+/*****************************************************************************/
+/* Chu's SCSI Protocol Controller (with state variable added by hand)        */
+/*****************************************************************************/
+module scsi;
+
+delay gatedelay = <0,5>;
+delay envdelay = <20,50>;
+
+input ack = {true,envdelay};
+input go = {false,envdelay};
+output req = {true,gatedelay};
+output rdy = {false,gatedelay};
+output q = {true,gatedelay};
+
+process scsi2;
+*[ req-; rdy+; q-; [go+]; rdy-; [ack-]; req+; [go-]; q+; [ack+] ]  
+endprocess
+
+process ack;
+*[ [req-]; ack-; [req+]; ack+ ]
+endprocess
+
+process go;
+*[ [rdy+]; go+; [rdy-]; go- ]
+endprocess
+
+endmodule
+
+module main;
+
+input ack = {true,<20,50>};
+input go = {false,<20,50>};
+
+scsi scsi1(req => req1, ack => ack, go => go, rdy => rdy1);
+scsi scsi2(req => req2, ack => ack, go => go, rdy => rdy2);
+scsi scsi3(req => req3, ack => ack, go => go, rdy => rdy3);
+scsi scsi4(req => req4, ack => ack, go => go, rdy => rdy4);
+scsi scsi5(req => req5, ack => ack, go => go, rdy => rdy5);
+scsi scsi6(req => req6, ack => ack, go => go, rdy => rdy6);
+scsi scsi7(req => req7, ack => ack, go => go, rdy => rdy7);
+scsi scsi8(req => req8, ack => ack, go => go, rdy => rdy8);
+scsi scsi9(req => req9, ack => ack, go => go, rdy => rdy9);
+
+process left;
+*[ [req1- & req2- & req3- & req4- & req5- & req6- & req7- & req8- & req9-]; 
+   ack-; 
+   [req1+ & req2+ & req3+ & req4+ & req5+ & req6+ & req7+ & req8+ & req9+]; 
+   ack+ ]
+endprocess
+
+process right;
+*[ [rdy1+ & rdy2+ & rdy3+ & rdy4+ & rdy5+ & rdy6+ & rdy7+ & rdy8+ & rdy9+]; 
+   go+; 
+   [rdy1- & rdy2- & rdy3- & rdy4- & rdy5- & rdy6- & rdy7- & rdy8- & rdy9-]; 
+   go-]
+endprocess
+endmodule

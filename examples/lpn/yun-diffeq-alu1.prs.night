@@ -1,0 +1,17 @@
+[+zzz01: (M1A & ~EvDone)]
+[-zzz01: (~M1A & ~EvDone)]
+[+zzz00: (~M1A & ~EvDone & LA)]
+[-zzz00: (M1A & ~EvDone)]
+[-zzz00: (~EvDone & ~start)]
+[+A1M: (EvDone & ~zzz01)]
+[-A1M: (EvDone & zzz01)]
+[-A1M: (~EvDone & ~start)]
+[+LU: (EvDone & zzz00)]
+[-LU: (M1A & ~EvDone)]
+[-LU: (~EvDone & ~start)]
+[+LA: (EvDone & zzz01)]
+[-LA: (EvDone & ~zzz01)]
+[+LB: (EvDone)]
+[-LB: (~EvDone & ~start)]
+[~Prech: (M1A & ~EvDone & ~LA)] Combinational
+[~Prech: (~M1A & ~EvDone & start & ~A1M)] Combinational

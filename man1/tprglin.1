@@ -1,0 +1,14 @@
+.XX
+tprglin - transition probabilities in a region graph
+.PP
+This uses a region graph to calculate transition
+probabilities in a design.  This method is very heuristic in that
+it naively squashes all complex regions into small linear regins.
+This implies that the algorithm ignores the time at which the
+region was entered and just assumes that it was entered at its
+minimum timer values for all of the signals enabled in the region.
+A valid region graph must exist before this command can be run.
+If a state table is not a region graph, this command will cause an
+assertion failure (sorry chris).
+The results of this command are stored to the state table
+in the form of transition probabilities.

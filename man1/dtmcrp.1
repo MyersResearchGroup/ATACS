@@ -1,0 +1,14 @@
+.XX
+dtmcrp - reduced power analysis the loaded ER
+.PP
+This command assumes that the state table representing
+the specification can be modeled as a Discrete Time Markov Chain
+(dtmc) and analysis that chain to find its steady state probabilty
+distribution.  The command first extracts and builds from the
+state table, the transition matrix.  Transition probabilities can
+be obtained using any of the standard tp* commands (see help).
+With the transition matrix, the long term probabilities are found
+using the reduced power method.  The results are stored back into
+the state table and control is returned to the caller.  Before
+this command can be run, it is necessary to have a state table
+containing transition probabilities.

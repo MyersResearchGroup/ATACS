@@ -1,0 +1,84 @@
+
+/*****************************************************************************/
+/** 1-bit Comparator                                                         */
+/** INPUTS: Req, A, and B                                                    */
+/** OUTPUTS: E, G, L, and Ack                                                */
+/** NOTE: Even though this is a datapath element, I want to see what atacs   */
+/** will build                                                               */
+/*****************************************************************************/
+/* module comparator; */
+module compare;
+
+  input  Req  = {false, <1,10>};
+  input  Req0 = {false, <1,10>};
+  input  Req1 = {false, <1,10>};
+  input  A0   = {false, <1,10>};
+  input  B0   = {false, <1,10>};
+  input  A1   = {false, <1,10>};
+  input  B1   = {false, <1,10>};
+
+  output E0   = {false, <1,10>};
+  output G0   = {false, <1,10>};
+  output L0   = {false, <1,10>};
+  output E1   = {false, <1,10>};
+  output G1   = {false, <1,10>};
+  output L1   = {false, <1,10>};
+  output Ack0 = {false, <1,10>};
+  output Ack1 = {false, <1,10>};
+  output Ack  = {false, <1,10>};
+
+  process comp0;
+    *[ [Req0 & Req1] ; 
+       [true/*( ~A0 & ~B0 )*/ -> /*E0+ ;*/ Ack0+ ; [~Req0 & ~Req1] ;
+/*E0- ;*/ 
+          Ack0-  
+     /*| ( /*~A0 &*/  B0 ) -> /*L0+ ;*/ Ack0+ ; [~Req0 & ~Req1] ;
+/*L0- ;*/ 
+          Ack0-  
+       | (  A0 & ~B0 ) -> G0+ ; Ack0+ ; [~Req0 & ~Req1] ; G0- ; Ack0-
+       | (  A0 &  B0 ) -> E0+ ; Ack0+ ; [~Req0 & ~Req1] ; E0- ;
+Ack0-*/ 
+       ]
+     ]
+  endprocess
+
+  testbench env0;
+    *[ [ true -> Req0+ ; [Ack0 & Ack1] ; Req0- ; [~Ack0 & ~Ack1] 
+    /* | true -> B0+ ; Req0+ ; [Ack0 & Ack1] ; Req0- ; B0-  ; [~Ack0
+& ~Ack1] 
+       | true -> A0+ ; Req0+ ; [Ack0 & Ack1] ; Req0- ; A0-  ; [~Ack0
+& ~Ack1]
+       | true -> ( A0+ || B0+ ) ; Req0+ ; [Ack0 & Ack1] ; Req0- ; 
+                 ( A0- || B0- ) ; [~Ack0 & ~Ack1]*/
+       ]
+     ]
+  endtestbench
+
+  process comp1;
+    *[ [Req0 & Req1] ; 
+       [true/*( ~A1 & ~B1 )*/ -> /*E1+ ;*/ Ack1+ ; [~Req0 & ~Req1] ;
+/*E1- ;*/ 
+         Ack1-  
+     /*| ( /*~A1 &*/  B1 ) -> /*L1+ ;*/ Ack1+ ; [~Req0 & ~Req1] ;
+/*L1- ;*/ 
+         Ack1-  
+       | (  A1 & ~B1 ) -> G1+ ; Ack1+ ; [~Req0 & Req1] ; G1- ; Ack1-
+       | (  A1 &  B1 ) -> E1+ ; Ack1+ ; [~Req0 & Req1] ; E1- ;
+Ack1-*/ 
+       ]
+     ]
+  endprocess
+
+  testbench env1;
+    *[ [ true -> Req1+ ; [Ack0 & Ack1] ; Req1- ; [~Ack0 & ~Ack1] 
+     /*| true -> B1+ ; Req1+ ; [Ack0 & Ack1] ; Req1- ; B1- ; [~Ack0 &
+~Ack1] 
+       | true -> A1+ ; Req1+ ; [Ack0 & Ack1] ; Req1- ; A1-  ; [~Ack0
+& ~Ack1]
+       | true -> ( A1+ || B1+ ) ; Req1+ ; [Ack0 & Ack1] ; Req1- ;
+                 ( A1- || B1- ) ; [~Ack0 & ~Ack1]*/
+       ]
+     ]
+  endtestbench
+
+endmodule

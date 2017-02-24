@@ -1,0 +1,26 @@
+/*****************************************************************************/
+/* Passive/active buffer c5 from Burn's thesis                               */
+/*****************************************************************************/
+module c5;
+
+delay envdelay  = <32,48>;
+delay gatedelay = <8,12>;
+
+input li = {false,envdelay};
+input ri = {true,envdelay};
+output lo = {false,gatedelay};
+output ro = {true,gatedelay};
+
+process lapbctrl;
+*[ [li+]; (lo+ || ro-); [li- & ri-]; ro+; [ri+]; lo- ]
+endprocess
+
+process left;
+*[ [ro-]; ri-; [ro+]; ri+ ]
+endprocess
+
+process right;
+*[ li+; [lo+]; li-; [lo-] ]
+endprocess
+
+endmodule

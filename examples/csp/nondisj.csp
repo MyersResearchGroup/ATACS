@@ -1,0 +1,16 @@
+/*****************************************************************************/
+/* Example which when gatelevel and sharegate is on produces a non-disjoint  */
+/* 	set of production rules.                                             */
+/*****************************************************************************/
+module nondisj;
+
+input  a = {false,<0,10>};
+input  b = {false,<0,10>};
+output c = {false,<0,10>};
+input  d = {false,<0,10>};
+
+process nondisj;
+*[ a+; d+; c+; d-; c-; b+; d+; c+; d-; c-; a-; d+; c+; b-; c-; d- ]
+endprocess
+
+endmodule

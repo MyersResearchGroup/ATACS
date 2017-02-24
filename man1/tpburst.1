@@ -1,0 +1,16 @@
+.XX
+tpburst - uses numerical integration to find exact transition
+.PP
+probabilities for any standard burst mode type circuit.
+A burst mode circuit is one in which inputs and
+outputs are constrained to occure in burst.  This means that a
+group of input signals transition, then a group of output signals
+transition, etc.  With this method it is not possible for signals
+to become enabled during a burst.  This means that there are well
+defined source and sync nodes in any state graph.  With this
+restriction, exact transition probabilies are calculated by 
+evaluating traces between source and sync nodes in the state graph.
+Before this command can be run a valid reduced state graph must
+exist.  The results of this command are stored to the state table
+in the form of transition probabilities.  The accuracy of the
+becomes heuristic with non-burst-mode specifications.

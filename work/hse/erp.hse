@@ -1,0 +1,9 @@
+module erp;
+    output	b;
+    process DECODE;
+        [~b -> b+
+        | b -> skip
+        ]
+    endprocess
+
+endmodule

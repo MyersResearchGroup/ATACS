@@ -1,0 +1,157 @@
+.inputs Vin Vosc up down a c lock 
+.dummy inc dec d1 d2 restart restartp lockr lockf skip lockrp lockfp
+#@.keep lockr lockf lockrp lockfp
+#@.abstract Vin Vosc up down 
+#@.init_state [000]
+#@.property AF(AG(lock))
+.graph
+
+pi1 Vin+ #@ [50,50] 
+pVinL Vin+ #@ [0,0]
+Vin+ pi2
+Vin+ pVinH
+Vin+ pVinHp
+pi2 Vin- #@ [50,50]
+pVinH Vin- #@ [0,0]
+pVinHp Vin- #@ [0,0]
+Vin- pi1
+Vin- pVinL 
+
+pVoscL Vosc+ #@ [0,0]
+Vosc+ pVoscH
+Vosc+ pVoscHp
+pVoscH Vosc- #@ [0,0]
+pVoscHp Vosc- #@ [0,0]
+Vosc- pVoscL 
+
+p0 up+ #@ [0,0] 
+p0 down+ #@ [0,0]
+up+ p1
+down+ p2
+p1 up- #@ [0,0] 
+p2 down- #@ [0,0] 
+up- p3
+down- p3
+p3 restart #@ [0,0]
+restart p0
+
+pVinH up+ #@ [1,1]  
+pVinH down- #@ [0,0]  
+up+ pVinH
+down- pVinH
+
+pVoscH down+ #@ [1,1]  
+pVoscH up- #@ [0,0]  
+down+ pVoscH
+up- pVoscH
+
+pVinL restart #@ [0,0]
+pVoscL restart #@ [0,0]
+restart pVinL
+restart pVoscL
+
+p0p a+/1 #@ [0,0] 
+pVinHp a+/1 #@ [2,2]  
+p0p a+/2 #@ [0,0]
+pVoscHp a+/2 #@ [2,2]  
+p0p lockr #@ [0,0]
+pVinHp lockr #@ [0,0]
+pVoscHp lockr #@ [0,0]
+a+/1 p1p
+a+/1 pVinHp
+a+/2 p1p
+a+/2 pVoscHp
+lockr pVinHp
+lockr pVoscHp
+lockr p4p
+p1p a-/1 #@ [0,0] 
+pVoscHp a-/1 #@ [0,0]  
+pVinHp a-/1 #@ [0,0]  
+a-/1 p3p
+a-/1 pVoscHp
+a-/1 pVinHp
+p3p restartp #@ [0,0]
+restartp p0p
+pVinL restartp #@ [0,0]
+pVoscL restartp #@ [0,0]
+restartp pVinL
+restartp pVoscL
+
+p4p c+/1 #@ [0,0] 
+pVinL c+/1 #@ [2,2]  
+p4p c+/2 #@ [0,0]
+pVoscL c+/2 #@ [2,2]  
+p4p lockf #@ [0,0]
+pVinL lockf #@ [0,0]
+pVoscL lockf #@ [0,0]
+c+/1 p5p
+c+/1 pVinL
+c+/2 p5p
+c+/2 pVoscL
+lockf pVinL
+lockf pVoscL
+p5p c-/1 #@ [0,0] 
+pVoscL c-/1 #@ [0,0]  
+pVinL c-/1 #@ [0,0]  
+c-/1 p0p
+c-/1 pVoscL
+c-/1 pVinL
+lockf plock
+p4p lock+ #@ [0,0]
+punlock lock+ #@ [0,0]
+plock skip #@ [1,1]
+lock+ p0pp
+skip  p0pp
+
+p0pp a+/3 #@ [0,0] 
+pVinHp a+/3 #@ [5,5]  
+p0pp a+/4 #@ [0,0]
+pVoscHp a+/4 #@ [5,5]  
+p0pp lockrp #@ [0,0]
+pVinHp lockrp #@ [0,0]
+pVoscHp lockrp #@ [0,0]
+a+/3 p1p
+a+/3 pVinHp
+a+/4 p2p
+a+/4 pVoscHp
+lockrp pVinHp
+lockrp pVoscHp
+lockrp p4pp
+
+p4pp c+/3 #@ [0,0] 
+pVinL c+/3 #@ [5,5]  
+p4pp c+/4 #@ [0,0]
+pVoscL c+/4 #@ [5,5]  
+p4pp lockfp #@ [0,0]
+pVinL lockfp #@ [0,0]
+pVoscL lockfp #@ [0,0]
+c+/3 p5p
+c+/3 pVinL
+c+/4 p5p
+c+/4 pVoscL
+lockfp pVinL
+lockfp pVoscL
+lockfp p0pp
+
+p2 inc #@ /1;inf\
+inc v2 
+
+p1 dec #@ /1;inf\
+v1 dec
+
+v1 d1
+d1 v2
+v2 d2
+d2 v1
+
+v1 Vosc+ #@ /0;0\ [0,0]
+v2 Vosc- #@ /0;0\ [0,0]
+
+pVoscL d1
+pVoscH d2
+
+.marking { p0 p0p pi1 pVinL pVoscL punlock }
+#@.marking { <v1 = [40,40]><v2 = [40,40]> }
+#@.rates { <inc = 1><dec = 1><d1 = 1><d2 = 1> }
+#@.continuous d1 d2 dec inc v1 v2
+.end

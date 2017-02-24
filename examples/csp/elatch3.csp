@@ -1,0 +1,82 @@
+/*****************************************************************************/
+/* Three of furber's enhanced dynamic pipeline latch controller.             */
+/*****************************************************************************/
+module elatch;
+
+input	R0	= {false,<144,216; 80,110>};
+output	A1	= {false,<0,1; 0,1>};
+output	R1	= {false,<0,1; 0,1>};
+output	A2	= {false,<0,1; 0,1>};
+output	R2	= {false,<0,1; 0,1>};
+output	A3	= {false,<0,1; 0,1>};
+output	R3	= {false,<0,1; 0,1>};
+input	A4	= {false,<64,96; 64,96>};
+input	D1	= {false,<464,696; 72,108>};
+output	E1	= {false,<64,96; 64,96>};
+output	AA1	= {false,<88,132; 80,110>};
+output	Lt1	= {false,<56,84; 56,84>};
+input	D2	= {false,<464,696; 72,108>};
+output	E2	= {false,<64,96; 64,96>};
+output	AA2	= {false,<88,132; 80,110>};
+output	Lt2	= {false,<56,84; 56,84>};
+input	D3	= {false,<464,696; 72,108>};
+output	E3	= {false,<64,96; 64,96>};
+output	AA3	= {false,<88,132; 80,110>};
+output	Lt3	= {false,<56,84; 56,84>};
+
+process leftenv1;
+    *[ R0+; [A1+]; R0-; [A1-] ]
+endprocess
+
+process leftpart1;
+    *[ [R0+]; E1+; A1+; [R0- & Lt1+]; E1-; A1-; [AA1-] ]
+endprocess
+
+process rightpart1;
+    *[ [D1+]; AA1+; R1+; [A2+ & D1-]; AA1-; R1-; [A2- & Lt1-] ]
+endprocess
+
+process D1;
+    *[ [E1+]; D1+; [E1-]; D1- ]
+endprocess
+
+process Lt1;
+    *[ [AA1+]; Lt1+; [A2-]; Lt1- ]
+endprocess
+
+process leftpart2;
+    *[ [R1+]; E2+; A2+; [R1- & Lt2+]; E2-; A2-; [AA2-] ]
+endprocess
+
+process rightpart2;
+    *[ [D2+]; AA2+; R2+; [A3+ & D2-]; AA2-; R2-; [A3- & Lt2-] ]
+endprocess
+
+process D2;
+    *[ [E2+]; D2+; [E2-]; D2- ]
+endprocess
+
+process Lt2;
+    *[ [AA2+]; Lt2+; [A3-]; Lt2- ]
+endprocess
+
+process leftpart3;
+    *[ [R2+]; E3+; A3+; [R2- & Lt3+]; E3-; A3-; [AA3-] ]
+endprocess
+
+process rightpart3;
+    *[ [D3+]; AA3+; R3+; [A4+ & D3-]; AA3-; R3-; [A4- & Lt3-] ]
+endprocess
+
+process D3;
+    *[ [E3+]; D3+; [E3-]; D3- ]
+endprocess
+
+process Lt3;
+    *[ [AA3+]; Lt3+; [A4-]; Lt3- ]
+endprocess
+
+process rightenv3;
+    *[ [R3+]; A4+; [R3-]; A4- ]
+endprocess
+endmodule

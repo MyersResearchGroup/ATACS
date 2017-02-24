@@ -1,0 +1,13 @@
+sharegate
+.PP
+This command turns on the gate sharing option for gatelevel synthesis.
+The basic gatelevel synthesis algorithm requires that each excitation 
+region be implemented by a single disjoint cover.  If this switch is
+on, it allows covers to intersect other excitation regions as long as
+they completely contain it.  In other words, one cover may implement
+multiple excitation regions as long as it does so completely.  It is
+greedy, so it may cause synthesis to fail.  For example, assume you
+have three excitation regions (1,2, and 3).  One cover implements 1 and 2
+and the other implements 2 and 3.  These two covers are not disjoint so
+they are not gatelevel hazard-free.
+

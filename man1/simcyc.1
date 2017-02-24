@@ -1,0 +1,35 @@
+.TH SIMCYC 1 "28 September 2001" "" ""
+.SH NAME
+simcyc \- Stochastic Simulation for the Cycle Period  
+.SH SYNOPSIS
+.nf
+.BI atacs " -ay"
+.br
+.BI atacs> " simcyc"
+.fi
+.SH DESCRIPTION
+.B simcyc
+This command will run a user specified number of random simulations of
+the loaded design to compute its average cycle period.  The simulation
+engine will prompt for a event index to track in the cycle period
+calculation, the number of cycles to consider in the calculation, the
+cycle to start recording information from, and the number of
+experiments to run.  The results of the simulations are written in a
+<design>.stats file.  This file contains the observations computed
+from each simulation run and a set of summary statistics.
+The summary statistics report the mean, median, half-length of a 95%
+confidence interval, standard deviation, and etc. for the set of
+random simulation results.
+.SH OPTIONS
+.TP
+.BI \-as
+Performs stochastic simulation from the command line.
+.TP
+.BI simcyc
+Performs stochastic simulation in the interactive shell.
+.SH CREDITS
+.B simcyc
+was primarily written by Eric Mercer (eemercer@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR profile (1)
+.BR http://www.async.elen.utah.edu

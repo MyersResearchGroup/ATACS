@@ -1,0 +1,35 @@
+.TH LOADXBM 1 "28 September 2001" "" ""
+.SH NAME
+loadxbm \- Loads a XBM File
+.SH SYNOPSIS
+.nf
+.BI atacs " -lx <filename>"
+.br
+.BI atacs> " loadxbm <filename>"
+.fi
+.SH DESCRIPTION
+.B loadxbm
+loads files in the Extended Burst-Mode format used by tools such as 3D and
+MINIMILIST and converts them to compressed state graphs.  The
+input file name should be of the form <filename>.unc.
+.SH OPTIONS
+.TP
+.BI \-lx
+Loads a XBM file from the command line.
+.TP
+.BI loadxbm
+Loads a XBM file from the interactive shell.
+.SH CREDITS
+.B loadxbm
+was primarily written by Hans Jacobson (hans@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR loadfile (1)
+.BR loadcsp (1)
+.BR loadhse (1)
+.BR loadvhdl (1)
+.BR loadg (1)
+.BR loader (1)
+.BR loadtel (1)
+.BR loadrsg (1)
+.BR loadprs (1)
+.BR http://www.async.ece.utah.edu

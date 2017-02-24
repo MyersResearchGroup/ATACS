@@ -1,0 +1,43 @@
+.TH UNROLL 1 "28 September 2001" "" ""
+.SH NAME
+unroll \- ???
+.SH SYNOPSIS
+.nf
+.BI atacs " -au"
+.br
+.BI atacs> " unroll"
+.fi
+.SH DESCRIPTION
+.B unroll
+Computes the stochastic cycle period and summary statistics of the
+loaded design
+.SH OPTIONS
+.TP
+.BI \-au
+This command computes the stochastic cycle period and average cycle
+period of the loaded design.  This command will only work correctly on
+event based designs.  The stochastic cycle period is a set of edge
+weights, where each edge is a rule in the loaded event/rule structure
+of the design.  These weights are reported in the <design>.cp file.
+The average cycle period is computed from the stochastic cycle period
+by summing over the edge weights on the rules multiplied by their
+expected delay values.  The method prompts the user for a cyclic event
+index to track, the number of cycles of that event to consider in the
+edge weight calculation, the occurrence index to start recording from,
+and the number of random experiments to consider in the calculation.
+Each observation from each experiment is reported in the
+<design>.stats file along with a set of summary statistics.  The
+summary statistics report the mean, median, half-length of a 95%
+confidence interval, standard deviation, and etc. for the set of
+reported observations of the average cycle period computed from each
+random experiment.
+.TP
+.BI unroll
+Computes the stochastic cycle period and summary statistics in the
+interactive shell.
+.SH CREDITS
+.B unroll
+was primarily written by Eric Mercer (eemercer@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR simcyc (1)
+.BR http://www.async.elen.utah.edu

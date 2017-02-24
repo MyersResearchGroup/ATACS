@@ -1,0 +1,18 @@
+module case7;
+
+input a={true};
+input a1={true};
+input b;
+input b1;
+output c={true};
+output d={true};
+output e;
+output f;
+
+process case7;
+*[[ skip -> d1; (a- || a1-); (c- || d-); (a+ || a1+); (c+ || d+); d3
+  | skip -> d2; (b+ || b1+); (e+ || f+); (b- || b1-); (e- || f-); d4
+ ]
+]
+endprocess
+endmodule

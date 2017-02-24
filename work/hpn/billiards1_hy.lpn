@@ -1,0 +1,80 @@
+.dummy southwest1T southwestT southeast1T southeastT northwest1T northwestT northeast1T northeastT southwest_yT southwest_xT southeast_yT southeast_xT northwest_yT northwest_xT northeast_yT northeast_xT
+.inputs atxw atyw
+#@.property AG(EF(atxw&atyw))
+#@.init_state [00]
+southwest1T northwest #@ /0;inf\ [0,0]
+southwestT southeast #@ /0;inf\ [0,0]
+southeast1T northeast #@ /0;inf\ [0,0]
+southeastT southwest #@ /0;inf\ [0,0]
+southeast_xT x #@ /0;inf\ [0,0]
+southwest southwest1T #@ /0;inf\ [0,0]
+southwest southwestT #@ /0;inf\ [0,0]
+southwest southwest_yT #@ /0;inf\ [0,0]
+southwest southwest_xT #@ /0;inf\ [0,0]
+northwest1T southwest #@ /0;inf\ [0,0]
+northwestT northeast #@ /0;inf\ [0,0]
+northwest_yT y #@ /0;inf\ [0,0]
+southeast southeast1T #@ /0;inf\ [0,0]
+southeast southeastT #@ /0;inf\ [0,0]
+southeast southeast_yT #@ /0;inf\ [0,0]
+southeast southeast_xT #@ /0;inf\ [0,0]
+northeast1T southeast #@ /0;inf\ [0,0]
+northwest northwest1T #@ /0;inf\ [0,0]
+northwest northwestT #@ /0;inf\ [0,0]
+northwest northwest_yT #@ /0;inf\ [0,0]
+northwest northwest_xT #@ /0;inf\ [0,0]
+northeastT northwest #@ /0;inf\ [0,0]
+northeast_yT y #@ /0;inf\ [0,0]
+northeast_xT x #@ /0;inf\ [0,0]
+northeast northeast1T #@ /0;inf\ [0,0]
+northeast northeastT #@ /0;inf\ [0,0]
+northeast northeast_yT #@ /0;inf\ [0,0]
+northeast northeast_xT #@ /0;inf\ [0,0]
+y southwest1T #@ /0;0\ [0,0]
+y southwestT #@ /0;16\ [0,0]
+y southwest_yT #@ /0;inf\ [0,0]
+y southeast1T #@ /0;0\ [0,0]
+y southeastT #@ /0;16\ [0,0]
+y southeast_yT #@ /0;inf\ [0,0]
+y northwest1T #@ /16;16\ [0,0]
+y northwestT #@ /0;16\ [0,0]
+y northeast1T #@ /16;16\ [0,0]
+y northeastT #@ /0;16\ [0,0]
+x southwest1T #@ /0;6\ [0,0]
+x southwestT #@ /0;0\ [0,0]
+x southwest_xT #@ /0;inf\ [0,0]
+x southeast1T #@ /0;6\ [0,0]
+x southeastT #@ /6;6\ [0,0]
+x northwest1T #@ /0;6\ [0,0]
+x northwestT #@ /0;0\ [0,0]
+x northwest_xT #@ /0;inf\ [0,0]
+x northeast1T #@ /0;6\ [0,0]
+x northeastT #@ /6;6\ [0,0]
+
+# Added to verify the property that grey ball will eventually be in 
+# same position as white ball (1,6).
+xwLow atxw+/1 #@ [0,0]
+atxw+/1 xwHigh
+xwHigh atxw-/1 #@ [0,0]
+xwHigh atxw-/2 #@ [0,0]
+atxw-/1 xwLow
+atxw-/2 xwLow
+x atxw+/1  #@ /2;2\ [0,0]
+x atxw-/1 #@ /0;2\ [0,0]
+x atxw-/2 #@ /2;inf\ [0,0]
+
+ywLow atyw+/1 #@ [0,0]
+atyw+/1 ywHigh
+ywHigh atyw-/1 #@ [0,0]
+ywHigh atyw-/2 #@ [0,0]
+atyw-/1 ywLow
+atyw-/2 ywLow
+y atyw+/1  #@ /12;12\ [0,0]
+y atyw-/1 #@ /0;12\ [0,0]
+y atyw-/2 #@ /12;inf\ [0,0]
+
+.marking { northeast xwLow ywLow }
+#@.marking {<x = 0><y = 0>}
+#@.rates {<southwest_yT=2><southwest_xT=1><southeast_yT=2><southeast_xT=1><northwest_yT=2><northwest_xT=1><northeast_yT=2><northeast_xT=1>}
+#@.continuous southwest_yT southwest_xT southeast_yT southeast_xT northwest_yT northwest_xT northeast_yT northeast_xT y x
+.end

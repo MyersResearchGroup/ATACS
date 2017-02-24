@@ -1,0 +1,14 @@
+[+out22: (out8 & out6 & out5 & out7)]
+[-out22: (~phi2)]
+[ out8: (evalstart & phi1)] Combinational
+[ out6: (evalstart & phi1)] Combinational
+[ out4: (evalstart & phi1)] Combinational
+[ out2: (evalstart & phi1)] Combinational
+[ out1: (evalstart & phi1)] Combinational
+[ out3: (evalstart & phi1)] Combinational
+[ out5: (evalstart & phi1)] Combinational
+[ out7: (evalstart & phi1)] Combinational
+[+out21: (out4 & out2 & out1 & out3)]
+[-out21: (~phi2)]
+[+out31: (out22 & out21)]
+[-out31: (~phi3)]

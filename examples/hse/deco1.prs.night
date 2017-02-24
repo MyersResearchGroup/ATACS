@@ -1,0 +1,18 @@
+[+z: (bi & ~x)]
+[+z: (~shift1 & y & ~x)]
+[-z: (~ci & ~y & ~x)]
+[+y: (bi & ~z)]
+[+y: (~ai & ~shift1 & ~z & x)]
+[-y: (~shift0 & z & x)]
+[-y: (bi & z & x)]
+[ bo: (shift1 & ~z & y & ~x)] Combinational
+[ bo: (~ai & shift1 & ~z & ~y & x)] Combinational
+[ bo: (shift0 & z & y & x)] Combinational
+[+x: (full3 & ~z & ~y & ~ao)]
+[+x: (~bi & z & y)]
+[+x: (ai)]
+[-x: (~bi & ~z & y)]
+[-x: (ci)]
+[+ao: (~full3 & ~z & ~y & ~x)]
+[-ao: (x)]
+[ co: (~bi & z & ~y & x)] Combinational

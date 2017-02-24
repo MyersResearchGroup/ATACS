@@ -1,0 +1,88 @@
+.e 17
+.i 8
+.r 42
+.n 0
+.d 0
+.c 0
+.s 00000000
+reset
+# 
+# INPUT EVENTS:
+# 
+TagIn1+/1 TagIn1-/1
+instRdy+/1 instRdy-/1
+L1+/1 L1-/1
+XBRdy+/1 XBRdy-/1
+# 
+# OUTPUT EVENTS:
+# 
+Rdy_tag1+/1 Rdy_tag1-/1
+TagRdy_tag1+/1 TagRdy_tag1-/1
+TagArrived_tag1+/1 TagArrived_tag1-/1
+TagOut1+/1 TagOut1-/1
+# 
+# DUMMY EVENTS:
+# 
+# 
+# RULES:
+# 
+reset L1+/1 0 180 inf
+reset TagIn1+/1 0 720 inf
+Rdy_tag1+/1 TagOut1+/1 0 90 110
+L1+/1 TagOut1+/1 0 90 110
+TagOut1+/1 TagOut1-/1 0 90 110
+reset TagOut1+/1 0 90 110
+TagArrived_tag1-/1 TagOut1-/1 0 90 110
+TagArrived_tag1+/1 TagOut1+/1 0 90 110
+Rdy_tag1+/1 Rdy_tag1-/1 0 90 110
+instRdy+/1 Rdy_tag1+/1 0 90 110
+reset Rdy_tag1+/1 0 90 110
+XBRdy+/1 Rdy_tag1+/1 0 90 110
+instRdy-/1 Rdy_tag1-/1 0 90 110
+TagRdy_tag1+/1 TagArrived_tag1-/1 0 90 110
+TagIn1+/1 TagArrived_tag1+/1 0 90 110
+reset TagArrived_tag1+/1 0 90 110
+L1+/1 TagArrived_tag1-/1 0 90 110
+TagArrived_tag1+/1 TagArrived_tag1-/1 0 90 110
+TagArrived_tag1-/1 TagRdy_tag1-/1 0 90 110
+TagArrived_tag1+/1 TagRdy_tag1+/1 0 90 110
+reset TagRdy_tag1+/1 0 90 110
+Rdy_tag1+/1 TagRdy_tag1+/1 0 90 110
+TagRdy_tag1+/1 TagRdy_tag1-/1 0 90 110
+TagIn1+/1 TagIn1-/1 0 180 220
+instRdy+/1 instRdy-/1 0 90 110
+L1-/1 instRdy-/1 0 90 110
+L1+/1 instRdy+/1 0 180 inf
+reset instRdy+/1 0 180 inf
+TagOut1+/1 L1-/1 0 180 220
+L1+/1 L1-/1 0 180 220
+reset XBRdy+/1 0 180 inf
+TagOut1+/1 XBRdy-/1 0 360 440
+XBRdy+/1 XBRdy-/1 0 360 440
+# 
+# INITIAL RULES:
+# 
+XBRdy-/1 XBRdy+/1 1 180 inf
+instRdy-/1 instRdy+/1 1 180 inf
+TagRdy_tag1-/1 TagRdy_tag1+/1 1 90 110
+TagArrived_tag1-/1 TagArrived_tag1+/1 1 90 110
+Rdy_tag1-/1 Rdy_tag1+/1 1 90 110
+TagOut1-/1 TagOut1+/1 1 90 110
+TagIn1-/1 TagIn1+/1 1 720 inf
+TagOut1+/1 TagIn1+/1 1 720 inf
+L1-/1 L1+/1 1 180 inf
+# 
+# RULES:
+# 
+# 
+# INITIAL RULES:
+# 
+# 
+# MERGERS:
+# 
+# 
+# CONFLICTS:
+# 
+# 
+# LOOPING CONFLICTS:
+# 

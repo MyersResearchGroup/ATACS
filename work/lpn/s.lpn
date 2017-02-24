@@ -1,0 +1,14 @@
+.name simple
+.inputs a b 
+.outputs 
+.dummy d_1 
+#@.init_state [00]
+.graph
+a+/1 d_1
+a-/1 b-/1
+b+/1 d_1
+b-/1 a+/1
+b-/1 b+/1
+d_1 a-/1
+.marking {<b-/1,a+/1><b-/1,b+/1>}
+.end

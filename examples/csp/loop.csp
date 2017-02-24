@@ -1,0 +1,21 @@
+/*****************************************************************************/
+/* A simple example (I forget what it shows).                                */
+/*****************************************************************************/
+module loop;
+
+delay idelay = <1000,1000;299,299>;
+delay pdelay = <101,101;99,99>;
+delay odelay = <201,201;199,199>;
+
+input a  = {false,idelay};
+input an  = {false,idelay};
+input b  = {false,idelay};
+input bn  = {false,idelay};
+output p  = {false,odelay};
+output pp = {true,pdelay};
+
+process p;
+*[ a+; p+; pp-; b+; p-; pp+; an+; p+; pp-; bn+; p-; pp+; a-; b-; an-; bn- ]
+endprocess
+
+endmodule

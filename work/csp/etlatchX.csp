@@ -1,0 +1,41 @@
+include etlatch;
+
+module etlatchX;
+
+    input	R0	= {false,<20,500/*inf*/; 20,50>};
+    input	A2      = {false,<20,500/*inf*/; 20,25>};
+    input	D1	= {false,<40,500; 0,100>};
+    input	D2	= {false,<40,500; 0,100>};
+    input	D3	= {false,<40,500; 0,100>};
+
+etlatch etlatch1(Rin => R0, Aout => A1, Ain => A0, Rout => R1, D => D1, 
+                 E => E1, A => AA1, Ck => Ck1);
+
+etlatch etlatch2(Rin => R1, Aout => A2, Ain => A1, Rout => R2, D => D2, 
+                 E => E2, A => AA2, Ck => Ck2);
+/*
+etlatch etlatch3(Rin => R2, Aout => A3, Ain => A2, Rout => R3, D => D3, 
+                 E => E3, A => AA3, Ck => Ck3);
+*/
+process D1;
+    *[ [E1+]; D1+; [E1-]; D1- ]
+endprocess
+
+process D2;
+    *[ [E2+]; D2+; [E2-]; D2- ]
+endprocess
+/*
+process D3;
+    *[ [E3+]; D3+; [E3-]; D3- ]
+endprocess
+*/
+process leftenv;
+    *[ R0+; [A0+]; R0-; [A0-] ]
+endprocess
+
+process rightenv;
+    *[ [R2+]; A2+; [R2-]; A2- ]
+endprocess
+
+endmodule
+

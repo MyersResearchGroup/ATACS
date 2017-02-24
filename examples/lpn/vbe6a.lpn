@@ -1,0 +1,37 @@
+# Peter Vanbekbergen's Arbiter
+# from Tau '90
+# Page 14
+# Fig. 6 (d) (CSC version)
+.inputs r1 r2 r3 r4
+.outputs a1 a2 a3 a4
+.internal x0 x1
+#@.init_state [1111000000]
+.graph
+a1+ r1- x0+
+x0+ a1-
+r1- a1-
+a1- r1+ a2+
+r1+ a1+
+
+a2+ r2- x1+
+x1+ a2-
+r2- a2-
+a2- r2+ a3+
+r2+ a2+
+
+a3+ r3- x0-
+x0- a3-
+r3- a3-
+a3- r3+ a4+
+r3+ a3+
+
+a4+ r4- x1-
+x1- a4-
+r4- a4-
+a4- r4+ a1+
+r4+ a4+
+
+.marking {<r1+,a1+> <r2+,a2+> <r3+,a3+> <a4-,a1+> <r4+,a4+>}
+# The next statement is optional
+# .initial r1=0 r2=1 (etc) 
+.end

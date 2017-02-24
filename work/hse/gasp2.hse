@@ -1,0 +1,23 @@
+include gasp;
+
+module main;
+
+input c0 = {<35,1000;18,18>};
+input din = {<0,0>};
+input s2 = {true,<20,1000;10,10>};
+
+gasp gasp1(ci => c0, so => s0, di => din, co => c1, si => s1, do => d1);
+gasp gasp2(ci => c1, so => s1, di => d1,  co => c2, si => s2, do => d2);
+
+testbench sender;
+*[ c0+; [~s0]; c0-; [s0] ]
+endtestbench 
+
+testbench datain;
+*[ [c0]; din+; [~c0]; [c0]; din-; [~c0] ]
+endtestbench
+
+testbench receiver;
+*[ [c2]; s2-; s2+; [~c2] ]
+endtestbench
+endmodule

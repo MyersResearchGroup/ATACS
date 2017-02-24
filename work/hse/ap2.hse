@@ -1,0 +1,22 @@
+/*****************************************************************************/
+/* Active/Passive buffer */
+/*****************************************************************************/
+module AP;
+    
+    input  Ln;
+    input  Rreq;
+    output Lreq;
+    output Rn;
+
+    process main;
+    *[ Lreq+;  [Ln & Rreq];  Rn+;  ((Lreq-; [~Ln]) || [~Rreq -> Rn-]) ]
+    endprocess
+
+    testbench r;
+    *[ Rreq+; [Rn]; Rreq-; [~Rn] ]
+    endtestbench
+
+    testbench l;
+    *[ [Lreq]; Ln+;  [~Lreq]; Ln- ]
+    endtestbench
+endmodule

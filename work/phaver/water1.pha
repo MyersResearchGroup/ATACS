@@ -1,0 +1,36 @@
+-- PHAVer input file
+-- water example
+
+maxlevel:=12;
+minlevel:=1;
+
+automaton water
+state_var: x,y;
+synclabs: dummy;
+
+loc on_0: while y<=10 wait {y==1 & x==1}
+  when y==10 sync dummy do {x' == 0 & y' == y} goto on_1;
+
+loc on_1: while x<=2 wait {y==1 & x==1}
+  when x==2 sync dummy do {x' == x & y' == y} goto off_0;
+
+loc off_0: while y>=5 wait {y==-2 & x==1}
+  when y==6 sync dummy do {x' == 0 & y' == y} goto off_1;
+
+loc off_1: while x<=2 wait {y==-2 & x==1}
+  when x==2 sync dummy do {x' == 0 & y' == y} goto on_0;
+
+initially on_0 & y==2 & x==1;
+
+end
+
+sys=water;
+
+reg=sys.reachable_stop({
+on_0 & (y < maxlevel | y > minlevel),
+on_1 & (y < maxlevel | y > minlevel),
+off_0 & (y < maxlevel | y > minlevel),
+off_1 & (y < maxlevel | y > minlevel)
+});
+echo "Reachable forbidden states empty?";
+reg.is_empty;

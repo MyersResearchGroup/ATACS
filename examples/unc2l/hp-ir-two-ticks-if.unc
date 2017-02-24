@@ -1,0 +1,19 @@
+input	ITEventReq               0
+input	ITEvent2Ticks            0
+input	ITEventStop              0
+input	ITSoftResetReq           1
+output	IntEventReq              0
+output	TwoTicksResetAck         1
+output	zzz00                    0
+output	zzz01                    1
+
+0  1	ITSoftResetReq-          | TwoTicksResetAck- 
+1  2	ITEventReq+              | IntEventReq+ 
+2  3	ITEventStop+             | 
+3  4	ITEventReq-              | IntEventReq- 
+4  1	ITEventStop-             | 
+2  0	ITSoftResetReq+ ITEventReq- | IntEventReq- TwoTicksResetAck+ 
+2  5	ITEvent2Ticks+           | zzz00+ zzz01- 
+5  6	ITEventReq- ITEvent2Ticks- | zzz00- 
+6  2	ITEventReq+              | zzz01+ 
+6  0	ITSoftResetReq+          | IntEventReq- TwoTicksResetAck+ zzz01+ 

@@ -1,0 +1,53 @@
+-- billiards example, see TCS paper
+
+-- PHAVer input file
+
+vx:=1;
+vy:=2;
+xg:=0;
+yg:=0;
+xw:=2;
+yw:=0;
+leng:=3;
+ht:=8;
+
+automaton billiards
+state_var: x,y;
+synclabs: dummy;
+
+loc northeast: while 0<=x & x<=leng & 0<=y & y<=ht wait {x==vx & y==vy}
+  when x==leng do {x'==x & y'==y} sync dummy goto northwest;
+  when y==ht   do {x'==x & y'==y} sync dummy goto southeast;
+
+loc northwest: while 0<=x & x<=leng & 0<=y & y<=ht wait {x==-vx & y==vy}
+  when x==0    do {x'==x & y'==y} sync dummy goto northeast;
+  when y==ht   do {x'==x & y'==y} sync dummy goto southwest;
+
+loc southeast: while 0<=x & x<=leng & 0<=y & y<=ht wait {x==vx & y==-vy}
+  when x==leng do {x'==x & y'==y} sync dummy goto southwest;
+  when y==0    do {x'==x & y'==y} sync dummy goto northeast;
+
+loc southwest: while 0<=x & x<=leng & 0<=y & y<=ht wait {x==-vx & y==-vy}
+  when x==0    do {x'==x & y'==y} sync dummy goto southeast;
+  when y==0    do {x'==x & y'==y} sync dummy goto northwest;
+
+initially northeast & x==xg & y==yg;
+end
+
+sys=billiards;
+reg=sys.reachable;
+
+success=sys.{
+northeast & x==xw & y==yw,
+northwest & x==xw & y==yw,
+southwest & x==xw & y==yw,
+southeast & x==xw & y==yw};
+
+reg.intersection_assign(success);
+
+echo "";
+echo "Reachable success states:";
+reg.print;
+echo "";
+echo "Reachable success states empty?";
+reg.is_empty;

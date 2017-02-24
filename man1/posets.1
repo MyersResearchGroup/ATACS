@@ -1,0 +1,32 @@
+.TH POSETS 1 "28 Septemeber 2001" "" ""
+.SH NAME
+posets \- POSET Timing Analysis
+.SH SYNOPSIS
+.nf
+.BI atacs " -ts"
+.br
+.BI atacs> " posets"
+.fi
+.SH DESCRIPTION
+.B posets
+is a timing analysis method that uses a partial order sets (POSETs) to build 
+larger zones in the timing analysis.  Conflict semantics is timing dependent.
+.SH OPTIONS
+.TP
+.BI \-ts
+Enables the posets method from the command line.
+.TP
+.BI posets
+Enables the posets method in the interactive shell.
+.SH CREDITS
+.B posets
+was primarily written by Wendy Belluomini (wendy@vlsigroup.elen.utah.edu).
+.SH BUGS
+.SH FILES
+.SH "SEE ALSO"
+.BR untimed (1)
+.BR geometric (1)
+.BR bag (1)
+.BR bap (1)
+.BR baptdc (1)
+.BR http://www.async.ece.utah.edu

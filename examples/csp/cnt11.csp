@@ -1,0 +1,32 @@
+/*****************************************************************************/
+/* A counter which counts to eleven.                                         */
+/*****************************************************************************/
+module cnt11;
+
+input cnt={<19,20>};
+output q0={<1,5>};
+output q1={<1,5>};
+output q2={<1,5>};
+output q3={<1,5>};
+output o0={<1,5>};
+output o1={<1,5>};
+output o2={<1,5>};
+output o3={<1,5>};
+output done={<1,5>};
+
+process cnt11;
+    *[ cnt+; q0+; cnt-; o0+; 
+       cnt+; (q1+ || q0-); cnt-; (o1+ || o0-); 
+       cnt+; q0+; cnt-; o0+; 
+       cnt+; (q2+ || q1- || q0-); cnt-; (o2+ || o1- || o0-); 
+       cnt+; q0+; cnt-; o0+;  
+       cnt+; (q1+ || q0-); cnt-; (o1+ || o0-); 
+       cnt+; q0+; cnt-; o0+;
+       cnt+; (q3+ || q2- || q1- || q0-); cnt-; (o3+ || o2- || o1- || o0-); 
+       cnt+; q0+; cnt-; o0+;
+       cnt+; (q1+ || q0-); cnt-; (o1+ || o0-); 
+       cnt+; (q3- || q1- || done+); cnt-; (o3- || o1- || done-)
+     ]
+endprocess
+
+endmodule

@@ -1,0 +1,623 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright (c) 2002 Scott Little <little@eng.utah.edu>
+%%
+%% File Name     : user.tex
+%% Author        : Scott R. Little
+%% E-mail        : little@eng.utah.edu
+%% Date Created  : 11/01/2002
+%%
+%% Description   : An ATACS user manual.
+%%
+%% ToDo          :
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[titlepage,11pt]{article}
+\textwidth 6.5in
+\textheight 9in
+\oddsidemargin -0.2in
+\topmargin -0.5in
+\usepackage{indentfirst,graphics,alltt,epsfig,color}
+
+\title{The ATACS User's Manual}
+\date{Created: November 1, 2002\\
+  Last Revised: December 2, 2002
+}
+
+\begin{document}
+  \maketitle
+
+  %show only subsection granularity in the toc
+  \setcounter{tocdepth}{2} 
+  
+  \tableofcontents
+  \newpage
+  
+  \setlength{\parindent}{0em}
+  \setlength{\parskip}{10pt}
+
+  \section{Introduction \& Purpose}  
+  This document intends to cover the material required to use ATACS.
+  Basic understanding of asynchronous circuits and CAD tools is
+  assumed.  The main focus of this document will be the command line
+  operation of ATACS.  A web based and graphical version of ATACS do
+  exist, but if the command line version is well understood then using
+  the other versions is not difficult.
+  
+  \section{Basic Operation}
+  ATACS is a CAD tool designed for synthesis and/or verification of
+  timed circuits.  The command line version of ATACS has two modes.
+  There is an interactive and noninteractive mode.  To enter
+  interactive mode simply execute the ATACS binary from the command
+  line.  A prompt will appear and then commands and options can be
+  given and executed one at a time.  To get a list of commands type
+  help and hit enter.   A list of valid commands are then listed.
+  Typing quit and hitting enter will exit the program.  The available
+  commands and options are explained in detail in the next section.
+
+  To use the noninteractive mode the ATACS binary is run with a number
+  of options and commands followed by any number of input files.  If
+  you are used to the standard Unix command structure ATACS will
+  operate a bit differently than you might first expect.  The reason
+  for this difference is that the command line flags are not strictly
+  options.  Both commands and options can be give to ATACS on the
+  command line.
+
+  \subsection{Environment Variables}
+  There are a few environment variables that are required for certain
+  ATACS functionality.  ATACS does use some third party applications
+  which require other environment variables.  Discussion of these
+  programs can be found in the Developer's Manual if more information
+  is required.
+
+  The two environment variables that should be set to run ATACS are
+  the ATACS and ATACSHELP variables.  These should be set to your top
+  level ATACS directory.  For example, here are some lines that can be
+  modified if necessary and added to your .cshrc file.  If you use
+  another shell you should be able to figure out how to adapt the
+  lines.
+  \begin{verbatim}
+    setenv ATACS ${HOME}/atacs
+    setenv ATACSHELP ${ATACS}
+  \end{verbatim}
+  
+  \section{Commands vs. Options}
+  Using ATACS in noninteractive mode is the most common way to use
+  ATACS among the developers because it lends itself to easily
+  scripting common operations.  In some respects the ATACS command
+  line is a scripting language in itself.  The command line flags are
+  a combination of commands and options.  When a command is parsed it
+  is executed with the current options.  When the command returns
+  ATACS will continue processing the command line and executing the
+  remaining command line flags.  Each of the commands and options will
+  be described followed by a short section of examples to help clarify
+  the material.
+  
+  \subsection{Commands}
+  Commands are simply actions that ATACS will perform when that
+  particular command is parsed.
+  
+  \subsubsection{load, -l?}
+  The load command is used to load an external specification into the
+  internal ATACS data structures in preparation for processing.
+  Currently ATACS supports the following input formats:
+  CSP(-lc,loadcsp), HSE(-lh,loadhse), VHDL(-lv,loadvhdl),Petri
+  Nets(-lg,loadg), Level-Ruled Petri Nets(-ln,loadlpn), Extended Burst
+  Mode Machines(-lx,loadxbm), ER(-le,loader), Timed Event Level
+  structures(-lt,loadtel), and RSG(-ls,loadrsg).  These formats may
+  not be completely clear, but they are described later in this
+  document in the file formats section.
+  
+  \subsubsection{store, -s?}
+  The store command is used to tell ATACS how to store the results it
+  generates.  The formats here do overlap a bit with input formats
+  which can be useful.  The supported output formats are: Petri
+  Net(-sg,storeg), ER(-se,storeer), RSG(-ss,storersg), State
+  Graph(-sm,storesg), PRS(-sp,storeprs), Net(-sn,storenet), and
+  VHDL(-sv,storevhdl).  These formats are described more completely
+  later in this document in the file formats section.
+  
+  \subsubsection{display, -d?}
+  The display command is used to display the different types of graph
+  structures using Tom Rokicki's parg program or Bell Lab's Dot
+  program.  Setup and installation of these programs is described in
+  the Developer's Manual.  All of the options can be displayed with
+  both programs except for NET which is only viewable using dot.  The
+  supported display options are: ER(-de,shower), LPN(-dl,showlpn),
+  RSG(-ds,showrsg), STATS(-dz,showstat), Net(-dn,shownet).  STATS is
+  an RSG that has been annotated with the steady state probability of
+  being in each state.  It is also important to note that Net in the
+  display section is different from Net format used in store.  The Net
+  format used in the display section actually displays a diagram of
+  the current circuit.
+  
+  \subsubsection{print, -p?}
+  The print command is used to display and print the different types
+  of graph structures using Tom Rokicki's parg program or Bell Lab's Dot
+  program.  The supported print commands are: ER(-pe,printer),
+  LPN(-pl,printlpn), RSG(-ps,printrsg), (-pz,printstat),
+  REG(-pr,printreg), NET(-pn,printnet).  The STAT and NET options are
+  the same types as are used in the display section.  The REG option
+  is new and is used to print grf files for each signal and each type
+  of region associated with the signal.  REG can only be displayed
+  using Parg.
+  
+  \subsubsection{synthesis, -y?}
+  The synthesis command allows the user to select the synthesis method
+  to be used.  The valid synthesis commands are: single(-ys,single),
+  multicube(-ym,multicube), bdd(-yb,bdd), direct(-yd,direct).  The
+  single method uses a single-cube algorithm for synthesis which
+  attempts to find a single cube implementation for each excitation
+  region.  The multicube method uses a multi-cube algorithm where
+  primes are found using espresso and candidate primes are added when
+  necessary to find an optimal cover.  The bdd method uses BDDs to
+  represent all possible covers.  The direct method for synthesis
+  doesn't generate a state graph, but uses the heuristic timing
+  analysis.  The heuristic command should also be executed with this
+  synthesis command.
+  
+  \subsubsection{analysis, -a?}
+  The analysis commands are used to compute statistical information
+  about the cycle period of the circuit.  The valid commands are:
+  simcyc(-as,simcyc), and profile(-ap,profile).  The simcyc command
+  runs a user specified number of random simulations to determine the
+  average cycle period of the design.  The results are written to a
+  \verb1<1design\verb1>1.stats file.  This file contains the
+  observations computed from each simulation run and a set of summary
+  statistics.  The profile command simply computes the cycle period
+  profile.  
+  
+  \subsubsection{verify, -v?}
+  The verify command will verify certain properties about the circuit
+  or specification.  The valid verify commands are: atacs(-va,verify),
+  orbits(-vo,verorbits), and search(-vs,search).  
+  
+  \subsection{Options}
+
+  \subsubsection{timing methods, -t?}
+  There are six possible timing methods to choose from:
+  untimed(-tu,untimed), geometric(-tg,geometric), POSETs(-ts,posets),
+  BAG(-tb,bag), BAP(-tp,bap), and BAPTDC(-tt,baptdc).  The untimed
+  method ignores all timing information which has been provided and
+  synthesizes a speed-independent circuit.  The geometric method uses
+  geometric regions (or zones) to represent the timing information
+  during state space exploration. The POSETs method also uses zones,
+  but it also uses a POSET matrix to track timing relationships
+  between events. The usual result is that larger zones are produced
+  resulting in a smaller number of zones being needed to represent the
+  timed state space.  This typically results in much faster and memory
+  efficient timed state space exploration.  The BAG (Bourne Again
+  Geometric) method is the same as the geometric method except that it
+  uses a time-independent choice semantics.  In other words, when
+  there is a choice in the specification, the choice is made first and
+  only then is a timing assignment made.  The BAP (Bourne Again
+  POSETs) method is similar to POSETs except that it uses only one
+  matrix to represent each time state, the POSET matrix, rather than
+  two.  The BAP method is time-independent while BAPTDC (BAP
+  Time-Dependent Choice) uses a time-dependent choice semantics.
+
+  \subsubsection{timing options, o?}
+  There are three possible timing options: abstract(-oa,abstract),
+  po(-op,pored), and nofail(-of,nofail).  The abstract method allows
+  for irrelevant environment information to be marked and abstracted
+  away which allows for more efficient timing analysis.  The po method
+  turns on the partial order reduction method to improve the
+  efficiency of timing analysis for synthesis and verification.
+  
+  \subsubsection{technology options, -o?}
+  There are five possible target technologies: atomic
+  gates(-ot,atomic), generalized-C(-og,gc), standard-C(-os,gatelevel),
+  burst-mode gC(-ob,burstgc), and burst-mode 2-level(-obol,burst2l).  An
+  atomic gate is one in which all delay can be assumed to be at the
+  output of the logic function.  Using this technology, one
+  combinational logic gate is created for each output signal.  A
+  generalized C-element is a gate which is composed of an arbitrary
+  sum-of-products function to pullup the signal as well as an arbitrary
+  pulldown network.  The generalized-C switch states that you are
+  mapping to such gates.  These gC gates can be decomposed into ANDs,
+  ORs, and a single Muller C-element.  This structure is called a
+  standard C-element and requires differenct correctness conditions to
+  guarantee hazard-freedom on all internal signals. Selecting standard-C
+  produces correct timed circuits for libraries with only ANDs, ORs, and
+  a C-element.  The burst-mode gC options produces correct generalized
+  C-element circuits under burst-mode assumptions while burst-mode
+  2-level produces correct 2-level sum of products solutions also under
+  burst-mode assumptions.
+  
+  \subsubsection{other options, -o?}
+  There are two other options: dot(-od,dot) and verbose(-ov,verbose).
+  The dot option tells ATACS to use the Bell Labs DOT tool for
+  displaying graphs.  The verbose option causes ATACS to save all
+  intermediate files not only just the final result.
+  
+  \subsubsection{miscellaneous}
+  There are two remaining options which affect circuit parameters:
+  maximum fan-in for a gate(-M\#,maxsize) and default gate
+  delay(-G\#/\#,gatedelay).  The maximum fan-in is a measure of the
+  allowable number of transistors in a single stack in a gC.  The
+  default value is 4.  The default gate delay sets the lower and upper
+  timing bounds on the delay of a gate.  The default values are <0,1>.
+  
+  \subsection{Examples}
+  
+  \section{File Types}
+  ATACS uses a number of different file types. There are csp files,
+  handshaking expansion files (HSE), VHDL files, signal transition
+  graph files (G), burst-mode state machine files (UNC), timed
+  event-rule structure files (ER), timed event/level structure file
+  (TEL), and a reduced state graph file (RSG).  Each type is described
+  in detail below.
+  
+  \subsection{CSP Files}
+  A brief description of the constructs found in CSP files is given below.
+ 
+  \subsubsection{Modules}
+  A module is composed of a name, set of delay macros, signal
+  declarations, and process statements.  For example:
+  
+  \begin{quote}
+    
+    /* A simple inverter */\\
+    \textbf{module} mycircuit;
+    
+    \textbf{delay} mygates = \verb!<!2,3; 1,2\verb!>!;
+    
+    \textbf{input} a;\\
+    \textbf{output} b = {true, mygates};\\
+    
+    \textbf{process} inverter;\\
+    \verb1*1[ [a+]; b-; [a-]; b+ ]\\
+    endprocess\\
+      
+    \textbf{process} environment;\\
+    \verb1*1[ a+; [b-]; a-; [b+] ]\\
+    \textbf{endprocess}\\
+    \textbf{endmodule}
+    
+  \end{quote}
+  
+  NOTE: text enclosed in /* and */  are comments.
+  
+  \subsubsection{Delay macros}
+  A delay macro is composed of the keyword delay, an identifier, a lower
+  and upper bound for rising transitions, and a lower and upper bound
+  for falling transitions.  For example:
+  
+  \begin{quote}
+    \textbf{delay} mygates = \verb1<12,3; 1,2\verb1>1;
+  \end{quote}
+  
+  This delay macro is used to specify signals which have rising signal
+  transtions that occur between 2 and 3 time units after becoming
+  enabled, and falling transitions that occur between 1 and 2 time units
+  after becoming enabled.
+  
+  \subsubsection{Signal declarations}
+  A signal declaration is composed of a type (either it is an
+  \textbf{input} or an \textbf{output} signal), an identifier, an intial
+  value for the signal (either \textbf{true} or \textbf{false}, where
+  \textbf{false} is the default), and a delay specification (where
+  \verb1<10,infinity\verb1>1 is the default).  For example:
+  
+  \begin{quote}
+    \textbf{input} a = {\textbf{false}, mygates}; /* a is an input
+    signal which is initially false with a delay of 0 to infinity. */
+    
+    \textbf{output} b = {\textbf{true}, mygates}; /* b is an output
+    signal which is initially true with a delay specified by the delay
+    macro mygates. */
+  \end{quote}
+  
+  \subsubsection{Process statements}
+  A process statement is composed of a name and a sequence of statements
+  describing the behavior of the process. These statements can be
+  combined either in sequence ";" or in parallel "\verb1||1".  There are two
+  basic types of statements: signal transitions and guarded commands.
+  For each signal s, there are two signal transitions s+ which indicates
+  that s goes from false to true and s- which indicates that s goes from
+  true to false.  A guarded command is of the form:
+  
+  \begin{quote}
+    [ guard1 -\verb1>1 statements1\\
+      \verb1|1 guard2 -\verb1>1 statements2\\
+      \verb1|1 etc.\\
+    ]
+  \end{quote}
+  
+  Each guard is a boolean condition which when true allows the
+  statements following it to occur.  For example, the following
+  guarded command states that if signals a and b both rise, then c
+  is set to true.  Otherwise, if either c or d fall, then e is set
+  to true.
+  
+  \begin{quote}
+    [ a+ \& b+ -\verb1>1 c+\\
+      \verb1|1 c- \verb1|1 d- -\verb1>1 e+ ]
+  \end{quote}
+  
+  Guarded commands can also loop back to the beginning of the statement
+  when the list of statements ends with a "*".  For example,
+  
+  \begin{quote}
+    [ done- -\verb1>1 req+; [ack+]; req-; [ack-]; *\\
+      \verb1|1  done+ -\verb1>1 skip\\
+    ]; end+
+  \end{quote}
+  
+  The guarded commands above loops until done rises, then it sets end to
+  true.  Finally, there are a couple of shorthands of interest.  The
+  first is [guard -\verb1>1 skip] is abbreviated as [guard]. The second is
+  [true -\verb1>1 statements;*] is abbreviated as *[statements].  For example,
+  
+  \begin{quote}
+    \textbf{process} inverter;
+    
+     [ true -\verb1>1 [a+ -\verb1>1 skip]; b-; [a- -\verb1>1 skip]; b+;
+       \verb1*1 ]
+     
+     \textbf{endprocess}
+  \end{quote}
+  
+  Can be rewritten as:
+  
+  \begin{quote}
+    \textbf{process} inverter;\\
+    \verb1*1[ [a+]; b-; [a-]; b+ ]\\
+    \textbf{endprocess}
+  \end{quote}
+  
+  \subsection{HSE Files}
+  A brief description of the constructs found in HSE files is given below.
+  
+  \subsubsection{Modules}
+  A module is composed of a name, set of delay macros, signal
+  declarations, and process statements.  For example:
+  
+  \begin{quote}
+    /* A simple inverter */\\
+    \textbf{module} mycircuit;
+    
+    \textbf{delay} mygates = \verb1<12,3; 1,2\verb1>1;
+    
+    \textbf{input} a;\\
+    \textbf{output} b = {\textbf{true}, mygates};
+    
+    \textbf{process} inverter;\\
+    \verb1*1[ [a]; b-; [\verb1~1a]; b+ ]\\
+    \textbf{endprocess}
+    
+    \textbf{process} environment;\\
+    \verb1*1[ a+; [\verb1~1b]; a-; [b] ]\\
+    \textbf{endprocess}\\
+    \textbf{endmodule}
+  \end{quote}
+  
+  NOTE: text enclosed in /* and */  are comments.
+  
+  \subsubsection{Delay macros}
+  A delay macro is composed of the keyword delay, an identifier, a lower
+  and upper bound for rising transitions, and a lower and upper bound
+  for falling transitions.  For example:
+  
+  \begin{quote}
+    \textbf{delay} mygates = \verb1<12,3; 1,2\verb1>1;
+  \end{quote}
+  
+  This delay macro is used to specify signals which have rising signal
+  transtions that occur between 2 and 3 time units after becoming
+  enabled, and falling transitions that occur between 1 and 2 time units
+  after becoming enabled.
+  
+  \subsubsection{Signal declarations}
+  A signal declaration is composed of a type (either it is an
+  \textbf{input} or an \textbf{output} signal), an identifier, an intial
+  value for the signal (either \textbf{true} or \textbf{false}, where
+  \textbf{false} is the default), and a delay specification (where
+  \verb1<10,infinity\verb1>1 is the default).  For example:
+  
+  \begin{quote}
+    input a = {false, mygates}; /* a is an input signal which is
+    initially false with a delay of 0 to infinity. */
+
+    output b = {true, mygates}; /* b is an output signal which is
+    initially true with a delay specified by the delay macro mygates. */
+  \end{quote}
+  
+  \subsubsection{Process statements}
+  A process statement is composed of a name and a sequence of statements
+  describing the behavior of the process. These statements can be
+  combined either in sequence ";" or in parallel "\verb1||1".  There are two
+  basic types of statements: signal transitions and guarded commands.
+  For each signal s, there are two signal transitions s+ which indicates
+  that s goes from false to true and s- which indicates that s goes from
+  true to false.  A guarded command is of the form:
+  
+  \begin{quote}
+    [ guard1 -\verb1>1 statements1\\
+      \verb1|1 guard2 -\verb1>1 statements2\\
+      \verb1|1 etc.\\
+    ]
+  \end{quote}
+  
+  Each guard is a boolean condition which when true allows the
+  statements following it to occur.  For example, the following guarded
+  command states that if signals a and b are both true, then c is set to
+  true.  Otherwise, if neither a or b is true, then d is set to true.
+  
+  \begin{quote}
+    [ a \& b -\verb1>1 c+\\
+      \verb1|1 \verb1~1a \verb1|1 \verb1~1b -\verb1>1 d+\\
+    ]
+  \end{quote}
+  
+  Guarded commands can also loop back to the beginning of the statement
+  when the list of statements ends with a "*".  For example,
+  
+  \begin{quote}
+    [ \verb1~1done -\verb1>1 req+; [ack]; req-; [\verb1~1ack]; *\\
+      \verb1|1  done -\verb1>1 skip\\
+    ]; end+
+  \end{quote}
+  
+  The guarded commands above loops until done is true, then it sets end
+  to true.  Finally, there are a couple of shorthands of interest.  The
+  first is [guard -\verb1>1 skip] is abbreviated as [guard]. The second is
+  [true -\verb1>1 statements;*] is abbreviated as *[statements].  For example,
+  
+  \begin{quote}
+    \textbf{process} inverter;
+  
+     [ true -\verb1>1 [a -\verb1>1 skip]; b-; [\verb1~1a -\verb1>1 skip]; b+; *
+     ]
+     
+     \textbf{endprocess}
+  \end{quote}
+  
+  Can be rewritten as:
+  
+  \begin{quote}
+    \textbf{process} inverter;\\
+    \verb1*1[ [a]; b-; [\verb1~1a]; b+ ]\\
+    \textbf{endprocess}
+  \end{quote}
+  
+  \subsection{VHDL Files}
+  A brief description of the constructs found in VHDL files is given below.
+  
+  \subsection{G Files}
+  A brief description of the constructs found in G files is given below.
+
+  \subsection{ER Files}
+
+  \subsection{TEL Files}
+
+  \subsection{RSG Files}
+  
+  \subsection{UNC Files}
+  A brief description of the constructs found in UNC files is given below.
+  
+  \subsection{Action}
+  You can select to either do synthesis and verification.  The result of
+  synthesis is either a logic description of a circuit as a set of
+  production rules that implements the given specification, or an error
+  message stating why the circuit could not be produced.  The result of
+  verification is either a message that no errors were found during
+  state space exploration or a trace that indicates a sequence of
+  transitions leading to the error.
+  
+  \subsection{ATACS errors}
+  There are several reasons that ATACS may not be able to produce a
+  circuit.  The first is there is a syntax error in your specification.
+  If this is the case, a line number where the error is discovered
+  should be reported.
+  
+  The second is the graph generated from the timed handshaking expansion
+  may have some problems.  It may not be live which means that there is
+  not enough tokens in the graph and the system will deadlock.  It may
+  not be safe which indicates that there are too many tokens in the
+  graph.  Your specification needs to modified to make it work.  Be sure
+  that your initial values for your signals is set properly.
+  
+  The third is during state space exploration an error may be
+  encountered such as an unexpected deadlock.  Again, this indicates a
+  problem with your initial specification.
+  
+  Fourth, your specification may not satisfy complete state coding (or
+  CSC).  This means there exists two states with the same binary code
+  which have different outputs enabled to change.  In such a
+  situation, a circuit cannot be produced as it is unable to tell what
+  to do when it is in such a state.  If this is the case, you need to
+  either add a state variable to solve the state coding problem,
+  rearrange your signal transitions (i.e., reshuffling), or change the
+  timing specification to remove the state(s).
+  
+  Fifth, your specification may be non-persistent.  For example if a+
+  causes b+ and c+, but a- can occur after b+ but before c+, it is
+  said that a is non-persistent with respect to c+.  In such a
+  situation, no single cube cover existes.  To fix this problem, try
+  using the BDD synthesis method.
+
+  Finally, you may have a unresolvable conflict.  This indicates again
+  that no single-cube cover exists, try using the BDD method.
+
+  \subsection{Production rules}
+  After a circuit is synthesized successfully, ATACS outputs a set of
+  production rules describing the circuit implementation that is needed
+  to realize the specified circuit. The simplest forms are for
+  combinational gates.  For example:
+  
+  [ c: (a \& b)] combinational An AND gate with inputs a and b and output
+  c.
+  
+  [~c: (a \& b)] combinational A NAND gate with inputs a and b and output
+  c.
+  
+  [ c: (a)] combinational The next two represent an OR gate with inputs
+  [ c: (b)] combinational a and b and output c.
+  
+  Often, the implementation uses gates called generalized C-elements (or
+  gC).  These gates an aribitrary sum-of-products pullup stack to set
+  the signal to true, and an arbitrary sum-of-products pulldown stack to
+  set the signal to false.  For example:
+  
+  [+c:(a \& b)] These two productions describe a Muller C-element.
+  
+  [-c:(~a \& ~b)] [+c:(a \& b)] These two productions describe a
+  gC-element which sets c to true [-c:(~a)] when a and b are true, but
+  resets when only a is false.
+  
+  \section{Flags I use}
+  Which flags to test against your stuff w/ and w/out posets?
+  
+  atacs -oOofoplcsgllva \verb1<1filename\verb1>1\\
+  oO - no orbits match (does not make sense with LPNs)\\
+  of - ignore failures (important if you want to play with disablings)\\
+  op - use partial orders (remove if you don't want partial orders)\\
+  lc - load csp file (or lh - load hse, lv - load vhdl)\\
+  sg - store Petri net file\\
+  ll - load LPN\\
+  va - verify\\
+  
+  Note if file is a .g file then you can skip the lgsg and just do:\\
+  atacs -oOofopllva
+  
+  Which flags to test against Eric's stuff w/ and w/out posets?
+  
+  atacs -tpofopva \verb1<1filename\verb1>1\\
+  tp - use bap timing method\\
+  rest are same\\
+  
+  Which flags to test against my stuff w/ and w/out posets?
+  
+  Same as mine except begin with -tS, ex.
+  
+  atacs -tSoOofoplcsgllva \verb1<1filename\verb1>1
+  
+  -----
+  
+  I'm debugging my timing method, and usually the problem is with the 
+  transformed net rather than the method.  Namely, in my previous email I 
+  said that:
+  
+  atacs -lcsg
+  
+  or
+  
+  atacs -lhsg
+  
+  would translate a csp/hse file to a g file.  
+  
+  This does not always do a good job of it, and the resulting graph does not 
+  have the same behavior.  
+  
+  To check this, do
+  
+  atacs -lcde  or atacs -lhde
+  
+  and compare the resulting net with the one from:
+  
+  atacs -lldl
+  
+  If they look different, this may indicate a problem.
+  
+\end{document}

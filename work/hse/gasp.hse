@@ -1,0 +1,98 @@
+module gasp;
+
+delay invdelay = <10,12>;
+delay rstdelay = <27,30>;
+delay scdelay = <10,12>;
+delay srdelay = <0,0;12,100>;
+delay dldelay = <5,8>;
+delay sddelay = <35,1000;18,18>;
+delay rcdelay = <25,1000;10,10>;
+
+input ci = {sddelay};
+input di = {<0,0>};
+input si = {true,rcdelay};
+output co = {invdelay};
+output do = {invdelay};
+output so = {true,scdelay};
+output w1 = {true,srdelay};
+output w2 = {invdelay};
+output w3 = {invdelay};
+output w4 = {dldelay};
+output w5 = {true,invdelay};
+output w6 = {true,rstdelay};
+
+gate sc;
+ ci -> so-
+~w1 -> so+
+endgate
+
+gate inv1;
+~so -> w2+
+ so -> w2-
+endgate
+
+/* Self-resetting */
+gate sr;
+w2 & si -> w1-
+    ~w6 -> w1+ 
+endgate
+
+gate inv6;
+~w1 -> w6-
+ w1 -> w6+
+endgate
+
+/* Ordinary Nand */
+/*
+gate nand;
+ w2 &  si -> w1-
+~w2 | ~si -> w1+
+endgate
+*/
+
+gate inv3;
+~w1 -> co+
+ w1 -> co-
+endgate
+
+gate inv2;
+~w1 -> w3+
+ w1 -> w3-
+endgate
+
+gate dlatch;
+ di & w3 -> w4+
+~di & w3 -> w4-
+endgate
+
+gate inv4;
+ w4 -> w5-
+~w4 -> w5+
+endgate
+
+gate inv5;
+~w5 -> do+
+ w5 -> do-
+endgate
+
+testbench sender;
+*[ ci+; [~so]; ci-; [so] ]
+endtestbench 
+
+testbench datain;
+*[ [ci]; di+; [~ci]; [ci]; di-; [~ci] ]
+endtestbench
+
+testbench receiver;
+*[ [co]; si-; si+; [~co] ]
+endtestbench
+
+constraint bad1;
+w1 -> ci+
+endconstraint
+
+constraint bad2;
+~ci -> w1-
+endconstraint
+
+endmodule

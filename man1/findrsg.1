@@ -1,0 +1,31 @@
+findrsg <filename>
+.PP
+This function finds the reduced state graph, and it stores it
+to the file named <filename>.rsg using the following format:
+.PP
+SG:
+.br
+STATEVECTOR:INP signal INP signal ... signal signal ...
+.br
+STATES:
+.br
+<state>
+.PP
+Each state bit in a state is coded as follows:
+.br
+0 - stable low
+.br
+R - currently low, but it is enabled to rise
+.br
+1 - stable high
+.br
+F - currently high, but it is enabled to fall
+.PP
+If the graph could be potentially reduced further with more
+cycles, a warning is printed.  The reduced state graph is also
+checked if it satisfies complete state coding (CSC) property.
+A CSC violation occurs if two states have the same state code,
+but different output signals are enabled.  If there are CSC
+violations, an exception is raised and each pair of states
+causing a violation is stored to the file <filename>.err.
+

@@ -1,0 +1,4 @@
+[+out: (ss & r & ~en)]
+[+out: (~ss & ~r & en)]
+[-out: (r & en)]
+[-out: (~r & ~en)]

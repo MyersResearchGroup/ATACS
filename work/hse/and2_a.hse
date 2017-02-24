@@ -1,0 +1,76 @@
+/* Added comment to see what happens */
+/*
+--------------------------------------------------------------------------
+ ** pre-charged half-buffer and gate
+ ** command line: 
+ ** atacs -mV -mz -mU -mP -mT -ms -mD -lh -M20 -ya -sv and2_a.hse
+ **
+ ** and2_a.prs
+ **
+ */
+module and2_a;
+
+delay onegate = <200, 300>;
+delay envdelay = <200, inf; 200, inf>;
+
+output en = {true, onegate};
+
+input a0 = {false, envdelay};
+input a1 = {false, envdelay};
+
+input b0 = {false, envdelay};
+input b1 = {false, envdelay};
+
+input  ce = {false, envdelay};
+output c0 = {false, onegate};
+output c1 = {false, onegate};
+
+
+process main;
+*[ 
+   [ce];
+
+   [  a0      -> ( c0+ || [b0 | b1])|
+      b0      -> ( c0+ || [a0 | a1])|
+      a1 & b1 ->   c1+ ]; 
+ 
+
+ /*  [ b0 & a0 -> c0+ |
+     a0 & b1 -> c0+ |
+     a1 & b0 -> c0+ |
+     a1 & b1 -> c1+ ]; 
+ */
+
+   en-;
+   [~ce];
+   [ c0 -> c0- | c1 -> c1- ];
+   [ ~a0 & ~a1 & ~b0 & ~b1 ];
+   en+
+]
+endprocess
+
+process a;
+*[ [ true -> a0+ | true -> a1+ ]; 
+   [~en]; 
+   [ a0 -> a0- | a1 -> a1- ]; 
+   [en]
+ ]
+endprocess
+
+process b;
+*[ [ true -> b0+ | true -> b1+ ]; 
+   [~en]; 
+   [ b0 -> b0- | b1 -> b1- ]; 
+   [en]
+ ]
+endprocess
+
+process c;
+*[ ce+; 
+   [ c0 | c1 ]; 
+   ce-; 
+   [ ~c0 & ~c1 ] 
+ ]
+endprocess
+
+endmodule

@@ -1,0 +1,17 @@
+; Locally-clocked Burst-Mode Spec
+; Generated at 10:44 am on Sun, Apr 11, 1993
+;
+;Name   CHU_AD_OPT
+
+input	LA	1
+input	DA	0
+input	ZA	0
+
+output	LR	0
+output	DR	1
+output	ZR	0
+
+  0   1    LA-  DA+  | ZR+
+  1   2    ZA+       | ZR- DR-
+  2   3    ZA-  DA-  | LR+
+  3   0    LA+       | DR+ LR-

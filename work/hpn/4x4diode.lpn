@@ -1,0 +1,314 @@
+.dummy dIl_0 dVc_0 Ilu_0 Vcu_0 dIl_1 dVc_1 Ilu_1 Vcu_1 Vcd_1 dIl_2 dVc_2 Ilu_2 Vcu_2 Vcd_2 dIl_3 dVc_3 Ilu_3 Vcd_3 dIl_4 dVc_4 Ilu_4 Ild_4 Vcu_4 dIl_5 dVc_5 Ilu_5 Ild_5 Vcu_5 Vcd_5 dIl_6 dVc_6 Ilu_6 Ild_6 Vcu_6 Vcd_6 dIl_7 dVc_7 Ilu_7 Ild_7 Vcd_7 dIl_8 dVc_8 Ilu_8 Ild_8 Vcu_8 dIl_9 dVc_9 Ilu_9 Ild_9 Vcu_9 Vcd_9 dIl_10 dVc_10 Ilu_10 Ild_10 Vcu_10 Vcd_10 dIl_11 dVc_11 Ilu_11 Ild_11 Vcd_11 dIl_12 dVc_12 Ild_12 Vcu_12 dIl_13 dVc_13 Ild_13 Vcu_13 Vcd_13 dIl_14 dVc_14 Ild_14 Vcu_14 Vcd_14 dIl_15 dVc_15 Ild_15 Vcd_15 
+
+# Region 0
+# Continuous Arcs
+dIl_0 Il
+dVc_0 Vc
+# Intra-region Arcs
+p_0 Vcu_0 #@ [0,0]
+p_0 Ilu_0 #@ [0,0]
+# Inter-region Arcs
+Vcd_1 p_0 #@ [0,0]
+Ild_4 p_0 #@ [0,0]
+# Test Arcs
+p_0 dIl_0
+p_0 dVc_0
+Vc Vcu_0 #@ /858;inf\ [0,0]
+Il Ilu_0 #@ /208;inf\ [0,0]
+
+# Region 1
+# Continuous Arcs
+dIl_1 Il
+Vc dVc_1
+# Intra-region Arcs
+p_1 Vcd_1 #@ [0,0]
+p_1 Vcu_1 #@ [0,0]
+p_1 Ilu_1 #@ [0,0]
+# Inter-region Arcs
+Vcd_2 p_1 #@ [0,0]
+Vcu_0 p_1 #@ [0,0]
+Ild_5 p_1 #@ [0,0]
+# Test Arcs
+p_1 dIl_1
+p_1 dVc_1
+Vc Vcd_1 #@ /0;808\ [0,0]
+Vc Vcu_1 #@ /2525;inf\ [0,0]
+Il Ilu_1 #@ /208;inf\ [0,0]
+
+# Region 2
+# Continuous Arcs
+Il dIl_2
+Vc dVc_2
+# Intra-region Arcs
+p_2 Vcd_2 #@ [0,0]
+p_2 Vcu_2 #@ [0,0]
+p_2 Ilu_2 #@ [0,0]
+# Inter-region Arcs
+Vcd_3 p_2 #@ [0,0]
+Vcu_1 p_2 #@ [0,0]
+Ild_6 p_2 #@ [0,0]
+# Test Arcs
+p_2 dIl_2
+p_2 dVc_2
+Vc Vcd_2 #@ /0;2475\ [0,0]
+Vc Vcu_2 #@ /4191;inf\ [0,0]
+Il Ilu_2 #@ /208;inf\ [0,0]
+
+# Region 3
+# Continuous Arcs
+Il dIl_3
+Vc dVc_3
+# Intra-region Arcs
+p_3 Vcd_3 #@ [0,0]
+p_3 Ilu_3 #@ [0,0]
+# Inter-region Arcs
+Vcu_2 p_3 #@ [0,0]
+Ild_7 p_3 #@ [0,0]
+# Test Arcs
+p_3 dIl_3
+p_3 dVc_3
+Vc Vcd_3 #@ /0;4141\ [0,0]
+Il Ilu_3 #@ /208;inf\ [0,0]
+
+# Region 4
+# Continuous Arcs
+dIl_4 Il
+dVc_4 Vc
+# Intra-region Arcs
+p_4 Vcu_4 #@ [0,0]
+p_4 Ild_4 #@ [0,0]
+p_4 Ilu_4 #@ [0,0]
+# Inter-region Arcs
+Vcd_5 p_4 #@ [0,0]
+Ild_8 p_4 #@ [0,0]
+Ilu_0 p_4 #@ [0,0]
+# Test Arcs
+p_4 dIl_4
+p_4 dVc_4
+Vc Vcu_4 #@ /858;inf\ [0,0]
+Il Ild_4 #@ /0;158\ [0,0]
+Il Ilu_4 #@ /575;inf\ [0,0]
+
+# Region 5
+# Continuous Arcs
+dIl_5 Il
+Vc dVc_5
+# Intra-region Arcs
+p_5 Vcd_5 #@ [0,0]
+p_5 Vcu_5 #@ [0,0]
+p_5 Ild_5 #@ [0,0]
+p_5 Ilu_5 #@ [0,0]
+# Inter-region Arcs
+Vcd_6 p_5 #@ [0,0]
+Vcu_4 p_5 #@ [0,0]
+Ild_9 p_5 #@ [0,0]
+Ilu_1 p_5 #@ [0,0]
+# Test Arcs
+p_5 dIl_5
+p_5 dVc_5
+Vc Vcd_5 #@ /0;808\ [0,0]
+Vc Vcu_5 #@ /2525;inf\ [0,0]
+Il Ild_5 #@ /0;158\ [0,0]
+Il Ilu_5 #@ /575;inf\ [0,0]
+
+# Region 6
+# Continuous Arcs
+Il dIl_6
+dVc_6 Vc
+# Intra-region Arcs
+p_6 Vcd_6 #@ [0,0]
+p_6 Vcu_6 #@ [0,0]
+p_6 Ild_6 #@ [0,0]
+p_6 Ilu_6 #@ [0,0]
+# Inter-region Arcs
+Vcd_7 p_6 #@ [0,0]
+Vcu_5 p_6 #@ [0,0]
+Ild_10 p_6 #@ [0,0]
+Ilu_2 p_6 #@ [0,0]
+# Test Arcs
+p_6 dIl_6
+p_6 dVc_6
+Vc Vcd_6 #@ /0;2475\ [0,0]
+Vc Vcu_6 #@ /4191;inf\ [0,0]
+Il Ild_6 #@ /0;158\ [0,0]
+Il Ilu_6 #@ /575;inf\ [0,0]
+
+# Region 7
+# Continuous Arcs
+Il dIl_7
+Vc dVc_7
+# Intra-region Arcs
+p_7 Vcd_7 #@ [0,0]
+p_7 Ild_7 #@ [0,0]
+p_7 Ilu_7 #@ [0,0]
+# Inter-region Arcs
+Vcu_6 p_7 #@ [0,0]
+Ild_11 p_7 #@ [0,0]
+Ilu_3 p_7 #@ [0,0]
+# Test Arcs
+p_7 dIl_7
+p_7 dVc_7
+Vc Vcd_7 #@ /0;4141\ [0,0]
+Il Ild_7 #@ /0;158\ [0,0]
+Il Ilu_7 #@ /575;inf\ [0,0]
+
+# Region 8
+# Continuous Arcs
+dIl_8 Il
+dVc_8 Vc
+# Intra-region Arcs
+p_8 Vcu_8 #@ [0,0]
+p_8 Ild_8 #@ [0,0]
+p_8 Ilu_8 #@ [0,0]
+# Inter-region Arcs
+Vcd_9 p_8 #@ [0,0]
+Ild_12 p_8 #@ [0,0]
+Ilu_4 p_8 #@ [0,0]
+# Test Arcs
+p_8 dIl_8
+p_8 dVc_8
+Vc Vcu_8 #@ /858;inf\ [0,0]
+Il Ild_8 #@ /0;525\ [0,0]
+Il Ilu_8 #@ /941;inf\ [0,0]
+
+# Region 9
+# Continuous Arcs
+Il dIl_9
+dVc_9 Vc
+# Intra-region Arcs
+p_9 Vcd_9 #@ [0,0]
+p_9 Vcu_9 #@ [0,0]
+p_9 Ild_9 #@ [0,0]
+p_9 Ilu_9 #@ [0,0]
+# Inter-region Arcs
+Vcd_10 p_9 #@ [0,0]
+Vcu_8 p_9 #@ [0,0]
+Ild_13 p_9 #@ [0,0]
+Ilu_5 p_9 #@ [0,0]
+# Test Arcs
+p_9 dIl_9
+p_9 dVc_9
+Vc Vcd_9 #@ /0;808\ [0,0]
+Vc Vcu_9 #@ /2525;inf\ [0,0]
+Il Ild_9 #@ /0;525\ [0,0]
+Il Ilu_9 #@ /941;inf\ [0,0]
+
+# Region 10
+# Continuous Arcs
+Il dIl_10
+dVc_10 Vc
+# Intra-region Arcs
+p_10 Vcd_10 #@ [0,0]
+p_10 Vcu_10 #@ [0,0]
+p_10 Ild_10 #@ [0,0]
+p_10 Ilu_10 #@ [0,0]
+# Inter-region Arcs
+Vcd_11 p_10 #@ [0,0]
+Vcu_9 p_10 #@ [0,0]
+Ild_14 p_10 #@ [0,0]
+Ilu_6 p_10 #@ [0,0]
+# Test Arcs
+p_10 dIl_10
+p_10 dVc_10
+Vc Vcd_10 #@ /0;2475\ [0,0]
+Vc Vcu_10 #@ /4191;inf\ [0,0]
+Il Ild_10 #@ /0;525\ [0,0]
+Il Ilu_10 #@ /941;inf\ [0,0]
+
+# Region 11
+# Continuous Arcs
+Il dIl_11
+Vc dVc_11
+# Intra-region Arcs
+p_11 Vcd_11 #@ [0,0]
+p_11 Ild_11 #@ [0,0]
+p_11 Ilu_11 #@ [0,0]
+# Inter-region Arcs
+Vcu_10 p_11 #@ [0,0]
+Ild_15 p_11 #@ [0,0]
+Ilu_7 p_11 #@ [0,0]
+# Test Arcs
+p_11 dIl_11
+p_11 dVc_11
+Vc Vcd_11 #@ /0;4141\ [0,0]
+Il Ild_11 #@ /0;525\ [0,0]
+Il Ilu_11 #@ /941;inf\ [0,0]
+
+# Region 12
+# Continuous Arcs
+dIl_12 Il
+dVc_12 Vc
+# Intra-region Arcs
+p_12 Vcu_12 #@ [0,0]
+p_12 Ild_12 #@ [0,0]
+# Inter-region Arcs
+Vcd_13 p_12 #@ [0,0]
+Ilu_8 p_12 #@ [0,0]
+# Test Arcs
+p_12 dIl_12
+p_12 dVc_12
+Vc Vcu_12 #@ /858;inf\ [0,0]
+Il Ild_12 #@ /0;891\ [0,0]
+
+# Region 13
+# Continuous Arcs
+Il dIl_13
+dVc_13 Vc
+# Intra-region Arcs
+p_13 Vcd_13 #@ [0,0]
+p_13 Vcu_13 #@ [0,0]
+p_13 Ild_13 #@ [0,0]
+# Inter-region Arcs
+Vcd_14 p_13 #@ [0,0]
+Vcu_12 p_13 #@ [0,0]
+Ilu_9 p_13 #@ [0,0]
+# Test Arcs
+p_13 dIl_13
+p_13 dVc_13
+Vc Vcd_13 #@ /0;808\ [0,0]
+Vc Vcu_13 #@ /2525;inf\ [0,0]
+Il Ild_13 #@ /0;891\ [0,0]
+
+# Region 14
+# Continuous Arcs
+Il dIl_14
+dVc_14 Vc
+# Intra-region Arcs
+p_14 Vcd_14 #@ [0,0]
+p_14 Vcu_14 #@ [0,0]
+p_14 Ild_14 #@ [0,0]
+# Inter-region Arcs
+Vcd_15 p_14 #@ [0,0]
+Vcu_13 p_14 #@ [0,0]
+Ilu_10 p_14 #@ [0,0]
+# Test Arcs
+p_14 dIl_14
+p_14 dVc_14
+Vc Vcd_14 #@ /0;2475\ [0,0]
+Vc Vcu_14 #@ /4191;inf\ [0,0]
+Il Ild_14 #@ /0;891\ [0,0]
+
+# Region 15
+# Continuous Arcs
+Il dIl_15
+dVc_15 Vc
+# Intra-region Arcs
+p_15 Vcd_15 #@ [0,0]
+p_15 Ild_15 #@ [0,0]
+# Inter-region Arcs
+Vcu_14 p_15 #@ [0,0]
+Ilu_11 p_15 #@ [0,0]
+# Test Arcs
+p_15 dIl_15
+p_15 dVc_15
+Vc Vcd_15 #@ /0;4141\ [0,0]
+Il Ild_15 #@ /0;891\ [0,0]
+
+
+#@.rates {<dIl_0 = 30><dVc_0 = 0><dIl_1 = 13><dVc_1 = 713><dIl_2 = 3><dVc_2 = 114><dIl_3 = 20><dVc_3 = 1000><dIl_4 = 23><dVc_4 = 367><dIl_5 = 6><dVc_5 = 347><dIl_6 = 11><dVc_6 = 252><dIl_7 = 27><dVc_7 = 633><dIl_8 = 15><dVc_8 = 733><dIl_9 = 1><dVc_9 = 20><dIl_10 = 18><dVc_10 = 619><dIl_11 = 35><dVc_11 = 267><dIl_12 = 8><dVc_12 = 1100><dIl_13 = 9><dVc_13 = 387><dIl_14 = 25><dVc_14 = 986><dIl_15 = 42><dVc_15 = 100>}
+
+#@.continuous Il Vc dIl_0 dVc_0 dIl_1 dVc_1 dIl_2 dVc_2 dIl_3 dVc_3 dIl_4 dVc_4 dIl_5 dVc_5 dIl_6 dVc_6 dIl_7 dVc_7 dIl_8 dVc_8 dIl_9 dVc_9 dIl_10 dVc_10 dIl_11 dVc_11 dIl_12 dVc_12 dIl_13 dVc_13 dIl_14 dVc_14 dIl_15 dVc_15 
+
+.marking{p_0}
+.end
+

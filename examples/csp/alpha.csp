@@ -1,0 +1,110 @@
+module alphaN;
+
+input a;
+
+process a;
+    *[ [<0,15>true] ]
+endprocess
+
+process b;
+    *[ [<0,15>true] ]
+endprocess
+
+process c;
+    *[ [<0,15>true] ]
+endprocess
+
+process d;
+    *[ [<0,15>true] ]
+endprocess
+
+process e;
+    *[ [<0,15>true] ]
+endprocess
+
+process f;
+    *[ [<0,15>true] ]
+endprocess
+
+process g;
+    *[ [<0,15>true] ]
+endprocess
+
+process h;
+    *[ [<0,15>true] ]
+endprocess
+
+process i;
+    *[ [<0,15>true] ]
+endprocess
+
+process j;
+    *[ [<0,15>true] ]
+endprocess
+
+process k;
+    *[ [<0,15>true] ]
+endprocess
+
+process l;
+    *[ [<0,15>true] ]
+endprocess
+
+process m;
+    *[ [<0,15>true] ]
+endprocess
+
+process n;
+    *[ [<0,15>true] ]
+endprocess
+
+process o;
+    *[ [<0,15>true] ]
+endprocess
+
+process p;
+    *[ [<0,15>true] ]
+endprocess
+
+process q;
+    *[ [<0,15>true] ]
+endprocess
+
+process r;
+    *[ [<0,15>true] ]
+endprocess
+
+process s;
+    *[ [<0,15>true] ]
+endprocess
+
+process t;
+    *[ [<0,15>true] ]
+endprocess
+
+process u;
+    *[ [<0,15>true] ]
+endprocess
+
+process v;
+    *[ [<0,15>true] ]
+endprocess
+
+process w;
+    *[ [<0,15>true] ]
+endprocess
+
+process x;
+    *[ [<0,15>true] ]
+endprocess
+
+process y;
+    *[ [<0,15>true] ]
+endprocess
+
+process z;
+    *[ [<0,15>true] ]
+endprocess
+
+endmodule
+

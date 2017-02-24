@@ -1,0 +1,35 @@
+.TH PRINTREG 1 "28 September 2001" "" ""
+.SH NAME
+printreg \- Prints a reduced state graph (REG)
+.SH SYNOPSIS
+.nf
+.BI atacs " -pr <filename>"
+.br
+.BI atacs> " printreg <filename>"
+.fi
+.SH DESCRIPTION
+.B printreg
+outputs grf files for each signal and each type
+of region associated with the signal. They can be displayed or
+printed individually using Tom Rokicki's parseGraph program.
+.SH OPTIONS
+.TP
+.BI \-pr
+Outputs regions from the command line.
+.TP
+.BI printreg
+Outputs regions from the interactive shell.
+.SH CREDITS
+.B printreg
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR shower (1)
+.BR showrsg (1)
+.BR showstat (1)
+.BR shownet (1)
+.BR printer (1)
+.BR printstat (1)
+.BR printrsg (1)
+.BR printnet (1)
+.BR dot (1)
+.BR http://www.async.ece.utah.edu

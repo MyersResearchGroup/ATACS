@@ -1,0 +1,25 @@
+input	ReqSend                  0
+input	TReq                     0
+input	RdIQ                     0
+input	ADBldout                 0
+input	AckPkt                   0
+output	TAck                     0
+output	PEAck                    0
+output	ADBld                    0
+output	zzz00                    0
+output	zzz01                    1
+
+0  1	ReqSend+ TReq+ RdIQ+     | ADBld+ 
+1  2	ADBldout+                | PEAck+ 
+2  3	RdIQ-                    | PEAck- ADBld- TAck+ 
+3  4	TReq- RdIQ+ ADBldout-    | ADBld+ 
+3  8	TReq- AckPkt+ ADBldout-  | PEAck+ zzz01- 
+4  5	ADBldout+                | PEAck+ zzz00+ 
+5  6	RdIQ-                    | PEAck- ADBld- TAck- 
+6  1	TReq+ RdIQ+ ADBldout-    | ADBld+ zzz00- 
+6  7	TReq+ AckPkt+ ADBldout-  | PEAck+ TAck+ zzz01- 
+7  9	AckPkt- TReq-            | PEAck- TAck- 
+8  9	AckPkt-                  | PEAck- TAck- zzz00+ 
+9  0	ReqSend-                 | zzz00- zzz01+ 
+9  10	TReq+                    | TAck+ 
+10  9	TReq-                    | TAck- 

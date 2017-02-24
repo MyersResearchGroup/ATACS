@@ -1,0 +1,39 @@
+.inputs  UIN  RIN  LIN 
+.outputs  zzz01  zzz00  UOUT  ROUT  LOUT 
+.dummy dummy_0 dummy_1 dummy_2 
+#@.init_state [00010000]
+.graph
+UOUT+/0 place_2
+UIN+/0 UOUT+/0
+place_2 UIN-/0
+place_3 UIN+/0 LIN+/1
+dummy_2 place_2
+LOUT+/0 place_0
+RIN-/0 LOUT+/0
+ROUT-/0 RIN-/0
+zzz01-/0 RIN-/0
+RIN+/0 zzz01-/0 ROUT-/0
+ROUT+/0 RIN+/0
+LIN+/0 ROUT+/0
+place_0 LIN-/0
+place_1 LIN+/0 UIN+/1
+dummy_1 place_1
+dummy_0 place_0
+UOUT-/0 place_3
+UIN-/0 UOUT-/0
+UOUT+/1 dummy_2
+zzz00+ dummy_2
+RIN-/1 zzz00+ UOUT+/1
+ROUT-/1 RIN-/1
+zzz01-/1 RIN-/1
+RIN+/1 zzz01-/1 ROUT-/1
+ROUT+/1 RIN+/1
+UIN+/1 ROUT+/1
+LOUT-/0 dummy_1
+zzz01+/0 dummy_1
+LIN-/0 zzz01+/0 LOUT-/0
+LOUT+/1 dummy_0
+zzz00- dummy_0
+LIN+/1 zzz00- LOUT+/1
+.marking {place_1 }
+.end

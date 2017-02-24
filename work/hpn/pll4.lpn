@@ -1,0 +1,114 @@
+.inputs Vin Vosc up down
+.dummy inc2 dec2 drain1 drain2 unlock unlock1 unlock2 unlock3 lock lock1 lock2 lock3 skip
+#@.keep unlock unlock1 unlock2 unlock3 lock lock1 lock2 lock3 skip
+#@.init_state [0000]
+.graph
+
+p0 up+ #@ [15,15] 
+p0 down+ #@ [15,15]
+up+ p1
+down+ p2
+p1 up- #@ [0,0] 
+p2 down- #@ [0,0] 
+up- p0
+down- p0
+
+pi1 Vin+/1 #@ [50,50] 
+Vin+/1 pi2
+pi2 Vin-/1 #@ [50,50]
+pi3 Vin-/2 #@ [50,50] 
+Vin-/2 pi1
+Vin-/1 pi1
+
+pi2 up+ #@ [15,15]  
+pi2 down- #@ [0,0]  
+up+ pi3
+down- pi3
+
+po1 Vosc+/1 #@ [0,0] 
+Vosc+/1 po2
+Vosc+/1 po4
+po2 Vosc-/1 #@ [0,0]
+po3 Vosc-/2 #@ [0,0]
+po4 Vosc-/1 #@ [0,0] 
+po4 Vosc-/2 #@ [0,0] 
+Vosc-/2 po1
+Vosc-/1 po1
+
+po2 down+ #@ [15,15]  
+po2 up- #@ [0,0]  
+down+ po3
+up- po3
+
+pulock lock
+p0 lock #@ [0,0]
+pi2 lock #@ [0,0]
+po2 lock #@ [0,0]
+lock pi3
+lock po3
+lock p0
+lock plock
+up+ pu
+down+ pu
+pu skip #@ [1,1]
+pu unlock #@ [0,0]
+plock unlock #@ [0,0]
+unlock pulock
+
+plock lock1
+p0 lock1 #@ [0,0]
+pi2 lock1 #@ [0,0]
+po2 lock1 #@ [0,0]
+lock1 pi3
+lock1 po3
+lock1 p0
+lock1 plock1
+pu unlock1 #@ [0,0]
+plock1 unlock1 #@ [0,0]
+unlock1 pulock
+
+plock1 lock2
+p0 lock2 #@ [0,0]
+pi2 lock2 #@ [0,0]
+po2 lock2 #@ [0,0]
+lock2 pi3
+lock2 po3
+lock2 p0
+lock2 plock2
+pu unlock2 #@ [0,0]
+plock2 unlock2 #@ [0,0]
+unlock2 pulock
+
+plock2 lock3
+p0 lock3 #@ [0,0]
+pi2 lock3 #@ [0,0]
+po2 lock3 #@ [0,0]
+lock3 pi3
+lock3 po3
+lock3 p0
+lock3 plock3
+pu unlock3 #@ [0,0]
+plock3 unlock3 #@ [0,0]
+unlock3 pulock
+
+p2 inc2 #@ /1;inf\
+inc2 v1
+p1 dec2 #@ /1;inf\
+v1 dec2
+
+v1 drain1
+drain1 v2
+v2 drain2
+drain2 v1
+
+v1 Vosc+/1 #@ /0;0\ [0,0]
+v2 Vosc-/1 #@ /0;0\ [0,0]
+v2 Vosc-/2 #@ /0;0\ [0,0]
+
+po1 drain1
+po4 drain2
+.marking { p0 pi1 po1 pulock }
+#@.marking { <v1 = 40><v2 = 40> }
+#@.rates { <inc2 = 1><dec2 = 1><drain1 = 1><drain2 = 1> }
+#@.continuous drain1 drain2 dec2 inc2 v1 v2
+.end

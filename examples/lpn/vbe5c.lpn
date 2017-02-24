@@ -1,0 +1,20 @@
+# VBE Fig 5c persistent controller
+.name vbe5c
+.inputs Da La Za
+.outputs Dr Lr Zr
+#@.init_state [000010]
+.graph
+La+ Dr+
+Dr+ Da+ Zr+
+Da+ Dr-
+Zr+ Za+ Lr-
+Dr- Da- Zr-
+Za+ Zr-
+Lr- La-
+Da- Lr+
+Zr- Za-
+La- Dr-
+Lr+ La+
+Za- Lr+
+.marking {<Lr+,La+>}
+.end

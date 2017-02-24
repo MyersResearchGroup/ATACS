@@ -1,0 +1,15 @@
+/*****************************************************************************/
+/* Varshavsky's example - not persistent                                     */
+/*****************************************************************************/
+module var;
+
+output w = {true};
+output x = {false};
+output y = {true};
+output z = {true};
+
+process var;
+*[ y-; ((z-; y+) || (w-; x+)); z+; x-; w+ ]
+endprocess
+endmodule
+

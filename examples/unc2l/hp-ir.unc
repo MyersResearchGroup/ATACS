@@ -1,0 +1,27 @@
+;start specification
+;input is free-format, comments start with a semicolon
+
+;signal names section:
+;type	signame	initial value
+
+;  NAME	hp_IR
+
+  input 	IntITReq		0
+  input 	ITEvent2Ticks	0
+  input		CtrIncAck		0
+  output	ITEventReq		0
+  output	CtrIncReq		0
+
+;behavioral description section:
+;from	to	input burst		output burst
+
+  0	1	IntITReq+					|	ITEventReq+
+  1	2	IntITReq-					|	ITEventReq-	
+  2	1	IntITReq+					|	ITEventReq+
+  1	3	ITEvent2Ticks+				|	CtrIncReq+ ITEventReq-
+  3	4	ITEvent2Ticks-	CtrIncAck+	|	CtrIncReq-
+  3	5	ITEvent2Ticks-	IntITReq-	|	CtrIncReq-
+  4	1	CtrIncAck-					|	ITEventReq+
+  5	1	IntITReq+					|	ITEventReq+
+
+;end specification

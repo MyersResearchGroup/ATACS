@@ -1,0 +1,69 @@
+module alu2;
+
+input a2done = {<2,2;1,3>};
+output a2prech = {true,<0,0>};
+
+input start = {<1,2>}; 
+input EndP = {<0,0>};
+input A1M = {<2,2;1,3>};
+output A2M = {<0,0>};
+input M1A = {<2,2;6,7>};
+input M2A2 = {<2,2;6,7>};
+input done = {<0,0>};
+input C = {<0,0>};
+
+process alu1;
+    *[ [start]; A1M+;   
+	[ M1A -> A1M-; [~M1A]; A1M+; *  
+	| ~start -> A1M-
+	]
+     ]
+endprocess	
+
+process alu2;
+    *[ [start]; a2prech-; 
+
+	[ ~C -> [ true -> C+ | true -> skip ]
+        |  C -> [ true -> C- | true -> skip ]
+        ];
+
+	[ a2done & ~C -> (A2M+ || a2prech+); [~a2done]; a2prech-; 
+	    [a2done]; a2prech+; [M2A2 & M1A & ~a2done]; 
+            (A2M- || a2prech-);
+
+	    [ ~C -> [ true -> C+ | true -> skip ]
+	    |  C -> [ true -> C- | true -> skip ]
+	    ];
+
+	    [ a2done & ~C -> a2prech+; [~a2done]; a2prech-; 
+		[~M2A2 & ~M1A & a2done]; (a2prech+ || A2M+); [~a2done];
+		a2prech-; [a2done]; a2prech+; [M2A2 & M1A & ~a2done]; 
+		(A2M- || a2prech-); *
+	    | a2done & C -> a2prech+; [~a2done]; a2prech-; 
+		[~M2A2 & ~M1A & a2done]; a2prech+; [~a2done]; EndP+
+	    ]
+        | a2done & C -> a2prech+; [~a2done]; EndP+
+	]; [~start]; EndP-
+     ]
+endprocess
+
+process mul1;
+    *[ [A1M & A2M]; M1A+; [~A1M & ~A2M]; M1A- ]
+endprocess
+
+process mul2;
+    *[ [A1M & A2M]; M2A2+; [~A1M & ~A2M]; M2A2- ]
+endprocess
+
+process celem;
+    *[ [EndP & A1M]; done+; [~EndP & ~A1M]; done- ]
+endprocess
+
+process env;
+    *[ start+; [done]; start-; [~done] ]
+endprocess
+
+process a2;
+    *[ [~a2prech]; a2done+; [a2prech]; a2done- ]
+endprocess
+endmodule

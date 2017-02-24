@@ -1,0 +1,11 @@
+input	a                        0
+input	l                        0
+output	x                        0
+output	zzz00                    0
+output	zzz01                    0
+
+0  1	a+                       | x+ zzz01+ 
+1  0	a- [l+]                  | zzz01-                   | x- 
+1  2	a- [l-]                  | zzz00+                   | 
+2  3	a+                       | zzz01- 
+3  0	a-                       | x- zzz00- 

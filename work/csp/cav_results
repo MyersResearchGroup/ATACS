@@ -1,0 +1,3238 @@
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+Allow rules to be disabled with only a warning.
+No longer using transform 2 during postprocessing.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Post processing ...Storing module tagin1 to tagin1.er
+Loading timed event-rule structure from:  tagin1.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 96 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001958)
+WARNING: Output event tagin1+/1 is disabled
+WARNING: Output event tagin2+/1 is disabled
+WARNING: Output event tagin6+/1 is disabled
+WARNING: Output event tagin4+/1 is disabled
+WARNING: Output event btag+/1 is disabled
+WARNING: Output event tagin3+/1 is disabled
+WARNING: Output event tagin7+/1 is disabled
+WARNING: Output event tagin5+/1 is disabled
+Found 125 zones in 66 states for tagin1 (20d 10414024m 0.273438u)
+Projecting out dummy transitions ... done (0.005365)
+Checking output semi-modularity ... NOT output semi-modular!
+ERROR:  NOT output semi-modular!
+
+real	0m2.818s
+user	0m2.564s
+sys	0m0.121s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+Allow rules to be disabled with only a warning.
+No longer using transform 2 during postprocessing.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Post processing ...Storing module ss1 to ss1.er
+Loading timed event-rule structure from:  ss1.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 85 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.002261)
+Found 199 zones in 181 states for ss1 (31d 11249608m 0.521485u)
+Projecting out dummy transitions ... done (0.006609)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m3.348s
+user	0m3.057s
+sys	0m0.094s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+Allow rules to be disabled with only a warning.
+No longer using transform 2 during postprocessing.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Post processing ...Storing module fifo1 to fifo1.er
+Loading timed event-rule structure from:  fifo1.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 107 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001543)
+Found 49 zones in 37 states for fifo1 (6d 9738184m 0.076171u)
+Projecting out dummy transitions ... done (0.004779)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.492s
+user	0m2.381s
+sys	0m0.096s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+Allow rules to be disabled with only a warning.
+No longer using transform 2 during postprocessing.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Post processing ...Storing module PA to PA.er
+Loading timed event-rule structure from:  PA.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 103 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001520)
+Found 73 zones in 42 states for PA (13d 9779144m 0.140625u)
+Projecting out dummy transitions ... done (0.005074)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.555s
+user	0m2.473s
+sys	0m0.078s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+Allow rules to be disabled with only a warning.
+No longer using transform 2 during postprocessing.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Post processing ...Storing module LD to LD.er
+Loading timed event-rule structure from:  LD.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 83 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.002474)
+WARNING: Output event longreq+/1 is disabled
+WARNING: Output event l4+/2 is disabled
+WARNING: Output event l7+/1 is disabled
+WARNING: Output event l5+/1 is disabled
+WARNING: Output event l2+/1 is disabled
+WARNING: Output event prefreq+/1 is disabled
+WARNING: Output event l1+/2 is disabled
+WARNING: Output event l3+/1 is disabled
+WARNING: Output event l6+/1 is disabled
+WARNING: Output event tb+/1 is disabled
+Found 296 zones in 233 states for LD (36d 11470792m 1.02539u)
+Projecting out dummy transitions ... done (0.007129)
+Checking output semi-modularity ... NOT output semi-modular!
+ERROR:  NOT output semi-modular!
+
+real	0m3.396s
+user	0m3.293s
+sys	0m0.088s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+Allow rules to be disabled with only a warning.
+No longer using transform 2 during postprocessing.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Post processing ...Storing module BR to BR.er
+Loading timed event-rule structure from:  BR.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 86 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001747)
+4401 iterations, 1000 zones, 1000 states (stack_depth = 59)
+memory: max=13428680 inuse=13417896 free=10784
+8446 iterations, 2000 zones, 1949 states (stack_depth = 41)
+memory: max=16238536 inuse=16234400 free=4136
+Found 2717 zones in 1949 states for BR (193d 17483720m 23.2188u)
+Projecting out dummy transitions ... done (0.055959)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m25.984s
+user	0m25.496s
+sys	0m0.143s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Post processing ...Storing module BC to BC.er
+Loading timed event-rule structure from:  BC.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 104 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001478)
+Found 72 zones in 54 states for BC (8d 10057672m 0.115235u)
+Projecting out dummy transitions ... done (0.004964)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.497s
+user	0m2.373s
+sys	0m0.096s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Post processing ...Storing module TU to TU.er
+Loading timed event-rule structure from:  TU.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 58 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.006113)
+2764 iterations, 1000 zones, 986 states (stack_depth = 112)
+memory: max=15521736 inuse=15517112 free=4624
+Found 1905 zones in 1463 states for TU (361d 16750536m 11.6914u)
+Projecting out dummy transitions ... done (0.023977)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m14.453s
+user	0m14.156s
+sys	0m0.098s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Post processing ...Storing module AG to AG.er
+Loading timed event-rule structure from:  AG.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 95 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001823)
+Found 95 zones in 89 states for AG (19d 10524616m 0.277343u)
+Projecting out dummy transitions ... done (0.005239)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m3.436s
+user	0m2.527s
+sys	0m0.100s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Post processing ...Storing module ir1 to ir1.er
+Loading timed event-rule structure from:  ir1.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 66 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.002930)
+3235 iterations, 1000 zones, 1000 states (stack_depth = 509)
+memory: max=16861128 inuse=16852584 free=8544
+8053 iterations, 2000 zones, 2000 states (stack_depth = 580)
+memory: max=19331016 inuse=19327528 free=3488
+12353 iterations, 3000 zones, 3000 states (stack_depth = 329)
+memory: max=21022664 inuse=21014344 free=8320
+15375 iterations, 4000 zones, 4000 states (stack_depth = 890)
+memory: max=24373192 inuse=24365536 free=7656
+19353 iterations, 5000 zones, 5000 states (stack_depth = 1227)
+memory: max=28084168 inuse=28075864 free=8304
+24185 iterations, 6000 zones, 6000 states (stack_depth = 1283)
+memory: max=31995848 inuse=31990104 free=5744
+29860 iterations, 7000 zones, 7000 states (stack_depth = 971)
+memory: max=35977160 inuse=35966712 free=10448
+35188 iterations, 8000 zones, 8000 states (stack_depth = 236)
+memory: max=39241672 inuse=39234520 free=7152
+38398 iterations, 9000 zones, 9000 states (stack_depth = 671)
+memory: max=42649544 inuse=42639888 free=9656
+42416 iterations, 10000 zones, 10000 states (stack_depth = 854)
+memory: max=45979592 inuse=45972312 free=7280
+46493 iterations, 11000 zones, 11000 states (stack_depth = 1025)
+memory: max=49207240 inuse=49199912 free=7328
+50671 iterations, 12000 zones, 12000 states (stack_depth = 1235)
+memory: max=52471752 inuse=52464472 free=7280
+55092 iterations, 13000 zones, 13000 states (stack_depth = 1426)
+memory: max=55793608 inuse=55787864 free=5744
+60054 iterations, 14000 zones, 14000 states (stack_depth = 1524)
+memory: max=59246536 inuse=59240912 free=5624
+65323 iterations, 15000 zones, 15000 states (stack_depth = 1498)
+memory: max=62662600 inuse=62655064 free=7536
+71000 iterations, 16000 zones, 16000 states (stack_depth = 1327)
+memory: max=66074568 inuse=66068688 free=5880
+77470 iterations, 17000 zones, 17000 states (stack_depth = 837)
+memory: max=69429192 inuse=69420464 free=8728
+83345 iterations, 18000 zones, 17634 states (stack_depth = 221)
+memory: max=72206280 inuse=72202872 free=3408
+87146 iterations, 19000 zones, 17634 states (stack_depth = 606)
+memory: max=74434504 inuse=74427136 free=7368
+92742 iterations, 20000 zones, 17634 states (stack_depth = 334)
+memory: max=75610056 inuse=75573184 free=36872
+Found 20120 zones in 17634 states for ir1 (1579d 75610056m 307.775u)
+Projecting out dummy transitions ... done (0.491591)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	5m18.527s
+user	5m11.186s
+sys	0m0.814s
+
+real	6m19.509s
+user	6m9.510s
+sys	0m1.729s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module TOP to TOP.er
+Loading timed event-rule structure from:  TOP.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 110 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001877)
+Found 42 zones in 27 states for TOP (6d 10065864m 0.058594u)
+Projecting out dummy transitions ... done (0.004795)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.710s
+user	0m2.592s
+sys	0m0.076s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module xbrdy to xbrdy.er
+Loading timed event-rule structure from:  xbrdy.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 110 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001512)
+Found 42 zones in 27 states for xbrdy (8d 10168264m 0.060547u)
+Projecting out dummy transitions ... done (0.004749)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.723s
+user	0m2.580s
+sys	0m0.092s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module prefreq to prefreq.er
+Loading timed event-rule structure from:  prefreq.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 106 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001694)
+Found 85 zones in 57 states for prefreq (11d 10180552m 0.150391u)
+Projecting out dummy transitions ... done (0.005105)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.733s
+user	0m2.641s
+sys	0m0.082s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module longreq to longreq.er
+Loading timed event-rule structure from:  longreq.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 106 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001592)
+Found 85 zones in 57 states for longreq (11d 10184648m 0.148438u)
+Projecting out dummy transitions ... done (0.005139)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.746s
+user	0m2.641s
+sys	0m0.078s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module preflong to preflong.er
+Loading timed event-rule structure from:  preflong.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 106 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001610)
+Found 105 zones in 66 states for preflong (18d 10209224m 0.25u)
+Projecting out dummy transitions ... done (0.005283)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.802s
+user	0m2.705s
+sys	0m0.098s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module req to req.er
+Loading timed event-rule structure from:  req.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 109 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001532)
+Found 48 zones in 33 states for req (9d 10086344m 0.078125u)
+Projecting out dummy transitions ... done (0.175201)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m4.164s
+user	0m2.596s
+sys	0m0.082s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module tb to tb.er
+Loading timed event-rule structure from:  tb.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001491)
+Found 75 zones in 60 states for tb (12d 10262472m 0.107422u)
+Projecting out dummy transitions ... done (0.005325)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m5.384s
+user	0m2.625s
+sys	0m0.094s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module l1 to l1.er
+Loading timed event-rule structure from:  l1.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 102 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001602)
+Found 164 zones in 134 states for l1 (16d 10205128m 0.289062u)
+Projecting out dummy transitions ... done (0.007934)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m4.330s
+user	0m2.775s
+sys	0m0.078s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module l2 to l2.er
+Loading timed event-rule structure from:  l2.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.002912)
+Found 75 zones in 60 states for l2 (11d 10123208m 0.101563u)
+Projecting out dummy transitions ... done (0.005083)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m3.102s
+user	0m2.592s
+sys	0m0.080s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module l3 to l3.er
+Loading timed event-rule structure from:  l3.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001591)
+Found 75 zones in 60 states for l3 (8d 10217416m 0.103516u)
+Projecting out dummy transitions ... done (0.006552)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m3.817s
+user	0m2.613s
+sys	0m0.084s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module l4 to l4.er
+Loading timed event-rule structure from:  l4.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 106 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001595)
+Found 100 zones in 82 states for l4 (15d 10196936m 0.164062u)
+Projecting out dummy transitions ... done (0.014565)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m3.019s
+user	0m2.605s
+sys	0m0.096s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module l5 to l5.er
+Loading timed event-rule structure from:  l5.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001555)
+Found 75 zones in 60 states for l5 (11d 10098632m 0.101562u)
+Projecting out dummy transitions ... done (0.005089)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m3.380s
+user	0m2.588s
+sys	0m0.078s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module l6 to l6.er
+Loading timed event-rule structure from:  l6.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 107 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001586)
+Found 68 zones in 50 states for l6 (10d 10102728m 0.105469u)
+Projecting out dummy transitions ... done (0.005078)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.965s
+user	0m2.613s
+sys	0m0.094s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module l7 to l7.er
+Loading timed event-rule structure from:  l7.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001505)
+Found 75 zones in 60 states for l7 (9d 10098632m 0.103516u)
+Projecting out dummy transitions ... done (0.006368)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.971s
+user	0m2.615s
+sys	0m0.082s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module tagin1 to tagin1.er
+Loading timed event-rule structure from:  tagin1.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001444)
+Found 89 zones in 63 states for tagin1 (14d 10192840m 0.142578u)
+Projecting out dummy transitions ... done (0.005451)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.989s
+user	0m2.756s
+sys	0m0.090s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module tagin2 to tagin2.er
+Loading timed event-rule structure from:  tagin2.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001486)
+Found 64 zones in 39 states for tagin2 (12d 10127304m 0.097656u)
+Projecting out dummy transitions ... done (0.006287)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m3.088s
+user	0m2.664s
+sys	0m0.096s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module tagin3 to tagin3.er
+Loading timed event-rule structure from:  tagin3.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001419)
+Found 89 zones in 63 states for tagin3 (14d 10311624m 0.123047u)
+Projecting out dummy transitions ... done (0.005243)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.813s
+user	0m2.662s
+sys	0m0.082s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module tagin4 to tagin4.er
+Loading timed event-rule structure from:  tagin4.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001479)
+Found 64 zones in 39 states for tagin4 (12d 10258376m 0.09375u)
+Projecting out dummy transitions ... done (0.004846)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.920s
+user	0m2.660s
+sys	0m0.100s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module tagin5 to tagin5.er
+Loading timed event-rule structure from:  tagin5.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001425)
+Found 64 zones in 39 states for tagin5 (12d 10172360m 0.09375u)
+Projecting out dummy transitions ... done (0.005166)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.936s
+user	0m2.672s
+sys	0m0.092s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module tagin6 to tagin6.er
+Loading timed event-rule structure from:  tagin6.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001522)
+Found 64 zones in 39 states for tagin6 (12d 10217416m 0.095704u)
+Projecting out dummy transitions ... done (0.004844)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m3.399s
+user	0m2.637s
+sys	0m0.084s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module tagin7 to tagin7.er
+Loading timed event-rule structure from:  tagin7.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001491)
+Found 89 zones in 63 states for tagin7 (14d 10299336m 0.13086u)
+Projecting out dummy transitions ... done (0.006920)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m4.116s
+user	0m2.699s
+sys	0m0.086s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module btag to btag.er
+Loading timed event-rule structure from:  btag.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001459)
+Found 89 zones in 63 states for btag (15d 10074056m 0.13086u)
+Projecting out dummy transitions ... done (0.005396)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m4.257s
+user	0m2.637s
+sys	0m0.115s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module Rdy to Rdy.er
+Loading timed event-rule structure from:  Rdy.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 109 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001516)
+Found 57 zones in 34 states for Rdy (7d 10213320m 0.078125u)
+Projecting out dummy transitions ... done (0.004798)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.728s
+user	0m2.596s
+sys	0m0.088s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module TagRdy to TagRdy.er
+Loading timed event-rule structure from:  TagRdy.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 109 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001528)
+Found 46 zones in 31 states for TagRdy (7d 10254280m 0.0625u)
+Projecting out dummy transitions ... done (0.017563)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.875s
+user	0m2.627s
+sys	0m0.090s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module TagArrived to TagArrived.er
+Loading timed event-rule structure from:  TagArrived.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 109 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001523)
+Found 82 zones in 56 states for TagArrived (13d 10229704m 0.132813u)
+Projecting out dummy transitions ... done (0.005071)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.799s
+user	0m2.674s
+sys	0m0.080s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module Ack to Ack.er
+Loading timed event-rule structure from:  Ack.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001449)
+Found 75 zones in 59 states for Ack (10d 10119112m 0.107422u)
+Projecting out dummy transitions ... done (0.005153)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.630s
+user	0m2.545s
+sys	0m0.082s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module ByteRdy to ByteRdy.er
+Loading timed event-rule structure from:  ByteRdy.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 109 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001516)
+Found 54 zones in 33 states for ByteRdy (13d 10135496m 0.105469u)
+Projecting out dummy transitions ... done (0.004830)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.665s
+user	0m2.578s
+sys	0m0.076s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module LatchDecode to LatchDecode.er
+Loading timed event-rule structure from:  LatchDecode.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001509)
+Found 77 zones in 59 states for LatchDecode (9d 10139592m 0.117187u)
+Projecting out dummy transitions ... done (0.006058)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.900s
+user	0m2.617s
+sys	0m0.080s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module TagAck to TagAck.er
+Loading timed event-rule structure from:  TagAck.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 110 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001667)
+Found 34 zones in 27 states for TagAck (7d 10016712m 0.046875u)
+Projecting out dummy transitions ... done (0.005498)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.749s
+user	0m2.514s
+sys	0m0.107s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module TokenOut to TokenOut.er
+Loading timed event-rule structure from:  TokenOut.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 106 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001591)
+Found 88 zones in 88 states for TokenOut (20d 10299336m 0.199219u)
+Projecting out dummy transitions ... done (0.005270)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.862s
+user	0m2.725s
+sys	0m0.096s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module TagOut1 to TagOut1.er
+Loading timed event-rule structure from:  TagOut1.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 107 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001508)
+Found 119 zones in 102 states for TagOut1 (15d 10409928m 0.179688u)
+Projecting out dummy transitions ... done (0.005604)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.829s
+user	0m2.689s
+sys	0m0.092s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module TagOut2 to TagOut2.er
+Loading timed event-rule structure from:  TagOut2.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 106 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001608)
+Found 88 zones in 88 states for TagOut2 (21d 10254280m 0.212891u)
+Projecting out dummy transitions ... done (0.005267)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.834s
+user	0m2.740s
+sys	0m0.090s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module TagOut3 to TagOut3.er
+Loading timed event-rule structure from:  TagOut3.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 106 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001538)
+Found 88 zones in 88 states for TagOut3 (21d 10364872m 0.208985u)
+Projecting out dummy transitions ... done (0.005147)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.852s
+user	0m2.711s
+sys	0m0.090s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module TagOut4 to TagOut4.er
+Loading timed event-rule structure from:  TagOut4.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 101 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001712)
+Found 234 zones in 234 states for TagOut4 (38d 10594248m 0.699218u)
+Projecting out dummy transitions ... done (0.007324)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m3.360s
+user	0m3.246s
+sys	0m0.102s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module TagOut5 to TagOut5.er
+Loading timed event-rule structure from:  TagOut5.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 107 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001639)
+Found 136 zones in 82 states for TagOut5 (13d 10270664m 0.265625u)
+Projecting out dummy transitions ... done (0.005480)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.895s
+user	0m2.781s
+sys	0m0.080s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module TagOut6 to TagOut6.er
+Loading timed event-rule structure from:  TagOut6.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 110 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001537)
+Found 42 zones in 27 states for TagOut6 (8d 10172360m 0.0625u)
+Projecting out dummy transitions ... done (0.004710)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.695s
+user	0m2.604s
+sys	0m0.078s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module TagOut7 to TagOut7.er
+Loading timed event-rule structure from:  TagOut7.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 110 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001422)
+Found 61 zones in 45 states for TagOut7 (9d 10102728m 0.08789u)
+Projecting out dummy transitions ... done (0.004880)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.708s
+user	0m2.631s
+sys	0m0.068s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module Preempt1 to Preempt1.er
+Loading timed event-rule structure from:  Preempt1.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001462)
+Found 71 zones in 55 states for Preempt1 (10d 10139592m 0.105469u)
+Projecting out dummy transitions ... done (0.005188)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.645s
+user	0m2.512s
+sys	0m0.086s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module Preempt2 to Preempt2.er
+Loading timed event-rule structure from:  Preempt2.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001456)
+Found 47 zones in 32 states for Preempt2 (10d 10119112m 0.091796u)
+Projecting out dummy transitions ... done (0.004822)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.665s
+user	0m2.539s
+sys	0m0.074s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module Preempt3 to Preempt3.er
+Loading timed event-rule structure from:  Preempt3.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001480)
+Found 47 zones in 32 states for Preempt3 (10d 10131400m 0.091797u)
+Projecting out dummy transitions ... done (0.005046)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.661s
+user	0m2.535s
+sys	0m0.076s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module Preempt4 to Preempt4.er
+Loading timed event-rule structure from:  Preempt4.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001455)
+Found 71 zones in 55 states for Preempt4 (10d 10123208m 0.109375u)
+Projecting out dummy transitions ... done (0.005195)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.669s
+user	0m2.555s
+sys	0m0.076s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module Preempt5 to Preempt5.er
+Loading timed event-rule structure from:  Preempt5.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001471)
+Found 71 zones in 55 states for Preempt5 (10d 10094536m 0.109375u)
+Projecting out dummy transitions ... done (0.005158)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.669s
+user	0m2.539s
+sys	0m0.092s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module Preempt6 to Preempt6.er
+Loading timed event-rule structure from:  Preempt6.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001448)
+Found 47 zones in 32 states for Preempt6 (10d 10102728m 0.087891u)
+Projecting out dummy transitions ... done (0.004914)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.672s
+user	0m2.539s
+sys	0m0.076s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module ByteRdy1 to ByteRdy1.er
+Loading timed event-rule structure from:  ByteRdy1.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001496)
+Found 105 zones in 74 states for ByteRdy1 (16d 10151880m 0.197266u)
+Projecting out dummy transitions ... done (0.005385)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.790s
+user	0m2.676s
+sys	0m0.074s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module ByteRdy2 to ByteRdy2.er
+Loading timed event-rule structure from:  ByteRdy2.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001529)
+Found 105 zones in 74 states for ByteRdy2 (15d 10164168m 0.181641u)
+Projecting out dummy transitions ... done (0.005605)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.768s
+user	0m2.625s
+sys	0m0.086s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module ByteRdy3 to ByteRdy3.er
+Loading timed event-rule structure from:  ByteRdy3.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001532)
+Found 76 zones in 46 states for ByteRdy3 (15d 10176456m 0.166016u)
+Projecting out dummy transitions ... done (0.005032)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.775s
+user	0m2.627s
+sys	0m0.092s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module ByteRdy4 to ByteRdy4.er
+Loading timed event-rule structure from:  ByteRdy4.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001458)
+Found 105 zones in 74 states for ByteRdy4 (15d 10172360m 0.183594u)
+Projecting out dummy transitions ... done (0.005615)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.772s
+user	0m2.627s
+sys	0m0.088s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module ByteRdy5 to ByteRdy5.er
+Loading timed event-rule structure from:  ByteRdy5.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001491)
+Found 105 zones in 74 states for ByteRdy5 (16d 10246088m 0.199219u)
+Projecting out dummy transitions ... done (0.005548)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.809s
+user	0m2.678s
+sys	0m0.090s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module ByteRdy6 to ByteRdy6.er
+Loading timed event-rule structure from:  ByteRdy6.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001452)
+Found 105 zones in 74 states for ByteRdy6 (16d 10127304m 0.199219u)
+Projecting out dummy transitions ... done (0.005397)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.779s
+user	0m2.658s
+sys	0m0.080s
+ATACS VERSION 5.1
+Logging session in:  atacs.log
+No longer using transform 2 during postprocessing.
+Allow rules to be disabled with only a warning.
+Now using abstraction during compilation.
+Automatic state-variable insertion now DISABLED.
+Using bourne again POSET timing to obtain state graphs.
+PARG output on errors disabled.
+Compiling rappid_top.csp ... 
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process rdy
+Compiled process tagrdy
+Compiled process tagout
+Compiled process tagarrived
+Compiled process instrdy
+Compiled process preempt
+Compiled process ackgen
+Compiled process bytectrl
+Compiled process ld
+Compiled process preflongack
+Compiled process req
+Compiled process xbrdy
+Compiled process tag
+Compiled process brctrl
+Compiled process byterdy1
+Compiled process byterdy2
+Compiled process byterdy3
+Compiled process byterdy4
+Compiled process byterdy5
+Compiled process byterdy6
+Compiled process main
+Post processing ...Storing module InstRdy to InstRdy.er
+Loading timed event-rule structure from:  InstRdy.er
+WARNING:  Graph not connected!
+WARNING:  Dropped 108 unconnected nodes.
+Initializing 3 cycles ... done
+Checking for cycles in acyclic constraint graph ... done.
+Checking liveness ... live
+Checking connectivity ... NOT strongly connected
+EXCEPTION:  Connectivity violation!
+Checking safety ... safe
+Finding redundant rules ... done (0.001519)
+Found 50 zones in 34 states for InstRdy (10d 10110920m 0.125u)
+Projecting out dummy transitions ... done (0.004881)
+Checking output semi-modularity ... output semi-modular
+Verification succeeded.
+
+real	0m2.718s
+user	0m2.564s
+sys	0m0.078s
+
+real	2m31.154s
+user	2m12.129s
+sys	0m4.316s

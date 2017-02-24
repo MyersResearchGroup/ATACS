@@ -1,0 +1,8 @@
+.e 3
+.i 2
+.r 2
+.s 0
+reset
+a+ a-
+a- a+ [~a & maybe] 1 1 2
+a+ a- [~a | ~maybe] 0 1 2

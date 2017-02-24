@@ -1,0 +1,10 @@
+module par;
+input a;
+input b;
+output c;
+output d;
+
+process par;
+*[ ((a+; c+; a-; c-) || (b+; d+; b-; d-)); [true] ]
+endprocess
+endmodule

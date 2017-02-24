@@ -1,0 +1,26 @@
+/*****************************************************************************/
+/* Example to check the looping construct.                                   */
+/*****************************************************************************/
+module loopchk;
+
+output a;
+input b;
+output c;
+input d;
+input e;
+
+process foo;
+    *[ a+; [ b+ -> c+; [b-]; c-
+           | d+ -> c+; [d-]; c-;*
+           ]; [e+]; a-; [e-]
+     ]
+endprocess
+
+process foo2;
+    *[ [a+]; [ skip -> b+; [c+]; b-; [c-]
+             | skip -> d+; [c+]; d-; [c-];*
+	     ]; e+; [a-]; e-
+     ]
+endprocess
+endmodule
+

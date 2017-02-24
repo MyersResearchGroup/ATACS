@@ -1,0 +1,10 @@
+[+ack: (~precharged & wenin)]
+[-ack: (~wsldin & ~prnot & ~y0_ramreadsbuf)]
+[+prnot: (precharged & req)]
+[-prnot: (y0_ramreadsbuf)]
+[ wen: (prnotin & req)] Combinational
+[+wsen: (~wsldin & ~prnot & ~y0_ramreadsbuf)]
+[-wsen: (~req & prnot)]
+[ wsld: (y0_ramreadsbuf)] Combinational
+[+y0_ramreadsbuf: (prnotin & ~wenin & ~wsen)]
+[-y0_ramreadsbuf: (~prnotin & wsldin)]

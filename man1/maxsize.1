@@ -1,0 +1,28 @@
+.TH MAXSIZE 1 "30 September 2001" "" ""
+.SH NAME
+maxsize \- Sets Maximum Transistor Stack Size
+.SH SYNOPSIS
+.nf
+.BI atacs " -M#"
+.br
+.BI atacs> " maxsize <number>"
+.fi
+.SH DESCRIPTION
+.B "maxsize <number>" 
+changes the maximum allowable number of
+transistors in a single stack in an implementation (DEFAULT=4).
+.SH OPTIONS
+.TP
+.BI \-M#
+Sets maximum transistor stack size from the command line.
+.TP
+.BI "maxsize <number>"
+Sets maximum transistor stack size in the interactive shell.
+.SH CREDITS
+.B maxsize
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH BUGS
+.SH FILES
+.SH "SEE ALSO"
+.BR gatedelay (1)
+.BR http://www.async.ece.utah.edu

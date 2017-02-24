@@ -1,0 +1,131 @@
+/************************************************************************/
+/*  Cory Woody Walton, CS/EE 547-1					*/
+/*  SCSI Controller w/Syncronous Interface				*/
+/************************************************************************/
+
+module scsi;
+
+/********************************************************/
+
+/* Input & Output Section				*/
+
+/********************************************************/
+
+/*  Signals for synchronous interface modules		*/
+input DRack;		/* Data Read (SCSI phase 0) ACK in */
+output DRreq;		/* Data Read (SCSI phase 0) REQ out */
+input DWreq;		/* Data Write (SCSI phase 1) REQ in */
+output DWack;		/* Data Write (SCSI phase 1) ACK out */
+  
+
+/*  Signals for SCSI Bus				*/
+output ACK;		/* SCSI Acknowledge out */
+input REQ;		/* SCSI Request in */
+input MSG;		/* SCSI Message in */
+input CD;		/* SCSI Command/Data in */
+input IO;		/* SCSI Input/Output in */
+output DATIenb;		/* SCSI Data In Bus enable */
+output DATOenb;		/* SCSI Data Out Bus enable */
+
+/*  Misc datapath stuff (timers, parity, latches)	*/
+input PTYEack;		/* Parity Error Check ACK in */
+output PTYEreq;		/* Parity Error Check REQ out */
+input PTYOack;		/* Parity Output ACK in */
+output PTYOreq;		/* Parity Output REQ out */
+
+/************************************************************************/
+
+/* Control Section							*/
+
+/************************************************************************/
+
+process scsictrl;
+*[
+  DATIenb+;
+  [ REQ ->
+
+/* SCSI phases */
+    /* Data Out */
+    [ ~MSG & ~CD & ~IO & DWreq -> DATIenb-; (DWack+ || PTYOreq+);
+    DATOenb+; [~DWreq & PTYOack]; ACK+; PTYOreq-; 
+    [~REQ & ~PTYOack]; DATOenb-; ACK-; DWack-
+
+    /* Data In */
+    | ~MSG & ~CD & IO -> (DRreq+ || PTYEreq+); [DRack & PTYEack];
+      (DRreq- || PTYEreq-); [~DRack & ~PTYEack]; ACK+; [~REQ]; DATIenb-;
+      ACK-
+
+    /* Command Out (not supported, just do REQ-ACK) */
+    | ~MSG & CD & ~IO -> ACK+; [~REQ]; DATIenb-; ACK-
+
+    /* Status In (not supported, just do REQ-ACK) */
+    | ~MSG & CD & IO -> ACK+; [~REQ]; DATIenb-; ACK-
+
+    /* undefined (not supported, just do REQ-ACK) */
+    | MSG & ~CD & ~IO -> ACK+; [~REQ]; DATIenb-; ACK-
+
+    /* undefined (not supported, just do REQ-ACK) */
+    | MSG & ~CD & IO -> ACK+; [~REQ]; DATIenb-; ACK-
+
+    /* Message Out (not supported, just do REQ-ACK) */
+    | MSG & CD & ~IO -> ACK+; [~REQ]; DATIenb-; ACK-
+
+    /* Message In (not supported, just do REQ-ACK) */
+    | MSG & CD & IO -> ACK+; [~REQ]; DATIenb-; ACK-
+
+    ]
+  ]
+]
+endprocess
+
+/************************************************************************/
+
+/*  Enviroment & Datapath Section					*/
+
+/************************************************************************/
+
+/********************************************************/
+
+/*  SCSI I/O Bus definitions				*/
+
+/********************************************************/
+process SCSI;
+*[
+  (( [  MSG -> [ true -> MSG- | true -> skip ]
+     | ~MSG -> [ true -> MSG+ | true -> skip ]]) ||
+    ([   CD -> [ true ->  CD- | true -> skip ]
+     |  ~CD -> [ true ->  CD+ | true -> skip ]]) ||
+    ([   IO -> [ true ->  IO- | true -> skip ]
+     |  ~IO -> [ true ->  IO+ | true -> skip ]])) ;
+
+  REQ+; [ACK]; REQ-; [~ACK]
+]
+endprocess
+
+/********************************************************/
+
+/*  Synchronous Interface DataPath Units		*/
+
+/********************************************************/
+
+/* Data Input (from SCSI Bus to Host Interface) */
+process DPDataIn;
+*[[DRreq]; DRack+; [~DRreq]; DRack-]
+endprocess
+
+/* Data Output (from Host Interface to SCSI Bus) */
+process DPDataOut;
+*[DWreq+; [DWack]; DWreq-; [~DWack]]
+endprocess
+
+/* Parity Check */
+process DPPtyChk;
+*[[PTYEreq]; PTYEack+; [~PTYEreq]; PTYEack-]
+endprocess
+
+/* Parity Generation */
+process DPPtyGen;
+*[[PTYOreq]; PTYOack+; [~PTYOreq]; PTYOack-]
+endprocess
+
+endmodule

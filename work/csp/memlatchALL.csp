@@ -1,0 +1,57 @@
+/*                                                               */
+module memlatchALL;
+
+delay gatedelay = <1,2>;
+delay env  = <3,5>;
+
+input	RD   = {false,env};
+input	WR   = {false,env};
+output	ARW  = {false,gatedelay};
+
+input   Ri   = {false,env};
+output  Ai   = {false,gatedelay};
+
+output  Ro   = {false,gatedelay};
+input   Ao   = {false,env};
+
+output  L    = {false,gatedelay};
+input   Lt   = {false,env};
+
+output x = {false,gatedelay};
+
+process memlatch;
+  *[[ RD+ -> Ro+; [Ao+]; ((Ro-; [Ao-]) || (ARW+; [RD-])); ARW-   
+    | WR+ -> [Ri+]; L+; x+; [Lt+]; Ro+; 
+               ((L-; [Lt-]; /*Ai-;*/ [Ri-]; x-) 
+            || ([Ao+]; ((Ro-; [Ao-]) || (ARW+; [WR-])))); ARW- /*; Ai-*/
+   ]] 
+endprocess
+
+process ai;
+*[[ RD+ -> [ARW-]; skip
+  | WR+ -> [Lt-]; Ai+; [ARW-]; Ai- 
+ ]]
+endprocess
+
+process leftenv;
+  *[ Ri+; [Ai+]; Ri-; [Ai-] ]
+endprocess
+
+process rightenv;
+  *[[ skip -> [Ro+]; Ao+; [Ro-]; Ao- 
+    | skip -> [Ro+]; Ao+; [Ro-]; Ao-
+   ]]
+endprocess
+
+process ctlenv;
+  *[[ skip -> RD+; [ARW+]; RD-; [ARW-]
+    | skip -> WR+; [ARW+]; WR-; [ARW-]
+   ]]
+endprocess
+
+process latch;
+  *[ [L+]; Lt+; [L-]; Lt- ] 
+endprocess
+
+endmodule
+

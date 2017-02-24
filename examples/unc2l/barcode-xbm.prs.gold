@@ -1,0 +1,70 @@
+[ done: (start & done)] Combinational
+[ done: (samevalifack & ~zzz00 & zzz01)] Combinational
+[ memwritereq: (~prevbitack & transitionsack & ~widthsm1 & zzz02)] Combinational
+[ memwritereq: (newvalexpr0ack & ~transitionssm1)] Combinational
+[ memwritereq: (~memwriteack & memwritereq)] Combinational
+[ newbitreq: (~newbitack & ~prevbitack & ~samevalifack & scanack & ~transitionsack & ~widthack & ~testbitifreq)] Combinational
+[ newvalexpr0req: (~transitionsack & transitionssm1)] Combinational
+[ newvalexpr0req: (prevbitack & transitionssm1)] Combinational
+[ newvalexpr0req: (testbitifack & zzz00 & ~zzz02)] Combinational
+[ prevbitreq: (testbitifack & zzz00 & ~zzz02)] Combinational
+[ prevbitreq: (~prevbitack & prevbitreq)] Combinational
+[ prevbitreq: (~memwriteack & ~newvalexpr0ack & ~samevalifack & ~scanack & start & ~widthack & ~memwritereq & ~samevalifreq & ~scanreq & ~testbit1exprreq & ~testbitifreq & ~widthsm2 & ~zzz01)] Combinational
+[ prevbitreq: (~transitionsack & widthsm1)] Combinational
+[ prevbitsm1: (testbitifack & zzz00 & ~zzz02)] Combinational
+[ prevbitsm1: (~prevbitack & prevbitsm1)] Combinational
+[ prevbitsm1: (~newvalexpr0ack & transitionssm1)] Combinational
+[ samevalifreq: (samevalifreq & zzz00)] Combinational
+[ samevalifreq: (samevalifreq & ~zzz01 & ~zzz02)] Combinational
+[ samevalifreq: (testbit1exprack & widthack)] Combinational
+[ scanreq: (samevalifack & ~zzz00 & zzz02)] Combinational
+[ scanreq: (prevbitack & transitionsack & widthack)] Combinational
+[ scanreq: (~memwriteack & ~testbit1exprack & widthack & ~samevalifreq & ~widthsm1)] Combinational
+[ scanreq: (~newbitack & scanreq)] Combinational
+[ testbit1exprreq: (testbitifack & zzz01 & ~zzz02)] Combinational
+[ testbit1exprreq: (~widthack & testbit1exprreq)] Combinational
+[ testbitifreq: (newbitack)] Combinational
+[ testbitifreq: (testbitifreq & zzz02)] Combinational
+[ testbitifreq: (testbitifreq & ~zzz00 & ~zzz01)] Combinational
+[ transitionsreq: (~transitionsack & transitionsreq)] Combinational
+[ transitionsreq: (newvalexpr0ack & prevbitack & ~testbitifack)] Combinational
+[ transitionsreq: (~memwriteack & ~newvalexpr0ack & ~samevalifack & ~scanack & start & ~widthack & ~memwritereq & ~scanreq & ~testbit1exprreq & ~testbitifreq & ~widthsm2 & zzz02)] Combinational
+[ transitionsreq: (~prevbitack & widthsm1)] Combinational
+[ transitionssm1: (~transitionsack & transitionssm1)] Combinational
+[ transitionssm1: (prevbitack & transitionssm1)] Combinational
+[ transitionssm1: (testbitifack & zzz00 & ~zzz02)] Combinational
+[ widthreq: (~newvalexpr0ack & ~samevalifack & ~scanack & start & ~widthack & ~memwritereq & ~scanreq & ~testbitifreq & zzz02)] Combinational
+[ widthreq: (~transitionsack & widthsm1)] Combinational
+[ widthreq: (~prevbitack & widthsm1)] Combinational
+[ widthreq: (memwriteack & ~newvalexpr0ack & ~transitionsack)] Combinational
+[ widthreq: (testbit1exprack & ~testbitifack & ~widthack & ~zzz00)] Combinational
+[ widthsm1: (~memwriteack & ~newvalexpr0ack & ~samevalifack & ~scanack & start & ~widthack & ~memwritereq & ~scanreq & ~testbit1exprreq & ~testbitifreq & ~widthsm2 & zzz02)] Combinational
+[ widthsm1: (~transitionsack & widthsm1)] Combinational
+[ widthsm1: (~prevbitack & widthsm1)] Combinational
+[ widthsm2: (~widthack & widthsm2)] Combinational
+[ widthsm2: (memwriteack & ~newvalexpr0ack & ~transitionsack)] Combinational
+[ zzz00: (~memwriteack & ~transitionsack & widthack & ~widthsm1 & ~zzz01)] Combinational
+[ zzz00: (testbit1exprack & ~testbit1exprreq)] Combinational
+[ zzz00: (~newvalexpr0ack & ~samevalifack & ~scanack & zzz00)] Combinational
+[ zzz00: (testbitifack & zzz00)] Combinational
+[ zzz00: (~prevbitack & prevbitsm1)] Combinational
+[ zzz00: (~newbitack & ~scanack & ~testbitif & testbitifack & ~transitionssm1 & ~zzz01)] Combinational
+[ zzz01: (~scanack & start & ~testbit1exprack & zzz01)] Combinational
+[ zzz01: (testbitifack & zzz01)] Combinational
+[ zzz01: (~newbitack & ~scanack & testbitif & testbitifack & ~testbit1exprreq & ~zzz00)] Combinational
+[ zzz01: (prevbitack & transitionsack & widthack)] Combinational
+[ zzz01: (samevalifack & zzz01)] Combinational
+[ zzz01: (samevalif & samevalifack & ~testbit1exprack & ~widthack & ~done & ~zzz02)] Combinational
+[ zzz01: (widthack & zzz01)] Combinational
+[ zzz01: (transitionsack & ~zzz02)] Combinational
+[ zzz01: (prevbitack & zzz01)] Combinational
+[ zzz02: (~prevbitack & scanack & ~transitionsack & ~widthack)] Combinational
+[ zzz02: (~testbitifack & ~widthack & zzz02)] Combinational
+[ zzz02: (newbitack)] Combinational
+[ zzz02: (~samevalif & samevalifack & ~testbit1exprack & ~widthack & ~zzz01)] Combinational
+[ zzz02: (~transitionsack & transitionsreq)] Combinational
+[ zzz02: (~prevbitack & transitionsreq)] Combinational
+[ zzz02: (memwriteack)] Combinational
+[ zzz02: (newvalexpr0ack & prevbitack & ~testbitifack)] Combinational
+[ zzz02: (testbit1exprack & ~testbitifack & ~widthack & ~samevalifreq)] Combinational
+[ zzz02: (~samevalifack & ~start)] Combinational

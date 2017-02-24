@@ -1,0 +1,9 @@
+project <filename>
+.PP
+This command is used to eliminate dummy transitions from the reduced state
+graph.  When two states are separated by a dummy transition, they have the
+same state code (though perhaps different enablings).  They can be merged
+if this combination does not introduce new behaviors.  This routines merges
+as many such state pairs as possible.  It then does a complete state coding
+(CSC) check to see whether the state graph is directly implementable as
+a circuit.

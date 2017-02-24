@@ -1,0 +1,95 @@
+
+/*****************************************************************************/
+/* EE685 Project  Huffman Decoder Control                                    */
+/* Zhixiang Liu                                                              */
+/*****************************************************************************/
+module deco1;
+
+input ai; 
+input bi;
+input ci;
+input full0 = {false};
+input full1 = {false};
+input full2 = {false};
+input full3 = {false};
+input shift0 = {true};
+input shift1 = {true};
+output ao;
+output bo;
+output co;
+output x;
+output y;
+output z;
+
+process main;
+*[[ ~full3 -> ao+; [ai]; x+; ao-; [~ai]
+  | full3 -> x+ ]; 
+  [ shift1 -> bo+; [bi]; y+; bo-; [~bi]; x-; bo+; [bi]; z+; bo-; [~bi] 
+  | ~shift1 -> y+; x-; z+]; x+;
+  [ shift0 -> bo+; [bi]; y-; bo-; [~bi]
+  | ~shift0 -> y- ];
+  co+; [ci]; x-; co-; [~ci]; z-
+ ]
+endprocess
+
+process a;
+*[ [ao]; (full0+ || full1+ || full2+ || full3+); ai+; [~ao]; ai- ]
+endprocess
+
+process b;
+*[ [bo]; 
+   [ full2 -> skip
+   | ~full3 -> skip
+   | ~full2 & full3 -> full3-];
+   [ full1 -> skip
+   | ~full2 -> skip
+   | ~full1 & full2 -> full2-];
+   [ full0 -> full0-
+   | ~full1 -> skip
+   | ~full0 & full1 -> full1-
+   ]; bi+; [~bo]; bi- 
+ ]
+endprocess
+
+process c;
+*[ [co]; 
+   [ skip -> ( [ ~shift1 -> skip
+               | shift1 -> shift1-
+               ]
+               ||
+               [ ~shift0 -> skip
+               | shift0 -> shift0-
+               ]
+             )
+   | skip -> ( [ ~shift1 -> skip
+               | shift1 -> shift1-
+               ]
+               ||
+               [ shift0 -> skip
+               | ~shift0 -> shift0+
+               ]
+             )
+   | skip -> ( [ shift1 -> skip
+               | ~shift1 -> shift1+
+               ]
+               ||
+               [ ~shift0 -> skip
+               | shift0 -> shift0-
+               ]
+             )
+   | skip -> ( [ shift1 -> skip
+               | ~shift1 -> shift1+
+               ]
+               ||
+               [ shift0 -> skip
+               | ~shift0 -> shift0+
+               ]
+             )
+   ]; ci+; [~co]; ci- 
+ ]
+endprocess
+
+endmodule
+
+
+

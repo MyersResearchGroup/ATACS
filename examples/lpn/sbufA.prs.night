@@ -1,0 +1,6 @@
+[+CSC0: (ack)]
+[-CSC0: (rejpkt & sendline)]
+[+ack: (done)]
+[+ack: (~rejpkt & ~CSC0)]
+[-ack: (~ackline & ~done & ~req & CSC0)]
+[ sendline: (~ackline & req & CSC0 & ~ack)] Combinational

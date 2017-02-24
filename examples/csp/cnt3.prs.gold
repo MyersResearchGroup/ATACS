@@ -1,0 +1,9 @@
+[+q0: (cnt & ~o0)]
+[-q0: (cnt & o0)]
+[+o0: (~cnt & q0)]
+[-o0: (~cnt & ~q0)]
+[+q1: (cnt & o0 & ~o1)]
+[-q1: (cnt & o0 & o1)]
+[+o1: (~cnt & q1)]
+[-o1: (~cnt & ~q1)]
+[ done: (cnt & o0 & o1)] Combinational

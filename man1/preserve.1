@@ -1,0 +1,38 @@
+.TH PRESERVE 1 "30 March 2002" "" ""
+.SH NAME
+preserve \- Toggle preservation of user-specified concurrency
+.SH SYNOPSIS
+.B atacs -PP
+.br
+.B atacs> preserve
+.SH DESCRIPTION
+.B preserve
+toggles the preservation of user-specified concurrency during
+automated concurrency reduction.  The atacs default is that any events
+are subject to automatic concurrency reduction.  The first invocation
+of the \fBpreserve\fR command enables the policy of preserving
+user-specified concurrency.  This means that if a channel-level VHDL
+specification contains parallel send() or receive() operations,
+automatic concurrency reduction will not reduce concurrency between
+the branches of each parallel send or receive operation.  The second
+invocation of the \fBpreserve\fR command disables this policy again,
+and so on.
+.PP
+.SH OPTIONS
+.TP
+.BI \-PP
+This atacs option toggles the preservation of user-specified concurrency
+during automated concurrency reduction from the Unix shell command line.
+.TP
+.BI preserve
+This atacs command toggles the preservation of user-specified concurrency
+during automated concurrency reduction from within the atacs
+interactive shell.
+.SH CREDITS
+This pruning method and this command were written by Eric Robert
+Peskin (peskin@vlsigroup.ece.utah.edu)
+.SH BUGS
+See http://www.async.ece.utah.edu/cgi-bin/atacs
+.SH "SEE ALSO"
+.BR reduction (1),
+.BR http://www.async.ece.utah.edu

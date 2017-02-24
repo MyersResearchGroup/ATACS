@@ -1,0 +1,1009 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright (c) 2002 Scott Little <little@eng.utah.edu>
+%%
+%% File Name     : developer.tex
+%% Author        : Scott R. Little
+%% E-mail        : little@eng.utah.edu
+%% Date Created  : 11/01/2002
+%%
+%% Description   : A document providing useful information for
+%%                 ATACS developers.
+%%
+%% ToDo          : Add some sort of index.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[titlepage,11pt]{article}
+\textwidth 6.5in
+\textheight 9in
+\oddsidemargin -0.2in
+\topmargin -0.5in
+\usepackage{indentfirst,graphics,alltt,epsfig,color}
+
+\title{The ATACS Developer's Manual}
+\date{Created: November 1, 2002\\
+  Last Revised: February 5, 2007
+}
+
+\begin{document}
+  \maketitle
+
+  %show only subsection granularity in the toc
+  \setcounter{tocdepth}{2} 
+
+  \tableofcontents \newpage
+  
+   \setlength{\parindent}{0em} \setlength{\parskip}{10pt}
+  
+   \section{Introduction \& Purpose}
+   This document intends to give a basic overview of the core concepts
+  required for ATACS development. It describes how to build ATACS, the
+  necessary libraries, and some optional tools. It also covers the basic
+  operation of the source management and profiling infrastructure provided for
+  ATACS developers. The basic ATACS data structures and core functionality are
+  also briefly defined and described. For more information about basic
+  operation and use of ATACS please see the ATACS User's Manual.
+
+  \section{Building ATACS on Linux}
+  Compiling ATACS for the first time on a new system may be a bit
+  daunting at first, but it really isn't that hard.  The initial setup
+  takes a little bit of time, but once the system is setup correctly it
+  is very easy to maintain a working build.  There are a few required
+  libraries and helpful tools that ATACS uses.  These are described in
+  the remaining portions of this section.
+  
+  \subsection{Required libraries}
+  This section briefly describes the required libraries and how to
+  build them.  This is just meant as a quick help.  As always you
+  should consult the documentation that comes with the libraries for
+  a more complete set of instructions.
+  
+  \subsubsection{cprob}
+  The cprob libraries are really quite simple to build. They will compile
+without problem using almost any compiler. The source code can be obtained
+from: http://scicomp.ewha.ac.kr/netlib/cephes/ (Note: the version of this
+library available on the web is incompatible with ATACS.). To build the
+library you simply untar the cprob.tgz and do a 'make -f cprob.mak'. You then
+need to install the library (libprob.a) into a location that is in the library
+path. /usr/lib or /usr/local/lib are both nice locations depending on your
+preference. If you do put the libraries in /usr/local/lib you will be required
+to modify the ATACS Makefile by adding /usr/local/lib to the library path.
+  
+  \subsubsection{cudd}
+  Information about cudd can be found at
+  http://vlsi.colorado.edu/\verb1~1fabio/CUDD/cuddIntro.html  Cudd
+  can be built by just typing 'make'.  The include directory should be
+  copied to some useful include location.  /usr/include or
+  /usr/local/include are acceptable locations.  Then you should go
+  through the subdirectories to find the libraries that were built.
+  You should again put them in a useful location such as /usr/lib or
+  /usr/local/lib.  You should find: libcudd.a, libdddmp.a, libepd.a,
+  limtr.a, libobj.a, libst.a, and libutil.a.  You should rename
+  libutil.a to libCutil.a for use with ATACS.  If you put the include
+  files or library files in /usr/local then small modifications to the
+  ATACS Makefile will be required.
+  
+  \subsection{Required tools}
+  The tools required to build ATACS are common tools that you would
+  expect to find on most Linux systems.  The required minimum set of
+  tools is: g++, flex, bison, GNU make, sed, and Perl.
+  
+  \subsection{Useful tools}
+  These are a couple of tools that ATACS uses to display state graphs,
+  error traces, etc.  These tools certainly aren't required, but it is
+  nice to have the ability to receive visual feedback about results or
+  errors.
+  
+  \subsubsection{dot (graphviz tools)}
+  Dot is a part of the graphviz tool suite that can be found at:
+  http://www.research.att.com/sw/tools/graphviz/.  Dot is used to
+  display graphical representations of the circuits that ATACS is
+  synthesizing or verifying.  It may not always be wanted, but can be
+  a very useful debugging tool in many instances.  Building dot is
+  quite simple.  The instructions provided with the source code should
+  be sufficient to build dot successfully or you can simply download a
+  binary package for you system if one is available.
+  
+  \subsubsection{parg}
+  Parg is another tool used to display graphical representations of
+  the circuits.  The parg source code can be found in the atacs/src
+  directory and is build by typing 'make parg' from the atacs/src
+  directory.  
+
+  \subsubsection{dinotrace}
+  Dinotrace is a simple waveform viewer that is used by ATACS to
+  display the trace that causes a particular error.  The source code
+  can be found at: http://www.veripool.com/dinotrace/.  The build
+  instructions are included with the source code and are standard
+  instructions.  Simply build and install dinotrace to start seeing
+  the error traces generated by ATACS.
+  
+  \subsection{Building ATACS on a non-Linux system}
+
+  \subsubsection{Cygwin \& Windows}
+  ATACS has successfully been built under Windows using the Cygwin
+  tool suite.  The Cygwin tool suite can be obtained at:
+  http://www.cygwin.com/.
+
+  **Add required changes to build ATACS under Cygwin.
+  
+  \subsubsection{HP-UX}
+  In the past ATACS has been compiled under HP-UX.  This has not
+  happened for a little while.  The build may be broken or it may
+  still work.  That is currently unknown.  That said it is very
+  possible to get ATACS running on HP-UX with a little bit of work.
+
+  \section{Environment variables, CVS, and Make}
+  Okay, if you have managed to follow the directions up to this point
+  or are already working on a machine that has the proper libraries
+  and software installed then you are ready to actually get the ATACS
+  source code, build it, and run ATACS.  The remainder of this section
+  should help you do just that.
+  
+  \subsection{Checking out ATACS}
+  The ATACS source code is stored in a CVS repository in
+  /home/ming/cvsroot on ming.ece.utah.edu.  To check out a copy of
+  ATACS from a machine in the async lab you can simply type 'cvs -d
+  /home/ming/cvsroot co atacs' if you are located on a machine that
+  has an NFS mount of ming's file system.
+
+  If you are not located on a machine that has an NFS mount of ming's
+  file systems then the process is slightly different.  You will need
+  to set your CVS\_RSH environment variable to the value 'ssh'.  You
+  can then do a 'cvs -d ming.ece.utah.edu:/home/ming/cvsroot checkout
+  atacs'.
+
+  After typing the appropriate cvs command, you should see a large
+  amount of text scroll across the screen and upon termination there
+  should now be an atacs directory in your current working directory.
+  This directory contains all of the ATACS source code.
+  
+  \subsection{Building ATACS}
+  To build atacs you need to enter the atacs/src directory and simply
+  type make.  If everything is setup correctly then ATACS should
+  finish building without complaint.
+  
+  \subsection{ATACS Environment variables}
+
+
+  \section{Basic ATACS CVS and Make}
+
+  \subsection{Making changes}
+
+  \subsection{Testing your changes}
+
+  \subsection{Committing changes}
+
+  \subsubsection{Local CVS vs. Remote CVS}  
+  
+  \section{Advanced ATACS CVS and Make}
+  We use both CVS and Make extensively in the development of ATACS.
+  The majority of this infrastructure was put in place by Eric
+  Peskin.  Parts of these files are well documented.  Below is an
+  e-mail communication that I had with Eric.  It sums up a lot of the
+  information and will be placed here until I have more time to edit
+  and organize it.
+
+  \subsection{Where are the critical CVS scripts located?  What is the
+    main job of each script?}
+  
+  It all begins in the CVS module called CVSROOT.  To begin working on
+  anything in this module, you should first do cvs checkout CVSROOT
+  somewhere, and so on...)
+  
+  \textbf{CVSROOT/commitinfo}\\
+  This is the first thing that CVS consults before a commit.  If the
+  commit involves anything in atacs/{examples,src}, then control is sent
+  to /home/ming/remote/atacs/examples/regress (see below).
+  
+  \textbf{CVSROOT/loginfo}\\
+  CVS consults this AFTER a commit has completed.  I've set this up such
+  that after each local commit, it calls
+  /home/ming/remote/atacs/examples/refresh (see below).  This makes sure
+  that the tree at /home/ming/remote/atacs stays current
+  
+  
+  Then there are the scripts that are managed in the atacs cvs module:
+  Note: The executable scripts under atacs/examples should probably be
+  moved to atacs/bin instead (because they are executable, and they
+  are not actually examples).  They are in examples for historical
+  reasons: they are closely associated with the examples/Makefile, and
+  we didn't used to have an atacs/bin directory.
+  
+  \textbf{atacs/examples/regress}  \emph{perl script}\\
+  This script determines whether it is a local commit or a remote
+  commit.  For a remote commit it copies the files to be committed on
+  top of the image at /home/ming/remote/atacs, and runs al the tests
+  there.
+  
+  For a local commit, CVS may will call regress multiple times, once for
+  each subdirectory containing stuff to be committed.  So for a local
+  commit, the job of regress is to call status.perl (see below) exactly
+  once for each cvs commit, passing complete information about where and
+  how cvs was called.
+  
+  
+  \textbf{atacs/examples/status.perl}
+  The job of this script is to warn the user if the corresponding cvs
+  commit would be likely to break the repository.  In particular, it
+  checks to see whether the user has modified other files that are not
+  being committed.  If there are no warnings -- or if the user chooses
+  to ignore any warnings -- this script calls make on
+  atacs/examples/Makefile to run the regression tests
+  
+  \textbf{atacs/examples/Makefile}
+  This Makefile handles the actual regression tests.  It first calls
+  make on atacs/src/Makefile to make sure the atacs executable is up to
+  date.  Then it runs the regression tests on that example.
+
+  \textbf{atacs/examples/refresh} \emph{shell script}
+  This brings the tree at /home/ming/remote/atacs up-to-date.
+  (Actually, it brings whatever tree it was called in up-to-date, but I
+  only call it in /home/ming/remote/atacs.  See CVSROOT/loginfo.)  It
+  removes any files with conflicts, does an update, and then fixes
+  permissions.
+  
+  \textbf{atacs/examples/certify} \emph{shell script}
+  This script drives the nighttime regression testing.  At its heart, it
+  just calls make -k Certify on the atacs/examples/Makefile.  But it
+  also does the automatic tagging of the tested version, and
+  automatically submits a bug report if something goes wrong.
+  
+  
+  \textbf{atacs/src/Makefile}
+  Builds the atacs executable from the atacs src
+  
+  
+  \textbf{\large{Then there's a script that's not CVSed at all (!):}}\\
+  \textbf{ming:/etc/cron.daily/certifyATACS}\\
+  This runs once a night, updates the atacs tree at
+  \verb1~1peskin/nobackup/cert, and then, if anything has changed since the
+  last time, it runs atacs/examples/certify there.
+  
+  Finally, there are some directories to know about:
+  /home/ming/remote/atacs/ is the testbed for remote commits.
+  \verb1~1peskin/nobackup/cert/ is the testbed for nightly regression testing.
+  \verb1~1atacs-bugs is the directory for the jitterbug database (see below)
+  
+  
+  \subsection{How can I create custom example sets for the examples Makefile?}
+ 
+  1) Make such each example in your set is checked in as
+  atacs/examples/\verb1<1type\verb1>1/\verb1<1example\verb1>1.\verb1<1type\verb1>1\\
+  2)  Create your own suffix instead of .gold, say, .\verb1<1scottsuffix\verb1>1\\
+  3)  Check in each prs file of expected results as
+  atacs/examples/\verb1<1type\verb1>1/\verb1<1example\verb1>1.prs.\verb1<1scottsuffix\verb1>1\\
+  4)  In the atacs/examples directory, type
+  make Expected=\verb1<1scottsuffix\verb1>1\\
+  That will run your example set with the standard flags.  To alter the
+  flags, the most common approach is to use the Extras variable to add
+  additional flags:
+  make Expected=\verb1<1scottsuffix\verb1>1 Extras=\verb1<1scottsextraflags\verb1>1
+  There are many other variables you can customize.  See the comments in
+  atacs/examples/Makefile\\
+  5)  If you do this often, you could add a target to the Makefile like
+
+  Scott:
+  \${MAKE} Expected=\${scottsuffix} Extras=\${scottsextraflags}
+  
+  For example, see the rule for the target hairyNoPostProc in
+  atacs/examples/Makefile
+  
+  6)  Then, in the future, you could just type
+  make Scott
+  
+  \subsection{Are there more Makefiles than the main Makefile and the
+  examples Makefile?}
+  
+  Just papers/LaTeX/Makefile
+  
+  \subsection{Are the scripts for remote checkin different?}
+  
+  Yes, some of them are, but I've included them above.
+  
+  First to sum up:\\
+  For a LOCAL commit the call sequence of scripts is:\\
+  CVSROOT/commitinfo\\
+  atacs/examples/regress\\
+  atacs/examples/status.perl\\
+  atacs/examples/Makefile\\
+  (tests run in user's local directory)\\
+  atacs/examples/refresh runs after the commit to update
+  /home/ming/remote/atacs/
+  
+  For a REMOTE commit the call sequence is:\\
+  CVSROOT/commitinfo\\
+  atacs/examples/regress\\
+  atacs/examples/Makefile\\
+  (tests run in /home/ming/remote/atacs)
+  
+  For nighttime regression the call sequence is:\\
+  ming:/etc/cron.daily/certifyATACS\\
+  atacs/examples/certify\\
+  atacs/examples/Makefile\\
+  (tests run in \verb1~1peskin/nobackup/cert/atacs/)
+  
+  \subsection{Is remote checkin administered differently? If so, how do I do
+  the admin in case of a problem?}
+  
+  The admin consists of administering the above scripts plus making sure
+  the /home/ming/remote/atacs tree stays in a good state.  Despite the
+  best efforts of the atacs/examples/refresh script, sometimes the tree
+  at /home/ming/remote/atacs somehow gets wedged in a weird state.  So
+  sometimes I have to manually remove the files with conflicts, manually
+  update, and manually fix permissions.  Or sometimes I just blow away
+  the whole tree and do a fresh checkout and make, and then fix
+  permissions.  (The whole tree needs to be group async.  On each file,
+  group must have all the permissions that the owner does.  Non-group
+  people should have no permissions.)
+  
+  \subsection{What are the current known holes in the checkin process?}
+  
+  OK.  So one hole is whatever causes the automation to fail, requiring
+  the manual intervention I describe above.
+  
+  Another hole is the fact that a naughty developer could change files
+  around while emacs is waiting for a log message.  For that matter a
+  naughty developer could turn off the whole thing by changing
+  CVSROOT/commitinfo to just allow any commit.  Hmmm.
+  
+  Another hole is the warning mechanism during local commits that we
+  discussed during my practice talk.
+  
+  Within the regression testing, one big hole is that I never simulate
+  the circuits to see if they actually do what they are supposed to.  I
+  just check that atacs gets the same answer it did last time.  But we
+  have VHDL as an input form.  And storevhd and tel2vhd attempt to
+  provide VHDL as an output form.  So some simulation should be within
+  reach.
+  
+  Also, for the most part, we just check one combination of atacs
+  switches.  It's an end-to-end path through the code, but it's just one
+  path.  We should test more.
+  
+  \subsection{What would you add to the checkin process if you had
+    infinite time?}
+  
+  Plugging the holes above is one thing.\\
+  Making local commits as robust as remote commits .... or just
+  convincing everyone to always use remote commits even when they are
+  really local.
+  Simulation.\\
+  Test greater variety of switches and paths through code.\\
+  Make test harness easier for others to extend.\\
+  Link bug tracking database to CVS.\\
+  Automatically associate each message with tag.\\
+  Educate!\\
+  Document!
+  
+  \subsection{Where are the jitterbug files?}
+  \begin{itemize}
+  \item The executables are /home/shang/httpd/cgi-bin/atacs*
+    \subitem These must have permission set as follows:
+    \begin{verbatim}
+        chown root.www atacs atacs.private
+        chmod 04710 atacs atacs.private
+    \end{verbatim}
+  \item The configuration files are in shang:/etc/jitterbug/
+    AND its mirror at chou:/etc/jitterbug/
+  \subitem On both machines, /etc/jitterbug/atacs needs a line that
+    points to the IP address of the mail server.  E.g., 
+      smtp address = 155.98.27.202.
+    If the IP address of the mail server changes, you'll need to edit
+    this line on both machines.
+  \item The atacs-bugs home directory is \verb1~1atacs-bugs/
+  \subitem   \verb1~1atacs-bugs/.procmailrc pipes mail to the new\_message
+  \subitem \verb1~1atacs-bugs/bin/new\_message
+    There needs to be a link to new\_message in chou:/etc/smrsh/
+    See items 39e,f in our RedHat/RedHat\_7.1\_upgrade.txt
+  \subitem The actual bug reports and html files are stored under
+  \verb1~1atacs-bugs/bug\_tracking/  This directory should be
+  world-readable (but only writable by atacs-bugs).
+  \item The source code is at /home/chen/usr/local/src/jitterbug/
+  \end{itemize}
+
+  \subsection{Where can I find jitterbug documentation? Google says: 
+  http://samba.anu.edu.au/jitterbug/ ... is that correct?}
+
+  Yes.  See also /home/chen/usr/local/src/jitterbug/docs/
+
+  \subsection{Extended information on the examples/Makefile internal
+    workings}
+  
+  \textbf{Question:} I have been trying to use the examples Makefile
+  to test my code, but it just isn't seeming to work very well.  I
+  keep getting flags that I don't want and I can't figure out how to
+  turn them off.  I have stripped all of the "offending" flags out
+  of the Makefile.  Well, actually out of my own custom file.  I
+  made a makefile.srl so as not to corrupt the main Makefile.  Maybe
+  this is the problem.  The command that I am using is:
+  
+  make -f makefile.srl srl hse/PRSs.subDir
+  
+  the srl target is as follows:
+  srl:
+  \${MAKE} Extras=tSoOofoqlhsgllva
+  
+  This is the command that the Makefile runs: ../../bin/atacs
+  abstract.csp -tpG0-1tSoOofoqlhsgllvays \verb1>1 abstract.log 2\verb1>1\&1
+  
+  Where do the -tpG0-1 and ys flags come from?  They are no
+  longer anywhere to be found in makefile.srl b/c I ripped them
+  out in a fit of frustration.  Any help would be appreciated.  I
+  just can't seem to parse the Makefile well enough to see where
+  it is getting these flags.
+
+  \textbf{Answer from Chris:} Not sure what is going on here, but with
+  the original make file, you can do this:
+  
+  make --keep-going Timing=tSoOofoq DoIt=lhsgllva hse/check.subDir
+  
+  The --keep-going tells it to keep going even if the results don't match 
+  (they won't match because you aren't producing logic).
+  
+  Timing is used for timing flags.
+  
+  DoIt is used for command flags.
+  
+  \textbf{Answer from Eric Peskin:} The problem here is that as the
+  Makefile recurses into subdirectories, it specifically calls
+  atacs/examples/Makefile.  This is controlled by the rule:
+  
+  \# Take any pseudo-target of the form \verb1<1directory\verb1>1/\verb1<1target\verb1>1.subDir to mean:\\
+  \%.subDir:       \# enter \verb1<1directory\verb1>1, and then make \verb1<1target\verb1>1\\
+  \${MAKE} -C \$(@D) -f \${Root}/Makefile Root=../\${Root} Dir=\${Dir}/\$(@D) \$(*F)
+  
+  In particular, note the "-f \${Root}/Makefile" above
+  
+  I bet the result is that you're really only using your Makefile.srl
+  for the top level and then all the real work is happening in my
+  Makefile.  To let Makefile.srl take over the whole process you'd need
+  to change the above rule in Makefile.srl to use
+  -f \${Root}/Makefile.srl
+  instead of just
+  -f \${Root}/Makefile
+  
+  BUT, I like Chris' solution even better.  As he points out, most
+  things like this can be done from the command line without changing
+  the Makefile at all.  Sorry I neglected to mention the Timing and DoIt
+  variables in my earlier e-mail.
+  
+  A word about --keep-going:  This causes make to barrel ahead no matter
+  what happens: even if verification fails, or there's a segmentation
+  fault or whatever.  So if you use this, you'll want to look carefully
+  at any error messages.  (The idea of --keep-going is to run as much as
+  possible in batch mode and look over the report later.)
+  
+  A couple of alternatives:  You could use 
+  make Diff=/bin/true Timing=tSoOofoq DoIt=lhsgllva hse/check.subDir 
+  This swaps in the dummy program /bin/true (which always returns 0)
+  instead of compare\_literals.  So the above command will still grind to
+  a halt if atacs crashes or returns nonzero exit status, but it won't
+  try to compare results.
+  
+  But wait -- it looks like what you're really trying to do is to see
+  whether things verify.  I actually already added support for this.
+  See the targets verificationTests, verify, and .\%\_VERIFY\${ATACSflags}.
+  
+  Basically, you use verify instead of check.  So...
+  
+  MY FAVORITE SOLUTION:
+  1) Make up a new suffix, say .srl\\
+  2) For each atacs/examples/hse/\verb1<1example\verb1>1.hse you want
+  to verify: touch atacs/examples/hse/\verb1<1example\verb1>1.srl\\
+  3) cd atacs/examples\\
+  4) make Expected=srl Timing=tSoOofoq DoIt=lhsgllva hse/verify.subDir\\
+  5) If this is going to be a regular thing:\\
+  cvs add hse/*.srl\\
+  cd .. \# to the main atacs directory\\
+  cvs commit\\
+  6) If it's going to be really regular:\\
+  Add your own target to the atacs/examples/Makefile:\\
+  SRL:\\
+  \${MAKE} Expected=srl Timing=tSoOof\${noparg} DoIt=lhsgll\${verify} hse/verify.subDir
+  
+  Note that only the optional step 6 modifies the Makefile.
+  
+  Also note: As far as I know, the options oOofoq have nothing to do
+  with timing.  So it might make more sense to use the Special
+  variable as in make Expected=srl Timing=tS Special=oOofoq
+  DoIt=lhsgllva hse/verify.subDir
+  
+  However, in this case, it shouldn't make a difference.
+
+  \subsection{Shell limits}
+  It is often useful to set limits in your shell to prevent example that cause
+the disk to swap from running on a make in the examples directory. Shell
+limits can be set in the following way if you are using tcsh. In bash the
+command is ulimit.
+
+  Here is the excerpt from the tcsh man page:
+   limit [-h] [resource [maximum-use]]
+         Limits the consumption by the current process  and
+         each process it creates to not individually exceed
+         maximum-use on the specified resource.  If no max-
+         imum-use  is  given,  then  the  current  limit is
+         printed; if no resource is given, then all limita-
+         tions  are  given.   If  the -h flag is given, the
+         hard limits are used instead of the  current  lim-
+         its.  The hard limits impose a ceiling on the val-
+         ues of the current limits.   Only  the  super-user
+         may raise the hard limits, but a user may lower or
+         raise the current limits within the legal range.
+
+         Controllable resources currently  include  cputime
+         (the  maximum  number of cpu-seconds to be used by
+         each process), filesize (the largest  single  file
+         which  can  be  created),  datasize  (the  maximum
+         growth of the data+stack region via sbrk(2) beyond
+         the end of the program text), stacksize (the maxi-
+         mum  size  of  the  automatically-extended   stack
+         region),  coredumpsize  (the  size  of the largest
+         core dump that will be  created),  and  memoryuse,
+         the  maximum  amount  of physical memory a process
+         may have allocated to it at a given time.
+
+         maximum-use may be given as a (floating  point  or
+         integer)  number  followed by a scale factor.  For
+         all limits other than cputime the default scale is
+         `k' or `kilobytes' (1024 bytes); a scale factor of
+         `m' or `megabytes' may also be used.  For  cputime
+         the  default  scaling  is `seconds', while `m' for
+         minutes or `h' for hours, or a time  of  the  form
+         `mm:ss' giving minutes and seconds may be used.
+
+         For  both  resource names and scale factors, unam-
+         biguous prefixes of the names suffice.
+
+  \section{Adding a flag to ATACS}
+  As an ATACS developer you will certainly be interacting with command
+  line flags on a regular basis.  One of the things that you will
+  probably want to do is add your own command line flag.  This isn't
+  exactly the easiest thing to do.  Hopefully this section will give
+  you enough of an idea about how it is done so that you can add your
+  own flags as necessary.
+
+  One of the first steps is to add your boolean variable to store
+  whether the flag is on or off to struct.h.  You can look at other
+  examples of flags to see how this is done.
+
+  Then you need to edit memaloc.c and set the default state for your
+  newly added variable.
+
+  Now def.h needs to be opened so you can add the one letter
+  abbreviation for your new flag that will actually be used on the
+  command line.
+  
+  help.c is the next file that should be changed.  Here you need to
+  increment the command count and then add your method to the
+  command$\_$list array in the appropriate location based on alphabetical
+  order.  Information should also be added to the printman and/or
+  printman$\_$short functions as applicable.
+  
+  Finally atacs.c should be editted.  Again this is dependent on what
+  type of flag you are adding.  The idea that has been successful for
+  me is to find a similar flag and follow the method used by that
+  flag.  That should do it.  Run make and find something else to do
+  for a bit because the recompile will take a bit.
+
+  \section{Data Structures}
+  An important part of ATACS development is understanding the data
+  structures.  This section will give a basic description of the major
+  ATACS data structures contained in struct.h.  Each section below
+  describes a different data structure.  The section begins with the
+  actual data structure taken from struct.h.  The remainder of the
+  section describes the different parts of the data structure.
+
+  \subsection{markingADT}
+  \begin{verbatim}
+  typedef struct marking_struct {
+    char * marking;
+    char * enablings;
+    char * state;
+    char * up;
+    char * down;
+    unsigned int ref_count;
+  } *markingADT;
+  \end{verbatim}
+  
+  The markingADT is used to hold the information to describe the
+  current marking of the graph.
+
+  \subsubsection{marking}
+  Marking is a char* that is nrules long.  The valid values for
+  marking are 'T' or 'F'.  The rule is marked either true or false
+  depending on whether or not it is marked in the current state.
+  
+  \subsubsection{enablings}
+  Enablings is a char* that is nevents long.  The valid values for
+  enablings are 'T' or 'F'.  The events is set to true or false based
+  on the whether or not the event is enabled in the current state.
+  
+  \subsubsection{state}
+  State is a char* that is nsignals long.  The valid values for state
+  are 0, 1, 'R', and 'F'.  These values represent the state of the
+  wire (signal) in the current state where 0 stands for low, 1 for
+  high, 'R' for rising, and 'F' for falling.
+  
+  \subsubsection{up, down, ref\_count}
+  These are not applicable to most developers.
+  
+	\subsection{lhpnMarkingADT}
+	\begin{verbatim}
+		typedef struct lhpnMarkingStruct 
+		{
+		  char* marking;
+		  char* enablings;
+		  char* state;
+		} *lhpnMarkingADT;
+	\end{verbatim}
+	
+	\subsubsection{marking}
+	An array that is nrules long that gives the status of the rule.  'T' if the rule is marked (there is a token in the discrete place of the preset).  'F' if the rule is not marked (there is no token in the discrete place of the preset).
+	
+	\subsubsection{enablings}
+	An array that is nevents long that is true ('T') if the transition is enabled and false ('F') otherwise.
+	
+	\subsubsection{state}
+	An array nsignals long that shows the state of each signal: '1' (the signal is true), '0' (the signal is false), 'R' (the signal is rising), or 'F' (the signal is falling).
+
+  \subsection{markkeyADT}
+  \begin{verbatim}
+    typedef struct markkey_struct {
+      int enabling;
+      int enabled;
+      int epsilon;
+    } *markkeyADT;
+  \end{verbatim}
+
+  The markkey really serves as an index into the rules matrix and a
+  cache for other useful information.  It is nrules long so that the
+  information provided by markkey\_struct is available for each rule.  
+  
+  \subsubsection{enabling}
+  Enabling is an integer index into the rules matrix.  This is the
+  index into the row and represents the event or place that has
+  enabled this rule.
+  
+  \subsubsection{enabled}
+  Enabled is an integer index into the rules matrix.  This is the
+  index into the column and represents the event or place that this
+  rule enables.
+  
+  \subsubsection{epsilon}
+  Epsilon in an integer values that should be 0 or 1.  It represents
+  whether the rule is initially marked or not with 1 meaning the rule
+  is initially marked and 0 meaning that it is not.  This is a
+  duplicate of information contained in the ruleADT.
+  
+  \subsection{ruleADT}
+  \begin{verbatim}
+    typedef struct rule_struct {
+      bool concur;
+      bool markedConcur;
+      int epsilon;
+      int lower;
+      int upper;
+      int weight;
+      int plower;
+      int pupper;
+      int predtype;
+      int ruletype; 
+      int marking;
+      int maximum_sep;
+      bool reachable;
+      int conflict;
+      level_exp level;
+      level_exp POS;
+      char * expr;
+      CPdf *dist;
+      double rate;
+			ineqADT inequalities;
+    } *ruleADT;
+  \end{verbatim}
+  
+  The ruleADT is a 2D sparse matrix.  It is (nevents+nplaces) long by
+  (nevents+nplaces) wide.  Each rule has an entry with all of the
+  information contained in the rule\_struct.  Finding all the valid
+  rules in a row provides all outgoing transitions from an event or
+  place (the postset) while finding all valid rules in a column will
+  provide all incoming transitions to that event or place (the
+  preset).
+  
+  Another point of interest may be that often times when looking at
+  code that is searching through the rules matrix the search will
+  begin with event 1 instead of event 0.  This is because for
+  historical reasons event 0 is always the reset event.  The reset
+  event can generally be ignored, but occasionally the reset event is
+  used for a placeholder or something similar.
+
+  \subsubsection{epsilon}
+  Epsilon in an integer value that should be 0 or 1.  It represents
+  whether the rule is initially marked or not with 1 meaning the rule
+  is initially marked and 0 meaning that it is not.  This information
+  is copied into the markkeyADT.
+  
+  \subsubsection{lower, upper}
+  Lower and upper and integer values that represent the lower and
+  upper timing bounds on the rule.
+
+  \subsubsection{weight}
+  The weight assigned the rule, i.e. how many tokens are removed from
+  the preset and added to the postset when the rule fires.  This is
+  used in the HPN code.
+
+  \subsubsection{plower, pupper}
+  The lower and upper bounds for the predicates assigned to the rule.
+  This is used in the HPN code.
+
+  \subsubsection{ruletype}
+  Ruletype is an integer value representing the type of rule.  The
+  ruletypes are defined in struct.h and given below.
+
+  \begin{verbatim}
+    #define   NORULE       0
+    #define   SPECIFIED    1
+    #define   DISABLING    2
+    #define   ASSUMPTION   4
+    #define   TRIGGER      8
+    #define   PERSISTENCE  16
+    #define   ORDERING     32
+    #define   NONPERS      64
+    #define   CONTEXT      128
+    #define   REDUNDANT    256
+  \end{verbatim}
+  
+  \subsubsection{marking}
+  Marking is an integer index into the markingADT or markkeyADT.  I
+  like to think of this as a unique integer identifier for each rule.
+  This identifier can be used to obtain information about that rule
+  from the markingADT or markkeyADT.  For example to determine if rule
+  i is marked you can examine marking-\verb1>1marking[i].  Or to find
+  out which event rule i has enabled you can examine
+  markkey[i]-\verb1>1enabled.
+  
+  \subsubsection{conflict}
+  Conflict is an integer value representing the conflict type.  The
+  conflict types are defined is struct.h and given below.
+
+  \begin{verbatim}
+    #define   NOCONFLICT   0
+    #define   ICONFLICT    1
+    #define   OCONFLICT    2
+  \end{verbatim}
+  
+  \subsubsection{level}
+  Level is of type level\_exp and is the SOP form of the boolean
+  expression that may be present on the rule.
+  
+  \subsubsection{POS}
+  Level is of type level\_exp and is the POS form of the boolean
+  expression that may be present on the rule.
+
+  \subsubsection{inequalities}
+	Inequalities is the list of inequalities on the rule.
+
+  \subsubsection{concur, markedConcur, maximum\_sep, expr, dist, rate}
+  Not used by most developers.
+  
+  \subsection{eventADT}
+  \begin{verbatim}
+    typedef struct event_struct {
+      char * event;
+      bool dropped;
+      bool immediate;
+      int color;
+      int signal;
+      int lower;
+      int upper;
+      int process;
+      int type;
+      char * data;
+      char * hsl;
+      int rate;
+      int lrate;
+      int urate;
+      int lrange;
+      int urange;
+      int linitrate;
+      int uinitrate;
+      level_exp SOP;
+      ineqADT inequalities;
+    } *eventADT;
+  \end{verbatim}
+
+  The eventADT is (nevents+nplaces) long and contains an event\_struct
+  for each of these entries.
+
+  \subsubsection{event}
+  A char* that gives the symbolic name for an event.  These entries
+  are of the form a+/1, b+/1, b-/1, \$c+/1, etc.  The \$ in front of an
+  event indicates that the event is a sequencing event (i.e. added by
+  ATACS and not explicitly described in the circuit specification).  
+  
+  \subsubsection{dropped}
+  A boolean value to determine whether this event should be ignored.
+  If dropped in true then this event is no longer applicable and can
+  safely be ignored.
+  
+  \subsubsection{color}
+  This is currently a free integer variable without a specified use.
+  
+  \subsubsection{signal}
+  This is an integer index into the signalADT.  A value of -1
+  means that this event does not have an index into the signalADT.  
+
+	\subsubsection{lower/upper}
+	The lower/upper timing bound for the event (transition).
+
+  \subsubsection{type}
+  This is an integer type describing the type of event.  The types are defined in ly.h.  A complete list is found below.  CONT is set when the event is continuous in nature (used for HPN models).  VAR is set when the event is a variable with the common example being a continuous variable where both CONT and VAR are set.
+
+  \begin{verbatim}
+    #define UNKNOWN      0
+    #define IN           1
+    #define OUT          2
+    #define PASSIVE      4
+    #define ACTIVE       8
+    #define DUMMY       16
+    #define IDLE        32
+    #define WORK        64
+    #define DONE       128
+    #define ISIGNAL    256
+    #define RELEVANT   512
+    #define SENT      1024
+    #define RECEIVED  2048
+    #define PUSH      4096
+    #define PULL      8192
+    #define KEEP     16384
+    #define NONINP   32768
+    #define ABSTRAC  65536
+    #define CONT    131072
+		#define VAR     262144
+  \end{verbatim}
+
+  \subsubsection{hsl}
+  A char * containing the HSL formula for the event.
+
+  \subsubsection{rate}
+  This is the flow rate of a continuous transition.  This is used for
+  HPNs.
+
+	\subsubsection{lrate/urate}
+	The current lower or upper rate of the event.
+
+	\subsubsection{lrange/urange}
+	The lower and upper limit on a continuous variable.
+	
+	\subsubsection{linitrate/uinitrate}
+	The lower and upper initial rate for a continuous variable.
+	
+	\subsubsection{SOP}
+	The sum of products form for the enabling condition on the event.
+	
+	\subsubsection{inequalities}
+	The list of inequalities assigned to the event.
+
+  \subsubsection{immediate, process, data}
+  Not used by most developers.
+
+  \subsection{signalADT}
+  \begin{verbatim}
+    typedef struct signal_struct {
+      char * name;
+      bool is_level;
+      int event;
+      int riselower;
+      int riseupper;
+      int falllower;
+      int fallupper;
+      int maxoccurrence;
+   } *signalADT;
+  \end{verbatim}
+
+  \subsubsection{name}
+	The name of the signal.
+	
+	\subsubsection{event}
+	
+
+  \subsection{*level\_exp}
+  \begin{verbatim}
+    typedef struct bool_exp {
+      char * product;
+      struct bool_exp *next;
+    } *level_exp;
+  \end{verbatim}
+
+  The level\_exp struct is used to create SOP and POS style boolean
+  expressions.  This is done using sequences of 1,0, and -.  1
+  indicates true; 0 indicates false; - indicates a don't care.  For
+  instance, a circuit with signals abcd and being represented in
+  the SOP form where the expression is ac' would be represented as
+  1-0-.  
+  
+  \subsubsection{product}
+  Product is a char* representation of the boolean term.  In the SOP
+  representation the product variable represents the product term and
+  in the POS form the product variable represents the sum term.
+  
+  \subsubsection{next}
+  Next is simply a pointer to the next item in the list.
+
+	\subsection{ineqADT}
+	\begin{verbatim}
+		typedef struct ineq_tag {
+		  intptr_t place;
+		  int type;
+		  int uconstant;
+		  int constant;
+		  int signal;
+		  intptr_t transition;
+		  struct ineq_tag *next;
+		} *ineqADT;
+	\end{verbatim}
+	
+	\subsubsection{place}
+	An integer that indexes into the EventADT and corresponds to the place being used on the LHS of the inequality.
+	
+	\subsubsection{type}
+	An integer representing the type of inequality.  The list is shown below.
+	
+	\begin{verbatim}
+		0 = >
+		1 = >=
+		2 = <
+		3 = <=
+		4 = =
+		5 = :=
+		6 = 'dot:=
+		7 = :=T/F
+	\end{verbatim}
+	
+	\subsubsection{uconstant}
+	The upper bound for the inequality when appropriate (for instance in an assignment).
+	
+	\subsubsection{constant}
+	The lower bound or constant value for the LHS of the inequality.
+	
+	\subsubsection{signal}
+	An index into the signalADT for appropriate predicates.
+	
+	\subsubsection{transition}
+	An index into EventADT indicating to which transition the inequality corresponds.
+	
+	\subsubsection{next}
+	A pointer to the next inequality in the list.
+
+  \subsection{clockkeyADT}
+  \begin{verbatim}
+    typedef struct clockkey {
+      int enabled;
+      int enabling;
+      int eventk_num;
+      int causal;
+      anti_causal_list anti;
+			int lrate;
+			int urate;
+    } *clockkeyADT;
+  \end{verbatim}
+  
+  \subsubsection{enabling}
+  Enabling is an integer index into the rules matrix.  This is the
+  index into the row and represents the event or place that has
+  enabled this rule.
+  
+  \subsubsection{enabled}
+  Enabled is an integer index into the rules matrix.  This is the
+  index into the column and represents the event or place that this
+  rule enables.
+
+	\subsubsection{lrate/urate}
+	When the data structure contains a continuous variable these integers contain the lower and upper rate for the variable.  These rates are checked by add\_state as they are necessary for differentiating between states.
+
+  \subsubsection{eventk\_num, causal, anti}
+  Not used by most developers.
+
+  \section{Transformations}
+  \input{xform/xform.tex}
+\end{document}

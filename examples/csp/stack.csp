@@ -1,0 +1,92 @@
+/*****************************************************************************/
+/* The eager stack example from Hulgaard/Burns papers (see async95).         */
+/*****************************************************************************/
+module stack;
+
+delay gatedelay = <2,5>;
+delay env = <10,inf>;
+
+input  p0i = {false,env};
+output p1i = {false,gatedelay};
+output p2i = {false,gatedelay};
+output p3i = {false,gatedelay};
+input  g0i = {false,env};
+output g1i = {false,gatedelay};
+output g2i = {false,gatedelay};
+output g3i = {false,gatedelay};
+output p0o = {false,gatedelay};
+output p1o = {false,gatedelay};
+output p2o = {false,gatedelay};
+output p3o = {false,gatedelay};
+output g0o = {false,gatedelay};
+output g1o = {false,gatedelay};
+output g2o = {false,gatedelay};
+output g3o = {false,gatedelay};
+output x00 = {false,gatedelay};
+output x01 = {false,gatedelay};
+output x02 = {false,gatedelay};
+output x03 = {false,gatedelay};
+output x10 = {false,gatedelay};
+output x11 = {false,gatedelay};
+output x12 = {false,gatedelay};
+output x20 = {false,gatedelay};
+output x21 = {false,gatedelay};
+output x3 = {false,gatedelay};
+
+process environment;
+*[ p0i+; [p0o+]; p0i-; [p0o-]; 
+   [ skip -> p0i+; [p0o+]; p0i-; [p0o-]; 
+     [ skip -> p0i+; [p0o+]; p0i-; [p0o-]; 
+	 [ skip -> p0i+; [p0o+]; p0i-; [p0o-]; g0i+; [g0o+]; g0i-; [g0o-]; *
+	 | skip -> g0i+; [g0o+]; g0i-; [g0o-]	
+	 ]; *
+     | skip -> g0i+; [g0o+]; g0i-; [g0o-]
+     ]; *
+   | skip -> g0i+; [g0o+]; g0i-; [g0o-]
+   ]
+ ]
+endprocess
+
+process s0;
+*[[p0i+]; p0o+; x00+; [p0i-]; p0o-; 
+    [ p0i+ -> x01+; p0o+; [p0i-]; p1i+;[p1o+]; p1i-; [p1o-]; p0o-;  
+       [ p0i+ -> x02+; p0o+; [p0i-]; p1i+; [p1o+]; p1i-; [p1o-]; p0o-;
+	 [ p0i+ -> x03+; p0o+; [p0i-]; p1i+; [p1o+]; p1i-; [p1o-]; p0o-; 
+	     [g0i+]; x03-; g0o+; [g0i-]; g1i+; [g1o+]; g1i-; [g1o-]; g0o-;  * 
+	 | g0i+ -> x02-; g0o+; [g0i-]; g1i+; [g1o+]; g1i-; [g1o-]; g0o- 
+	 ]; *
+       | g0i+ -> x01-; g0o+; [g0i-]; g1i+; [g1o+]; g1i-; [g1o-]; g0o-
+       ]; *	
+    | g0i+ -> x00-; g0o+; [g0i-]; g0o-   
+    ]
+ ]
+endprocess
+
+process s1;
+*[ [p1i+]; x10+; p1o+; [p1i-]; p1o-; 
+   [ p1i+ -> x11+; p1o+; [p1i-]; p2i+; [p2o+]; p2i-; [p2o-]; p1o-;
+       [p1i+ -> x12+; p1o+; [p1i-]; p2i+; [p2o+]; p2i-; [p2o-]; p1o-;
+	   [g1i+]; x12-; g1o+; [g1i-]; g2i+; [g2o+]; g2i-; [g2o-]; g1o-;  *
+       | g1i+ -> x11-; g1o+; [g1i-]; g2i+; [g2o+]; g2i-; [g2o-]; g1o-
+       ]; *
+   | g1i+ -> x10-; g1o+; [g1i-]; g1o-
+   ]
+ ]
+endprocess
+
+
+process s2;
+*[ [p2i+]; x20+; p2o+; [p2i-]; p2o-; 
+    [p2i+ -> x21+; p2o+; [p2i-]; p3i+; [p3o+]; p3i-; [p3o-]; p2o-;
+	[g2i+]; x21-; g2o+; [g2i-]; g3i+; [g3o+]; g3i-; [g3o-]; g2o-;  *	
+    | g2i+ -> x20-; g2o+; [g2i-]; g2o-
+    ]
+ ]
+
+endprocess
+
+process s3;
+*[ [p3i+]; x3+; p3o+; [p3i-]; p3o-; [g3i+]; x3-; g3o+; [g3i-]; g3o- ]
+endprocess
+
+endmodule

@@ -1,0 +1,74 @@
+* sring - a ring oscillator with bridges
+*-----------------------------------------------------------
+* Libraries, parameters and models
+*-----------------------------------------------------------
+.model pch pmos level=14
+.model nch nmos level=14
+
+*-----------------------------------------------------------
+* Operating point
+*-----------------------------------------------------------
+.temp 30
+*.param supplyVoltage=1.5V
+ 
+*-----------------------------------------------------------
+* Initial conditions and stimuli
+*-----------------------------------------------------------
+*Figure out how to provide this initial condition
+.ic v(A2)=1.5v
+*.ic v(B2)='supplyVoltage/2.'
+v1 vdd 0 dc 1.5v 
+
+*-----------------------------------------------------------
+* Simulation netlist
+*-----------------------------------------------------------
+
+*.param lp=1.0u  ln=1.0u 
+*.param  wnbridge=2u wpbridge=4u 
+* Circuit ceases to oscillate above this ratio
+*.param ratioChainToBridge = 1.972
+*
+*Circuit ceases to oscillate below  this ratio
+*.param ratioChainToBridge = 0.31
+*
+*Oscillation ratio changes based on the transistor model
+*.param ratioChainToBridge = 1.5
+*.param wnchain = 'wnbridge*ratioChainToBridge'
+*.param wpchain = 'wpbridge*ratioChainToBridge'
+
+*.global vdd
+
+*FAILURE CONDITION
+*Because ngspice doesn't support .param statements to have the circuit fail
+*you must change the widths of the chain inverters and ensure that the
+*pullup is 2x the pulldown 
+*The circuit should oscillate between (9.1,4.55)-(1.6,0.8)
+.subckt CHAININV in out psource nsource vdd
+  mpullup    out in psource vdd pch l=1.0u w=6.0u
+	mpulldown  out in nsource 0 nch l=1.0u w=3.0u
+.ends  CHAININV
+
+.subckt BRIDGEINV in out psource nsource vdd
+  mpullup    out in psource vdd pch l=1.0u w=4.0u
+	mpulldown  out in nsource 0 nch l=1.0u w=2.0u
+.ends  BRIDGEINV
+
+.subckt  CELL  inp inm outp outm vdd
+	xinv1  inp  outm vdd 0 vdd  CHAININV
+	xinv2  inm  outp vdd 0 vdd  CHAININV
+	xinv3  outp outm vdd 0 vdd  BRIDGEINV
+	xinv4  outm outp vdd 0 vdd  BRIDGEINV
+.ends CELL
+
+.subckt CHAINOFCELLS2  ina inb outa outb vdd   
+	xCell1  ina inb oa1  ob1  vdd  CELL  
+	xCell2  oa1 ob1 outa outb vdd  CELL  
+.ends CHAINOFCELLS2 
+
+xChainOfCells2  A2 B2 B2 A2 vdd  CHAINOFCELLS2
+
+*-----------------------------------------------------------
+* Simulation controls
+*-----------------------------------------------------------
+.tran 5ps 4000ps uic
+.plot  A2 B2 inp

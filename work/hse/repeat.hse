@@ -1,0 +1,14 @@
+/*****************************************************************************/
+/* Example which implements "b:=true" (from Eric Peskin).                    */
+/*****************************************************************************/
+module repeat;
+    output	b;
+    process DECODE;
+        *[
+            [~b -> b+
+            | b -> skip
+            ]
+         ]
+    endprocess
+
+endmodule

@@ -1,0 +1,23 @@
+#.model dlatch-usc
+.inputs D CLK
+.outputs Q usc0
+#@.init_state [1111]
+.graph
+place_q1 D- CLK+/1
+place_q0 D+ CLK+/3
+CLK+/1 CLK-/1
+D- CLK+/2
+CLK-/1 place_q1
+CLK+/2 Q-
+Q- CLK-/2
+CLK-/2 usc0+/1
+CLK+/3 CLK-/3
+D+ CLK+/4
+CLK-/3 place_q0
+CLK+/4 Q+
+Q+ CLK-/4
+CLK-/4 usc0-/1
+usc0+/1 place_q0
+usc0-/1 place_q1
+.marking {<Q+,CLK-/4>}
+.end

@@ -1,0 +1,39 @@
+/*****************************************************************************/
+/** 1-bit Comparator                                                         */
+/** INPUTS: Req, A, and B                                                    */
+/** OUTPUTS: E, G, L, and Ack                                                */
+/** NOTE: Even though this is a datapath element, I want to see what atacs   */
+/** will build                                                               */
+/*****************************************************************************/
+/* module comparator; */
+module compare;
+
+  input  Req = {false, <1,10>};
+  input  A   = {false, <1,10>};
+  input  B   = {false, <1,10>};
+
+  output E  = {false, <1,10>};
+  output G  = {false, <1,10>};
+  output L  = {false, <1,10>};
+  output Ack = {false, <1,10>};
+
+  process comp;
+    *[ [Req] ; [   ( ~A & ~B ) -> E+ ; Ack+ ; [~Req] ; E- ; Ack-  
+                 | ( ~A &  B ) -> L+ ; Ack+ ; [~Req] ; L- ; Ack-  
+                 | (  A & ~B ) -> G+ ; Ack+ ; [~Req] ; G- ; Ack- 
+                 | (  A &  B ) -> E+ ; Ack+ ; [~Req] ; E- ; Ack- 
+
+               ]
+     ]
+  endprocess
+
+  testbench env;
+    *[ [   true -> Req+ ; [Ack] ; Req- ; [~Ack] 
+         | true -> B+ ; Req+ ; [Ack] ; Req- ; B-  ; [~Ack] 
+         | true -> A+ ; Req+ ; [Ack] ; Req- ; A-  ; [~Ack]
+         | true -> ( A+ || B+ ) ; Req+ ; [Ack] ; Req- ; ( A- || B- ) ; [~Ack]
+       ]
+     ]
+  endtestbench
+
+endmodule

@@ -1,0 +1,22 @@
+.inputs a b c 
+.outputs t
+#@.init_state [0000]
+.graph
+b+/1 t+/1
+t+/1 b-/1
+b-/1 c-
+c- t-/1
+t-/1 a+/1
+a+/1 b+/2
+b+/2 a-/1
+a-/1 t+/2
+t+/2 a+/2
+a+/2 b-/2
+b-/2 c+
+c+ b+/3
+b+/3 t-/2
+t-/2 b-/3
+b-/3 a-/2
+a-/2 b+/1
+.marking {<t-/1,a+/1>}
+.end

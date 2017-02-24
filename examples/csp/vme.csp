@@ -1,0 +1,25 @@
+module vme;
+
+input dsr;
+input ldtack;
+
+output d;
+output lds;
+
+process d;
+    *[ [ldtack+]; d+; [dsr-]; d- ]
+endprocess
+
+process lds;
+    *[ [dsr+]; lds+; [dsr-]; lds-; [ldtack-] ]
+endprocess
+
+process dsr;
+    *[ dsr+; [d+]; dsr-; [d-] ]
+endprocess
+
+process ldtack;
+    *[ [lds+]; ldtack+; [lds-]; ldtack- ]
+endprocess
+
+endmodule

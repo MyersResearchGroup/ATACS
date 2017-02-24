@@ -1,0 +1,7 @@
+findsv <filename>
+.PP
+If a design does not have the complete state coding (CSC) property, this
+command attempts to add state variables until it does.  The CSC property
+is violated when two states have the same binary code but different outputs
+are enabled.  This routine attempts to add state variables to differentiate
+these problem states.  

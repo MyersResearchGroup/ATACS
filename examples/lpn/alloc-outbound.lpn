@@ -1,0 +1,60 @@
+# alloc-outbound
+# HP controller, by K. Stevens
+# Meat state encoding
+.inputs req ackctl ackbus nakbus
+.outputs ack busctl reqbus y1_allocoutbound y0_allocoutbound
+#@.init_state [000000000]
+.graph
+# 0
+req+/1 busctl+/1
+# -> 1
+busctl+/1 p1
+p1 ackctl+/1
+
+# 1 
+ackctl+/1 reqbus+/1
+# -> 2
+reqbus+/1 p2
+p2 ackbus+/1 nakbus+/1
+
+# 2
+ackbus+/1 y1_allocoutbound+/1
+y1_allocoutbound+/1 reqbus-/1
+
+nakbus+/1 y0_allocoutbound+/1
+y0_allocoutbound+/1 reqbus-/2
+# -> 3
+reqbus-/1 ackbus-/1
+# -> 5
+reqbus-/2 nakbus-/1
+
+# 3
+ackbus-/1 busctl-/1
+# -> 4
+busctl-/1 ackctl-/1
+
+# 4
+ackctl-/1 ack+/1
+# -> 7
+ack+/1 req-/1
+
+# 7
+req-/1 y1_allocoutbound-/1
+y1_allocoutbound-/1 ack-/1
+# -> 0
+ack-/1 req+/1
+
+# 5
+nakbus-/1 busctl-/2
+# -> 6
+busctl-/2 ackctl-/2
+
+# 6
+ackctl-/2 y0_allocoutbound-/1
+y0_allocoutbound-/1 busctl+/2
+# -> 1
+busctl+/2 p1
+
+.marking { <ack-/1,req+/1> }
+#.marking {<busctl+/2,ackctl+/1>}
+.end

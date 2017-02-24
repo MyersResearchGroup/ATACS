@@ -1,0 +1,16 @@
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage4
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage5
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage6
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage7
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage8
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage9
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage10
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage11
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage12
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage13
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage14
+time ../../bin/atacs -oa -on -tp -oq -va stari15 stage15
+

@@ -1,0 +1,118 @@
+#eval "set PATH=/usr/bin:/usr/local/bin:/Perl/bin:${PATH};exec perl -S $0 $*"
+eval "set PATH=/usr/bin:/usr/local/bin:/Perl/bin:${PATH};exec perl -S $0"
+    if $running_under_some_shell;#above line won't run if we're already in Perl
+    
+use English; # Allow the long names for perl's built-in variables.
+
+# Script to launch pre-commit testing of ATACS, by Eric Robert Peskin
+# Questions?  mailto:peskin@vlsigroup.elen.utah.edu
+# Bug reports?  http://www.async.elen.utah.edu/cgi-bin/atacs
+
+# THIS SCRIPT IS DESIGNED TO BE RUN AUTOMATICALLY BY CVS DURING A cvs commit.
+# See http://www.gnu.org/manual/cvs-1.9/html_node/cvs_134.html#SEC141
+# It is NOT useful as a stand-alone script.
+
+# The full sequence is:
+#   cvs consults  CVSROOT/commitinfo, 
+#   which points to atacs/examples/regress  <== You are here.
+#   which  calls    atacs/examples/status.perl,
+#   which  calls    atacs/examples/Makefile (via make)
+
+# Unfortunately, one cvs commit may call this script multiple times, 
+# once for each directory that has stuff to be committed.
+
+# But what we really want is to do our pre-commit check ONCE, taking into
+# account the state of the entire tree rooted at atacs/ and the complete
+# set of files that will be committed if this cvs commit is allowed to 
+# complete.
+
+# With that in mind, the goal of this script is to call status.perl
+# exactly once per cvs commit, passing complete information about where
+# and how cvs commit was called.
+
+# To accomplish this goal, this script must:
+#     find the cvs process that called this script
+#     find the directory from which that cvs process was called
+#     find the arguments that were passed to that cvs process
+$OUTPUT_RECORD_SEPARATOR = "\n";
+$OUTPUT_FIELD_SEPARATOR  = " " ;
+chomp($cwd = `pwd`);
+if($cwd =~ /^\/tmp\/cvs-serv\d*/){ # This is a remote commit.
+    $top = $MATCH;
+    if (-e "$top/.status"){   # We've already run under this same cvs commit.
+	-e "$top/.status.ok" or die "Prior directory failed";
+	exit; # Otherwise, the previous directory passed, so pass this one too.
+    }
+    doCommands("touch $top/.status");
+    @CurrentPath    = split(/\//,$cwd    );
+    @RepositoryPath = split(/\//,$ARGV[0]);
+    while ($#CurrentPath > 2) {
+	pop(@CurrentPath   );
+	pop(@RepositoryPath);
+    }
+    $repository = join('/',@RepositoryPath);
+    #$repository =~ /\/atacs/ or die "Not an atacs repository";
+    $subDir     = $POSTMATCH;
+    # The following variable definition sets up the directory to be
+    # used for remote commits.  We find it by searching the path in which this
+    # executable was called for /atacs/
+    $0 =~ /^(.*\/atacs)((\/.*)?)$/ or die "Cannot find root of atacs tree";
+    $testBed    = $1;
+    # Also note that $testBed must be a CVS image of the atacs tree
+    # $testBed (and everything under it) must be group atacs
+    # For all the files under $testBed, the group must have the same
+    # permissions as the owner, and others should have no permissions:
+    #   chgrp -R atacs $testBed
+    #   chmod -R g=u,o= $testBed
+    $destination= "$testBed"; #/$subDir";
+    chdir($top) or die "Could not cd $top";
+    chomp(@Files = `find -type f -not -path "*/CVS/*" -not -name .status`);
+    doCommands("chgrp -Rf atacs .", "chmod -Rf g=u .");
+    doCommands(map("cp -bfp $ARG $destination/$ARG", @Files));
+    chomp(@Dirs  = `find -type d -not -path "*/CVS*"`);
+    doCommands(map("chmod -f o=rX $ARG", @Dirs));
+    $Status = system("make -C $testBed/examples");
+    chomp(@Mine  = `find $testBed -user $UID -type f`);
+    doCommands(map("chgrp -f atacs $ARG",@Mine));
+    doCommands(map("chmod -f g=u   $ARG",@Mine));
+    if($Status){
+	doCommands(map("mv $destination/$ARG~ $destination/$ARG", @Files));
+	die "make failed in $testBed/examples :  $CHILD_ERROR";
+    }
+    doCommands("chgrp -Rf atacs .","chmod -Rf g+rX .","touch .status.ok");
+}
+else{ # This is a local commit.
+    $cwd =~ /^(.*\/atacs)((\/.*)?)$/ or die "Cannot find root of atacs tree";
+    $ATACSdir= $1;
+    ($cvsID)=(`ps -hp $PROCESS_ID -o ppid`=~/(\d+)/) or die "PPID not number";
+    ($momID)=(`ps -hp      $cvsID -o ppid`=~/(\d+)/) or die "PPID not number";
+    $mom    = `ps -hp      $momID -o comm`;  # CVS's mom
+    $Status="$ATACSdir/.status";   # prefix for files that record previous runs
+    if (-e "$Status.$cvsID"){   # We've already run under this same cvs commit.
+	-e "$Status.ok" or die "Prior directory failed--aborting this one too";
+	exit; # Otherwise, the previous directory passed, so pass this one too.
+    }
+    doCommands("rm -f $Status*","touch $Status.$cvsID");
+    `ps -hwwfp $cvsID`=~/(ci|commit)(.*)/ or die "cvs sub-command not commit";
+    @RawArgs = split(' ',$2);
+    $Command = "$ATACSdir/examples/status.perl";
+    if($mom =~ /emacs/){ # Running under emacs
+	$file = $RawArgs[$#RawArgs]; # last argument is file to be committed.
+	doCommands("xterm -sb -e $Command $file","cat $Status.log");
+	-e "$Status.ok" or die  "$Command $file failed";
+    }
+    else{  # cvs commit must have been run from the shell command line.
+	`ls -o /proc/$momID/cwd`=~ / -> (.*)/ or die "Can't find $mom's dir";
+	chdir        ( $1                  )  or die "Can't cd to $1";     
+	@Args = grep ( !/^-m./ , @RawArgs  ); # delete any confusing -mMessage
+	`getopt lnRm:f:r: @Args`=~ /--/       or die "can't parse @Args";
+	doCommands   ("$Command $POSTMATCH");
+    }
+}
+
+sub doCommands {
+    chomp(@Commands = @_);
+    foreach $command(@Commands){
+	system($command)==0 or die "Could not execute $command: $CHILD_ERROR";
+    }
+}

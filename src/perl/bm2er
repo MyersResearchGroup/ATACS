@@ -1,0 +1,316 @@
+eval "set PATH=/usr/bin:/usr/local/bin:/Perl/bin:${PATH};exec perl -S $0 $*"
+    if $running_under_some_shell;#above line won't run if we're already in Perl
+
+if ( ! @ARGV[0] ) {
+    print "\n";
+    print "usage: bm2er [-d] filename\n";
+    print " Generates Event Rule structures from\n";
+    print " a burst-mode controller specification.\n";
+    print " '-d' option generates delayed state-\n";
+    print " variable feedbacks.\n\n";
+}
+else{
+    $info = 1;
+    $debug = 0;
+    $id = "bm2er - ";
+    
+    $use_delayed_feedback = @ARGV[0];
+    $arg = @ARGV[1];
+    if ($use_delayed_feedback eq "-d") {
+	$use_delayed_feedback = 1; }
+    else {
+	$arg = @ARGV[0];
+	$use_delayed_feedback = 0; }
+    if ( ! -r $arg) {
+	print "ERROR: Cannot read specified file: ".$arg."\n";
+	print "Skipping this file...\n"; }
+    else {
+	if($info){ print $id."translating file ".$arg."\n"; }
+	if($info){ if ($use_delayed_feedback) { print $id."using delayed state-variable feedback.\n"; }}
+	$lineno = 0;
+	$filename = $arg;
+	$filename =~ s/(.*)\.unc/$1/;
+	$filename =~ s/(.*)\.nounc/$1/;
+	@file = "";
+	open(TMP,$arg);
+	@file = <TMP>;
+	close(TMP);
+	map { $_ =~ s/#.*|\/\/.*|--.*|;.*//; } @file;	# Remove comments
+
+	# Break up cyclic BM by introducing tokens on transitions that must be broken up
+	# to make BM acyclic (requirement of Atacs since acyclic graph cannot be derived from ER alone).
+	$events = 1;
+	$inputs = ",";
+	$cyclic_graph = 0;
+	$start_signals = "";
+	%enabling_array = %enabled_array = %index = %signal_counter = ();
+	%initial_state = %conflict_choices = %conflict_merges = ();
+	%graph = ();
+	foreach $line (@file) {
+	    $lineno++;
+	    $line =~ s/\+/#/g;				# Perl can't handle '+' in string matching.
+	    $line =~ s/\t/ /g;				# Why can't it handle tabs???
+	    $line =~ s/\s*\n//;
+	    if ($line !~ /\w|\d/) { }
+	    elsif ($line =~ /(?:input|output)\s+\w+\s+\d+/) {
+		$signal = $line;
+		$signal =~ s/\s*(input|output)\s+(\w+).*\s*/$2/;
+		$state = $line;
+		$state =~ s/\s*(input|output)\s+\w+\s+(\d+).*\s*/$2/;
+		$initial_state{$signal} = $state;
+		$signal_counter{$signal."#"} = 0;
+		$signal_counter{$signal."-"} = 0;
+		if (($line =~ /^\s*output\s+\w+/) && $use_delayed_feedback) { 
+		    $initial_state{"_".$signal} = $state;
+		    $signal_counter{"_".$signal."#"} = 0;
+		    $signal_counter{"_".$signal."-"} = 0;
+		    $inputs .= "_".$signal.","; }
+		if ($line =~ /^\s*input\s+\w+/) { $inputs .= $signal.","; }}
+	    elsif ($line =~ /\d+\s+\d+\s+\w+(?:#|-)(?:\s+\w+(?:#|-))*\s*\|\s*\w*(?:#?|-?)(?:\s+\w+(?:#|-))*/) {
+		$curr_state = $line;
+		$next_state = $line;
+		$in_burst = $line;
+		$out_burst = $line;
+		$curr_state =~ s/\s*(\d+).*/$1/;
+		$next_state =~ s/\s*\d+\s+(\d+).*/$1/;
+		$in_burst   =~ s/\s*\d+\s+\d+\s+(.*?)\s*\|.*/$1/;
+		$out_burst  =~ s/.*\|\s*(.*)/$1/;
+		$graph{$curr_state}{next_state} .= $next_state.",";
+		$graph{$curr_state}{in_burst} .= $in_burst.",";
+		$graph{$curr_state}{out_burst} .= $out_burst.",";
+		if ($next_state == 0) { 
+		    $cyclic_graph = 1;
+		    $graph_markings{$curr_state.":".$next_state} = 1;
+		    $graph{$curr_state}{marking} .= "1,"; }
+		else { 
+		    $graph_markings{$curr_state.":".$next_state} = 0;
+		    $graph{$curr_state}{marking} .= "0,"; }
+		    if ($graph{$next_state}{prev_state} =~ /\w/) { $multi_intrans_state{$next_state} = 1; }
+		    $graph{$next_state}{prev_state} .= $curr_state.","; }
+	    else {
+		print $id."Error on line ".$lineno.", skipping this line.\n"; }
+	}
+	foreach $state (keys %multi_intrans_state) {
+	    if($debug){ print $id."DFS trace - start state $state\n"; }
+	    %dfs_state_visited = ();
+	    $dfs_start_state = $state;
+	    &depth_first_search($state); }
+	
+	# Convert from BM to ER
+	foreach $curr_state (keys %graph) {
+	    $next_states = $graph{$curr_state}{next_state};
+	    $next_states =~ s/,$//;
+	    @next_states = split(/,/,$next_states);
+	    $in_bursts = $graph{$curr_state}{in_burst};
+	    $in_bursts =~ s/,$//;
+	    @in_bursts = split(/,/,$in_bursts);
+	    $out_bursts = $graph{$curr_state}{out_burst};
+	    $out_bursts =~ s/,$//;
+	    @out_bursts = split(/,/,$out_bursts);
+	    $i = 0;
+	    foreach $next_state (@next_states) {
+		$lineno++;
+		$in_burst = @in_bursts[$i];
+		$in_burst =~ s/\s+/,/g;
+		$out_burst = @out_bursts[$i];
+		$out_burst =~ s/\s+/,/g;
+		$i++;
+		if($debug){ print $curr_state."\t".$next_state."\t".$in_burst."\t|".$out_burst."\n"; }
+		@in_burst = split(/,/,$in_burst);
+		@out_burst = split(/,/,$out_burst);
+		if ($out_burst !~ /\w/) {
+		    foreach $signal (@in_burst) { $signal_counter{$signal}++; }
+		    foreach $in_signal (@in_burst) {
+			if ($curr_state == 0) { $start_signals .= $in_signal.":".$signal_counter{$in_signal}."|"; }
+			$marking_array{$next_state."cs"} .= $graph_markings{$curr_state.":".$next_state}.",";
+			$enabling_array{$next_state."cs"} .= $in_signal.":".$signal_counter{$in_signal}.",";
+			$enabled_array{$curr_state."cs"} .= $in_signal.":".$signal_counter{$in_signal}.",";
+			$conflict_choices{$curr_state} .= $in_signal.":".$signal_counter{$in_signal}.",";
+			$conflict_merges{$next_state} .= $in_signal.":".$signal_counter{$in_signal}.","; }}
+		else {
+		    foreach $signal (@in_burst) { $signal_counter{$signal}++; }
+		    foreach $signal (@out_burst) { $signal_counter{$signal}++; }
+		    foreach $in_signal (@in_burst) {
+			if ($curr_state == 0) { $start_signals .= $in_signal.":".$signal_counter{$in_signal}."|"; }
+ 			# $lineno is needed to distiguish choice transitions that have same next state
+			$marking_array{$lineno."_".$next_state."ns"} .= "0,";
+			$enabling_array{$lineno."_".$next_state."ns"} .= $in_signal.":".$signal_counter{$in_signal}.",";
+			$enabled_array{$curr_state."cs"} .= $in_signal.":".$signal_counter{$in_signal}.","; 
+			$conflict_choices{$curr_state} .= $in_signal.":".$signal_counter{$in_signal}.","; }
+		    if (! $use_delayed_feedback) {
+			foreach $out_signal (@out_burst) {
+			    $marking_array{$next_state."cs"} .= $graph_markings{$curr_state.":".$next_state}.",";
+			    $enabled_array{$lineno."_".$next_state."ns"} .= $out_signal.":".$signal_counter{$out_signal}.",";
+			    $enabling_array{$next_state."cs"} .= $out_signal.":".$signal_counter{$out_signal}.","; 
+			    $conflict_merges{$next_state} .= $out_signal.":".$signal_counter{$out_signal}.","; }}
+		    else {
+			foreach $signal (@out_burst) { $signal_counter{"_".$signal}++; }
+			foreach $out_signal (@out_burst) {
+			    $marking_array{"_".$lineno."_".$next_state."ns"} .= "0,";
+			    $enabled_array{$lineno."_".$next_state."ns"} .= $out_signal.":".$signal_counter{$out_signal}.",";
+			    $enabling_array{"_".$lineno."_".$next_state."ns"} .= $out_signal.":".$signal_counter{$out_signal}.","; }
+			foreach $out_signal (@out_burst) {
+			    $marking_array{$next_state."cs"} .= $graph_markings{$curr_state.":".$next_state}.",";
+			    $enabled_array{"_".$lineno."_".$next_state."ns"} .= "_".$out_signal.":".$signal_counter{"_".$out_signal}.",";
+			    $enabling_array{$next_state."cs"} .= "_".$out_signal.":".$signal_counter{"_".$out_signal}.","; 
+			    $conflict_merges{$next_state} .= "_".$out_signal.":".$signal_counter{"_".$out_signal}.","; }}
+		}
+		$conflict_choices{$curr_state} =~ s/,$/;/;
+		$conflict_merges{$next_state} =~ s/,$/;/;
+	    }
+	}
+
+	$events = 1;
+	$input_num = $num_of_merges = 0;
+	$merges = "#\n# MERGES:\n#\n";
+	$input_decls = $output_decls = "";
+	$initial_input_state = $initial_output_state = "";
+	while (($key,$value) = each(%signal_counter)) {
+	    if ($key =~ /#/) {
+		$key =~ s/#//;
+		$neg_count = $signal_counter{$key."-"};
+		if ($neg_count > $value) { $value = $neg_count; }
+		for ($i = 1; $i <= $value; $i++) {
+		    $events += 2;
+		    if ($i > 1) {
+			$num_of_merges++;
+			$merges .= $key."+/1 ".$key."+/".$i."\n"; }
+		    if ($inputs =~ /,$key,/) {
+			$input_num += 2;
+			$input_decls .= $key."+/".$i." ".$key."-/".$i."\n";
+			if ($i == 1) { $initial_input_state .= $initial_state{$key}; }}
+		    else {
+			$output_decls .= $key."+/".$i." ".$key."-/".$i."\n";
+			if ($i == 1) { $initial_output_state .= $initial_state{$key}; }}}}
+	}
+	$initial_state = $initial_input_state.$initial_output_state;
+	
+	$conflicts = "#\n# CONFLICTS:\n#\n";
+	$num_of_conflicts = 0;
+	while (($key,$value) = each(%conflict_choices)) {
+	    $value =~ s/:/\//g;
+	    $value =~ s/#/\+/g;
+	    @choices = split(/;/,$value);
+	    if ($#choices + 1 > 1) {
+		while (@choices) {
+		    $choice = shift(@choices);
+		    @signals = split(/,/,$choice);
+		    foreach $choice2 (@choices) {
+			@signals2 = split(/,/,$choice2);
+			foreach $signal (@signals) {
+			    foreach $signal2 (@signals2) {
+				$num_of_conflicts++;
+				$conflicts .= $signal." ".$signal2."\n"; }}}}}
+	}
+	while (($key,$value) = each(%conflict_merges)) {
+	    $value =~ s/:/\//g;
+	    $value =~ s/#/\+/g;
+	    @choices = split(/;/,$value);
+	    if ($#choices + 1 > 1) {
+		while (@choices) {
+		    $choice = shift(@choices);
+		    @signals = split(/,/,$choice);
+		    foreach $choice2 (@choices) {
+			@signals2 = split(/,/,$choice2);
+			foreach $signal (@signals) {
+			    foreach $signal2 (@signals2) {
+				$num_of_conflicts++;
+				$conflicts .= $signal." ".$signal2."\n"; }}}}}
+	}
+	
+	$i = 0;
+	@enabled_enabling = ();
+	while (($state,$enabled) = each(%enabled_array)) {
+	    $marking = $marking_array{$state};
+	    $marking =~ s/,$//;
+	    @marking = split(/,/,$marking);
+	    $enabling = $enabling_array{$state};
+	    $enabling =~ s/,$//;
+	    @enabled = split(/,/,$enabled);
+	    @enabling = split(/,/,$enabling);
+	    $j = 0;
+	    foreach $enabling (@enabling) {
+		$mark = @marking[$j++];
+		foreach $enabled (@enabled) {
+		    @enabled_enabling[$i++] = $enabled.";".$enabling.";".$mark; }}
+	}
+	
+	@enabled_enabling_sorted = ();
+	@enabling_enabled_sorted = ();
+	@enabled_enabling_sorted = sort { $a cmp $b } @enabled_enabling;
+	map { $_ =~ s/(.*);(.*);(.*)/$2;$1;$3/; } @enabled_enabling_sorted;
+	@enabling_enabled_sorted = @enabled_enabling_sorted;
+	
+	$rules = 0;
+	$initial_marking_rules = "";
+        $start_signals =~ s/\|$//;
+	if (! $cyclic_graph) {				        # If not fully cyclic graph then add reset 
+	    @start_signals = split(/\|/,$start_signals);	# initial markings for the start signals.
+	    foreach $signal (@start_signals) {
+		$rules++;
+		$signal =~ s/#/\+/;
+		$signal =~ s/:/\//;
+		$initial_marking_rules .= "reset\t".$signal."\t1 0 inf\n"; }
+	    if($info){print $id."WARNING: Graph not fully cyclic - might result in liveness violation.\n"; }
+	}
+
+	$rules += $#enabling_enabled_sorted + 1;
+	$er = "";
+	$er .= ".e ".$events."\n";
+	$er .= ".i ".$input_num."\n";
+	$er .= ".r ".$rules."\n";
+	$er .= ".d ".$num_of_merges."\n";
+	$er .= ".c ".$num_of_conflicts."\n";
+	$er .= ".s ".$initial_state."\n";
+	$er .= "#\n# RESET EVENTS:\n#\nreset\n";
+	$er .= "#\n# INPUT EVENTS:\n#\n";
+	$er .= $input_decls;
+	$er .= "#\n# OUTPUT EVENTS:\n#\n";
+	$er .= $output_decls;
+	$er .= "#\n# RULES:\n# Syntax: enabling_signal/occurrence_index\n";
+	$er .= "#         enabled_signal/occurrence_index\n";
+	$er .= "#         initial_marking min_time max_time\n";
+	$er .= $initial_marking_rules;
+	foreach $enabling_enabled (@enabling_enabled_sorted) {
+	    $enabling_enabled =~ s/#/\+/g;
+	    $enabling_enabled =~ s/:/\//g;
+	    $enabling_enabled =~ s/;/ /g;
+	    $er .= $enabling_enabled." 0 inf\n"; }
+	$er .= $merges;
+	$er .= $conflicts;
+	open(FILE,">".$filename.".er");
+	print FILE $er;
+	close(FILE);
+	print $id."total rules: ".$rules."\n";
+	print $id."output written to file ".$filename.".er\n";
+	
+    }}
+
+
+sub depth_first_search {
+# Insert markings in cyclic graph so that it becomes acyclic.
+    
+    local($curr_state,$i,@next_states,@marked_trans);
+    $curr_state = @_[0];
+    if($debug){ print $id."DFS trace - $curr_state\n"; }
+    $next_states = $graph{$curr_state}{next_state};
+    $next_states =~ s/,$//;
+    @next_states = split(/,/,$next_states);
+    $marked_trans = $graph{$curr_state}{marking};
+    $marked_trans =~ s/,$//;
+    @marked_trans = split(/,/,$marked_trans);
+    $dfs_state_visited{$curr_state} = 1;
+    $i = 0;
+    foreach $next_state (@next_states) {
+	if (($next_state eq $dfs_start_state) && !(@marked_trans[$i])) {
+	    $graph_markings{$curr_state.":".$next_state} = 1;
+	    @marked_trans[$i] = 1;
+	    if($info){ print $id."Atacs acyclic graph constraint: required marking inserted on transition $curr_state->$next_state\n"; }
+            if($debug){ print $id."DFS trace - marking inserted on $curr_state->$next_state\n"; }}
+	elsif ($dfs_state_visited{$next_state} || @marked_trans[$i]) { } # break off search
+	else {
+	    &depth_first_search($next_state); }
+	$i++; }
+    $graph{$curr_state}{marking} = join(",",@marked_trans).",";
+}
+

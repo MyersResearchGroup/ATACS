@@ -1,0 +1,19 @@
+/*****************************************************************************/
+/* Cortadella's CSC example (see async96)*/
+/*   Assassin requires 2 while Petrify and atacs requires 1 variable. */
+/*****************************************************************************/
+module jordi2;
+
+output a;  /* Not solvable if this is an input */
+output b;
+
+process c;
+    *[ (a+ || b+); (a- || b-) ]
+endprocess
+
+constraint notfull1;
+    a -> a-
+endconstraint
+
+endmodule
+

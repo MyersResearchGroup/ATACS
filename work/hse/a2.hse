@@ -1,0 +1,11 @@
+module a;
+input a={true};
+output b;
+input res={true};
+
+process b;
+*[[  res -> res-; [a]; b+
+  | ~res -> skip
+ ]]
+endprocess
+endmodule

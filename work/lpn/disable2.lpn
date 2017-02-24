@@ -1,0 +1,14 @@
+.name disable2
+.inputs ww x y 
+.outputs z
+#@.init_state [0000]
+x- x+ #@ [~z]d
+x+ x- #@ [z]d
+y- y+ #@ [~ww]d
+y+ y- #@ [ww]d
+z- z+ #@ [x&y]d
+z+ z- #@ [~x&~y]d
+ww- ww+ #@ [z&y]d
+ww+ ww- #@ [~y]d
+.marking {<ww-,ww+><x-,x+><y-,y+><z-,z+>}
+.end

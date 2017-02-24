@@ -1,0 +1,22 @@
+module our;
+ 
+input  a = {false};
+input  b = {false};
+output c = {false};
+ 
+process our;
+*[[a+ -> c+
+|  b+ -> c+
+]; [a- | b-]; c-]
+endprocess
+
+process env;
+*[[skip -> a+; [c+]; a-
+|  skip -> b+; [c+]; b-
+]; [c-]]
+endprocess
+
+endmodule
+
+
+

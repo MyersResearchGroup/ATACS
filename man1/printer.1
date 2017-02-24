@@ -1,0 +1,36 @@
+.TH PRINTER 1 "28 September 2001" "" ""
+.SH NAME
+printer \- Displays a timed event-rule (or TEL) structure
+.SH SYNOPSIS
+.nf
+.BI atacs " -pe <filename>"
+.br
+.BI atacs> " printer <filename>"
+.fi
+.SH DESCRIPTION
+.B printer
+prints the current timed event-rule (or TEL) structure
+using Tom Rokicki's parg program or Bell Lab's Dot program depending on
+whether the dot options is selected or not.
+.SH OPTIONS
+.TP
+.BI \-pe
+Prints a timed event-rule (or TEL) structure from the command line.
+.TP
+.BI printer
+Prints a timed event-rule (or TEL) structure from the interactive shell.
+.SH CREDITS
+.B printer
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu)
+and Jeff Cuthbert.
+.SH "SEE ALSO"
+.BR shower (1)
+.BR showrsg (1)
+.BR showstat (1)
+.BR shownet (1)
+.BR printrsg (1)
+.BR printstat (1)
+.BR printreg (1)
+.BR printnet (1)
+.BR dot (1)
+.BR http://www.async.ece.utah.edu

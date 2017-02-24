@@ -1,0 +1,15 @@
+.inputs a b c d
+.graph
+#@.init_state [1000]
+p1 a+ b+
+a+ a-
+b+ b-
+a- p2
+b- p2
+p2 c+ d+
+c+ c-
+d+ d-
+c- p1
+d- p1
+.marking { <a+,a-> }
+.end

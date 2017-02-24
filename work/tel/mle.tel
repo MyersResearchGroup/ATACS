@@ -1,0 +1,69 @@
+.e 23
+.i 6
+.r 22
+.n 3
+.d 0
+.s 001010001
+.c 4
+#
+#EVENTS
+#
+reset
+#INPUT EVENTS
+d+/1 d-/1
+d+/2 d-/2
+sel+ sel-
+#OUTPUT EVENTS
+Nclk+ Nclk-
+clk+ clk-
+OT_+ OT_-
+OC+ OC-
+Mout+ Mout-
+Sout+ Sout-
+Sout_+ Sout_-
+$d
+$sel
+#RULES
+Nclk+ Nclk- 1 400 600
+Nclk- Nclk+ 0 400 600
+Nclk- d+/1 [~d] 0 162 182
+Nclk- d-/1 [d] 0 162 182
+Nclk- $d 0 162 182
+Nclk- clk+ 0 162 182
+Nclk- sel+ 0  28 28
+Nclk- $sel 0 28 28
+sel+ sel- 0 300 760
+clk+ clk- 0 278 278
+d+/1 d-/2 0 400 400
+d-/1 d+/2 0 400 400
+OT_+ OT_- [sel & d & clk]d 1 80 120
+OT_- OT_+ [~clk]d 0 110 130
+OC- OC+ [clk & OT_]d 1 90 110
+OC+ OC- [~clk | ~OT_]d 0 90 110
+Mout- Mout+ [~OT_]d 1 78 260
+Mout+ Mout- [OC]d 0 78 260
+Sout_+ Sout_- [Mout & ~clk] 1 100 100
+Sout_- Sout_+ [~Mout & ~clk] 0 100 100
+Sout+ Sout- [Sout_ & clk] 0 100 100
+Sout- Sout+ [~Sout_ & clk] 1 100 100
+#
+#CONSTRAINTS
+#
+sel- sel- [~clk] 1 0 inf
+Mout+ Mout+ [clk] 1 0 inf
+Mout- Mout- [clk] 1 0 inf
+#
+#CONFLICTS
+#
+d+/1 $d
+d+/1 d-/1
+$d d-/1
+sel+ $sel
+
+
+
+
+
+
+
+

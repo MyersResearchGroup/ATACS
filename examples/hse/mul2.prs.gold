@@ -1,0 +1,2 @@
+[ M2A2: (m2done)] Combinational
+[~m2prech: (~m2done & A1M & A2M)] Combinational

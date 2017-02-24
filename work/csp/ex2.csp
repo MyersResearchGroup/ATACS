@@ -1,0 +1,21 @@
+/*****************************************************************************/
+/* A modified version of ex1.csp for Myers' async class homework.            */
+/*****************************************************************************/
+module ex2;
+
+delay gatedelay = <2, 5>;
+delay bdelay = <10, 20>;
+delay ddelay = <25, 50>;
+
+input  a = {false, gatedelay};
+input  b = {false, bdelay};
+output c = {false, gatedelay};
+output d = {false, ddelay};
+output x = {false, gatedelay};
+
+process ex2;
+*[[ skip -> a+; (b+ || d+); x+; (c+ || d-); x-; a-
+  | skip -> b+; c+
+ ]; b-; c- ]
+endprocess
+endmodule

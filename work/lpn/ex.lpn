@@ -1,0 +1,15 @@
+.inputs x
+.outputs y
+.dummy a b c d e f
+#@.init_state [00]
+.graph
+d p1
+p2 e
+e p1
+p1 c
+c b
+b a
+d f
+b d
+.marking{p2}
+.end

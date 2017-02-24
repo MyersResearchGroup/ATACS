@@ -1,0 +1,4 @@
+[+ao: (ai & x)]
+[+ao: (bi)]
+[-ao: (~ai & ~bi)]
+[ bo: (ai & ~x & ~ao)] Combinational

@@ -1,0 +1,366 @@
+.name demux_10_bits
+.inputs T Cin_0 Rin_0 Ain1_0 Ain2_0 Cin_1 Rin_1 Ain1_1 Ain2_1 Cin_2 Rin_2 Ain1_2 Ain2_2 Cin_3 Rin_3 Ain1_3 Ain2_3 Cin_4 Rin_4 Ain1_4 Ain2_4 Cin_5 Rin_5 Ain1_5 Ain2_5 Cin_6 Rin_6 Ain1_6 Ain2_6 Cin_7 Rin_7 Ain1_7 Ain2_7 Cin_8 Rin_8 Ain1_8 Ain2_8 Cin_9 Rin_9 Ain1_9 Ain2_9
+.outputs Cout_0 Aout_0 Rout1_0 Rout2_0 Cout_1 Aout_1 Rout1_1 Rout2_1 Cout_2 Aout_2 Rout1_2 Rout2_2 Cout_3 Aout_3 Rout1_3 Rout2_3 Cout_4 Aout_4 Rout1_4 Rout2_4 Cout_5 Aout_5 Rout1_5 Rout2_5 Cout_6 Aout_6 Rout1_6 Rout2_6 Cout_7 Aout_7 Rout1_7 Rout2_7 Cout_8 Aout_8 Rout1_8 Rout2_8 Cout_9 Aout_9 Rout1_9 Rout2_9
+.graph
+
+Rin_0+ Aout_0+
+Aout_0+ Rin_0- p1_0
+p1_0 Rout1_0+ Rout2_0+
+Rin_0- Aout_0-
+Aout_0- p5_0
+p5_0 Rout1_0- Rout2_0-
+
+Cin_0+ p2_0
+p2_0 Rout1_0+ Rout2_0+
+Cout_0+ Cin_0- Aout_0-
+Cin_0- p4_0
+p4_0 Rout1_0- Rout2_0-
+Cout_0- Cin_0+ Aout_0+
+
+T+ T_eq_1_0
+T_eq_1_0 Rout1_0+ T-
+T- T_eq_0_0
+T_eq_0_0 Rout2_0+ T+
+
+p7_0 Rin_0+ T+ T-
+Aout_0- p7_0
+T- p7_0
+T+ p7_0
+
+Rout1_0+ Ain1_0+ p3_0
+Ain1_0+ Rout1_0-
+Rout1_0- Ain1_0- p6_0
+Ain1_0- T_eq_1_0
+p3_0 Cout_0+
+p6_0 Cout_0-
+Rout2_0+ Ain2_0+ p3_0
+Ain2_0+ Rout2_0-
+Rout2_0- Ain2_0- p6_0
+Ain2_0- T_eq_0_0
+
+
+Rin_1+ Aout_1+
+Aout_1+ Rin_1- p1_1
+p1_1 Rout1_1+ Rout2_1+
+Rin_1- Aout_1-
+Aout_1- p5_1
+p5_1 Rout1_1- Rout2_1-
+
+Cin_1+ p2_1
+p2_1 Rout1_1+ Rout2_1+
+Cout_1+ Cin_1- Aout_1-
+Cin_1- p4_1
+p4_1 Rout1_1- Rout2_1-
+Cout_1- Cin_1+ Aout_1+
+
+T+ T_eq_1_1
+T_eq_1_1 Rout1_1+ T-
+T- T_eq_0_1
+T_eq_0_1 Rout2_1+ T+
+
+p7_1 Rin_1+ T+ T-
+Aout_1- p7_1
+T- p7_1
+T+ p7_1
+
+Rout1_1+ Ain1_1+ p3_1
+Ain1_1+ Rout1_1-
+Rout1_1- Ain1_1- p6_1
+Ain1_1- T_eq_1_1
+p3_1 Cout_1+
+p6_1 Cout_1-
+Rout2_1+ Ain2_1+ p3_1
+Ain2_1+ Rout2_1-
+Rout2_1- Ain2_1- p6_1
+Ain2_1- T_eq_0_1
+
+
+Rin_2+ Aout_2+
+Aout_2+ Rin_2- p1_2
+p1_2 Rout1_2+ Rout2_2+
+Rin_2- Aout_2-
+Aout_2- p5_2
+p5_2 Rout1_2- Rout2_2-
+
+Cin_2+ p2_2
+p2_2 Rout1_2+ Rout2_2+
+Cout_2+ Cin_2- Aout_2-
+Cin_2- p4_2
+p4_2 Rout1_2- Rout2_2-
+Cout_2- Cin_2+ Aout_2+
+
+T+ T_eq_1_2
+T_eq_1_2 Rout1_2+ T-
+T- T_eq_0_2
+T_eq_0_2 Rout2_2+ T+
+
+p7_2 Rin_2+ T+ T-
+Aout_2- p7_2
+T- p7_2
+T+ p7_2
+
+Rout1_2+ Ain1_2+ p3_2
+Ain1_2+ Rout1_2-
+Rout1_2- Ain1_2- p6_2
+Ain1_2- T_eq_1_2
+p3_2 Cout_2+
+p6_2 Cout_2-
+Rout2_2+ Ain2_2+ p3_2
+Ain2_2+ Rout2_2-
+Rout2_2- Ain2_2- p6_2
+Ain2_2- T_eq_0_2
+
+
+Rin_3+ Aout_3+
+Aout_3+ Rin_3- p1_3
+p1_3 Rout1_3+ Rout2_3+
+Rin_3- Aout_3-
+Aout_3- p5_3
+p5_3 Rout1_3- Rout2_3-
+
+Cin_3+ p2_3
+p2_3 Rout1_3+ Rout2_3+
+Cout_3+ Cin_3- Aout_3-
+Cin_3- p4_3
+p4_3 Rout1_3- Rout2_3-
+Cout_3- Cin_3+ Aout_3+
+
+T+ T_eq_1_3
+T_eq_1_3 Rout1_3+ T-
+T- T_eq_0_3
+T_eq_0_3 Rout2_3+ T+
+
+p7_3 Rin_3+ T+ T-
+Aout_3- p7_3
+T- p7_3
+T+ p7_3
+
+Rout1_3+ Ain1_3+ p3_3
+Ain1_3+ Rout1_3-
+Rout1_3- Ain1_3- p6_3
+Ain1_3- T_eq_1_3
+p3_3 Cout_3+
+p6_3 Cout_3-
+Rout2_3+ Ain2_3+ p3_3
+Ain2_3+ Rout2_3-
+Rout2_3- Ain2_3- p6_3
+Ain2_3- T_eq_0_3
+
+
+Rin_4+ Aout_4+
+Aout_4+ Rin_4- p1_4
+p1_4 Rout1_4+ Rout2_4+
+Rin_4- Aout_4-
+Aout_4- p5_4
+p5_4 Rout1_4- Rout2_4-
+
+Cin_4+ p2_4
+p2_4 Rout1_4+ Rout2_4+
+Cout_4+ Cin_4- Aout_4-
+Cin_4- p4_4
+p4_4 Rout1_4- Rout2_4-
+Cout_4- Cin_4+ Aout_4+
+
+T+ T_eq_1_4
+T_eq_1_4 Rout1_4+ T-
+T- T_eq_0_4
+T_eq_0_4 Rout2_4+ T+
+
+p7_4 Rin_4+ T+ T-
+Aout_4- p7_4
+T- p7_4
+T+ p7_4
+
+Rout1_4+ Ain1_4+ p3_4
+Ain1_4+ Rout1_4-
+Rout1_4- Ain1_4- p6_4
+Ain1_4- T_eq_1_4
+p3_4 Cout_4+
+p6_4 Cout_4-
+Rout2_4+ Ain2_4+ p3_4
+Ain2_4+ Rout2_4-
+Rout2_4- Ain2_4- p6_4
+Ain2_4- T_eq_0_4
+
+
+Rin_5+ Aout_5+
+Aout_5+ Rin_5- p1_5
+p1_5 Rout1_5+ Rout2_5+
+Rin_5- Aout_5-
+Aout_5- p5_5
+p5_5 Rout1_5- Rout2_5-
+
+Cin_5+ p2_5
+p2_5 Rout1_5+ Rout2_5+
+Cout_5+ Cin_5- Aout_5-
+Cin_5- p4_5
+p4_5 Rout1_5- Rout2_5-
+Cout_5- Cin_5+ Aout_5+
+
+T+ T_eq_1_5
+T_eq_1_5 Rout1_5+ T-
+T- T_eq_0_5
+T_eq_0_5 Rout2_5+ T+
+
+p7_5 Rin_5+ T+ T-
+Aout_5- p7_5
+T- p7_5
+T+ p7_5
+
+Rout1_5+ Ain1_5+ p3_5
+Ain1_5+ Rout1_5-
+Rout1_5- Ain1_5- p6_5
+Ain1_5- T_eq_1_5
+p3_5 Cout_5+
+p6_5 Cout_5-
+Rout2_5+ Ain2_5+ p3_5
+Ain2_5+ Rout2_5-
+Rout2_5- Ain2_5- p6_5
+Ain2_5- T_eq_0_5
+
+
+Rin_6+ Aout_6+
+Aout_6+ Rin_6- p1_6
+p1_6 Rout1_6+ Rout2_6+
+Rin_6- Aout_6-
+Aout_6- p5_6
+p5_6 Rout1_6- Rout2_6-
+
+Cin_6+ p2_6
+p2_6 Rout1_6+ Rout2_6+
+Cout_6+ Cin_6- Aout_6-
+Cin_6- p4_6
+p4_6 Rout1_6- Rout2_6-
+Cout_6- Cin_6+ Aout_6+
+
+T+ T_eq_1_6
+T_eq_1_6 Rout1_6+ T-
+T- T_eq_0_6
+T_eq_0_6 Rout2_6+ T+
+
+p7_6 Rin_6+ T+ T-
+Aout_6- p7_6
+T- p7_6
+T+ p7_6
+
+Rout1_6+ Ain1_6+ p3_6
+Ain1_6+ Rout1_6-
+Rout1_6- Ain1_6- p6_6
+Ain1_6- T_eq_1_6
+p3_6 Cout_6+
+p6_6 Cout_6-
+Rout2_6+ Ain2_6+ p3_6
+Ain2_6+ Rout2_6-
+Rout2_6- Ain2_6- p6_6
+Ain2_6- T_eq_0_6
+
+
+Rin_7+ Aout_7+
+Aout_7+ Rin_7- p1_7
+p1_7 Rout1_7+ Rout2_7+
+Rin_7- Aout_7-
+Aout_7- p5_7
+p5_7 Rout1_7- Rout2_7-
+
+Cin_7+ p2_7
+p2_7 Rout1_7+ Rout2_7+
+Cout_7+ Cin_7- Aout_7-
+Cin_7- p4_7
+p4_7 Rout1_7- Rout2_7-
+Cout_7- Cin_7+ Aout_7+
+
+T+ T_eq_1_7
+T_eq_1_7 Rout1_7+ T-
+T- T_eq_0_7
+T_eq_0_7 Rout2_7+ T+
+
+p7_7 Rin_7+ T+ T-
+Aout_7- p7_7
+T- p7_7
+T+ p7_7
+
+Rout1_7+ Ain1_7+ p3_7
+Ain1_7+ Rout1_7-
+Rout1_7- Ain1_7- p6_7
+Ain1_7- T_eq_1_7
+p3_7 Cout_7+
+p6_7 Cout_7-
+Rout2_7+ Ain2_7+ p3_7
+Ain2_7+ Rout2_7-
+Rout2_7- Ain2_7- p6_7
+Ain2_7- T_eq_0_7
+
+
+Rin_8+ Aout_8+
+Aout_8+ Rin_8- p1_8
+p1_8 Rout1_8+ Rout2_8+
+Rin_8- Aout_8-
+Aout_8- p5_8
+p5_8 Rout1_8- Rout2_8-
+
+Cin_8+ p2_8
+p2_8 Rout1_8+ Rout2_8+
+Cout_8+ Cin_8- Aout_8-
+Cin_8- p4_8
+p4_8 Rout1_8- Rout2_8-
+Cout_8- Cin_8+ Aout_8+
+
+T+ T_eq_1_8
+T_eq_1_8 Rout1_8+ T-
+T- T_eq_0_8
+T_eq_0_8 Rout2_8+ T+
+
+p7_8 Rin_8+ T+ T-
+Aout_8- p7_8
+T- p7_8
+T+ p7_8
+
+Rout1_8+ Ain1_8+ p3_8
+Ain1_8+ Rout1_8-
+Rout1_8- Ain1_8- p6_8
+Ain1_8- T_eq_1_8
+p3_8 Cout_8+
+p6_8 Cout_8-
+Rout2_8+ Ain2_8+ p3_8
+Ain2_8+ Rout2_8-
+Rout2_8- Ain2_8- p6_8
+Ain2_8- T_eq_0_8
+
+
+Rin_9+ Aout_9+
+Aout_9+ Rin_9- p1_9
+p1_9 Rout1_9+ Rout2_9+
+Rin_9- Aout_9-
+Aout_9- p5_9
+p5_9 Rout1_9- Rout2_9-
+
+Cin_9+ p2_9
+p2_9 Rout1_9+ Rout2_9+
+Cout_9+ Cin_9- Aout_9-
+Cin_9- p4_9
+p4_9 Rout1_9- Rout2_9-
+Cout_9- Cin_9+ Aout_9+
+
+T+ T_eq_1_9
+T_eq_1_9 Rout1_9+ T-
+T- T_eq_0_9
+T_eq_0_9 Rout2_9+ T+
+
+p7_9 Rin_9+ T+ T-
+Aout_9- p7_9
+T- p7_9
+T+ p7_9
+
+Rout1_9+ Ain1_9+ p3_9
+Ain1_9+ Rout1_9-
+Rout1_9- Ain1_9- p6_9
+Ain1_9- T_eq_1_9
+p3_9 Cout_9+
+p6_9 Cout_9-
+Rout2_9+ Ain2_9+ p3_9
+Ain2_9+ Rout2_9-
+Rout2_9- Ain2_9- p6_9
+Ain2_9- T_eq_0_9
+
+.marking {  T_eq_0_0 p7_0 <Cout_0-,Aout_0+> <Cout_0-,Cin_0+> T_eq_0_1 p7_1 <Cout_1-,Aout_1+> <Cout_1-,Cin_1+> T_eq_0_2 p7_2 <Cout_2-,Aout_2+> <Cout_2-,Cin_2+> T_eq_0_3 p7_3 <Cout_3-,Aout_3+> <Cout_3-,Cin_3+> T_eq_0_4 p7_4 <Cout_4-,Aout_4+> <Cout_4-,Cin_4+> T_eq_0_5 p7_5 <Cout_5-,Aout_5+> <Cout_5-,Cin_5+> T_eq_0_6 p7_6 <Cout_6-,Aout_6+> <Cout_6-,Cin_6+> T_eq_0_7 p7_7 <Cout_7-,Aout_7+> <Cout_7-,Cin_7+> T_eq_0_8 p7_8 <Cout_8-,Aout_8+> <Cout_8-,Cin_8+> T_eq_0_9 p7_9 <Cout_9-,Aout_9+> <Cout_9-,Cin_9+> }
+.end

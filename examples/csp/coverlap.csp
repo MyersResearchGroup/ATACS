@@ -1,0 +1,24 @@
+/*****************************************************************************/
+/* Small example (I forget what it tests exactly).                           */
+/*****************************************************************************/
+module coverlap;
+
+input  a;
+input  b;
+output c;
+input  d;
+input  e;
+
+process coverlap;
+    *[ d+; a+; (c+ || (e+; b+)); d-; c-; b-; a-; e-; 
+       d+; b+; (c+ || (d-; a+)); e+; c-; b-; a-; e- ]
+endprocess
+
+/*
+process coverlap;
+    *[ d+; a+; (c+ || (b+; e+)); d-; c-; b-; a-; e-; 
+       d+; b+; (c+ || (a+; d-)); e+; c-; b-; a-; e- ]
+endprocess
+*/
+
+endmodule

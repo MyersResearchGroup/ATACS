@@ -1,0 +1,4 @@
+[~ap: (rst & a)] Combinational
+[ rst: (clk)] Combinational
+[+a: (clk)]
+[-a: (~ap)]

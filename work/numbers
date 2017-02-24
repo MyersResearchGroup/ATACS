@@ -1,0 +1,15 @@
+tel/myAPCRT.log:7 levels, 45 nodes, 4 leaves, 4 CSC checks, 2 solutions
+tel/myFurber.log:43 levels, 52842 nodes, 2239 leaves, 2132 CSC checks, 2098 solutions
+tel/myPAiso.log:8 levels, 41 nodes, 6 leaves, 6 CSC checks, 4 solutions
+tel/myPAlatch.log:10 levels, 56 nodes, 7 leaves, 7 CSC checks, 4 solutions
+tel/myPAnoIso.log:6 levels, 28 nodes, 4 leaves, 4 CSC checks, 2 solutions
+vhd/AA.log:12 levels, 90 nodes, 11 leaves, 11 CSC checks, 8 solutions
+vhd/AP.log:10 levels, 58 nodes, 7 leaves, 7 CSC checks, 4 solutions
+vhd/LR.log:8 levels, 40 nodes, 6 leaves, 6 CSC checks, 4 solutions
+vhd/merge.log:14 levels, 385 nodes, 11 leaves, 11 CSC checks, 8 solutions
+vhd/newMerge.log:18 levels, 1820 nodes, 16 leaves, 16 CSC checks, 8 solutions
+vhd/NEW_SHOP.log:12 levels, 87 nodes, 11 leaves, 11 CSC checks, 8 solutions
+vhd/PA.log:12 levels, 87 nodes, 11 leaves, 11 CSC checks, 8 solutions
+vhd/PP.log:12 levels, 71 nodes, 7 leaves, 7 CSC checks, 4 solutions
+vhd/THE_SHOP.log:12 levels, 87 nodes, 11 leaves, 11 CSC checks, 8 solutions
+vhd/Xchan.log:0 levels, 1 nodes, 1 leaves, 1 CSC checks, 1 solutions

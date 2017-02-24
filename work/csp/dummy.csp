@@ -1,0 +1,15 @@
+module dummy;
+
+input a;
+input b;
+input c;
+input d;
+input e;
+output f;
+
+process dummy;
+*[ f+; [ skip -> (a+||b+||c+); a-; b-; c-
+       | skip -> (d+||e+); d-; e-
+       ]; f- ]
+endprocess
+endmodule

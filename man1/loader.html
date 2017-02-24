@@ -1,0 +1,31 @@
+<HTML>
+<HEAD>
+<TITLE>
+loader &lt;filename>
+Untitled document
+</TITLE> </HEAD> <BODY>
+<P>
+This function loads a timed event-rule structure from the file
+<filename&gt;.er.
+This file must be in the following form:
+</P>
+<P>
+ .e &lt;number of events>
+ .i &lt;number of inputs>
+ .r &lt;number of causal rules>
+ .n &lt;number of ordering rules>
+ .d &lt;number of merges>
+ .c &lt;number of conflicts>
+reset
+input events
+other events
+causal rules in the following form:
+<enabling&gt; &lt;enabled&gt; &lt;expr&gt; &lt;epsilon&gt; &lt;l&gt; &lt;u&gt; &lt;dist>
+ordering rules in the same form:
+merges in the following form:
+if a disjunctive merge:  &lt;signal+/1&gt; &lt;signal+/2>
+if a conjunctive merge:  &lt;signal-/1&gt; &lt;signal-/2>
+conflicts in the following form:
+<signal+/1&gt; &lt;signal+/2>
+</P>
+</BODY></HTML>

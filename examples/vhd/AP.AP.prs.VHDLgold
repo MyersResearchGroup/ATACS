@@ -1,0 +1,2 @@
+[ l_rcv: (~r_send)] Combinational
+[ r_send: (r_rcv)] Combinational

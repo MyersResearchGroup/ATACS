@@ -1,0 +1,374 @@
+# Location of C++ Compiler, lex, and yacc.
+CC = g++ -g -DDDEBUG
+##
+## Enable this line and run on sanguo if you want run insure to check
+## for memory leaks in your code.  Don't forget to comment out the 
+## other CC line.
+## NOTE: You must added /usr/local/src/insure/bin.linux to your path for
+## this to work correctly. The easiest way to do this with tcsh is
+## set path = { $path /usr/local/... }
+
+LEX = flex -i
+YACC = bison
+
+ARCH=		$(shell uname -s)
+RELEASE=	$(shell uname -r)
+
+BASIC_DEFS = -DXIF -DTIMER -DNT 
+DEFS = $(BASIC_DEFS)
+
+MDBDEF = -DMEMDEBUG
+
+TCLINC = -I/cygnus/cygwin-b20/include
+PKGINC = -I/users/little/prog/software/include
+
+INC = $(TCLINC) $(PKGINC) -I/cygnus/cygwin-b20/H-i586-cygwin32/i586-cygwin32/include
+
+MDBCFLAGS = $(DEFS) $(MDBDEF) $(INC) $(MDBINC) -Wall -g 
+CFLAGS = $(DEFS) $(INC) -Wall -g 
+
+YFLAGS = -vd
+
+XLIB = -L/users/little/prog/X11R6/lib
+TCLTKLIBS = -L/cygnus/cygwin-b20/H-i586-cygwin32/lib -ltk80 -ltcl80 
+PKGLIBS = -L/users/little/prog/software/lib 
+
+LIBS = $(PKGLIBS) $(XLIB) $(TCLTKLIBS) \
+       -lBdd -lutil -lbdd -lmem \
+       -lX11 -lm -lprob -lmd
+
+CLIBS = $(PKGLIBS) $(XLIB) $(TCLTKLIBS) \
+       -lobj -lcudd -lCutil -lmtr -lst \
+       -lX11 -lm -lprob -lmd
+
+SOURCES = atacs.c misclib.c addord.c storeg.c loadsis.c loader.c \
+	loadprs.c findtd.c findred.c connect.c addpers.c findrsg.c findreg.c \
+	findconf.c findcover.c storeprs.c storesg.c memaloc.c printgrf.c \
+	printrsg.c printreg.c lex.yy.c parser.tab.c tersgen.c compile.c help.c\
+	breakup.c findwctd.c findcl.c delaycalc.c simulate.c \
+	orbitsrsg.c verify.c struct2net.c storenet.c storeer.c resolve.c \
+	exact.c loadrsg.c hhash.c hmisc.c hxbm2csg.c merges.c actions.c events.c rules.c conflicts.c \
+	makedecl.c hash.c bddrsg.c symtab.c types.c auxilary.c drawnet.c geom.c \
+	common_timing.c approx.c storevhd.c dotrsg.c dotreg.c dotgrf.c \
+	gparse.c loadg.c findstats.c project.c CPdf.cpp CNormal.cpp \
+        CUniform.cpp CSpline.cpp CUdef.cpp markov_matrix_func.cpp \
+        markov_periodic_analysis.cpp markov_chain_analysis.cpp \
+        rg_trans_prob.cpp simtel.c stateasgn.c graph_tracker.cpp \
+        cpu_time_tracker.cpp CSingular.cpp signal_handler.cpp CTextTel.cpp\
+	cudd_synth.c trigger_probs.cpp markov_exp.cpp bm_trans_probs.cpp \
+	partition.cpp cycper.cpp printsg.c svhelpers.cpp \
+	markov_matrix_check.cpp lt_tp_tracker.cpp tels_table.cc heursyn.c \
+	trgtrk.cpp create_env.cc classes.cc bcp.c pbsuuaad.c kiss2sg.c \
+	stats.c sihazard.c
+
+OBJECTS = atacs.o misclib.o addord.o storeg.o loadsis.o loader.o \
+	loadprs.o findtd.o findred.o connect.o addpers.o findrsg.o findreg.o \
+	findconf.o findcover.o storeprs.o storesg.o memaloc.o printgrf.o \
+	printrsg.o printreg.o lex.yy.o parser.tab.o tersgen.o compile.o help.o\
+	breakup.o findwctd.o findcl.o delaycalc.o simulate.o \
+	orbitsrsg.o verify.o struct2net.o storenet.o storeer.o resolve.o \
+	exact.o loadrsg.o hhash.o hmisc.o hxbm2csg.o merges.o actions.o events.o rules.o conflicts.o \
+	makedecl.o hash.o bddrsg.o symtab.o types.o auxilary.o drawnet.o geom.o \
+	common_timing.o approx.o storevhd.o dotrsg.o dotreg.o dotgrf.o \
+	gparse.o loadg.o findstats.o project.o CPdf.o CNormal.o CUniform.o \
+	CSpline.o CUdef.o markov_matrix_func.o markov_periodic_analysis.o \
+	markov_chain_analysis.o rg_trans_prob.o simtel.o stateasgn.o \
+	graph_tracker.o cpu_time_tracker.o CSingular.o signal_handler.o \
+	CTextTel.o cudd_synth.o trigger_probs.o markov_exp.o bm_trans_probs.o \
+	partition.o cycper.o printsg.o svhelpers.o \
+	markov_matrix_check.o lt_tp_tracker.o tels_table.o heursyn.o \
+	trgtrk.o create_env.o classes.o bcp.o pbsuuaad.o kiss2sg.o \
+	stats.o sihazard.o
+
+INTEL_SOURCES = $(OBJECTS) solvecsc.o slack.o
+
+all:		atacs
+
+clean:
+	rm -f `cat .cvsignore`
+
+lex.yy.c: parser.l ly.h parser.tab.h
+	$(LEX) parser.l
+
+parser.tab.h parser.tab.c: parser.y ly.h
+	$(YACC) $(YFLAGS) parser.y 
+
+glex.c: glex.l
+	$(LEX) -Pg -t glex.l > glex.c
+
+gparse.c: glex.c gparse.y struct.h loadg.h
+	$(YACC) -p g gparse.y -o gparse.c
+
+.c.o:
+	$(CC) $(BFLAG) $(CFLAGS) -c $<
+
+%.o :   %.cpp
+	$(CC) $(BFLAG) $(CFLAGS) -c $<
+
+%.o :   %.cc
+	$(CC) $(BFLAG) $(CFLAGS) -c $<
+
+dlong: 
+	make BFLAG="-DDLONG" dlong2
+
+dlong2: $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBS) $(TSE) -o atacs
+
+atacs: $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) $(CLIBS) $(TSE) -o atacs
+
+purify: $(OBJECTS)
+	purify -collector=/usr/local/lib/gcc-lib/hppa1.1-hp-hpux10.20/2.8.1/ld\
+	$(CC) $(CFLAGS) $(OBJECTS) $(CLIBS) $(TSE) -o atacs
+
+intel: $(INTEL_SOURCES)
+	$(CC) -DINTEL $(BFLAG) $(CFLAGS) -c findrsg.c
+	$(CC) -DINTEL $(BFLAG) $(CFLAGS) -c atacs.c
+	$(CC) -DINTEL $(BFLAG) $(CFLAGS) -c help.c
+	$(CC) -DINTEL $(CFLAGS) $(INTEL_SOURCES) $(CLIBS) $(TSE) -o atacs
+
+mdb: $(OBJECTS)
+	$(CC) $(MDBCFLAGS) $(OBJECTS) $(CLIBS) $(MDBLIB) $(TSE) -o atacs
+
+depend:
+	makedepend $(CFLAGS) $(SOURCES)
+
+GLOBAL = struct.h misclib.h CPdf.h 
+
+COMPILER = ly.h actions.h hash.h events.h rules.h conflicts.h
+
+atacs.o: $(GLOBAL) $(COMPILER) atacs.h memaloc.h loader.h loadrsg.h hhash.h hmisc.h hxbm2csg.h def.h 
+atacs.o: loadprs.h loadsis.h storeprs.h connect.h findtd.h findwctd.h findrsg.h
+atacs.o: findcl.h storesg.h findconf.h findcover.h storenet.h verify.h
+atacs.o: printgrf.h printrsg.h findreg.h printreg.h delaycalc.h simulate.h
+atacs.o: loadg.h storeg.h storeer.h compile.h orbitsrsg.h tersgen.h help.h
+atacs.o: struct2net.h exact.h findred.h interface.h addord.h
+atacs.o: bddrsg.h drawnet.h storevhd.h auxilary.h types.h common_timing.h
+atacs.o: symtab.h dotrsg.h dotreg.h dotgrf.h findstats.h project.h simtel.h
+atacs.o: merges.h time_struct.h graph_tracker.h markov_matrix_func.h
+atacs.o: markov_types.h key_node.h markov_chain_analysis.h printsg.h
+atacs.o: markov_periodic_analysis.h cpu_time_tracker.h stateasgn.h
+
+misclib.o: $(GLOBAL)
+
+heursyn.o: $(GLOBAL)
+
+addord.o: $(GLOBAL) addord.h connect.h def.h
+
+storeg.o: $(GLOBAL) storeg.h storeprs.h merges.h
+
+loadsis.o: $(GLOBAL) loadsis.h def.h storeprs.h memaloc.h merges.h
+
+loader.o: $(GLOBAL) loader.h def.h memaloc.h loadsis.h storeprs.h findcl.h
+loader.o: findwctd.h findtd.h merges.h connect.h CNormal.h CUniform.h CUdef.h
+loader.o: CSpline.h CSingular.h
+
+loadprs.o: $(GLOBAL) loadprs.h loader.h findcover.h storeprs.h def.h merges.h
+loadprs.o: connect.h
+
+findtd.o: $(GLOBAL) findtd.h connect.h
+
+findred.o: $(GLOBAL) findred.h def.h interface.h memaloc.h addord.h
+findred.o: connect.h findcl.h findwctd.h findtd.h
+
+connect.o: $(GLOBAL) connect.h def.h
+
+addpers.o: $(GLOBAL) addpers.h connect.h def.h
+
+kiss2sg.o: $(GLOBAL) def.h memaloc.h findrsg.h kiss2sg.h
+
+findrsg.o: $(GLOBAL) findrsg.h def.h findreg.h connect.h findwctd.h
+findrsg.o: findcl.h findtd.h orbitsrsg.h verify.h storeprs.h merges.h
+findrsg.o: loader.h geom.h common_timing.h time_struct.h pot.h approx.h
+findrsg.o: sets.h project.h hash.h memaloc.h
+
+findreg.o: $(GLOBAL) findreg.h def.h interface.h memaloc.h findrsg.h addpers.h 
+findreg.o: connect.h
+
+findconf.o: $(GLOBAL) findconf.h findrsg.h findreg.h def.h
+
+findcover.o: $(GLOBAL) findcover.h def.h findreg.h resolve.h
+
+storeprs.o: $(GLOBAL) $(COMPILER) storeprs.h interface.h memaloc.h findtd.h
+storeprs.o: compile.h findconf.h breakup.h tersgen.h connect.h findrsg.h def.h 
+
+storesg.o: $(GLOBAL) storesg.h findrsg.h findreg.h
+
+memaloc.o: $(GLOBAL) def.h connect.h merges.h loader.h memaloc.h
+memaloc.o: common_timing.h orbitsrsg.h verify.h findtd.h storeprs.h
+memaloc.o: time_struct.h 
+
+printgrf.o: $(GLOBAL) printgrf.h findtd.h
+
+printrsg.o: $(GLOBAL) printrsg.h def.h findreg.h
+
+printsg.o: $(GLOBAL) printsg.h def.h findreg.h
+
+printreg.o: $(GLOBAL) printreg.h def.h findreg.h
+
+tersgen.o: $(GLOBAL) $(COMPILER) tersgen.h types.h
+
+compile.o: $(GLOBAL) $(COMPILER) compile.h def.h tersgen.h memaloc.h symtab.h
+compile.o: types.h auxilary.h 
+
+help.o: $(GLOBAL) help.h def.h
+
+breakup.o: $(GLOBAL) $(COMPILER) breakup.h def.h compile.h tersgen.h memaloc.h
+breakup.o: connect.h findtd.h findrsg.h storeprs.h findwctd.h interface.h
+
+findwctd.o: $(GLOBAL) findwctd.h findcl.h findtd.h
+
+findcl.o: $(GLOBAL) findcl.h findwctd.h findtd.h
+
+delaycalc.o: $(GLOBAL) delaycalc.h storeprs.h
+
+simulate.o: $(GLOBAL) simulate.h connect.h def.h findtd.h storeprs.h verify.h
+simulate.o: merges.h
+
+orbitsrsg.o: $(GLOBAL) orbitsrsg.h verify.h connect.h findrsg.h findreg.h
+orbitsrsg.o: def.h findtd.h storeprs.h merges.h loader.h def.h memaloc.h
+
+verify.o: $(GLOBAL) verify.h connect.h def.h findtd.h storeprs.h merges.h 
+verify.o: loader.h
+
+struct2net.o: $(GLOBAL) struct2net.h 
+
+storenet.o: $(GLOBAL) storenet.h def.h storeprs.h verify.h connect.h findtd.h
+
+storeer.o: $(GLOBAL) $(COMPILER) storeer.h memaloc.h compile.h def.h 
+storeer.o: tersgen.h findtd.h
+
+resolve.o: $(GLOBAL) resolve.h findcover.h
+
+exact.o: $(GLOBAL) exact.h def.h findcover.h storeprs.h findreg.h findconf.h
+
+loadrsg.o: $(GLOBAL) loadrsg.h def.h memaloc.h findrsg.h findreg.h
+
+hxbm2csg.o: $(GLOBAL) hxbm2csg.h def.h memaloc.h findrsg.h findreg.h
+
+hhash.o: $(GLOBAL)
+
+hmisc.o: $(GLOBAL)
+
+merges.o: $(GLOBAL) merges.h def.h connect.h loader.h
+
+actions.o: ly.h misclib.h hash.h actions.h 
+
+events.o: $(GLOBAL) ly.h hash.h events.h actions.h
+
+rules.o: $(GLOBAL) ly.h hash.h events.h actions.h rules.h
+
+conflicts.o: $(GLOBAL) ly.h hash.h events.h actions.h conflicts.h
+
+makedecl.o: $(COMPILER) misclib.h types.h tersgen.h auxilary.h symtab.h 
+makedecl.o: parser.tab.h
+
+hash.o: hash.h misclib.h 
+
+bddrsg.o: $(GLOBAL) bddrsg.h def.h memaloc.h hash.h
+
+symtab.o: symtab.h types.h ly.h misclib.h tersgen.h
+tels_table.o: tels_table.h ly.h
+types.o: types.h ly.h misclib.h tersgen.h
+create_env.o: auxilary.h create_env.h
+classes.o: tels_table.h classes.h
+
+auxilary.o: $(COMPILER) auxilary.h types.h misclib.h tersgen.h symtab.h tersgen.h
+drawnet.o: $(GLOBAL) storeprs.h drawnet.h def.h
+
+geom.o: $(GLOBAL) orbitsrsg.h verify.h connect.h def.h findtd.h storeprs.h 
+geom.o: merges.h loader.h geom.h common_timing.h time_struct.h
+geom.o: findrsg.h memaloc.h findreg.h
+
+common_timing.o: $(GLOBAL) common_timing.h orbitsrsg.h verify.h connect.h 
+common_timing.o: storeprs.h merges.h loader.h time_struct.h def.h findtd.h
+
+approx.o: $(GLOBAL) approx.h orbitsrsg.h verify.h connect.h def.h findtd.h 
+approx.o: merges.h loader.h common_timing.h time_struct.h storeprs.h
+approx.o: findrsg.h findreg.h memaloc.h
+
+storevhd.o: $(GLOBAL) $(COMPILER) storeprs.h storevhd.h def.h auxilary.h
+storevhd.o: types.h tersgen.h symtab.h 
+
+dotrsg.o: $(GLOBAL) dotrsg.h def.h findreg.h
+
+dotreg.o: $(GLOBAL) dotreg.h def.h findreg.h
+
+dotgrf.o: $(GLOBAL) dotgrf.h findtd.h
+
+gparse.o: $(GLOBAL) loadg.h glex.c
+
+loadg.o: $(GLOBAL) loadg.h memaloc.h def.h findrsg.h
+
+findstats.o: $(GLOBAL) findstats.h def.h project.h
+
+project.o: $(GLOBAL) project.h def.h findreg.h printrsg.h common_timing.h
+project.o: orbitsrsg.h verify.h connect.h findtd.h storeprs.h merges.h
+project.o: loader.h time_struct.h printsg.h
+
+CPdf.o: CPdf.h 
+
+CNormal.o: CNormal.h CPdf.h 
+
+CUniform.o: CUniform.h CPdf.h 
+
+CSpline.o: CSpline.h 
+
+CUdef.o: $(GLOBAL) CUdef.h CPdf.h CSpline.h 
+
+markov_matrix_func.o: markov_matrix_func.h markov_types.h key_node.h
+
+markov_periodic_analysis.o: markov_periodic_analysis.h 
+markov_periodic_analysis.o: markov_types.h key_node.h markov_matrix_func.h
+
+markov_chain_analysis.o: markov_chain_analysis.h markov_matrix_func.h
+markov_chain_analysis.o: markov_types.h key_node.h markov_periodic_analysis.h 
+
+rg_trans_prob.o: $(GLOBAL) rg_trans_prob.h markov_types.h key_node.h
+rg_trans_prob.o: markov_matrix_func.h 
+
+simtel.o: $(GLOBAL) simtel.h findrsg.h common_timing.h orbitsrsg.h verify.h
+simtel.o: connect.h def.h findtd.h storeprs.h merges.h loader.h time_struct.h
+simtel.o: graph_tracker.h markov_matrix_func.h markov_types.h key_node.h
+simtel.o: markov_chain_analysis.h markov_periodic_analysis.h 
+simtel.o: cpu_time_tracker.h 
+
+stateasgn.o: $(GLOBAL) $(COMPILER) stateasgn.h compile.h def.h tersgen.h 
+stateasgn.o: memaloc.h
+
+graph_tracker.o: $(GLOBAL) graph_tracker.h markov_matrix_func.h 
+graph_tracker.o: markov_types.h key_node.h markov_chain_analysis.h
+graph_tracker.o: markov_periodic_analysis.h 
+
+cpu_time_tracker.o: cpu_time_tracker.h 
+
+CSingular.o: CSingular.h CPdf.h 
+
+signal_handler.o: signal_handler.h
+
+CTextTel.o: CTextTel.h
+
+svhelpers.o: svhelpers.h
+
+trigger_probs.o: trigger_probs.h
+
+markov_exp.o: markov_exp.h
+
+cudd_synth.o: $(GLOBAL) cudd_synth.h
+
+bm_trans_probs.o: bm_trans_probs.h
+
+partition.o: partition.h
+
+cycper.o: cycper.h
+
+markov_matrix_check.o: markov_matrix_check.h
+
+lt_tp_tracker.o: lt_tp_tracker.h
+
+trgtrk.o: trgtrk.h
+
+bcp.o: bcp.h
+
+stats.o: stats.h
+# DO NOT DELETE THIS LINE -- make depend depends on it.

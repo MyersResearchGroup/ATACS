@@ -1,0 +1,7 @@
+[ multiword_out: (~word2_i & multiword_in1 & exception_in0 & ~pre_dec_ack)] Combinational
+[+pre_dec_ack: (word2_i)]
+[+pre_dec_ack: (multiword_in0 & exception_in0)]
+[-pre_dec_ack: (~word2_i & ~multiword_in1 & ~multiword_in0 & ~exception_in0 & ~pre_dec_req)]
+[+exception_out: (multiword_in1 & exception_in1)]
+[+exception_out: (multiword_in0 & exception_in1)]
+[-exception_out: (~multiword_in1 & ~multiword_in0 & ~pre_dec_req & ~exception_in1)]

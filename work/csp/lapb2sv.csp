@@ -1,0 +1,38 @@
+/*****************************************************************************/
+/* Lazy-active/Passive Buffer                                                */
+/*****************************************************************************/
+module lapb2;
+
+delay env = <100,inf>;
+delay gatedelay = <1,5>;
+
+input a1 = {false,env};
+input b3 = {false,env};
+
+output b1 = {false,gatedelay};
+output a2 = {false,gatedelay};
+output x1 = {false,gatedelay};
+ 
+output b2 = {false,gatedelay};
+output a3 = {false,gatedelay};
+output x2 = {false,gatedelay}; 
+
+process lapbctrl1;
+*[ [a2- @]; b2+; x2+; [a2+]; b2-; 
+   [b3+]; a3+; x2-; [b3-]; a3- ]
+endprocess
+
+process lapbctrl2;
+*[ [a1-@]; b1+;  x1+; [a1+]; b1-; 
+   [b2+]; a2+;  x1-; [b2-]; a2- ]
+endprocess
+
+process leftprocess;
+*[ [b1+@]; a1+; [b1-]; a1- ]
+endprocess
+
+process rightprocess;
+*[ b3+; [a3+]; b3-; [a3-] ]
+endprocess
+
+endmodule

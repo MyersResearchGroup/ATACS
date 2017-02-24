@@ -1,0 +1,70 @@
+.inputs Vin Vosc up down 
+.dummy inc dec d1 d2 restart 
+#@.keep restart
+#@.init_state [0000]
+#@.property AG((~lock)|(~a))
+.graph
+
+pi1 Vin+ #@ [50,50] 
+pVinL Vin+ #@ [0,0]
+Vin+ pi2
+Vin+ pVinH
+pi2 Vin- #@ [50,50]
+pVinH Vin- #@ [0,0]
+Vin- pi1
+Vin- pVinL 
+
+pVoscL Vosc+ #@ [0,0]
+Vosc+ pVoscH
+pVoscH Vosc- #@ [0,0]
+Vosc- pVoscL 
+
+p0 up+ #@ [0,0] 
+p0 down+ #@ [0,0]
+up+ p1
+down+ p2
+p1 up- #@ [0,0] 
+p2 down- #@ [0,0] 
+up- p3
+down- p3
+p3 restart #@ [0,0]
+restart p0
+
+pVinH up+ #@ [1,1]  
+pVinH down- #@ [0,0]  
+up+ pVinH
+down- pVinH
+
+pVoscH down+ #@ [1,1]  
+pVoscH up- #@ [0,0]  
+down+ pVoscH
+up- pVoscH
+
+pVinL restart #@ [0,0]
+pVoscL restart #@ [0,0]
+restart pVinL
+restart pVoscL
+
+
+p2 inc #@ /1;inf\
+inc v2 
+
+p1 dec #@ /1;inf\
+v1 dec
+
+v1 d1
+d1 v2
+v2 d2
+d2 v1
+
+v1 Vosc+ #@ /0;0\ [0,0]
+v2 Vosc- #@ /0;0\ [0,0]
+
+pVoscL d1
+pVoscH d2
+
+.marking { p0 p0p pi1 pVinL pVoscL punlock ps }
+#@.marking { <v1 = [40,40]><v2 = [40,40]> }
+#@.rates { <inc = 1><dec = 1><d1 = 1><d2 = 1> }
+#@.continuous d1 d2 dec inc v1 v2
+.end

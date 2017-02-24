@@ -1,0 +1,39 @@
+.TH DUMB 1 "30 March 2002" "" ""
+.SH NAME
+dumb \- Toggle pruning of rules to dummy events or from
+non-level-enabled dummy events
+.SH SYNOPSIS
+.B atacs -PD
+.br
+.B atacs> dumb
+.SH DESCRIPTION
+.B dumb
+toggles the pruning of rules to dummy events or from non-level-enabled
+dummy events during automatic concurrency reduction.  By default,
+atacs does not add any rule for which the enabled event is a
+sequencing event.  Also by default, atacs does not add any rules for
+the enabling event is a sequencing event and all of the rules that
+enable that event have the expression [true].  The first invocation of
+the \fBdumb\fR command disables this policy.  The second invocation of
+the \fBdumb\fR command re-enables the policy, and so on.
+
+.PP
+.SH OPTIONS
+.TP
+.BI \-PD
+This atacs option toggles the pruning of rules to dummy events or from
+non-level-enabled dummy events reachability during automated
+concurrency reduction from the Unix shell command line.
+.TP
+.BI dumb
+This atacs command toggles the pruning of rules to dummy events or
+from non-level-enabled dummy events during automated concurrency
+reduction from within the atacs interactive shell.
+.SH CREDITS
+This pruning method and this command were written by Eric Robert
+Peskin (peskin@vlsigroup.ece.utah.edu).
+.SH BUGS
+See http://www.async.ece.utah.edu/cgi-bin/atacs
+.SH "SEE ALSO"
+.BR reduction (1), 
+.BR http://www.async.ece.utah.edu

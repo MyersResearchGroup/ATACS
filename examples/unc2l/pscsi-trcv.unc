@@ -1,0 +1,16 @@
+input	StartDMARcv              0
+input	AckInN                   1
+input	DRAckNormN               1
+input	DRAckLastN               1
+output	EndDMAInt                1
+output	DRQ                      0
+output	ReqOutN                  1
+output	zzz00                    0
+
+0  1	StartDMARcv+             | EndDMAInt- zzz00+ 
+1  2	StartDMARcv-             | ReqOutN- 
+2  3	AckInN-                  | DRQ+ ReqOutN+ zzz00- 
+3  4	DRAckNormN- AckInN+      | ReqOutN- DRQ- 
+4  3	DRAckNormN+ AckInN-      | ReqOutN+ DRQ+ 
+3  5	DRAckLastN- AckInN+      | DRQ- 
+5  0	DRAckLastN+              | EndDMAInt+ 

@@ -1,0 +1,86 @@
+input	cchack                   0
+input	decodeiserrack           0
+input	eack                     0
+input	errcheckif               0
+input	errcheckifack            0
+input	hornerack                0
+input	iserrsetnsynreq          0
+input	nack                     0
+input	ndecack                  0
+input	sack                     0
+input	setneif                  0
+input	setneifack               0
+input	setnsyn1if               0
+input	setnsyn1ifack            0
+input	shuffack                 0
+input	start                    0
+input	synack                   0
+input	syndromeif               0
+input	syndromeifack            0
+input	tack                     0
+input	tchack                   0
+output	cchreq                   0
+output	decodeiserrreq           0
+output	ereq                     0
+output	enable                   0
+output	errcheckifreq            0
+output	hornerreq                0
+output	hornersm1                0
+output	iserrsetnsynack          0
+output	nreq                     0
+output	nsm1                     0
+output	nsm2                     0
+output	ndecreq                  0
+output	sreq                     0
+output	setneifreq               0
+output	setnsyn1ifreq            0
+output	shuffreq                 0
+output	synreq                   0
+output	synsm1                   0
+output	synsm2                   0
+output	syndromeifreq            0
+output	treq                     0
+output	tchreq                   0
+output	zzz00                    0
+output	zzz01                    0
+output	zzz02                    0
+output	zzz03                    1
+output	zzz04                    0
+
+0  1	start+                   | tchreq+ 
+1  2	tchack+                  | treq+ 
+2  4	tack+                    | tchreq- treq- setnsyn1ifreq+ 
+4  6	setnsyn1ifack+ [setnsyn1if+] tchack- tack- | zzz01+ zzz02+ zzz03-     | setnsyn1ifreq- nreq+ nsm1+ synreq+ synsm1+ 
+4  41	setnsyn1ifack+ [setnsyn1if-] tchack- tack- | zzz00+ zzz02+ zzz04+     | setnsyn1ifreq- nreq+ nsm2+ synreq+ synsm1+ 
+6  8	nack+ synack+ setnsyn1ifack- | nreq- nsm1- synreq- synsm1- syndromeifreq+ zzz01- zzz02- zzz03+ 
+8  10	syndromeifack+ [syndromeif+] nack- synack- | zzz00+ zzz02+ zzz04+     | syndromeifreq- cchreq+ 
+8  17	syndromeifack+ [syndromeif-] nack- synack- | zzz01+ zzz02+ zzz03-     | syndromeifreq- setneifreq+ 
+10  11	cchack+ syndromeifack-   | sreq+ zzz00- zzz02- zzz04- 
+11  13	sack+                    | cchreq- sreq- ndecreq+ hornerreq+ 
+13  14	ndecack+ hornerack+ cchack- sack- | nreq+ synreq+ 
+14  45	nack+ synack+            | ndecreq- nreq- hornerreq- synreq- syndromeifreq+ zzz00+ zzz01+ 
+17  19	setneifack+ [setneif+] syndromeifack- | zzz01- zzz02- zzz03+     | setneifreq- nreq+ nsm1+ ereq+ 
+17  38	setneifack+ [setneif-] syndromeifack- | zzz00+ zzz01- zzz03+ zzz04+ | setneifreq- nreq+ nsm2+ ereq+ 
+19  43	nack+ eack+ setneifack-  | nreq- nsm1- ereq- shuffreq+ synsm2+ 
+21  22	shuffack+                | synreq+ zzz00- zzz01- zzz03+ zzz04- 
+22  23	synack+                  | shuffreq- synreq- synsm2- zzz00+ zzz01+ 
+23  24	shuffack- synack-        | shuffreq+ synsm2+ zzz01- zzz02+ zzz04+ 
+24  25	shuffack+                | synreq+ zzz00- zzz01+ zzz03- zzz04- 
+25  27	synack+                  | shuffreq- synreq- synsm2- errcheckifreq+ zzz00+ zzz01- zzz03+ zzz04+ 
+27  29	errcheckifack+ [errcheckif+] shuffack- synack- | zzz00- zzz02- zzz04-     | errcheckifreq- ndecreq+ hornerreq+ hornersm1+ 
+27  33	errcheckifack+ [errcheckif-] shuffack- synack- | zzz01+ zzz02- zzz03-     | errcheckifreq- decodeiserrreq+ enable+ 
+29  30	ndecack+ hornerack+ errcheckifack- | nreq+ synreq+ zzz01+ zzz02+ zzz03- 
+30  44	nack+ synack+            | ndecreq- nreq- hornerreq- synreq- hornersm1- errcheckifreq+ 
+33  35	decodeiserrack+ errcheckifack- | decodeiserrreq- zzz00- zzz02+ zzz04- 
+35  36	iserrsetnsynreq+ decodeiserrack- | iserrsetnsynack+ zzz01- zzz02- zzz03+ 
+36  1	iserrsetnsynreq-         | iserrsetnsynack- enable- tchreq+ 
+38  39	nack+ eack+ setneifack-  | nreq- nsm2- ereq- zzz00- zzz01+ zzz03- zzz04- 
+39  21	nack- eack-              | shuffreq+ synsm2+ zzz00+ zzz02- zzz04+ 
+41  46	nack+ synack+ setnsyn1ifack- | nreq- nsm2- synreq- synsm1- syndromeifreq+ zzz01+ zzz02- zzz03- 
+43  22	shuffack+ nack- eack-    | synreq+ 
+44  29	errcheckifack+ [errcheckif+] ndecack- nack- hornerack- synack- | zzz01- zzz02- zzz03+     | errcheckifreq- ndecreq+ hornerreq+ hornersm1+ 
+44  33	errcheckifack+ [errcheckif-] ndecack- nack- hornerack- synack- | zzz00+ zzz02- zzz04+     | errcheckifreq- decodeiserrreq+ enable+ 
+45  10	syndromeifack+ [syndromeif+] ndecack- nack- hornerack- synack- | zzz01- zzz02+ zzz04+     | syndromeifreq- cchreq+ 
+45  17	syndromeifack+ [syndromeif-] ndecack- nack- hornerack- synack- | zzz00- zzz02+ zzz03-     | syndromeifreq- setneifreq+ 
+46  10	syndromeifack+ [syndromeif+] nack- synack- | zzz01- zzz02+ zzz03+     | syndromeifreq- cchreq+ 
+46  17	syndromeifack+ [syndromeif-] nack- synack- | zzz00- zzz02+ zzz04-     | syndromeifreq- setneifreq+ 

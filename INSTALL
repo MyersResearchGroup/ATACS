@@ -1,0 +1,7 @@
+# Replace <dir> with directory you wish to install atacs into.
+cd <dir>
+tar zxvf atacs_<os>.tgz
+setenv ATACS <dir>/atacs
+set path = ($path <dir>/atacs/bin)
+Xatacs
+

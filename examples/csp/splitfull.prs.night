@@ -1,0 +1,21 @@
+[+RLout: (~Aout & A & ~x)]
+[-RLout: (~A)]
+[+RHout: (~Aout & A & B)]
+[-RHout: (~A & ~B)]
+[+Ain: (L & ~CL & ~CH & ~x)]
+[+Ain: (L & H & ~CH)]
+[-Ain: (~RLin & CL)]
+[-Ain: (~RHin & CH)]
+[ L: (A)] Combinational
+[ H: (B)] Combinational
+[+A: (RLin & ~RLout & ~RHout & ~CL & ~CH)]
+[+A: (x)]
+[-A: (Aout & RLout & CL)]
+[-A: (CH & ~x)]
+[+CL: (Ain & ~CH & ~B)]
+[-CL: (~Ain & ~L)]
+[+CH: (Ain & H)]
+[-CH: (~Ain & ~L & ~H)]
+[+x: (RHin & ~RLout & ~RHout & ~CL & ~CH)]
+[-x: (Aout & RHout & CH)]
+[ B: (x)] Combinational

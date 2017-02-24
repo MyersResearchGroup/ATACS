@@ -1,0 +1,14 @@
+/*****************************************************************************/
+/* Example from Hans with persistency and unresolvable violations.           */
+/*****************************************************************************/
+module pvuv;
+
+output x;
+output y = {true};
+output z = {true};
+output v;
+
+process pvuv;
+*[ y-; (x+ || (z-; v+; y+)); z+; y-; x-; y+; v- ]
+endprocess
+endmodule

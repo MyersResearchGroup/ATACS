@@ -1,0 +1,19 @@
+[ Prech: (EvDone & zzz00)] Combinational
+[ Prech: (EvDone & ~A2M & ~zzz00)] Combinational
+[ Prech: (~A1M & ~M1A)] Combinational
+[ Prech: (~A2M & ~M1A)] Combinational
+[ Prech: (EvDone & LM1)] Combinational
+[ Prech: (A1M & M1A)] Combinational
+[ M1A: (EvDone & zzz00)] Combinational
+[ M1A: (A2M & M1A)] Combinational
+[ M1A: (~EvDone & M1A)] Combinational
+[ M1A: (M1A & zzz00)] Combinational
+[ LM1: (EvDone & zzz00)] Combinational
+[ LM1: (EvDone & ~A2M & ~zzz00)] Combinational
+[ LM1: (~A1M & ~M1A)] Combinational
+[ LM1: (~A2M & ~M1A)] Combinational
+[ LM1: (EvDone & LM1)] Combinational
+[ LM1: (A1M & M1A)] Combinational
+[ zzz00: (EvDone & zzz00)] Combinational
+[ zzz00: (A1M & zzz00)] Combinational
+[ zzz00: (~EvDone & A2M & A1M & ~M1A)] Combinational

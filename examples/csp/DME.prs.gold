@@ -1,0 +1,14 @@
+[+Q1: (Ur & Q0)]
+[-Q1: (~Ur & ~Ua)]
+[+Ua: (Ur & Ra)]
+[+Ua: (Ur & Q1)]
+[-Ua: (~Ur & ~Ra)]
+[+Q0: (Ua & ~Rr)]
+[-Q0: (~Dr & Da)]
+[+Q2: (Dr & ~Q0)]
+[-Q2: (~Dr & ~Da)]
+[ Rr: (Ur & ~Q0)] Combinational
+[ Rr: (Dr & Q2)] Combinational
+[+Da: (Ra & Dr)]
+[+Da: (Dr & Q0)]
+[-Da: (~Ra & ~Q0)]

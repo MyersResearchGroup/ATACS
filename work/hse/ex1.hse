@@ -1,0 +1,26 @@
+module ex1;
+
+input  a = {false};
+input  b = {false};
+output c = {false};
+output d = {false};
+output x = {false};
+
+process ex1;
+*[[ skip -> a+; b+; [d]; c+; [~d]; a-
+  | skip -> b+; c+
+ ]; b-; c- ]
+endprocess
+
+gate dout1;
+a & b -> x+
+~a | ~b -> x-
+endgate
+
+gate dout;
+x & ~c -> d+
+~x | c -> d-
+endgate
+endmodule
+
+

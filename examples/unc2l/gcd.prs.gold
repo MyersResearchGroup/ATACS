@@ -1,0 +1,37 @@
+[ areq: (~back & breq)] Combinational
+[ areq: (~aack & breq)] Combinational
+[ areq: (start)] Combinational
+[ breq: (~back & breq)] Combinational
+[ breq: (~aack & breq)] Combinational
+[ breq: (start)] Combinational
+[ xreq: (suback & ~sel2true & ~subsm)] Combinational
+[ xreq: (~yack & yreq & ~subsm)] Combinational
+[ xreq: (~xack & xreq)] Combinational
+[ xreq: (back & xreq)] Combinational
+[ xreq: (aack & xreq)] Combinational
+[ xreq: (~start & aack & back)] Combinational
+[ yreq: (suback & ~sel2false & subsm)] Combinational
+[ yreq: (~yack & yreq)] Combinational
+[ yreq: (~xack & yreq & ~zzz00)] Combinational
+[ yreq: (back & ~breq)] Combinational
+[ yreq: (aack & ~breq)] Combinational
+[ yreq: (~start & aack & back)] Combinational
+[ resreq: (~xack & ~yack & sel1true)] Combinational
+[ resreq: (~resack & resreq)] Combinational
+[ subreq: (~xack & ~sel1false & sel2true)] Combinational
+[ subreq: (~xack & ~sel1false & sel2false)] Combinational
+[ subreq: (~suback & subreq)] Combinational
+[ subsm: (~yack & subsm)] Combinational
+[ subsm: (suback & subsm)] Combinational
+[ subsm: (~xack & ~sel1false & sel2false)] Combinational
+[ sel1req: (~sel1true & ~sel1false & sel1req)] Combinational
+[ sel1req: (yack & ~suback & ~xreq)] Combinational
+[ sel1req: (xack & sel1req)] Combinational
+[ sel1req: (~aack & ~back & xack & yack)] Combinational
+[ sel2req: (~sel2true & ~sel2false & sel2req)] Combinational
+[ sel2req: (xack & ~yack & ~suback & ~yreq & ~sel1req)] Combinational
+[ sel2req: (~xack & ~yack & sel1false)] Combinational
+[ zzz00: (suback & ~sel2false & subsm)] Combinational
+[ zzz00: (~sel1true & ~sel1false & ~sel2true & ~sel2false & zzz00)] Combinational
+[ zzz00: (xack & ~yack & ~suback & ~yreq & ~sel1req)] Combinational
+[ zzz00: (yack & zzz00)] Combinational

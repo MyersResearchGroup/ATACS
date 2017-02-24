@@ -1,0 +1,12 @@
+.inputs x y
+.outputs z
+.graph
+#@.init_state [000]
+x+ y+ 
+x+ z+
+y+ y-
+z+ y-
+y- z-
+z- x+
+.marking { <z-,x+> }
+.end

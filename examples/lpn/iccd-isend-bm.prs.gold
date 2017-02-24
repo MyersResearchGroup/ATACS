@@ -1,0 +1,17 @@
+[+zzz01: (~DTCN & ~DAckLastN)]
+[-zzz01: (ReqInN & DTCN & DAckLastN)]
+[+zzz00: (~ReqInN & DTCN & AckOutN & DReqN)]
+[+zzz00: (StartDMASend)]
+[+zzz00: (ReqInN & ~DAckNormN)]
+[-zzz00: (~DTCN)]
+[ EndDMAInt: (ReqInN & DTCN & DAckLastN & ~StartDMASend & ~zzz00 & DReqN)] Combinational
+[+AckOutN: (ReqInN & DTCN & DAckLastN & DReqN)]
+[+AckOutN: (ReqInN & ~DAckNormN)]
+[+AckOutN: (ReqInN & ~DAckLastN & ~zzz01)]
+[-AckOutN: (~DTCN & DReqN)]
+[-AckOutN: (~ReqInN & DTCN & DAckNormN & ~zzz00 & ~DReqN)]
+[~ReadyN: (~ReqInN & DTCN & ~DAckLastN & AckOutN)] Combinational
+[~ReadyN: (~ReqInN & DTCN & ~DAckNormN & zzz00)] Combinational
+[+DReqN: (~ReqInN & ~DAckLastN & AckOutN)]
+[+DReqN: (ReqInN & ~DAckLastN & ~zzz00)]
+[-DReqN: (DAckLastN & ~StartDMASend & zzz00)]

@@ -1,0 +1,4 @@
+[+Q: (D & CLK)]
+[-Q: (~D & CLK)]
+[+usc0: (~CLK & ~Q)]
+[-usc0: (~CLK & Q)]

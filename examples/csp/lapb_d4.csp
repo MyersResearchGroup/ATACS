@@ -1,0 +1,44 @@
+/*****************************************************************************/
+/* Lazy-active/passive buffer d4 from Burn's thesis                          */
+/*****************************************************************************/
+module d4;
+
+delay envdelay  = <8,12/*32,48*/>;
+delay gatedelay = <8,12>;
+
+input r0 = {false,envdelay};
+output l1 = {false,gatedelay};
+output r1 = {false,gatedelay};
+output l2 = {false,gatedelay};
+output r2 = {false,gatedelay};
+output l3 = {false,gatedelay};
+output r3 = {false,gatedelay};
+output l4 = {false,gatedelay};
+output r4 = {false,gatedelay};
+input l5 = {false,envdelay};
+
+process lapbctrl1;
+*[ l1+; [r0+ & l2+]; (l1- || r1+); [r0- & l2-]; r1- ]
+endprocess
+
+process lapbctrl2;
+*[ l2+; [r1+ & l3+]; (l2- || r2+); [r1- & l3-]; r2- ]
+endprocess
+
+process lapbctrl3;
+*[ l3+; [r2+ & l4+]; (l3- || r3+); [r2- & l4-]; r3- ]
+endprocess
+
+process lapbctrl4;
+*[ l4+; [r3+ & l5+]; (l4- || r4+); [r3- & l5-]; r4- ]
+endprocess
+
+process left;
+*[ [l1+]; r0+; [l1-]; r0- ]
+endprocess
+
+process right;
+*[ l5+; [r4+]; l5-; [r4-] ]
+endprocess
+
+endmodule

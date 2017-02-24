@@ -1,0 +1,26 @@
+/*****************************************************************************/
+/* Passive/active buffer b2 from Burn's thesis                               */
+/*****************************************************************************/
+module b2;
+
+delay envdelay  = <32,48>;
+delay gatedelay = <8,12>;
+
+input li = {false,envdelay};
+input ri = {false,envdelay};
+output lo = {false,gatedelay};
+output ro = {false,gatedelay};
+
+process lapbctrl;
+*[ [li+]; lo+; [li- & ri-@]; ro+; [ri+]; (lo- || ro-) ]
+endprocess
+
+process left;
+*[ [ro+]; ri+; [ro-]; ri- ]
+endprocess
+
+process right;
+*[ li+; [lo+]; li-; [lo-] ]
+endprocess
+
+endmodule

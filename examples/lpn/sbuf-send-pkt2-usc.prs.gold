@@ -1,0 +1,12 @@
+[+ack: (done)]
+[+ack: (req & ~rejpkt & y0)]
+[-ack: (~req & ~y1)]
+[+sendline: (req & ~ackline & ~ack & ~y0)]
+[-sendline: (y0)]
+[-sendline: (ackline & y1)]
+[ y2: (~req & rejpkt)] Combinational
+[+y1: (ackline)]
+[-y1: (~ackline & sendline)]
+[-y1: (~req & ~ackline & ~done)]
+[+y0: (rejpkt & sendline)]
+[-y0: (~req & ~ack)]

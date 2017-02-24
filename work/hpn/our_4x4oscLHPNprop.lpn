@@ -1,0 +1,196 @@
+# Data used to generate graph:
+# Vcd Vcu Ild Ilu dVc dIl
+# 0 102 0 45 -207 29
+# 0 102 67 382 -5 25
+# 0 102 404 1033 489 15
+# 0 102 1055 1100 848 8
+# 204 1633 0 45 -875 20
+# 204 1633 67 382 -673 16
+# 204 1633 404 1033 -179 6
+# 204 1633 1055 1100 180 -1
+# 1735 4796 0 45 -287 -3
+# 1735 4796 67 382 -85 -7
+# 1735 4796 404 1033 409 -17
+# 1735 4796 1055 1100 768 -24
+# 4898 5000 0 45 -893 -20
+# 4898 5000 67 382 -690 -24
+# 4898 5000 404 1033 -197 -34
+# 4898 5000 1055 1100 163 -41
+.dummy Vcu_0 Vcu_1 Vcu_2 Vcu_3 Vcd_4 Vcu_4 Vcd_5 Vcu_5 Vcd_6 Vcu_6 Vcd_7 Vcu_7 Vcd_8 Vcu_8 Vcd_9 Vcu_9 Vcd_10 Vcu_10 Vcd_11 Vcu_11 Vcd_12 Vcd_13 Vcd_14 Vcd_15 Ilu_0 Ild_1 Ilu_1 Ild_2 Ilu_2 Ild_3 Ilu_4 Ild_5 Ilu_5 Ild_6 Ilu_6 Ild_7 Ilu_8 Ild_9 Ilu_9 Ild_10 Ilu_10 Ild_11 Ilu_12 Ild_13 Ilu_13 Ild_14 Ilu_14 Ild_15 
+.inputs a b
+#@.property AG(AF(a))&AG(AF(b))
+#@.variables Vc Il 
+
+# Region 0
+# Intra-region Arcs
+p_0 Ilu_0 #@ [0,0]
+p_0 Vcu_0 #@ [0,0]
+# Inter-region Arcs
+Ild_1 p_0 #@ [0,0]
+Vcd_4 p_0 #@ [0,0]
+# Region 1
+# Intra-region Arcs
+p_1 Ild_1 #@ [0,0]
+p_1 Ilu_1 #@ [0,0]
+p_1 Vcu_1 #@ [0,0]
+# Inter-region Arcs
+Ild_2 p_1 #@ [0,0]
+Ilu_0 p_1 #@ [0,0]
+Vcd_5 p_1 #@ [0,0]
+# Region 2
+# Intra-region Arcs
+p_2 Ild_2 #@ [0,0]
+p_2 Ilu_2 #@ [0,0]
+p_2 Vcu_2 #@ [0,0]
+# Inter-region Arcs
+Ild_3 p_2 #@ [0,0]
+Ilu_1 p_2 #@ [0,0]
+Vcd_6 p_2 #@ [0,0]
+# Region 3
+# Intra-region Arcs
+p_3 Ild_3 #@ [0,0]
+p_3 Vcu_3 #@ [0,0]
+# Inter-region Arcs
+Ilu_2 p_3 #@ [0,0]
+Vcd_7 p_3 #@ [0,0]
+# Region 4
+# Intra-region Arcs
+p_4 Ilu_4 #@ [0,0]
+p_4 Vcd_4 #@ [0,0]
+p_4 Vcu_4 #@ [0,0]
+# Inter-region Arcs
+Ild_5 p_4 #@ [0,0]
+Vcd_8 p_4 #@ [0,0]
+Vcu_0 p_4 #@ [0,0]
+# Region 5
+# Intra-region Arcs
+p_5 Ild_5 #@ [0,0]
+p_5 Ilu_5 #@ [0,0]
+p_5 Vcd_5 #@ [0,0]
+p_5 Vcu_5 #@ [0,0]
+# Inter-region Arcs
+Ild_6 p_5 #@ [0,0]
+Ilu_4 p_5 #@ [0,0]
+Vcd_9 p_5 #@ [0,0]
+Vcu_1 p_5 #@ [0,0]
+# Region 6
+# Intra-region Arcs
+p_6 Ild_6 #@ [0,0]
+p_6 Ilu_6 #@ [0,0]
+p_6 Vcd_6 #@ [0,0]
+p_6 Vcu_6 #@ [0,0]
+# Inter-region Arcs
+Ild_7 p_6 #@ [0,0]
+Ilu_5 p_6 #@ [0,0]
+Vcd_10 p_6 #@ [0,0]
+Vcu_2 p_6 #@ [0,0]
+# Region 7
+# Intra-region Arcs
+p_7 Ild_7 #@ [0,0]
+p_7 Vcd_7 #@ [0,0]
+p_7 Vcu_7 #@ [0,0]
+# Inter-region Arcs
+Ilu_6 p_7 #@ [0,0]
+Vcd_11 p_7 #@ [0,0]
+Vcu_3 p_7 #@ [0,0]
+# Region 8
+# Intra-region Arcs
+p_8 Ilu_8 #@ [0,0]
+p_8 Vcd_8 #@ [0,0]
+p_8 Vcu_8 #@ [0,0]
+# Inter-region Arcs
+Ild_9 p_8 #@ [0,0]
+Vcd_12 p_8 #@ [0,0]
+Vcu_4 p_8 #@ [0,0]
+# Region 9
+# Intra-region Arcs
+p_9 Ild_9 #@ [0,0]
+p_9 Ilu_9 #@ [0,0]
+p_9 Vcd_9 #@ [0,0]
+p_9 Vcu_9 #@ [0,0]
+# Inter-region Arcs
+Ild_10 p_9 #@ [0,0]
+Ilu_8 p_9 #@ [0,0]
+Vcd_13 p_9 #@ [0,0]
+Vcu_5 p_9 #@ [0,0]
+# Region 10
+# Intra-region Arcs
+p_10 Ild_10 #@ [0,0]
+p_10 Ilu_10 #@ [0,0]
+p_10 Vcd_10 #@ [0,0]
+p_10 Vcu_10 #@ [0,0]
+# Inter-region Arcs
+Ild_11 p_10 #@ [0,0]
+Ilu_9 p_10 #@ [0,0]
+Vcd_14 p_10 #@ [0,0]
+Vcu_6 p_10 #@ [0,0]
+# Region 11
+# Intra-region Arcs
+p_11 Ild_11 #@ [0,0]
+p_11 Vcd_11 #@ [0,0]
+p_11 Vcu_11 #@ [0,0]
+# Inter-region Arcs
+Ilu_10 p_11 #@ [0,0]
+Vcd_15 p_11 #@ [0,0]
+Vcu_7 p_11 #@ [0,0]
+# Region 12
+# Intra-region Arcs
+p_12 Ilu_12 #@ [0,0]
+p_12 Vcd_12 #@ [0,0]
+# Inter-region Arcs
+Ild_13 p_12 #@ [0,0]
+Vcu_8 p_12 #@ [0,0]
+# Region 13
+# Intra-region Arcs
+p_13 Ild_13 #@ [0,0]
+p_13 Ilu_13 #@ [0,0]
+p_13 Vcd_13 #@ [0,0]
+# Inter-region Arcs
+Ild_14 p_13 #@ [0,0]
+Ilu_12 p_13 #@ [0,0]
+Vcu_9 p_13 #@ [0,0]
+# Region 14
+# Intra-region Arcs
+p_14 Ild_14 #@ [0,0]
+p_14 Ilu_14 #@ [0,0]
+p_14 Vcd_14 #@ [0,0]
+# Inter-region Arcs
+Ild_15 p_14 #@ [0,0]
+Ilu_13 p_14 #@ [0,0]
+Vcu_10 p_14 #@ [0,0]
+# Region 15
+# Intra-region Arcs
+p_15 Ild_15 #@ [0,0]
+p_15 Vcd_15 #@ [0,0]
+# Inter-region Arcs
+Ilu_14 p_15 #@ [0,0]
+Vcu_11 p_15 #@ [0,0]
+
+# Added to verify the property that AG(AF(Il <= 300)) && AG(AF(Il >= 700))
+aLow a+ #@ [0,0] 1.000000 
+a+ aHigh #@ [0,0] 1.000000 
+aHigh a- #@ [0,0] 1.000000 
+a- aLow #@ [0,0] 1.000000 
+
+bLow b+ #@ [0,0] 1.000000 
+b+ bHigh #@ [0,0] 1.000000 
+bHigh b- #@ [0,0] 1.000000 
+b- bLow #@ [0,0] 1.000000 
+
+#@.enablings {<Ilu_0=[Il>=67]><Vcu_0=[Vc>=204]><Ild_1=[Il<=45]><Ilu_1=[Il>=404]><Vcu_1=[Vc>=204]><Ild_2=[Il<=382]><Ilu_2=[Il>=1055]><Vcu_2=[Vc>=204]><Ild_3=[Il<=1033]><Vcu_3=[Vc>=204]><Ilu_4=[Il>=67]><Vcd_4=[Vc<=102]><Vcu_4=[Vc>=1735]><Ild_5=[Il<=45]><Ilu_5=[Il>=404]><Vcd_5=[Vc<=102]><Vcu_5=[Vc>=1735]><Ild_6=[Il<=382]><Ilu_6=[Il>=1055]><Vcd_6=[Vc<=102]><Vcu_6=[Vc>=1735]><Ild_7=[Il<=1033]><Vcd_7=[Vc<=102]><Vcu_7=[Vc>=1735]><Ilu_8=[Il>=67]><Vcd_8=[Vc<=1633]><Vcu_8=[Vc>=4898]><Ild_9=[Il<=45]><Ilu_9=[Il>=404]><Vcd_9=[Vc<=1633]><Vcu_9=[Vc>=4898]><Ild_10=[Il<=382]><Ilu_10=[Il>=1055]><Vcd_10=[Vc<=1633]><Vcu_10=[Vc>=4898]><Ild_11=[Il<=1033]><Vcd_11=[Vc<=1633]><Vcu_11=[Vc>=4898]><Ilu_12=[Il>=67]><Vcd_12=[Vc<=4796]><Ild_13=[Il<=45]><Ilu_13=[Il>=404]><Vcd_13=[Vc<=4796]><Ild_14=[Il<=382]><Ilu_14=[Il>=1055]><Vcd_14=[Vc<=4796]><Ild_15=[Il<=1033]><Vcd_15=[Vc<=4796]><a+=[Il<=300]><a-=[Il>=300]><b+=[Il>=700]><b-=[Il<=700]>}
+
+#@.invariants {<aLow=[Il>=300]> <aHigh=[Il<=300]> <bLow=[Il<=700]> <bHigh=[Il>=700]>}
+
+#@.rate_assignments {<Ild_1=[Il:=29;Vc:=-207]><Vcd_4=[Il:=29;Vc:=-207]><Ilu_0=[Il:=25;Vc:=-5]><Ild_2=[Il:=25;Vc:=-5]><Vcd_5=[Il:=25;Vc:=-5]><Ilu_1=[Il:=15;Vc:=489]><Ild_3=[Il:=15;Vc:=489]><Vcd_6=[Il:=15;Vc:=489]><Ilu_2=[Il:=8;Vc:=848]><Vcd_7=[Il:=8;Vc:=848]><Ild_5=[Il:=20;Vc:=-875]><Vcu_0=[Il:=20;Vc:=-875]><Vcd_8=[Il:=20;Vc:=-875]><Ilu_4=[Il:=16;Vc:=-673]><Ild_6=[Il:=16;Vc:=-673]><Vcu_1=[Il:=16;Vc:=-673]><Vcd_9=[Il:=16;Vc:=-673]><Ilu_5=[Il:=6;Vc:=-179]><Ild_7=[Il:=6;Vc:=-179]><Vcu_2=[Il:=6;Vc:=-179]><Vcd_10=[Il:=6;Vc:=-179]><Ilu_6=[Il:=-1;Vc:=180]><Vcu_3=[Il:=-1;Vc:=180]><Vcd_11=[Il:=-1;Vc:=180]><Ild_9=[Il:=-3;Vc:=-287]><Vcu_4=[Il:=-3;Vc:=-287]><Vcd_12=[Il:=-3;Vc:=-287]><Ilu_8=[Il:=-7;Vc:=-85]><Ild_10=[Il:=-7;Vc:=-85]><Vcu_5=[Il:=-7;Vc:=-85]><Vcd_13=[Il:=-7;Vc:=-85]><Ilu_9=[Il:=-17;Vc:=409]><Ild_11=[Il:=-17;Vc:=409]><Vcu_6=[Il:=-17;Vc:=409]><Vcd_14=[Il:=-17;Vc:=409]><Ilu_10=[Il:=-24;Vc:=768]><Vcu_7=[Il:=-24;Vc:=768]><Vcd_15=[Il:=-24;Vc:=768]><Ild_13=[Il:=-20;Vc:=-893]><Vcu_8=[Il:=-20;Vc:=-893]><Ilu_12=[Il:=-24;Vc:=-690]><Ild_14=[Il:=-24;Vc:=-690]><Vcu_9=[Il:=-24;Vc:=-690]><Ilu_13=[Il:=-34;Vc:=-197]><Ild_15=[Il:=-34;Vc:=-197]><Vcu_10=[Il:=-34;Vc:=-197]><Ilu_14=[Il:=-41;Vc:=163]><Vcu_11=[Il:=-41;Vc:=163]>}
+
+#@.boolean_assignments {<a+=[a:=TRUE]><b+=[b:=TRUE]><a-=[a:=FALSE]><b-=[b:=FALSE]>}
+
+#@.continuous Vc Il 
+
+#@.init_vals {<Vc=[0,0]><Il=[0,0]>}
+
+#@.init_rates {<Vc=[-207,-207]><Il=[29,29]>}
+
+.marking{p_0 aLow bLow}
+.end
+

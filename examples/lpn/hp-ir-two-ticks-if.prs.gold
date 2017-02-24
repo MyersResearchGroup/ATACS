@@ -1,0 +1,4 @@
+[ TwoTicksResetAck: (ITSoftResetReq & ~ITEventReq)] Combinational
+[+IntEventReq: (ITEventReq)]
+[-IntEventReq: (ITSoftResetReq & ~ITEventReq)]
+[-IntEventReq: (ITEventStop & ~ITEventReq)]

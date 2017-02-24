@@ -1,0 +1,15 @@
+.outputs i j k t
+#@.init_state [0000]
+.graph
+j+/1 t+
+t+ j-/1
+j-/1 i-
+i- j+/2
+j+/2 t-
+t- k-
+k- j-/2
+j-/2 i+ k+
+i+ j+/1
+k+ j+/1
+.marking {<j-/2,i+><j-/2,k+>}
+.end

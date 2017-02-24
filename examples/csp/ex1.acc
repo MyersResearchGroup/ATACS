@@ -1,0 +1,24 @@
+# 
+# SI (basically) hazard-free
+#
+#a = 0 = [ 1 , inf ] input
+#b = 0 = [ 1 , inf ] input
+#c = 0 = [ 1 , inf ] (d | (b & ~a)) | (b & c)
+#d = 0 = [ 1 , inf ] e & b
+#e = 0 = [ 1 , inf ] a & ~c
+# 
+# SI (basically) hazardous
+#
+#a = 0 = [ 1 , 1000 ] input
+#b = 0 = [ 1 , 1000 ] input
+#c = 0 = [ 1 , 1000 ] (d | (b & ~a)) | (b & c)
+#d = 0 = [ 1 , 1000 ] e & ~c
+#e = 0 = [ 1 , 1000 ] a & b
+# 
+# Timed hazard-free
+#
+a = 0 = [ 10 , 1000 ] input
+b = 0 = [ 10 , 1000 ] input
+c = 0 = [ 1 , 10 ] (d | (b & ~a)) | (b & c)
+d = 0 = [ 1 , 10 ] e & ~c
+e = 0 = [ 1 , 10 ] a & b

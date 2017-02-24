@@ -1,0 +1,49 @@
+input	memwriteack              0
+input	newbitack                0
+input	newvalexpr0ack           0
+input	prevbitack               0
+input	samevalif                0
+input	samevalifack             0
+input	scanack                  0
+input	start                    0
+input	testbit1exprack          0
+input	testbitif                0
+input	testbitifack             0
+input	transitionsack           0
+input	widthack                 0
+output	done                     0
+output	memwritereq              0
+output	newbitreq                0
+output	newvalexpr0req           0
+output	prevbitreq               0
+output	prevbitsm1               0
+output	samevalifreq             0
+output	scanreq                  0
+output	testbit1exprreq          0
+output	testbitifreq             0
+output	transitionsreq           0
+output	transitionssm1           0
+output	widthreq                 0
+output	widthsm1                 0
+output	widthsm2                 0
+output	zzz00                    0
+output	zzz01                    0
+output	zzz02                    1
+
+0  1	start+                   | transitionsreq+ widthreq+ widthsm1+ prevbitreq+ 
+1  23	transitionsack+ widthack+ prevbitack+ | transitionsreq- widthreq- widthsm1- prevbitreq- scanreq+ zzz01+ zzz02- 
+3  4	scanack+ samevalifack-   | newbitreq+ 
+4  6	newbitack+               | scanreq- newbitreq- testbitifreq+ 
+6  8	testbitifack+ [testbitif+] scanack- newbitack- | zzz01+ zzz02-            | testbitifreq- testbit1exprreq+ 
+6  16	testbitifack+ [testbitif-] scanack- newbitack- | zzz00+ zzz02-            | testbitifreq- newvalexpr0req+ transitionssm1+ prevbitreq+ prevbitsm1+ 
+8  9	testbit1exprack+ testbitifack- | widthreq+ zzz01- zzz02+ 
+9  11	widthack+                | testbit1exprreq- widthreq- samevalifreq+ zzz00+ zzz02- 
+11  13	samevalifack+ [samevalif+] testbit1exprack- widthack- | zzz00- zzz01+            | samevalifreq- done+ 
+11  3	samevalifack+ [samevalif-] testbit1exprack- widthack- | zzz00- zzz02+            | samevalifreq- scanreq+ 
+13  0	start- samevalifack-     | done- zzz01- zzz02+ 
+16  17	newvalexpr0ack+ prevbitack+ testbitifack- | transitionsreq+ prevbitreq- prevbitsm1- zzz00- zzz02+ 
+17  19	transitionsack+ prevbitack- | newvalexpr0req- transitionsreq- transitionssm1- memwritereq+ 
+19  21	memwriteack+ newvalexpr0ack- transitionsack- | memwritereq- widthreq+ widthsm2+ 
+21  24	widthack+ memwriteack-   | widthreq- widthsm2- scanreq+ zzz00+ zzz02- 
+23  4	scanack+ transitionsack- widthack- prevbitack- | newbitreq+ zzz01- zzz02+ 
+24  4	scanack+ widthack-       | newbitreq+ zzz00- zzz02+ 

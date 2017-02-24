@@ -1,0 +1,90 @@
+// Fisher's Mutual Exclusion Protocol
+// Specification fulfilled if t_E >= t_R.
+
+t_R := 100000;
+t_E := 99999;
+REACH_USE_CONVEX_HULL = true;
+
+automaton proc1
+state_var : t1;
+synclabs : setx0,setx1,start1,enter1;
+
+loc idle: while True wait {t1==1}
+	when True do {t1' == 0} sync start1 goto start;
+
+loc start: while True wait {t1==1}
+	when t1<t_R do {t1' == 0} sync setx1 goto reserved;
+
+loc reserved: while True wait {t1==1}
+	when t1>t_E sync enter1 goto CS;
+
+loc CS: while True wait {t1==1}
+	when True sync setx0 goto idle;
+
+initially idle & t1==0;
+
+end -- proc1
+
+automaton proc2
+state_var : t2;
+synclabs : setx0,setx2,start2,enter2;
+
+loc idle: while True wait {t2==1}
+	when True do {t2' == 0} sync start2 goto start;
+
+loc start: while True wait {t2==1}
+	when t2<t_R do {t2' == 0} sync setx2 goto reserved;
+
+loc reserved: while True wait {t2==1}
+	when t2>t_E sync enter2 goto CS;
+
+loc CS: while True wait {t2==1}
+	when True sync setx0 goto idle;
+
+initially idle & t2==0;
+
+end -- proc2
+
+automaton arbiter
+input_var : t1;
+synclabs : setx0,setx1,start1,enter1,setx2,start2,enter2;
+
+loc idle: while True wait {True}
+	when True sync start1 goto idle;
+	when True sync start2 goto idle;
+	when True sync setx1 goto reserved1;
+	when True sync setx2 goto reserved2;
+
+loc reserved1: while True wait {True}
+	when True sync enter1 goto reserved1;
+	when True sync setx0 goto idle;
+	when True sync setx1 goto reserved1;
+	when True sync setx2 goto reserved2;
+
+loc reserved2: while True wait {True}
+	when True sync enter2 goto reserved2;
+	when True sync setx0 goto idle;
+	when True sync setx1 goto reserved1;
+	when True sync setx2 goto reserved2;
+
+initially idle & True;
+
+end -- arbiter
+
+-- analysis commands
+
+sys=arbiter&proc1&proc2;
+//sys.print;
+
+echo "";
+echo "The following parse error only means the specified location does not exist in the composition:";
+
+reg=sys.reachable_stop({
+	idle~CS~CS & true ,
+	reserved1~CS~CS & true ,
+	reserved2~CS~CS & true 
+	});
+
+echo "Reachable forbidden states empty?";
+reg.is_empty;
+reg.print;

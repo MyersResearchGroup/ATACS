@@ -1,0 +1,244 @@
+.e 39
+.i 16
+.r 114
+.n 0
+.d 1
+.c 69
+.s 00000000000000
+reset
+# 
+# INPUT EVENTS:
+# 
+TagIn3+/1 TagIn3-/1
+TagIn1+/1 TagIn1-/1
+TagIn2+/1 TagIn2-/1
+instRdy+/1 instRdy-/1
+L2+/1 L2-/1
+L1+/1 L1-/1
+L3+/1 L3-/1
+XBRdy+/1 XBRdy-/1
+# 
+# OUTPUT EVENTS:
+# 
+Rdy_tag1+/1 Rdy_tag1-/1
+TagRdy_tag1+/1 TagRdy_tag1-/1
+TagArrived_tag1+/1 TagArrived_tag1-/1
+TagArrived_tag1+/2 TagArrived_tag1-/2
+TagArrived_tag1+/3 TagArrived_tag1-/3
+TagOut3+/1 TagOut3-/1
+TagOut1+/1 TagOut1-/1
+TagOut2+/1 TagOut2-/1
+# 
+# DUMMY EVENTS:
+# 
+$5+/1
+$3+/1
+$4+/1
+$2+/1
+$0+/1
+$1+/1
+# 
+# RULES:
+# 
+reset L2+/1 0 180 inf
+reset L1+/1 0 180 inf
+reset L3+/1 0 180 inf
+reset TagIn2+/1 0 720 inf
+reset TagIn1+/1 0 720 inf
+reset TagIn3+/1 0 720 inf
+Rdy_tag1+/1 TagOut3+/1 0 90 110
+Rdy_tag1+/1 TagOut2+/1 0 90 110
+TagArrived_tag1+/1 TagOut1+/1 0 90 110
+TagOut3+/1 TagOut3-/1 0 90 110
+L3+/1 TagOut3+/1 0 90 110
+TagArrived_tag1-/1 TagOut1-/1 0 90 110
+L2+/1 TagOut2+/1 0 90 110
+TagOut2+/1 TagOut2-/1 0 90 110
+reset TagOut1+/1 0 90 110
+reset TagOut3+/1 0 90 110
+reset TagOut2+/1 0 90 110
+TagArrived_tag1-/2 TagOut2-/1 0 90 110
+TagOut1+/1 TagOut1-/1 0 90 110
+L1+/1 TagOut1+/1 0 90 110
+TagArrived_tag1-/3 TagOut3-/1 0 90 110
+TagArrived_tag1+/1 TagOut2+/1 0 90 110
+TagArrived_tag1+/1 TagOut3+/1 0 90 110
+Rdy_tag1+/1 TagOut1+/1 0 90 110
+Rdy_tag1+/1 Rdy_tag1-/1 0 90 110
+instRdy+/1 Rdy_tag1+/1 0 90 110
+reset Rdy_tag1+/1 0 90 110
+XBRdy+/1 Rdy_tag1+/1 0 90 110
+instRdy-/1 Rdy_tag1-/1 0 90 110
+TagArrived_tag1+/1 TagArrived_tag1-/1 0 90 110
+TagRdy_tag1+/1 TagArrived_tag1-/3 0 90 110
+TagRdy_tag1+/1 TagArrived_tag1-/2 0 90 110
+L1+/1 TagArrived_tag1-/1 0 90 110
+TagIn2+/1 TagArrived_tag1+/1 0 90 110
+TagIn3+/1 TagArrived_tag1+/1 0 90 110
+reset TagArrived_tag1+/1 0 90 110
+TagIn1+/1 TagArrived_tag1+/1 0 90 110
+L2+/1 TagArrived_tag1-/2 0 90 110
+L3+/1 TagArrived_tag1-/3 0 90 110
+TagRdy_tag1+/1 TagArrived_tag1-/1 0 90 110
+TagArrived_tag1+/1 TagArrived_tag1-/2 0 90 110
+TagArrived_tag1+/1 TagArrived_tag1-/3 0 90 110
+TagArrived_tag1-/3 TagRdy_tag1-/1 0 90 110
+TagArrived_tag1-/2 TagRdy_tag1-/1 0 90 110
+TagArrived_tag1+/1 TagRdy_tag1+/1 0 90 110
+reset TagRdy_tag1+/1 0 90 110
+Rdy_tag1+/1 TagRdy_tag1+/1 0 90 110
+TagArrived_tag1-/1 TagRdy_tag1-/1 0 90 110
+TagRdy_tag1+/1 TagRdy_tag1-/1 0 90 110
+TagIn3+/1 TagIn3-/1 0 180 220
+TagIn1+/1 TagIn1-/1 0 180 220
+TagIn2+/1 TagIn2-/1 0 180 220
+instRdy+/1 instRdy-/1 0 90 110
+L3-/1 instRdy-/1 0 90 110
+L1-/1 instRdy-/1 0 90 110
+L2-/1 instRdy-/1 0 90 110
+L2+/1 instRdy+/1 0 180 inf
+L1+/1 instRdy+/1 0 180 inf
+L3+/1 instRdy+/1 0 180 inf
+reset instRdy+/1 0 180 inf
+L3+/1 L3-/1 0 180 220
+TagOut3+/1 L3-/1 0 180 220
+TagOut1+/1 L1-/1 0 180 220
+L1+/1 L1-/1 0 180 220
+TagOut2+/1 L2-/1 0 180 220
+L2+/1 L2-/1 0 180 220
+reset XBRdy+/1 0 180 inf
+TagOut2+/1 XBRdy-/1 0 360 440
+TagOut1+/1 XBRdy-/1 0 360 440
+TagOut3+/1 XBRdy-/1 0 360 440
+XBRdy+/1 XBRdy-/1 0 360 440
+# 
+# INITIAL RULES:
+# 
+L3-/1 L1+/1 1 180 inf
+L1-/1 L1+/1 1 180 inf
+L2-/1 L1+/1 1 180 inf
+XBRdy-/1 XBRdy+/1 1 180 inf
+instRdy-/1 instRdy+/1 1 180 inf
+TagRdy_tag1-/1 TagRdy_tag1+/1 1 90 110
+TagArrived_tag1-/3 TagArrived_tag1+/1 1 90 110
+TagArrived_tag1-/2 TagArrived_tag1+/1 1 90 110
+TagArrived_tag1-/1 TagArrived_tag1+/1 1 90 110
+Rdy_tag1-/1 Rdy_tag1+/1 1 90 110
+TagOut3-/1 TagOut1+/1 1 90 110
+TagOut1-/1 TagOut2+/1 1 90 110
+TagOut1-/1 TagOut3+/1 1 90 110
+TagOut2-/1 TagOut1+/1 1 90 110
+TagOut2-/1 TagOut3+/1 1 90 110
+TagOut2-/1 TagOut2+/1 1 90 110
+TagOut1-/1 TagOut1+/1 1 90 110
+TagOut3-/1 TagOut3+/1 1 90 110
+TagOut3-/1 TagOut2+/1 1 90 110
+TagIn3-/1 TagIn3+/1 1 720 inf
+TagIn1-/1 TagIn3+/1 1 720 inf
+TagIn2-/1 TagIn3+/1 1 720 inf
+TagOut3+/1 TagIn3+/1 1 720 inf
+TagOut1+/1 TagIn3+/1 1 720 inf
+TagOut2+/1 TagIn3+/1 1 720 inf
+TagIn3-/1 TagIn1+/1 1 720 inf
+TagIn1-/1 TagIn1+/1 1 720 inf
+TagIn2-/1 TagIn1+/1 1 720 inf
+TagOut3+/1 TagIn1+/1 1 720 inf
+TagOut1+/1 TagIn1+/1 1 720 inf
+TagOut2+/1 TagIn1+/1 1 720 inf
+TagIn3-/1 TagIn2+/1 1 720 inf
+TagIn1-/1 TagIn2+/1 1 720 inf
+TagIn2-/1 TagIn2+/1 1 720 inf
+TagOut3+/1 TagIn2+/1 1 720 inf
+TagOut1+/1 TagIn2+/1 1 720 inf
+TagOut2+/1 TagIn2+/1 1 720 inf
+L3-/1 L3+/1 1 180 inf
+L1-/1 L3+/1 1 180 inf
+L2-/1 L3+/1 1 180 inf
+L3-/1 L2+/1 1 180 inf
+L1-/1 L2+/1 1 180 inf
+L2-/1 L2+/1 1 180 inf
+# 
+# RULES:
+# 
+# 
+# INITIAL RULES:
+# 
+# 
+# MERGERS:
+# 
+TagArrived_tag1+/1 TagArrived_tag1+/2 TagArrived_tag1+/3 
+# 
+# CONFLICTS:
+# 
+TagOut1+/1 TagOut3-/1
+TagOut1-/1 TagOut3-/1
+TagOut2+/1 TagOut3-/1
+TagOut2-/1 TagOut3-/1
+TagOut1+/1 TagOut2+/1
+TagOut1-/1 TagOut2+/1
+TagOut1-/1 TagOut2-/1
+TagOut1+/1 TagOut2-/1
+TagOut2-/1 TagOut3+/1
+TagOut2+/1 TagOut3+/1
+TagOut1-/1 TagOut3+/1
+TagOut1+/1 TagOut3+/1
+TagArrived_tag1-/2 TagArrived_tag1-/3
+TagArrived_tag1-/1 TagArrived_tag1-/2
+TagArrived_tag1-/1 TagArrived_tag1-/3
+TagIn1+/1 $5+/1
+TagIn1+/1 TagIn3-/1
+TagIn1+/1 TagIn3+/1
+TagIn1-/1 $5+/1
+TagIn1-/1 TagIn3-/1
+TagIn1-/1 TagIn3+/1
+$3+/1 $5+/1
+$3+/1 TagIn3-/1
+$3+/1 TagIn3+/1
+TagIn2+/1 $5+/1
+TagIn2+/1 TagIn3-/1
+TagIn2+/1 TagIn3+/1
+TagIn2-/1 $5+/1
+TagIn2-/1 TagIn3-/1
+TagIn2-/1 TagIn3+/1
+$4+/1 $5+/1
+$4+/1 TagIn3-/1
+$4+/1 TagIn3+/1
+TagIn1+/1 TagIn2+/1
+TagIn1+/1 TagIn2-/1
+TagIn1+/1 $4+/1
+TagIn1-/1 TagIn2+/1
+TagIn1-/1 TagIn2-/1
+TagIn1-/1 $4+/1
+$3+/1 TagIn2+/1
+$3+/1 TagIn2-/1
+$3+/1 $4+/1
+L1+/1 $2+/1
+L1+/1 L3-/1
+L1+/1 L3+/1
+L1-/1 $2+/1
+L1-/1 L3-/1
+L1-/1 L3+/1
+$0+/1 $2+/1
+$0+/1 L3-/1
+$0+/1 L3+/1
+L2+/1 $2+/1
+L2+/1 L3-/1
+L2+/1 L3+/1
+L2-/1 $2+/1
+L2-/1 L3-/1
+L2-/1 L3+/1
+$1+/1 $2+/1
+$1+/1 L3-/1
+$1+/1 L3+/1
+L1+/1 L2+/1
+L1+/1 L2-/1
+L1+/1 $1+/1
+L1-/1 L2+/1
+L1-/1 L2-/1
+L1-/1 $1+/1
+$0+/1 L2+/1
+$0+/1 L2-/1
+$0+/1 $1+/1
+# 
+# LOOPING CONFLICTS:
+# 

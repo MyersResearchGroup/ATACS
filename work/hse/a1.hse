@@ -1,0 +1,23 @@
+/*****************************************************************************/
+/* reshuffling a1 from Burns' dissertation */
+/*****************************************************************************/
+module a1;
+    
+input li;
+input ri;
+output lo;
+output ro;
+
+process main;
+    *[ [li]; lo+; [~li]; ro+; [ri]; lo-; ro-; [~ri] ]
+endprocess
+
+testbench Lenv;
+    *[ li+; [lo]; li-; [~lo] ]
+endtestbench
+
+testbench Renv;
+    *[ [ro]; ri+; [~ro]; ri- ]
+endtestbench
+
+endmodule

@@ -1,0 +1,4 @@
+[ Ain: (phi)] Combinational
+[ Rout: (phi)] Combinational
+[+phi: (Rin & ~Aout)]
+[-phi: (Aout)]

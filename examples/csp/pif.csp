@@ -1,0 +1,18 @@
+/*****************************************************************************/
+/* Stoppable clock interface (see ARVLSI97).                                 */
+/*****************************************************************************/
+module pif;
+
+input run = {<20,inf;10,30>};
+input preclk = {true,<19,21>};
+output clk = {<1,13>};
+
+process clk;
+    *[ [run+]; clk+; preclk-; clk-; preclk+ ]
+endprocess
+
+process run;
+    *[ run+; [clk+]; run- ]
+endprocess
+
+endmodule

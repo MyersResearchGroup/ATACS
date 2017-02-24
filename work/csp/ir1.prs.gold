@@ -1,0 +1,8 @@
+[ instrdy: (byterdy6 & byterdy2 & byterdy1 & byterdy5 & ~tagack & byterdy3 & byterdy & byterdy4 & l4)] Combinational
+[ instrdy: (byterdy6 & byterdy2 & byterdy1 & byterdy5 & ~tagack & byterdy3 & byterdy & byterdy4 & l1)] Combinational
+[ instrdy: (byterdy6 & byterdy2 & byterdy1 & byterdy5 & ~tagack & byterdy3 & byterdy & byterdy4 & l6)] Combinational
+[ instrdy: (tb & byterdy6 & byterdy2 & byterdy1 & byterdy5 & ~tagack & byterdy3 & byterdy & byterdy4)] Combinational
+[ instrdy: (l3 & byterdy6 & byterdy2 & byterdy1 & byterdy5 & ~tagack & byterdy3 & byterdy & byterdy4)] Combinational
+[ instrdy: (l2 & byterdy6 & byterdy2 & byterdy1 & byterdy5 & ~tagack & byterdy3 & byterdy & byterdy4)] Combinational
+[ instrdy: (l5 & byterdy6 & byterdy2 & byterdy1 & byterdy5 & ~tagack & byterdy3 & byterdy & byterdy4)] Combinational
+[ instrdy: (byterdy6 & byterdy2 & byterdy1 & byterdy5 & ~tagack & byterdy3 & byterdy & byterdy4 & l7)] Combinational

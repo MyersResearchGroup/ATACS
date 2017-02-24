@@ -1,0 +1,26 @@
+/*****************************************************************************/
+/* Lazy-active/passive buffer pa from Burn's thesis                          */
+/*****************************************************************************/
+module lapb_pa;
+
+delay envdelay  = <30,60>;
+delay gatedelay = <10,20>;
+
+input li = {false,envdelay};
+input ri = {false,envdelay};
+output lo = {false,gatedelay};
+output ro = {false,gatedelay};
+
+process lapbctrl;
+*[ [li+]; lo+; [li-]; (lo- || ro+); [ri+]; ro-; [ri-] ]
+endprocess
+
+process left;
+*[ [ro+]; ri+; [ro-]; ri- ]
+endprocess
+
+process right;
+*[ li+; [lo+]; li-; [lo-] ]
+endprocess
+
+endmodule

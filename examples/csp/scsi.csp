@@ -1,0 +1,26 @@
+/*****************************************************************************/
+/* Chu's SCSI Protocol Controller                                            */
+/*****************************************************************************/
+module scsi;
+
+delay gatedelay = <0,5>;
+delay envdelay = <20,50>;
+
+input ack = {true,envdelay};
+input go = {false,envdelay};
+output req = {true,gatedelay};
+output rdy = {false,gatedelay};
+
+process scsi2;
+*[ req-; rdy+; [go+]; rdy-; [ack-]; req+; [go-]; [ack+] ]  
+endprocess
+
+process ack;
+*[ [req-]; ack-; [req+]; ack+ ]
+endprocess
+
+process go;
+*[ [rdy+]; go+; [rdy-]; go- ]
+endprocess
+
+endmodule

@@ -1,0 +1,24 @@
+/*****************************************************************************/
+/* Chu's SCSI Protocol Controller (with state variable added by hand)        */
+/*****************************************************************************/
+module lecture7;
+
+input ack = {true};
+input go = {false};
+output req = {true};
+output rdy = {false};
+output q = {false};
+
+process lecture7;
+*[ req-; rdy+; q+; [go+]; rdy-; [ack-]; req+; [go-]; q-; [ack+] ]  
+endprocess
+
+testbench ack_env;
+*[ [req-]; ack-; [req+]; ack+ ]
+endtestbench
+
+testbench go_env;
+*[ [rdy+]; go+; [rdy-]; go- ]
+endtestbench
+
+endmodule

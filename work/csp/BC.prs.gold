@@ -1,0 +1,4 @@
+[ latchdecode: (req & ~tagack & ~ack)] Combinational
+[ byterdy: (req & ~tagack & ~ack)] Combinational
+[+ack: (req & tagack)]
+[-ack: (~req)]

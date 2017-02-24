@@ -1,0 +1,31 @@
+/*****************************************************************************/
+/* A full STARI stage (see Greenstreet's PhD thesis)                         */
+/*****************************************************************************/
+module fullstage;
+
+delay logic = <100,200>;
+
+input xtin;
+input xfin;
+input ackin;
+input clk;
+
+output xt={true,logic};
+output xf={logic};
+output ack={logic};
+
+process datastage;
+*[[ackin-]:
+  [ xtin-@ -> xt-
+  | xfin- -> xf-
+  ]: [ackin+]:
+  [ xtin+ -> xt+
+  | xfin+ -> xf+
+  ] 
+ ] :
+endprocess
+
+process ackstage;
+*[ [xt+ | xf+]: ack-: [xt- | xf-]: ack+ ] :
+endprocess 
+endmodule

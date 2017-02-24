@@ -1,0 +1,26 @@
+/*****************************************************************************/
+/* FIFO = process(L,R)                                                       */
+/*        *[L;R]                                                             */
+/*        end                                                                */
+/*****************************************************************************/
+module FIFO;
+
+input li = {false};
+input ri = {false};
+output lo = {false};
+output ro = {false};
+output x = {false};
+
+process FIFOctrl;
+*[ [li+]; lo+; [li-]; lo-; [ri-@]; ro+; [ri+]; ro- ]
+endprocess
+
+process Lenv;
+*[ li+; [lo+]; li-; [lo-] ]
+endprocess
+
+process Renv;
+*[ [ro+]; ri+; [ro-]; ri- ]
+endprocess
+
+endmodule

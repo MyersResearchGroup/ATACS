@@ -1,0 +1,43 @@
+module tagcircuit;
+
+delay gatedelay = <90,110>;
+
+input instRdy;
+input XBRdy;
+input L1;
+input L2;
+input TagIn1;
+input TagIn2;
+output Rdy = {gatedelay};
+output TagOut1 = {gatedelay};
+output TagOut2 = {gatedelay};
+output TagArrived = {gatedelay};
+output TagRdy = {gatedelay};
+
+process rdy;
+*[[instRdy+ & XBRdy+]; Rdy+; [instRdy-]; Rdy-]
+endprocess
+
+process tagarrived;
+*[[TagIn1+ | TagIn2+]; 
+  TagArrived+; [TagRdy+]; 
+  [ L1+ -> TagArrived- 
+  | L2+ -> TagArrived-
+  ]
+ ]
+endprocess
+
+process tagrdy;
+*[[Rdy+ & TagArrived+]; TagRdy+; 
+  [TagArrived- | TagArrived-]; TagRdy-]
+endprocess
+
+process tagout;
+*[ [Rdy+ & TagArrived+];
+	[ L1+ -> TagOut1+; [TagArrived-]; TagOut1-
+        | L2+ -> TagOut2+; [TagArrived-]; TagOut2-
+        ]
+ ]
+endprocess
+
+endmodule

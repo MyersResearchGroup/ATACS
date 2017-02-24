@@ -1,0 +1,21 @@
+[ ITCalStart: (~LoadCal16Ack & ITCalStart)] Combinational
+[ ITCalStart: (ITCalReq & ITCalStart)] Combinational
+[ ITCalStart: (ITCalReq & ITActive)] Combinational
+[ ITCalAck: (~LoadCal16Ack & ~ITActive & ITCalStart)] Combinational
+[ ITCalAck: (ITCalReq & LoadCal16Req)] Combinational
+[ ITEventStop: (IntEventReq & ~ITActive & ~zzz00)] Combinational
+[ ITEventStop: (~LoadCal16Ack & ITEventStop)] Combinational
+[ ControlResetAck: (ITSoftResetReq & ~IntEventReq)] Combinational
+[ NextEnable: (ITCalReq & ~ITActive & ~ITCalStart)] Combinational
+[ NextEnable: (~LoadCal16Ack & IntEventReq & ~ITActive & zzz00)] Combinational
+[ NextEnable: (~ITSoftResetReq & ~ITActive & NextEnable)] Combinational
+[ Calibrating: (ITCalReq & ~ITCalStart)] Combinational
+[ Calibrating: (ITCalReq & ITActive)] Combinational
+[ LoadCal16Req: (IntEventReq & ~ITActive & ~zzz00)] Combinational
+[ LoadCal16Req: (~LoadCal16Ack & LoadCal16Req)] Combinational
+[ LoadCal16Req: (ITCalReq & ~ITActive & ITCalStart)] Combinational
+[ zzz00: (ITCalReq)] Combinational
+[ zzz00: (~ITSoftResetReq & ~ITActive & zzz00)] Combinational
+[ zzz00: (IntEventReq & ~ITActive & zzz00)] Combinational
+[ zzz00: (ITSoftResetReq & ~IntEventReq & ITActive)] Combinational
+[ zzz00: (LoadCal16Ack & ~IntEventReq)] Combinational

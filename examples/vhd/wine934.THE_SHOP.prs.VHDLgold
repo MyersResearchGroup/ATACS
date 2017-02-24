@@ -1,0 +1,3 @@
+[ winery_to_shop1_rcv: (winery_to_shop1_send)] Combinational
+[+shop1_to_patron_send: (~shop1_to_patron_rcv & winery_to_shop1_rcv)]
+[-shop1_to_patron_send: (shop1_to_patron_rcv & ~winery_to_shop1_rcv)]

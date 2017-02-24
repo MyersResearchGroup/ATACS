@@ -1,0 +1,54 @@
+/* From Shai Rotem:
+
+Circuit 3:
+
+          +-----------------+
+       +--| 3-4 gates delay |--+
+       |  +-----------------+  |
+       |      _          __    | rst
+       |      |_   ap   /  |---+
+       |       _||o---O(   |
+       |      |         \__|---+
+       |      |                |
+       |      | x  |\          |
+       |      +----| >O--------+--a
+       |     _|    |/
+clk ---+---||_
+              |
+              =
+
+The input clk goes high and then low after 3 gate delays.
+
+Circuit 3, with the NAND gate, allows the next clk+ to happen earlier, since
+ap- happens after a+, and rst- can happen later. This allows more flexibility
+in designing the clk- -rst- delay.
+*/
+
+module circ3;
+
+delay clkdelay = <500,500;298,298>;
+delay pdelay = <101,101;99,99>;
+delay adelay = <201,201;199,199>;
+delay rstdelay = <297,297;391,391>;
+
+input clk  = {false,clkdelay};
+output a  = {false,adelay};
+output ap = {true,pdelay};
+output rst = {false,rstdelay};
+
+process a;
+*[ [clk+]; a+; [ap-]; a- ]
+endprocess
+
+process ap;
+*[ [a+ & rst+]; ap-; [a-]; ap+ ]
+endprocess
+
+process rst;
+*[ [clk+]; rst+; [clk-]; rst- ]
+endprocess
+
+process clkenv;
+*[ clk+; clk- ]
+endprocess
+endmodule

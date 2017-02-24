@@ -1,0 +1,7 @@
+[ L: (~A & Req & B)] Combinational
+[ E: (A & Req & B)] Combinational
+[ E: (~A & Req & ~B)] Combinational
+[ Ack: (E)] Combinational
+[ Ack: (G)] Combinational
+[ Ack: (L)] Combinational
+[ G: (A & Req & ~B)] Combinational

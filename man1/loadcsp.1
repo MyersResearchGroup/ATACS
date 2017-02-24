@@ -1,0 +1,37 @@
+.TH LOADCSP 1 "28 September 2001" "" ""
+.SH NAME
+loadcsp \- Loads a CSP File
+.SH SYNOPSIS
+.nf
+.BI atacs " -lc <filename>"
+.br
+.BI atacs> " loadcsp <filename>"
+.fi
+.SH DESCRIPTION
+.B loadcsp 
+compiles the CSP file named <filename>.csp to a
+timed event-rule structure and stores it to <filename>.er.
+This structure is immediately loaded, and its constraint graph
+is generated.
+.SH OPTIONS
+.TP
+.BI \-lc
+Loads a CSP file from the command line.
+.TP
+.BI loadcsp
+Loads a CSP file from the interactive shell.
+.SH CREDITS
+.B loadcsp
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu) and
+Hao Zheng (hao@vlsigroup.ece.utah.edu). 
+.SH "SEE ALSO"
+.BR loadfile (1)
+.BR loadhse (1)
+.BR loadvhdl (1)
+.BR loader (1)
+.BR loadtel (1)
+.BR loadg (1)
+.BR loadxbm (1)
+.BR loadrsg (1)
+.BR loadprs (1)
+.BR http://www.async.ece.utah.edu

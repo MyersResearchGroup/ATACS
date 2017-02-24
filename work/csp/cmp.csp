@@ -1,0 +1,68 @@
+module cmp;
+
+input CMPii = {false};
+input Iii = {false};
+input compareii = {false};
+input CMPi1i = {false};
+
+output CMPio = {false};
+output Iio = {false};
+output compareio = {false};
+output CMPi1o = {false};
+output checkfullio = {false};
+input fullT = {false};
+input fullF = {false};
+output CMPo = {false};
+input cmpT= {false};
+input cmpF = {false};
+
+process main;
+*[[ CMPii+ -> [fullT-@ | fullF-@]; 
+              checkfullio+; [ fullF+ -> Iio+; [Iii+]; Iio-; [Iii-];
+                                        checkfullio-
+                            | fullT+ -> compareio+; [compareii+];
+                                        
+                                        [cmpT-@ | cmpF-@]; CMPo+; compareio-;
+                                        [compareii-];
+ 
+                                        [cmpF+ -> Iio+; [Iii+]; Iio-; [Iii-];
+                                                  CMPo-
+                                        |cmpT+ -> CMPi1o+; [CMPi1i+]; CMPi1o-;
+                                                  [CMPi1i-]; CMPo- ];
+                                                  checkfullio- ];
+   CMPio+; [CMPii-]; CMPio- 
+ ]]
+endprocess
+
+process COMPARE;
+*[ CMPii+; [CMPio+]; CMPii-; [CMPio-] ]
+endprocess
+
+process Insert;
+*[[ Iio+ -> Iii+; [Iio-]; Iii- 
+  | Iio+ -> Iii+; [Iio-]; Iii- ]
+]
+endprocess
+
+process Compare;
+*[ [compareio+]; compareii+; [compareio-]; compareii- ]
+endprocess
+
+process COMPARE1;
+*[ [CMPi1o+]; CMPi1i+; [CMPi1o-]; CMPi1i- ]
+endprocess
+
+process CheckFull;
+*[ [checkfullio+]; [skip -> fullF+; [checkfullio-]; fullF-
+                  |skip -> fullT+; [checkfullio-]; fullT- ]
+ ]
+endprocess
+
+process CallCmp;
+*[ [CMPo+]; [skip -> cmpF+; [CMPo-]; cmpF-
+            |skip -> cmpT+; [CMPo-]; cmpT- ]
+ ]
+endprocess
+
+endmodule
+

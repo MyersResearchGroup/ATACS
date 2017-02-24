@@ -1,0 +1,35 @@
+.TH BURST2L 1 "30 September 2001" "" ""
+.SH NAME
+burst2l \- Burst-Mode 2-Level Implementation Technology
+.SH SYNOPSIS
+.nf
+.BI atacs " -obol"
+.br
+.BI atacs> " burst2l"
+.fi
+.SH DESCRIPTION
+.B burst2l
+selects two-level implementations as the target technology
+which are used under a burst-mode assumption.  With this selection, a 
+covering constraint and an modified entrance constraint must be 
+satisfied.  The modified entrance constraint only results in extra
+logic when a hazard can occur before the circuit is given a chance
+to stabilize.
+.SH OPTIONS
+.TP
+.BI \-obol
+Enables burst-mode 2-level technology from the command line.
+.TP
+.BI burst2l
+Enables burst-mode 2-level technology in the interactive shell.
+.SH CREDITS
+.B burst2l
+was primarily written by Chris Myers (myers@vlsigroup.elen.utah.edu).
+.SH BUGS
+.SH FILES
+.SH "SEE ALSO"
+.BR atomic (1)
+.BR gc (1)
+.BR gatelevel (1)
+.BR burstgc (1)
+.BR http://www.async.ece.utah.edu

@@ -1,0 +1,24 @@
+/*****************************************************************************/
+/* Chu's SCSI Protocol Controller (state coded by Petrify).                  */
+/*****************************************************************************/
+module scsiP;
+
+input ack = {true};
+input go = {false};
+output req = {true};
+output rdy = {false};
+output csc0;
+
+process scsictrl;
+*[ csc0+; req-; rdy+; [go+]; csc0-; rdy-; [ack-]; req+; [go-]; [ack+] ]  
+endprocess
+
+process ackenv;
+*[ [req-]; ack-; [req+]; ack+ ]
+endprocess
+
+process goenv;
+*[ [rdy+]; go+; [rdy-]; go- ]
+endprocess
+
+endmodule

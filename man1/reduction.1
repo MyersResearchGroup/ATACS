@@ -1,0 +1,71 @@
+.TH REDUCE 1 "20 September 2001" "" ""
+.SH NAME
+reduction \- Toggle automated concurrency reduction
+.SH SYNOPSIS
+.B atacs -oR
+.br
+.B atacs> reduction
+.SH DESCRIPTION
+.B reduction
+toggles automated concurrency reduction.  The atacs default is that
+automated concurrency reduction is disabled.  The first invocation of
+the \fBreduction\fR command enables automated concurrency reduction.
+The second invocation disables it again, and so on.  However, note
+that concurrency reduction is always performed on examples that start
+as channel-level VHDL examples.  The \fBreduction\fR command has no
+effect on such examples.
+.PP
+When automatic concurrency reduction is enabled, the initial TEL
+structure is modified before synthesis in the following ways.  First,
+sequencing events are inserted as necessary, to ensure that any rule
+with an expression (other than "[true]") enables a sequencing event.
+The result of this first modification is written out as
+\fIexample\fB.fat.{er,tel}\fR.  Then a search begins for rules to add
+to the TEL structure to make it synthesizable.  The leaves of the
+search tree are stored as \fIexample\fB[0-9]*.{er,tel}\fR, and those
+that are synthesizable produce \fIexample\fB[0-9]*.prs\fR.  Finally,
+one of those is chosen as the primary solution and becomes
+\fIexample\fB.prs\fR.
+.SH OPTIONS
+.TP
+.BI \-oR
+This atacs option toggles automated concurrency reduction from the
+Unix shell command line.
+.TP
+.BI reduction
+This atacs command toggles automated concurrency reduction from
+within the atacs interactive shell.
+.SH CREDITS
+The concurrency reduction method and this command were written by
+Eric Robert Peskin (peskin@vlsigroup.ece.utah.edu)
+.SH BUGS
+See http://www.async.ece.utah.edu/cgi-bin/atacs
+.PP
+Also, this command is ineffective on examples that start as
+channel-level VHDL examples.  For such examples, concurrency reduction
+is always performed.
+.SH FILES
+.TP
+\fIexample\fB.fat.{er,tel}\fR
+TEL structure with sequencing events inserted
+.TP
+\fIexample\fB[0-9]*.{er,tel}\fR
+leaves of search tree
+.TP
+\fIexample\fB[0-9]*.prs\fR
+solutions
+.TP
+\fIexample\fB.prs\fR
+primary solution
+.SH "SEE ALSO"
+.BR not_first (1),
+.BR preserve (1),
+.BR ordered (1),
+.BR subset (1),
+.BR unsafe (1),
+.BR expensive (1),
+.BR conflict (1),
+.BR reachable (1),
+.BR dumb (1),
+.BR insertion (1),
+.BR http://www.async.ece.utah.edu

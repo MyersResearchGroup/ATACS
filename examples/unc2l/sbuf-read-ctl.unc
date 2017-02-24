@@ -1,0 +1,16 @@
+input	REQ                      0
+input	ACKREAD                  0
+input	BUSACK                   0
+output	ACK                      0
+output	RAMRDSBUF                0
+output	BUSREQ                   0
+output	zzz00                    0
+
+0  1	REQ+                     | RAMRDSBUF+ 
+1  2	ACKREAD+                 | BUSREQ+ 
+2  3	BUSACK+                  | BUSREQ- zzz00+ 
+3  4	BUSACK-                  | RAMRDSBUF- ACK+ 
+4  5	REQ-                     | ACK- zzz00- 
+5  0	ACKREAD-                 | 
+5  6	REQ+                     | 
+6  1	ACKREAD-                 | RAMRDSBUF+ 

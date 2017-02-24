@@ -1,0 +1,343 @@
+.name iccd_scsi
+.inputs  AckInN  ReqInN  DTCN  DAckLastN  DAckNormN  StartDMARcv  StartDMASend  TargetMode  BurstMode 
+.outputs  EndDMAInt  AckOutN  ReqOutN  ReadyN  DReqN 
+.dummy dummy_0 dummy_1 dummy_2 dummy_3 dummy_4 dummy_5 dummy_6 dummy_7 dummy_8 dummy_9 dummy_10 dummy_11 dummy_12 dummy_13 dummy_14 dummy_15 dummy_16 dummy_17 dummy_18 dummy_19 dummy_20 dummy_21 dummy_22 dummy_23 dummy_24 dummy_25 dummy_26 dummy_27 dummy_28 dummy_29 dummy_30 dummy_31 dummy_32 dummy_33 dummy_34 dummy_35 dummy_36 dummy_37 dummy_38 dummy_39 dummy_40 
+#@.init_state [11111001111111]
+.graph
+TargetMode+/0 dummy_39
+TargetMode-/0 place_20 TargetMode+/0 StartDMASend+/0 StartDMARcv+/0
+place_25 TargetMode-/0 dummy_38
+dummy_40 TargetMode-/0 dummy_38
+dummy_39 place_10
+dummy_38 BurstMode- StartDMASend+/1 StartDMARcv+/1
+dummy_37 dummy_39
+ReadyN-/0 place_23
+ReqInN-/0 ReadyN-/0
+AckOutN+/0 ReqInN-/0
+DAckNormN-/0 AckOutN+/0
+ReqInN+/0 AckOutN+/0
+place_23 DTCN-/0
+place_24 dummy_36 dummy_35
+dummy_36 DAckNormN-/0 ReqInN+/0
+dummy_35 DAckLastN-/0 ReqInN+/1
+ReadyN-/1 place_21
+ReqInN-/1 ReadyN-/1
+AckOutN+/1 ReqInN-/1
+DReqN+/0 ReqInN-/1
+DAckLastN-/0 DReqN+/0 AckOutN+/1
+ReqInN+/1 DReqN+/0 AckOutN+/1
+AckOutN-/0 place_24
+DAckNormN+/0 AckOutN-/0
+DTCN+/0 AckOutN-/0
+ReadyN+/0 DTCN+/0 DAckNormN+/0
+DTCN-/0 ReadyN+/0
+ReadyN-/2 place_23
+DAckNormN-/1 ReadyN-/2
+ReqInN-/2 ReadyN-/2
+place_21 DTCN-/1
+place_22 dummy_34 dummy_33
+dummy_34 DAckNormN-/1 ReqInN-/2
+dummy_33 DAckLastN-/1 ReqInN-/3
+dummy_32 place_21
+AckOutN+/2 dummy_31
+EndDMAInt+/0 dummy_31
+DAckLastN+/0 EndDMAInt+/0 AckOutN+/2
+DTCN+/1 EndDMAInt+/0 AckOutN+/2
+ReqInN+/2 EndDMAInt+/0 AckOutN+/2
+ReadyN+/1 ReqInN+/2 DTCN+/1 DAckLastN+/0
+AckOutN-/1 ReqInN+/2 DTCN+/1 DAckLastN+/0
+DTCN-/1 AckOutN-/1 ReadyN+/1
+ReadyN-/3 dummy_32
+DReqN+/1 dummy_32
+DAckLastN-/1 DReqN+/1 ReadyN-/3
+ReqInN-/3 DReqN+/1 ReadyN-/3
+DReqN-/0 place_22
+StartDMASend-/0 DReqN-/0
+EndDMAInt-/0 StartDMASend-/0
+StartDMASend+/0 EndDMAInt-/0
+place_20 TargetMode+/0 StartDMASend+/0 StartDMARcv+/0
+dummy_31 StartDMARcv+/0 StartDMASend+/0 TargetMode+/0 place_20
+dummy_30 StartDMARcv+/0 StartDMASend+/0 TargetMode+/0 place_20
+ReadyN-/4 place_18
+ReqInN-/4 ReadyN-/4
+AckOutN+/3 ReqInN-/4
+DAckNormN-/2 AckOutN+/3
+ReqInN+/3 AckOutN+/3
+place_18 DTCN-/2
+place_19 dummy_29 dummy_28
+dummy_29 DAckNormN-/2 ReqInN+/3
+dummy_28 DAckLastN-/2 ReqInN+/4
+ReadyN-/5 place_16
+ReqInN-/5 ReadyN-/5
+AckOutN+/4 ReqInN-/5
+DReqN+/2 ReqInN-/5
+DAckLastN-/2 DReqN+/2 AckOutN+/4
+ReqInN+/4 DReqN+/2 AckOutN+/4
+AckOutN-/2 place_19
+DAckNormN+/1 AckOutN-/2
+DTCN+/2 AckOutN-/2
+ReadyN+/2 DTCN+/2 DAckNormN+/1
+DTCN-/2 ReadyN+/2
+ReadyN-/6 place_18
+DAckNormN-/3 ReadyN-/6
+ReqInN-/6 ReadyN-/6
+place_16 DTCN-/3
+place_17 dummy_27 dummy_26
+dummy_27 DAckNormN-/3 ReqInN-/6
+dummy_26 DAckLastN-/3 ReqInN-/7
+dummy_25 place_16
+AckOutN+/5 dummy_30
+EndDMAInt+/1 dummy_30
+DAckLastN+/1 EndDMAInt+/1 AckOutN+/5
+DTCN+/3 EndDMAInt+/1 AckOutN+/5
+ReqInN+/5 EndDMAInt+/1 AckOutN+/5
+ReadyN+/3 ReqInN+/5 DTCN+/3 DAckLastN+/1
+AckOutN-/3 ReqInN+/5 DTCN+/3 DAckLastN+/1
+DTCN-/3 AckOutN-/3 ReadyN+/3
+ReadyN-/7 dummy_25
+DReqN+/3 dummy_25
+DAckLastN-/3 DReqN+/3 ReadyN-/7
+ReqInN-/7 DReqN+/3 ReadyN-/7
+DReqN-/1 place_17
+StartDMARcv-/0 DReqN-/1
+EndDMAInt-/1 StartDMARcv-/0
+StartDMARcv+/0 EndDMAInt-/1
+BurstMode- dummy_23
+BurstMode+ dummy_37
+place_15 BurstMode+ dummy_22
+dummy_24 BurstMode+ dummy_22
+dummy_23 place_4
+dummy_22 TargetMode-/1 StartDMASend+/2 StartDMARcv+/2
+dummy_21 dummy_23
+ReadyN-/8 place_13
+AckInN+/0 ReadyN-/8
+ReqOutN+/0 AckInN+/0
+DAckNormN-/4 ReqOutN+/0
+AckInN-/0 ReqOutN+/0
+place_13 DTCN-/4
+place_14 dummy_20 dummy_19
+dummy_20 DAckNormN-/4 AckInN-/0
+dummy_19 DAckLastN-/4 AckInN-/1
+ReadyN-/9 place_11
+AckInN+/1 ReadyN-/9
+ReqOutN+/1 AckInN+/1
+DReqN+/4 AckInN+/1
+DAckLastN-/4 DReqN+/4 ReqOutN+/1
+AckInN-/1 DReqN+/4 ReqOutN+/1
+ReqOutN-/0 place_14
+DAckNormN+/2 ReqOutN-/0
+DTCN+/4 ReqOutN-/0
+ReadyN+/4 DTCN+/4 DAckNormN+/2
+DTCN-/4 ReadyN+/4
+ReadyN-/10 place_13
+DAckNormN-/5 ReadyN-/10
+place_11 DTCN-/5
+place_12 DAckNormN-/5 DAckLastN-/5
+dummy_18 place_11
+EndDMAInt+/2 dummy_37
+AckInN+/2 EndDMAInt+/2
+ReqOutN+/2 AckInN+/2
+DAckLastN+/2 ReqOutN+/2
+DTCN+/5 ReqOutN+/2
+AckInN-/2 ReqOutN+/2
+ReadyN+/5 AckInN-/2 DTCN+/5 DAckLastN+/2
+ReqOutN-/1 AckInN-/2 DTCN+/5 DAckLastN+/2
+DTCN-/5 ReqOutN-/1 ReadyN+/5
+ReadyN-/11 dummy_18
+DReqN+/5 dummy_18
+DAckLastN-/5 DReqN+/5 ReadyN-/11
+DReqN-/2 place_12
+StartDMASend-/1 DReqN-/2
+EndDMAInt-/2 StartDMASend-/1
+StartDMASend+/1 EndDMAInt-/2
+place_10 dummy_40 BurstMode- StartDMASend+/1 StartDMARcv+/1
+ReadyN-/12 place_8
+AckInN-/3 ReadyN-/12
+ReqOutN-/2 AckInN-/3
+DAckNormN-/6 ReqOutN-/2
+AckInN+/3 ReqOutN-/2
+place_8 DTCN-/6
+place_9 dummy_17 dummy_16
+dummy_17 DAckNormN-/6 AckInN+/3
+dummy_16 DAckLastN-/6 AckInN+/4
+ReadyN-/13 place_6
+AckInN-/4 ReadyN-/13
+ReqOutN-/3 AckInN-/4
+DReqN+/6 AckInN-/4
+DAckLastN-/6 DReqN+/6 ReqOutN-/3
+AckInN+/4 DReqN+/6 ReqOutN-/3
+ReqOutN+/3 place_9
+DAckNormN+/3 ReqOutN+/3
+DTCN+/6 ReqOutN+/3
+ReadyN+/6 DTCN+/6 DAckNormN+/3
+DTCN-/6 ReadyN+/6
+ReadyN-/14 place_8
+DAckNormN-/7 ReadyN-/14
+AckInN-/5 ReadyN-/14
+place_6 DTCN-/7
+place_7 dummy_15 dummy_14
+dummy_15 DAckNormN-/7 AckInN-/5
+dummy_14 DAckLastN-/7 AckInN-/6
+dummy_13 place_7
+dummy_12 place_6
+EndDMAInt+/3 dummy_37
+DAckLastN+/3 EndDMAInt+/3
+DTCN+/7 EndDMAInt+/3
+AckInN+/5 EndDMAInt+/3
+ReadyN+/7 AckInN+/5 DTCN+/7 DAckLastN+/3
+ReqOutN+/4 AckInN+/5 DTCN+/7 DAckLastN+/3
+DTCN-/7 ReqOutN+/4 ReadyN+/7
+ReadyN-/15 dummy_12
+DReqN+/7 dummy_12
+DAckLastN-/7 DReqN+/7 ReadyN-/15
+AckInN-/6 DReqN+/7 ReadyN-/15
+ReqOutN-/4 dummy_13
+DReqN-/3 dummy_13
+StartDMARcv-/1 DReqN-/3 ReqOutN-/4
+EndDMAInt-/3 StartDMARcv-/1
+StartDMARcv+/1 EndDMAInt-/3
+TargetMode-/1 place_1
+TargetMode+/1 dummy_21
+DReqN-/4 place_5
+AckInN+/6 DReqN-/4
+ReqOutN+/5 AckInN+/6
+AckInN-/7 ReqOutN+/5
+ReqOutN-/5 AckInN-/7
+DAckNormN+/4 ReqOutN-/5
+DTCN+/8 ReqOutN-/5
+ReadyN+/8 DTCN+/8 DAckNormN+/4
+DTCN-/8 ReadyN+/8
+ReadyN-/16 DTCN-/8
+DReqN+/8 DTCN-/8
+DAckNormN-/8 DReqN+/8 ReadyN-/16
+place_5 DAckNormN-/8 DAckLastN-/8
+EndDMAInt+/4 dummy_21
+AckInN+/7 EndDMAInt+/4
+ReqOutN+/6 AckInN+/7
+DAckLastN+/4 ReqOutN+/6
+DTCN+/9 ReqOutN+/6
+AckInN-/8 ReqOutN+/6
+ReadyN+/9 AckInN-/8 DTCN+/9 DAckLastN+/4
+ReqOutN-/6 AckInN-/8 DTCN+/9 DAckLastN+/4
+DTCN-/9 ReqOutN-/6 ReadyN+/9
+ReadyN-/17 DTCN-/9
+DReqN+/9 DTCN-/9
+DAckLastN-/8 DReqN+/9 ReadyN-/17
+DReqN-/5 place_5
+StartDMASend-/2 DReqN-/5
+EndDMAInt-/4 StartDMASend-/2
+StartDMASend+/2 EndDMAInt-/4
+place_4 dummy_24 TargetMode-/1 StartDMASend+/2 StartDMARcv+/2
+ReqOutN-/7 dummy_9
+DReqN-/6 dummy_9
+AckInN+/8 DReqN-/6 ReqOutN-/7
+ReqOutN+/7 AckInN+/8
+DAckNormN+/5 ReqOutN+/7
+DTCN+/10 ReqOutN+/7
+ReadyN+/10 DTCN+/10 DAckNormN+/5
+DTCN-/10 ReadyN+/10
+ReadyN-/18 DTCN-/10
+DReqN+/10 DTCN-/10
+DAckNormN-/9 DReqN+/10 ReadyN-/18
+AckInN-/9 DReqN+/10 ReadyN-/18
+place_3 dummy_11 dummy_10
+dummy_11 DAckNormN-/9 AckInN-/9
+dummy_10 DAckLastN-/9 AckInN-/10
+dummy_9 place_3
+dummy_8 place_3
+EndDMAInt+/5 dummy_21
+DAckLastN+/5 EndDMAInt+/5
+DTCN+/11 EndDMAInt+/5
+AckInN+/9 EndDMAInt+/5
+ReadyN+/11 AckInN+/9 DTCN+/11 DAckLastN+/5
+ReqOutN+/8 AckInN+/9 DTCN+/11 DAckLastN+/5
+DTCN-/11 ReqOutN+/8 ReadyN+/11
+ReadyN-/19 DTCN-/11
+DReqN+/11 DTCN-/11
+DAckLastN-/9 DReqN+/11 ReadyN-/19
+AckInN-/10 DReqN+/11 ReadyN-/19
+ReqOutN-/8 dummy_8
+DReqN-/7 dummy_8
+StartDMARcv-/2 DReqN-/7 ReqOutN-/8
+EndDMAInt-/5 StartDMARcv-/2
+StartDMARcv+/2 EndDMAInt-/5
+AckOutN+/6 dummy_5
+DReqN-/8 dummy_5
+ReqInN+/6 DReqN-/8 AckOutN+/6
+AckOutN-/4 ReqInN+/6
+DAckNormN+/6 AckOutN-/4
+DTCN+/12 AckOutN-/4
+ReadyN+/12 DTCN+/12 DAckNormN+/6
+DTCN-/12 ReadyN+/12
+ReadyN-/20 DTCN-/12
+DReqN+/12 DTCN-/12
+DAckNormN-/10 DReqN+/12 ReadyN-/20
+ReqInN-/8 DReqN+/12 ReadyN-/20
+place_2 dummy_7 dummy_6
+dummy_7 DAckNormN-/10 ReqInN-/8
+dummy_6 DAckLastN-/10 ReqInN-/9
+dummy_5 place_2
+AckOutN+/7 dummy_4
+EndDMAInt+/6 dummy_4
+DAckLastN+/6 EndDMAInt+/6 AckOutN+/7
+DTCN+/13 EndDMAInt+/6 AckOutN+/7
+ReqInN+/7 EndDMAInt+/6 AckOutN+/7
+ReadyN+/13 ReqInN+/7 DTCN+/13 DAckLastN+/6
+AckOutN-/5 ReqInN+/7 DTCN+/13 DAckLastN+/6
+DTCN-/13 AckOutN-/5 ReadyN+/13
+ReadyN-/21 DTCN-/13
+DReqN+/13 DTCN-/13
+DAckLastN-/10 DReqN+/13 ReadyN-/21
+ReqInN-/9 DReqN+/13 ReadyN-/21
+DReqN-/9 place_2
+StartDMASend-/3 DReqN-/9
+EndDMAInt-/6 StartDMASend-/3
+StartDMASend+/3 EndDMAInt-/6
+place_1 TargetMode+/1 StartDMASend+/3 StartDMARcv+/3
+dummy_4 StartDMARcv+/3 StartDMASend+/3 TargetMode+/1 place_1
+dummy_3 StartDMARcv+/3 StartDMASend+/3 TargetMode+/1 place_1
+AckOutN+/8 dummy_0
+DReqN-/10 dummy_0
+ReqInN+/8 DReqN-/10 AckOutN+/8
+AckOutN-/6 ReqInN+/8
+DAckNormN+/7 AckOutN-/6
+DTCN+/14 AckOutN-/6
+ReadyN+/14 DTCN+/14 DAckNormN+/7
+DTCN-/14 ReadyN+/14
+ReadyN-/22 DTCN-/14
+DReqN+/14 DTCN-/14
+DAckNormN-/11 DReqN+/14 ReadyN-/22
+ReqInN-/10 DReqN+/14 ReadyN-/22
+place_0 dummy_2 dummy_1
+dummy_2 DAckNormN-/11 ReqInN-/10
+dummy_1 DAckLastN-/11 ReqInN-/11
+dummy_0 place_0
+ReadyN+/15 ReqInN+/9 DTCN+/15 DAckLastN+/7
+AckOutN-/7 ReqInN+/9 DTCN+/15 DAckLastN+/7
+DTCN-/15 AckOutN-/7 ReadyN+/15
+ReadyN-/23 DTCN-/15
+DReqN+/15 DTCN-/15
+DAckLastN-/11 DReqN+/15 ReadyN-/23
+ReqInN-/11 DReqN+/15 ReadyN-/23
+DReqN-/11 place_0
+StartDMARcv-/3 DReqN-/11
+EndDMAInt-/7 StartDMARcv-/3
+StartDMARcv+/3 EndDMAInt-/7
+AckOutN+/9 dummy_3
+EndDMAInt+/7 dummy_3
+DAckLastN+/7 EndDMAInt+/7 AckOutN+/9
+DTCN+/15 EndDMAInt+/7 AckOutN+/9
+ReqInN+/9 EndDMAInt+/7 AckOutN+/9
+.marking {place_25 place_10 }
+.end
+
+
+
+
+
+
+
+
+
+
+

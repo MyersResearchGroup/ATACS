@@ -1,0 +1,19 @@
+.name vmeA
+.inputs dsr ldtack 
+.outputs CSC0 d lds
+#@.init_state [00100]
+.graph
+dsr+/1 lds+/1
+dsr-/1 lds-/1
+dsr-/1 d-/1
+ldtack+/1 d+/1
+ldtack-/1 CSC0+/1
+lds+/1 ldtack+/1
+lds-/1 ldtack-/1
+d+/1 dsr-/1
+d+/1 CSC0-/1
+d-/1 dsr+/1
+CSC0+/1 lds+/1
+CSC0-/1 d-/1
+.marking {<d-/1,dsr+/1><CSC0+/1,lds+/1>}
+.end

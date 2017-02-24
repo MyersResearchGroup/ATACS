@@ -1,0 +1,59 @@
+module switch1;
+
+/* input links */
+input  rai = {false};
+output aai = {false};
+input  rbi = {false};
+output abi = {false};
+
+/* output links */
+output rao = {false};
+input  aao = {false};
+output rbo = {false};
+input  abo = {false};
+
+/* control link (dual-rail control signal) */
+input  rct = {false};
+input  rcf = {false};
+output ac  = {false};
+
+output x;
+
+process ina;
+  *[ rai+; [aai+]; rai-; [aai-] ]
+endprocess
+
+process inb;
+  *[ rbi+; [ abi+ -> rbi-; [abi-]
+           | abi+ -> rbi-; [abi-] 
+	   ]]
+endprocess
+
+process outa;
+  *[[ rao+ -> aao+; [rao-]; aao-
+    | rao+ -> aao+; [rao-]; aao- 
+   ]]
+endprocess
+
+process outb;
+  *[ [rbo+]; abo+; [rbo-]; abo- ]
+endprocess
+
+process ctl;
+  *[ [ skip -> rcf+; [ac+]; rcf-; [ac-] 
+     | skip -> rct+; [ac+]; rct-; [ac-]  
+   ] ]
+endprocess
+
+process switch;
+*[ [rbi+];[ rcf+ -> x+; (([rai+]; rao+; [aao+]; aai+; [rai-]; rao-; [aao-]; 
+                         aai- ) 
+                || ( rbo+; [abo+]; abi+; [rbi-]; rbo-; [abo-]; abi- )
+               ); x-; ac+; [rcf-]; ac-  
+          | rct+ -> rao+; [aao+]; abi+; [rbi-]; rao-; [aao-]; abi-; 
+                    ac+; [rct-]; ac-      
+    ]
+   ]
+endprocess
+
+endmodule

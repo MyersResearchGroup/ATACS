@@ -1,0 +1,79 @@
+module alu1;
+
+/* Initial */
+
+delay gatedelay = <1,1>;
+delay predelay = <1,1>;
+delay aludelay = <1,3;2,2>;
+delay muldelay = <6,7;2,2>;
+delay startdelay = <1,2>;
+delay a1mdelay = <1,1>;
+delay a2mdelay = <1,1>;
+delay m1adelay = <1,1>;
+delay m2a2delay = <1,1>;
+
+
+/* Back annotated */
+/*
+delay gatedelay = <1,1>;
+delay predelay = <1,1>;
+delay aludelay = <2,5;3,3>;
+delay muldelay = <9,9;6,6>;
+delay startdelay = <1,2>;
+delay a1mdelay = <3,3>;
+delay a2mdelay = <2,2>;
+delay m1adelay = <2,2>;
+delay m2a2delay = <2,2>;
+*/
+
+input a1done = {aludelay};
+output a1prech = {true,predelay};
+
+input start = {startdelay}; 
+input EndP = {aludelay};
+output A1M = {a1mdelay};
+input A2M = {aludelay};
+input M1A = {muldelay};
+input M2A2 = {muldelay};
+input done = {gatedelay};
+
+process alu1;
+    *[ [start]; a1prech-; [a1done]; (a1prech+ || A1M+);   
+	[ M1A & ~a1done -> a1prech-; [a1done]; (a1prech+ || A1M-);  
+	    [~M1A & ~a1done]; a1prech-; [a1done]; (a1prech+ || A1M+); *  
+	| ~start & ~a1done -> A1M-
+	]
+     ]
+endprocess	
+
+process alu2;
+    *[ [start]; 
+	[ true -> A2M+; [M2A2 & M1A]; A2M-;
+	    [ true -> [~M2A2 & ~M1A]; A2M+; [M2A2 & M1A]; A2M-; *
+	    | true -> [~M2A2 & ~M1A]; EndP+
+	    ]
+        | true -> EndP+
+	]; [~start]; EndP-
+     ]
+endprocess
+
+process mul1;
+    *[ [A1M & A2M]; M1A+; [~A1M]; [~A2M]; M1A- ]
+endprocess
+
+process mul2;
+    *[ [A1M & A2M]; M2A2+; [~A1M & ~A2M]; M2A2- ]
+endprocess
+
+process celem;
+    *[ [EndP & A1M]; done+; [~EndP & ~A1M]; done- ]
+endprocess
+
+process env;
+    *[ start+; [done]; start-; [~done] ]
+endprocess
+
+process a1;
+    *[ [~a1prech]; a1done+; [a1prech]; a1done- ]
+endprocess
+endmodule

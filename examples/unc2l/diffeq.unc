@@ -1,0 +1,51 @@
+input	adderack                 0
+input	addsuback                0
+input	mul1ack                  0
+input	mul2ack                  0
+input	start                    0
+input	tack                     0
+input	u1ack                    0
+input	uack                     0
+input	whileiftrue              0
+input	whileiffalse             0
+input	x1ack                    0
+input	xack                     0
+input	y1ack                    0
+input	yack                     0
+output	adderreq                 0
+output	addersm1                 0
+output	addsubreq                0
+output	addsubsm1                0
+output	done                     0
+output	mul1req                  0
+output	mul1sm1                  0
+output	mul2req                  0
+output	treq                     0
+output	u1req                    0
+output	ureq                     0
+output	usm1                     0
+output	whileifreq               0
+output	x1req                    0
+output	xreq                     0
+output	xsm1                     0
+output	y1req                    0
+output	yreq                     0
+output	ysm1                     0
+output	zzz00                    0
+
+0  1	start+                   | xreq+ yreq+ ureq+ 
+1  3	xack+ yack+ uack+        | xreq- yreq- ureq- whileifreq+ 
+3  5	whileiftrue+ xack- yack- uack- | whileifreq- mul1req+ mul2req+ 
+3  19	whileiffalse+ xack- yack- uack- | whileifreq- done+ 
+5  7	mul1ack+ mul2ack+ whileiftrue- | mul1req- mul2req- addsubreq+ adderreq+ 
+7  8	addsuback+ adderack+ mul1ack- mul2ack- | treq+ y1req+ 
+8  9	tack+ y1ack+             | addsubreq- treq- adderreq- y1req- zzz00+ 
+9  10	addsuback- tack- adderack- y1ack- | mul1req+ mul1sm1+ adderreq+ addersm1+ 
+10  11	mul1ack+ adderack+       | mul1req- mul1sm1- x1req+ zzz00- 
+11  13	mul1ack- x1ack+          | adderreq- x1req- addersm1- addsubreq+ addsubsm1+ 
+13  14	addsuback+ adderack- x1ack- | u1req+ 
+14  16	u1ack+                   | addsubreq- u1req- addsubsm1- xreq+ xsm1+ yreq+ ysm1+ ureq+ usm1+ 
+16  20	xack+ yack+ uack+ addsuback- u1ack- | xreq- xsm1- yreq- ysm1- ureq- usm1- whileifreq+ 
+19  0	start- whileiffalse-     | done- 
+20  5	whileiftrue+ xack- yack- uack- | whileifreq- mul1req+ mul2req+ 
+20  19	whileiffalse+ xack- yack- uack- | whileifreq- done+ 

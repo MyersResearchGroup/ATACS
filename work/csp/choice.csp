@@ -1,0 +1,26 @@
+module choice;
+
+input ci;
+output co;
+input a;
+input b;
+
+process choicectrl;
+*[[ a+ -> co+; [ci+]; co-; [ci-]
+  | b+ -> co+; [ci+]; co-; [ci-]
+ ]]
+endprocess
+
+process abenv;
+*[[ skip -> a+; [co+]; a-
+  | skip -> b+; [co+]; b-
+ ]]
+endprocess
+
+process cenv;
+*[[ co+ -> ci+; [co-]; ci-
+  | co+ -> ci+; [co-]; ci-
+ ]]
+endprocess
+
+endmodule

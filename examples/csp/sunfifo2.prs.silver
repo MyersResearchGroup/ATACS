@@ -1,0 +1,6 @@
+[ fout: (~foutb)] Combinational
+[~eoutb: (foutb & seoutb)] Combinational
+[~foutb: (seinb & eoutb)] Combinational
+[+seoutb: (~eout)]
+[-seoutb: (fin & eout)]
+[ eout: (~eoutb)] Combinational

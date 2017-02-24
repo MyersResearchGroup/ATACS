@@ -1,0 +1,4 @@
+[+Ao: (Ro)]
+[-Ao: (~Ri & ~Ro)]
+[+Ro: (~Ai & Ri & ~Ao)]
+[-Ro: (Ai & Ao)]

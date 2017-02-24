@@ -1,0 +1,4 @@
+[ a: (CSC0)] Combinational
+[ b: (CSC0)] Combinational
+[+CSC0: (~a & ~b)]
+[-CSC0: (a & b)]

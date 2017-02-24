@@ -1,0 +1,13 @@
+/* t-flip-flop */
+module tff;
+
+    input	a;
+    output	b;
+    output	x;
+
+process ctrl;
+    *[ a+; x+; a-; b+; a+; x-; a-; b- ]
+endprocess
+
+endmodule
+

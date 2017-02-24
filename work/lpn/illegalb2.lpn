@@ -1,0 +1,8 @@
+.dummy t1 t2 t4 t5
+#@.keep t1 t2 t4 t5
+#@.init_state [0]
+t1 p1
+p1 t2
+t4 p1
+p1 t5
+.end

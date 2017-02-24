@@ -1,0 +1,17 @@
+module case4;
+
+input a={false};
+input b={false};
+input c={false};
+input d={false};
+input e={false};
+output ss={false};
+
+process case4;
+*[
+   [ skip -> a+; b+; c+; ss+; c-; a-; b-; ss-
+   | skip -> d+; e+; d-; e-
+   ]
+ ]
+endprocess
+endmodule

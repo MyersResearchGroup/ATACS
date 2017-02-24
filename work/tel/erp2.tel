@@ -1,0 +1,77 @@
+#  This Timed Event/Level structure contains:
+.e 19 # events
+.i 6 # input events
+.r 30 # causal rules
+.n 0 # ordering rules
+.d 0 # merges
+.c 0 # conflicts
+.s 000000 # start state
+#
+# EVENTS:
+#
+reset
+#  Each of the following events has the format <action>[/<occurrence>]
+#  (if the occurrence is omitted, it is assumed to be 1)
+#   Input Events:
+Lreq+ Lreq- 
+Xack+ Xack-
+Rack+ Rack- 
+#   Output Events:
+Lack+ Lack- 
+Xreq+ Xreq-
+Rreq+ Rreq- 
+#   Dummy (Sequencing) Events:
+$XL_Lreq+ 
+$XL_Lreq- 
+$XL_Xack+
+$XL_Xack-
+$XL_Rack+
+$XL_Rack- 
+#
+# RULES, which have the following format:
+#  <enabling> <enabled> [<expression>] <epsilon> <lower> <upper>
+#   Causal (Behavioral) Rules:
+reset  Lreq+ [~Lack] 0 20 30
+reset $XL_Lreq+ [ Lreq] 0 0 0
+reset  Xack+ [ Xreq] 0 4 8
+reset  Xreq+         0 1 2
+reset  Rack+ [ Rreq] 0 20 30
+reset  Rreq+         0 1 2
+####################################
+$XL_Lreq+ Lack+ 0 1 2
+Lack+ $XL_Lreq- [~Lreq] 0 0 0
+$XL_Lreq- Lack-  0 1 2
+Lack- $XL_Lreq+ [Lreq] 1 0 0  # INITIAL
+#####################################
+Xreq+ $XL_Xack+ [ Xack] 0 0 0
+$XL_Xack+ Xreq- 0 1 2
+Xreq- $XL_Xack- [~Xack] 0 0 0
+$XL_Xack- Xreq+ 1 1 2
+####################################
+$XL_Rack- Rreq+  1 1 2     # INITIAL
+Rreq+ $XL_Rack+ [Rack] 0 0 0
+$XL_Rack+ Rreq-  0 1 2
+Rreq- $XL_Rack- [~Rack] 0 0 0
+#####################################
+Lreq+ Lreq- [Lack] 0 4 6
+Lreq- Lreq+ [~Lack] 1 20 30 # INITIAL
+####################################
+Xack+ Xack- [~Xreq] 0 4 8
+Xack- Xack+ [ Xreq] 1 4 8 #INITIAL
+####################################
+Rack+ Rack- [~Rreq] 0 4 6
+Rack- Rack+ [ Rreq] 1 20 30 #INITIAL
+####################################
+$XL_Lreq+ Xreq+ 0 1 2
+$XL_Lreq+ Rreq+ 0 1 2
+$XL_Xack+ Lack+ 0 1 2
+Xreq- Rreq+ 1 1 2
+Rreq+ Lack- 0 1 2
+$XL_Rack+ Xreq- 0 1 2
+#   Ordering (Constraint) Rules:
+#
+# MERGERS:
+#
+#
+# CONFLICTS:
+#

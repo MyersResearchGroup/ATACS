@@ -1,0 +1,16 @@
+module jordi3;
+
+output a;
+output b;
+
+process c;
+    *[ a+; [b+]; a- ]
+endprocess
+
+process d;
+    *[ b+; [a+]; b- ]
+endprocess
+
+endmodule
+
+  

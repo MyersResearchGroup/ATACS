@@ -1,0 +1,109 @@
+# pe-rcv-ifc
+# HP controller, by K. Stevens
+# Meat state encoding
+.inputs woq tack smsg ackrcvhs
+.outputs peack treq enrcv resreqrecv y2_percvifc y1_percvifc y0_percvifc
+#@.init_state [00000000000]
+.graph
+# 0
+woq+/1 treq+/1
+# -> 1
+treq+/1 place_1
+place_1 tack+/1
+
+# 1
+tack+/1 peack+/1
+# -> 2
+peack+/1 woq-/1
+
+# 2
+woq-/1 y2_percvifc+/1
+y2_percvifc+/1 peack-/1
+# -> 3
+peack-/1 place_3
+place_3 smsg+/1 woq+/2
+
+# 3
+smsg+/1 y1_percvifc+/1 y0_percvifc+/1
+y1_percvifc+/1 treq-/2 peack+/3
+y0_percvifc+/1 treq-/2 peack+/3
+
+woq+/2 treq-/1
+# -> 4
+treq-/1 tack-/1
+# -> 8
+treq-/2 tack-/3 smsg-/1
+peack+/3 tack-/3 smsg-/1
+
+# 4
+tack-/1 peack+/2
+# -> 5
+peack+/2 woq-/2
+
+# 5
+woq-/2 y2_percvifc-/1
+y2_percvifc-/1 peack-/2
+# -> 6
+peack-/2 place_6
+place_6 smsg+/2 woq+/3 
+
+# 6
+smsg+/2 y2_percvifc+/2 y1_percvifc+/2 y0_percvifc+/2
+y2_percvifc+/2 peack+/4
+y1_percvifc+/2 peack+/4
+y0_percvifc+/2 peack+/4
+
+woq+/3 treq+/2
+# -> 1
+treq+/2 place_1
+# -> 7
+peack+/4 smsg-/2
+
+# 7
+smsg-/2 y2_percvifc-/2
+y2_percvifc-/2 peack-/3 treq+/5 enrcv+/2
+# -> 9
+peack-/3 place_9_0 
+treq+/5 place_9_1 
+enrcv+/2 place_9_2
+place_9_0 tack+/2
+place_9_1 tack+/2
+place_9_2 tack+/2
+
+# 8
+tack-/3 y2_percvifc-/3
+smsg-/1 y2_percvifc-/3
+y2_percvifc-/3 peack-/4 treq+/4 enrcv+/1
+# -> 9
+peack-/4 place_9_0
+treq+/4 place_9_1
+enrcv+/1 place_9_2
+
+# 9
+tack+/2 y0_percvifc-/1 place_9_3
+y0_percvifc-/1 treq-/3
+place_9_3 ackrcvhs+/1 tack-/2
+# -> 10
+ackrcvhs+/1 tack-/4
+treq-/3 place_10_0
+place_10_0 tack-/2 tack-/4
+
+# 10
+tack-/2 y0_percvifc+/3
+y0_percvifc+/3 treq+/3
+
+tack-/4 y1_percvifc-/1
+y1_percvifc-/1 resreqrecv+/1
+# -> 9
+treq+/3 place_9_0 place_9_1 place_9_2
+# -> 11
+resreqrecv+/1 ackrcvhs-/1
+
+# 11
+ackrcvhs-/1 resreqrecv-/1 enrcv-/1
+# -> 0
+enrcv-/1 woq+/1
+resreqrecv-/1 woq+/1
+
+.marking { <resreqrecv-/1,woq+/1> <enrcv-/1,woq+/1> }
+.end

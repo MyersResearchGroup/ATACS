@@ -1,0 +1,10 @@
+connect <filename>
+.PP
+This function checks if the cyclic constraint graph for the
+loaded structure is strongly connected.  If it is not, it adds
+ordering rules to make the graph strongly connected.  A list
+the rules added are stored to a file named <filename>.or in
+the following form:
+.PP
+<enabling event> <enabled event> <epsilon> <lower bound> <upper bound>
+

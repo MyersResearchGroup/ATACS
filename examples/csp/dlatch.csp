@@ -1,0 +1,18 @@
+module dlatch;
+
+input D={false};
+input CLK={true};
+output Q={false};
+
+process dlatch;
+*[ [skip -> CLK-];
+  [  skip -> CLK+; CLK-; *
+   | skip -> D+; CLK+; Q+; CLK-
+  ];
+  [  skip -> CLK+; CLK-; *
+   | skip -> D-; CLK+; Q-
+  ]
+ ]
+endprocess
+endmodule
+

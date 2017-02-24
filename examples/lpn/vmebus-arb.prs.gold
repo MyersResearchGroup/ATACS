@@ -1,0 +1,4 @@
+[+bgnoutl: (bgninl)]
+[-bgnoutl: (bcsl & ~bgninl & bbsyl)]
+[+bbsyl: (bgninl & ~bbsyl90)]
+[-bbsyl: (~bcsl & ~bgninl & bgnoutl)]

@@ -1,0 +1,10 @@
+[ Prech: (EvDone)] Combinational
+[ Prech: (~A1M & Prech)] Combinational
+[ Prech: (~A2M)] Combinational
+[ Prech: (LM2)] Combinational
+[ M2A2: (EvDone)] Combinational
+[ M2A2: (A1M & LM2)] Combinational
+[ M2A2: (A2M & LM2)] Combinational
+[ LM2: (EvDone)] Combinational
+[ LM2: (A1M & LM2)] Combinational
+[ LM2: (A2M & LM2)] Combinational

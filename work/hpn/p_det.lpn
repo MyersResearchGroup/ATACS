@@ -1,0 +1,99 @@
+.inputs Vin Vosc up down
+.dummy inc dec
+.graph
+p1 inc #@ /1;inf\
+inc v
+p2 dec #@ /1;inf\
+v dec
+v Vosc-/1 #@ /0;100\ [0,0]
+v Vosc-/2 #@ /0;100\ [0,0]
+v Vosc-/3 #@ /100;200\ [0,0]
+v Vosc-/4 #@ /100;200\ [0,0]
+v Vosc-/5 #@ /200;300\ [0,0]
+v Vosc-/6 #@ /200;300\ [0,0]
+v Vosc-/7 #@ /300;400\ [0,0]
+v Vosc-/8 #@ /300;400\ [0,0]
+v Vosc-/9 #@ /400;inf\ [0,0]
+v Vosc-/10 #@ /400;inf\ [0,0]
+
+p0 up+ #@ [0,0] 
+p0 down+ #@ [0,0]
+up+ p1
+down+ p2
+p1 up- #@ [0,0] 
+p2 down- #@ [0,0] 
+up- p0
+down- p0
+
+pi1 Vin+/1 #@ [50,50] 
+Vin+/1 pi2
+pi2 Vin-/1 #@ [50,50]
+pi2 up+ #@ [0,0]  
+pi2 down- #@ [0,0]  
+Vin-/1 pi1
+up+ pi3
+down- pi3
+pi3 Vin-/2 #@ [50,50] 
+Vin-/2 pi1
+
+po2 down+ #@ [0,0]  
+po2 up- #@ [0,0]  
+down+ po3
+up- po3
+
+po1 Vosc+/1 #@ [60,60] 
+po1 Vosc+/2 #@ [55,55] 
+po1 Vosc+/3 #@ [50,50] 
+po1 Vosc+/4 #@ [45,45] 
+po1 Vosc+/5 #@ [40,40] 
+Vosc-/1 po1
+Vosc-/2 po1
+Vosc-/3 po1
+Vosc-/4 po1
+Vosc-/5 po1
+Vosc-/6 po1
+Vosc-/7 po1
+Vosc-/8 po1
+Vosc-/9 po1
+Vosc-/10 po1
+
+po1a Vosc+/1 #@ [60,60] 
+Vosc+/1 po2
+po2 Vosc-/1 #@ [60,60]
+Vosc-/1 po1a
+po3 Vosc-/2 #@ [60,60] 
+Vosc-/2 po1a
+
+po1b Vosc+/2 #@ [55,55] 
+Vosc+/2 po2
+po2 Vosc-/3 #@ [55,55]
+Vosc-/3 po1b
+po3 Vosc-/4 #@ [55,55] 
+Vosc-/4 po1b
+
+po1c Vosc+/3 #@ [50,50] 
+Vosc+/3 po2
+po2 Vosc-/5 #@ [50,50]
+Vosc-/5 po1c
+po3 Vosc-/6 #@ [50,50] 
+Vosc-/6 po1c
+
+po1d Vosc+/4 #@ [45,45] 
+Vosc+/4 po2
+po2 Vosc-/7 #@ [45,45]
+Vosc-/7 po1d
+po3 Vosc-/8 #@ [45,45] 
+Vosc-/8 po1d
+
+po1e Vosc+/5 #@ [40,40] 
+Vosc+/5 po2
+po2 Vosc-/9 #@ [40,40]
+Vosc-/9 po1e
+po3 Vosc-/10 #@ [40,40] 
+Vosc-/10 po1e
+
+.marking { p0 pi1 po1 po1a }
+#@.marking { <v = 0> }
+#@.rates { <inc = 2><dec = 2> }
+#@.continuous dec inc v
+.end

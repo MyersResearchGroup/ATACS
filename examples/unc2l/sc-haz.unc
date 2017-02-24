@@ -1,0 +1,12 @@
+input	a                        0
+input	b                        0
+input	c                        0
+output	x                        1
+output	zzz00                    0
+
+0  1	b+ c+                    | x- 
+1  2	a+                       | 
+2  3	c-                       | x+ zzz00+ 
+3  1	a- c+                    | x- zzz00- 
+2  4	b-                       | 
+4  0	a- c-                    | x+ 

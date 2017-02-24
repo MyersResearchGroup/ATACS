@@ -1,0 +1,12 @@
+input	EvDone                   1
+input	A2M                      0
+input	A1M                      0
+output	Prech                    1
+output	M1A                      0
+output	LM1                      1
+output	zzz00                    0
+
+0  1	EvDone- A2M+ A1M+        | Prech- LM1- zzz00+ 
+1  2	EvDone+                  | Prech+ M1A+ LM1+ 
+2  3	EvDone- A2M* A1M-        | Prech- LM1- zzz00- 
+3  0	EvDone+ A2M-             | Prech+ M1A- LM1+ 

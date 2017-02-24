@@ -1,0 +1,7 @@
+[+A: (D)]
+[-A: (~D & Aout)]
+[+E: (Rin & ~Lt)]
+[-E: (Lt)]
+[~Lt: (~Aout & ~A)] Combinational
+[ Ain: (E)] Combinational
+[ Rout: (A)] Combinational

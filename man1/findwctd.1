@@ -1,0 +1,13 @@
+findwctd <filename>
+.PP
+This function finds all the possible estimates of the
+worst-case time differences using the number of cycles given,
+and it outputs the results to a file named <filename>.wctd
+in the following form:
+.PP
+t(< v,i >) - t(< u,i-j >) = [ L,U ]
+.PP
+If the bound is not exact then the following is printed:
+.PP
+t(< v,i >) - t(< u,i-j >) = [ L',U' ] : Best case = [ Lbest,Ubest ]
+

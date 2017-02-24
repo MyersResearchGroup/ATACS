@@ -1,0 +1,65 @@
+.inputs Vin Vosc up down
+.dummy inc dec inc2 dec2 drain1 drain2
+.graph
+p2 inc #@ /1;inf\
+inc v
+p1 dec #@ /1;inf\
+v dec
+
+p0 up+ #@ [0,0] 
+p0 down+ #@ [0,0]
+up+ p1
+down+ p2
+p1 up- #@ [0,0] 
+p2 down- #@ [0,0] 
+up- p0
+down- p0
+
+pi1 Vin+/1 #@ [50,50] 
+Vin+/1 pi2
+pi2 Vin-/1 #@ [50,50]
+pi3 Vin-/2 #@ [50,50] 
+Vin-/2 pi1
+Vin-/1 pi1
+
+pi2 up+ #@ [5,5]  
+pi2 down- #@ [0,0]  
+up+ pi3
+down- pi3
+
+po1 Vosc+/1 #@ [0,0] 
+Vosc+/1 po2
+Vosc+/1 po4
+po2 Vosc-/1 #@ [0,0]
+po3 Vosc-/2 #@ [0,0]
+po4 Vosc-/1 #@ [0,0] 
+po4 Vosc-/2 #@ [0,0] 
+Vosc-/2 po1
+Vosc-/1 po1
+
+po2 down+ #@ [5,5]  
+po2 up- #@ [0,0]  
+down+ po3
+up- po3
+
+p2 inc2 #@ /1;inf\
+inc2 v1
+p1 dec2 #@ /1;inf\
+v1 dec2
+
+v1 drain1
+drain1 v2
+v2 drain2
+drain2 v1
+
+v1 Vosc+/1 #@ /0;0\ [0,0]
+v2 Vosc-/1 #@ /0;0\ [0,0]
+v2 Vosc-/2 #@ /0;0\ [0,0]
+
+po1 drain1
+po4 drain2
+.marking { p0 pi1 po1 }
+#@.marking { <v = 8000> <v1 = 4000><v2 = 4000> }
+#@.rates { <inc = 1><dec = 1><inc2 = 1><dec2 = 1><drain1 = 100><drain2 = 100> }
+#@.continuous drain1 drain2 dec inc dec2 inc2 v v1 v2
+.end

@@ -1,0 +1,7 @@
+[+clkapo: (sumreseti)]
+[-clkapo: (~clkapi & ~sumreseti)]
+[ sumreseto: (sumsendi)] Combinational
+[ sumsendo: (clkapi & ~clkapo)] Combinational
+[+wsapo: (suminci)]
+[-wsapo: (~wsapi & ~suminci)]
+[ suminco: (wsapi & ~wsapo)] Combinational

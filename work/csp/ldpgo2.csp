@@ -1,0 +1,30 @@
+/*****************************************************************************/
+/* Go signal controller for RAPPID length decoder.                           */
+/*****************************************************************************/
+module ldpgo2;
+
+delay  gatedelay  = <100,100>;
+
+input	rdy	=  {false, <200,inf>};
+input	plreq	=  {false, <200,inf>};
+input	irdy	=  {false, <200,inf;500,700>};
+input	go1ack	=  {false, <400,500;600,800>};
+output	go2	=  {false, <200,300>};
+
+process go2;
+  *[ [rdy+] ; go2+ ; [go1ack+] ; [go1ack-] ; go2-; [irdy-] ]
+endprocess
+
+process rpenv;
+  *[  rdy+ ; [irdy+] ; rdy- ]
+endprocess
+
+process irdy;
+  *[ [go2+] ; irdy+ ; [go2-] ; irdy- ]
+endprocess
+
+process go1ack;
+  *[ [rdy+] ; go1ack+ ; [irdy+] ; go1ack- ]
+endprocess
+
+endmodule

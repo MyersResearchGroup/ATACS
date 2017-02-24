@@ -1,0 +1,6 @@
+[+lo: (~li & ~ro & CSC0)]
+[-lo: (li)]
+[+ro: (ri & ~lo & ~CSC0)]
+[-ro: (~ri)]
+[+CSC0: (ro)]
+[-CSC0: (lo)]

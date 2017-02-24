@@ -1,0 +1,30 @@
+/*****************************************************************************/
+/* Martin's precharged full-buffer circuit (see ARVLSI97).                   */
+/*****************************************************************************/
+module pcfb;
+
+delay gatedelay = <90,110>;
+
+input l0={gatedelay};
+input l1={gatedelay};
+input re={gatedelay};
+output le={true,gatedelay};
+output r0={gatedelay};
+output r1={gatedelay};
+output en={true};
+
+process main;
+*[ [re]; [ l0 -> r0+ | l1 -> r1+ ]; le-; en-; 
+   (([~re]; [r0 -> r0- | r1 -> r1-]) || ([~l0 & ~l1]; le+)); en+ ]
+endprocess
+
+process r;
+*[re+; [r0 | r1]; re-; [~r0 & ~r1]]
+endprocess
+
+process l;
+*[[ skip -> l0+; [~le]; l0-; [le]
+  | skip -> l1+; [~le]; l1-; [le]
+ ]]
+endprocess
+endmodule

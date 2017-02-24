@@ -1,0 +1,52 @@
+module buffer;
+
+input xi;
+input yi;
+output xo;
+output yo;
+output xo1;
+output yo1;
+output yibar = {true};
+output yobar = {true};
+
+gate xogate;
+ xi &  yobar -> xo+
+~xi & ~yobar -> xo-
+endgate
+
+gate yogate;
+ yibar &  xo -> yo+
+~yibar & ~xo -> yo-
+endgate
+
+gate yofork;
+yo  -> yo1+
+~yo -> yo1-
+endgate
+
+gate xofork;
+xo  -> xo1+
+~xo -> xo1-
+endgate
+
+gate yiinv;
+ yi -> yibar-
+~yi -> yibar+
+endgate
+
+gate yoinv;
+ yo1 -> yobar-
+~yo1 -> yobar+
+endgate
+
+gate xenv;
+~xo1 -> xi+
+ xo1 -> xi-
+endgate
+
+gate yenv;
+ yo -> yi+
+~yo -> yi-
+endgate
+endmodule
+

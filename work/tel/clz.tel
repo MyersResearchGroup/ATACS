@@ -1,0 +1,288 @@
+.e 115
+.i 34
+.r 143
+.n 0
+.d 0
+.c 36
+.s 000000000000000000000000000000000000000000000
+reset
+# 
+# INPUT EVENTS:
+# 
+rst+/1 rst-/1
+phi2+/1 phi2-/1
+in2notbuf+/1 in2notbuf-/1
+in0notbuf+/1 in0notbuf-/1
+in3not+/1 in3not-/1
+in3+/1 in3-/1
+in1not+/1 in1not-/1
+in1+/1 in1-/1
+Gclk+/1 Gclk-/1
+in0+/1 in0-/1
+in0not+/1 in0not-/1
+in2+/1 in2-/1
+in2not+/1 in2not-/1
+in0buf+/1 in0buf-/1
+in2buf+/1 in2buf-/1
+phi1+/1 phi1-/1
+phi3+/1 phi3-/1
+# 
+# OUTPUT EVENTS:
+# 
+out0+/1 out0-/1
+Sel1+/1 Sel1-/1
+Mout3+/1 Mout3-/1
+Mout1+/1 Mout1-/1
+b6+/1 b6-/1
+b2+/1 b2-/1
+sel3+/1 sel3-/1
+sel1+/1 sel1-/1
+grout21not+/1 grout21not-/1
+grout20not+/1 grout20not-/1
+grout13not+/1 grout13not-/1
+grout12not+/1 grout12not-/1
+grout11not+/1 grout11not-/1
+grout10not+/1 grout10not-/1
+grout10+/1 grout10-/1
+grout11+/1 grout11-/1
+grout12+/1 grout12-/1
+grout13+/1 grout13-/1
+grout20+/1 grout20-/1
+grout21+/1 grout21-/1
+sel0+/1 sel0-/1
+sel2+/1 sel2-/1
+b1+/1 b1-/1
+b5+/1 b5-/1
+Mout0+/1 Mout0-/1
+Mout2+/1 Mout2-/1
+Sel0+/1 Sel0-/1
+out1+/1 out1-/1
+# 
+# DUMMY EVENTS:
+# 
+$22+/1
+$23+/1
+$18+/1
+$19+/1
+$14+/1
+$15+/1
+$10+/1
+$11+/1
+$7+/1
+$6+/1
+$3+/1
+$2+/1
+$0+/1
+$1+/1
+$4+/1
+$5+/1
+$9+/1
+$8+/1
+$13+/1
+$12+/1
+$17+/1
+$16+/1
+$21+/1
+$20+/1
+# 
+# RULES:
+# 
+phi3+/1 phi3-/1 [(~phi2)] 0 163 163
+phi1+/1 phi1-/1 [(~Gclk)] 0 280 280
+in2buf+/1 in2buf-/1 [(~in2)] 0 80 90
+in0buf+/1 in0buf-/1 [(~in0)] 0 80 90
+Gclk+/1 in2not+/1 0 340 340
+Gclk+/1 in2+/1 0 340 340
+Gclk+/1 in0not+/1 0 340 340
+Gclk+/1 in0+/1 0 340 340
+Gclk+/1 in1+/1 0 340 340
+Gclk+/1 in1not+/1 0 340 340
+Gclk+/1 in3+/1 0 340 340
+Gclk+/1 in3not+/1 0 340 340
+in0notbuf+/1 in0notbuf-/1 [(~in0not)] 0 80 90
+in2notbuf+/1 in2notbuf-/1 [(~in2not)] 0 80 90
+phi2+/1 phi2-/1 [(~phi1)] 0 200 200
+rst+/1 rst-/1 [(~phi3)] 0 150 150
+out0+/1 out0-/1 [(~rst)]d 0 110 120
+reset out0+/1 0 70 70
+Sel1+/1 Sel1-/1 [(~phi3)]d 0 110 120
+reset Sel1+/1 0 180 195
+Mout3+/1 Mout3-/1 [(~phi3)]d 0 110 120
+reset Mout3+/1 0 80 90
+Mout1+/1 Mout1-/1 [(~phi3)]d 0 110 120
+reset Mout1+/1 0 80 90
+b6+/1 b6-/1 [(~phi2)]d 0 100 120
+reset b6+/1 0 73 93
+b2+/1 b2-/1 [(~phi2)]d 0 100 120
+reset b2+/1 0 73 93
+sel3+/1 sel3-/1 [(~phi2)]d 0 110 120
+reset sel3+/1 0 75 85
+sel1+/1 sel1-/1 [(~phi2)]d 0 110 120
+reset sel1+/1 0 75 85
+grout21not+/1 grout21not-/1 [(~phi2)]d 0 145 155
+reset grout21not+/1 0 115 125
+grout20not+/1 grout20not-/1 [(~phi2)]d 0 145 155
+reset grout20not+/1 0 115 125
+grout13not+/1 grout13not-/1 [(~phi1)]d 0 145 155
+reset grout13not+/1 0 115 125
+grout12not+/1 grout12not-/1 [(~phi1)]d 0 145 155
+reset grout12not+/1 0 115 125
+grout11not+/1 grout11not-/1 [(~phi1)]d 0 145 155
+reset grout11not+/1 0 115 125
+grout10not+/1 grout10not-/1 [(~phi1)]d 0 145 155
+reset grout10not+/1 0 115 125
+reset rst-/1 0 150 150
+reset rst+/1 0 100 100
+reset phi2-/1 0 200 200
+reset phi2+/1 0 103 130
+reset in2notbuf-/1 0 80 90
+reset in2notbuf+/1 0 55 65
+reset in0notbuf-/1 0 80 90
+reset in0notbuf+/1 0 55 65
+in3not+/1 in3not-/1 0 410 410
+reset in3not+/1 0 340 340
+in3+/1 in3-/1 0 410 410
+reset in3+/1 0 340 340
+in1not+/1 in1not-/1 0 410 410
+reset in1not+/1 0 340 340
+in1+/1 in1-/1 0 410 410
+reset in1+/1 0 340 340
+reset Gclk+/1 0 380 580
+Gclk+/1 Gclk-/1 0 380 580
+reset in0+/1 0 340 340
+in0+/1 in0-/1 0 410 410
+reset in0not+/1 0 340 340
+in0not+/1 in0not-/1 0 410 410
+reset in2+/1 0 340 340
+in2+/1 in2-/1 0 410 410
+reset in2not+/1 0 340 340
+in2not+/1 in2not-/1 0 410 410
+reset in0buf+/1 0 55 65
+reset in0buf-/1 0 80 90
+reset in2buf+/1 0 55 65
+reset in2buf-/1 0 80 90
+reset phi1+/1 0 271 271
+reset phi1-/1 0 280 280
+reset phi3+/1 0 114 114
+reset phi3-/1 0 163 163
+reset grout10+/1 0 85 120
+grout10+/1 grout10-/1 [(~phi1)]d 0 140 150
+reset grout11+/1 0 85 120
+grout11+/1 grout11-/1 [(~phi1)]d 0 140 150
+reset grout12+/1 0 85 120
+grout12+/1 grout12-/1 [(~phi1)]d 0 140 150
+reset grout13+/1 0 85 120
+grout13+/1 grout13-/1 [(~phi1)]d 0 140 150
+reset grout20+/1 0 85 120
+grout20+/1 grout20-/1 [(~phi2)]d 0 140 150
+reset grout21+/1 0 85 120
+grout21+/1 grout21-/1 [(~phi2)]d 0 140 150
+reset sel0+/1 0 75 85
+sel0+/1 sel0-/1 [(~grout10)]d 0 75 85
+reset sel2+/1 0 75 85
+sel2+/1 sel2-/1 [(~grout12)]d 0 75 85
+reset b1+/1 0 73 93
+b1+/1 b1-/1 [(~phi2)]d 0 100 120
+reset b5+/1 0 73 93
+b5+/1 b5-/1 [(~phi2)]d 0 100 120
+reset Mout0+/1 0 55 75
+Mout0+/1 Mout0-/1 [(~phi3)]d 0 100 110
+reset Mout2+/1 0 55 75
+Mout2+/1 Mout2-/1 [(~phi3)]d 0 100 110
+reset Sel0+/1 0 80 90
+Sel0+/1 Sel0-/1 [(~phi3)]d 0 110 120
+reset out1+/1 0 70 70
+out1+/1 out1-/1 [(~rst)]d 0 110 120
+# 
+# INITIAL RULES:
+# 
+phi1-/1 phi1+/1 [(Gclk)] 1 271 271
+in0buf-/1 in0buf+/1 [(in0)] 1 55 65
+in2notbuf-/1 in2notbuf+/1 [(in2not)] 1 55 65
+rst-/1 rst+/1 [(phi3)] 1 100 100
+out0-/1 out0+/1 [(Sel1 & Mout1)]d 1 70 70
+Sel1-/1 Sel1+/1 [(grout20not & grout21not)]d 1 180 195
+Mout3-/1 Mout3+/1 [(sel2 & b6)]d 1 80 90
+Mout1-/1 Mout1+/1 [(sel0 & b1)]d 1 80 90
+b6-/1 b6+/1 [(in2buf)]d 1 73 93
+b2-/1 b2+/1 [(in0buf)]d 1 73 93
+sel3-/1 sel3+/1 [(grout12not & grout13)]d 1 75 85
+sel1-/1 sel1+/1 [(grout10not & grout11)]d 1 75 85
+grout21not-/1 grout21not+/1 [(grout12not & grout13not)]d 1 115 125
+grout20not-/1 grout20not+/1 [(grout10not & grout11not)]d 1 115 125
+grout13not-/1 grout13not+/1 [(in3not)]d 1 115 125
+grout12not-/1 grout12not+/1 [(in2not)]d 1 115 125
+grout11not-/1 grout11not+/1 [(in1not)]d 1 115 125
+grout10not-/1 grout10not+/1 [(in0not)]d 1 115 125
+Gclk-/1 Gclk+/1 1 380 580
+grout10-/1 grout10+/1 [(in0 & phi1)]d 1 85 120
+grout11-/1 grout11+/1 [(in1 & phi1)]d 1 85 120
+grout12-/1 grout12+/1 [(in2 & phi1)]d 1 85 120
+grout13-/1 grout13+/1 [(in3 & phi1)]d 1 85 120
+grout20-/1 grout20+/1 [(grout10) | (grout11)]d 1 85 120
+grout21-/1 grout21+/1 [(grout12) | (grout13)]d 1 85 120
+sel0-/1 sel0+/1 [(grout10)]d 1 75 85
+sel2-/1 sel2+/1 [(grout12)]d 1 75 85
+b1-/1 b1+/1 [(in0notbuf)]d 1 73 93
+b5-/1 b5+/1 [(in2notbuf)]d 1 73 93
+Mout0-/1 Mout0+/1 [(sel1 & phi3)]d 1 55 75
+Mout2-/1 Mout2+/1 [(sel3 & phi3)]d 1 55 75
+Sel0-/1 Sel0+/1 [(grout20 & grout21)]d 1 80 90
+out1-/1 out1+/1 [(Sel0 & Mout0)]d 1 70 70
+phi2-/1 phi2+/1 [(phi1)] 1 103 130
+in0notbuf-/1 in0notbuf+/1 [(in0not)] 1 55 65
+in2buf-/1 in2buf+/1 [(in2)] 1 55 65
+phi3-/1 phi3+/1 [(phi2)] 1 114 114
+# 
+# RULES:
+# 
+# 
+# INITIAL RULES:
+# 
+# 
+# MERGERS:
+# 
+# 
+# CONFLICTS:
+# 
+$6+/1 $7+/1
+$6+/1 in3not-/1
+$6+/1 in3not+/1
+in3-/1 $7+/1
+in3-/1 in3not-/1
+in3-/1 in3not+/1
+in3+/1 $7+/1
+in3+/1 in3not-/1
+in3+/1 in3not+/1
+$2+/1 $3+/1
+$2+/1 in1not-/1
+$2+/1 in1not+/1
+in1-/1 $3+/1
+in1-/1 in1not-/1
+in1-/1 in1not+/1
+in1+/1 $3+/1
+in1+/1 in1not-/1
+in1+/1 in1not+/1
+in0+/1 in0not+/1
+in0+/1 in0not-/1
+in0+/1 $1+/1
+in0-/1 in0not+/1
+in0-/1 in0not-/1
+in0-/1 $1+/1
+$0+/1 in0not+/1
+$0+/1 in0not-/1
+$0+/1 $1+/1
+in2+/1 in2not+/1
+in2+/1 in2not-/1
+in2+/1 $5+/1
+in2-/1 in2not+/1
+in2-/1 in2not-/1
+in2-/1 $5+/1
+$4+/1 in2not+/1
+$4+/1 in2not-/1
+$4+/1 $5+/1
+# 
+# LOOPING CONFLICTS:
+# 
+--237c_2f1c-7de1_4487-6201_52bf--
+

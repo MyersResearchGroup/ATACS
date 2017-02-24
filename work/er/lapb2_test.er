@@ -1,0 +1,74 @@
+.e 13
+.i 4
+.r 19
+.n 0
+.d 0
+.c 0
+.s 00000
+reset
+# 
+# INPUT EVENTS:
+# 
+#o3+/1 o3-/1
+i1+/1 i1-/1
+# 
+# OUTPUT EVENTS:
+# 
+i3+/1 i3-/1
+o1+/1 o1-/1
+o2+/1 o2-/1
+i2+/1 i2-/1
+# 
+# DUMMY EVENTS:
+# 
+$o3+/1 $o3-/1
+# 
+# RULES:
+#
+# 
+i3+/1 i3-/1 0 101 inf
+i3-/1 i3+/1 1 101 inf
+#
+#
+#$o3-/1 i3-/1 0 1 5
+reset o2+/1 0 1 5
+i2+/1 o2-/1 0 1 5
+#$o3+/1 i3+/1 0 1 5
+o2-/1 i3+/1 0 1 5
+#i3+/1 $o3-/1 0 100 inf
+#$o3+/1 $o3-/1 0 100 inf
+#reset $o3+/1 0 100 inf
+i1+/1 i1-/1 0 100 inf
+o1-/1 i1-/1 0 100 inf
+o1+/1 i1+/1 0 100 inf
+reset i1+/1 0 100 inf
+o1-/1 i2+/1 0 1 5
+o2+/1 i2+/1 0 1 5
+i1+/1 o1-/1 0 1 5
+reset o1+/1 0 1 5
+o2-/1 i2-/1 0 1 5
+# 
+# INITIAL RULES:
+# 
+i3-/1 o2+/1 1 1 5
+i2-/1 o2+/1 1 1 5
+#$o3-/1 $o3+/1 1 100 inf
+#i3-/1 $o3+/1 1 100 inf
+i1-/1 i1+/1 1 100 inf
+i1-/1 o1+/1 1 1 5
+i2-/1 o1+/1 1 1 5
+# 
+# RULES:
+# 
+# 
+# INITIAL RULES:
+# 
+# 
+# MERGERS:
+# 
+# 
+# CONFLICTS:
+# 
+# 
+# LOOPING CONFLICTS:
+# 

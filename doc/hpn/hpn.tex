@@ -1,0 +1,1244 @@
+\documentclass[11pt,times]{article} 
+
+\textwidth 6.5in
+\textheight 9in
+\oddsidemargin -0.2in
+\topmargin -0.5in
+
+%\textheight 9in
+%\topmargin 1in
+%\footheight 0.5in
+%\textwidth 6.8in
+%\oddsidemargin -0.2in
+
+%\usepackage{latex8}
+\usepackage{psfig}
+\usepackage{epsfig}
+%\usepackage{latexsym}
+%\usepackage{amssymb}
+
+% Figure Width: width in inches / .07 = width in mm for this document.
+
+%% Algorithm for doing pseudo-code blocks
+%\def\algorithm{\bgroup\obeylines\obeyspaces\def\ {\quad}
+%\normalsize\leftskip=1pc\vskip4pt\relax}
+%\def\endalgorithm{\vskip4pt\egroup}
+%% Algorithm for doing pseudo-code blocks
+\def\algorithm{\bgroup\obeylines\obeyspaces\def\ {\quad}
+\footnotesize\tt\leftskip=1pc\vskip4pt\relax}
+\def\endalgorithm{\vskip4pt\egroup}
+
+\begin{document}
+
+\title{{\bf Report Describing Extensions Needed for 
+System-Level Timing Analysis \\
+{\large\bf Task 1024.001: System-Level Timing Verification with 
+Automatic Abstraction} \\
+           {\large\bf Deliverable Report for 2002-2003}}}
+
+\author{Chris Myers \\
+University of Utah}
+
+\normalsize
+
+\maketitle
+
+%This version of the document was produced on \today.
+
+\section{Introduction}
+
+The goal of this research task is to develop methodology and tools to support 
+system-level timing verification.  Systems are composed of a heterogeneous 
+collection of digital, mixed signal/analog, and software components.  As a 
+result, their state space tends to be very large.  Therefore, to be practical 
+this tool must support automatic abstraction.
+%srl: Should other state space reduction techniques be mentioned here? 
+
+In prior SRC supported research, our group developed one of the most efficient 
+timing verification tools for circuit-level analysis.  This tool has been 
+utilized by companies such as 
+Intel and IBM for analysis of their aggressively optimized high
+performance circuits.  Our verification tool was used during the design of 
+several of the critical circuits in the Intel RAPPID design.  Our tool has 
+also been used to verify several circuits from the IBM guTS processor. 
+Most recently, we developed automatic abstraction techniques that allowed our
+tool to be used to efficiently verify several variations of IBM's 
+Synchronous Interlocked Pipelines.
+
+The objective of this project is to extend our tools applicability to 
+the system-level.  Key to this will be developing methods for modeling
+a system composed of heterogeneous components.  One particularly difficult
+aspect is the need to represent continuous quantities such as voltages and
+currents in the analog portions of the system.  These continuously varying
+values must be represented in a fashion that is general enough to describe 
+these systems accurately.  However, it must not be so general as to make 
+analysis prohibitively expensive.  The purpose of this report is to describe 
+a new model, a method of translating differential equation models into this
+model, and an efficient analysis algorithm for system-level timing analysis.
+While efficient simulation methods exist for systems described using 
+differential equations, these methods only produce results from a single
+initial condition and assume deterministic behavior.  Our model and analysis
+method will be capable of determining properties of systems over a range
+of initial conditions and over all possible non-deterministically chosen
+runs of the system. 
+
+In our previous research, our collaborations with industry have been essential 
+to our success.  These companies provided motivating examples for our timing 
+verification tool that helped not only validate the utility of our tool, but 
+also to provide future research directions.  In this project, we plan to 
+continue to use examples from industry to drive the direction of this research.
+Therefore, we hope that this report will facilitate contacts within SRC 
+member companies to provide us some driving examples.
+
+\section{Timed Hybrid Petri Nets}
+
+There has been considerable prior work in the verification of hybrid system
+models.  Much of this work has utilized hybrid automata models 
+\cite{alur95algorithmic, alur92hybrid}.  Recently, various extensions have
+been proposed to develop hybrid Petri net models 
+\cite{Balduzzi2001,Chen2001,David2001,Tuffin2001}.  
+The {\em Timed Hybrid Petri Net} (THPN) model that we propose to use for
+verifying mixed signal circuits is most similar to the Hybrid Net 
+Condition/Event System Model proposed by Chen et.~al \cite{Chen2001} 
+though with both some limitations and extensions.  This section describes our 
+proposed model.  In the following, let $\mathcal{Q}^+$ represent rational 
+numbers $\geq 0$.
+
+\subsection{\label{dpn_sec}Discrete Petri net}
+A discrete Petri net is formally denoted by the tuple
+$N_d = \langle P_d, T_d, F_d, m_0 \rangle$ such that:
+
+% Use the following to include initial clocks & weights for unsafe nets.
+% A timed discrete PN is formally denoted by the tuple
+% $N_d = \langle P_d, T_d, F_d, D, W_d, m_0, c_0 \rangle$ such that:
+
+\begin{description}
+\item $P_d:$ is a finite set of discrete places;
+\item $T_d:$ is a finite set of discrete transitions;
+\item $F_d \subseteq (P_d \times T_d) \cup (T_d \times P_d)$
+  is the set of flow relations;
+\item $m_0 \subseteq P_d$ is the set of initially marked places.
+% Uncomment the following definition of W_d for unsafe nets
+%\item $W_d: F_d \rightarrow \mathcal{N}$ assigns integer weights to
+%  the arcs;
+% Use this definition of m_0 for unsafe nets instead of the above one
+%\item $m_0: P_d \rightarrow \mathcal{N}$ is the initial marking of the
+%  places;  
+% Uncomment the following for initial clocks.
+%\item $c_0: (P_d \times T_d) \rightarrow \mathcal{Q}^+$ is the initial
+%  time assigned to each clock defined on the place to transition arcs.
+\end{description}
+
+Discrete places are depicted as circles, and discrete transitions are shown
+as solid boxes as shown in Figure~\ref{hpn}(a).  
+
+%srl: I think that this figure should be reordered so that (a) and (b)
+%aren't grouped differently than (c) and (d).  I prefer the grouping
+%of (c) and (d).
+\begin{figure}[t]
+\begin{center}
+% Use this figure for unsafe nets. \begin{figure}[h]
+%\psfig{figure=arcs,width=67mm} 
+\psfig{figure=safearcs,width=115mm} 
+{\caption{\label{hpn} Possible arcs between
+    transitions and places in THPNs.}}
+\end{center}
+\end{figure}
+
+\subsection{\label{cpn_sec}Continuous Petri Net}
+
+A continuous Petri net is formally denoted by the tuple $N_c = \langle P_c,
+T_c, F_c, R, W, X_0 \rangle$ such that:
+
+\begin{description}
+\item $P_c:$ is a finite set of continuous places;
+\item $T_c:$ is a finite set of continuous transitions;
+\item $F_c \subseteq (P_c \times T_c) \cup (T_c \times P_c)$ is the
+  set of flow relations;
+\item $R: T_c \rightarrow \mathcal{Q}^+$ is the flow rate of transitions;
+\item $W: F_c \rightarrow \mathcal{Q}^+$ assigns weights to the 
+      continuous arcs;
+\item $X_0: P_c \rightarrow (\mathcal{Q}^+ \times \mathcal{Q}^+)$
+  assigns a range of initial markings $(x_{0l}(p), x_{0u}(p))$ to continuous
+  places where $x_{0l}(p) \leq x_{0u}(p)$.
+\end{description}
+
+Continuous places are depicted as double circles, and continuous transitions 
+are shown as empty boxes as shown in Figure~\ref{hpn}(b).  Each arc between
+continuous places and transitions is annotated with a weight and each 
+continuous transition is annotated with a flow rate.
+
+\subsection{\label{hpn_sec}Timed Hybrid Petri Net}
+
+A timed hybrid Petri net (THPN) is formally denoted by the tuple
+$N_h = \langle N_d, N_c, F_h, B, D \rangle$
+
+%Use the following instead to include initial clocks
+%A hybrid PN is formally denoted by the tuple
+%$N_h = \langle N_d, N_c, F_h, Pred_h, D_h, c_{0h} \rangle$
+
+\begin{description}
+\item $N_d:$ is a discrete Petri net as defined in Section~\ref{dpn_sec};
+\item $N_c:$ is a continuous Petri net as defined in Section~\ref{cpn_sec};
+\item $F_h \subseteq (P_c \times T_d) \cup (P_d \times T_c)$ is the
+  set of flow relations between the discrete Petri net and the
+  continuous Petri net;
+\item $B: (P_c \times T_d)  \rightarrow \mathcal{Q}^+
+  \times (\mathcal{Q}^+ \cup \{\infty\})$ assigns Boolean conditions
+  $\langle b_l(p,t), b_u(p,t) \rangle$ to arcs from continuous places to 
+  discrete transitions where $b_l(p, t) \leq b_u(p,t)$;
+\item $D: ((P_d \cup P_c) \times T_d) \rightarrow \mathcal{Q}^+
+  \times (\mathcal{Q}^+ \cup
+  \{\infty\})$ assigns a time interval delay $[d_l(p,t), d_u(p,t)]$
+  to each place to discrete transition arc where $d_l(p,t) \leq d_u(p,t)$;
+% Uncomment the following to include initial clocks.
+%\item $c_{0h}: (P_c \times T_d) \rightarrow \mathcal{Q}^+$ is the
+%  initial time assigned to each clock defined on the continuous
+%  place to discrete transition arc.
+\end{description}
+
+Arcs in the THPN are denoted with dashed lines as shown in 
+Figure~\ref{hpn}(c).  An arc from a continuous
+place to a discrete transition is annotated with a predicate and a delay value.
+Note that arcs from a discrete place to a discrete transition are also 
+annotated with a bounded delay assignment (see Figure~\ref{hpn}(a)).
+Arcs from discrete transitions to continuous places and continuous transitions 
+to discrete places are not allowed (see Figure~\ref{hpn}(d)).
+
+\section{Semantics}
+
+The state of a THPN is defined using a 3-tuple of the form $\langle m, x, c
+\rangle$ where:
+
+\begin{description}
+\item $m \subseteq P_d$ is the set of currently marked discrete places;
+% Use the following instead of the above for unsafe nets.
+%\item $m: P_d \rightarrow \mathcal{N}$ is the current marking of the
+%  discrete places;
+\item $x: P_c \rightarrow \mathcal{Q}^+$ is the current marking of
+  the continuous places;
+\item $c: ((P_c \cup P_d) \times T_d) \rightarrow \mathcal{Q}^+$ is the
+  current clock value of each arc feeding a discrete transition.
+\end{description}
+
+The initial state is $\langle m_0, x_0, c_0 \rangle$ where $m_0$ is the
+initial marking of the discrete net, $x_0$ is a
+random value between $x_{0l}(p)$ and $x_{0u}(p)$ for each continuous place $p$,
+and $c_0$ is the value $0$ for each clock.
+
+% Use the following instead of the above paragraph for initial clock values.
+%The initial state is $\langle m_0, x_0, c_0 \cup c_{0h} \rangle$
+%where $x_0$ is a random value between $x_{0l} and x_{0u}$ for each
+%continuous place $p$.
+
+A THPN can change state when either a discrete transition is fired
+or when time advances.  This section presents several definitions then 
+describes how the state is updated in each case. 
+
+\subsection{Discrete Transitions}
+
+A discrete transition, $t \in T_d$, is {\em discretely enabled} when
+all discrete places in its preset are marked 
+(i.e., $\forall (p, t) \in F_d\ .\ p \in m$).
+% Use the following instead of above for unsafe nets
+%\item{1.} $\forall (p, t) \in F_d \ . \  m(p) \geq W_d(p, t)$
+A discrete transition $t$ is {\em enabled} when it is discretely enabled and
+all Boolean conditions in its preset are true  
+(i.e., $\forall (p, t) \in F_h \ . \ (x(p) \geq b_l(p, t)) \wedge
+(x(p) \leq b_u(p, t))$).  A discrete transition $t$ is {\em fireable} when
+it is enabled and all clocks in its preset have exceeded their lower bound
+(i.e., $\forall (p, t) \in F_d \cup F_h \ . \ c(p, t) \geq d_l(p, t)$).
+A discrete transition $t$ {\em must fire} when it is fireable and
+all clocks in its preset have exceeded their upper bound
+(i.e., $\forall (p, t) \in F_d \cup F_h \ . \ c(p, t) \geq d_u(p, t)$).
+
+\subsection{Continuous Transitions}
+
+A continuous transition, $t \in T_c$, is discretely enabled when all
+discrete places in its preset are marked 
+(i.e., $\forall (p, t) \in F_h \ .\ p \in m$).
+% Use the following instead of above for unsafe nets.
+%\item{1.} $\forall (p, t) \in F_h \ .\ (m(p) \geq b_l(p, t)) \wedge (m(p)
+%  \leq b_u(p, t))$ 
+When enabled, continuous transitions fire continuously.
+However, they may not be able to fire at the specified rate if
+the places feeding the transition cannot provide continuous tokens fast
+enough.  Figure~\ref{conflict} demonstrates a situation where the specified
+rate of a transition cannot be fulfilled.  Transition $t_0$ provides two
+continuous tokens to the place every time unit.  Transitions $t_1$ and $t_2$
+are in conflict.  Transition $t_1$ wants to take out one token every time unit
+while transition $t_2$ wants to take out three.  Both transitions want
+to fulfill their maximum rates; however, they are unable to because
+the place feeding them has too little flow into it.  Therefore, it is
+necessary to be able to calculate the \emph{actual} firing rate of a
+continuous transition, $v(t)$.  This is done as follows:
+
+\begin{figure}[htbp]
+\begin{center}
+\psfig{figure=conflict,width=45mm} 
+{\caption{\label{conflict} Example of continuous conflict.}}
+\end{center}
+\end{figure}
+
+\[
+v(t) = v(t, \{\})
+\]
+
+\[
+v(t,D) = \left\{ \begin{array}{ll} \displaystyle
+                     0 & \textit{if } (t \in D) \\
+                       & \vee (t \textit{ is not discretely enabled}) \\
+                     \displaystyle
+                     \min_{(p, t) \in F_c \wedge x(p) = 0}
+                     \left\{ Z(p,t,D), R(t)
+                     \right\} & \mathit{otherwise}
+                               
+                   \end{array}
+            \right.
+\]
+
+where
+
+\[
+Z(p,t,D) = \frac{\sum_{(t', p) \in F_c} W (t',p) \cdot v(t', D \cup
+  \{t\}) }{\sum_{(p,t'')\in F_c} W(p,t'') \cdot R(t'')} \cdot R(t)
+\]
+
+%srl: I have always found t' and t'' very confusing.  I had a few
+%conversations with David about the issue.  I think that you should
+%maybe label the transitions in the figure w/ t' and t'' even if it
+%requires adding a bit to the figure to illustrate the point.  At a
+%minimum I think it should give the reader an explanation.  I can
+%infer the notation, but I don't feel comfortable with my inference
+%in this case.
+
+The calculations above use the arc weights to divide up
+the flow in conflict situations based upon a ratio of the desired weights.  
+In this case, transition $t_1$ would get 0.5 tokens per time unit while
+$t_2$ would get 1.5 tokens per time unit.
+
+A continuous transition, $t \in T_c$, is enabled if it is discretely enabled
+and its velocity is greater than 0 (i.e., $v(t) > 0$).
+A continuous transition, $t$, is \emph{strongly enabled} when it is enabled
+and all continuous places in its preset contain tokens
+(i.e., $\forall (p, t) \in F_c\ .\ x(p) > 0$).
+A continuous transition, $t$, is \emph{weakly enabled} when it is enabled
+and there exists a continuous place in its preset that does not contain any
+tokens (i.e., $\exists (p, t) \in F_c\ .\ x(p) = 0$). 
+One final calculation that is needed below is the instantaneous rate 
+of change of continuous places, $\dot{x}(p)$, which can be calculated as 
+follows:
+
+\[\dot{x}(p) = \sum_{(t, p) \in F_c} W(t, p) \cdot v(t) -
+               \sum_{(p, t) \in F_c} W(p, t) \cdot v(t)\]
+
+\subsection{Maximum Time Advancement}
+
+The amount of time that can advance is limited.
+The {\em maximum time advancement} is the amount of time that can advance
+before a discrete transition \emph{must} fire ($\tau_{dis\_max}$) or before the
+velocity of a continuous transition \emph{must} change ($\tau_{empty}$).
+The minimum of these two calculations is the maximum time advancement
+of the whole net, $\tau_{max}$.  
+
+\[ \tau_{max} = \min \{ \tau_{dis\_max}, \tau_{empty} \}\]
+
+The velocity of continuous transitions must change when the contents of a
+continuous place are completely consumed.  This can happen when the value of
+a place is decreasing (i.e., $\dot{x}(p) < 0$) and the amount of time that 
+has elapsed exceeds the time it would take to empty the place 
+(i.e., $-x(p)/\dot{x}(p)$).  Time must not be allowed to advance beyond this
+point for any continuous place.  The value $\tau_{empty}$ is calculated as 
+follows:
+
+\[ \tau_{empty} = \min_{\forall p \in P_c\ .\ \dot{x}(p) < 0} \left\{-
+  \frac{x(p)}{\dot{x}(p)}, \infty \right\}\]
+
+A transition must fire when all of the clocks in its preset have exceeded 
+their upper bounds.  For a discretely enabled transition, $t \in T_d$, there
+are five possible cases in which this can occur.  The first is that a clock
+associated with a discrete place in the preset of $t$ can be the last one to 
+{\em expire} (i.e., exceed its time limit).  Assuming that the value of this
+clock in the current state is $c(p,t)$ this occurs after $d_u(p,t) - c(p,t)$
+time units has elapsed.  The next four cases have to do with clocks 
+associated with continuous places in the preset of $t$.  When its Boolean
+condition is satisfied (i.e., $b_l(p, t) \leq x(p) \leq b_u(p, t)$) such a 
+clock is active, and this is again simply $d_u(p,t) - c(p,t)$ time units.
+When such a clock is not active, we must first calculate how long before it
+becomes active and add to this the upper bound of the timing delay for this
+clock.  When a continuous place is increasing in value (i.e., $\dot{x}(p) > 0$)
+and it is below its lower bound (i.e., $x(p) < b_l(p,t)$), the clock becomes 
+active after $(b_l(p,t)-x(p))/\dot{x}(p)$ time units and expires $d_u(p,t)$
+time units after that.  A similar time limit can be derived when the place is 
+decreasing in value (i.e., $\dot{x}(p) < 0$) and it is above its upper bound 
+(i.e., $x(p) > b_u(p,t)$).  The final case is when an increasing place 
+is above its upper bound or decreasing place is below its lower bound.  In this
+case, no amount of time can make this clock become active, so the time limit
+associated with such a clock is infinite.  For a discretely enabled transition,
+$t$, the amount of time that can advance before it must fire,
+$\tau_{must\_fire}(t)$ can now be formally defined as follows:
+
+\[\tau_{must\_fire}(t) = \max_{(p, t) \in F_d \cup F_h} \left\{
+    \begin{array}{ll}
+      d_u(p, t) - c(p, t) & \mbox{\small if $(p, t) \in F_d$} \\
+      d_u(p, t) - c(p, t) & \mbox{\small if $(p, t) \in F_h \wedge
+      b_l(p, t) \leq x(p) \leq b_u(p, t)$} \\
+      \frac{b_l(p, t)-x(p)}{\dot{x}(p)} + d_u(p, t) &
+      \mbox{\small if $(p,t) \in F_h \wedge x(p) < b_l(p,t) \wedge \dot{x}(p)
+      > 0$}\\
+      \frac{x(p)-b_u(p,t)}{\dot{x}(p)} + d_u(p, t) &
+      \mbox{\small if $(p,t) \in F_h \wedge x(p) > b_u(p,t) \wedge \dot{x}(p) <
+      0$}\\
+      \infty & \mbox{\small otherwise}
+    \end{array}
+    \right.\]
+
+The minimum amount of time before some discretely enabled transition must fire,
+$\tau_{dis\_max}$ can now be defined as follows:
+
+\[ \tau_{dis\_max}  =  \min_{\forall t \in T_d .
+   \mathit{t\ is\ discretely\ enabled}}
+ \{\tau_{must\_fire}(t), \infty\}\]
+
+For simulation efficiency purposes, it is also valuable to calculate the
+minimum time advancement.  The minimum time advancement is the amount
+of time that can advance before a discrete transition \emph{can}
+fire ($\tau_{dis\_min}$) or before the velocity of a continuous
+transitions \emph{must} change ($\tau_{empty}$).  The
+minimum time advancement, $\tau_{min}$, can be calculated as follows:
+
+\[ \tau_{min} = \min \{ \tau_{dis\_min}, \tau_{empty} \}\]
+
+\[ \tau_{dis\_min}  =  \left\{ \begin{array}{ll}
+  0 & \mbox{if $\exists t \in T_d . t \mathit{\ is\ fireable}$} \\
+  \min_{\forall t \in T_d . \mathit{t\ is\ discretely\ enabled}}
+  \{\tau_{can\_fire}(t), \infty\} & \mbox{otherwise}
+  \end{array} \right.
+\]
+
+\[\tau_{can\_fire}(t) = \max_{(p, t) \in F_d \cup F_h} \left\{
+    \begin{array}{ll}
+      d_l(p, t) - c(p, t) & \mbox{\small if $(p, t) \in F_d$} \\
+      d_l(p, t) - c(p, t) & \mbox{\small if $(p, t) \in F_h \wedge
+      b_l(p, t) \leq x(p) \leq b_u(p, t)$} \\
+      \frac{b_l(p, t)-x(p)}{\dot{x}(p)} + d_l(p, t) &
+      \mbox{\small if $(p,t) \in F_h \wedge x(p) < b_l(p,t) \wedge \dot{x}(p)
+      > 0$}\\
+      \frac{x(p)-b_u(p,t)}{\dot{x}(p)} + d_l(p, t) &
+      \mbox{\small if $(p,t) \in F_h \wedge x(p) > b_u(p,t) \wedge \dot{x}(p) <
+      0$}\\
+      \infty & \mbox{\small otherwise}
+    \end{array}
+    \right.\]
+
+
+\subsection{State Update}
+
+The state of a THPN can change as the result of the firing of a fireable
+discrete transition or the advancement of some amount of time $\tau$ which
+is less than $\tau_{max}$.  
+
+If $t$ is a fireable discrete transition in
+the state $\langle m,x,c \rangle$, the firing of $t$ updates the discrete 
+marking by removing tokens from the discrete places in the preset of $t$ and 
+placing tokens into the discrete places in the postset of $t$.  Clocks in the
+postset of $t$ are also initialized to 0.  The resulting new state 
+$\langle m',x',c' \rangle$ is defined as follows:
+
+\[m' = m - \{p \mid (p, t) \in F_d\} + \{p \mid (t, p) \in F_d\}
+\]
+
+% For unsafe nets:
+%\[m'(p) = \left\{ \begin{array}{ll}
+%  m(p) - W_d(p, t) + W_d(t, p) & \mbox{if
+%    $(p,t) \in F_d \wedge (t,p) \in F_d$}\\
+%  m(p) - W_d(p, t) & \mbox{if $(p, t) \in F_d$}\\
+%  m(p) + W_d(t, p) & \mbox{if $(t, p) \in F_d$}\\
+%  m(p) & \mbox{otherwise}
+%\end{array}
+%\right. \]
+
+\[x'(p) = x(p)\]
+
+\[c'(p, t') = \left\{ \begin{array}{ll}
+  0 & \mbox{if $(t,p) \in F_d$}\\
+  c(p, t') & \mbox{otherwise}
+\end{array}
+\right. \]
+
+%Uncomment the following for unsafe nets.
+%Note that the above update function for $c(p, t)$ assumes that the net
+%is safe.
+
+If $\tau$ time units can advance in the state $\langle m,x,c \rangle$
+(i.e., $\tau \leq \tau_{max}$), the advancement of $\tau$ time units updates
+the continuous value of tokens in all continuous places by the amount
+consistent with the current rate of change (i.e., $\tau \cdot \dot{x}(p)$).
+Since the advancement of time may have caused some Boolean conditions to
+become true, the corresponding clocks need to be updated to reflect the 
+amount of time in which these conditions have been true.  Finally, all other
+clocks are incremented by the time $\tau$.  This results
+in the new state $\langle m',x',c' \rangle$: 
+
+\[m' = m\]
+
+% For unsafe nets:
+%\[m'(p) = m(p)\]
+
+\[x'(p) =  x(p) + \tau \cdot \dot{x}(p) \]
+
+\[c'(p, t) = \left\{
+  \begin{array}{ll}
+    \frac{x'(p) - b_l(p, t)}{\dot{x}(p)} & \mbox{if $x(p) < b_l(p, t)
+    \wedge x'(p) \geq b_l(p, t)$}\\
+    \frac{b_u(p, t) - x'(p)}{\dot{x}(p)} & \mbox{if $x(p) > b_u(p, t)
+    \wedge x'(p) \leq b_u(p, t)$}\\
+    c(p, t) + \tau & \mbox{otherwise}
+  \end{array}
+  \right.
+\]
+
+\section{Examples}
+
+This section shows three traditional hybrid automata examples represented using
+THPNs.  It concludes with an analog circuit example modeled as a THPN.
+
+\subsection{Water Level Monitor}
+
+Figure~\ref{wlm} demonstrates a water level monitor for a tank.  It
+continuously senses the water level to ensure that it never falls
+below one inch and never goes above twelve inches.  When the pump is not
+active, the water level decreases at two inches per time unit.  When the
+pump is active, the water level increases at one inch per time unit.
+It takes one to two time units for the pump to activate or deactivate
+when signaled.  In this figure, the continuous place $y$ represents
+the current water level.  The water level is initially at two inches and
+the pump is active.  When the water level reaches ten inches
+transition $t1$ becomes enabled.  One to two time units later $t1$
+fires resulting in the pump becoming disabled and the enabling of
+the continuous transition which removes tokens from $y$ at a rate
+of two.  This continues until $y$ reaches five at which time, $t2$
+becomes enabled and fires one to two time units later.  
+
+\begin{figure}[htbp]
+\begin{center}
+\psfig{figure=water,width=45mm} 
+{\caption{\label{wlm}THPN model of water level monitor from
+    \cite{alur95algorithmic}.}}
+\end{center}
+\end{figure}
+
+\subsection{Temperature Control System}
+
+The THPN for a temperature control system for a reactor tank is shown in 
+Figure~\ref{tcs}. It can control the temperature of the reactor tank by moving
+two independent control rods. $T_M$ (maximum
+temperature) and $T_m$ (minimum temperature) define the temperature
+range that the reactor tank must be within.  $V_r$ is the rate at which
+the temperature of the reactor tank increases without rods.  $V_1$ is
+the rate at which the temperature of the reactor tank drops with rod
+one.  $V_2$ is the rate at which the temperature of the reactor
+tank drops with rod two.  $T$ is the time that a rod must be out of the
+reactor tank before it can be used again.
+
+\begin{figure}[htbp]
+\begin{center}
+\psfig{figure=tcs,width=130mm} 
+{\caption{\label{tcs}THPN model of temperature control system from
+    \cite{alur95algorithmic}.}}
+\end{center}
+\end{figure}
+
+\subsection{A Game of Billiards}
+
+The THPN for a model of a billiard table of length $l$ and height $h$ with a 
+gray ball and a white ball is shown in Figure~\ref{billiard}.
+The gray ball is hit with horizontal velocity
+$V_x$ and vertical velocity $V_y$.  The white ball is at position
+$(w_x, w_y)$.  This system describes the movement of the gray ball and
+when it collides with the white ball.  
+
+\begin{figure}[htbp]
+\begin{center}
+\psfig{figure=billiard,width=120mm} 
+{\caption{\label{billiard}THPN model of a game of billiards from
+    \cite{alur95algorithmic}.}}
+\end{center}
+\end{figure}
+
+\subsection{Tunnel Diode Oscillator}
+
+This section describes how a THPN model can be derived from a differential
+equation model of an analog circuit.  In particular, the continuous state
+space is decomposed into a discrete number of states in which rates are assumed
+to be constant.  Non-determinism in the transition relation between states is
+used in the model to encapsulate the range in the rates that are possible
+within each discrete state.  This approach to discretizing the state space
+is similar to Hartong et.~al who have also been developing techniques for
+formal verification of non-linear analog circuits 
+\cite{Hartong2002a,Hartong2002b}.  Their model and verification 
+methodology is quite different.  We illustrate this method using their example
+of a tunnel diode oscillator \cite{Hartong2002b}.  This model has also been 
+used by Krogh and Rutenbar (SRC Task ID: 1028.001) to illustrate the analog
+verification technique that they are describing.  We have used the same
+numerical parameters as Krogh and Rutenbar to facilitate comparison of results.
+
+The tunnel diode oscillator example is shown in Figure~\ref{tunnel}.
+This circuit is supposed to oscillate, and the goal of verification would
+be to determine for what parameters and initial conditions it oscillates.
+This circuit can be described with two differential equations:
+\begin{eqnarray*}
+\frac{dVc}{dt} & = & \frac{1}{C}(-h(Vc) + Il) \\
+\frac{dIl}{dt} & = & \frac{1}{L}(-Vc - R \cdot Il + Vin)
+\end{eqnarray*}
+Plots of these two functions are shown in Figures~\ref{dVc} and~\ref{dIl}.  
+
+\begin{figure}[htbp]
+\begin{center}
+\psfig{figure=tunnel,width=100mm} 
+{\caption{\label{tunnel}Tunnel diode oscillator.}}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\psfig{figure=dVc,width=100mm} 
+{\caption{\label{dVc}Rate of change for Vc for various operating points.}}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\psfig{figure=dIl,width=100mm} 
+{\caption{\label{dIl}Rate of change for Il for various operating points.}}
+\end{center}
+\end{figure}
+
+Variables in THPNs are only capable of changing at constant
+rates.  Therefore, to analyze more complicated and more interesting
+systems, it is necessary to model non-linear differential functions as
+piecewise sets of linear functions.  In other words, we must decompose the 
+continuous operating ranges shown in Figures~\ref{dVc} and~\ref{dIl} into
+several boxes in which the rate of change is assumed to be constant.  
+
+After decomposing the continuous domain into discrete states, we have a
+domain divided as shown in Figure~\ref{region}(a) for a two-dimensional
+example surface divided into regions.  The surface could be any surface
+expressed by a set of differential equations.  The region where $0 \leq x \leq
+x_1$ and $0 \leq y \leq y_1$ is shown enlarged in Figure~\ref{region}b.
+This region is modeled by a discrete place
+$p_0$ enabling continuous transitions $dx$ and $dy$.  The
+continuous transitions feed continuous places $x$ and $y$ which are
+common to all regions.  Within each region, $x$ and $y$ can increase
+or decrease by  constant rates.  Discrete transitions $x_u$ and $y_u$
+allow transitions from $p_0$  where $x$ and $y$ have increased beyond
+$x_1$ and $y_1$ and different rates are necessary.  Discrete
+transitions $x_d$ and $y_d$ allow transitions into $p_0$ where $x$ and
+$y$ have fallen below $x_1$ and $y_1$.  Each region is similarly
+modeled resulting in a THPN that will approximate the surface.  
+
+\begin{figure}[htbp]
+\begin{center}
+\psfig{figure=region,width=150mm} 
+{\caption{\label{region} Representing differential equations using THPNs.}}
+\end{center}
+\end{figure}
+
+We used the differential equations given above and a six by six
+decomposition of the continuous state space (i.e., a total of 36 discrete 
+states) to generate a THPN model of this oscillator.  A simulation of the THPN 
+model under conditions in which it oscillates is shown in Figure~\ref{sim1}.  
+A simulation of the THPN model under conditions in which it does not oscillate
+is shown in Figure~\ref{sim2}.
+
+\begin{figure}[htbp]
+\begin{center}
+\psfig{figure=sim1,width=125mm} 
+{\caption{\label{sim1} Simulation showing oscillation (Vin=0.3V, 
+R=200ohm, L=1$\mu$H, and C=1pF).}}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\psfig{figure=sim2,width=125mm} 
+{\caption{\label{sim2} Simulation showing no oscillation (Vin=0.3V, 
+R=242ohm$^{-1}$, L=1$\mu$H, and C=1pF).}}
+\end{center}
+\end{figure}
+
+%% \begin{figure}[htbp]
+%% \begin{center}
+%% \psfig{figure=sim3.eps,width=100mm} 
+%% {\caption{\label{sim3} Simulation showing oscillating limit cycle 
+%% (Vin=0.3V, G=5m ohm$^{-1}$, L=0.3$\mu$H, and C=5pF).}}
+%% \end{center}
+%% \end{figure}
+
+%% \begin{figure}[htbp]
+%% \begin{center}
+%% \psfig{figure=sim4.eps,width=100mm} 
+%% {\caption{\label{sim4} Simulation showing equilibrium point 
+%% (Vin=0.3V, G=5m ohm$^{-1}$, L=0.3$\mu$H, and C=5pF).}}
+%% \end{center}
+%% \end{figure}
+
+\section{Reachability Analysis}
+
+The state space of THPNs are inherently infinite in that each of the 
+clocks and continuous places can take on any real value.  Therefore, 
+to perform reachability analysis on this type of net it is necessary 
+to represent the infinite state space using a representation that 
+groups an infinite number of states into equivalence classes.  There 
+are several successful methods for this type of reachability 
+analysis of timed models such as timed Petri nets using convex 
+polygons, or {\em zones}, to represent ranges of clock values that 
+have equivalent behavior 
+\cite{Belluomini2000,Belluomini2001,Dill:TIME,Rokicki:CAV94,Yoneda97b}.  
+These methods use a
+%srl: below you use DBM where everywhere else you use \em dbm.  It
+%seems a bit odd to me to change it.  If you change b/c \em dbm means
+%a specific dbm in the algorithm I guess it makes sense.  I just
+%wasn't sure if that was the reason or not. 
+{\em difference bound matrix} (DBM) to represent these polygons 
+efficiently.  In this report, we propose to use DBMs to 
+represent the states of THPNs by representing the values of the 
+continuous places also in the DBM.  In particular, each state is 
+represented with the tuple $\langle m, dbm, val, c_f, warp \rangle$ 
+where:
+
+\begin{description}
+\item $m \subseteq P_d$ is the set of marked discrete places;
+\item $dbm : ((P_d \times T_d) \cup (P_c \times T_d) \cup P_c \cup
+  \{p_0\}) \times ((P_d \times T_d) \cup (P_c \times T_d) \cup P_c \cup
+  \{p_0\})
+  \rightarrow \mathcal{Q}^+$ is the zone composed of clocks,
+  continuous variables, and the dummy variable, $p_0$, that is always 0;
+\item $val : P_c \rightarrow \mathcal{Q}^+ \times (\mathcal{Q}^+ \cup
+  \{\infty\}) $: contains the ranges of the continuous variables that are
+  inactive;
+\item $c_f \subseteq (P_d \times T_d) \cup (P_c \times T_d)$ is the
+  set of clocks that have fired;
+\item $warp : P_c \rightarrow \mathcal{Q}$ is the current rate of change for
+  each continuous variable.
+\end{description}
+
+This section describes a new zone based analysis algorithm for reachability 
+analysis of THPNs to find all such states.  The top level algorithm is shown 
+in Figure~\ref{analysis_algm}.  The algorithm is essentially a depth first 
+search of the state space.  It begins by constructing the initial state and
+adding it to the set of reachable states, $S$.
+Next, it determines all possible actions that can result in a new state.
+There are four possible actions that require a new state to be constructed.
+\begin{enumerate}
+\item A clock associated with arc $(p,t)$ can fire.
+\item A clock associated with arc $(p,t) \in (P_c \times T_d)$ may need to
+      be introduced into the $dbm$ due to a Boolean condition becoming true.
+\item A clock associated with arc $(p,t) \in (P_c \times T_d)$ may need to
+      be deleted from the $dbm$ due to a Boolean condition becoming false.
+\item A continuous variable associated with place $p \in P_c$ may need to
+      be deleted from the $dbm$ due to it going to 0.
+\end{enumerate}
+Next, it selects one possible action, and pushes the current state and all 
+remaining actions onto the stack.  It then executes this action to derive
+a successor state.  If the successor state is a new state, it adds it to 
+the list of states, sets it to the current state, and finds all possible next
+actions.  If the successor state is not a new state and the stack is not
+empty, it pops an entry off the stack.  If the stack is empty, the algorithm
+terminates and returns the set of reachable states.  Note that due to the 
+continuous variables, the state space may not be finite in which case this
+algorithm does not terminate.  The remainder of this section describes each
+of the functions called in the top level algorithm in more detail.
+A description of a basic zone based algorithm that does not contain continuous
+variables can be found in \cite{Myers2001b}.
+
+\begin{figure}[htbp]
+\begin{algorithm}
+\small {\bf{reach}}() $\{$
+\ $\langle m,dbm,val,c_f,warp \rangle =$ initial\_state()
+\ $S = \{ \langle m,dbm,val,c_f,warp \rangle \}$
+\ $A =$ find\_possible\_actions($\langle m,dbm,val,c_f,warp \rangle$)
+\ {\bf{if}} ($A = \emptyset$) {\bf{return}} deadlock
+\ done $=$ false
+\ {\bf{while}} ($\neg$ done) $\{$
+\ \ $a = $select($A$)
+\ \ {\bf{if}} ($A - {a} \not= \emptyset$) {\bf{then}}
+\ \ \ {\bf{push}}($\langle m,dbm,val,c_f,warp \rangle$,$A-\{a\}$)
+\ \ {\bf{if}} ($a$ is firing of $(p,t)$ clock) {\bf{then}}
+\ \ \ $\langle m',dbm',val',c_f',warp' \rangle =$ fire\_clock($(p,t)$)
+\ \ {\bf{else if}} ($a$ is introduction of $(p,t)$ clock) {\bf{then}}
+\ \ \ $\langle m',dbm',val',c_f',warp' \rangle =$ introduce\_clock($(p,t)$)
+\ \ {\bf{else if}} ($a$ is deletion of $(p,t)$ clock) {\bf{then}}
+\ \ \ $\langle m',dbm',val',c_f',warp' \rangle =$ delete\_clock($(p,t)$)
+\ \ {\bf{else if}} ($a$ is deletion of $p$ variable) {\bf{then}}
+\ \ \ $\langle m',dbm',val',c_f',warp' \rangle =$ delete\_variable($p$)
+\ \ {\bf{if}} ($\langle m',dbm',val',c_f',warp' \rangle \not\in S$) {\bf{then}}
+\ \ \ $S = S \cup \{ \langle m',dbm',val',c_f',warp' \rangle \}$
+\ \ \ $\langle m,dbm,val,c_f,warp \rangle = \langle m',dbm',val',c_f',warp' \rangle$
+\ \ \ $A =$ find\_possible\_actions($\langle m,dbm,val,c_f,warp \rangle$)
+\ \ {\bf{else if}} (stack is not empty) {\bf{then}}
+\ \ \ ($\langle m,dbm,val,c_f,warp \rangle, A$) = {\bf{pop}}()
+\ \ {\bf{else}}
+\ \ \ done $=$ true
+\ $\}$
+\ {\bf{return}} S 
+$\}$
+\end{algorithm}
+\caption{\label{analysis_algm}Reachability analysis algorithm for THPNs.}
+\end{figure}
+
+\subsection{Zone Manipulation}
+
+This section describes several algorithms that are required for manipulating
+zones.  The first algorithm shown in Figure~\ref{dbm_add} is used to add a new 
+clock or continuous variable to a zone.  This algorithm takes as input the
+zone, $dbm$, the dimension to add, $i$, and the initial lower and upper bound
+for this new dimension, $[l,u]$.  It sets the minimum and maximum entries in
+$dbm$ as specified with the initial bound, sets the diagonal to 0, and all 
+other entries are copied from the min/max entries adjusted for the initial
+value of this new clock or variable. 
+
+\begin{figure}[htbp]
+\begin{algorithm}
+\small {\bf{dbm\_add}}($dbm$, $i$, $[l, u]$) $\{$
+\ $dbm[p_0][i] = -l$
+\ $dbm[i][p_0] = u$
+\ {\bf{foreach}} $j \in dbm$
+\ \ {\bf{if}} ($i = j$) {\bf{then}}
+\ \ \ $dbm[i][j] = 0$
+\ \ {\bf{else}} $\{$
+\ \ \ $dbm[i][j] = dbm[p_0][j] + u$
+\ \ \ $dbm[j][i] = dbm[j][p_0] - l$
+\ \ $\}$
+$\}$
+\end{algorithm}
+\caption{\label{dbm_add}Algorithm for adding to the $dbm$.}
+\end{figure}
+
+The second algorithm shown in Figure~\ref{recon} is used to convert $dbm$ into
+its canonical form.  In other words, all inequalities are made maximally tight.
+This is accomplished by using Floyd's all-pairs shortest-path algorithm.
+
+\begin{figure}[htbp]
+\begin{algorithm}
+\small {\bf{recanonicalize}}($dbm$) $\{$
+\ {\bf{foreach}} $i \in dbm$
+\ \ {\bf{foreach}} $j \in dbm$
+\ \ \ {\bf{foreach}} $k \in dbm$
+\ \ \ \ {\bf{if}} ($dbm[i][j] > dbm[i][k] + dbm[k][j]$) {\bf{then}}
+\ \ \ \ \ $dbm[i][j] = dbm[i][k] + dbm[k][j]$
+$\}$
+\end{algorithm}
+\caption{\label{recon}Floyd's all-pairs shortest-path algorithm.}
+\end{figure}
+
+The third algorithm shown in Figure~\ref{adv_time} is used to advance time.
+This algorithm takes as input the zone, $dbm$, and the current rate of change
+for all continuous variables.  The algorithm first sets all clock entries 
+maximum value to their upper bound.  The remainder of the algorithm is used
+to determine the maximum value of the continuous variables.
+If the continuous variable is increasing and the value of the continuous 
+variable is below the lower bound for some Boolean condition, it must not
+be allowed to advance beyond that value until the clock for that arc gets 
+added to the zone.  If it is above the lower bound and below the upper bound 
+for some Boolean condition, it must not be allowed to exceed the upper bound on
+that condition until the corresponding clock has been removed from the zone.
+Finally, if it is above the upper bound on the Boolean condition, the 
+continuous variable can be unbounded.  When the continuous variable is 
+decreasing, the algorithm is similar except now it approaches the upper bound 
+from above and should not be allowed below the upper bound until the clock is 
+introduced, below the lower bound until until the clock is removed, and should 
+not be allowed below 0 in any case.
+
+  \begin{figure}[t]
+    \begin{algorithm}
+      \small {\bf{advance\_time}}($dbm$,$c_f$,$warp$) $\{$
+      \ {\bf{foreach}} $(p, t) \in dbm$ 
+      \ \ $dbm[(p, t)][p_0] = d_u(p, t)$
+      \ {\bf{foreach}} $p \in dbm$
+      \ \ $dbm[p][p_0] =  min_{(p, t) \in F_h} \{$
+      \ \ \ {\bf{if}} ($b_l(p, t) = 0 \wedge b_u(p, t) = 0 \wedge (p,t) \not \in dbm \wedge (p,t) \not \in c_f$) {\bf{then}}
+      \ \ \ \ $\infty$
+      \ \ \ $b_{lw} = b_l(p, t) / warp(p)$
+      \ \ \ $b_{uw} = b_u(p, t) / warp(p)$
+      \ \ \ {\bf{if}} ($warp(p) > 0$) {\bf{then}} $\{$
+      \ \ \ \ {\bf{if}} ($p \not \in dbm \wedge p \not \in c_f$) {\bf{then}} $\{$
+      \ \ \ \ \ {\bf{if}} ($dbm[p][p_0] < b_{lw}$) {\bf{then}}
+      \ \ \ \ \ \ $b_{lw}$
+      \ \ \ \ \ {\bf{else if}} ($dbm[p_0][p] * -1 \le b_{lw} \wedge dbm[p][p_0] \ge b_{lw} \wedge dbm[p][p_0] < b_{uw}$) {\bf{then}}
+      \ \ \ \ \ \ $dbm[p][p_0]$
+      \ \ \ \ \ {\bf{else if}} ($dbm[p_0][p] * -1 > b_{lw} \wedge dbm[p][p_0] < b_{uw}$) {\bf{then}}
+      \ \ \ \ \ \ $dbm[p][p_0]$
+      \ \ \ \ \ {\bf{else}}
+      \ \ \ \ \ \ $\infty$
+      \ \ \ \ $\}$
+      \ \ \ \ {\bf{else}} $\{$
+      \ \ \ \ \ {\bf{if}} ($dbm[p][p_0] < b_{lw}$) {\bf{then}}
+      \ \ \ \ \ \ $dbm[p][p_0]$
+      \ \ \ \ \ {\bf{else if}} ($dbm[p_0][p] * -1 \le b_{lw} \wedge dbm[p][p_0] \ge b_{lw}$) {\bf{then}}
+      \ \ \ \ \ \ $b_{uw}$
+      \ \ \ \ \ {\bf{else if}} ($dbm[p_0][p] * -1 > b_{lw} \wedge dbm[p][p_0] < b_{uw}$) {\bf{then}}
+      \ \ \ \ \ \ $b_{uw}$
+      \ \ \ \ \ {\bf{else if}} ($dbm[p_0][p] * -1 \le b_{uw} \wedge dbm[p][p_0] \ge b_{uw}$) {\bf{then}}
+      \ \ \ \ \ \ $dbm[p][p_0]$
+      \ \ \ \ \ {\bf{else}}
+      \ \ \ \ \ \ $dbm[p][p_0]$
+      \ \ \ \ $\}$
+      \ \ \ $\}$
+      \ \ \ {\bf{else if}} ($warp(p) < 0$) {\bf{then}} $\{$
+      \ \ \ \ {\bf{if}} ($p \not \in dbm \wedge p \not \in c_f$) {\bf{then}} $\{$
+      \ \ \ \ \ {\bf{if}} ($dbm[p][p_0] < b_{uw}$) {\bf{then}}
+      \ \ \ \ \ \ $b_{uw}$
+      \ \ \ \ \ {\bf{else if}} ($dbm[p][p_0] \ge b_{uw} \wedge dbm[p_0][p] * -1 \le b_{uw}$) {\bf{then}}
+      \ \ \ \ \ \ $dbm[p][p_0]$
+      \ \ \ \ \ {\bf{else if}} ($dbm[p][p_0] < b_{lw} \wedge dbm[p_0][p] * -1 > b_{uw}$) {\bf{then}}
+      \ \ \ \ \ \ $dbm[p][p_0]$
+      \ \ \ \ \ {\bf{else}}
+      \ \ \ \ \ \ $0$
+      \ \ \ \ $\}$
+      \ \ \ \ {\bf{else}} $\{$
+      \ \ \ \ \ {\bf{if}} ($dbm[p][p_0] < b_{uw}$) {\bf{then}}
+      \ \ \ \ \ \ $dbm[p][p_0]$
+      \ \ \ \ \ {\bf{else if}} ($dbm[p][p_0] \ge b_{uw} \wedge dbm[p_0][p] * -1 \le b_{uw}$) {\bf{then}}
+      \ \ \ \ \ \ $b_{lw}$
+      \ \ \ \ \ {\bf{else if}} ($dbm[p][p_0] < b_{lw} \wedge dbm[p_0][p] * -1 > b_{uw}$) {\bf{then}}
+      \ \ \ \ \ \ $b_{lw}$
+      \ \ \ \ \ {\bf{else if}} ($dbm[p][p_0] \ge b_{lw} \wedge dbm[p_0][p] * -1 \le b_{lw}$) {\bf{then}}
+      \ \ \ \ \ \ $dbm[p][p_0]$
+      \ \ \ \ \ {\bf{else}}
+      \ \ \ \ \ \ $dbm[p][p_0]$
+      \ \ \ \ $\}$
+      \ \ \ $\}$
+      \ \ $\}$
+      $\}$
+    \end{algorithm}
+    \caption{\label{adv_time}Algorithm for advancing time.}
+  \end{figure}
+
+Our reachability algorithm requires that all dimensions of the zone advance 
+at rate one.  In other words, the zone always evolves along 45 degree lines.  
+While clocks always
+advance with rate one, continuous variables may increase or decrease with
+other rates.  In this case, the zone needs to be warped such that all 
+variables in the zone advance with rate one.  For example, if $\dot{x}(p)=2$,
+the variable $x(p)$ must be replaced with $\frac{1}{2} \cdot x(p)$ which does 
+advance with rate one.  However, this has the effect of warping the zone as 
+shown with the darker polygon in Figure~\ref{zone_warp}(a).  The $dbm$, 
+however, can only be used to represent polygons made with 45 and 90 degree 
+angles.  Therefore, this zone must be encapsulated in a larger zone (the 
+lighter gray one in Figure~\ref{zone_warp}(a)) that includes this zone while 
+using only 45 and 90 degree angles.  The algorithm for warping a $dbm$ is 
+shown in  Figure~\ref{dbm_warp}.  The first part of the algorithm performs the 
+warping and encapsulation just described.  The last for loop is used when
+a rate is negative which requires a more complicated encapsulation.  In this
+case, the zone must also be reflected along the axis into the negative domain.
+This is accomplished by first swapping the minimum and maximum entries in the 
+zone.  In the resulting zone, all 45 degree angles become 225 degree angles 
+which cannot be represented.  This can be seen in the darker box shown in
+Figure~\ref{zone_warp}(b).  To address this problem, we must encapsulate the 
+zone in a box.  This is accomplished by setting all the separations in the 
+corresponding row and column to infinity.
+The lighter gray zone is the result after encapsulation of the zone in a box.  
+Finally, the warp variable is updated with the new rates 
+of change for the continuous variables based on the current state. 
+
+  \begin{figure}[htbp]
+    \begin{center}
+      \psfig{figure=warp,width=90mm} 
+      \caption{\label{zone_warp} A zone warped by a positive (a) and
+      negative (b) rate. }
+    \end{center}
+  \end{figure}
+  
+  \begin{figure}[htbp]
+    \begin{algorithm}
+      \small {\bf{dbm\_warp}} ($dbm$,$warp$) $\{$
+      \ {\bf{foreach}} ${\{i,j\} | i \in dbm, j \in dbm, i \neq j}$
+      \ \ {\bf{if}} ($\left| warp[i] / \dot{x}(i)\right| > \left| warp[j] / \dot{x}(j)\right|$)
+      \ \ \ $dbm[i][j] = ((warp[j] * dbm[i][j]) / \dot{x}(j)) + ((-1 * warp[j] * dbm[i][0]) / \dot{x}(j)) + ((warp[i] * dbm[i][0]) / \dot{x}(i))$
+      \ \ \ $dbm[j][i] = ((warp[j] * dbm[j][i]) / \dot{x}(j)) + ((-1 * warp[j] * dbm[0][i]) / \dot{x}(j)) + ((warp[i] * dbm[0][i]) / \dot{x}(i))$
+      \ \ {\bf{else}} 
+      \ \ \ $dbm[j][i] = ((warp[i] * dbm[j][i]) / \dot{x}(i)) + ((-1 * warp[i] * dbm[j][0]) / \dot{x}(i)) + ((warp[j] * dbm[j][0]) / \dot{x}(j))$
+      \ \ \ $dbm[i][j] = ((warp[i] * dbm[i][j]) / \dot{x}(i)) + ((-1 * warp[i] * dbm[0][j]) / \dot{x}(i)) + ((warp[j] * dbm[0][j]) / \dot{x}(j))$
+      \ {\bf{foreach}} $p \in dbm \wedge p \in P_c$
+      \ \ $dbm[p_0][p] = \left| warp[p]/\dot{x}(p) \right| \cdot dbm[p_0][p]$
+      \ \ $dbm[p][p_0] = \left| warp[p]/\dot{x}(p) \right| \cdot dbm[p][p_0]$
+      \ {\bf{foreach}} $p \in dbm \wedge p \in P_c$
+      \ \ {\bf{if}} ($warp[p]/\dot{x}(p) < 0$) {\bf{then}}
+      \ \ \ swap($dbm[p_0][p]$, $dbm[p][p_0]$)
+      \ \ \ {\bf{foreach}} $i \in dbm$
+      \ \ \ \ {\bf{if}} ($p \neq i \wedge i \neq p_0$) {\bf{then}}
+      \ \ \ \ \ $dbm[i][p] = \infty$
+      \ \ \ \ \ $dbm[p][i] = \infty$
+      \ {\bf{foreach}} $p \in dbm \wedge p \in P_c$ 
+      \ \ $warp(p)=\dot{x}(p)$
+      \ recanonicalize($dbm$)
+    $\}$
+    \end{algorithm}
+    \caption{\label{dbm_warp}Algorithm for warping the $dbm$.}
+  \end{figure}
+
+%srl: is it worth mentioning something about the effect of the
+%conservative zone?
+
+\subsection{Initial State}
+
+The algorithm for constructing the initial state is shown in
+Figure~\ref{initial_zone}.  This calculates the rates of increase or decrease
+for each continuous variable, and stores this value in $warp$.  Next, it adds 
+all active clocks and active continuous variables to the zone, $dbm$.
+Note that the current version of this algorithm assumes that the range of
+initial values for continuous places either falls completely inside or outside
+all Boolean conditions on that continuous place's value.  If this does not
+hold, then multiple initial zones must be created in which each zone is 
+split up into possibly three zones in which the variable is below the lower
+bound on the Boolean condition, in the range, or above the upper bound. 
+At this time, initial values of inactive continuous variables are also 
+copied to $val$.  It then recanonicalizes the $dbm$, advances time, and 
+recanonicalizes again.  Finally, it returns the initial state.
+
+  \begin{figure}[htbp]
+    \begin{algorithm}
+      \small {\bf{initial\_state}}() $\{$
+      \ {\bf{foreach}} $p \in P_c$ 
+      \ \ $warp(p)=1$
+      \ {\bf{foreach}} $(t) \in T_d$
+      \ \ {\bf{foreach}} $(p, t)  \in F_d \cup F_h$
+      \ \ \ {\bf{if}} $(((p, t) \in F_d \wedge p \in m_0) \vee ((p, t) \in F_h \wedge b_l(p, t) \leq x_{0l} (p) \leq  b_u(p, t)))$ {\bf{then}}
+      \ \ \ \ dbm\_add($(p, t), (0, 0)$)
+% Use the following line instead of the previous line for initial clocks      
+%      \ \ dbm\_add($(p, t)$, $(c_0(p, t), c_0(p, t))$)
+      \ {\bf{foreach}} $p \in P_c$
+      \ \ {\bf{if}} ($warp(p) \neq 0$) {\bf{then}}
+      \ \ \ dbm\_add($p$, $(x_{0l}(p), x_{0u}(p))$)
+      \ \ {\bf{else}}
+      \ \ \ $val[p] = (x_{0l}(p), x_{0u}(p))$
+      \ recanonicalize($dbm$)
+      \ dbm\_warp($dbm$,$warp$)
+      \ advance\_time($dbm$,$c_f$,$warp$)
+      \ recanonicalize($dbm$)
+      \ {\bf{return}} $\langle m_0,dbm,val,\emptyset,warp \rangle$
+      $\}$
+    \end{algorithm}
+    \caption{\label{initial_zone}Algorithm for creating the initial state.}
+  \end{figure}
+  
+\subsection{Determining Possible Actions}
+
+There are four possible actions that require a new state to be generated:
+clock firing, clock introduction, clock deletion, and variable deletion.
+A clock $c(p, t)$ can fire if it is in the $dbm$ and can reach its lower bound 
+(i.e., $(p, t) \in dbm$ and $dbm[(p, t)][p_0] \geq d_l(p, t)$).  
+A clock $c(p, t)$ can be introduced to the $dbm$ if a continuous variable can
+increase above the lower bound of the Boolean condition or decrease below the
+upper bound of the Boolean condition (i.e., 
+$(dbm[p][p_0] = b_l(p,t) \cdot \dot{x}(p) \wedge \dot{x}(p) > 0) \vee 
+ (dbm[p][p_0] = b_u(p,t) \cdot \dot{x}(p) \wedge \dot{x}(p) < 0)$).
+A clock $c(p, t)$ can be deleted from the $dbm$ if a continuous variable can
+increase above the upper bound of the Boolean condition or decrease below the
+lower bound of the Boolean condition (i.e., 
+$(dbm[p][p_0] = b_u(p,t) \cdot \dot{x}(p) \wedge \dot{x}(p) > 0) \vee 
+ (dbm[p][0] = b_l(p,t) \cdot \dot{x}(p) \wedge \dot{x}(p) < 0)$).
+A continuous variable $p \in dbm$ can be deleted from the $dbm$ if it can
+decrease to 0 (i.e., $dbm[p][p_0] = 0 \wedge \dot{x}(p) < 0$).
+The algorithm to determine what actions are possible is shown in
+Figure~\ref{possible}. 
+
+\begin{figure}[htbp]
+\begin{algorithm}
+\small 
+{\bf{find\_possible\_actions}} ($\langle m,dbm,val,c_f,warp \rangle$) $\{$
+\ $A = \emptyset$
+\ {\bf{foreach}} $(p,t) \in dbm$
+\ \ {\bf{if}} ($dbm[(p, t)][p_0] \geq d_l(p, t)$) {\bf{then}}
+\ \ \ $A = A \cup \{((p,t),fire)\}$
+\ {\bf{foreach}} $p \in dbm$
+\ \ {\bf{foreach}} $(p,t) \in F_h$
+\ \ \ {\bf{if}} $((dbm[p][p_0] \ge b_l(p,t) / \dot{x}(p) \wedge \left| dbm[p][p_0] \right| < b_u(p,t) / \dot{x}(p) \wedge \dot{x}(p) > 0)$
+\ \ \ $\vee (\left| dbm[p][p_0] \right| \le \left| b_u(p,t) \right| / \dot{x}(p) \wedge \left| dbm[p][p_0] \right| > \left| b_l(p,t) \right| / \dot{x}(p) \wedge \dot{x}(p) < 0)$
+\ \ \ $\wedge ((p,t) \not\in dbm \wedge (p,t) \not\in c_{f}))$ {\bf{then}}
+\ \ \ \ $A = A \cup \{((p,t),intro)\}$
+\ \ \ {\bf{if}} $((dbm[p][p_0] \ge b_u(p,t) / \dot{x}(p) \wedge \dot{x}(p) > 0)$
+\ \ \ $\vee (\left| dbm[p][p_0] \right| \le \left| b_l(p,t) \right| / \dot{x}(p) \wedge \dot{x}(p) < 0  \wedge b_l(p,t) > 0 )$
+\ \ \ $\wedge ((p,t) \in dbm \vee (p,t) \in c_{f}))$ {\bf{then}}
+\ \ \ \ $A = A \cup \{((p,t),del)\}$
+\ \ {\bf{if}} ($dbm[p][p_0] = 0 \wedge warp(p) < 0$) {\bf{then}}
+\ \ \ $A = A \cup \{(p,del)\}$
+\ {\bf{return}} $A$
+$\}$    
+\end{algorithm}
+\caption{\label{possible}Algorithm for finding set of possible actions.}
+\end{figure}
+  
+\subsection{State Updates}
+
+This section describes how each action updates the state.
+
+\subsubsection{Clock Firing}
+
+The algorithm for performing a
+clock firing is shown in Figure~\ref{fire_clock}.  The algorithm first
+restricts the clock that fired such that it reached its lower bound,
+and it recanonicalizes.  Next, it removes the clock from $dbm$ and places
+it in the set of fired clocks, $c_f$.  If a sufficient set of clocks have 
+fired such that a transition can fire, it fires the transition.  The 
+firing of a transition $t$ results in the marking being updated to remove
+all places in the preset and add all places in the postset of $t$.  
+All fired clocks in the preset of $t$ are removed from $c_f$.
+New clocks are added to $dbm$ for all clocks in the postset of $t$.
+Finally, the firing of a transition may change which continuous variables
+are active or not.  Newly activated variables are added to the zone while
+newly deactivated variables are removed.  Finally, the zone is warped,
+time is advanced, and the zone is recanonicalized.
+
+  \begin{figure}[htbp]
+    \begin{algorithm}
+      \small {\bf{fire\_clock}} ($(p, t)$) $\{$
+      \ // Restrict
+      \ $dbm[p_0][(p, t)] = -d_l(p, t)$
+      \ recanonicalize($dbm$)
+      \ // Project and  Extend $dbm$
+      \ dbm\_remove($(p, t)$)
+      \ $c_f = c_f \cup (p, t)$
+      \ {\bf{if}} ($\forall (p', t) \in F_d \cup F_h . (p', t) \in c_f$) {\bf{then}}
+      \ \ // Fire Transition
+%      \ \ {\bf{foreach}} $(p', t) \in F_d$
+% For safe nets      
+      \ \ $m = m - \{p' | (p',t) \in F_d \} + \{p' | (t,p') \in F_d \}$
+% For unsafe nets      
+%      \ \ \ $m(p') = m(p') + W_d(t, p')$
+% For unsafe nets      
+%      \ \ \ $m(p') = m(p') - W_d(p', t)$
+      \ \ $c_f = c_f - \{ (p', t) | (p',t) \in F_d\}$
+      \ \ {\bf{foreach}} $(t, p') \in F_d$
+      \ \ \ {\bf{foreach}} $(p', t') \in F_d \cup F_h$
+      \ \ \ \ {\bf{if}} $t' \in T_d$ {\bf{then}}
+      \ \ \ \ \ dbm\_add($(p', t')$,$(0, 0)$)
+      \ \ {\bf{foreach}} $p' \in P_c$
+      \ \ \ {\bf{if}} $\dot{x}(p') \neq 0 \wedge p' \not\in dbm$
+      \ \ \ \ dbm\_add($p'$,$val[p']$)
+      \ \ \ \ recanonicalize($dbm$)
+      \ \ \ \ $warp[p'] = 1$
+      \ \ \ \ val\_remove($p'$)
+      \ \ \ {\bf{if}} ($\dot{x}(p') = 0 \wedge p' \in dbm$) {\bf{then}}
+      \ \ \ \ $val[p'] =  (dbm[p_0][p'], dbm[p'][p_0]) \cdot \left|warp[p'] \right|$
+      \ \ \ \ {\bf{if}} $(warp[p'] < 0)$ {\bf{then}}
+      \ \ \ \ \ swap($dbm[p_0][p]$, $dbm[p][p_0]$)
+      \ \ \ \ dbm\_remove($p'$)
+      \ \ dbm\_warp($dbm$,$warp$)
+      advance\_time($dbm$,$c_f$,$warp$)
+      recanonicalize($dbm$)
+      $\}$
+    \end{algorithm}
+    \caption{\label{fire_clock}Algorithm for firing a clock.}
+  \end{figure}
+  
+\subsubsection{Clock Introduction}
+
+The algorithm for clock introduction is shown in
+Figure~\ref{introduce_clock}.  This algorithm restricts the value of the 
+continuous variable to the border in which the Boolean condition becomes true
+and recanonicalizes.  It then adds the new clock to $dbm$, advances time, and
+recanonicalizes again.
+
+  \begin{figure}[htbp]
+    \begin{algorithm}
+      \small {\bf{introduce\_clock}} ($(p, t)$) $\{$
+      \ {\bf{if}} ($warp(p) > 0$) {\bf{then}}
+      \ \ $dbm[p_0][p] = -b_l(p, t) / warp(p)$
+      \ {\bf{else}}
+      \ \ $dbm[p_0][p] = -b_u(p, t) / warp(p)$
+      \ recanonicalize($dbm$)
+      \ dbm\_add($(p, t), [0, 0]$)
+      \ advance\_time($dbm$,$c_f$,$warp$)
+      \ recanonicalize($dbm$)
+      $\}$    
+    \end{algorithm}
+    \caption{\label{introduce_clock}Algorithm for introducing a clock.}
+  \end{figure}
+
+\subsubsection{Clock Deletion}
+
+The algorithm for deleting a clock is shown in
+Figure~\ref{delete_clock}.  This algorithm first restricts the value of
+the continuous variable to the border of the Boolean condition where it
+becomes false and recanonicalizes.  If the corresponding clock is in the
+$dbm$, it removes it from there, and otherwise removes it from $c_f$.
+Finally, it advances time and recanonicalizes again.
+
+  \begin{figure}[htbp]
+    \begin{algorithm}
+      \small {\bf{delete\_clock}} ($(p, t)$) $\{$
+      \ {\bf{if}} ($warp(p) > 0 \wedge dbm[p_0][p] > -b_u(p, t) / warp(p)$) {\bf{then}}
+      \ \ $dbm[p_0][p] = -b_u(p, t) / warp(p)$
+      \ {\bf{else if}} $dbm[p_0][p] > -b_l(p, t)$ {\bf{then}}
+      \ \ $dbm[p_0][p] = -b_l(p, t) / warp(p)$
+      \ recanonicalize($dbm$)
+      \ {\bf{if}} ($(p, t) \in dbm$) {\bf{then}}
+      \ \ dbm\_remove($(p, t)$)
+      \ {\bf{else}}
+      \ \ $c_f = c_f - (p, t)$
+      \ advance\_time($dbm$,$c_f$,$warp$)
+      \ recanonicalize($dbm$)
+      $\}$    
+    \end{algorithm}
+    \caption{\label{delete_clock}Algorithm for deleting a clock.}
+  \end{figure}
+
+\subsubsection{Variable Deletion}
+
+The algorithm for deleting a variable is shown in
+Figure~\ref{delete_variable}.  The algorithm restricts the continuous variable
+to be 0 and recanonicalizes.  It then removes the variable from $dbm$ and 
+puts it into $val$.  Finally, it advances time and recanonicalizes.
+
+  \begin{figure}[htbp]
+    \begin{algorithm}
+      \small {\bf{delete\_variable}} ($p$) $\{$
+      \ $dbm[p_0][p] = 0$
+      \ recanonicalize($dbm$)
+      \ dbm\_remove($p$)
+      \ $warp[p] = 1$
+      \ $val[p] = (0, 0)$
+      \ {\bf{foreach}} $p' \in dbm \wedge p' \in P_c$
+      \ \ {\bf{if}} $\dot{x}(p') = 0$ {\bf{then}}
+      \ \ \ $dbm[p_0][p'] = dbm[p_0][p'] * warp(p')$
+      \ \ \ $dbm[p'][p_0] = dbm[p'][p_0] * warp(p')$
+      \ \ \ {\bf{if}} $warp(p') < 0$ {\bf{then}}
+      \ \ \ \ swap($dbm[p_0][p']$, $dbm[p'][p_0]$)
+      \ \ \ $warp(p') = 1$
+      \ \ \ dbm\_remove($p'$)
+      \ {\bf{foreach}} $(p,t) \in F_h$
+      \ \ {\bf{if}} $b_l(p,t) = 0 \wedge (p,t) \not \in dbm \wedge (p,t) \not \in c_f $ {\bf{then}}
+      \ \ \ dbm\_add(p,t)
+      \ dbm\_warp($dbm$,$warp$)
+      \ advance\_time($dbm$,$c_f$,$warp$)
+      \ recanonicalize($dbm$)
+      $\}$    
+    \end{algorithm}
+    \caption{\label{delete_variable}Algorithm for deleting a variable.}
+  \end{figure}
+  
+%\section{Notes}
+%\subsection{Implicit Places}
+%Because of the addition of weights to the net, implicit places can
+%only be used between discrete transitions when the net is safe
+%(i.e. when the weights are one).
+
+\section{Current Status}
+
+We have a methodology for deriving a THPN model from its differential 
+equation model using a {\tt matlab} style specification of the system.  Using
+{\tt matlab}, we can generate a table of data points reflecting several key
+rates from which a Perl script is used to automatically generate the 
+corresponding THPN model.  We have also completed a THPN simulator which
+generates waveforms for each of the continuous variables.  We are in the 
+process of implementing the reachability analysis algorithm described in this 
+document.  We are also developing techniques to reduce the size and complexity
+of the THPN model using abstraction.  Finally, we are actively searching for 
+examples to test our methodology.
+
+\bibliographystyle{plain}
+\bibliography{hpn}
+
+\end{document}

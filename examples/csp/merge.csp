@@ -1,0 +1,35 @@
+module merge;
+    input 	Xi	= {false};
+    output	Xo	= {false};
+
+    input 	Yi	= {false};
+    output	Yo	= {false};
+
+    output	Zo	= {false};
+    input 	Zi	= {false};
+
+    process MERGE;
+        *[
+            [ Xi+ -> Xo+; Zo+; [Xi-]; Xo-; [Zi+]; Zo-; [Zi-]
+            | Yi+ -> Yo+; Zo+; [Yi-]; Yo-; [Zi+]; Zo-; [Zi-]
+            ]
+         ]
+    endprocess
+
+    process MERGEsdgENV;
+        *[
+            [ skip -> Xi+; [Xo+]; Xi-; [Xo-]
+            | skip -> Yi+; [Yo+]; Yi-; [Yo-]
+            ]
+         ]
+    endprocess
+
+    process ZsdgENV;
+        *[
+            [ Zo+ -> Zi+; [Zo-]; Zi-
+            | Zo+ -> Zi+; [Zo-]; Zi-
+            ]
+         ]
+    endprocess
+
+endmodule

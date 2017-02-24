@@ -1,0 +1,13 @@
+.XX
+simctmc - stochastic simulation to track time in markings
+.PP
+This performs a stochastic simulation on the currently
+loaded TEL structure where the simulation tracks the total
+simulated time as well as the total time spent in each state of
+the system.  The simulation stops when the probability of being
+in a state at any time t converges to a value withing the
+system's tolerance setting (see tolerance).  The probabilities
+from the simulation are stored into the state table.  NOTE: This
+command does not generate transition probabilities, only state
+state probabilities.  This cannot be run without first finding
+a valid state graph.

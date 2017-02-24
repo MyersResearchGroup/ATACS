@@ -1,0 +1,82 @@
+include sunfifo2;
+
+/*****************************************************************************/
+/* A collection of N FIFO stages using SUN's FIFO (see ASYNC97)              */
+/* 	In order to add a stage, simply copy a fifo instance and increment   */
+/*      all the numbers.  Also, increment the numbers in the rightenv.       */
+/*****************************************************************************/
+
+module main;
+
+input i1 = {<180,inf;180,260>};
+input o21 = {true,<90,110;90,inf>};
+
+fifo fifo1(fin => i1, seoutb => o1, eout => x1, eoutb => x1b,
+	   fout => i2, foutb => i2b, seinb => o2);
+
+fifo fifo2(fin => i2, seoutb => o2, eout => x2, eoutb => x2b,
+	   fout => i3, foutb => i3b, seinb => o3);
+
+fifo fifo3(fin => i3, seoutb => o3, eout => x3, eoutb => x3b,
+	   fout => i4, foutb => i4b, seinb => o4);
+
+fifo fifo4(fin => i4, seoutb => o4, eout => x4, eoutb => x4b,
+	   fout => i5, foutb => i5b, seinb => o5);
+
+fifo fifo5(fin => i5, seoutb => o5, eout => x5, eoutb => x5b,
+	   fout => i6, foutb => i6b, seinb => o6);
+
+fifo fifo6(fin => i6, seoutb => o6, eout => x6, eoutb => x6b,
+	   fout => i7, foutb => i7b, seinb => o7);
+
+fifo fifo7(fin => i7, seoutb => o7, eout => x7, eoutb => x7b,
+	   fout => i8, foutb => i8b, seinb => o8);
+
+fifo fifo8(fin => i8, seoutb => o8, eout => x8, eoutb => x8b,
+	   fout => i9, foutb => i9b, seinb => o9);
+
+fifo fifo9(fin => i9, seoutb => o9, eout => x9, eoutb => x9b,
+	   fout => i10, foutb => i10b, seinb => o10);
+
+fifo fifo10(fin => i10, seoutb => o10, eout => x10, eoutb => x10b,
+	   fout => i11, foutb => i11b, seinb => o11);
+
+fifo fifo11(fin => i11, seoutb => o11, eout => x11, eoutb => x11b,
+	   fout => i12, foutb => i12b, seinb => o12);
+
+fifo fifo12(fin => i12, seoutb => o12, eout => x12, eoutb => x12b,
+	   fout => i13, foutb => i13b, seinb => o13);
+
+fifo fifo13(fin => i13, seoutb => o13, eout => x13, eoutb => x13b,
+	   fout => i14, foutb => i14b, seinb => o14);
+
+fifo fifo14(fin => i14, seoutb => o14, eout => x14, eoutb => x14b,
+	   fout => i15, foutb => i15b, seinb => o15);
+
+fifo fifo15(fin => i15, seoutb => o15, eout => x15, eoutb => x15b,
+	   fout => i16, foutb => i16b, seinb => o16);
+
+fifo fifo16(fin => i16, seoutb => o16, eout => x16, eoutb => x16b,
+	   fout => i17, foutb => i17b, seinb => o17);
+
+fifo fifo17(fin => i17, seoutb => o17, eout => x17, eoutb => x17b,
+	   fout => i18, foutb => i18b, seinb => o18);
+
+fifo fifo18(fin => i18, seoutb => o18, eout => x18, eoutb => x18b,
+	   fout => i19, foutb => i19b, seinb => o19);
+
+fifo fifo19(fin => i19, seoutb => o19, eout => x19, eoutb => x19b,
+	   fout => i20, foutb => i20b, seinb => o20);
+
+fifo fifo20(fin => i20, seoutb => o20, eout => x20, eoutb => x20b,
+	   fout => i21, foutb => i21b, seinb => o21);
+
+process leftenv;
+*[ i1+; [o1-]; i1-; [o1+] ]
+endprocess
+
+process rightenv;
+*[ [i21+]; o21-; [i21-]; o21+ ]
+endprocess
+
+endmodule

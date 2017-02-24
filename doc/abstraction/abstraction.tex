@@ -1,0 +1,600 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright (c) 2009 Kevin Jones <kevinj@eng.utah.edu>
+%%
+%% File Name     : abstraction.tex
+%% Author        : Kevin Jones
+%% E-mail        : kevinj@eng.utah.edu
+%% Date Created  : 05/18/2009
+%%
+%% Description   : 
+%%
+%% ToDo          : Add some sort of index.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[titlepage,11pt]{article}
+\textwidth 6.5in
+\textheight 9in
+\oddsidemargin -0.2in
+\topmargin -0.5in
+\usepackage{indentfirst,graphics,alltt,epsfig,color}
+
+\title{Labeled Hybrid Petri Net Simplification Transforms}
+\date{Created: May 18, 2009\\
+  Last Revised: June 17, 2009
+}
+%\author{Kevin Jones}
+
+\begin{document}
+  \maketitle
+
+  %show only subsection granularity in the toc
+  \setcounter{tocdepth}{2} 
+
+  \tableofcontents \newpage
+  
+   \setlength{\parindent}{0em} \setlength{\parskip}{10pt}
+  
+ Let ${\tt preset}(t)$ and ${\tt postset}(t)$ denote the preset and postset of
+a transition $t$.  ${\tt preset}(p)$ and ${\tt postset}(p)$ are similarly 
+defined for a place $p$.   
+
+ This document describes the merging of assignments to enable transitions to be
+removed without interfering with the validity of the verification.  These
+transforms create a superset of the original behavior.  Verification based on
+the abstracted nets may include false negatives but will not include false 
+positives.  For each of these transforms, the removal or movement of assignments
+allows other transforms to be applied that will remove unnecessary transitions.
+
+\section{Graph Manipulation}
+
+ This section details the basic graph transformations that can be made to a
+labeled hybrid petri net (LHPN).  These transformations were designed to be 
+applied to single transitions graph (STG) nets.  They can only be legally
+applied if the transition to be removed does not have any assignment or
+enabling condition.  Any change in the delays is shown in the figures.
+
+\subsection{Transform 0: Merge Parallel Places}
+\label{reduce0}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig0-a.figtex}}
+\scalebox{0.5}{\input{figs/fig0-b.figtex}} \\
+(a) \hspace{6mm} & (b)
+\end{tabular}
+{\caption{\label{xform0}Transform 0. Merge parallel places.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform0}(a) shows two places in parallel.  They can be
+merged into a single place as shown in Figure~\ref{xform0}(b) if the following requirements hold:
+\begin{itemize}
+\item {\tt preset(p1) = preset(p2)}.  
+\item {\tt postset(p1) = postset(p2)}.  
+\item {\tt marking(p1) = marking(p2)}
+\end{itemize}
+
+%\clearpage
+
+\subsection{Transform 1: Remove a Place in a Self Loop}
+\label{reduce}
+
+\begin{figure}[!tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig1-a.figtex}}
+\scalebox{0.5}{\input{figs/fig1-b.figtex}} \\
+(a) \hspace{6mm} & (b)
+\end{tabular}
+{\caption{\label{xform1}Transform 1. Remove a self loop on a
+    transition.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform1}(a) shows a transition $t$ with a self loop, where a 
+place $p$ is in ${\tt preset}(t)$ and ${\tt postset}(t)$, and is marked.
+The transformation removes $p$ and its incoming and outgoing flow relations.
+The new LHPN is shown in Figure~\ref{xform1}(b).  If there is only the
+same one place in the preset and postset of $t$, this place is not
+removed as shown in Figure~\ref{bad}(c). 
+
+%\clearpage 
+
+\subsection{Transform 2: (BAD TRANSFORM) Remove a Transition in a Loop}
+\label{reduce1}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig2-a.figtex}}
+\scalebox{0.5}{\input{figs/fig2-b.figtex}} \\
+(a) \hspace{6mm} & (b)
+\end{tabular}
+{\caption{\label{xform2}Transform 2. Remove a transition in a loop.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform2}(a) shows a loop formed by a transition $t_3$, where the size
+of the preset and postset of $t_3$ is 1. The semantics
+of this LHPN can be interpreted as transition $t_4$ can fire after the
+infinite number of times of firings of transition $t_2$ and $t_3$.
+If ${\tt u}(p_1) + {\tt u}(p_2) > 0$, by changing ${\tt u}(p2)$ to $\infty$, 
+the timing of $t_4$ is preserved.  The new LHPN after removing transition 
+$t_3$ and its incoming and outgoing flow relations is shown in 
+Figure~\ref{xform2}(b).
+
+The code implemented the above transformation is in the function call 
+{\em xform\_1} in postproc.cc.  
+
+%\clearpage
+
+\subsection{Transform 3: Remove a Transition With a Single Place in the Postset}
+\label{reduce2}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{ccc}
+\scalebox{0.5}{\input{figs/fig3a-a.figtex}}
+\scalebox{0.5}{\input{figs/fig3a-b.figtex}}
+\scalebox{0.5}{\input{figs/fig3a-c.figtex}} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform3a}Transform 3a. Remove the transition with
+    the size of postset of 1.}}
+\end{center}
+\end{figure}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig3b-a.figtex}}
+\scalebox{0.5}{\input{figs/fig3b-b.figtex}} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform3b}Transform 3b. The transformation in
+    Figure~\ref{xform3a} without the restriction that places in preset(t)
+    have postset sizes of 1.}}
+\end{center}
+\end{figure}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig3c-a.figtex}}
+\scalebox{0.5}{\input{figs/fig3c-b.figtex}} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform3c}Transform 3c.  The transformation in
+    Figure~\ref{xform3a} without the restriction that the place in
+    postset(t) have preset size of 1.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform3a}(a) shows a transition $t$ with only one place in its
+postset.  Suppose $t$ is removed.  The incoming and outgoing flow relations
+of $t$ are also removed.  Then the place in ${\tt postset}(t)$ is 
+merged with those in ${\tt preset}(t)$.  The delay bounds of the transition 
+$t$ are added to the delay bounds of the transitions following the places in
+${\tt postset}(t)$, as shown in Figure~\ref{xform3a}(b).  
+Figure~\ref{xform3a}(b) shows this transform applied when {e1}={e2}=true.
+Figure~\ref{xform3a}(c) shows the same transform when {e2}$\Rightarrow${e1}
+and {e3}$\Rightarrow${e1}.  If one or all of the transitions following $t$ has
+an enabling condition that does not imply {e1}, then the transform cannot be
+applied.
+
+The transformation in Figure~\ref{xform3a}  has the restrictions that
+for each place $p$ in
+${\tt preset}(t)$, the size of ${\tt postset}(p)$ equals 1 and  for the
+place $p$ in ${\tt postset}(t)$, the size of ${\tt preset}(p)$ equals
+1.  Figures \ref{xform3b} and \ref{xform3c} show the same
+transformations without each restriction respectively.
+
+Figure~\ref{bad}(a) and (b) show where these above transformations
+cannot be applied.  Namely, one or other of the above mentioned restrictions
+may be loosened, but not both.
+
+All places in preset(t) must have same marking (all marked or all
+unmarked) and place in postset(t) can be marked.  If either preset(t)
+or postset(t) is marked, new combined places are marked.
+
+%\clearpage
+%\newpage
+
+\subsection{Transform 4: Remove A Transition With A Single Place in the Preset}
+\label{xform-3}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig4a-a.figtex}}
+\scalebox{0.5}{\input{figs/fig4a-b.figtex}} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform4a}Transform 4a. Remove a transition with
+    preset of size 1.}}
+\end{center}
+\end{figure}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig4b-a.figtex}}
+\scalebox{0.5}{\input{figs/fig4b-b.figtex}} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform4b}Transform 4b. Transformation in Figure~\ref{xform4a}
+    without restriction that the places in preset(t) have a preset of
+    size 0.}}
+\end{center}
+\end{figure}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig4c-a.figtex}}
+\scalebox{0.5}{\input{figs/fig4c-b.figtex}} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform4c}Transform 4c. Transformation in Figure~\ref{xform4a}
+    without restriction that the places in postset(t) each have a preset of
+    size 1.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform4a}(a) shows a transition $t$ with only one place in its
+preset.  Suppose $t$ is removed.  The incoming and outgoing flow relations
+of $t$ are also removed.  The the place in ${\tt preset}(t)$ is 
+merged with those in ${\tt postset}(t)$.  The delay bounds of the transition 
+$t$ are added to the delay bounds of the transitions following the places in 
+${\tt postset}(t)$, as shown in Figure~\ref{xform4a}(b).
+The transformation in Figure~\ref{xform4a} as the restrictions that
+for the place $p$ in
+${\tt preset}(t)$, the size of ${\tt postset}(p)$ equals 1 and for each
+place $p$ in ${\tt postset}(t)$, the size of ${\tt preset}(p)$ equals
+1, too.  Figures~\ref{xform4b} and \ref{xform4c} demonstrate the same
+transform where these restrictions are loosened.
+
+The above transformations are also 
+restricted by the conditions shown in Figure~\ref{bad}(a) and (b).
+
+All places in postset(t) must have same marking (all marked or all
+unmarked) and place in preset(t) can be marked.  If anything is
+marked, new combined places are marked.
+
+This transform may only be meaningfully applied if the enabling conditions of
+$t$ and all preceding transitions is true.
+
+%\clearpage
+
+\subsection{Transform 5: Merge Transitions With the same preset and postset}
+\label{merge-1}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cccc}
+\scalebox{0.5}{\input{figs/fig5a-a.figtex}}
+\scalebox{0.5}{\input{figs/fig5a-b.figtex}} \\
+(a) \hspace{10mm} & (b)\\
+\scalebox{0.5}{\input{figs/fig5a-c.figtex}}
+\scalebox{0.5}{\input{figs/fig5a-d.figtex}} \\
+(c) \hspace{10mm} & (d)
+\end{tabular}
+{\caption{\label{xform5a}Transform 5a. Merge transitions with the same
+    preset and postset.  Figure (b) shows the transform if {e1}={e2}.
+    Figures (c) and (d) show the transform if {e2}$\Rightarrow${e1} or
+    {e1}$\Rightarrow${e2}, respectively.}}
+\end{center}
+\end{figure}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig5b-a.figtex}}
+\scalebox{0.5}{\input{figs/fig5b-b.figtex}} \\
+(a) \hspace{10mm} & (b) 
+\end{tabular}
+{\caption{\label{xform5b}Transform 5b. Merge transitions where the
+    places in their preset and postset have the same preset and
+    postset.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform5a}(a) shows two transitions $t_6$ and $t_7$ with 
+the same preset and postset.  Those two transitions can be merged together
+without affecting the behavior on transitions $t_{10}$, $t_{11}$, and 
+$t_{12}$ as shown in Figure~\ref{xform5a}(b).  Since no places are
+being removed, no marking restrictions apply.  This transform cannot be
+applied, however, if the assignments on the transitions are different.
+Figure~\ref{xform5a}(b) shows the transform when {e1}={e2}.
+Figure~\ref{xform5a}(c) and Figure~\ref{xform5a}(d) show the same transform
+when {e2}$\Rightarrow${e1} and {e1}$\Rightarrow${e2}, respectively.
+
+%Note: Transform 5b is not turned on by default.  It was found to have
+%minimal effect except for in a few examples and was computationaly
+%intensive.  Additionally, the correctness of this transformation in
+%its current form is in question.
+
+Another case is where the two transitions do not have the same preset
+and postset, but the places in their preset and postset have the same
+preset and postset as shown in Figure~\ref{xform5b}(a).  The two
+transitions can still be merged along with the places in their preset
+and postset. This transformation is depicted in Figure~\ref{xform5b}.
+In order for the transformation to be applied certain timing
+constraints must be satisfied.
+
+%There is also requirement on this transformation that the places in
+%the preset of the merged two transitions must have same postset
+%excluding the merging transitions, and the places in the postset of
+%the merged two transitions must have same preset excluding the merging
+%transitions.  For example, in Figure~\ref{xform5b}(a), the places in
+%the preset of $t_3$ and $t_4$ are $p_1$ and $p_2$.  The postset of
+%$p_1$ and $p_2$ contains only $t_2$, excluding $t_3$ and $t_4$.  The
+%places in the postset of $t_3$ and $t_4$ are $p_3$ and $p_4$.  The
+%preset of $p_3$ and $p_4$ contains only $t_5$, excluding $t_3$ and
+%$t_4$.
+
+%\clearpage
+
+\subsection{Transform 6: Merge Transitions With the same preset}
+\label{merge-2}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig6-a.figtex}}
+\scalebox{0.5}{\input{figs/fig6-b.figtex}} \\
+(a) \hspace{5mm} & (b)
+\end{tabular}
+{\caption{\label{xform6}Transform 6. Merge transitions with the same
+    preset.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform6}(a) shows two transitions $t_1$ and $t_2$ with 
+the same preset.  It is also required that the places in the postset of 
+$t_1$ and $t_2$ must have the same preset aside from the two
+transitions being merged.  Additionally, there can only be one place
+in the postsets of t1 and t2.  Those two 
+transitions can be merged together without affecting the behavior on 
+transitions $t_3$, $t_4$, and $t_5$ as shown in Figure~\ref{xform6}(b).
+
+Since the places in the postset of the merging transitions will be
+merged, they must have a consistent marking.  The newly merged place
+will have the same marking as the places being merged.
+%\clearpage
+
+\subsection{Transform 7: Merge Transitions With the same postset}
+\label{merge-3}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig7-a.figtex}}
+\scalebox{0.5}{\input{figs/fig7-b.figtex}} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform7}Transform 7. Merge transitions with the same
+    postset.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform7}(a) shows two transitions $t_1$ and $t_2$ with 
+the same postset.  It is also required that the places in the preset of 
+$t_1$ and $t_2$ must have the same postset aside from $t_1$ and $t_2$.
+Those two 
+transitions can be merged together without affecting the behavior on 
+transitions $t_3$, $t_4$, and $t_5$ as shown in
+Figure~\ref{xform7}(b).  Additionally, the transitions being merged
+may each only have one place in their presets.  The places in the
+preset of the transitions
+being merged should have consistent markings.  The newly merged place
+in the transformed net should have the same marking as the places that
+are merged.
+
+
+
+%\clearpage
+
+\subsection{Illegal Transformations}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/figbad-1.figtex}}
+\scalebox{0.5}{\input{figs/figbad-2.figtex}} \\
+(a) \hspace{6mm} & (b) \\
+\scalebox{0.5}{\input{figs/figbad-3.figtex}}
+\scalebox{0.5}{\input{figs/figbad-4.figtex}} \\
+(c) \hspace{6mm} & (d)
+\end{tabular}
+{\caption{\label{bad}Illegal transformations.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{bad} shows several illegal transformations. In Figure~\ref{bad}(a),
+neither $t_1$ nor $t_2$ can be removed using transformations in 
+section~\ref{reduce1} and \ref{reduce2}.  
+They may be merged by transformations insection~\ref{merge-1}, 
+\ref{merge-2}, or \ref{merge-3}.  In Figure~\ref{bad}(b), $t_3$ cannot be
+removed in that it is impossible to have two places connected without a
+transition in between. Figure~\ref{bad}(c) shows a stand-alone self loop which
+is not removed for some reason.  I think it can be removed if the wire of 
+that transition is not used in any levels.  Figure~\ref{bad}(d) shows a
+dangling transition $t_2$.  It cannot be removed because safety failure
+maybe hidden; otherwise.
+
+%\newpage
+
+\section{Assignment Transforms}
+
+This section presents transforms that build upon the transforms from the
+previous section.  While these themselves do not simplify the LHPN (with the
+exception of Transform 12), they remove assignments from certain transitions
+so that Transforms 2-7 can then be applied to actually simplify the net.
+
+\subsection{Transform 8: Combine Sequential Assignments to a Single Variable}
+\label{reduce8}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{ccc}
+\scalebox{0.5}{\input{figs/fig8-a.figtex}}
+\scalebox{0.5}{\input{figs/fig8-b.figtex}}
+\scalebox{0.5}{\input{figs/fig8-c.figtex}} \\
+(a) \hspace{6mm} & (b) \hspace{6mm} & (c)
+\end{tabular}
+{\caption{\label{xform8}Transform 8. Sequential Assignments to a Single 
+Variable.  Note: enab1$\Rightarrow$enab2.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform8}(a) shows two sequential transitions with assignments to a
+single variable.  These assignments can be combined into a single assignment in
+a two-step process.  First, each assignment is broadened to include the maximum
+range included in the two assignments, as shown in Figure~\ref{xform8}(b).  In
+each case, the assignments include a superset of the original values.  When this
+has been done, the second assignment becomes vacuous and can be eliminated, as 
+shown in Figure~\ref{xform8}(c).  This can be done if the assignments meet the
+following criteria:
+\begin{itemize}
+\item The assignments are sequential.
+\item Both assignments are to the same variable.
+\item There are no concurrent assignments to the variable being assigned.
+\item The second assignment has zero delay.
+\item The enabling condition of the first transition implies the enabling
+condition of the second assignment, i.e. enab1$\Rightarrow$enab2.
+\end{itemize}
+
+%\clearpage
+
+\subsection{Transform 9: Combine Sequential Assignments to Multiple Variables}
+\label{reduce9}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig9-a.figtex}}
+\scalebox{0.5}{\input{figs/fig9-b.figtex}} \\
+(a) \hspace{6mm} & (b)
+\end{tabular}
+{\caption{\label{xform9}Transform 9. Sequential Assignments to Multiple 
+Variables, if {e2}$\Rightarrow${e1}.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform9}(a) shows two sequential transitions, each with an assignment
+to a different variable.  These assignments can be combined onto a single
+transition, as seen in Figure~\ref{xform9}(b).  Care must be taken to apply this 
+transform in the correct cases, because it will slightly alter the behavior of the
+net.  In the case of Boolean variables, the state graph must have an intermediate
+``unknown'' state in which each of the variables is unknown.  This allows the
+variables to be assigned in any order, rather than the assignments being done 
+simulataneously.  This transform can be done when:
+\begin{itemize}
+\item The assignments are sequential.
+\item Both assignments are to different variables.
+\item There are no assignments or enabling conditions that are dependent on the
+variables involved.
+\end{itemize}
+
+%\clearpage
+
+\subsection{Transform 10: Combine Parallel Assignments to Multiple Variables}
+\label{reduce10}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\scalebox{0.5}{\input{figs/fig10-a.figtex}}
+\scalebox{0.5}{\input{figs/fig10-b.figtex}} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform10}Transform 10. Parallel Assignments to Multiple 
+Variables.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform10}(a) shows two parallel transitions, each with assignments to a
+different variable.  These assignments can be put on the same transition as shown
+in Figure~\ref{xform10}(b).  Care must be taken to apply this transform in the 
+correct cases, because it will slightly alter the behavior of the net.  In the 
+case of Boolean variables, the state graph must have an intermediate ``unknown'' 
+state in which each of the variables is unknown.  This allows the variables to be
+assigned in any order, rather than the assignments being done simulataneously.  
+This transform can be done when:
+\begin{itemize}
+\item The assignments are parallel.
+\item Both assignments are to different variables.
+\item There are no assignments or enabling conditions that are dependent on the
+variables involved.
+\end{itemize}
+
+%\clearpage
+
+\subsection{Transform 11: Simplify Cascading Assignments}
+\label{reduce11}
+
+\begin{figure}[tbh]
+\begin{center}
+\scalebox{0.5}{\input{figs/fig11-a.figtex}}
+\scalebox{0.5}{\input{figs/fig11-b.figtex}}
+{\caption{\label{xform11}Transform 11. Cascading Assignments.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform11}(a) shows two transitions with assignments to different
+variables.  If the variable in the first assignment is a statically determinable
+(i.e. the variable is an integer or Boolean value or the rate of the variable is 
+zero), then the value of the first variable can be inserted into the second
+assignment in place of the variable name.  If there are no more assignments or 
+enabling conditions that depend on the value of the first variable before it is 
+assigned a new value, the assignment to that variable may be removed.  Otherwise,
+it can be moved onto the same transition as the other variable, as shown in
+Figure~\ref{xform11}(b).  Care must be taken to apply this transform in the 
+correct cases, because it will slightly alter the behavior of the net.  In the 
+case of Boolean variables, the state graph must have an intermediate ``unknown'' 
+state in which each of the variables is unknown.  This allows the variables to be
+assigned in any order, rather than the assignments being done simulataneously.  
+This transform can be done when:
+\begin{itemize}
+\item The assignments are sequential.
+\item The value of the first variable is statically determinable.
+\end{itemize}
+
+%\clearpage
+%\pagebreak
+
+\subsection{Transform 12: Simplify Assignment Loop}
+\label{reduce12}
+
+\begin{figure}[tbh]
+\begin{center}
+\scalebox{0.5}{\input{figs/fig12a-a.figtex}}
+\scalebox{0.5}{\input{figs/fig12a-b.figtex}} \\
+(a) \hspace{50mm} (b) \\
+\scalebox{0.5}{\input{figs/fig12a-c.figtex}}
+\scalebox{0.5}{\input{figs/fig12a-d.figtex}} \\
+(c) \hspace{50mm} (d)
+{\caption{\label{xform12}Transform 12. Assignment Loop.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform12}(a) shows an assignment loop that is frequently seen in LHPNs
+generated by SPICE data.  The assignments and enabling conditions can be shifted,
+removed, or combined as shown in Figure~\ref{xform12}(b).  The empty transitions
+can then be removed to form the subnet shown in Figure~\ref{xform12}(c).  This 
+transorm can be done when:
+\begin{itemize}
+\item This specific structure of places and transitions exists.
+\item For the enabling conditions as shown in Figure~\ref{xform12}, {\tt a$\Rightarrow$b} and {\tt d$\Rightarrow$c}.
+\end{itemize}
+
+\subsection{To Do and Notes}
+
+\begin{itemize}
+\item Elaborate on the uncertainty of combining variables with expressions.
+\end{itemize}
+
+\end{document}

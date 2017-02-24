@@ -1,0 +1,12 @@
+.name jordi1
+.outputs a b
+#@.init_state [00]
+.graph
+b+/1 b-/1
+b-/1 b+/1
+b-/1 a+/1
+a+/1 b-/1
+a+/1 a-/1
+a-/1 a+/1
+.marking {<b-/1,b+/1><b-/1,a+/1><a-/1,a+/1>}
+.end

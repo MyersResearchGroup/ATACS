@@ -1,0 +1,22 @@
+eval "set PATH=/usr/bin:/usr/local/bin:/Perl/bin:${PATH};exec perl -S $0 $*"
+    if $running_under_some_shell;#above line won't run if we're already in Perl
+
+if ( ! @ARGV[0] ) { print "usage: 3d_count_literals filename\n"; }
+
+foreach $arg (@ARGV) {
+    if ( ! -r $arg) { die "ERROR: Cannot read specified file: ".$arg.". Skipping this file...\n"; }
+    else {
+	open(FILE,$arg);
+	@file = <FILE>;
+	close(FILE);
+	$literals = 0;
+	foreach $line (@file) {
+	    $line =~ s/\s*\+?\s*\n//;
+	    $line =~ s/^\s*//;
+	    if (($line =~ /\w/) && ($line !~ /=/)) {
+		@literals = split(/\s+/,$line);
+		$literals += $#literals + 1; }
+	}
+	print "$arg has $literals literals.\n";
+    }
+}

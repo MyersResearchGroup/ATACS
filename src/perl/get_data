@@ -1,0 +1,45 @@
+#!/bin/csh
+
+##########################################################################
+## egm -- 12/18/00
+##
+## This script searches through each file specified on the command
+## line that matches the regular expression <pattern> that is expanded
+## by the shell (i.e., */*.log will set *i to be list of all files that
+## have a .log extension) and looks for a line of the following format:
+##
+## Found 8 zones in 8 states for cstat (3d 516444m 0u)
+##
+## NOTE: It will match any line starting with the word "Found." Hopefully,
+## that is the line of interest!
+##
+## Once it finds a line, this script will pring out the file the line is
+## matched in along with each of the numbers provided on that line.
+## If "Found" does not exist, then the script will print only the name
+## of the file it was searching and move on.
+##########################################################################
+
+## Check that a file or files were specified in the command line
+if ( $#argv == 0 ) then
+  echo "usage: get_data <pattern>"
+  exit 1
+endif
+
+## For each file provided, try and extract the information
+foreach i ($*)
+    setenv name `basename $i .log`;
+    if ( $name != "atacs" ) then
+        ## Print the name -n supresses the newline
+	echo -n $name
+	## Find "Found" in the file and report the information from
+	## on the line.  Note: the gsub command strips away any 
+        ## textual identifiers on the numbers.
+	awk '/Found/{gsub("[()dum]","",$9); \
+		gsub("[()dum]","",$10); \
+		gsub("[()dum]","",$11); \
+		printf " %d %d %d %d %g",$2,$5,$9,$10,$11; \
+                nextfile;}' $i
+	## Print the \n for the next entry.
+	echo -n "\n"
+    endif
+end

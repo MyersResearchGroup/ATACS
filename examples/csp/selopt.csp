@@ -1,0 +1,61 @@
+/*****************************************************************************/
+/* Optimized port selector example from Myers' PhD thesis.                   */
+/*****************************************************************************/
+module selopt;
+delay  gatedelay = <0,20>;
+delay  mdelay    = <600,inf; 100,600>;
+delay  bdelay    = <100,260>;
+delay  rdelay    = <100,180>;
+
+input  XFERi = {false,mdelay};
+output XFERo = {false,gatedelay};
+output DATAo = {false,gatedelay};
+input  DATAi = {false,rdelay};
+output SELo  = {false,gatedelay};
+input  SEL1i = {false,bdelay};
+input  SEL2i = {false,bdelay};
+output OUT1o = {false,gatedelay};
+input  OUT1i = {false,rdelay};
+output OUT2o = {false,gatedelay};
+input  OUT2i = {false,rdelay};
+
+process selctrl;
+*[ [XFERi+]; (([DATAi-@ | DATAi-@]; DATAo+) || ([SEL1i-@ | SEL2i-@]; SELo+)); 
+      [DATAi+];
+    [ SEL1i+ -> SELo-; DATAo-; [OUT1i-@]; OUT1o+; [OUT1i+]; OUT1o-;
+                XFERo+; [XFERi-]; XFERo-
+    | SEL2i+ -> SELo-; DATAo-; [OUT2i-@]; OUT2o+; [OUT2i+]; OUT2o-;
+                XFERo+; [XFERi-]; XFERo-
+    ]
+ ]
+endprocess
+
+process xfer;
+*[ XFERi+; [ XFERo+ -> XFERi-; [XFERo-]
+           | XFERo+ -> XFERi-; [XFERo-]
+           ]
+ ]
+endprocess
+
+process data;
+*[ [DATAo+]; DATAi+; [ DATAo- -> DATAi-
+                     | DATAo- -> DATAi-
+                     ]
+ ]
+endprocess
+
+process sel;
+*[ [SELo+]; [ skip -> SEL1i+; [SELo-]; SEL1i-
+            | skip -> SEL2i+; [SELo-]; SEL2i-
+            ]
+ ]
+endprocess
+
+process out1;
+*[[OUT1o+]; OUT1i+; [OUT1o-]; OUT1i- ]
+endprocess
+
+process out2;
+*[[OUT2o+]; OUT2i+; [OUT2o-]; OUT2i- ]
+endprocess
+endmodule

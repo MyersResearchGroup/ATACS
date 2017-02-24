@@ -1,0 +1,11 @@
+time ../../bin/atacs -on -tp -oq -va stari2
+time ../../bin/atacs -on -tp -oq -va stari3 
+time ../../bin/atacs -on -tp -oq -va stari4 
+time ../../bin/atacs -on -tp -oq -va stari5 
+time ../../bin/atacs -on -tp -oq -va stari6
+time ../../bin/atacs -on -tp -oq -va stari7
+time ../../bin/atacs -on -tp -oq -va stari8
+time ../../bin/atacs -on -tp -oq -va stari9
+time ../../bin/atacs -on -tp -oq -va stari10
+time ../../bin/atacs -on -tp -oq -va stari11
+time ../../bin/atacs -on -tp -oq -va stari12

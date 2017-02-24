@@ -1,0 +1,30 @@
+module	FF;
+
+delay logic = < 1, 2>;
+delay env   = <10,20>;
+
+input	clk = {env};
+input	d   = {env};
+output	q   = {logic};
+
+process main;
+    *[
+	[~q & ~d & clk -> skip
+	|~q &  d & clk -> q+
+	| q & ~d & clk -> q-
+	| q &  d & clk -> skip
+	];                 
+	[         ~clk
+	]
+     ]
+endprocess
+
+testbench env;
+ *[
+     [skip ->     clk+;      clk-
+     |skip -> d+; clk+; d-;  clk-
+     ]
+  ]
+endtestbench
+
+endmodule

@@ -1,0 +1,27 @@
+input	RFFrameReq               0
+input	SOFEventOK               0
+input	EOFEventOK               0
+input	CtrEoTSAck               0
+input	SCEoTSAck                0
+input	HIFCommitAck             0
+output	ControlResetAck          1
+output	RFFrameAck               0
+output	IntSDReq                 0
+output	SCEoTSReq                0
+output	HIFCommitReq             0
+output	zzz00                    0
+output	zzz01                    0
+
+0  1	RFFrameReq+              | IntSDReq+ ControlResetAck- 
+1  2	SOFEventOK+              | IntSDReq- 
+2  3	SOFEventOK-              | IntSDReq+ 
+3  4	EOFEventOK+              | HIFCommitReq+ IntSDReq- zzz00+ 
+4  5	EOFEventOK- HIFCommitAck+ | HIFCommitReq- SCEoTSReq+ 
+5  6	HIFCommitAck- SCEoTSAck+ | SCEoTSReq- 
+6  7	SCEoTSAck-               | RFFrameAck+ 
+7  8	RFFrameReq-              | RFFrameAck- zzz00- 
+8  1	RFFrameReq+              | IntSDReq+ 
+3  9	CtrEoTSAck+              | IntSDReq- zzz01+ 
+9  10	CtrEoTSAck-              | SCEoTSReq+ 
+10  11	SCEoTSAck+               | SCEoTSReq- zzz01- 
+11  3	SCEoTSAck-               | IntSDReq+ 

@@ -1,0 +1,8 @@
+[ x: (a & b & ~c)] Combinational
+[ x: (~c & zzz00)] Combinational
+[ x: (a & x)] Combinational
+[ x: (~a & ~c & ~zzz00)] Combinational
+[ x: (~b & x)] Combinational
+[ zzz00: (a & b & ~c)] Combinational
+[ zzz00: (~c & zzz00)] Combinational
+[ zzz00: (a & zzz00)] Combinational

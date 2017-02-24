@@ -1,0 +1,12 @@
+module nousc1;
+
+input a;
+input b;
+input d;
+input e;
+output c;
+
+process nousc1;
+*[[ skip -> d+; a+; (c+ || (e+; b+)); d-; c-; b-; a-; e-; d+; b+; ((d-; a+) || c+); e+; c-; b-; a-; e-]]
+endprocess
+endmodule

@@ -1,0 +1,95 @@
+module seq;
+
+input xi;
+input yi;
+output xo;
+output yo;
+output u;
+output x1;
+output x2;
+output y1;
+output y2bar = { true };
+output u1;
+output u2bar = { true };
+
+gate xogate;
+ u1 & ~yi -> xo+
+~u1 |  yi -> xo-
+endgate
+
+/* Non-isochronic
+gate xogate;
+ u1 &  y2bar -> xo+
+~u1 | ~y2bar -> xo-
+endgate
+*/
+
+gate yogate;
+ u2bar &  xi -> yo+
+~u2bar | ~xi -> yo-
+endgate
+
+/* Non-isochronic
+gate yogate;
+ u2bar &  x1 -> yo+
+~u2bar | ~x1 -> yo-
+endgate
+*/
+
+gate ugate;
+ xi &  yi -> u+
+~xi & ~yi -> u-
+endgate
+
+/* Non-isochronic
+gate ugate;
+ x2 &  y1 -> u+
+~x2 & ~y1 -> u-
+endgate
+*/
+
+/*
+gate yifork;
+ yi -> y1+
+~yi -> y1-
+endgate
+
+gate yiinv;
+ yi -> y2bar-
+~yi -> y2bar+
+endgate
+*/
+
+gate ufork;
+ u -> u1+
+~u -> u1-
+endgate
+
+gate uinv;
+ u -> u2bar-
+~u -> u2bar+
+endgate
+
+/*
+gate xofork1;
+ xi -> x1+
+~xi -> x1-
+endgate
+
+gate xofork2;
+ xi -> x2+
+~xi -> x2-
+endgate
+*/
+
+gate xenv;
+~xo -> xi+
+ xo -> xi-
+endgate
+
+gate yenv;
+ yo -> yi+
+~yo -> yi-
+endgate
+endmodule
+

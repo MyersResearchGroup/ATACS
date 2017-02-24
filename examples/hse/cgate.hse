@@ -1,0 +1,32 @@
+module celem;
+
+input a = {<0,1>};
+input b = {<0,1>};
+output c = {<0,1>};
+
+gate celem;
+ a &  b -> c+
+~a & ~b -> c-
+endgate
+endmodule
+
+module env;
+
+input c = {<0,1>};
+output a = {<0,1>};
+output b = {<0,1>};
+
+process env;
+*[ (a+ || b+); [c]; (a- || b-); [~c]]
+endprocess
+endmodule
+
+module main;
+
+input x = {<0,1>};
+input y = {<0,1>};
+
+celem c1(a => x, b => y, c => z);
+env   e1(a => x, b => y, c => z);
+
+endmodule

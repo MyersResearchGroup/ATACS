@@ -1,0 +1,9 @@
+[ ack: (csc1)] Combinational
+[+csc0: (~done & req & precharged)]
+[-csc0: (wsldin)]
+[+csc1: (wenin & done)]
+[-csc1: (~wsldin & ~req & ~csc0)]
+[~prbar: (~csc0 & ~csc1)] Combinational
+[ wen: (~precharged & csc0 & ~csc1)] Combinational
+[ wsen: (~csc1)] Combinational
+[ wsld: (~wenin & csc0 & ~wsen)] Combinational

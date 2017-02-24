@@ -1,0 +1,14 @@
+[+RLout: (RLin & ~Aout & A)]
+[-RLout: (~A)]
+[+RHout: (~Aout & B & A)]
+[-RHout: (~B & ~A)]
+[+B: (RHin)]
+[-B: (~RHin & Aout)]
+[+A: (RHin)]
+[+A: (RLin)]
+[-A: (~RHin & ~RLin & Aout)]
+[ H: (B)] Combinational
+[ L: (A)] Combinational
+[+Ain: (H & L)]
+[+Ain: (RLin & L)]
+[-Ain: (~H & ~L)]

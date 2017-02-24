@@ -1,0 +1,8 @@
+[+ack: (ackpb & y0_mpforwardpkt)]
+[-ack: (~req & ~ackpb)]
+[ allocoutbound: (~req & ~ackpb & y0_mpforwardpkt)] Combinational
+[ allocpb: (~ackout & req & ~y0_mpforwardpkt)] Combinational
+[+rts: (~req & ~y0_mpforwardpkt)]
+[-rts: (~ackout & req)]
+[+y0_mpforwardpkt: (ackpb)]
+[-y0_mpforwardpkt: (ackout)]

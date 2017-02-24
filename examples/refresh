@@ -1,0 +1,6 @@
+#!/bin/csh
+sleep 2
+cvs -fnq update -AP | & awk '/^C/ {print $2}' | xargs -r rm
+cvs -fq update -dAP# Let . be the current snapshot of the repository tree.
+chmod -Rf g=u,o= .#Group gets the same permissions as owner.  Others have none.
+find -type d -print0 | xargs -0r chmod -f g+s # New files get group of parent.

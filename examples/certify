@@ -1,0 +1,55 @@
+#!/bin/csh -f
+
+# Script to launch overnight testing of ATACS, by Eric Peskin
+# Questions?  mailto:peskin@vlsigroup.elen.utah.edu
+# Bug reports?  http://www.async.elen.utah.edu/cgi-bin/atacs
+
+# This script is called by /etc/cron.daily/certifyATACS on ming.elen.utah.edu
+# However, you can also launch it directly yourself.
+
+# It builds atacs, and runs both the standard and the long regression tests
+# using atacs/examples/Makefile
+
+# It then applies a unique cvs tag to that version of atacs.
+# See http://www.gnu.org/manual/cvs-1.9/html_node/cvs_49.html#SEC51
+
+# If there were any regression test failures, the cvs tag will begin with BAD,
+# and this script automatically submits a bug report about it to
+# http://www.async.elen.utah.edu/cgi-bin/atacs
+
+# If all tests pass, the cvs tag will begin with GOOD.
+# In addition to the unique tag, this script also maintains a moving tag
+# called simply "GOOD" that always points to the latest build to have
+# passed all the tests run by this script.
+
+############################################################################
+setenv   Program `basename ${0}` # the name of this script
+cd                `dirname ${0}` # so we can call this script from anywhere
+setenv bugs {atacs-bugs,myers,peskin}@vlsigroup.ece.utah.edu # report address
+setenv tag `cvs status -v ${Program} | egrep 'GOOD|BAD' | wc -l` # next number
+setenv BIOSIM /home/ming/nightly/BioSim/
+setenv PATH ${PATH}:${BIOSIM}/atacs/bin:${BIOSIM}/bin:/home/ming/software/bin
+make -C ../src clean
+make clean
+make -C ../..
+if { make -k Certify >& log } then # If all tests passed,... =)
+    echo "All tests passed!  =) Tagging this as GOOD and GOOD${tag}"
+    cvs -Q tag    GOOD${tag} ..      # Tag this as a good build, and
+    cvs -Q tag -F GOOD	     ..      # Tag this as THE LATEST good build
+else # Something failed.  =(
+    cvs -Q tag     BAD${tag} ..      # Tag this as a broken build, and report
+    uname -a                                     >  report # record system info
+    limit                                        >> report # record limits
+    echo "\nCHECK THESE ERRORS FROM MAKE FIRST:" >> report
+    echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv" >> report
+    egrep 'Error|unmatched' log                  >> report
+    echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" >> report
+    echo "\nMessages from log files           :" >> report
+    echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv" >> report
+    setenv logFiles `find . -name "*.log"`
+    egrep 'out of memory|storage|ERROR:|undefined|Safety violation|deadlocked|failure|syntax|not found|Unable' ${logFiles} | grep -v detected >> report
+    ./grepLast.perl detected    ${logFiles}                    >> report
+    echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" >> report
+    cat                                             report
+    mail -s "BUG:BAD${tag} broken repository!" ${bugs}< report # submit report
+endif

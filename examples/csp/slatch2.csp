@@ -1,0 +1,37 @@
+/*****************************************************************************/
+/* Furber's simple dynamic pipeline latch controller.                        */
+/*****************************************************************************/
+module slatch;
+
+input	Rin	= {false,<640,1301;64,329>};
+input	Aout	= {false,<56,1161;48,885>};
+input	D	= {false,<464,696; 72,108>};
+output	Ain	= {false,<0,1; 0,1>};
+output	Rout	= {false,<0,1; 0,1>};
+output	E	= {false,<56,84; 48,72>};
+output	A	= {false,<64,96; 64,120>};
+output	Lt	= {false,<56,84; 56,84>};
+
+process leftpart;
+    *[ [Rin+]; E+; Ain+; [Rin- & Lt+]; E-; Ain-; [Lt-] ]
+endprocess
+
+process rightpart;
+    *[ [D+]; A+; Rout+; [Aout+ & D-]; A-; Rout-; [Aout-] ]
+endprocess
+
+process DLt;
+    *[ [E+]; D+; [A+]; Lt+; [E-]; D-; [Aout-]; Lt- ]
+endprocess
+
+process leftenv;
+    *[ Rin+; [Ain+]; Rin-; [Ain-] ]
+endprocess
+
+process rightenv;
+    *[ [Rout+]; Aout+; [Rout-]; Aout- ]
+endprocess
+
+endmodule
+
+

@@ -1,0 +1,24 @@
+[ DReqN: (~DAckLastN & DReqN)] Combinational
+[ DReqN: (DReqN & ~zzz00)] Combinational
+[ DReqN: (~DAckLastN & ~AckInN & ~ReqOutN)] Combinational
+[ DReqN: (StartDMARcv)] Combinational
+[ DReqN: (~DAckLastN & AckInN & ~zzz00)] Combinational
+[ ReadyN: (AckInN)] Combinational
+[ ReadyN: (DAckNormN & DAckLastN)] Combinational
+[ ReadyN: (ReqOutN)] Combinational
+[ ReadyN: (~DTCN)] Combinational
+[ ReadyN: (zzz01)] Combinational
+[ ReqOutN: (DAckNormN & DAckLastN & DTCN & ~zzz00)] Combinational
+[ ReqOutN: (StartDMARcv)] Combinational
+[ ReqOutN: (~DAckLastN & ~DTCN)] Combinational
+[ ReqOutN: (~AckInN & ReqOutN)] Combinational
+[ ReqOutN: (DReqN & zzz01)] Combinational
+[ EndDMAInt: (~StartDMARcv & DAckLastN & DTCN & AckInN & DReqN & ~zzz00)] Combinational
+[ zzz00: (~DAckLastN & DTCN & ~AckInN & ~ReqOutN)] Combinational
+[ zzz00: (DTCN & zzz00)] Combinational
+[ zzz00: (StartDMARcv)] Combinational
+[ zzz00: (~DAckNormN & DTCN & ~AckInN & ~ReqOutN & ~zzz01)] Combinational
+[ zzz01: (~DTCN)] Combinational
+[ zzz01: (~AckInN & DReqN & zzz01)] Combinational
+[ zzz01: (~DAckLastN & zzz01)] Combinational
+[ zzz01: (~DAckNormN & zzz01)] Combinational

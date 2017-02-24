@@ -1,0 +1,7 @@
+[~a1prech: (~a1done & M1A & ~LA)] Combinational
+[~a1prech: (~a1done & start & ~M1A & ~A1M)] Combinational
+[+A1M: (a1done & ~M1A)]
+[-A1M: (a1done & M1A)]
+[-A1M: (~start)]
+[+LA: (a1done & M1A)]
+[-LA: (a1done & ~M1A)]

@@ -1,0 +1,3 @@
+[ enwoq: (reqrcv & ~sending & ~acksend & ~rejsend)] Combinational
+[+rejsend: (reqrcv & sending)]
+[-rejsend: (~sending & acksend)]

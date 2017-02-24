@@ -1,0 +1,3 @@
+[ p: (an & ~bn)] Combinational
+[ p: (a & ~b)] Combinational
+[ pp: (~p)] Combinational

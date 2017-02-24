@@ -1,0 +1,107 @@
+.dummy t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 t13 t14 t15 t16 t17 t18 t19 t20 rate0 rate1 rate2 rate3 rate4 rate5 rate6 rate7 rate8 rate9 rate10 rate11 rate12 rate13
+
+t8 p0
+t16 p0
+p0 t1 #@ [0,0]
+p0 t9 #@ [0,0]
+
+t1 p1
+t15 p1
+t18 p1
+p1 t2 #@ [0,0]
+p1 t16 #@ [0,0]
+p1 t17 #@ [0,0]
+
+t2 p2
+t14 p2
+t20 p2
+p2 t3 #@ [0,0]
+p2 t15 #@ [0,0]
+p2 t19 #@ [0,0]
+
+t3 p3
+t13 p3
+p3 t4 #@ [0,0]
+p3 t14 #@ [0,0]
+
+t7 p4
+t9 p4
+p4 t8 #@ [0,0]
+p4 t10 #@ [0,0]
+
+t6 p5
+t10 p5
+t17 p5
+p5 t7 #@ [0,0]
+p5 t11 #@ [0,0]
+p5 t18 #@ [0,0]
+
+t5 p6
+t11 p6
+t19 p6
+p6 t6 #@ [0,0]
+p6 t12 #@ [0,0]
+p6 t20 #@ [0,0]
+
+t4 p7
+t12 p7
+p7 t5 #@ [0,0]
+p7 t13 #@ [0,0]
+
+x2 t9 #@ /10000;10050\ [0,0]
+x2 t17 #@ /10000;10050\ [0,0]
+x2 t19 #@ /10000;10050\ [0,0]
+x2 t4 #@ /10000;10050\ [0,0]
+x2 t8 #@ /0;0\ [0,0]
+x2 t18 #@ /0;0\ [0,0]
+x2 t20 #@ /0;0\ [0,0]
+x2 t13 #@ /0;0\ [0,0]
+
+x1 t1  #@ /55;100\ [0,0]
+x1 t10 #@ /55;100\ [0,0]
+x1 t2  #@ /350;400\ [0,0]
+x1 t11 #@ /350;400\ [0,0]
+x1 t3  #@ /500;inf\ [0,0]
+x1 t12 #@ /500;inf\ [0,0]
+x1 t14 #@ /300;349\ [0,0]
+x1 t5  #@ /300;349\ [0,0]
+x1 t15 #@ /25;54\ [0,0]
+x1 t6  #@ /25;54\ [0,0]
+x1 t16 #@ /0;0\ [0,0]
+x1 t7  #@ /0;0\ [0,0]
+
+p0 rate0
+p1 rate1
+p2 rate2
+p3 rate3
+p4 rate4
+p5 rate5
+p6 rate6
+p7 rate7
+p1 rate8
+p2 rate9
+p3 rate10
+p4 rate11
+p6 rate12
+p5 rate13
+
+rate0 x2
+rate1 x2
+x2 rate2
+x2 rate3
+rate4 x2
+rate5 x2
+x2 rate6
+x2 rate7
+
+x1 rate8
+x1 rate9
+x1 rate10
+rate11 x1
+rate12 x1
+rate13 x1
+
+#@.rates { <rate0 = 30><rate1 = 25><rate2 = 5><rate3 = 20><rate4 = 5><rate5 = 0><rate6 = 30><rate7 = 45><rate8 = 10><rate9 = 1><rate10 = 10><rate11 = 10><rate12 = 9><rate13 = 1> }
+#@.continuous rate0 rate1 rate2 rate3 rate4 rate5 rate6 rate7 rate8 rate9 rate10 rate11 rate12 rate13 x1 x2
+.marking{p0}
+.end

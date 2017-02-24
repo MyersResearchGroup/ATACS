@@ -1,0 +1,107 @@
+.e 59
+.i 8
+.r 58
+.n 0
+.c 3
+.s 0001001001001001001100001100
+#
+# EVENTS
+#
+
+reset
+clk+ clk-
+x0t+ x0t-
+x0f+ x0f-
+ack9+ ack9-
+x1t+ x1t-
+x1f+ x1f-
+ack1+ ack1-
+x2t+ x2t-
+x2f+ x2f-
+ack2+ ack2-
+x3t+ x3t-
+x3f+ x3f-
+ack3+ ack3-
+x4t+ x4t-
+x4f+ x4f-
+ack4+ ack4-
+x5t+ x5t-
+x5f+ x5f-
+ack5+ ack5-
+x6t+ x6t-
+x6f+ x6f-
+ack6+ ack6-
+x7t+ x7t-
+x7f+ x7f-
+ack7+ ack7-
+x8t+ x8t-
+x8f+ x8f-
+ack8+ ack8-
+$1 $2
+#
+# RULES
+#
+clk- clk+ 1 12 12
+clk+ clk- 0 12 12
+x0t- x0t+ [(clk)] 1 1 1
+x0t- x0f+ [(clk)] 1 1 1
+x0f- x0t+ [(clk)] 1 1 1
+x0f- x0f+ [(clk)] 1 1 1
+x0t+ x0t- [(~clk)] 0 1 1
+x0f+ x0f- [(~clk)] 0 1 1
+ack9+ ack9- [(clk)] 1 1 1
+ack9- ack9+ [(~clk)] 0 1 1
+x1t- x1t+ [(ack2 & x0t)] 1 1 2
+x1t+ x1t- [(~ack2 & ~x0t)] 0 1 2
+x1f- x1f+ [(ack2 & x0f)] 1 1 2
+x1f+ x1f- [(~ack2 & ~x0f)] 0 1 2
+ack1+ ack1- [(x1t) | (x1f)] 1 1 2
+ack1- ack1+ [(~x1t & ~x1f)] 0 1 2
+x2t- x2t+ [(ack3 & x1t)] 1 1 2
+x2t+ x2t- [(~ack3 & ~x1t)] 0 1 2
+x2f- x2f+ [(ack3 & x1f)] 1 1 2
+x2f+ x2f- [(~ack3 & ~x1f)] 0 1 2
+ack2+ ack2- [(x2t) | (x2f)] 1 1 2
+ack2- ack2+ [(~x2t & ~x2f)] 0 1 2
+x3t- x3t+ [(ack4 & x2t)] 1 1 2
+x3t+ x3t- [(~ack4 & ~x2t)] 0 1 2
+x3f- x3f+ [(ack4 & x2f)] 1 1 2
+x3f+ x3f- [(~ack4 & ~x2f)] 0 1 2
+ack3+ ack3- [(x3t) | (x3f)] 1 1 2
+ack3- ack3+ [(~x3t & ~x3f)] 0 1 2
+x4t- x4t+ [(ack5 & x3t)] 1 1 2
+x4t+ x4t- [(~ack5 & ~x3t)] 0 1 2
+x4f- x4f+ [(ack5 & x3f)] 1 1 2
+x4f+ x4f- [(~ack5 & ~x3f)] 0 1 2
+ack4+ ack4- [(x4t) | (x4f)] 1 1 2
+ack4- ack4+ [(~x4t & ~x4f)] 0 1 2
+x5t- x5t+ [(ack6 & x4t)] 1 1 2
+x5t+ x5t- [(~ack6 & ~x4t)] 0 1 2
+x5f- x5f+ [(ack6 & x4f)] 1 1 2
+x5f+ x5f- [(~ack6 & ~x4f)] 0 1 2
+ack5+ ack5- [(x5t) | (x5f)] 1 1 2
+ack5- ack5+ [(~x5t & ~x5f)] 0 1 2
+x6t- x6t+ [(ack7 & x5t)] 0 1 2
+x6t+ x6t- [(~ack7 & ~x5t)] 1 1 2
+x6f- x6f+ [(ack7 & x5f)] 1 1 2
+x6f+ x6f- [(~ack7 & ~x5f)] 0 1 2
+ack6+ ack6- [(x6t) | (x6f)] 0 1 2
+ack6- ack6+ [(~x6t & ~x6f)] 1 1 2
+x7t- x7t+ [(ack8 & x6t)] 1 1 2
+x7t+ x7t- [(~ack8 & ~x6t)] 0 1 2
+x7f- x7f+ [(ack8 & x6f)] 1 1 2
+x7f+ x7f- [(~ack8 & ~x6f)] 0 1 2
+ack7+ ack7- [(x7t) | (x7f)] 1 1 2
+ack7- ack7+ [(~x7t & ~x7f)] 0 1 2
+x8t- x8t+ [(ack9 & x7t)] 0 1 2
+x8t+ x8t- [(~ack9 & ~x7t)] 1 1 2
+x8f- x8f+ [(ack9 & x7f)] 1 1 2
+x8f+ x8f- [(~ack9 & ~x7f)] 0 1 2
+ack8+ ack8- [(x8t) | (x8f)] 0 1 2
+ack8- ack8+ [(~x8t & ~x8f)] 1 1 2
+#
+# CONFLICTS
+#
+x0t+ x0f+
+x0t- x0f-
+x8t+ x8f+

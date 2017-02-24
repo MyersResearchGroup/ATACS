@@ -1,0 +1,5 @@
+[+r1: (re & l1)]
+[-r1: (~l1)]
+[+r0: (re & l0)]
+[-r0: (~l0)]
+[ le: (~r1 & ~r0)] Combinational

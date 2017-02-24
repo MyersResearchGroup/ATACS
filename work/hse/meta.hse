@@ -1,0 +1,25 @@
+/*****************************************************************************/
+/* Example which is metastable.                                              */
+/*****************************************************************************/
+module meta;
+
+input a;
+output b;
+output x;
+input y;
+output csc;
+
+process ctrl;
+    *[[a -> b+; [~a]; b-
+      |true -> x+; [y]; x-; [~y]
+     ]]
+endprocess
+
+process left;
+    *[ a+; [b]; a-; [~b] ]
+endprocess
+
+process right;
+    *[ [x]; y+; [~x]; y- ]
+endprocess
+endmodule

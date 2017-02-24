@@ -1,0 +1,55 @@
+/* From Shai Rotem:
+
+Circuit 1:
+
+          +----------------+
+       +--| 3-4 gate delay |--+
+       |  +----------------+  |
+       |      _               |
+       |      |_   ap   /|    | rst
+       |       _||o---O< |----+
+       |      |         \|
+       |      |
+       |      | x  |\
+       |      +----| >O-----------a
+       |     _|    |/
+clk ---+---||_
+              |
+              =
+
+The input clk goes high and then low after 3 gate delays.
+
+In circuit 1, clk+ -a+, and clk+ -rst+ (after delay) -ap- --a-,
+then clk- -rst- -ap+.
+The result is a pulse on a, with width depending on the delay. Input clk can't
+go high the second time before ap+, so the allowed time for the next clk+
+depends on the clk- -rst- delay.
+*/
+module circ1;
+
+delay clkdelay = <500,500;298,298>;
+delay pdelay = <101,101;99,99>;
+delay adelay = <201,201;199,199>;
+delay rstdelay = <297,297;301,301>;
+
+input clk  = {false,clkdelay};
+output a  = {false,adelay};
+output ap = {true,pdelay};
+output rst = {false,rstdelay};
+
+process a;
+*[ [clk+]; a+; [ap-]; a-; [ap+] ]
+endprocess
+
+process ap;
+*[ [rst+]; ap-; [rst-]; ap+ ]
+endprocess
+
+process rst;
+*[ [clk+]; rst+; [clk-]; rst- ]
+endprocess
+
+process clkenv;
+*[ clk+; clk- ]
+endprocess
+endmodule

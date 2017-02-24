@@ -1,0 +1,4 @@
+[+gateack: (~clk & ack)]
+[-gateack: (~ack)]
+[+req: (~gateack)]
+[-req: (clk & gateack)]

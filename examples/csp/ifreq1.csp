@@ -1,0 +1,29 @@
+/*****************************************************************************/
+/* Handshake control circuit with conditioned acknowledgement for            */
+/*   stoppable clock interface (see fig.6 Sjogren/Myers ARVLSI97).           */
+/*****************************************************************************/
+module ifreq1;
+
+input ack={true,<5,inf;5,25>};
+input preclk = {true,<19,21>};
+input clk = {<1,3>};
+output req={true,<1,16>};
+output gateack={true,<1,13>};
+
+process req;
+    *[ [clk+]; req-; [gateack-]; req+]
+endprocess
+
+process clk;
+    *[ clk+; preclk-; clk-; preclk+; [gateack+] ]
+endprocess
+
+process ack;
+    *[ [req-]; ack-; [req+]; ack+]
+endprocess
+
+process gateack;
+    *[ [ack-]; gateack-; [ack+ & clk-]; gateack+]
+endprocess
+
+endmodule

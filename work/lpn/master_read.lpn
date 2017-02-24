@@ -1,0 +1,36 @@
+# version got by e-mail on Oct 28 1991
+.name master_read
+.inputs ari bprn di pack pri xack 
+.outputs aro breq busy do mrdc pdo pro  
+#@.init_state [0000001000011]
+.graph
+ari+ pro-
+ari- pro+
+pri+ breq+
+pri- aro+ breq-
+bprn+ breq-
+xack+ mrdc-
+di+ pdo- mrdc+
+di- pdo+ mrdc-
+pack+ pdo-
+pack- pdo+
+aro+ ari+
+aro- ari-
+pro+ pri-
+pro- aro- pri+
+breq+ pro+ busy+ bprn+
+breq- pro- bprn-
+busy+ breq-
+busy- mrdc- breq+
+mrdc+ do- busy+ xack+
+mrdc- xack-
+do+ di+
+do- di-
+pdo- do- pack-
+pdo+ pack+
+bprn- busy-
+xack- do+
+pdo+ do+
+.marking { <aro+,ari+> <breq-,pro-> <busy-,breq+> <pdo+,pack+> <pdo+,do+> <xack-,do+>}
+.end
+

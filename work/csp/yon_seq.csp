@@ -1,0 +1,36 @@
+/*****************************************************************************/
+/* Yoneda's sequencer, receives communication on A and sends a               */
+/* 	communication on B followed by C.                                    */
+/*****************************************************************************/
+module seq;
+
+input ai;
+output ao;
+input bi;
+output bo;
+input ci;
+output bo;
+output co;
+output csc1;
+output csc2;
+output csc3;
+
+process main;
+    *[ ao+; [ai+]; csc1+; 
+       ((ao-; [ai-]) || (bo+; [bi+]; csc2+; 
+       ((csc1-; bo-; [bi-]) || (co+; [ci+]; csc3+; csc2-; co-; [ci-])))); 
+       csc3- ]
+endprocess
+
+process a;
+    *[ [ao+]; ai+; [ao-]; ai- ]
+endprocess
+
+process b;
+    *[ [bo+]; bi+; [bo-]; bi- ]
+endprocess
+
+process c;
+    *[ [co+]; ci+; [co-]; ci- ]
+endprocess
+endmodule

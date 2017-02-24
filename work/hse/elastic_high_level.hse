@@ -1,0 +1,129 @@
+/************************************************************************
+ * clock 1 circuit
+ ************************************************************************/
+module clk_1;
+
+  input stall = {false};
+  input   clk = {false};
+
+  output clk_1 = {true,<20,80>};
+
+  process clk_1;
+    *[ 
+       [  clk_1 -> [clk] ; clk_1-
+       | ~clk_1 -> [~clk & ~stall] ; clk_1+
+       ]
+     ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * clock 2 circuit
+ ************************************************************************/
+module clk_2;
+
+  input stall = {false};
+  input   clk = {false};
+
+  output clk_2 = {false,<20,80>};
+  
+  process clk_2;
+    *[ [ ~clk_2 -> [clk & ~stall] ; clk_2+
+       |  clk_2 -> [~clk] ; clk_2-
+       ]
+     ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * latch circuit
+ ************************************************************************/
+module re_latch;
+
+  input   d = {false};
+  input clk = {false};
+
+  output q = {false,<20,80>};
+
+  process re_latch;
+    *[ [  q -> [clk & ~d] ; q- ; [~clk]
+       | ~q -> [clk & d]  ; q+ ; [~clk]
+       ] 
+     ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * latch circuit
+ ************************************************************************/
+module fe_latch;
+
+  input    d = {false};
+  input clk = {false};
+
+  output q = {false,<20,80>};
+
+  process re_latch;
+    *[ [  q -> [~clk & ~d] ; q- ; [clk]
+       | ~q -> [~clk & d]  ; q+ ; [clk]
+       ] 
+     ]
+  endprocess
+
+endmodule
+
+module tdata;
+
+  input gclk;
+  input stall_1;
+  output d =  {false,<20,70>};
+
+  process t_data;
+    *[ [gclk] ;
+       [  d & ~stall_1 -> d- ; [~gclk]
+       | ~d & ~stall_1 -> d+ ; [~gclk]
+       | true -> skip ; [~gclk]
+       ]
+     ]
+  endprocess
+endmodule
+
+module elastic_3;
+
+  input  gclk = {false,<180,220>};
+  input stall = {false,<20,70>};
+
+  clk_1 stage_1( stall => stall_1, clk => gclk, clk_1 => clk_1 );
+  re_latch stall_1( d => stall_2, clk => gclk, q => stall_1 );
+
+  clk_2 stage_2( stall => stall_2, clk => gclk, clk_2 => clk_2 );
+  fe_latch stall_2( d => stall_3, clk => gclk, q => stall_2 );
+
+  clk_1 stage_3( stall => stall_3, clk => gclk, clk_1 => clk_3 );
+
+  re_latch stall_3( d => stall, clk => gclk, q => stall_3 );
+
+  testbench t_clock;
+    *[ gclk+ ; gclk- ]
+  endtestbench
+
+  testbench t_stall;
+    *[ [~gclk] ; 
+       [  stall -> stall- ; [gclk]
+       | ~stall -> stall+ ; [gclk]
+       |  true  -> skip   ; [gclk]
+       ]
+     ]
+  endtestbench
+
+/** DATA: Explodes State Space */
+
+  re_latch data_1( d => d, clk => clk_1, q => d_1 );
+  re_latch data_2( d => d_1, clk => clk_2, q => d_2 );
+  re_latch data_3( d => d_2, clk => clk_3, q => d_3 );
+  tdata tdata1( d => d, stall_1 => stall_1, gclk => gclk);
+/**/
+ endmodule

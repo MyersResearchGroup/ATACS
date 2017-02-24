@@ -1,0 +1,3 @@
+[+req: (~ack & go)]
+[-req: (ack & ~go)]
+[ rdy: (~req)] Combinational

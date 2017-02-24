@@ -1,0 +1,103 @@
+;Name dram_ctrl
+
+; DRAM Controller Specification
+;
+;
+; Published example in ICCD-92
+;   "Practical Asynchronous Controllers"
+;	by Steven Nowick, Kenneth Yun and David Dill
+;
+; <Assumptions>
+;
+; 1. CPUs are 680x0 type.
+;
+; 2. Asynchronous arbitor (external to DRAMC unit) used to arbitrate
+;    between CPU access (AS*) and Refresh Timer access (RFREQ*).
+;    The arbitor guarantees that ASR*/ASW* and RFREQ* are mutually exclusive.
+;
+; 3. The arbitor generates ASR* or ASW* signal in response to receiving AS*
+;    after the DRAM access is granted to the CPU.  ASR* is asserted if R/W*
+;    is high, and ASW* asserted if R/W* is low.
+;
+; 4. The arbitor always inserts the same amount of delay to DS* (Data Strobe)
+;    signal as to AS* - DDS* is the output of the arbitor that corresponds
+;    to the CPU signal DS*.
+;
+; 5. (A) and (B) are delayed versions of RAS* (by programmable delay lines).
+;	 RAS* -> (Delay) -> (A) -> (Delay) -> (B)
+;
+;    (A) High to Low edge of (A) is used to switch from row to column access;
+;	 the delay from RAS* to (A) guarantees Row Address Hold Time.
+;    (B) High to Low edge of (B) is used to assert CAS*; the delay from (A)
+;	 to (B) guarantees Column Address Setup Time.
+;
+; 6. (C) is a delayed version of RFREQ*; (C) is used to guarantee sufficient
+;    precharge time before refresh operations.
+;
+; <Notes> 
+;
+; 1. Signal naming convention - Signals with 'n' are active low;
+;    all other signals are active high.
+;
+; 2. Inputs
+;	RFREQn	ReFresh REQuest			Active Low
+;	ASWn	Address Strobe (Write)		Active Low
+;	ASRn	Address Strobe (Read)		Active Low
+;	DDSn	Data Strobe			Active Low
+;	An	Delayed RASn			Active Low
+;	Bn	Delayed An			Active Low
+;	Cn	Delayed RFREQn			Active Low
+;	
+;    Outputs
+;	RASn	Row Address Select		Active Low
+;	CASn	Column Address Select		Active Low
+;	WEn	Write Enable			Active Low
+;	DTACKn	Data Transfer ACKnowledge	Active Low
+;	SELCA	SELect Column Address		Active High
+;	RFIP	Refresh In Progress		Active High
+;	
+; Input/output and initial state declarations
+;
+	input	RFREQn 	1
+	input	ASWn 	1
+	input	ASRn 	1
+	input	DDSn 	1
+	input	An	1
+	input	Bn 	1
+	input	Cn	1
+;
+	output	RASn 	1
+	output	CASn 	1
+	output	WEn 	1
+	output	DTACKn 	1
+	output	SELCA 	0
+	output	RFIP	0
+;
+; Body of Specification
+;     State Next-state	Input-burst       | (Output-burst)
+;
+; CPU Write
+;
+	0	1	ASWn-             | RASn-
+	1	2	An-              | DTACKn- WEn- SELCA+
+	2	3	Bn- DDSn-        | CASn-
+	3	4	ASWn+ DDSn+       | RASn+ CASn+ WEn+ DTACKn+ SELCA-
+	4	0	An+ Bn+         |
+;
+; CPU Read
+;
+	0	5	ASRn- DDSn-       | RASn-
+	5	6	An-              | DTACKn- SELCA+
+	6	7	Bn-              | CASn-
+	7	8	ASRn+ DDSn+       | RASn+ CASn+ DTACKn+ SELCA-
+	8	0	An+ Bn+         |
+;
+; Refresh
+;
+	0	9	RFREQn-           | RFIP+
+	9	10	Cn-              | RASn-
+	10	11	An- Bn- RFREQn+ | RFIP- RASn+
+	11	0	Cn+ An+ Bn+    |
+
+
+

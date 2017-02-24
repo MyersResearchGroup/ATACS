@@ -1,0 +1,76 @@
+module tagcircuit;
+
+delay gatedelay = <90,110>;
+
+input instRdy;
+input XBRdy;
+input L1;
+input TagIn1;
+output Rdy = {gatedelay};
+output TagOut1 = {gatedelay};
+output TagArrived = {gatedelay};
+output TagRdy = {gatedelay};
+
+process rdy;
+*[[instRdy+ & XBRdy+]; Rdy+; [instRdy-]; Rdy-]
+endprocess
+
+process tagarrived;
+*[[TagIn1+]; 
+  TagArrived+; [TagRdy+]; 
+  [ L1+ -> TagArrived- 
+  ]
+ ]
+endprocess
+
+process tagrdy;
+*[[Rdy+ & TagArrived+]; TagRdy+; 
+  [TagArrived-]; 
+   TagRdy-]
+endprocess
+
+process tagout;
+*[ [Rdy+ & TagArrived+];
+	[ L1+ -> TagOut1+; [TagArrived-]; TagOut1-
+        ]
+ ]
+endprocess
+
+endmodule
+
+module tagunit;
+
+delay rdydelay = <180,inf,N(360.0,90.0);90,110>;
+delay xbdelay = <180,inf,N(360.0,90.0);360,440/*180,220*/>;
+delay lddelay = <180,inf,N(360.0,90.0);180,220/*90,110*/>;
+delay tagdelay = <720,inf,N(900.0,90.0);180,220>;
+
+input instRdy = {rdydelay};
+input XBRdy = {xbdelay};
+input L1 = {lddelay};
+input TagIn1 = {tagdelay};
+
+tagcircuit tag1(instRdy => instRdy,XBRdy => XBRdy,L1 => L1,
+                TagIn1 => TagIn1,
+		TagOut1 => TagOut1);
+
+process ld;
+*[[ true (15.0) -> L1+; [TagOut1+]; L1-
+ ]]
+endprocess
+
+process instRdy;
+*[[L1+]; instRdy+; 
+  [L1-]; instRdy- ]
+endprocess
+ 
+process xbrdy;
+*[ XBRdy+; [TagOut1+]; 
+   XBRdy- ]
+endprocess
+
+process tag;
+*[[ true -> TagIn1+; TagIn1-
+ ]; [TagOut1+]]
+endprocess
+endmodule

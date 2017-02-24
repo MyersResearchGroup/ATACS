@@ -1,0 +1,193 @@
+/************************************************************************
+ * stall logic
+ * NOTE: This has no delay because it can be hazardous.  We want every 
+ * transition to fire.  We are using the clock to only sample the stall
+ * output when it is stable.  It must remain stable until the latch
+ * closes.
+ ************************************************************************/
+module stall;
+
+  input vin = {false};
+  input sin_d = {false};
+  input sin_c = {false};
+
+  output sin = {false,<0,0>};
+  output stall = {false,<0,0>};
+  
+  process sin;
+    *[ 
+       [ ~sin -> [sin_c | sin_d] ; sin+
+       |  sin -> [~sin_c & ~sin_d] ; sin-
+       ]
+     ]
+  endprocess
+
+  process stall;
+    *[
+       [ ~stall -> [sin & vin] ; stall+
+       |  stall -> [~sin | ~vin] ; stall-
+       ]
+     ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * Valid clock circuit
+ * NOTE: sin changes on the opposite phase of clk, thus it is stable 
+ * when clk arrives.  Its inversion does not need to be included in 
+ * our delay estimates
+ ************************************************************************/
+module valid_clk;
+
+  input sin = {false};
+  input clk = {false};
+
+  output valid_clk = {false,<35,50>};
+
+  process valid_clk;
+    *[ 
+       [  valid_clk -> [~clk] ; valid_clk-
+       | ~valid_clk -> [clk & ~sin] ; valid_clk+
+       ]
+     ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * Data clock circuit
+ * NOTE: Valid is computed on the opposite edge of th eclock.  It is
+ * stable before this edge arrives.
+ ************************************************************************/
+module data_clk;
+
+  input vin = {false};
+  input clk = {false};
+
+  output data_clk = {false,<35,50>};
+
+  process valid_clk;
+    *[ 
+       [  data_clk -> [~clk] ; data_clk-
+       | ~data_clk -> [clk & vin] ; data_clk+
+       ]
+     ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * latch circuit
+ ************************************************************************/
+module re_latch;
+
+  input   d = {false};
+  input clk = {false};
+
+  output q = {false,<30,50>};
+
+  process re_latch;
+    *[ [  q -> [clk & ~d] ; q- ; [~clk]
+       | ~q -> [clk & d]  ; q+ ; [~clk]
+       ] 
+     ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * latch circuit
+ ************************************************************************/
+module slow_latch;
+
+  input   d = {false};
+  input clk = {false};
+
+  output q = {false,<71,71>};
+
+  process slow_latch;
+    *[ [  q -> [clk & ~d] ; q- ; [~clk]
+       | ~q -> [clk & d]  ; q+ ; [~clk]
+       ] 
+     ]
+  endprocess
+
+endmodule
+
+module interlocked_3;
+
+  input  gclk  = {false,<200,200>};
+  input  gclkn = {true,<20,25;15,20>};
+
+  input stall = {false,<30,50>};
+  input valid = {false,<71,71>};
+
+  input sin_1 = {false,<71,71>};
+  input sin_2 = {false,<71,71>};
+
+  /* Stage 1 */
+  stall sin_1( vin => valid_1, sin_d => stall_2, sin_c => sin_1,
+               stall => sin_1 );
+  valid_clk valid_clk_1( sin => stall_1, clk => gclkn, 
+                         valid_clk => valid_clk_1 );
+  data_clk data_clk_1( vin => valid, clk => valid_clk_1, 
+                       data_clk => data_clk_1 );
+  re_latch valid_1( d => valid, clk => valid_clk_1, q => valid_1 );
+  re_latch stall_1( d => sin_1, clk => gclk, q => stall_1 );
+
+  /* Stage 2 */
+  stall sin_2( vin => valid_2, sin_d => stall, sin_c => sin_2,
+	       stall => sin_2 );
+  valid_clk valid_clk_2( sin => stall_2, clk => gclk, 
+                         valid_clk => valid_clk_2 );
+  data_clk data_clk_2( vin => valid_1, clk => valid_clk_2, 
+                       data_clk => data_clk_2 );
+  re_latch valid_2( d => valid_1, clk => valid_clk_2, q => valid_2 );
+  re_latch stall_2( d => sin_2, clk => gclkn, q => stall_2 );
+
+  testbench t_clock;
+    *[ gclk+ ; gclk- ]
+  endtestbench
+
+  testbench t_clockn;
+    *[ [gclk] ; gclkn- ; [~gclk] ; gclkn+ ]
+  endtestbench
+
+  testbench t_stall;
+    *[ [gclk] ; 
+       [            stall -> stall- ; [~gclk]
+       | ~stall & valid_2 -> stall+ ; [~gclk]
+       |             true -> skip   ; [~gclk]
+       ]
+     ]
+  endtestbench
+
+  testbench t_valid;
+    *[ [gclk] ; 
+       [  valid & ~stall_1 -> valid- ; [~gclk]
+       |            ~valid -> valid+ ; [~gclk]
+       |              true -> skip   ; [~gclk]
+       ]
+     ]
+  endtestbench
+
+  testbench t_sin_1;
+    *[ [gclkn] ; 
+       [  data_clk_1 & ~sin_1 -> sin_1+ ; [~gclkn]
+       |                sin_1 -> sin_1- ; [~gclkn]
+       |                 true -> skip   ; [~gclkn]
+       ]
+     ]
+  endtestbench
+
+  testbench t_sin_2;
+    *[ [gclk] ; 
+       [  data_clk_2 & ~sin_2 -> sin_2+ ; [~gclk]
+       |                sin_2 -> sin_2- ; [~gclk]
+       |                 true -> skip   ; [~gclk]
+       ]
+     ]
+  endtestbench
+
+endmodule

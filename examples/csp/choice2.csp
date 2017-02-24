@@ -1,0 +1,27 @@
+module choice;
+
+input ci;
+output co;
+input a;
+input b;
+input z; /* Needed to add this? */
+
+process choicectrl;
+*[[ a+ -> co+; z+; [ci+]; co-; [ci- & a-]; z-
+  | b+ -> co+; z+; [ci+]; co-; [ci- & b-]; z-
+ ]]
+endprocess
+
+process abenv;
+*[[ skip -> a+; [co+]; a-
+  | skip -> b+; [co+]; b-
+ ]]
+endprocess
+
+process cenv;
+*[[ co+ -> ci+; [co-]; ci-
+  | co+ -> ci+; [co-]; ci-
+ ]]
+endprocess
+
+endmodule

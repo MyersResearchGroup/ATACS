@@ -1,0 +1,5 @@
+[ IntEventReq: (ITEventReq)] Combinational
+[ IntEventReq: (~ITEventStop & ~ITSoftResetReq & IntEventReq)] Combinational
+[ TwoTicksResetAck: (~ITEventReq & ITSoftResetReq)] Combinational
+[ zzz00: (~ITEventReq & ~ITSoftResetReq & zzz00)] Combinational
+[ zzz00: (~ITEventReq & ITEvent2Ticks)] Combinational

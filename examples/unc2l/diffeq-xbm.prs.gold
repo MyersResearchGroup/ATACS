@@ -1,0 +1,87 @@
+[ adderreq: (~tack & ~x1ack & adderreq)] Combinational
+[ adderreq: (mul1ack & ~mul2req)] Combinational
+[ adderreq: (mul1ack & mul2ack & ~whileifack)] Combinational
+[ adderreq: (~y1ack & y1req)] Combinational
+[ adderreq: (~adderack & ~addsuback & ~tack & ~whileifack & ~y1ack & ~yack & ~mul2req & ~ysm1 & ~zzz00 & zzz01)] Combinational
+[ addersm1: (~x1ack & addersm1)] Combinational
+[ addersm1: (mul1ack & addersm1)] Combinational
+[ addersm1: (~adderack & ~addsuback & ~mul2ack & ~tack & ~whileifack & ~y1ack & ~yack & ~mul2req & ~ysm1 & ~zzz00 & zzz01)] Combinational
+[ addsubreq: (~tack & ~u1ack & addsubreq)] Combinational
+[ addsubreq: (mul1ack & mul2ack & ~whileifack)] Combinational
+[ addsubreq: (~mul1ack & x1ack)] Combinational
+[ addsubreq: (~y1ack & y1req)] Combinational
+[ addsubsm1: (~u1ack & addsubsm1)] Combinational
+[ addsubsm1: (~mul1ack & x1ack)] Combinational
+[ done: (whileifack & zzz00 & ~zzz01)] Combinational
+[ done: (start & done)] Combinational
+[ mul1req: (~mul1ack & mul1req)] Combinational
+[ mul1req: (~adderack & ~addsuback & ~mul2ack & ~tack & ~y1ack & ~yack & ~ysm1 & ~zzz00 & zzz01)] Combinational
+[ mul1req: (whileifack & mul2req)] Combinational
+[ mul1sm1: (~mul1ack & mul1sm1)] Combinational
+[ mul1sm1: (~adderack & ~addsuback & ~mul2ack & ~tack & ~whileifack & ~y1ack & ~yack & ~mul2req & ~ysm1 & ~zzz00 & zzz01)] Combinational
+[ mul2req: (whileifack & ~zzz00 & zzz01)] Combinational
+[ mul2req: (~mul2ack & mul2req)] Combinational
+[ mul2req: (~mul1ack & mul2req)] Combinational
+[ treq: (adderack & addsuback & ~mul1ack & ~mul2ack & ~y1ack & adderreq)] Combinational
+[ treq: (~tack & y1req)] Combinational
+[ u1req: (~adderack & addsuback & ~u1ack & ~x1ack & addsubsm1)] Combinational
+[ ureq: (~yack & yreq)] Combinational
+[ ureq: (~xack & yreq)] Combinational
+[ ureq: (~uack & yreq)] Combinational
+[ ureq: (u1ack)] Combinational
+[ ureq: (addsuback & yreq)] Combinational
+[ ureq: (~adderack & ~mul1ack & start & ~xack & ~addsubreq & ~whileifreq & ~zzz00 & ~zzz01)] Combinational
+[ usm1: (~yack & ysm1)] Combinational
+[ usm1: (~xack & ysm1)] Combinational
+[ usm1: (~uack & ysm1)] Combinational
+[ usm1: (u1ack)] Combinational
+[ usm1: (addsuback & ysm1)] Combinational
+[ whileifreq: (zzz00 & zzz01)] Combinational
+[ whileifreq: (whileifreq & ~zzz00 & ~zzz01)] Combinational
+[ whileifreq: (~addsuback & ~u1ack & uack & xack & yack)] Combinational
+[ x1req: (adderack & mul1ack & ~addsubreq)] Combinational
+[ x1req: (~x1ack & x1req)] Combinational
+[ xreq: (~yack & yreq)] Combinational
+[ xreq: (~xack & yreq)] Combinational
+[ xreq: (~uack & yreq)] Combinational
+[ xreq: (u1ack)] Combinational
+[ xreq: (addsuback & yreq)] Combinational
+[ xreq: (~adderack & ~mul1ack & start & ~xack & ~addsubreq & ~whileifreq & ~zzz00 & ~zzz01)] Combinational
+[ xsm1: (~yack & ysm1)] Combinational
+[ xsm1: (~xack & ysm1)] Combinational
+[ xsm1: (~uack & ysm1)] Combinational
+[ xsm1: (u1ack)] Combinational
+[ xsm1: (addsuback & ysm1)] Combinational
+[ y1req: (adderack & addsuback & ~mul1ack & ~mul2ack & ~y1ack & adderreq)] Combinational
+[ y1req: (~tack & y1req)] Combinational
+[ yreq: (~yack & yreq)] Combinational
+[ yreq: (~xack & yreq)] Combinational
+[ yreq: (~uack & yreq)] Combinational
+[ yreq: (u1ack)] Combinational
+[ yreq: (addsuback & yreq)] Combinational
+[ yreq: (~adderack & ~mul1ack & start & ~xack & ~addsubreq & ~whileifreq & ~zzz00 & ~zzz01)] Combinational
+[ ysm1: (~yack & ysm1)] Combinational
+[ ysm1: (~xack & ysm1)] Combinational
+[ ysm1: (~uack & ysm1)] Combinational
+[ ysm1: (u1ack)] Combinational
+[ ysm1: (addsuback & ysm1)] Combinational
+[ zzz00: (~whileif & whileifreq & zzz00)] Combinational
+[ zzz00: (~uack & ~whileif & whileifack & ~xack & ~yack & ~done & ~zzz01)] Combinational
+[ zzz00: (start & zzz00 & ~zzz01)] Combinational
+[ zzz00: (whileifack & done)] Combinational
+[ zzz00: (~addsuback & ~u1ack & uack & xack & yack & zzz01)] Combinational
+[ zzz00: (yack & zzz00)] Combinational
+[ zzz00: (xack & zzz00)] Combinational
+[ zzz00: (~whileifack & whileifreq & zzz00)] Combinational
+[ zzz00: (uack & zzz00)] Combinational
+[ zzz01: (~mul1ack & ~zzz00 & zzz01)] Combinational
+[ zzz01: (~adderack & ~mul2ack & mul1req)] Combinational
+[ zzz01: (tack & y1ack)] Combinational
+[ zzz01: (yack & zzz01)] Combinational
+[ zzz01: (xack & zzz01)] Combinational
+[ zzz01: (~whileifack & zzz00 & zzz01)] Combinational
+[ zzz01: (uack & zzz01)] Combinational
+[ zzz01: (whileifack & mul2req)] Combinational
+[ zzz01: (u1ack)] Combinational
+[ zzz01: (whileif & whileifreq & zzz01)] Combinational
+[ zzz01: (~uack & whileif & whileifack & ~xack & ~yack & ~mul2req & ~zzz00)] Combinational

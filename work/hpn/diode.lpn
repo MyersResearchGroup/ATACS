@@ -1,0 +1,18 @@
+.dummy t1 t2 rate1 rate2 rate3 time
+t1 p1
+p1 t2 #@ [0,0]
+t2 p2
+p3 t1 #@ [0,0]
+p3 rate1
+p1 rate2
+p2 rate3 
+rate1 Id
+Id rate2
+rate3 Id
+Vd t1 #@ /55;55\ [0,0]
+Vd t2 #@ /350;350\ [0,0]
+time Vd 
+#@.rates { <rate1 = 18><rate2 = 3><rate3 = 6><time = 1> }
+#@.continuous rate1 rate2 rate3 Id Vd time
+.marking{p3}
+.end

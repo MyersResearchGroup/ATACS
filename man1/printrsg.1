@@ -1,0 +1,36 @@
+.TH PRINTRSG 1 "28 September 2001" "" ""
+.SH NAME
+printrsg \- Prints a reduced state graph (RSG)
+.SH SYNOPSIS
+.nf
+.BI atacs " -ps <filename>"
+.br
+.BI atacs> " printrsg <filename>"
+.fi
+.SH DESCRIPTION
+.B printrsg
+prints the current reduced state graph
+using Tom Rokicki's parg program or Bell Lab's Dot program depending on
+whether the dot options is selected or not.
+.SH OPTIONS
+.TP
+.BI \-ps
+Prints a reduced state graph (RSG) from the command line.
+.TP
+.BI printrsg
+Prints a reduced state graph (RSG) from the interactive shell.
+.SH CREDITS
+.B printrsg
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu)
+and Jeff Cuthbert.
+.SH "SEE ALSO"
+.BR shower (1)
+.BR showrsg (1)
+.BR showstat (1)
+.BR shownet (1)
+.BR printer (1)
+.BR printstat (1)
+.BR printreg (1)
+.BR printnet (1)
+.BR dot (1)
+.BR http://www.async.ece.utah.edu

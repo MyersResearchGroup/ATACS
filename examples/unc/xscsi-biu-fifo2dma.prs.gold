@@ -1,0 +1,7 @@
+[ frout: (ok & ~fain & dackn & ~dreq & ~zzz00)] Combinational
+[+dreq: (fain & frout)]
+[-dreq: (~dackn)]
+[+zzz00: (~dackn & ~cntgt1 & ~zzz01)]
+[-zzz00: (~ok & ~fain & dackn)]
+[+zzz01: (~dackn & cntgt1 & ~zzz00)]
+[-zzz01: (~fain & dackn)]

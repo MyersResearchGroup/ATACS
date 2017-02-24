@@ -1,0 +1,13 @@
+findred <filename>
+.PP
+This function finds all the redundant rules in the current
+structure, and it outputs the results to the file named
+<filename>.rr which is in the following form:
+.PP
+<enabling event> <enabled event> <epsilon> <lower bound> <upper bound>
+.PP
+If a rule has the following annotation after it: Lbest = <Value of Lbest>
+then has not been declared redundant, but it may be if more
+cycles are analyzed.  If any ordering rule is not found to be
+redundant than an exception is raised and the non-redundant
+ordering rules are stored to the file named <filename>.err.

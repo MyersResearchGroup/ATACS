@@ -1,0 +1,37 @@
+.TH LOADHSE 1 "28 September 2001" "" ""
+.SH NAME
+loadhse \- Loads a HSE File
+.SH SYNOPSIS
+.nf
+.BI atacs " -lh <filename>"
+.br
+.BI atacs> " loadhse <filename>"
+.fi
+.SH DESCRIPTION
+.B loadhse
+compiles the HSE file named <filename>.hse to a
+timed event/level (TEL) structure and stores it to <filename>.tel.
+This structure is immediately loaded, and its constraint graph
+is generated.
+.SH OPTIONS
+.TP
+.BI \-lh
+Loads a HSE file from the command line.
+.TP
+.BI loadhse
+Loads a HSE file from the interactive shell.
+.SH CREDITS
+.B loadhse
+was primarily written by Hao Zheng (hao@vlsigroup.ece.utah.edu) and 
+Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR loadfile (1)
+.BR loadcsp (1)
+.BR loadvhdl (1)
+.BR loader (1)
+.BR loadtel (1)
+.BR loadg (1)
+.BR loadxbm (1)
+.BR loadrsg (1)
+.BR loadprs (1)
+.BR http://www.async.ece.utah.edu

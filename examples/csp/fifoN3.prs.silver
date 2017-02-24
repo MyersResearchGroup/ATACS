@@ -1,0 +1,24 @@
+[~x4b: (i5b & o4)] Combinational
+[~i5b: (o5 & x4b)] Combinational
+[ x4: (~x4b)] Combinational
+[~x2b: (i3b & o2)] Combinational
+[~i3b: (x2b & o3)] Combinational
+[ x2: (~x2b)] Combinational
+[+o3: (~x3)]
+[-o3: (i3 & x3)]
+[ i3: (~i3b)] Combinational
+[ i5: (~i5b)] Combinational
+[+o1: (~x1)]
+[-o1: (i1 & x1)]
+[ i2: (~i2b)] Combinational
+[+o2: (~x2)]
+[-o2: (x2 & i2)]
+[ x1: (~x1b)] Combinational
+[~i2b: (o2 & x1b)] Combinational
+[~x1b: (o1 & i2b)] Combinational
+[ i4: (~i4b)] Combinational
+[+o4: (~x4)]
+[-o4: (x4 & i4)]
+[ x3: (~x3b)] Combinational
+[~i4b: (o4 & x3b)] Combinational
+[~x3b: (o3 & i4b)] Combinational

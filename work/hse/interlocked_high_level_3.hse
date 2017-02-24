@@ -1,0 +1,231 @@
+/************************************************************************
+ * Inverter with initial high output
+ ************************************************************************/
+module inverter_h;
+
+  input   in = {false};
+  output out = {true,<20,25;15,20>};
+
+  process inverter;
+    *[ [in] ; out- ; [~in] ; out+ ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * stall logic
+ * NOTE: This has no delay because it can be hazardous.  We want every 
+ * transition to fire.  We are using the clock to only sample the stall
+ * output when it is stable.  It must remain stable until the latch
+ * closes.
+ ************************************************************************/
+module stall;
+
+  input vin = {false};
+  input sin_d = {false};
+  input sin_c = {false};
+
+  output sin = {false,<0,0>};
+  output stall = {false,<0,0>};
+  
+  process sin;
+    *[ [sin_c | sin_d] ; sin+ ; [~sin_c & ~sin_d] ; sin- ]
+  endprocess
+
+  process stall;
+    *[ [sin & vin] ; stall+ ; [~sin | ~vin] ; stall- ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * Valid clock circuit
+ * NOTE: sin changes on the opposite phase of clk, thus it is stable 
+ * when clk arrives.  Its inversion does not need to be included in 
+ * our delay estimates
+ ************************************************************************/
+module valid_clk;
+
+  input sin = {false};
+  input clk = {false};
+
+  output valid_clk = {false,<35,45>};
+
+  inverter_h stalln( in => sin, out => stalln );
+
+  process valid_clk;
+    *[ [clk & stalln] ; valid_clk+ ; [~clk] ; valid_clk- ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * Data clock circuit
+ * NOTE: Valid is computed on the opposite edge of th eclock.  It is
+ * stable before this edge arrives.
+ ************************************************************************/
+module data_clk;
+
+  input vin = {false};
+  input clk = {false};
+
+  output data_clk = {false,<35,45>};
+
+  process valid_clk;
+    *[ [clk & vin] ; data_clk+ ; [~clk] ; data_clk- ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * latch circuit
+ ************************************************************************/
+module re_latch;
+
+  input   d = {false};
+  input clk = {false};
+
+  output q = {false,<40,50>};
+
+  process re_latch;
+    *[ [clk & d] ; q+ ; [~clk] ; [clk & ~d] ; q- ; [~clk] ]
+  endprocess
+
+endmodule
+
+module interlocked_3;
+
+  input  gclk  = {false,<400,400>};
+  input  gclkn = {true,<20,25;15,20>};
+
+  /** The range from this is derived from the inverter and latch delays
+   ** for the earliest times (assumes the ANDOR gate is not there); and
+   ** it includes the ANDOR gate for the latest time.  This seems
+   ** to be a conservative environment.
+   **/
+  input stall = {false,<60,155>};
+
+  /** This is the delay from the AND gate plus the delay from the
+   ** latch.  The AND gate becaus the previous stage valid latch is
+   ** gated on the positive phase of the clock; and the latch delay
+   ** because the 'valid' signal must propagate through the latch.
+   **/
+  input valid = {false,<75,95>};
+
+
+  /** The rising delay implies that a stall can be generated from a stage
+   ** no earlier than one gate delay after passing through the latch and 
+   ** and no later than five gate delays.  Note I used the earliest and
+   ** latest firing times to get a maximal range.
+   **
+   ** The failling edge is activated on the actual system clock, not the
+   ** appropriate data clock.  As such, it cannot rise any earlier than
+   ** the two AND gate delays plush the delay through the data latch; and
+   ** it cannot fall any latter than five delays after they worst case.
+   **/
+  input logic_stall_1 = {false,<75,225;110,290>};
+  input logic_stall_2 = {false,<75,225;110,290>};
+
+
+  /************************************************************************
+   ** STAGE 1
+   ***********************************************************************/
+  stall stallin_1( vin => valid_1, sin_d => stall_2, sin_c => logic_stall_1,
+                   stall => stallin_1 );
+  re_latch stall_1( d => stallin_1, clk => gclk, q => stall_1 );
+
+  inverter_h valid_gclkn_1( in => gclk, out => valid_gclkn_1 );
+  valid_clk valid_clk_1( sin => stall_1, clk => valid_gclkn_1, 
+                         valid_clk => valid_clk_1 );
+  re_latch valid_1( d => valid, clk => valid_clk_1, q => valid_1 );
+
+  data_clk data_clk_1( vin => valid, clk => valid_clk_1, 
+                       data_clk => data_clk_1 );
+
+
+
+  /************************************************************************
+   ** STAGE 2
+   ***********************************************************************/
+  stall stallin_2( vin => valid_2, sin_d => stall_3, sin_c => logic_stall_2,
+	           stall => stallin_2);
+  inverter_h stall_gclkn_2( in => gclk, out => stall_gclkn_2 );
+  re_latch stall_2( d => stallin_2, clk => stall_gclkn_2, q => stall_2 );
+
+  valid_clk valid_clk_2( sin => stall_2, clk => gclk, 
+                         valid_clk => valid_clk_2 );
+  re_latch valid_2( d => valid_1, clk => valid_clk_2, q => valid_2 );
+
+  data_clk data_clk_2( vin => valid_1, clk => valid_clk_2, 
+                       data_clk => data_clk_2 );
+
+
+
+
+  /************************************************************************
+   ** STAGE 3
+   ***********************************************************************/
+  re_latch stall_3( d => stall, clk => gclk, q => stall_3 );
+
+  inverter_h valid_gclkn_3( in => gclk, out => valid_gclkn_3 );
+  valid_clk valid_clk_3( sin => stall_3, clk => valid_gclkn_3, 
+                         valid_clk => valid_clk_3 );
+  re_latch valid_3( d => valid_2, clk => valid_clk_3, q => valid_3 );
+
+  data_clk data_clk_3( vin => valid_2, clk => valid_clk_3, 
+                       data_clk => data_clk_3 );
+
+
+
+
+  testbench t_clock;
+    *[ gclk+ ; gclk- ]
+  endtestbench
+
+  testbench t_clockn;
+    *[ [gclk] ; gclkn- ; [~gclk] ; gclkn+ ]
+  endtestbench
+
+  testbench t_stall;
+    *[ [ gclkn & stall -> stall- ; [~gclkn]
+       | gclkn & stall -> [~gclkn]
+       | gclkn & ~stall & valid_3 -> stall+ ; [~gclkn]
+       | gclkn & ~stall & valid_3 -> [~gclkn]
+       ]
+     ]
+  endtestbench
+
+  /** Valid cannot reset until it is no longer being stalled
+      Valid can set anytime after the correct clock edge because a
+        stall is never forwared for invalid data
+      Valid can remain unchanged for any number of cycles
+   **/
+  testbench t_valid;
+    *[ [ gclk & valid & ~stall_1 -> valid- ; [~gclk]
+       | gclk & valid & ~stall_1 -> [~gclk]
+       | gclk & ~valid -> valid+ ; [~gclk]
+       | gclk & ~valid -> [~gclk]
+       ]
+     ]
+  endtestbench
+
+  testbench t_logic_stall_1;
+    *[ [ valid_gclkn_1 & data_clk_1 & ~logic_stall_1 -> logic_stall_1+ ; 
+                                                        [~data_clk_1] 
+       | valid_gclkn_1 & data_clk_1 & ~logic_stall_1 -> [~data_clk_1]
+       | valid_gclkn_1 & logic_stall_1 -> logic_stall_1- ; [~valid_gclkn_1]
+       | valid_gclkn_1 & logic_stall_1 -> [~valid_gclkn_1]
+       ]
+     ]
+  endtestbench
+
+  testbench t_logic_stall_2;
+    *[ [ gclk & data_clk_2 & ~logic_stall_2 -> logic_stall_2+ ; [~data_clk_2]
+       | gclk & data_clk_2 & ~logic_stall_2 -> [~data_clk_2]
+       | gclk & logic_stall_2 -> logic_stall_2- ; [~gclk]
+       | gclk & logic_stall_2 -> [~gclk]
+       ]
+     ]
+  endtestbench
+
+endmodule

@@ -1,0 +1,16 @@
+[+NoIn9: (nstrb)]
+[-NoIn9: (out0)]
+[+out12: (~npca)]
+[-out12: (in)]
+[~npca: (npca & NoIn2)] Combinational
+[~npca: (nstrb)] Combinational
+[~npca: (NoIn9 & npca)] Combinational
+[~npca: (nnclk & npca)] Combinational
+[~npca: (~NaOutDum)] Combinational
+[ nstrb: (in & npcg)] Combinational
+[~NaOutDum: (in & npcg)] Combinational
+[ npcg: (NaOutDum)] Combinational
+[+out0: (~npca)]
+[-out0: (in)]
+[+NoIn2: (nstrb)]
+[-NoIn2: (out12)]

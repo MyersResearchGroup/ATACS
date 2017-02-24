@@ -1,0 +1,38 @@
+.name sbufA
+.inputs ackline done rejpkt req
+.outputs CSC0 ack sendline 
+#@.init_state [0000100]
+.graph
+ackline+/1 sendline-/2
+ackline-/1 sendline+/2
+ackline-/2 ack-/2
+done+ ack+/1
+done- ack-/2
+rejpkt+/1 rejpkt-/1
+rejpkt-/1 p_7
+p_7 rejpkt+/1
+p_7 req+/1
+rejpkt+/2 CSC0-/1
+rejpkt-/2 ack+/2
+req+/1 sendline+/1
+req-/1 ack-/1
+req-/2 ack-/2
+ack+/1 ackline-/2
+ack+/1 done-
+ack+/1 req-/2
+ack-/1 p_7
+ack+/2 req-/1
+ack+/2 CSC0+/1
+ack-/2 p_7
+sendline+/1 p_18
+p_18 ackline+/1
+p_18 rejpkt+/2
+sendline-/1 rejpkt-/2
+sendline+/2 p_18
+sendline-/2 p_20
+p_20 ackline-/1
+p_20 done+
+CSC0+/1 ack-/1
+CSC0-/1 sendline-/1
+.marking {p_7}
+.end

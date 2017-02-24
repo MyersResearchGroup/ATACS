@@ -1,0 +1,37 @@
+#! /usr/bin/perl
+
+$mode = 0;
+while(<>) {
+    if (/^#@\.abstract/) {
+	@line = split;
+	shift(@line);
+	$mode = 1;
+    }
+    else {
+	$first[$mode] = $first[$mode] . $_;
+    }
+}
+
+$buf = join(' ', @line);
+for($i = 0; $i <= $#line; $i++) {
+    $buf = "";
+    for($j = 0; $j < $i; $j++) {
+	$buf = $buf . " " . $line[$j];
+    }
+    for($j = $i + 1; $j <= $#line; $j++) {
+	$buf = $buf . " " . $line[$j];
+    }
+    $buf =~ s/^\s//;
+    &out_one($buf);
+}
+
+sub out_one {
+    local($abs) = @_;
+
+    open(f, ">tmp.g");
+    printf f "$first[0]";
+    printf f "#@\.abstract $abs\n";
+    printf f "$first[1]";
+    close(f);
+    system "time atacs -tSoillva tmp.g";
+}

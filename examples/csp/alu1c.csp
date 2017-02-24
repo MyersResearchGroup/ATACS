@@ -1,0 +1,52 @@
+module alu1;
+
+/* Initial */
+/*
+delay gatedelay = <8,12>;
+delay predelay = <16,24>;
+delay aludelay = <24,36;16,24>;
+delay muldelay = <48,72;16,24>;
+delay startdelay = <8,12>;
+*/
+
+delay gatedelay = <8,12>;
+delay predelay = <16,24>;
+delay aludelay = <24,36>;
+delay muldelay = <48,72>;
+delay startdelay = <48,72>;
+
+input start = {startdelay}; 
+input M1A = {muldelay};
+input a1done = {aludelay};
+output A1M = {gatedelay};
+output a1prech = {true,gatedelay};
+output LA = {gatedelay};
+
+process alu1;
+    *[ [start+]; a1prech-; [a1done+]; (a1prech+ || A1M+); [a1done-]; 
+	[ M1A+ -> a1prech-; [a1done+]; (a1prech+ || A1M- || LA+);  
+	    [M1A- & a1done-]; a1prech-; [a1done+]; 
+	    (a1prech+ || A1M+ || LA-); [a1done-]; *  
+	| start- -> A1M-
+	]
+     ]
+endprocess	
+
+process mul1;
+    *[ start+; [A1M+]; 
+	[ skip -> M1A+; [A1M-]; M1A-; [A1M+]; *  
+	| skip -> start-; [A1M-]
+	]
+     ]
+endprocess	
+
+process alu;
+    *[ [a1prech-]; a1done+; [a1prech+]; a1done-;
+	[ a1prech- -> a1done+; [a1prech+ & A1M-]; a1done-; [a1prech-]; 
+		      a1done+; [a1prech+]; a1done-; *
+	| A1M- -> skip 
+	]
+     ]
+endprocess	
+
+endmodule

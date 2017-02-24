@@ -1,0 +1,32 @@
+/*****************************************************************************/
+/* CSP specification for a 3-bit synchronous counter.                        */
+/*****************************************************************************/
+module cnt3;
+
+delay gatedelay  = <0,5>;
+delay clockdelay = <19,21>;
+
+input  phi = {false,clockdelay};
+output a = {false,gatedelay};
+output ap = {false,gatedelay};
+output b = {false,gatedelay};
+output bp = {false,gatedelay};
+output c = {false,gatedelay};
+output cp = {false,gatedelay};
+
+process cnt;
+*[[phi+]; a+; [phi-]; ap+; [phi+];   
+  (b+ || a-); [phi-]; (bp+ || ap-); 
+  [phi+]; a+; [phi-]; ap+; [phi+];  
+  (c+ || b- || a-); [phi-]; (cp+ || bp- || ap-);  
+  [phi+]; a+; [phi-]; ap+; [phi+]; 
+  (b+ || a-); [phi-]; (bp+ || ap-);
+  [phi+]; a+; [phi-]; ap+; [phi+]; 
+  (c- || b- || a-); [phi-]; (cp- || bp- || ap-) ] 
+endprocess
+
+process clk;
+*[ phi+; phi-; phi+; phi-; phi+; phi-; phi+; phi-; phi+; phi-; phi+; phi-;
+   phi+; phi-; phi+; phi- ]
+endprocess
+endmodule

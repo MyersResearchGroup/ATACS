@@ -1,0 +1,4 @@
+[ d: (a & b & ~c)] Combinational
+[+c: (d)]
+[+c: (~a & b)]
+[-c: (~b)]

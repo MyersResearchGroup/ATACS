@@ -1,0 +1,85 @@
+module diffeq;
+
+input a1done = {<2,2;1,3>};
+output a1prech = {true};
+
+input a2done = {<2,2;1,3>};
+output a2prech = {true};
+
+input m1done = {<2,2;6,7>};
+output m1prech = {true};
+
+input m2done = {<2,2;6,7>};
+output m2prech = {true};
+
+input start = {<1,2>}; 
+output EndP;
+output A1M;
+output A2M;
+output M1A;
+output M2A2;
+output done;
+output C;
+
+process alu1;
+    *[ [start]; a1prech-; [a1done]; (a1prech+ || A1M+);   
+	[ M1A & ~a1done -> a1prech-; [a1done]; (a1prech+ || A1M-);  
+	    [~M1A & ~a1done]; a1prech-; [a1done]; (a1prech+ || A1M+); *  
+	| ~start & ~a1done -> A1M-
+	]
+     ]
+endprocess	
+
+process alu2;
+    *[ [start]; a2prech-;  
+	[ a2done & ~C -> (A2M+ || a2prech+); [~a2done]; a2prech-; 
+	    [a2done]; a2prech+; [M2A2 & M1A & ~a2done]; (A2M- || a2prech-);
+	    [ a2done & ~C -> a2prech+; [~a2done]; a2prech-; 
+		[~M2A2 & ~M1A & a2done]; (a2prech+ || A2M+); [~a2done];
+		a2prech-; [a2done]; a2prech+; [M2A2 & M1A & ~a2done]; 
+		(A2M- || a2prech-); *
+	    | a2done & C -> a2prech+; [~a2done]; a2prech-; 
+		[~M2A2 & ~M1A & a2done]; a2prech+; [~a2done]; EndP+
+	    ]
+        | a2done & C -> a2prech+; [~a2done]; EndP+
+	]; [~start]; EndP-
+     ]
+endprocess
+
+process mul1;
+    *[ [A1M & A2M & ~m1done]; m1prech-; [m1done]; (M1A+ || m1prech+ );  
+	[~A1M & ~m1done]; m1prech-; [~A2M & m1done]; (M1A- || m1prech+) ]
+endprocess
+
+process mul2;
+    *[ [A1M & A2M]; m2prech-; [m1done]; (M2A2+ || m2prech+); 
+	[~A1M & ~A2M & ~m1done]; M2A2- ]
+endprocess
+
+process celem;
+    *[ [EndP & A1M]; done+; [~EndP & ~A1M]; done- ]
+endprocess
+
+process env;
+    *[ start+; [done]; start-; [~done] ]
+endprocess
+
+process a1;
+    *[ [~a1prech]; a1done+; [a1prech]; a1done- ]
+endprocess
+
+process a2;
+    *[ [~a2prech]; [ skip -> C+; a2done+; [a2prech]; C-; a2done- 
+		   | skip -> a2done+; [a2prech]; a2done- 
+		   ]
+     ]
+endprocess
+
+process m1;
+    *[ [~m1prech]; m1done+; [m1prech]; m1done- ]
+endprocess
+
+process m2;
+    *[ [~m2prech]; m2done+; [m2prech]; m2done- ]
+endprocess
+endmodule

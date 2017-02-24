@@ -1,0 +1,31 @@
+[ EndDMAInt: (~StartDMASend & DWAckLastN & DWAckNormN & ReqInN & ~DRQ & ~zzz03)] Combinational
+[ DRQ: (~ReqInN & DRQ & ~AckOutN)] Combinational
+[ DRQ: (DWAckLastN & DWAckNormN & DRQ)] Combinational
+[ DRQ: (~StartDMASend & ReqInN & zzz01)] Combinational
+[ DRQ: (DWAckNormN & ~ReqInN & ~zzz02)] Combinational
+[ AckOutN: (~DWAckNormN & ReqInN)] Combinational
+[ AckOutN: (DRQ & zzz02)] Combinational
+[ AckOutN: (ReqInN & ~DRQ)] Combinational
+[ AckOutN: (ReqInN & AckOutN)] Combinational
+[ AckOutN: (~DWAckNormN & AckOutN)] Combinational
+[ AckOutN: (~DWAckLastN & ReqInN)] Combinational
+[ AckOutN: (~DWAckLastN & zzz02)] Combinational
+[ zzz00: (~DWAckNormN & ReqInN & ~zzz02)] Combinational
+[ zzz00: (ReqInN & zzz00)] Combinational
+[ zzz00: (~DWAckNormN & zzz00)] Combinational
+[ zzz01: (ReqInN & zzz01)] Combinational
+[ zzz01: (DWAckNormN & DRQ & zzz01)] Combinational
+[ zzz01: (StartDMASend)] Combinational
+[ zzz01: (~DWAckLastN & zzz01)] Combinational
+[ zzz02: (ReqInN & zzz01)] Combinational
+[ zzz02: (DWAckNormN & zzz02 & zzz03)] Combinational
+[ zzz02: (StartDMASend)] Combinational
+[ zzz02: (~DWAckLastN & ReqInN)] Combinational
+[ zzz02: (DWAckNormN & ~ReqInN & ~DRQ & zzz02)] Combinational
+[ zzz03: (~DWAckNormN & ReqInN & ~zzz01)] Combinational
+[ zzz03: (ReqInN & zzz03)] Combinational
+[ zzz03: (DWAckNormN & DRQ & zzz02)] Combinational
+[ zzz03: (StartDMASend)] Combinational
+[ zzz03: (~DWAckLastN & ReqInN)] Combinational
+[ zzz03: (~DWAckLastN & AckOutN)] Combinational
+[ zzz03: (~DWAckNormN & zzz00)] Combinational

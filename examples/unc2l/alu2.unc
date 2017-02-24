@@ -1,0 +1,32 @@
+input	start                    0
+input	EvDone                   0
+input	M1A                      0
+input	M2A2                     0
+input	C                        0
+output	Prech                    1
+output	LX                       0
+output	LY                       0
+output	A2M                      0
+output	EndP                     0
+output	seldx                    0
+output	selym2                   0
+output	zzz00                    0
+output	zzz01                    0
+output	zzz02                    0
+
+0  1	start+                   | Prech- 
+1  2	[C-] EvDone+             | zzz01+ zzz02+            | Prech+ A2M+ seldx+ 
+2  3	EvDone- M1A* M2A2*       | Prech- zzz01- zzz02- 
+3  4	EvDone+ M1A* M2A2*       | Prech+ LX+ seldx- 
+4  5	EvDone- M1A+ M2A2+       | Prech- A2M- 
+5  6	[C-] EvDone+ M1A* M2A2*  | zzz01+ zzz02+            | Prech+ seldx+ selym2+ 
+6  7	EvDone- M1A* M2A2*       | Prech- LX- zzz00+ zzz02- 
+7  8	EvDone+ M1A- M2A2-       | Prech+ LY+ A2M+ selym2- 
+8  3	EvDone- M1A* M2A2*       | Prech- LY- zzz00- zzz01- 
+5  9	[C+] EvDone+ M1A* M2A2*  | zzz00+ zzz01+            | Prech+ selym2+ 
+9  10	EvDone- M1A* M2A2*       | Prech- LX- 
+10  11	EvDone+ M1A- M2A2-       | Prech+ LY+ selym2- 
+11  13	EvDone-                  | LY- EndP+ zzz00- zzz02+ 
+1  12	[C+] EvDone+             | zzz00+ zzz02+            | Prech+ 
+12  13	EvDone-                  | EndP+ zzz00- zzz01+ 
+13  0	start-                   | EndP- zzz01- zzz02- 

@@ -1,0 +1,9 @@
+[+zzz00: (StartDMARcv)]
+[-zzz00: (~AckInN)]
+[+ReqOutN: (DRAckNormN & ~AckInN)]
+[-ReqOutN: (AckInN & ~StartDMARcv & zzz00)]
+[-ReqOutN: (~DRAckNormN & AckInN)]
+[+DRQ: (DRAckNormN & ~AckInN)]
+[-DRQ: (~DRAckNormN & AckInN)]
+[-DRQ: (~DRAckLastN & AckInN)]
+[ EndDMAInt: (DRAckLastN & DRAckNormN & AckInN & ~StartDMARcv & ~zzz00 & ReqOutN & ~DRQ)] Combinational

@@ -1,0 +1,388 @@
+%\documentstyle[11pt,epsfig,psfig,times]{article} 
+
+%\textheight 9in
+%\topmargin 1in
+%\footheight 0.5in
+%\textwidth 6.8in
+%\oddsidemargin -0.2in
+
+%\usepackage{latex8}
+%\usepackage{psfig}
+%\usepackage{epsfig}
+%\usepackage{latexsym}
+%\usepackage{amssymb}
+
+%\begin{document}
+
+Let ${\tt preset}(t)$ and ${\tt postset}(t)$ denote the preset and postset of
+a transition $t$.  ${\tt preset}(p)$ and ${\tt postset}(p)$ are similarly 
+defined for a place $p$.   
+
+
+\subsection{Transform 0: Merge Parallel Places}
+\label{reduce0}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform0-a,width=27.5mm} \hspace{5mm} &
+\psfig{figure=xform0-b,width=22.5mm} \\
+(a) \hspace{6mm} & (b)
+\end{tabular}
+{\caption{\label{xform0}Transform 0. Merge parallel places.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform0}(a) shows two places in parallel.  They can be
+merged into a single place as shown in Figure~\ref{xform0}(b) if the following requirements hold:
+\begin{itemize}
+\item {\tt preset(p1) = preset(p2)}.  
+\item {\tt postset(p1) = postset(p2)}.  
+\item {\tt marking(p1) = marking(p2)}
+\end{itemize}
+
+%\clearpage
+
+\subsection{Transform 1: Remove a Place in a Self Loop}
+\label{reduce}
+
+\begin{figure}[!tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform1-a,width=31.25mm} \hspace{5mm} &
+\psfig{figure=xform1-b,width=35mm} \\
+(a) \hspace{6mm} & (b)
+\end{tabular}
+{\caption{\label{xform1}Transform 1. Remove a self loop on a
+    transition.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform1}(a) shows a transition $t$ with a self loop, where a 
+place $p$ is in ${\tt preset}(t)$ and ${\tt postset}(t)$, and is marked.
+The transformation removes $p$ and its incoming and outgoing flow relations.
+Then, the upper bound delay of the flow relations entering $t$ are 
+modified such that the upper bound is the maximum of the current max
+and that of the flow relation between $p$ and $t$.
+The new TPN is shown in Figure~\ref{xform1}(b).  If there is only the
+same one place in the preset and postset of $t$, this place is not
+removed as shown in Figure~\ref{bad}(c). 
+
+%\clearpage 
+
+\subsection{Transform 2: (BAD TRANSFORM) Remove a Transition in a Loop}
+\label{reduce1}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform2-a,width=27.5mm} \hspace{5mm} &
+\psfig{figure=xform2-b,width=22.5mm} \\
+(a) \hspace{6mm} & (b)
+\end{tabular}
+{\caption{\label{xform2}Transform 2. Remove a transition in a loop.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform2}(a) shows a loop formed by a transition $t_3$, where the size
+of the preset and postset of $t_3$ is 1. The semantics
+of this TPN can be interpreted as transition $t_4$ can fire after the
+infinite number of times of firings of transition $t_2$ and $t_3$.
+If ${\tt u}(p_1) + {\tt u}(p_2) > 0$, by changing ${\tt u}(p2)$ to $\infty$, 
+the timing of $t_4$ is preserved.  The new TPN after removing transition 
+$t_3$ and its incoming and outgoing flow relations is shown in 
+Figure~\ref{xform2}(b).
+
+The code implemented the above transformation is in the function call 
+{\em xform\_1} in postproc.cc.  
+
+%\clearpage
+
+\subsection{Transform 3: Remove a Transition With a Single Place in the Postset}
+\label{reduce2}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform3a-a,width=35mm} \hspace{10mm} &
+\psfig{figure=xform3a-b,width=50mm} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform3a}Transform 3a. Remove the transition with
+    the size of postset of 1.}}
+\end{center}
+\end{figure}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform3b-a,width=37.5mm} \hspace{10mm} &
+\psfig{figure=xform3b-b,width=62.5mm} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform3b}Transform 3b. The transformation in
+    Figure~\ref{xform3a} without the restriction that places in preset(t)
+    have postset sizes of 1.}}
+\end{center}
+\end{figure}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform3c-a,width=35mm} \hspace{10mm} &
+\psfig{figure=xform3c-b,width=57.5mm} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform3c}Transform 3c.  The transformation in
+    Figure~\ref{xform3a} without the restriction that the place in
+    postset(t) have preset size of 1.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform3a}(a) shows a transition $t$ with only one place in its
+postset.  Suppose $t$ is removed.  The incoming and outgoing flow relations
+of $t$ are also removed.  Then the place in ${\tt postset}(t)$ is 
+merged with those in ${\tt preset}(t)$.  The delay bounds of the place in 
+${\tt postset}(t)$ are added to the delay bounds of the places in 
+${\tt preset}(t)$, as shown in Figure~\ref{xform3a}(b).
+The transformation in Figure~\ref{xform3a}  has the restrictions that
+for each place $p$ in
+${\tt preset}(t)$, the size of ${\tt postset}(p)$ equals 1 and  for the
+place $p$ in ${\tt postset}(t)$, the size of ${\tt preset}(p)$ equals
+1.  Figures \ref{xform3b} and \ref{xform3c} show the same
+transformations without each restriction respectively.
+
+Figure~\ref{bad}(a) and (b) show where these above transformations
+cannot be applied.
+
+All places in preset(t) must have same marking (all marked or all
+unmarked) and place in postset(t) can be marked.  If either preset(t)
+or postset(t) is marked, new combined places are marked.
+
+%\clearpage
+
+\subsection{Transform 4: Remove A Transition With A Single Place in the Preset}
+\label{xform-3}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform4a-a,width=40mm} \hspace{10mm} &
+\psfig{figure=xform4a-b,width=41.25mm} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform4a}Transform 4a. Remove a transition with
+    preset of size 1.}}
+\end{center}
+\end{figure}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform4b-a,width=37.5mm} \hspace{10mm} &
+\psfig{figure=xform4b-b,width=40mm} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform4b}Transform 4b. Transformation in Figure~\ref{xform4a}
+    without restriction that the places in preset(t) have a preset of
+    size 0.}}
+\end{center}
+\end{figure}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform4c-a,width=40mm} \hspace{10mm} &
+\psfig{figure=xform4c-b,width=45mm} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform4c}Transform 4c. Transformation in Figure~\ref{xform4a}
+    without restriction that the places in postset(t) each have a preset of
+    size 1.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform4a}(a) shows a transition $t$ with only one place in its
+preset.  Suppose $t$ is removed.  The incoming and outgoing flow relations
+of $t$ are also removed.  The the place in ${\tt preset}(t)$ is 
+merged with those in ${\tt postset}(t)$.  The delay bounds of the place in 
+${\tt preset}(t)$ are added to the delay bounds of the places in 
+${\tt postset}(t)$, as shown in Figure~\ref{xform4a}(b).
+The transformation in Figure~\ref{xform4a} as the restrictions that
+for the place $p$ in
+${\tt preset}(t)$, the size of ${\tt postset}(p)$ equals 1 and for each
+place $p$ in ${\tt postset}(t)$, the size of ${\tt preset}(p)$ equals
+1, too.  Figures~\ref{xform4b} and \ref{xform4c} demonstrate the same
+transform where these restrictions are loosened.
+
+The above transformations are also 
+restricted by the conditions shown in Figure~\ref{bad}(a) and (b).
+
+All places in postset(t) must have same marking (all marked or all
+unmarked) and place in preset(t) can be marked.  If anything is
+marked, new combined places are marked.
+
+%\clearpage
+
+\subsection{Transform 5: Merge Transitions With the same preset and postset}
+\label{merge-1}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform5a-a,width=58.75mm} \hspace{10mm} &
+\psfig{figure=xform5a-b,width=48.75mm} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform5a}Transform 5a. Merge transitions with the same
+    preset and postset}}
+\end{center}
+\end{figure}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform5b-a,width=48.75mm} \hspace{10mm} &
+\psfig{figure=xform5b-b,width=46.25mm} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform5b}Transform 5b. Merge transitions where the
+    places in their preset and postset have the same preset and
+    postset.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform5a}(a) shows two transitions $t_6$ and $t_7$ with 
+the same preset and postset.  Those two transitions can be merged together
+without affecting the behavior on transitions $t_{10}$, $t_{11}$, and 
+$t_{12}$ as shown in Figure~\ref{xform5a}(b).  Since no places are
+being removed, no marking restrictions apply.
+
+%Note: Transform 5b is not turned on by default.  It was found to have
+%minimal effect except for in a few examples and was computationaly
+%intensive.  Additionally, the correctness of this transformation in
+%its current form is in question.
+
+Another case is where the two transitions do not have the same preset
+and postset, but the places in their preset and postset have the same
+preset and postset as shown in Figure~\ref{xform5b}(a).  The two
+transitions can still be merged along with the places in their preset
+and postset. This transformation is depicted in Figure~\ref{xform5b}.
+In order for the transformation to be applied certain timing
+constraints must be satisfied.  Specifically, arcs between the places
+in the postset to transitions in the postsets of the postset must have
+the same timing bounds.  Furthermore, the place to transition arcs
+feeding the transitions to be merged must have the same timing
+constraints.
+
+%There is also requirement on this transformation that the places in
+%the preset of the merged two transitions must have same postset
+%excluding the merging transitions, and the places in the postset of
+%the merged two transitions must have same preset excluding the merging
+%transitions.  For example, in Figure~\ref{xform5b}(a), the places in
+%the preset of $t_3$ and $t_4$ are $p_1$ and $p_2$.  The postset of
+%$p_1$ and $p_2$ contains only $t_2$, excluding $t_3$ and $t_4$.  The
+%places in the postset of $t_3$ and $t_4$ are $p_3$ and $p_4$.  The
+%preset of $p_3$ and $p_4$ contains only $t_5$, excluding $t_3$ and
+%$t_4$.
+
+%\clearpage
+
+\subsection{Transform 6: Merge Transitions With the same preset}
+\label{merge-2}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform6-a,width=57.5mm} \hspace{5mm} &
+\psfig{figure=xform6-b,width=50mm} \\
+(a) \hspace{5mm} & (b)
+\end{tabular}
+{\caption{\label{xform6}Transform 6. Merge transitions with the same
+    preset.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform6}(a) shows two transitions $t_1$ and $t_2$ with 
+the same preset.  It is also required that the places in the postset of 
+$t_1$ and $t_2$ must have the same preset aside from the two
+transitions being merged.  Additionally, there can only be one place
+in the postsets of t1 and t2.  Those two 
+transitions can be merged together without affecting the behavior on 
+transitions $t_3$, $t_4$, and $t_5$ as shown in Figure~\ref{xform6}(b).
+
+Since the places in the postset of the merging transitions will be
+merged, they must have a consistent marking.  The newly merged place
+will have the same marking as the places being merged.
+%\clearpage
+
+\subsection{Transform 7: Merge Transitions With the same postset}
+\label{merge-3}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=xform7-a,width=51.25mm} \hspace{10mm} &
+\psfig{figure=xform7-b,width=51.25mm} \\
+(a) \hspace{10mm} & (b)
+\end{tabular}
+{\caption{\label{xform7}Transform 7. Merge transitions with the same
+    postset.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{xform7}(a) shows two transitions $t_1$ and $t_2$ with 
+the same postset.  It is also required that the places in the preset of 
+$t_1$ and $t_2$ must have the same postset aside from $t_1$ and $t_2$.
+Those two 
+transitions can be merged together without affecting the behavior on 
+transitions $t_3$, $t_4$, and $t_5$ as shown in
+Figure~\ref{xform7}(b).  Additionally, the transitions being merged
+may each only have one place in their presets.  The places in the
+preset of the transitions
+being merged should have consistent markings.  The newly merged place
+in the transformed net should have the same marking as the places that
+are merged.
+
+
+
+%\clearpage
+
+\subsection{Illegal Transformations}
+
+\begin{figure}[tbh]
+\begin{center}
+\begin{tabular}{cc}
+\psfig{figure=bad-1,width=25mm} \hspace{5mm} &
+\psfig{figure=bad-2,width=32.5mm} \\
+(a) \hspace{6mm} & (b) \\
+\psfig{figure=bad-3,width=20mm} \hspace{5mm} &
+\psfig{figure=bad-4,width=12.5mm} \\
+(c) \hspace{6mm} & (d)
+\end{tabular}
+{\caption{\label{bad}Illegal transformations.}}
+\end{center}
+\end{figure}
+
+Figure~\ref{bad} shows several illegal transformations. In Figure~\ref{bad}(a),
+neither $t_1$ nor $t_2$ can be removed using transformations in 
+section~\ref{reduce1} and \ref{reduce2}.  
+They may be merged by transformations insection~\ref{merge-1}, 
+\ref{merge-2}, or \ref{merge-3}.  In Figure~\ref{bad}(b), $t_3$ cannot be
+removed in that it is impossible to have two places connected without a
+transition in between. Figure~\ref{bad}(c) shows a stand-alone self loop which
+is not removed for some reason.  I think it can be removed if the wire of 
+that transition is not used in any levels.  Figure~\ref{bad}(d) shows a
+dangling transition $t_2$.  It cannot be removed because safety failure
+maybe hidden; otherwise.
+
+%\clearpage
+
+\subsection{To Do and Notes}
+
+\begin{itemize}
+\item Transforms 3d and 4d.  Same As 3a and 4a but with both
+  restrictions removed.
+\end{itemize}
+
+%\end{document}

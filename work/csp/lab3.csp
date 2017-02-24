@@ -1,0 +1,58 @@
+module lab3;
+
+    input  clk = {true} ;
+    input  xin		;
+    output zout		;
+
+    input  d0		;
+    output q0		;
+    output r0  = {true} ;
+    output s0		;
+
+    input  d1		;
+    output q1		;
+    output r1  = {true} ;
+    output s1		;
+
+
+    process DFF0;
+    *[	([clk-];r0-||[d0+]);[clk+];s0+; [skip -> q0+
+					|skip -> q0+];
+	([clk-];s0-||[d0-]);[clk+];r0+;		 q0- ]
+    endprocess
+
+    process DFF1;
+    *[	([clk-];r1-||[d1+]);[clk+];s1+;		 q1+ ; 
+	([clk-];s1-||[d1-]);[clk+];r1+;		 q1- ]
+    endprocess
+
+    process ns0;
+    *[[xin- ->d1-
+     | xin+ ->d1+
+     |  q0- ->zout-
+     |  q1+ ->(zout+||d0+);[q1-]
+     ]]
+    endprocess
+
+    process ns1;
+    *[    [zout+];
+     [xin- ->d0-
+     | xin+ ->d0+
+     |  q0+ ->(zout-||d1-);[q1+]
+     ]]
+    endprocess
+
+    process ns2;
+    *[[q0+];
+     [xin- -> d1+
+     | xin+ -> d1-
+     |  q1- ->(zout+||d1+||d0-); [q0+]
+     ]]
+    endprocess
+
+    process env;
+    *[ (clk- || xin+);  clk+ ; (clk-|| xin-);  clk+]
+    endprocess
+
+endmodule
+

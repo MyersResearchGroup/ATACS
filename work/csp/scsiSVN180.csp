@@ -1,0 +1,302 @@
+/*****************************************************************************/
+/* Chu's SCSI Protocol Controller (with state variable added by hand)        */
+/*****************************************************************************/
+module scsi;
+
+delay gatedelay = <0,5>;
+delay envdelay = <20,50>;
+
+input ack = {true,envdelay};
+input go = {false,envdelay};
+output req = {true,gatedelay};
+output rdy = {false,gatedelay};
+output q = {true,gatedelay};
+
+process scsi2;
+*[ req-; rdy+; q-; [go+]; rdy-; [ack-]; req+; [go-]; q+; [ack+] ]  
+endprocess
+
+process ack;
+*[ [req-]; ack-; [req+]; ack+ ]
+endprocess
+
+process go;
+*[ [rdy+]; go+; [rdy-]; go- ]
+endprocess
+
+endmodule
+
+module main;
+
+input ack = {true,<20,50>};
+input go = {false,<20,50>};
+
+scsi scsi1(req => req1, ack => ack, go => go, rdy => rdy1);
+scsi scsi2(req => req2, ack => ack, go => go, rdy => rdy2);
+scsi scsi3(req => req3, ack => ack, go => go, rdy => rdy3);
+scsi scsi4(req => req4, ack => ack, go => go, rdy => rdy4);
+scsi scsi5(req => req5, ack => ack, go => go, rdy => rdy5);
+scsi scsi6(req => req6, ack => ack, go => go, rdy => rdy6);
+scsi scsi7(req => req7, ack => ack, go => go, rdy => rdy7);
+scsi scsi8(req => req8, ack => ack, go => go, rdy => rdy8);
+scsi scsi9(req => req9, ack => ack, go => go, rdy => rdy9);
+scsi scsi10(req => req10, ack => ack, go => go, rdy => rdy10);
+scsi scsi11(req => req11, ack => ack, go => go, rdy => rdy11);
+scsi scsi12(req => req12, ack => ack, go => go, rdy => rdy12);
+scsi scsi13(req => req13, ack => ack, go => go, rdy => rdy13);
+scsi scsi14(req => req14, ack => ack, go => go, rdy => rdy14);
+scsi scsi15(req => req15, ack => ack, go => go, rdy => rdy15);
+scsi scsi16(req => req16, ack => ack, go => go, rdy => rdy16);
+scsi scsi17(req => req17, ack => ack, go => go, rdy => rdy17);
+scsi scsi18(req => req18, ack => ack, go => go, rdy => rdy18);
+scsi scsi19(req => req19, ack => ack, go => go, rdy => rdy19);
+scsi scsi20(req => req20, ack => ack, go => go, rdy => rdy20);
+scsi scsi21(req => req21, ack => ack, go => go, rdy => rdy21);
+scsi scsi22(req => req22, ack => ack, go => go, rdy => rdy22);
+scsi scsi23(req => req23, ack => ack, go => go, rdy => rdy23);
+scsi scsi24(req => req24, ack => ack, go => go, rdy => rdy24);
+scsi scsi25(req => req25, ack => ack, go => go, rdy => rdy25);
+scsi scsi26(req => req26, ack => ack, go => go, rdy => rdy26);
+scsi scsi27(req => req27, ack => ack, go => go, rdy => rdy27);
+scsi scsi28(req => req28, ack => ack, go => go, rdy => rdy28);
+scsi scsi29(req => req29, ack => ack, go => go, rdy => rdy29);
+scsi scsi30(req => req30, ack => ack, go => go, rdy => rdy30);
+scsi scsi31(req => req31, ack => ack, go => go, rdy => rdy31);
+scsi scsi32(req => req32, ack => ack, go => go, rdy => rdy32);
+scsi scsi33(req => req33, ack => ack, go => go, rdy => rdy33);
+scsi scsi34(req => req34, ack => ack, go => go, rdy => rdy34);
+scsi scsi35(req => req35, ack => ack, go => go, rdy => rdy35);
+scsi scsi36(req => req36, ack => ack, go => go, rdy => rdy36);
+scsi scsi37(req => req37, ack => ack, go => go, rdy => rdy37);
+scsi scsi38(req => req38, ack => ack, go => go, rdy => rdy38);
+scsi scsi39(req => req39, ack => ack, go => go, rdy => rdy39);
+scsi scsi40(req => req40, ack => ack, go => go, rdy => rdy40);
+scsi scsi41(req => req41, ack => ack, go => go, rdy => rdy41);
+scsi scsi42(req => req42, ack => ack, go => go, rdy => rdy42);
+scsi scsi43(req => req43, ack => ack, go => go, rdy => rdy43);
+scsi scsi44(req => req44, ack => ack, go => go, rdy => rdy44);
+scsi scsi45(req => req45, ack => ack, go => go, rdy => rdy45);
+scsi scsi46(req => req46, ack => ack, go => go, rdy => rdy46);
+scsi scsi47(req => req47, ack => ack, go => go, rdy => rdy47);
+scsi scsi48(req => req48, ack => ack, go => go, rdy => rdy48);
+scsi scsi49(req => req49, ack => ack, go => go, rdy => rdy49);
+scsi scsi50(req => req50, ack => ack, go => go, rdy => rdy50);
+scsi scsi51(req => req51, ack => ack, go => go, rdy => rdy51);
+scsi scsi52(req => req52, ack => ack, go => go, rdy => rdy52);
+scsi scsi53(req => req53, ack => ack, go => go, rdy => rdy53);
+scsi scsi54(req => req54, ack => ack, go => go, rdy => rdy54);
+scsi scsi55(req => req55, ack => ack, go => go, rdy => rdy55);
+scsi scsi56(req => req56, ack => ack, go => go, rdy => rdy56);
+scsi scsi57(req => req57, ack => ack, go => go, rdy => rdy57);
+scsi scsi58(req => req58, ack => ack, go => go, rdy => rdy58);
+scsi scsi59(req => req59, ack => ack, go => go, rdy => rdy59);
+scsi scsi60(req => req60, ack => ack, go => go, rdy => rdy60);
+scsi scsi61(req => req61, ack => ack, go => go, rdy => rdy61);
+scsi scsi62(req => req62, ack => ack, go => go, rdy => rdy62);
+scsi scsi63(req => req63, ack => ack, go => go, rdy => rdy63);
+scsi scsi64(req => req64, ack => ack, go => go, rdy => rdy64);
+scsi scsi65(req => req65, ack => ack, go => go, rdy => rdy65);
+scsi scsi66(req => req66, ack => ack, go => go, rdy => rdy66);
+scsi scsi67(req => req67, ack => ack, go => go, rdy => rdy67);
+scsi scsi68(req => req68, ack => ack, go => go, rdy => rdy68);
+scsi scsi69(req => req69, ack => ack, go => go, rdy => rdy69);
+scsi scsi70(req => req70, ack => ack, go => go, rdy => rdy70);
+scsi scsi71(req => req71, ack => ack, go => go, rdy => rdy71);
+scsi scsi72(req => req72, ack => ack, go => go, rdy => rdy72);
+scsi scsi73(req => req73, ack => ack, go => go, rdy => rdy73);
+scsi scsi74(req => req74, ack => ack, go => go, rdy => rdy74);
+scsi scsi75(req => req75, ack => ack, go => go, rdy => rdy75);
+scsi scsi76(req => req76, ack => ack, go => go, rdy => rdy76);
+scsi scsi77(req => req77, ack => ack, go => go, rdy => rdy77);
+scsi scsi78(req => req78, ack => ack, go => go, rdy => rdy78);
+scsi scsi79(req => req79, ack => ack, go => go, rdy => rdy79);
+scsi scsi80(req => req80, ack => ack, go => go, rdy => rdy80);
+scsi scsi81(req => req81, ack => ack, go => go, rdy => rdy81);
+scsi scsi82(req => req82, ack => ack, go => go, rdy => rdy82);
+scsi scsi83(req => req83, ack => ack, go => go, rdy => rdy83);
+scsi scsi84(req => req84, ack => ack, go => go, rdy => rdy84);
+scsi scsi85(req => req85, ack => ack, go => go, rdy => rdy85);
+scsi scsi86(req => req86, ack => ack, go => go, rdy => rdy86);
+scsi scsi87(req => req87, ack => ack, go => go, rdy => rdy87);
+scsi scsi88(req => req88, ack => ack, go => go, rdy => rdy88);
+scsi scsi89(req => req89, ack => ack, go => go, rdy => rdy89);
+scsi scsi90(req => req90, ack => ack, go => go, rdy => rdy90);
+scsi scsi91(req => req91, ack => ack, go => go, rdy => rdy91);
+scsi scsi92(req => req92, ack => ack, go => go, rdy => rdy92);
+scsi scsi93(req => req93, ack => ack, go => go, rdy => rdy93);
+scsi scsi94(req => req94, ack => ack, go => go, rdy => rdy94);
+scsi scsi95(req => req95, ack => ack, go => go, rdy => rdy95);
+scsi scsi96(req => req96, ack => ack, go => go, rdy => rdy96);
+scsi scsi97(req => req97, ack => ack, go => go, rdy => rdy97);
+scsi scsi98(req => req98, ack => ack, go => go, rdy => rdy98);
+scsi scsi99(req => req99, ack => ack, go => go, rdy => rdy99);
+scsi scsi100(req => req100, ack => ack, go => go, rdy => rdy100);
+scsi scsi101(req => req101, ack => ack, go => go, rdy => rdy101);
+scsi scsi102(req => req102, ack => ack, go => go, rdy => rdy102);
+scsi scsi103(req => req103, ack => ack, go => go, rdy => rdy103);
+scsi scsi104(req => req104, ack => ack, go => go, rdy => rdy104);
+scsi scsi105(req => req105, ack => ack, go => go, rdy => rdy105);
+scsi scsi106(req => req106, ack => ack, go => go, rdy => rdy106);
+scsi scsi107(req => req107, ack => ack, go => go, rdy => rdy107);
+scsi scsi108(req => req108, ack => ack, go => go, rdy => rdy108);
+scsi scsi109(req => req109, ack => ack, go => go, rdy => rdy109);
+scsi scsi110(req => req110, ack => ack, go => go, rdy => rdy110);
+scsi scsi111(req => req111, ack => ack, go => go, rdy => rdy111);
+scsi scsi112(req => req112, ack => ack, go => go, rdy => rdy112);
+scsi scsi113(req => req113, ack => ack, go => go, rdy => rdy113);
+scsi scsi114(req => req114, ack => ack, go => go, rdy => rdy114);
+scsi scsi115(req => req115, ack => ack, go => go, rdy => rdy115);
+scsi scsi116(req => req116, ack => ack, go => go, rdy => rdy116);
+scsi scsi117(req => req117, ack => ack, go => go, rdy => rdy117);
+scsi scsi118(req => req118, ack => ack, go => go, rdy => rdy118);
+scsi scsi119(req => req119, ack => ack, go => go, rdy => rdy119);
+scsi scsi120(req => req120, ack => ack, go => go, rdy => rdy120);
+scsi scsi121(req => req121, ack => ack, go => go, rdy => rdy121);
+scsi scsi122(req => req122, ack => ack, go => go, rdy => rdy122);
+scsi scsi123(req => req123, ack => ack, go => go, rdy => rdy123);
+scsi scsi124(req => req124, ack => ack, go => go, rdy => rdy124);
+scsi scsi125(req => req125, ack => ack, go => go, rdy => rdy125);
+scsi scsi126(req => req126, ack => ack, go => go, rdy => rdy126);
+scsi scsi127(req => req127, ack => ack, go => go, rdy => rdy127);
+scsi scsi128(req => req128, ack => ack, go => go, rdy => rdy128);
+scsi scsi129(req => req129, ack => ack, go => go, rdy => rdy129);
+scsi scsi130(req => req130, ack => ack, go => go, rdy => rdy130);
+scsi scsi131(req => req131, ack => ack, go => go, rdy => rdy131);
+scsi scsi132(req => req132, ack => ack, go => go, rdy => rdy132);
+scsi scsi133(req => req133, ack => ack, go => go, rdy => rdy133);
+scsi scsi134(req => req134, ack => ack, go => go, rdy => rdy134);
+scsi scsi135(req => req135, ack => ack, go => go, rdy => rdy135);
+scsi scsi136(req => req136, ack => ack, go => go, rdy => rdy136);
+scsi scsi137(req => req137, ack => ack, go => go, rdy => rdy137);
+scsi scsi138(req => req138, ack => ack, go => go, rdy => rdy138);
+scsi scsi139(req => req139, ack => ack, go => go, rdy => rdy139);
+scsi scsi140(req => req140, ack => ack, go => go, rdy => rdy140);
+scsi scsi141(req => req141, ack => ack, go => go, rdy => rdy141);
+scsi scsi142(req => req142, ack => ack, go => go, rdy => rdy142);
+scsi scsi143(req => req143, ack => ack, go => go, rdy => rdy143);
+scsi scsi144(req => req144, ack => ack, go => go, rdy => rdy144);
+scsi scsi145(req => req145, ack => ack, go => go, rdy => rdy145);
+scsi scsi146(req => req146, ack => ack, go => go, rdy => rdy146);
+scsi scsi147(req => req147, ack => ack, go => go, rdy => rdy147);
+scsi scsi148(req => req148, ack => ack, go => go, rdy => rdy148);
+scsi scsi149(req => req149, ack => ack, go => go, rdy => rdy149);
+scsi scsi150(req => req150, ack => ack, go => go, rdy => rdy150);
+scsi scsi151(req => req151, ack => ack, go => go, rdy => rdy151);
+scsi scsi152(req => req152, ack => ack, go => go, rdy => rdy152);
+scsi scsi153(req => req153, ack => ack, go => go, rdy => rdy153);
+scsi scsi154(req => req154, ack => ack, go => go, rdy => rdy154);
+scsi scsi155(req => req155, ack => ack, go => go, rdy => rdy155);
+scsi scsi156(req => req156, ack => ack, go => go, rdy => rdy156);
+scsi scsi157(req => req157, ack => ack, go => go, rdy => rdy157);
+scsi scsi158(req => req158, ack => ack, go => go, rdy => rdy158);
+scsi scsi159(req => req159, ack => ack, go => go, rdy => rdy159);
+scsi scsi160(req => req160, ack => ack, go => go, rdy => rdy160);
+scsi scsi161(req => req161, ack => ack, go => go, rdy => rdy161);
+scsi scsi162(req => req162, ack => ack, go => go, rdy => rdy162);
+scsi scsi163(req => req163, ack => ack, go => go, rdy => rdy163);
+scsi scsi164(req => req164, ack => ack, go => go, rdy => rdy164);
+scsi scsi165(req => req165, ack => ack, go => go, rdy => rdy165);
+scsi scsi166(req => req166, ack => ack, go => go, rdy => rdy166);
+scsi scsi167(req => req167, ack => ack, go => go, rdy => rdy167);
+scsi scsi168(req => req168, ack => ack, go => go, rdy => rdy168);
+scsi scsi169(req => req169, ack => ack, go => go, rdy => rdy169);
+scsi scsi170(req => req170, ack => ack, go => go, rdy => rdy170);
+scsi scsi171(req => req171, ack => ack, go => go, rdy => rdy171);
+scsi scsi172(req => req172, ack => ack, go => go, rdy => rdy172);
+scsi scsi173(req => req173, ack => ack, go => go, rdy => rdy173);
+scsi scsi174(req => req174, ack => ack, go => go, rdy => rdy174);
+scsi scsi175(req => req175, ack => ack, go => go, rdy => rdy175);
+scsi scsi176(req => req176, ack => ack, go => go, rdy => rdy176);
+scsi scsi177(req => req177, ack => ack, go => go, rdy => rdy177);
+scsi scsi178(req => req178, ack => ack, go => go, rdy => rdy178);
+scsi scsi179(req => req179, ack => ack, go => go, rdy => rdy179);
+scsi scsi180(req => req180, ack => ack, go => go, rdy => rdy180);
+
+process left;
+*[ 
+[req1- & req2- & req3- & req4- & req5- & req6- & req7- & req8- & req9- & req10- & 
+req11- & req12- & req13- & req14- & req15- & req16- & req17- & req18- & req19- & req20- & 
+req21- & req22- & req23- & req24- & req25- & req26- & req27- & req28- & req29- & req30- & 
+req31- & req32- & req33- & req34- & req35- & req36- & req37- & req38- & req39- & req40- &
+req41- & req42- & req43- & req44- & req45- & req46- & req47- & req48- & req49- & req50- &
+req51- & req52- & req53- & req54- & req55- & req56- & req57- & req58- & req59- & req60- &
+req61- & req62- & req63- & req64- & req65- & req66- & req67- & req68- & req69- & req70- &
+req71- & req72- & req73- & req74- & req75- & req76- & req77- & req78- & req79- & req80- &
+req81- & req82- & req83- & req84- & req85- & req86- & req87- & req88- & req89- & req90- &
+req91- & req92- & req93- & req94- & req95- & req96- & req97- & req98- & req99- & req100- &
+req101- & req102- & req103- & req104- & req105- & req106- & req107- & req108- & req109- & req110- &
+req111- & req112- & req113- & req114- & req115- & req116- & req117- & req118- & req119- & req120- &
+req121- & req122- & req123- & req124- & req125- & req126- & req127- & req128- & req129- & req130- &
+req131- & req132- & req133- & req134- & req135- & req136- & req137- & req138- & req139- & req140- &
+req141- & req142- & req143- & req144- & req145- & req146- & req147- & req148- & req149- & req150- &
+req151- & req152- & req153- & req154- & req155- & req156- & req157- & req158- & req159- & req160- &
+req161- & req162- & req163- & req164- & req165- & req166- & req167- & req168- & req169- & req170- &
+req171- & req172- & req173- & req174- & req175- & req176- & req177- & req178- & req179- & req180- 
+]; 
+   ack-; 
+[req1+ & req2+ & req3+ & req4+ & req5+ & req6+ & req7+ & req8+ & req9+ & 
+req10+ & req11+ & req12+ & req13+ & req14+ & req15+ & req16+ & req17+ & req18+ & req19+ & req20+ & 
+req21+ & req22+ & req23+ & req24+ & req25+ & req26+ & req27+ & req28+ & req29+ & req30+ &
+req31+ & req32+ & req33+ & req34+ & req35+ & req36+ & req37+ & req38+ & req39+ & req40+ &
+req41+ & req42+ & req43+ & req44+ & req45+ & req46+ & req47+ & req48+ & req49+ & req50+ &
+req51+ & req52+ & req53+ & req54+ & req55+ & req56+ & req57+ & req58+ & req59+ & req60+ &
+req61+ & req62+ & req63+ & req64+ & req65+ & req66+ & req67+ & req68+ & req69+ & req70+ &
+req71+ & req72+ & req73+ & req74+ & req75+ & req76+ & req77+ & req78+ & req79+ & req80+ &
+req81+ & req82+ & req83+ & req84+ & req85+ & req86+ & req87+ & req88+ & req89+ & req90+ &
+req91+ & req92+ & req93+ & req94+ & req95+ & req96+ & req97+ & req98+ & req99+ & req100+ &
+req101+ & req102+ & req103+ & req104+ & req105+ & req106+ & req107+ & req108+ & req109+ & req110+ &
+req111+ & req112+ & req113+ & req114+ & req115+ & req116+ & req117+ & req118+ & req119+ & req120+ &
+req121+ & req122+ & req123+ & req124+ & req125+ & req126+ & req127+ & req128+ & req129+ & req130+ &
+req131+ & req132+ & req133+ & req134+ & req135+ & req136+ & req137+ & req138+ & req139+ & req140+ &
+req141+ & req142+ & req143+ & req144+ & req145+ & req146+ & req147+ & req148+ & req149+ & req150+ &
+req151+ & req152+ & req153+ & req154+ & req155+ & req156+ & req157+ & req158+ & req159+ & req160+ &
+req161+ & req162+ & req163+ & req164+ & req165+ & req166+ & req167+ & req168+ & req169+ & req170+ &
+req171+ & req172+ & req173+ & req174+ & req175+ & req176+ & req177+ & req178+ & req179+ & req180+ 
+]; 
+   ack+ ]
+endprocess
+
+process right;
+*[ 
+[rdy1+ & rdy2+ & rdy3+ & rdy4+ & rdy5+ & rdy6+ & rdy7+ & rdy8+ & rdy9+ & 
+rdy10+ & rdy11+ & rdy12+ & rdy13+ & rdy14+ & rdy15+ & rdy16+ & rdy17+ & rdy18+ & rdy19+ & rdy20+ & 
+rdy21+ & rdy22+ & rdy23+ & rdy24+ & rdy25+ & rdy26+ & rdy27+ & rdy28+ & rdy29+ & rdy30+ &
+rdy31+ & rdy32+ & rdy33+ & rdy34+ & rdy35+ & rdy36+ & rdy37+ & rdy38+ & rdy39+ & rdy40+ &
+rdy41+ & rdy42+ & rdy43+ & rdy44+ & rdy45+ & rdy46+ & rdy47+ & rdy48+ & rdy49+ & rdy50+ &
+rdy51+ & rdy52+ & rdy53+ & rdy54+ & rdy55+ & rdy56+ & rdy57+ & rdy58+ & rdy59+ & rdy60+ &
+rdy61+ & rdy62+ & rdy63+ & rdy64+ & rdy65+ & rdy66+ & rdy67+ & rdy68+ & rdy69+ & rdy70+ &
+rdy71+ & rdy72+ & rdy73+ & rdy74+ & rdy75+ & rdy76+ & rdy77+ & rdy78+ & rdy79+ & rdy80+ &
+rdy81+ & rdy82+ & rdy83+ & rdy84+ & rdy85+ & rdy86+ & rdy87+ & rdy88+ & rdy89+ & rdy90+ &
+rdy91+ & rdy92+ & rdy93+ & rdy94+ & rdy95+ & rdy96+ & rdy97+ & rdy98+ & rdy99+ & rdy100+ &
+rdy101+ & rdy102+ & rdy103+ & rdy104+ & rdy105+ & rdy106+ & rdy107+ & rdy108+ & rdy109+ & rdy110+ &
+rdy111+ & rdy112+ & rdy113+ & rdy114+ & rdy115+ & rdy116+ & rdy117+ & rdy118+ & rdy119+ & rdy120+ &
+rdy121+ & rdy122+ & rdy123+ & rdy124+ & rdy125+ & rdy126+ & rdy127+ & rdy128+ & rdy129+ & rdy130+ &
+rdy131+ & rdy132+ & rdy133+ & rdy134+ & rdy135+ & rdy136+ & rdy137+ & rdy138+ & rdy139+ & rdy140+ &
+rdy141+ & rdy142+ & rdy143+ & rdy144+ & rdy145+ & rdy146+ & rdy147+ & rdy148+ & rdy149+ & rdy150+ &
+rdy151+ & rdy152+ & rdy153+ & rdy154+ & rdy155+ & rdy156+ & rdy157+ & rdy158+ & rdy159+ & rdy160+ &
+rdy161+ & rdy162+ & rdy163+ & rdy164+ & rdy165+ & rdy166+ & rdy167+ & rdy168+ & rdy169+ & rdy170+ &
+rdy171+ & rdy172+ & rdy173+ & rdy174+ & rdy175+ & rdy176+ & rdy177+ & rdy178+ & rdy179+ & rdy180+
+]; 
+   go+; 
+[rdy1- & rdy2- & rdy3- & rdy4- & rdy5- & rdy6- & rdy7- & rdy8- & rdy9- & 
+rdy10- & rdy11- & rdy12- & rdy13- & rdy14- & rdy15- & rdy16- & rdy17- & rdy18- & rdy19- & rdy20- & 
+rdy21- & rdy22- & rdy23- & rdy24- & rdy25- & rdy26- & rdy27- & rdy28- & rdy29- & rdy30- &
+rdy31- & rdy32- & rdy33- & rdy34- & rdy35- & rdy36- & rdy37- & rdy38- & rdy39- & rdy40-  &
+rdy41- & rdy42- & rdy43- & rdy44- & rdy45- & rdy46- & rdy47- & rdy48- & rdy49- & rdy50-  &
+rdy51- & rdy52- & rdy53- & rdy54- & rdy55- & rdy56- & rdy57- & rdy58- & rdy59- & rdy60- &
+rdy61- & rdy62- & rdy63- & rdy64- & rdy65- & rdy66- & rdy67- & rdy68- & rdy69- & rdy70- &
+rdy71- & rdy72- & rdy73- & rdy74- & rdy75- & rdy76- & rdy77- & rdy78- & rdy79- & rdy80-  &
+rdy81- & rdy82- & rdy83- & rdy84- & rdy85- & rdy86- & rdy87- & rdy88- & rdy89- & rdy90- &
+rdy91- & rdy92- & rdy93- & rdy94- & rdy95- & rdy96- & rdy97- & rdy98- & rdy99- & rdy100- &
+rdy101- & rdy102- & rdy103- & rdy104- & rdy105- & rdy106- & rdy107- & rdy108- & rdy109- & rdy110- &
+rdy111- & rdy112- & rdy113- & rdy114- & rdy115- & rdy116- & rdy117- & rdy118- & rdy119- & rdy120- &
+rdy121- & rdy122- & rdy123- & rdy124- & rdy125- & rdy126- & rdy127- & rdy128- & rdy129- & rdy130- &
+rdy131- & rdy132- & rdy133- & rdy134- & rdy135- & rdy136- & rdy137- & rdy138- & rdy139- & rdy140- &
+rdy141- & rdy142- & rdy143- & rdy144- & rdy145- & rdy146- & rdy147- & rdy148- & rdy149- & rdy150- &
+rdy151- & rdy152- & rdy153- & rdy154- & rdy155- & rdy156- & rdy157- & rdy158- & rdy159- & rdy160- &
+rdy161- & rdy162- & rdy163- & rdy164- & rdy165- & rdy166- & rdy167- & rdy168- & rdy169- & rdy170- &
+rdy171- & rdy172- & rdy173- & rdy174- & rdy175- & rdy176- & rdy177- & rdy178- & rdy179- & rdy180- 
+]; 
+   go-]
+endprocess
+endmodule

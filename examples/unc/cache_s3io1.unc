@@ -1,0 +1,197 @@
+input	goaltloop1		 0
+input	goaltloop2		 0
+input	reqinn                   1
+input	snoopn                   1
+input	cmreqn                   1
+input	cmackn                   1
+input	addr2l                   0
+input	addr2h                   0
+input	addr3l                   0
+input	addr3h                   0
+input	rd                       0
+input	wr                       0
+input	snpmiss                  0
+input	snphit                   0
+input	memmiss                  0
+input	memhit                   0
+input	cackalln                 1
+input	cacktagn                 1
+output	wbln                     1
+output	ackoutn                  1
+output	cenn                     1
+output	aen                      0
+output	rwenn                    0
+output	snpmissen                0
+output	csn                      1
+output	oedatan                  1
+output	oetagn                   1
+output	we0n                     1
+output	we1n                     1
+output	we2n                     1
+output	we3n                     1
+output	wetagn                   1
+output	enmissn                  1
+output	misslatchn               1
+output	tagdriven                1
+output	tagdirtyn                1
+output	tagvalid                 1
+output	zzz00                    0
+
+0  100  goaltloop1+		 | 
+0  200  goaltloop2+		 | 
+0  1	reqinn- rd+              | csn- oedatan- oetagn- enmissn- cenn- 
+0  12	reqinn- wr+              | csn- oetagn- enmissn- cenn- 
+0  29	cmreqn- rd+ snoopn-      | csn- oedatan- oetagn- enmissn- cenn- 
+0  32	cmreqn- wr+ snoopn-      | csn- oedatan- oetagn- enmissn- cenn- 
+1  2	cackalln- cacktagn-      | ackoutn- wbln- 
+12  13	cacktagn-                | ackoutn- oetagn+ misslatchn- aen+ zzz00+ 
+2  3	rd- reqinn+              | csn+ oedatan+ oetagn+ wbln+ enmissn+ 
+2  4	cmreqn-                  | oedatan+ oetagn+ wbln+ enmissn+ 
+3  0	cackalln+ cacktagn+      | ackoutn+ cenn+ 
+4  5	cackalln+ cacktagn+      | tagdriven- ackoutn+ 
+5  6	cmackn- memhit+          | we0n- we1n- we2n- we3n- wetagn- 
+5  9	cmackn- memmiss+         | we0n- we1n- we2n- we3n- wetagn- tagvalid- 
+6  7	cackalln- cacktagn-      | csn+ we0n+ we1n+ we2n+ we3n+ wetagn+ 
+7  8	cackalln+ cacktagn+      | ackoutn- tagdriven+ 
+8  0	rd- cmreqn+ cmackn+ reqinn+ memhit- | ackoutn+ cenn+ 
+9  10	cackalln- cacktagn-      | csn+ we0n+ we1n+ we2n+ we3n+ wetagn+ 
+10  11	cackalln+ cacktagn+      | ackoutn- tagdriven+ tagvalid+ 
+11  0	rd- cmreqn+ cmackn+ reqinn+ memmiss- | ackoutn+ cenn+ 
+13  14	wr- reqinn+ cacktagn+ addr2l+ addr3l+ | we0n- wetagn- tagdirtyn- tagdriven- enmissn+ misslatchn+ zzz00- 
+13  15	wr- reqinn+ cacktagn+ addr2l+ addr3h+ | we1n- wetagn- tagdirtyn- tagdriven- enmissn+ misslatchn+ zzz00- 
+13  16	wr- reqinn+ cacktagn+ addr2h+ addr3l+ | we2n- wetagn- tagdirtyn- tagdriven- enmissn+ misslatchn+ zzz00- 
+13  17	wr- reqinn+ cacktagn+ addr2h+ addr3h+ | we3n- wetagn- tagdirtyn- tagdriven- enmissn+ misslatchn+ zzz00- 
+13  19	cmreqn- cacktagn+ wr- rd+ | oedatan- oetagn- enmissn+ misslatchn+ aen- 
+14  18	cackalln- cacktagn- addr2l- addr3l- | we0n+ wetagn+ aen- 
+15  18	cackalln- cacktagn- addr2l- addr3h- | we1n+ wetagn+ aen- 
+16  18	cackalln- cacktagn- addr2h- addr3l- | we2n+ wetagn+ aen- 
+17  18	cackalln- cacktagn- addr2h- addr3h- | we3n+ wetagn+ aen- 
+18  0	cackalln+ cacktagn+      | csn+ ackoutn+ tagdriven+ cenn+ tagdirtyn+ 
+19  20	cackalln- cacktagn-      | wbln- 
+20  21	reqinn+ rd-              | oedatan+ oetagn+ wbln+ zzz00- 
+21  22	cackalln+ cacktagn+      | tagdriven- tagdirtyn- ackoutn+ rwenn+ 
+22  23	reqinn- cmackn- memhit+  | we0n- we1n- we2n- we3n- wetagn- 
+22  26	reqinn- cmackn- memmiss+ | we0n- we1n- we2n- we3n- wetagn- tagvalid- 
+23  24	cackalln- cacktagn-      | csn+ we0n+ we1n+ we2n+ we3n+ wetagn+ 
+24  25	cackalln+ cacktagn+      | ackoutn- tagdriven+ tagdirtyn+ 
+25  0	cmreqn+ cmackn+ reqinn+ memhit- | ackoutn+ cenn+ rwenn- 
+26  27	cackalln- cacktagn-      | csn+ we0n+ we1n+ we2n+ we3n+ wetagn+ 
+27  28	cackalln+ cacktagn+      | ackoutn- tagdriven+ tagvalid+ tagdirtyn+ 
+28  0	cmreqn+ cmackn+ reqinn+ memmiss- | ackoutn+ cenn+ rwenn- 
+29  30	cackalln- cacktagn-      | wbln- 
+30  31	cmreqn+ rd- snoopn+      | csn+ oedatan+ oetagn+ enmissn+ 
+31  0	cackalln+ cacktagn+      | wbln+ cenn+ 
+32  33	cackalln- cacktagn-      | wbln- snpmissen+ 
+33  34	cmreqn+ snoopn+ wr- snpmiss+ | enmissn+ oedatan+ oetagn+ 
+33  35	cmreqn+ snoopn+ wr- snphit+ | enmissn+ oedatan+ oetagn+ zzz00+ 
+34  0	cackalln+ cacktagn+ snpmiss- | csn+ wbln+ cenn+ snpmissen- 
+35  36	cackalln+ cacktagn+ snphit- | wetagn- tagvalid- tagdriven- snpmissen- 
+36  37	cacktagn-                | wetagn+ zzz00- 
+37  0	cacktagn+                | csn+ wbln+ tagdriven+ tagvalid+ cenn+ 
+
+100  0          goaltloop1-		 | 
+100  101	reqinn- rd+              | csn- oedatan- oetagn- enmissn- cenn- 
+100  1012	reqinn- wr+              | csn- oetagn- enmissn- cenn- 
+100  1029	cmreqn- rd+ snoopn-      | csn- oedatan- oetagn- enmissn- cenn- 
+100  1032	cmreqn- wr+ snoopn-      | csn- oedatan- oetagn- enmissn- cenn- 
+101  102	cackalln- cacktagn-      | ackoutn- wbln- 
+1012  1013	cacktagn-                | ackoutn- oetagn+ misslatchn- aen+ zzz00+ 
+102  103	rd- reqinn+              | csn+ oedatan+ oetagn+ wbln+ enmissn+ 
+102  104	cmreqn-                  | oedatan+ oetagn+ wbln+ enmissn+ 
+103  100	cackalln+ cacktagn+      | ackoutn+ cenn+ 
+104  105	cackalln+ cacktagn+      | tagdriven- ackoutn+ 
+105  106	cmackn- memhit+          | we0n- we1n- we2n- we3n- wetagn- 
+105  109	cmackn- memmiss+         | we0n- we1n- we2n- we3n- wetagn- tagvalid- 
+106  107	cackalln- cacktagn-      | csn+ we0n+ we1n+ we2n+ we3n+ wetagn+ 
+107  108	cackalln+ cacktagn+      | ackoutn- tagdriven+ 
+108  100	rd- cmreqn+ cmackn+ reqinn+ memhit- | ackoutn+ cenn+ 
+109  1010	cackalln- cacktagn-      | csn+ we0n+ we1n+ we2n+ we3n+ wetagn+ 
+1010  1011	cackalln+ cacktagn+      | ackoutn- tagdriven+ tagvalid+ 
+1011  100	rd- cmreqn+ cmackn+ reqinn+ memmiss- | ackoutn+ cenn+ 
+1013  1014	wr- reqinn+ cacktagn+ addr2l+ addr3l+ | we0n- wetagn- tagdirtyn- tagdriven- enmissn+ misslatchn+ zzz00- 
+1013  1015	wr- reqinn+ cacktagn+ addr2l+ addr3h+ | we1n- wetagn- tagdirtyn- tagdriven- enmissn+ misslatchn+ zzz00- 
+1013  1016	wr- reqinn+ cacktagn+ addr2h+ addr3l+ | we2n- wetagn- tagdirtyn- tagdriven- enmissn+ misslatchn+ zzz00- 
+1013  1017	wr- reqinn+ cacktagn+ addr2h+ addr3h+ | we3n- wetagn- tagdirtyn- tagdriven- enmissn+ misslatchn+ zzz00- 
+1013  1019	cmreqn- cacktagn+ wr- rd+ | oedatan- oetagn- enmissn+ misslatchn+ aen- 
+1014  1018	cackalln- cacktagn- addr2l- addr3l- | we0n+ wetagn+ aen- 
+1015  1018	cackalln- cacktagn- addr2l- addr3h- | we1n+ wetagn+ aen- 
+1016  1018	cackalln- cacktagn- addr2h- addr3l- | we2n+ wetagn+ aen- 
+1017  1018	cackalln- cacktagn- addr2h- addr3h- | we3n+ wetagn+ aen- 
+1018  100	cackalln+ cacktagn+      | csn+ ackoutn+ tagdriven+ cenn+ tagdirtyn+ 
+1019  1020	cackalln- cacktagn-      | wbln- 
+1020  1021	reqinn+ rd-              | oedatan+ oetagn+ wbln+ zzz00- 
+1021  1022	cackalln+ cacktagn+      | tagdriven- tagdirtyn- ackoutn+ rwenn+ 
+1022  1023	reqinn- cmackn- memhit+  | we0n- we1n- we2n- we3n- wetagn- 
+1022  1026	reqinn- cmackn- memmiss+ | we0n- we1n- we2n- we3n- wetagn- tagvalid- 
+1023  1024	cackalln- cacktagn-      | csn+ we0n+ we1n+ we2n+ we3n+ wetagn+ 
+1024  1025	cackalln+ cacktagn+      | ackoutn- tagdriven+ tagdirtyn+ 
+1025  100	cmreqn+ cmackn+ reqinn+ memhit- | ackoutn+ cenn+ rwenn- 
+1026  1027	cackalln- cacktagn-      | csn+ we0n+ we1n+ we2n+ we3n+ wetagn+ 
+1027  1028	cackalln+ cacktagn+      | ackoutn- tagdriven+ tagvalid+ tagdirtyn+ 
+1028  100	cmreqn+ cmackn+ reqinn+ memmiss- | ackoutn+ cenn+ rwenn- 
+1029  1030	cackalln- cacktagn-      | wbln- 
+1030  1031	cmreqn+ rd- snoopn+      | csn+ oedatan+ oetagn+ enmissn+ 
+1031  100	cackalln+ cacktagn+      | wbln+ cenn+ 
+1032  1033	cackalln- cacktagn-      | wbln- snpmissen+ 
+1033  1034	cmreqn+ snoopn+ wr- snpmiss+ | enmissn+ oedatan+ oetagn+ 
+1033  1035	cmreqn+ snoopn+ wr- snphit+ | enmissn+ oedatan+ oetagn+ zzz00+ 
+1034  100	cackalln+ cacktagn+ snpmiss- | csn+ wbln+ cenn+ snpmissen- 
+1035  1036	cackalln+ cacktagn+ snphit- | wetagn- tagvalid- tagdriven- snpmissen- 
+1036  1037	cacktagn-                | wetagn+ zzz00- 
+1037  100	cacktagn+                | csn+ wbln+ tagdriven+ tagvalid+ cenn+ 
+
+200  0          goaltloop2-		 | 
+200  201	reqinn- rd+              | csn- oedatan- oetagn- enmissn- cenn- 
+200  2012	reqinn- wr+              | csn- oetagn- enmissn- cenn- 
+200  2029	cmreqn- rd+ snoopn-      | csn- oedatan- oetagn- enmissn- cenn- 
+200  2032	cmreqn- wr+ snoopn-      | csn- oedatan- oetagn- enmissn- cenn- 
+201  202	cackalln- cacktagn-      | ackoutn- wbln- 
+2012  2013	cacktagn-                | ackoutn- oetagn+ misslatchn- aen+ zzz00+ 
+202  203	rd- reqinn+              | csn+ oedatan+ oetagn+ wbln+ enmissn+ 
+202  204	cmreqn-                  | oedatan+ oetagn+ wbln+ enmissn+ 
+203  200	cackalln+ cacktagn+      | ackoutn+ cenn+ 
+204  205	cackalln+ cacktagn+      | tagdriven- ackoutn+ 
+205  206	cmackn- memhit+          | we0n- we1n- we2n- we3n- wetagn- 
+205  209	cmackn- memmiss+         | we0n- we1n- we2n- we3n- wetagn- tagvalid- 
+206  207	cackalln- cacktagn-      | csn+ we0n+ we1n+ we2n+ we3n+ wetagn+ 
+207  208	cackalln+ cacktagn+      | ackoutn- tagdriven+ 
+208  200	rd- cmreqn+ cmackn+ reqinn+ memhit- | ackoutn+ cenn+ 
+209  2010	cackalln- cacktagn-      | csn+ we0n+ we1n+ we2n+ we3n+ wetagn+ 
+2010  2011	cackalln+ cacktagn+      | ackoutn- tagdriven+ tagvalid+ 
+2011  200	rd- cmreqn+ cmackn+ reqinn+ memmiss- | ackoutn+ cenn+ 
+2013  2014	wr- reqinn+ cacktagn+ addr2l+ addr3l+ | we0n- wetagn- tagdirtyn- tagdriven- enmissn+ misslatchn+ zzz00- 
+2013  2015	wr- reqinn+ cacktagn+ addr2l+ addr3h+ | we1n- wetagn- tagdirtyn- tagdriven- enmissn+ misslatchn+ zzz00- 
+2013  2016	wr- reqinn+ cacktagn+ addr2h+ addr3l+ | we2n- wetagn- tagdirtyn- tagdriven- enmissn+ misslatchn+ zzz00- 
+2013  2017	wr- reqinn+ cacktagn+ addr2h+ addr3h+ | we3n- wetagn- tagdirtyn- tagdriven- enmissn+ misslatchn+ zzz00- 
+2013  2019	cmreqn- cacktagn+ wr- rd+ | oedatan- oetagn- enmissn+ misslatchn+ aen- 
+2014  2018	cackalln- cacktagn- addr2l- addr3l- | we0n+ wetagn+ aen- 
+2015  2018	cackalln- cacktagn- addr2l- addr3h- | we1n+ wetagn+ aen- 
+2016  2018	cackalln- cacktagn- addr2h- addr3l- | we2n+ wetagn+ aen- 
+2017  2018	cackalln- cacktagn- addr2h- addr3h- | we3n+ wetagn+ aen- 
+2018  200	cackalln+ cacktagn+      | csn+ ackoutn+ tagdriven+ cenn+ tagdirtyn+ 
+2019  2020	cackalln- cacktagn-      | wbln- 
+2020  2021	reqinn+ rd-              | oedatan+ oetagn+ wbln+ zzz00- 
+2021  2022	cackalln+ cacktagn+      | tagdriven- tagdirtyn- ackoutn+ rwenn+ 
+2022  2023	reqinn- cmackn- memhit+  | we0n- we1n- we2n- we3n- wetagn- 
+2022  2026	reqinn- cmackn- memmiss+ | we0n- we1n- we2n- we3n- wetagn- tagvalid- 
+2023  2024	cackalln- cacktagn-      | csn+ we0n+ we1n+ we2n+ we3n+ wetagn+ 
+2024  2025	cackalln+ cacktagn+      | ackoutn- tagdriven+ tagdirtyn+ 
+2025  200	cmreqn+ cmackn+ reqinn+ memhit- | ackoutn+ cenn+ rwenn- 
+2026  2027	cackalln- cacktagn-      | csn+ we0n+ we1n+ we2n+ we3n+ wetagn+ 
+2027  2028	cackalln+ cacktagn+      | ackoutn- tagdriven+ tagvalid+ tagdirtyn+ 
+2028  200	cmreqn+ cmackn+ reqinn+ memmiss- | ackoutn+ cenn+ rwenn- 
+2029  2030	cackalln- cacktagn-      | wbln- 
+2030  2031	cmreqn+ rd- snoopn+      | csn+ oedatan+ oetagn+ enmissn+ 
+2031  200	cackalln+ cacktagn+      | wbln+ cenn+ 
+2032  2033	cackalln- cacktagn-      | wbln- snpmissen+ 
+2033  2034	cmreqn+ snoopn+ wr- snpmiss+ | enmissn+ oedatan+ oetagn+ 
+2033  2035	cmreqn+ snoopn+ wr- snphit+ | enmissn+ oedatan+ oetagn+ zzz00+ 
+2034  200	cackalln+ cacktagn+ snpmiss- | csn+ wbln+ cenn+ snpmissen- 
+2035  2036	cackalln+ cacktagn+ snphit- | wetagn- tagvalid- tagdriven- snpmissen- 
+2036  2037	cacktagn-                | wetagn+ zzz00- 
+2037  200	cacktagn+                | csn+ wbln+ tagdriven+ tagvalid+ cenn+ 
+
+
+
+
+

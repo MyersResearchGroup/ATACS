@@ -1,0 +1,4 @@
+# rm $1.ps
+# parg -p <$1.grf> $1.ps
+# lpr -h $1.ps
+# rm $1.ps

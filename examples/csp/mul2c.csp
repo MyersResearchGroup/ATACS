@@ -1,0 +1,38 @@
+/*****************************************************************************/
+/* Part of the diffeq solver (MUL2)                                          */
+/*****************************************************************************/
+module mul2;
+
+input m2done = {<2,2;6,7>};
+output m2prech = {true,<0,1>};
+
+input start = {<1,2>}; 
+input EndP = {<0,2>};
+input A1M = {<2,3;1,3>};
+input A2M = {<2,3;1,3>};
+input M1A = {<2,3;6,7>};
+output M2A2 = {<0,1>};
+output LM2 = {<0,1>};
+input done = {<0,1>};
+
+process alu1;
+    *[ A1M+; [M1A+]; A1M-; [M1A-] ]
+endprocess	
+
+process alu2;
+    *[ A2M+; [M2A2+ & M1A+]; A2M-; [M2A2- & M1A-] ]
+endprocess
+
+process mul1;
+    *[ [A1M+ & A2M+]; M1A+; [A1M-]; [A2M-]; M1A- ]
+endprocess
+
+process mul2;
+    *[ [A1M+ & A2M+]; m2prech-; [m2done+]; (M2A2+ || m2prech+ || LM2+); 
+	[A1M- & A2M- & m2done-]; (M2A2- || LM2-) ]
+endprocess
+
+process m2;
+    *[ [m2prech-]; m2done+; [m2prech+]; m2done- ]
+endprocess
+endmodule

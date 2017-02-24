@@ -1,0 +1,40 @@
+.TH INSERTION 1 "17 September 2001" "" ""
+.SH NAME
+insertion \- Toggle automated state-variable insertion
+.SH SYNOPSIS
+.nf
+.B atacs -oi
+.br
+.B atacs> insertion
+.fi
+.SH DESCRIPTION
+.B insertion
+toggles automated state-variable insertion.  The atacs default is that
+automated state-variable insertion is enabled.  In this state, if a
+complete state coding violation is detected, atacs attempts to insert
+state variables to achieve complete state coding.  The first
+invocation of the \fBinsertion\fR command disables automated
+state-variable insertion.  In this state, a complete state coding
+violation is simply considered an error.  The second invocation of the
+\fBinsertion\fR command enables state-variable insertion again, and so
+on.
+.SH OPTIONS
+.TP
+.BI \-oi
+This atacs option toggles automated state-variable insertion from the
+Unix shell command line.
+.TP
+.BI insertion
+This atacs command toggles automated state-variable insertion from
+within the atacs interactive shell.  
+.SH CREDITS
+The state-variable insertion method was primarily written by
+Christopher D. Krieger (krieger@ming.elen.utah.edu). This command to
+toggle it was added to atacs by Eric Robert Peskin
+(peskin@vlsigroup.ece.utah.edu)
+.SH BUGS
+See http://www.async.ece.utah.edu/cgi-bin/atacs
+.SH FILES
+.SH "SEE ALSO"
+.BR reduction (1),
+.BR http://www.async.ece.utah.edu

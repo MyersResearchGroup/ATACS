@@ -1,0 +1,21 @@
+module timedep;
+
+input a={<2,4>};
+input b={<4,5>};
+input c={<1,3>};
+input d={<2,3>};
+output e={<1,2>};
+output f={<1,2>};
+
+process main;
+*[[ a & b -> e+; [~a & ~b]; e-
+  | c & d -> f+; [~c & ~d]; f-
+ ]]
+endprocess
+
+process env;
+*[[ true -> d1; (a+ || b+); [e]; (a- || b-); [~e]
+  | true -> d2; (c+ || d+); [f]; (c- || d-); [~f]
+ ]]
+endprocess
+endmodule

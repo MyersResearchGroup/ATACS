@@ -1,0 +1,23 @@
+.dummy water_off1T water_off0T water_on1T water_on0T water_off1_yT water_off0_yT water_on1_yT water_on0_yT x_clockT
+water_off1T water_on0 #@ [0,inf]
+water_off1 water_off1T #@ [0,inf]
+water_off0T water_off1 #@ [0,inf]
+water_off0T x #@ /0;0\ [0,inf]
+water_off0 water_off0T #@ [0,inf]
+water_on1T water_off0 #@ [0,inf]
+water_on1_yT y #@ [0,inf]
+water_on1 water_on1T #@ [0,inf]
+water_on0T water_on1 #@ [0,inf]
+water_on0T x #@ /0;0\ [0,inf]
+water_on0_yT y #@ [0,inf]
+water_on0 water_on0T #@ [0,inf]
+y water_off1_yT #@ [0,inf]
+y water_off0_yT #@ [0,inf]
+x_clockT x #@ [0,inf]
+.marking { water_on0 }
+#@.marking {<y = 2>}
+#@.rates {<water_off1_yT=2><water_off0_yT=2><water_on1_yT=1><water_on0_yT=1><x_clockT=1>}
+#@.invariants {<water_off1=[x<=4]> <water_off0=[y>=10]> <water_on1=[x<=4]> <water_on0=[y<=20]>}
+#@.enablings {<water_on0_yT=[water_on0=1]><water_on0T=[y>=20]><water_on1_yT=[water_on1=1]><water_on1T=[x>=4]><water_off0_yT=[water_off0=1]><water_off0T=[y<=10]><water_off1_yT=[water_off1=1]><water_off1T=[x>=4]>}
+#@.continuous water_off1_yT water_off0_yT water_on1_yT water_on0_yT y x_clockT x
+.end

@@ -1,0 +1,120 @@
+/* From Shai Rotem:
+   I'm trying to draw an STG that, with different delay numbers, will
+   produce three different circuits. The problem is that it seems like
+   I need a true OR.
+
+   The circuits I want to get are:
+
+Circuit 1:
+
+          +----------------+
+       +--| 3-4 gate delay |--+
+       |  +----------------+  |
+       |      _               |
+       |      |_   ap   /|    | rst
+       |       _||o---O< |----+
+       |      |         \|
+       |      |
+       |      | x  |\
+       |      +----| >O-----------a
+       |     _|    |/
+clk ---+---||_
+              |
+              =
+
+Circuit 2:
+
+              _
+              |_   ap   /|
+               _||o---O< |----+
+              |         \|    |
+              |               |
+              | x  |\         |
+              +----| >O-------+---a
+             _|    |/
+clk -------||_
+              |
+              =
+
+Circuit 3:
+
+          +-----------------+
+       +--| 3-4 gates delay |--+
+       |  +-----------------+  |
+       |      _          __    | rst
+       |      |_   ap   /  |---+
+       |       _||o---O(   |
+       |      |         \__|---+
+       |      |                |
+       |      | x  |\          |
+       |      +----| >O--------+--a
+       |     _|    |/
+clk ---+---||_
+              |
+              =
+
+The input clk goes high and then low after 3 gate delays.
+
+In circuit 1, clk+ -a+, and clk+ -rst+ (after delay) -ap- --a-,
+then clk- -rst- -ap+.
+The result is a pulse on a, with width depending on the delay. Input clk can't
+go high the second time before ap+, so the allowed time for the next clk+
+depends on the clk- -rst- delay.
+
+Circuit 2 is the part "mystery" circuit you synthesized.
+
+Circuit 3, with the NAND gate, allows the next clk+ to happen earlier, since
+ap- happens after a+, and rst- can happen later. This allows more flexibility
+in designing the clk- -rst- delay.
+
+My question is, is it possible to draw one STG (CSP spec), that, by changing
+the clk- -rst- delay, ATACS will produce Circuit 1 for short delay and
+Circuit 2 for a long one? In Circuit 2, the ap+ transitions should happen
+after the first of a- or rst- happen, but they are not mutually exclusive,
+since both will eventually happen. With different delay numbers, one of the
+a- -ap+ or rst- -ap+ arcs may be eliminated after timing analysis.
+
+Here are the 3 .csp specs that generate circuit 1, 2, and 3:
+(see circ1.csp, circ2.csp, circ3.csp)
+*/
+
+module circ4;
+
+delay clkdelay = <500,500;298,298>;
+delay pdelay = <101,101;99,99>;
+delay adelay = <201,201;199,199>;
+delay rstdelay1 = <297,297;391,391>; /* gets ap=inv(rst) gate */
+delay rstdelay2 = <197,197;191,191>; /* gets ap=inv(a) */
+delay rstdelay3 = <297,297;291,291>; /* gets ap=gC(~a;rst) */
+delay rstdelay4 = <197,207;291,291>; /* gets ap=gC(~rst,rst&a) */
+
+input clk  = {false,clkdelay};
+output a  = {false,adelay};
+output ap = {true,pdelay};
+output rst = {false,rstdelay4};
+
+process a;
+*[ [clk+]; a+; [ap-]; a- ]
+endprocess
+
+/* For inverters */
+process ap;
+*[ [a+ & rst+]; ap-; [rst- & a-]; ap+ ]
+endprocess
+
+/* For nand */
+/*
+process ap;
+*[ [a+ & rst+]; ap-; [a-]; ap+ ]
+endprocess
+*/
+
+process rst;
+*[ [clk+]; rst+; [clk-]; rst- ]
+endprocess
+
+process clkenv;
+*[ clk+; clk- ]
+endprocess
+endmodule
+

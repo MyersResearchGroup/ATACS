@@ -1,0 +1,47 @@
+module inv0;
+
+input x = {true};
+output y = {false,<1,2>};
+
+process inv0;
+*[ [x-]; y+; [x+]; y- ]
+endprocess
+endmodule
+
+module inv1;
+
+input x = {false};
+output y = {true,<1,2>};
+
+process inv1;
+*[ [x+]; y-; [x-]; y+ ]
+endprocess
+endmodule
+
+module inv2;
+
+input x = {false};
+output y = {false,<1,2>};
+
+process inv2;
+*[ y+; [x+]; y-; [x-] ]
+endprocess
+endmodule
+
+module buf;
+
+input a;
+
+inv1 i1(x => a, y => b);
+inv0 i2(x => b, y => c);
+
+endmodule
+
+module main;
+
+input Y;
+
+buf A(a => X, c => Y);
+inv2 B(x => Y, y => X);
+
+endmodule

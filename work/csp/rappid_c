@@ -1,0 +1,15 @@
+time ../../bin/atacs -oD -cT -oa -oi -tp -oq -va rappid tagin1
+time ../../bin/atacs -oD -cT -oa -oi -tp -oq -va rappid ss1
+time ../../bin/atacs -oD -cT -oa -oi -tp -oq -va rappid fifo1
+time ../../bin/atacs -oD -cT -oa -oi -tp -oq -va rappid PA
+time ../../bin/atacs -oD -cT -oa -oi -tp -oq -va rappid LD
+time ../../bin/atacs -oD -cT -oa -oi -tp -oq -va rappid BR
+time ../../bin/atacs -cT -oa -oi -tp -oq -va rappid BC
+time ../../bin/atacs -cT -oa -oi -tp -oq -va rappid TU
+time ../../bin/atacs -cT -oa -oi -tp -oq -va rappid AG
+time ../../bin/atacs -cT -oa -oi -tp -oq -va rappid ir1
+
+
+
+
+

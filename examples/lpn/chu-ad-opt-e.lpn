@@ -1,0 +1,18 @@
+.inputs  ZA  DA  LA 
+.outputs  ZR  DR  LR 
+#@.init_state [001010]
+.graph
+LR+ LA+
+ZA- LR+
+DA- LR+
+ZR- DA- ZA-
+DR- DA- ZA-
+ZA+ DR- ZR-
+ZR+ ZA+
+LA- ZR+
+DA+ ZR+
+DR+ DA+ LA-
+LR- DA+ LA-
+LA+ LR- DR+
+.marking {<LR-, LA-><DR+, LA-><LR-, DA+><DR+, DA+>}
+.end

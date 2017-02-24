@@ -1,0 +1,28 @@
+/*****************************************************************************/
+/* Lazy-active/Passive Buffer w/added state variable to solve CSC.           */
+/*****************************************************************************/
+module lapb;
+
+delay env = <100,inf>;
+delay gatedelay = <1,5>;
+
+input li = {false,env};
+input ri = {false,env};
+output lo = {false,gatedelay};
+output ro = {false,gatedelay};
+output x = {false,gatedelay};
+
+process lapbctrl;
+*[ [li-@]; lo+; x+; [li+]; lo-; 
+   [ri+]; ro+; x-; [ri-]; ro- ]
+endprocess
+
+testbench left;
+*[ [lo+]; li+; [lo-]; li- ]
+endtestbench
+
+testbench right;
+*[ ri+; [ro+]; ri-; [ro-] ]
+endtestbench
+
+endmodule

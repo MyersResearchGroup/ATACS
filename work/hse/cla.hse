@@ -1,0 +1,86 @@
+/****************************************************************************
+ ** 4-bit comparator Look Ahead Unit
+ ** INPUTS: Req, G[3:0], L[3:0], and E[3:0]
+ ** OUTPUTS: E, G, L, and Ack
+ ****************************************************************************/
+module comp_look_ahead;
+
+  input  Req = {false, <5,10>};
+
+  input   G0 = {false, <5,10>};
+  input   L0 = {false, <5,10>};
+  input   E0 = {false, <5,10>};
+
+  input   G1 = {false, <5,10>};
+  input   L1 = {false, <5,10>};
+  input   E1 = {false, <5,10>};
+
+  input   G2 = {false, <5,10>};
+  input   L2 = {false, <5,10>};
+  input   E2 = {false, <5,10>};
+
+  input   G3 = {false, <5,10>};
+  input   L3 = {false, <5,10>};
+  input   E3 = {false, <5,10>};
+
+  output Ack = {false, <5,10>};
+  output   G = {false, <5,10>};
+  output   L = {false, <5,10>};
+  output   E = {false, <5,10>};
+  
+  process comp_look_ahead;
+    *[ [Req] ; [   ( G3 )                -> G+ ; Ack+ ; [~Req] ; G- ; Ack-  
+		 | ( E3 & G2 )           -> G+ ; Ack+ ; [~Req] ; G- ; Ack-  
+     	         | ( E3 & E2 & G1 )      -> G+ ; Ack+ ; [~Req] ; G- ; Ack-  
+     	         | ( E3 & E2 & E1 & G0 ) -> G+ ; Ack+ ; [~Req] ; G- ; Ack-  
+                 | ( L3 )                -> L+ ; Ack+ ; [~Req] ; L- ; Ack-  
+		 | ( E3 & L2 )           -> L+ ; Ack+ ; [~Req] ; L- ; Ack-  
+     	         | ( E3 & E2 & L1 )      -> L+ ; Ack+ ; [~Req] ; L- ; Ack-  
+     	         | ( E3 & E2 & E1 & L0 ) -> L+ ; Ack+ ; [~Req] ; L- ; Ack-  
+                 | ( E3 & E2 & E1 & E0 ) -> E+ ; Ack+ ; [~Req] ; E- ; Ack-
+               ]
+     ]
+  endprocess
+
+  process comparator3;
+    *[ [   true -> ( G3+ ) ; [~Req & Ack] ; G3- ; [~Ack]
+         | true -> ( L3+ ) ; [~Req & Ack] ; L3- ; [~Ack]
+         | true -> ( E3+ ) ; [~Req & Ack] ; E3- ; [~Ack]
+       ]
+     ]
+  endprocess
+
+  process comparator2;
+    *[ [   true -> ( G2+ ) ; [~Req & Ack] ; G2- ; [~Ack]
+         | true -> ( L2+ ) ; [~Req & Ack] ; L2- ; [~Ack]
+         | true -> ( E2+ ) ; [~Req & Ack] ; E2- ; [~Ack]
+       ]
+     ]
+  endprocess
+
+  process comparator1;
+    *[ [   true -> ( G1+ ) ; [~Req & Ack] ; G1- ; [~Ack]
+         | true -> ( L1+ ) ; [~Req & Ack] ; L1- ; [~Ack]
+         | true -> ( E1+ ) ; [~Req & Ack] ; E1- ; [~Ack]
+       ]
+     ]
+  endprocess
+
+  process comparator0;
+    *[ [   true -> ( G0+ ) ; [~Req & Ack] ; G0- ; [~Ack]
+         | true -> ( L0+ ) ; [~Req & Ack] ; L0- ; [~Ack]
+         | true -> ( E0+ ) ; [~Req & Ack] ; E0- ; [~Ack]
+       ]
+     ]
+  endprocess
+
+  process env;
+    *[ [(G3 | L3 | E3 ) & (G2 | L2 | E2 ) & 
+        (G1 | L1 | E1 ) & (G0 | L0 | E0 )] ; Req+ ; [Ack] ; Req- ; 
+       [~G3 & ~L3 & ~E3 & ~G2 & ~L2 & ~E2 & 
+        ~G1 & ~L1 & ~E1 & ~G0 & ~L0 & ~E0] ; [~Ack]
+     ]
+  endprocess
+
+endmodule
+

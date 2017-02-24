@@ -1,0 +1,103 @@
+module cgate_spec;
+
+input a;
+input b;
+output c = {<2,4>};
+
+process spec;
+*[ [a & b]; c+; [~a & ~b]; c- ]
+endprocess
+endmodule
+
+module cgate;
+
+input a;
+input b;
+output c = {<2,4>};
+
+gate cgate;
+ a &  b -> c+
+~a & ~b -> c-
+endgate
+endmodule
+
+module andgate;
+
+input a;
+input b;
+output c = {<1,2>};
+
+gate andgate;
+ a &  b -> c+
+~a | ~b -> c-
+endgate
+endmodule
+
+module slowand;
+
+input a;
+input b;
+output c = {<8,12>};
+
+gate andgate;
+ a &  b -> c+
+~a | ~b -> c-
+endgate
+endmodule
+
+module orgate;
+
+input a;
+input b;
+output c = {<1,2>};
+
+gate orgate;
+ a |  b -> c+
+~a & ~b -> c-
+endgate
+endmodule
+
+module orgate3;
+
+input a;
+input b;
+input c;
+output d = {<2,3>};
+
+gate orgate3;
+ a |  b |  c -> d+
+~a & ~b & ~c -> d-
+endgate
+endmodule
+
+module celem;
+
+input a = {<7,9>};
+input b = {<7,9>};
+output c;
+
+andgate impl(a => a, b => b, c => c);
+/*
+cgate_spec impl(a => a, b => b, c => c);
+
+cgate impl(a => a, b => b, c => c);
+
+orgate impl(a => a, b => b, c => c);
+
+andgate ugate(a => a, b => b, c => u);
+andgate vgate(a => a, b => c, c => v);
+andgate wgate(a => c, b => b, c => w);
+orgate3 cout(a => u, b => v, c => w, d => c);
+*/
+
+testbench env;
+*[ (a+ || b+); c+; (a- || b-); c- ]
+endtestbench
+
+/*
+constraint one;
+a & b & ~c -> <1,5> c+
+endconstraint
+*/
+
+endmodule

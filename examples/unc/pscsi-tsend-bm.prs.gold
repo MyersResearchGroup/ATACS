@@ -1,0 +1,18 @@
+[ EndDMAInt: (~StartDMASend & AckInN & ~zzz00 & ~zzz01)] Combinational
+[ DRQ: (~StartDMASend & DWAckLastN & DWAckNormN & zzz00 & zzz01)] Combinational
+[+ReqOutN: (~AckInN & zzz01)]
+[+ReqOutN: (~DWAckNormN & ~AckInN)]
+[+ReqOutN: (~DWAckLastN & ~AckInN)]
+[-ReqOutN: (DWAckLastN & DWAckNormN & AckInN & Ready)]
+[+Ready: (~DWAckNormN & zzz01)]
+[+Ready: (~DWAckNormN & ~AckInN)]
+[+Ready: (~DWAckLastN & zzz01)]
+[+Ready: (~DWAckLastN & ~AckInN)]
+[-Ready: (DWAckLastN & DWAckNormN & AckInN)]
+[+zzz00: (StartDMASend)]
+[-zzz00: (~DWAckLastN & zzz01)]
+[-zzz00: (~DWAckLastN & ~AckInN)]
+[+zzz01: (StartDMASend)]
+[+zzz01: (~DWAckLastN & ~AckInN)]
+[-zzz01: (DWAckLastN & ~AckInN & ~Ready)]
+[-zzz01: (~DWAckNormN)]

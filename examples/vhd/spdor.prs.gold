@@ -1,0 +1,4 @@
+[+o: (in2)]
+[+o: (in1)]
+[-o: (~x_i_1_UUT)]
+[ x_i_1_UUT: (~o)] Combinational

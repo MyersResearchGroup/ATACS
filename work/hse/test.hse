@@ -1,0 +1,13 @@
+module test;
+
+output a = {<20,inf;1,2>};
+output b = {<1,2>};
+
+process aloop;
+*[ [b]; a+; a- ]
+endprocess
+
+process bloop;
+*[ b+; b- ]
+endprocess
+endmodule

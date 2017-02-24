@@ -1,0 +1,4 @@
+[+winery_to_shop1?: (winery_to_shop1! & ~shop1_to_patron!)]
+[-winery_to_shop1?: (~winery_to_shop1! & shop1_to_patron!)]
+[+shop1_to_patron!: (~shop1_to_patron? & winery_to_shop1?)]
+[-shop1_to_patron!: (shop1_to_patron? & ~winery_to_shop1?)]

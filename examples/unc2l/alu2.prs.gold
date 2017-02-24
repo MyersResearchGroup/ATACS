@@ -1,0 +1,46 @@
+[ Prech: (~seldx & zzz00 & zzz02)] Combinational
+[ Prech: (EvDone & zzz01 & zzz02)] Combinational
+[ Prech: (EvDone & A2M)] Combinational
+[ Prech: (EvDone & LX & zzz00 & zzz01)] Combinational
+[ Prech: (Prech & ~seldx & ~selym2 & zzz01)] Combinational
+[ Prech: (Prech & ~seldx & zzz02)] Combinational
+[ Prech: (~start)] Combinational
+[ Prech: (~M2A2 & LX & A2M)] Combinational
+[ Prech: (~M1A & LX & A2M)] Combinational
+[ Prech: (EvDone & ~M1A & ~M2A2 & ~LX & zzz00 & zzz01)] Combinational
+[ LX: (EvDone & LX)] Combinational
+[ LX: (LX & ~selym2)] Combinational
+[ LX: (EvDone & A2M & ~zzz01)] Combinational
+[ LY: (EvDone & ~M1A & ~M2A2 & ~LX & zzz00 & zzz01)] Combinational
+[ LY: (EvDone & LY)] Combinational
+[ A2M: (EvDone & A2M)] Combinational
+[ A2M: (~LX & A2M)] Combinational
+[ A2M: (~M2A2 & A2M)] Combinational
+[ A2M: (~M1A & A2M)] Combinational
+[ A2M: (EvDone & ~M1A & ~M2A2 & ~LX & seldx)] Combinational
+[ A2M: (EvDone & ~LX & zzz01 & zzz02)] Combinational
+[ EndP: (start & ~EvDone & ~seldx & ~selym2 & zzz01)] Combinational
+[ EndP: (start & ~EvDone & ~seldx & zzz02)] Combinational
+[ seldx: (seldx & zzz01)] Combinational
+[ seldx: (~EvDone & seldx)] Combinational
+[ seldx: (EvDone & zzz01 & zzz02)] Combinational
+[ selym2: (LX & zzz01 & zzz02)] Combinational
+[ selym2: (LX & zzz00 & zzz01)] Combinational
+[ selym2: (~EvDone & selym2)] Combinational
+[ selym2: (M2A2 & selym2)] Combinational
+[ selym2: (M1A & selym2)] Combinational
+[ zzz00: (EvDone & C & ~LY & ~A2M & ~zzz02)] Combinational
+[ zzz00: (EvDone & zzz00)] Combinational
+[ zzz00: (selym2 & zzz00)] Combinational
+[ zzz00: (~EvDone & selym2)] Combinational
+[ zzz00: (EvDone & C & ~Prech & ~A2M & ~zzz01)] Combinational
+[ zzz01: (EvDone & LX & ~A2M)] Combinational
+[ zzz01: (start & ~A2M & zzz01)] Combinational
+[ zzz01: (start & ~EvDone & ~A2M & zzz02)] Combinational
+[ zzz01: (EvDone & ~C & ~A2M & ~zzz00)] Combinational
+[ zzz01: (EvDone & zzz01)] Combinational
+[ zzz02: (EvDone & ~LX & ~A2M & ~zzz01)] Combinational
+[ zzz02: (start & ~seldx & zzz02)] Combinational
+[ zzz02: (EvDone & zzz02)] Combinational
+[ zzz02: (start & ~EvDone & ~seldx & ~selym2 & zzz01)] Combinational
+[ zzz02: (EvDone & ~C & ~A2M & ~selym2 & ~zzz00)] Combinational

@@ -1,0 +1,37 @@
+#
+# This example test the TIC implementation in BAG and BAP.  The events
+# $a and $b conflict, and $c is concurrently enabled with $a and $b.  
+# The time is set such that t($a) < t($c) < t($b).  In this case, TIC
+# should produce the trace $a->$c->$sync or $c->$b->$sync.
+# 
+.e 7
+.i 0
+.r 9
+.d 0
+.c 3
+.s 0
+reset
+$source
+$a
+$b
+$c
+$d
+$sync
+##########################################################################
+# RULES
+##########################################################################
+$source $a 0 0 0
+$source $b 0 2 2
+$source $c 0 1 1
+$source $d 0 3 3
+$a      $sync 0 0 0
+$b      $sync 0 0 0
+$c      $sync 0 0 0
+$d      $sync 0 0 0
+$sync   $source 1 0 0
+##########################################################################
+# CONFLICTS
+#########################################################################
+$a $b
+$a $d
+$d $b

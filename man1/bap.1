@@ -1,0 +1,34 @@
+.TH BAP 1 "15 November 2000" "" ""
+.SH NAME
+bap \- Bourne Again POSETs Timing Analysis
+.SH SYNOPSIS
+.nf
+.BI atacs " -tp"
+.br
+.BI atacs> " bap"
+.fi
+.SH DESCRIPTION
+.B bap
+is a timing analysis method that uses a POSET to build larger zones in the
+timing analysis.  Like 
+.B bag
+it uses the new conflict semantics.
+.SH OPTIONS
+.TP
+.BI \-tp
+Enables the bap method from the command line.
+.TP
+.BI bap
+Enables the bap method in the interactive shell.
+.SH CREDITS
+.B bap
+was primarily written by Eric G Mercer (eemercer@vlsigroup.elen.utah.edu).
+.SH BUGS
+.SH FILES
+.SH "SEE ALSO"
+.BR untimed (1)
+.BR geometric (1)
+.BR posets (1)
+.BR bag (1)
+.BR baptdc (1)
+.BR http://www.async.ece.utah.edu

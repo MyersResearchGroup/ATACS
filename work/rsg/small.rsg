@@ -1,0 +1,13 @@
+SG:
+STATEVECTOR:INP a INP b
+STATES:
+0:R0
+1:F0
+2:RR
+3:0F
+EDGES:
+0:R0 -> 1:F0
+1:F0 -> 2:RR
+2:RR -> 3:0F
+3:0F -> 0:R0
+2:RR -> 1:F0

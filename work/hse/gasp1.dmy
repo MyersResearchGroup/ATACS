@@ -1,0 +1,5 @@
+.newdummy $c2+/1 $c2-/1 $d2+/1 $d2-/1 $s2+/1 $s2-/1
+.newdummy $w1_gasp2+/1 $w1_gasp2-/1 $w2_gasp2+/1 $w2_gasp2-/1
+.newdummy $w3_gasp2+/1 $w3_gasp2-/1 $w4_gasp2+/1 $w4_gasp2-/1
+.newdummy $w5_gasp2+/1 $w5_gasp2-/1
+.newinit 0 0 0  0 0  0 0  1

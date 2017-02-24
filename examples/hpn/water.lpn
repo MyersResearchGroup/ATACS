@@ -1,0 +1,18 @@
+.inputs open
+.dummy fill drain
+.graph 
+open- p1
+p1 open+ #@ [1,2]
+open+ p2 
+p2 open- #@ [1,2]
+p1 fill #@ /1;inf\
+p2 drain #@ /1;inf\
+fill y 
+y drain
+y open+ #@ /10;inf\ [1,2]
+y open- #@ /0;5\ [1,2]
+.marking { p1 }
+#@.marking { <y = 2> }
+#@.rates { <fill = 1><drain = 2> }
+#@.continuous fill drain y
+.end

@@ -1,0 +1,110 @@
+.e 17
+.i 6
+.r 35
+.n 0
+.d 0
+.m 0
+.o 0
+.c 6
+.s 001001
+reset
+#
+# INPUT EVENTS:
+#
+x0t+/1:1 x0t-/1:1
+x0f+/1:1 x0f-/1:1
+ack2+/1:1 ack2-/1:1
+#
+# OUTPUT EVENTS:
+#
+x1f+/1:2 x1f-/1:2
+x1t+/1:2 x1t-/1:2
+ack1+/1:2 ack1-/1:2
+#
+# DUMMY INPUT EVENTS:
+#
+#
+# DUMMY OUTPUT EVENTS:
+#
+#
+# DUMMY EVENTS:
+#
+$x2t-/1:16
+$clk-/1:16
+$clk+/1:16
+$x2f+/1:16
+#
+# RULES:
+#
+$x2f+/1 $x2t-/1  0 300 600
+$clk+/1 $x2t-/1  0 500 1100
+reset $x2t-/1  0 500 1000
+x1t+/1 $x2f+/1  0 100 200
+x1f-/1 $x2t-/1  0 100 200
+$clk+/1 $clk-/1  0 1200 1200
+x0t+/1 x0t-/1  0 0 100
+x0f+/1 x0f-/1  0 0 100
+$clk+/1 x0f+/1  0 0 100
+x1t-/1 $x2t-/1  0 100 200
+$x2t-/1 ack2+/1  0 100 200
+$x2f+/1 ack2-/1  0 100 200
+x1f+/1 $x2f+/1  0 100 200
+reset $x2f+/1  0 100 200
+$clk+/1 x0t+/1  0 0 100
+$clk-/1 x0f-/1  0 0 100
+$clk-/1 x0t-/1  0 0 100
+reset $clk+/1  0 1200 1200
+x1t-/1 ack1+/1  0 100 200
+x1f+/1 ack1-/1  0 100 200
+x1t+/1 ack1-/1  0 100 200
+x1f-/1 ack1+/1  0 100 200
+x0t+/1 x1t+/1  0 100 200
+x0f-/1 x1f-/1  0 100 200
+ack2-/1 x1f-/1  0 100 200
+reset x1f+/1  0 100 200
+reset x1t+/1  0 100 200
+ack2-/1 x1t-/1  0 100 200
+x0t-/1 x1t-/1  0 100 200
+x0f+/1 x1f+/1  0 100 200
+#
+# INITIAL RULES:
+#
+$x2t-/1 $x2f+/1  1 300 600
+$clk-/1 $x2f+/1  1 500 1100
+ack2+/1 x1t+/1  1 100 200
+ack2+/1 x1f+/1  1 100 200
+$clk-/1 $clk+/1  1 1200 1200
+#
+# RULES:
+#
+#
+# INITIAL RULES:
+#
+# 
+# MERGERS:
+# 
+#
+# INPUT CONFLICTS:
+#
+#
+# LOOPING INPUT CONFLICTS:
+#
+#
+# OUTPUT CONFLICTS:
+#
+#
+# LOOPING OUTPUT CONFLICTS:
+#
+#
+#  CONFLICTS:
+#
+x0t+/1 x0f-/1
+x0t-/1 x0f-/1
+x0t-/1 x0f+/1
+x0t+/1 x0f+/1
+x1t-/1 x1f-/1
+x1t+/1 x1f+/1
+#
+# LOOPING CONFLICTS:
+#
+

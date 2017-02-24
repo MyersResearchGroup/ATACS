@@ -1,0 +1,129 @@
+[ EndDMAInt: (~StartDMASend & ~StartDMARcv & DWAckLastN & DWAckNormN & ReqInN & DRAckNormN & DRAckLastN & AckInN & ~DRQ & ~zzz03 & zzz06)] Combinational
+[ EndDMAInt: (~TargetMode & ~StartDMASend & ~StartDMARcv & DWAckLastN & DWAckNormN & ReqInN & DRAckNormN & DRAckLastN & ~DRQ & ~zzz03)] Combinational
+[ DRQ: (~ReqInN & DRQ & ~AckOutN)] Combinational
+[ DRQ: (DWAckLastN & DWAckNormN & DRAckNormN & DRAckLastN & DRQ)] Combinational
+[ DRQ: (TargetMode & ~StartDMASend & DWAckLastN & DWAckNormN & DRAckLastN & AckInN & zzz01 & zzz04 & zzz05)] Combinational
+[ DRQ: (DRAckNormN & DRAckLastN & ~AckInN & ~Ready & zzz02)] Combinational
+[ DRQ: (~TargetMode & ~StartDMASend & ReqInN & zzz01 & ~zzz04)] Combinational
+[ DRQ: (DWAckNormN & ~ReqInN & DRAckNormN & ~zzz01)] Combinational
+[ DRQ: (~BlockMode & ~AckInN & DRQ & ~zzz00)] Combinational
+[ DRQ: (TargetMode & AckInN & DRQ & zzz00)] Combinational
+[ DRQ: (~BlockMode & TargetMode & DWAckNormN & AckInN & ~zzz04 & ~zzz06)] Combinational
+[ ReqOutN: (~BlockMode & DRAckNormN & ReqOutN & ~zzz00 & zzz06)] Combinational
+[ ReqOutN: (~zzz02 & zzz04 & zzz05)] Combinational
+[ ReqOutN: (~TargetMode)] Combinational
+[ ReqOutN: (~DWAckNormN & ReqOutN)] Combinational
+[ ReqOutN: (BlockMode & ~DRAckNormN & ~AckInN)] Combinational
+[ ReqOutN: (StartDMARcv)] Combinational
+[ ReqOutN: (~DWAckLastN & zzz04)] Combinational
+[ ReqOutN: (~AckInN & ~zzz03)] Combinational
+[ ReqOutN: (~DWAckNormN & ~AckInN)] Combinational
+[ ReqOutN: (~DWAckLastN & ~AckInN)] Combinational
+[ ReqOutN: (~AckInN & ReqOutN)] Combinational
+[ ReqOutN: (~DRAckNormN & Ready)] Combinational
+[ ReqOutN: (~DRAckLastN & ~AckInN)] Combinational
+[ ReqOutN: (~BlockMode & DRAckNormN & ~AckInN & zzz06)] Combinational
+[ AckOutN: (ReqInN & AckOutN)] Combinational
+[ AckOutN: (ReqInN & ~DRQ)] Combinational
+[ AckOutN: (ReqInN & ~DRAckLastN)] Combinational
+[ AckOutN: (~DWAckNormN & ReqInN)] Combinational
+[ AckOutN: (~DRAckNormN & zzz03)] Combinational
+[ AckOutN: (ReqInN & ~DRAckNormN)] Combinational
+[ AckOutN: (DRQ & zzz01)] Combinational
+[ AckOutN: (~DWAckLastN & ReqInN)] Combinational
+[ AckOutN: (~DWAckNormN & AckOutN)] Combinational
+[ AckOutN: (~DWAckLastN & zzz03)] Combinational
+[ Ready: (BlockMode & ~DRAckNormN & ~AckInN)] Combinational
+[ Ready: (BlockMode & ~DWAckNormN & ~AckInN)] Combinational
+[ Ready: (BlockMode & ~DWAckLastN & ~AckInN)] Combinational
+[ Ready: (~AckInN & Ready)] Combinational
+[ Ready: (BlockMode & ~DWAckLastN & zzz04)] Combinational
+[ Ready: (BlockMode & ~DWAckNormN & ReqOutN)] Combinational
+[ Ready: (~DRAckNormN & Ready)] Combinational
+[ Ready: (~DRAckLastN & Ready)] Combinational
+[ Ready: (BlockMode & ~DRAckLastN & ~AckInN)] Combinational
+[ zzz00: (~TargetMode & ~DWAckNormN & ReqInN & ~zzz01)] Combinational
+[ zzz00: (StartDMARcv)] Combinational
+[ zzz00: (ReqInN & AckInN & zzz00 & zzz05)] Combinational
+[ zzz00: (TargetMode & DRAckNormN & DRAckLastN & zzz00 & ~zzz02 & zzz05)] Combinational
+[ zzz00: (~DWAckNormN & zzz00)] Combinational
+[ zzz00: (~TargetMode & ReqInN & zzz00)] Combinational
+[ zzz00: (BlockMode & DWAckNormN & DRAckNormN & AckInN & ~zzz04)] Combinational
+[ zzz00: (TargetMode & DWAckNormN & AckInN & ~zzz04 & ~zzz06)] Combinational
+[ zzz00: (~TargetMode & ~DRAckNormN & ~zzz04)] Combinational
+[ zzz00: (~DWAckLastN & zzz00)] Combinational
+[ zzz00: (~AckInN & zzz03 & ~zzz05)] Combinational
+[ zzz00: (~TargetMode & ReqInN & ~DRAckNormN)] Combinational
+[ zzz01: (TargetMode & DWAckNormN & DRAckLastN & AckInN & zzz01 & zzz04)] Combinational
+[ zzz01: (TargetMode & DWAckLastN & AckInN & ~zzz05)] Combinational
+[ zzz01: (~DRAckNormN & zzz01)] Combinational
+[ zzz01: (~BlockMode & DWAckNormN & DRAckLastN & zzz01 & zzz03)] Combinational
+[ zzz01: (~DRAckNormN & ~AckInN)] Combinational
+[ zzz01: (DRAckLastN & ~AckInN & zzz02)] Combinational
+[ zzz01: (~TargetMode & ReqInN & zzz01 & zzz03)] Combinational
+[ zzz01: (~DWAckLastN & ReqInN & ~zzz00)] Combinational
+[ zzz01: (DWAckNormN & ~ReqInN & ~DRQ & zzz01)] Combinational
+[ zzz01: (StartDMASend)] Combinational
+[ zzz01: (~BlockMode & ~AckInN & zzz02)] Combinational
+[ zzz02: (~TargetMode & ~DWAckNormN & ReqInN & ~zzz01)] Combinational
+[ zzz02: (~DRAckNormN & zzz02)] Combinational
+[ zzz02: (~BlockMode & ReqInN & DRAckLastN & zzz02)] Combinational
+[ zzz02: (~DRAckNormN & ~AckInN)] Combinational
+[ zzz02: (DRAckLastN & ~AckInN & zzz02)] Combinational
+[ zzz02: (TargetMode & StartDMARcv)] Combinational
+[ zzz02: (ReqInN & zzz00 & zzz02 & zzz04)] Combinational
+[ zzz02: (DWAckNormN & DRAckLastN & DRQ & zzz01 & zzz02)] Combinational
+[ zzz02: (~DWAckNormN & zzz00 & zzz06)] Combinational
+[ zzz02: (~DWAckLastN & zzz02)] Combinational
+[ zzz02: (~BlockMode & ~AckInN & zzz02)] Combinational
+[ zzz02: (~TargetMode & StartDMASend)] Combinational
+[ zzz03: (~TargetMode & ~DWAckNormN & ReqInN & ~zzz01)] Combinational
+[ zzz03: (~DRAckNormN & zzz03)] Combinational
+[ zzz03: (ReqInN & ~DRAckNormN)] Combinational
+[ zzz03: (TargetMode & DWAckLastN & DWAckNormN & DRAckLastN & zzz03 & zzz05)] Combinational
+[ zzz03: (StartDMARcv)] Combinational
+[ zzz03: (TargetMode & DRAckLastN & zzz00 & zzz05)] Combinational
+[ zzz03: (~TargetMode & ReqInN & zzz03)] Combinational
+[ zzz03: (~TargetMode & DWAckNormN & DRQ & zzz01)] Combinational
+[ zzz03: (~TargetMode & ~DWAckLastN & ReqInN)] Combinational
+[ zzz03: (~DWAckNormN & zzz00)] Combinational
+[ zzz03: (~BlockMode & ~AckInN & zzz03)] Combinational
+[ zzz03: (StartDMASend)] Combinational
+[ zzz03: (TargetMode & DWAckNormN & AckInN & ~zzz04 & ~zzz06)] Combinational
+[ zzz03: (~TargetMode & ~DWAckLastN & AckOutN)] Combinational
+[ zzz03: (~DWAckLastN & zzz00)] Combinational
+[ zzz03: (~AckInN & zzz03 & ~zzz05)] Combinational
+[ zzz04: (~StartDMASend & DWAckNormN & DRAckNormN & ~zzz02 & zzz04)] Combinational
+[ zzz04: (~TargetMode & ~StartDMASend & DRAckNormN & zzz04)] Combinational
+[ zzz04: (TargetMode & DWAckNormN & AckInN & zzz04)] Combinational
+[ zzz04: (~DRAckLastN & AckInN & ~zzz00)] Combinational
+[ zzz04: (~ReqInN & DRAckNormN & ~zzz01)] Combinational
+[ zzz04: (~ReqInN & zzz04)] Combinational
+[ zzz04: (~DWAckLastN & ~AckInN)] Combinational
+[ zzz04: (DWAckLastN & ~ReqInN & DRAckNormN & ~DRQ)] Combinational
+[ zzz04: (~DWAckNormN & ~ReqInN)] Combinational
+[ zzz04: (BlockMode & ~DRAckLastN & ~AckInN)] Combinational
+[ zzz05: (~TargetMode & ~StartDMARcv & ReqInN & ~zzz00)] Combinational
+[ zzz05: (~StartDMARcv & AckInN & ~zzz01 & zzz05)] Combinational
+[ zzz05: (TargetMode & DWAckLastN & zzz05)] Combinational
+[ zzz05: (~DWAckNormN)] Combinational
+[ zzz05: (~TargetMode & DRQ)] Combinational
+[ zzz05: (~AckInN & ~zzz00)] Combinational
+[ zzz05: (~TargetMode & ~DWAckLastN)] Combinational
+[ zzz05: (~ReqInN & ~zzz01)] Combinational
+[ zzz06: (~TargetMode & ~StartDMARcv & ReqInN & DRAckNormN & ~DRQ & ~zzz00)] Combinational
+[ zzz06: (TargetMode & DWAckLastN & DWAckNormN & zzz04 & zzz05)] Combinational
+[ zzz06: (~StartDMARcv & EndDMAInt)] Combinational
+[ zzz06: (~DRAckLastN & ~zzz00)] Combinational
+[ zzz06: (~TargetMode & ~DWAckNormN)] Combinational
+[ zzz06: (~DRAckNormN & zzz01)] Combinational
+[ zzz06: (~BlockMode & ReqInN & zzz02)] Combinational
+[ zzz06: (~TargetMode & DRAckNormN & DRQ)] Combinational
+[ zzz06: (~DRAckNormN & ~AckInN)] Combinational
+[ zzz06: (~AckInN & ~zzz00)] Combinational
+[ zzz06: (~AckInN & zzz06)] Combinational
+[ zzz06: (~zzz01 & zzz02 & zzz04)] Combinational
+[ zzz06: (~TargetMode & ~DWAckLastN)] Combinational
+[ zzz06: (~ReqInN & DRAckNormN & ~zzz01)] Combinational
+[ zzz06: (~ReqInN & DRQ)] Combinational
+[ zzz06: (~DRAckLastN & ~AckInN)] Combinational

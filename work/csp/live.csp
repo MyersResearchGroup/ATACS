@@ -1,0 +1,17 @@
+/*****************************************************************************/
+/* Example with a liveness violation.                                        */
+/*****************************************************************************/
+module live;
+
+input a;
+output b;
+
+process live;
+    *[ [a+]; b+; [a-]; b- ]
+endprocess
+
+process liveenv;
+    *[ [b+]; a+; [b-]; a- ]
+endprocess
+
+endmodule

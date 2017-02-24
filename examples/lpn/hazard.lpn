@@ -1,0 +1,16 @@
+.inputs a d
+.outputs x c 
+#@.init_state [0000]
+.graph
+a+/1 c+
+c+ a-/1 d+
+a-/1 x+
+d+ x+
+x+ a+/2
+a+/2 c-
+c- a-/2 d-
+a-/2 x-
+d- x-
+x- a+/1
+.marking {<x-,a+/1>}
+.end

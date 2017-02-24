@@ -1,0 +1,30 @@
+/*****************************************************************************/
+/* Self-resetting dynamic AND-OR-INVERT block                                */
+/*****************************************************************************/
+module srdaoi;
+
+delay idelay = <500,500;299,299>;
+delay xdelay = <101,101;99,99>;
+delay adelay = <201,201;199,199>;
+
+input i = {false,idelay};
+input i1 = {false,idelay};
+input i2 = {false,idelay};
+input i3 = {false,idelay};
+input i4 = {false,idelay};
+output a = {false,adelay};
+output x = {true,xdelay};
+
+process a;
+*[[ i1+ & i2+ -> a+; x-; a-; x+
+  | i3+ & i4+ -> a+; x-; a-; x+ 
+ ]]
+endprocess
+
+process ienv;
+*[[ skip -> i+; (i1+ || i2+); (i1- || i2-); i-
+  | skip -> i+; (i3+ || i4+); (i3- || i4-); i- 
+ ]]
+endprocess
+
+endmodule

@@ -1,0 +1,31 @@
+input	a	0
+input	b	0
+input	c	0
+input	d	0
+input	e	0
+input	f	1
+input	g	0
+output	x	1
+
+0	1	f-	|	x-
+1	2	b+ d+	|	
+2	3	a+ d-	|	
+3	4	f+	|	x+
+4	5	a-	|	
+5	6	d+	|	x-
+6	7	c+	|	
+7	8	a+	|	x+
+8	9	b- d-	|	x-
+9	10	e+ g+	|	
+10	11	d+	|	
+11	12	e-	|	
+12	13	e+	|	
+13	14	g-	|	
+14	15	c-	|	
+15	16	e-	|	x+
+16	17	a- b+	|	x-
+17	18	b-	|	
+18	0	d-	|	x+
+
+; local minimal unique solutions = c'd'f, ac'e'f, abf, ade'fg'
+; global minimal solution = c'd'f + ade'fg'

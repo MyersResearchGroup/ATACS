@@ -1,0 +1,16 @@
+.name example
+.inputs a c
+.dummy dummy_0
+#@.init_state [10]
+.graph
+a+/1 p2
+p2 dummy_0/1 #@[0,0]
+dummy_0/1 p1
+p1 c+/1
+p1 a-/1
+c+/1 c-/1
+c+/1 p2
+c-/1 c+/1
+a-/1 a+/1
+.marking {p2 <c-/1,c+/1>}
+.end

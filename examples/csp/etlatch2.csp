@@ -1,0 +1,39 @@
+/*****************************************************************************/
+/* Furber's edge-triggered dynamic pipeline latch controller.                */
+/*****************************************************************************/
+module etlatch;
+
+input	Rin	= {false,<144,216; 80,110>};
+input	Aout	= {false,<64,96; 64,96>};
+input	D	= {false,<464,696; 72,108>};
+output	Ain	= {false,<0,1; 0,1>};
+output	Rout	= {false,<88,132; 80,110>};
+output	E	= {false,<64,96; 64,96>};
+output	A	= {false,<88,132; 80,110>};
+output	Ck	= {false,<56,84; 56,84>};
+
+process leftpart;
+    *[ [Rin+]; E+; Ain+; [D+]; [Rin- & Ck+]; E-; Ain-; [D- & Aout+/*A-*/] ]
+endprocess
+
+process rightpart;
+    *[ [D+]; /*A+;*/ [Ck+]; Rout+; [Aout+ & D-]; /*A-;*/ Rout-; [Ck- & Aout-] ]
+endprocess
+
+process D;
+    *[ [E+]; D+; [E-]; D- ]
+endprocess
+
+process Ck;
+    *[ [/*A+*/D+]; Ck+; [D-]; Ck-; [Aout-] ]
+endprocess
+
+process leftenv;
+    *[ Rin+; [Ain+]; Rin-; [Ain-] ]
+endprocess
+
+process rightenv;
+    *[ [Rout+]; Aout+; [Rout-]; Aout- ]
+endprocess
+
+endmodule

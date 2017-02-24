@@ -1,0 +1,53 @@
+-- PHAVer input file
+-- integrator example
+
+REACH_USE_CONVEX_HULL = true;
+
+maxlevel:=2000;
+minlevel:=-2000;
+
+maxanalysisbounds := 1.1*maxlevel;
+minanalysisbounds := 1.1*minlevel;
+
+maxrate:=24;
+minrate:=16;   // good parameter (anything != maxrate should fail)
+
+automaton integrator
+state_var : vout, clk;
+synclabs : dummy,dummy1;
+
+
+loc inc: while clk <= 100 & clk >= 0 & minanalysisbounds <= vout & vout <= maxanalysisbounds
+	wait {minrate <= vout & vout <= maxrate & clk==1}
+   when clk==100 sync dummy do {clk'==0 & vout'==vout} goto dec;
+
+
+loc dec: while clk <= 100 & clk >= 0 & minanalysisbounds <= vout & vout <= maxanalysisbounds
+	wait {-maxrate <= vout & vout <= -minrate & clk==1}
+   when clk==100 sync dummy1 do {clk'==0 & vout'==vout} goto inc;
+
+initially inc & vout == -1000 & clk == 0; 
+
+end
+
+sys=integrator;
+
+
+forbidden=sys.{
+inc & vout > maxlevel,
+inc & vout < minlevel,
+dec & vout > maxlevel,
+dec & vout < minlevel};
+
+reg=sys.reachable;
+reg.print;
+
+reg.intersection_assign(forbidden);
+
+echo "";
+echo "Reachable forbidden states:";
+reg.print;
+echo "";
+echo "Reachable forbidden states empty?";
+reg.is_empty;
+--sys.print;

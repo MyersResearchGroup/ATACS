@@ -1,0 +1,138 @@
+.e 25
+.i 12
+.r 74
+.n 0
+.d 1
+.c 13
+.s 00000000000
+reset
+# 
+# INPUT EVENTS:
+# 
+TIn2+/1 TIn2-/1
+TIn1+/1 TIn1-/1
+iR+/1 iR-/1
+L1+/1 L1-/1
+L2+/1 L2-/1
+X+/1 X-/1
+# 
+# OUTPUT EVENTS:
+# 
+R_t1+/1 R_t1-/1
+TA_t1+/1 TA_t1-/1
+TA_t1+/2 TA_t1-/2
+TR_t1+/1 TR_t1-/1
+TO2+/1 TO2-/1
+TO1+/1 TO1-/1
+# 
+# DUMMY EVENTS:
+# 
+# 
+# RULES:
+# 
+reset L1+/1 0 180 inf
+reset L2+/1 0 180 inf
+reset TIn1+/1 0 720 inf
+reset TIn2+/1 0 720 inf
+R_t1+/1 TO2+/1 0 90 110
+TA_t1+/1 TO2+/1 0 90 110
+TO2+/1 TO2-/1 0 90 110
+L2+/1 TO2+/1 0 90 110
+TA_t1-/1 TO1-/1 0 90 110
+reset TO1+/1 0 90 110
+reset TO2+/1 0 90 110
+L1+/1 TO1+/1 0 90 110
+TO1+/1 TO1-/1 0 90 110
+TA_t1-/2 TO2-/1 0 90 110
+TA_t1+/1 TO1+/1 0 90 110
+R_t1+/1 TO1+/1 0 90 110
+R_t1+/1 R_t1-/1 0 90 110
+iR+/1 R_t1+/1 0 90 110
+reset R_t1+/1 0 90 110
+X+/1 R_t1+/1 0 90 110
+iR-/1 R_t1-/1 0 90 110
+TA_t1+/1 TA_t1-/1 0 90 110
+TR_t1+/1 TA_t1-/1 0 90 110
+L1+/1 TA_t1-/1 0 90 110
+TIn2+/1 TA_t1+/1 0 90 110
+reset TA_t1+/1 0 90 110
+TIn1+/1 TA_t1+/1 0 90 110
+L2+/1 TA_t1-/2 0 90 110
+TR_t1+/1 TA_t1-/2 0 90 110
+TA_t1+/1 TA_t1-/2 0 90 110
+TA_t1-/2 TR_t1-/1 0 90 110
+R_t1+/1 TR_t1+/1 0 90 110
+reset TR_t1+/1 0 90 110
+TA_t1+/1 TR_t1+/1 0 90 110
+TA_t1-/1 TR_t1-/1 0 90 110
+TR_t1+/1 TR_t1-/1 0 90 110
+TIn2+/1 TIn2-/1 0 180 220
+TIn1+/1 TIn1-/1 0 180 220
+iR+/1 iR-/1 0 90 110
+L2-/1 iR-/1 0 90 110
+L1-/1 iR-/1 0 90 110
+L1+/1 iR+/1 0 180 inf
+L2+/1 iR+/1 0 180 inf
+reset iR+/1 0 180 inf
+L2+/1 L2-/1 0 180 220
+TO2+/1 L2-/1 0 180 220
+L1+/1 L1-/1 0 180 220
+TO1+/1 L1-/1 0 180 220
+reset X+/1 0 180 inf
+TO1+/1 X-/1 0 360 440
+TO2+/1 X-/1 0 360 440
+X+/1 X-/1 0 360 440
+# 
+# INITIAL RULES:
+# 
+L1-/1 L1+/1 1 180 inf
+L2-/1 L1+/1 1 180 inf
+L1-/1 L2+/1 1 180 inf
+L2-/1 L2+/1 1 180 inf
+TO1+/1 TIn1+/1 1 720 inf
+TO2+/1 TIn1+/1 1 720 inf
+TIn1-/1 TIn1+/1 1 720 inf
+TIn2-/1 TIn1+/1 1 720 inf
+TO1+/1 TIn2+/1 1 720 inf
+TO2+/1 TIn2+/1 1 720 inf
+TIn1-/1 TIn2+/1 1 720 inf
+TIn2-/1 TIn2+/1 1 720 inf
+TO2-/1 TO1+/1 1 90 110
+TO1-/1 TO1+/1 1 90 110
+TO1-/1 TO2+/1 1 90 110
+TO2-/1 TO2+/1 1 90 110
+R_t1-/1 R_t1+/1 1 90 110
+TA_t1-/1 TA_t1+/1 1 90 110
+TA_t1-/2 TA_t1+/1 1 90 110
+TR_t1-/1 TR_t1+/1 1 90 110
+iR-/1 iR+/1 1 180 inf
+X-/1 X+/1 1 180 inf
+# 
+# RULES:
+# 
+# 
+# INITIAL RULES:
+# 
+# 
+# MERGERS:
+# 
+TA_t1+/1 TA_t1+/2 
+# 
+# CONFLICTS:
+# 
+TO1-/1 TO2-/1
+TO1+/1 TO2-/1
+TO1+/1 TO2+/1
+TO1-/1 TO2+/1
+TA_t1-/1 TA_t1-/2
+TIn1-/1 TIn2-/1
+TIn1-/1 TIn2+/1
+TIn1+/1 TIn2-/1
+TIn1+/1 TIn2+/1
+L1-/1 L2-/1
+L1-/1 L2+/1
+L1+/1 L2-/1
+L1+/1 L2+/1
+# 
+# LOOPING CONFLICTS:
+# 

@@ -1,0 +1,7 @@
+[+z_send: (~z_rcv & x_rcv)]
+[+z_send: (~z_rcv & y_rcv)]
+[-z_send: (z_rcv & ~y_rcv & ~x_rcv)]
+[+y_rcv: (y_send & ~z_send)]
+[-y_rcv: (~y_send & z_send)]
+[+x_rcv: (x_send & ~z_send)]
+[-x_rcv: (~x_send & z_send)]

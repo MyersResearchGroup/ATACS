@@ -1,0 +1,30 @@
+.TH VERIFY 1 "28 September 2001" "" ""
+.SH NAME
+verify \- Verify Using ATACS
+.SH SYNOPSIS
+.nf
+.BI atacs " -va"
+.br
+.BI atacs> " verify"
+.fi
+.SH DESCRIPTION
+.B verify 
+uses atacs to verify a specification or circuit.  It will report failures due
+to deadlock, hazards (disabled rules), and constraint violations.  If a failure
+is detected, then an error trace is produced and displayed by parg and/or
+dinotrace.
+.SH OPTIONS
+.TP
+.BI \-va
+Performs verification using ATACS from the command line.
+.TP
+.BI verify
+Performs verification using ATACS in the interactive shell.
+.SH CREDITS
+.B verify
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu),
+Wendy Belluomini (wendy@vlsigroup.ece.utah.edu), and Eric Mercer
+(eemercer@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR verorbits (1)
+.BR http://www.async.elen.utah.edu

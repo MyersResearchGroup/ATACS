@@ -1,0 +1,21 @@
+[ alu_1_op: (a_ack & ~l_1_ack & mult_1_mux2_sel)] Combinational
+[ alu_1_op: (a_ack & ~d_ack & ~l_1_ack & b_ack & sample_req & ~mult_1_req)] Combinational
+[ alu_1_req: (a_ack & ~l_1_ack & mult_1_mux2_sel)] Combinational
+[ alu_1_req: (a_ack & ~d_ack & ~l_1_ack & b_ack & sample_req & ~mult_1_req)] Combinational
+[ alu_1_req: (~l_1_ack & alu_1_op)] Combinational
+[ b_req: (sample_req)] Combinational
+[+d_req: (mult_1_ack & sample_req & ~mult_1_mux2_sel)]
+[-d_req: (~sample_req)]
+[+l_2_req: (mult_1_ack & mult_1_mux2_sel)]
+[-l_2_req: (mult_1_req & ~mult_1_mux2_sel)]
+[+l_1_req: (alu_1_ack & mult_1_mux2_sel)]
+[-l_1_req: (mult_1_req & ~mult_1_mux2_sel)]
+[ sample_ack: (d_ack)] Combinational
+[ a_req: (sample_req)] Combinational
+[ c_req: (sample_req)] Combinational
+[+mult_1_req: (c_ack & ~d_ack & ~l_2_ack & b_ack & sample_req)]
+[+mult_1_req: (~mult_1_ack & l_1_ack)]
+[-mult_1_req: (mult_1_ack & l_2_ack)]
+[-mult_1_req: (d_ack)]
+[+mult_1_mux2_sel: (c_ack & ~d_ack & ~l_1_ack & b_ack & sample_req & ~mult_1_req)]
+[-mult_1_mux2_sel: (~mult_1_ack & l_1_ack & ~mult_1_req)]

@@ -1,0 +1,184 @@
+eval "set PATH=/usr/bin:/usr/local/bin:/Perl/bin:${PATH};exec perl -S $0 $*"
+    if $running_under_some_shell;#above line won't run if we're already in Perl
+
+$exe3D = "3D_nomin";
+$mikemin = "mikeminV4_cc";
+$onset_filesuffix = ".on";
+$offset_filesuffix = ".off";
+$rise_filesuffix = "_r";
+$fall_filesuffix = "_f";
+$trans_filesuffix = ".trans";
+
+if ( ! @ARGV[0] ) {
+    print "\n";
+    print "usage: xbm2eqn [-ehilsn] filename\n";
+    print " Synthesizes an extended burst-mode specification to\n";
+    print " gC minimized output signal equations. Option 'e' performs\n";
+    print " logic minimization using Espresso-HF, 'h' HFMIN, and 'i' \n";
+    print " Impymin. Option 'l' means only logic minimization will be\n";
+    print " preformed (assumes .unc and PLA files already available).\n";
+    print " Option 's' means only state minimization and assignment\n";
+    print " will be preformed (assumes previous run used option 'l').\n";
+    print " Option 'n' means no state minimization and assignment\n";
+    print " will be preformed (assumes a CSC specification).\n\n";
+}
+else{
+    $info = 1;
+    $debug = 0;
+    $id = "xbm2eqn - ";
+
+    $start_time = `date`;
+    $impymin_options = " -I -o preminonoff -t 100003 -m 100000 -f ";
+    $espressohf_options = " -E -e minlitcount -f ";
+    $logic_minimizer = "espressohf";
+    $mikemin_options = $espressohf_options;
+    $solutionsuffix = ".solution";
+    $only_logic_min = 0;
+    $only_state_min = 0;
+    $no_state_min = 0;
+    $filename = @ARGV[0];
+    if (@ARGV[0] =~ /^-/) {
+	if ((@ARGV[0] =~ /l/) && (@ARGV[0] =~ /s/)) { }
+	elsif (@ARGV[0] =~ /l/) { 
+	    $only_logic_min = 1; }
+	elsif (@ARGV[0] =~ /s/) { 
+	    $only_state_min = 1; }
+	if (@ARGV[0] =~ /n/) { 
+	    $no_state_min = 1; }
+	if (@ARGV[0] =~ /i/) { 
+	    $logic_minimizer = "impymin";
+	    $mikemin_options = $impymin_options;
+	    $solutionsuffix = ".implicit_sol"; }
+	elsif (@ARGV[0] =~ /h/) { 
+	    $logic_minimizer = "hfmin"; }
+	$filename = @ARGV[1]; }
+    if ( ! -r $filename) { die "ERROR: Cannot read specified file: ".$filename."\n"; }
+    if($info){ print $id."Synthesizing file ".$filename."\n"; }
+    $filebase = $filename;
+    $filebase =~ s/\.nounc\b//;
+    # Perform state assignment.
+    if (! $only_logic_min) {
+	if (! $no_state_min) {
+	    print $id." %> 3D stateassign2 $filebase.nounc $filebase.sym\n";
+	    $result = system("stateassign2 $filebase.nounc $filebase.sym");
+	    if ($result != 0) { die $id."ERROR: 3D state assign failed.\n"; }
+	    print $id." %> 3D stateencode $filebase.sym $filebase.enc\n";
+	    $result = system("stateencode $filebase.sym $filebase.enc");
+	    if ($result != 0) { die $id."ERROR: 3D state encode failed.\n"; }
+	    print $id." %> 3D backannotate $filebase\n";
+	    $result = system("backannotate $filebase");
+	    if ($result != 0) { die $id."ERROR: 3D backannotate failed.\n"; }
+	}
+    }
+    if (! -r $filebase.".unc") { system("cp $filebase.nounc $filebase.unc"); }
+    open(FILE,$filebase.".unc");
+    @file = <FILE>;
+    close(FILE);
+    $i = 0;
+    foreach $line (@file) { 
+	$line =~ s/;.*//;  # Remove comments
+	$line =~ s/^\s*|\s*$//g; 
+	$line =~ s/\t/ /g;
+	$line =~ tr/A-Z/a-z/;
+	if ($line =~ /(?:input|output)\s+\w+\s+\d+/) {
+	    # Record output name 
+	    $name = $line;
+	    $name =~ s/\s*(?:input|output)\s+(\w+).*\s*/$1/;
+	    @signal_position[$i++] = $name;
+	    if ($line =~ /\boutput\b/) {
+		$outputs{$name} = 1; }}
+    }
+#    system("logicgen2 -v $filebase.unc $filebase.out");
+#    system("formatout $filebase.out");
+#    system("formattrans $filebase.out.tr");
+#    foreach $output (keys %outputs) {
+#	system("echo \".type f\" | cat >> $output\_r.on");
+#	system("echo \".type r\" | cat >> $output\_r.off");
+#	system("echo \".type f\" | cat >> $output\_f.on");
+#	system("echo \".type r\" | cat >> $output\_f.off");
+#    }
+    # Generate on-set, off-set, transition files.
+    if (! $only_logic_min) {
+	print $id."xbm2pla $filebase.unc\n";
+	if ($logic_minimizer eq "hfmin") {
+	    system("xbm2pla $filebase.unc"); }
+	else {
+	    system("xbm2pla -e $filebase.unc"); }
+    }
+    if ($only_state_min) { die "State minimization and assignment finished.\n"; }
+    $logicmin_start_time = `date`;
+    # Perform logic minimization.
+    foreach $output (keys %outputs) {
+	$OUT = $output;
+	$OUT =~ tr/a-z/A-Z/;
+	if ($logic_minimizer eq "hfmin") {
+	    print "HFMIN -L $output\_r $output\_r\n";
+	    system("rm -f X$OUT\_r.trans");
+	    system("ln -s $output\_r.trans X$OUT\_r.trans");
+	    system("HFMIN -L X$OUT\_r $output\_r");
+	    if (-r "X$OUT\_r.sol") { 
+		system("mv -f X$OUT\_r.sol $output\_r.sol");
+		&generate_eqn_file("_r.sol","_Set",$output); }
+	    else { print "WARNING: $output\_r.sol not found\n"; }
+	    system("rm -f X$OUT\_r.trans");
+	    print "HFMIN -L $output\_f $output\_f\n";
+	    system("rm -f X$OUT\_f.trans");
+	    system("ln -s $output\_f.trans X$OUT\_f.trans");
+	    system("HFMIN -L X$OUT\_f $output\_f");
+	    if (-r "X$OUT\_f.sol") { 
+		system("mv -f X$OUT\_f.sol $output\_f.sol");
+		&generate_eqn_file("_f.sol","_Reset",$output); }
+	    else { print "WARNING: $output\_f.sol not found\n"; }
+	    system("rm -f X$OUT\_f.trans"); }
+	elsif (($logic_minimizer eq "espressohf") || ($logic_minimizer eq "impymin")) {
+	    if($info){print $id."  %> ".$mikemin.$mikemin_options.$output."_r >! ".$output."_r.log\n";}
+	    system("".$mikemin.$mikemin_options.$output."_r > ".$output."_r.log");
+	    if($info){print $id."  %> ".$mikemin.$mikemin_options.$output."_f >! ".$output."_f.log\n";}
+	    system("".$mikemin.$mikemin_options.$output."_f > ".$output."_f.log");
+	    &generate_eqn_file("_r".$solutionsuffix,"_Set",$output);
+	    &generate_eqn_file("_f".$solutionsuffix,"_Reset",$output);
+	}
+    }	    
+#    if ($logic_minimizer eq "hfmin") {
+#	system("logiceqn -f $filebase $filebase.eqn"); }
+#    elsif (($logic_minimizer eq "espressohf") || ($logic_minimizer eq "impymin")) {
+	open(FILE,"> ".$filebase.".eqn");
+	print FILE $equations;
+	close(FILE);
+#    }
+    $end_time = `date`;
+    if($info){ print "\n".$id."Synthesis start time: $start_time\n"; }
+    if($info){ print $id."Logic min start time: $logicmin_start_time\n"; }
+    if($info){ print $id."Synthesis end time  : $end_time\n"; }
+    if($info){ print $id."Minimized logic equations written to file $filebase.eqn\n"; }
+}	 
+   
+
+sub generate_eqn_file {
+# Translates the minimized PLA tables into 3D equation format.
+    local($i,$output,$line,$infile_suffix,@file,@outputs);
+    $infile_suffix = @_[0];
+    $output_suffix = @_[1];
+    @outputs = @_[2..$#_];
+    foreach $output (@outputs) {
+	if (! -r $output.$infile_suffix) { print $id."\nWARNING: Cannot read file $output$infile_suffix\n"; }
+	open(FILE,$output.$infile_suffix);
+	@file = <FILE>;
+	close(FILE);
+	$equations .= $output.$output_suffix." =\n";
+	foreach $line (@file) {
+	    if (($line !~ /^\./) && ($line !~ /^#/) && ($line =~ /-|\d/)) {
+		$line =~ s/(.*)\s+\d\s*\n/$1/;
+		@cube_vector = split(//,$line);
+		$equations .= "\t";
+		$i = 0;
+		foreach $value (@cube_vector) {
+		    if ($value eq "1") {
+			$equations .= @signal_position[$i]." "; }
+		    elsif ($value eq "0") {
+			$equations .= @signal_position[$i]."' "; }
+		    $i++; }
+		$equations .= "+\n"; }}
+	$equations =~ s/\+\n$/\n\n/;
+    }
+}    

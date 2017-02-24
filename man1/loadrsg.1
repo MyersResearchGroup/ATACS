@@ -1,0 +1,59 @@
+.TH LOADRSG 1 "28 September 2001" "" ""
+.SH NAME
+loadrsg \- Loads a RSG File
+.SH SYNOPSIS
+.nf
+.BI atacs " -ls <filename>"
+.br
+.BI atacs> " loadrsg <filename>"
+.fi
+.SH DESCRIPTION
+.B loadrsg
+loads a reduced state graph from the file named
+<filename>.rsg that should be in the following format:
+.PP
+SG:
+.br
+STATEVECTOR:INP signal INP signal ... signal signal ...
+.br
+STATES:
+.br
+<state>
+.PP
+Each state bit in a state is coded as follows:
+.br
+0 - stable low
+.br
+R - currently low, but it is enabled to rise
+.br
+1 - stable high
+.br
+F - currently high, but it is enabled to fall
+.PP
+The reduced state graph is then checked to see if it satisfies
+complete state coding (CSC) property.  A CSC violation occurs
+two states have the same state code, but different output
+signals are enabled.  If there are CSC violations, an
+exception is raised and each pair of states causing a
+violation is stored to the file <filename>.err.
+.SH OPTIONS
+.TP
+.BI \-ls
+Loads a RSG file from the command line.
+.TP
+.BI loadrsg
+Loads a RSG file from the interactive shell.
+.SH CREDITS
+.B loadrsg
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR loadfile (1)
+.BR loadcsp (1)
+.BR loadhse (1)
+.BR loadvhdl (1)
+.BR loader (1)
+.BR loadtel (1)
+.BR loadxbm (1)
+.BR loadg (1)
+.BR loadprs (1)
+.BR http://www.async.ece.utah.edu

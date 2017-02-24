@@ -1,0 +1,30 @@
+module invhigh;
+
+input in;
+output out={true,<2,3>};
+
+gate inv;
+ in -> out-
+~in -> out+
+endgate
+endmodule
+
+module invlow;
+
+input in;
+output out={false,<2,3>};
+
+gate inv;
+~in -> out+
+ in -> out-
+endgate
+endmodule
+
+module main;
+
+invlow  inv1(in => a, out => b);
+invhigh inv2(in => b, out => c);
+invlow  inv3(in => c, out => a);
+
+endmodule
+

@@ -1,0 +1,4 @@
+[+l_rcv: (l_send & ~r_send)]
+[-l_rcv: (r_send)]
+[+r_send: (~r_rcv & l_rcv)]
+[-r_send: (r_rcv)]

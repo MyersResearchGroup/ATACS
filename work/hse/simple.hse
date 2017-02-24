@@ -1,0 +1,22 @@
+module badlvls;
+
+output a = {<1,2>};
+output b = {<1,2>};
+input c = {<3,4>};
+input d = {<1,2>};
+
+output e = {<1,2>};
+input f = {<1,2>};
+input g = {<1,2>};
+input h = {<1,2>};
+
+
+process basic;
+*[ a+;
+  [ x -> b+; d+ |
+   ~x -> c+; e+; f+];
+   g+; h+ 
+ ]
+endprocess
+
+endmodule

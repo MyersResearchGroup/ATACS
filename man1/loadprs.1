@@ -1,0 +1,36 @@
+.TH LOADPRS 1 "28 September 2001" "" ""
+.SH NAME
+loadprs \- Loads a PRS File
+.SH SYNOPSIS
+.nf
+.BI atacs " -lp <filename>"
+.br
+.BI atacs> " loadprs <filename>"
+.fi
+.SH DESCRIPTION
+.B loadprs
+loads a set of production rules from a file
+named <filename>.prs which is in the following form:
+.PP
+[(+/-)<signal>: ((~)<signal1> & ... & (~)<signaln>)]
+.SH OPTIONS
+.TP
+.BI \-lp
+Loads a PRS file from the command line.
+.TP
+.BI loadprs
+Loads a PRS file from the interactive shell.
+.SH CREDITS
+.B loadrsg
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR loadfile (1)
+.BR loadcsp (1)
+.BR loadhse (1)
+.BR loadvhdl (1)
+.BR loader (1)
+.BR loadtel (1)
+.BR loadxbm (1)
+.BR loadg (1)
+.BR loadrsg (1)
+.BR http://www.async.ece.utah.edu

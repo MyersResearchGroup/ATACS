@@ -1,0 +1,202 @@
+/***************************************************************************
+ ** file: rout.hse--Precharged half-buffer router
+ **
+ ** Center for Asynchronous Circuit and System Design (c)opyright 1999
+ **
+ ** Description:
+ **
+ **  a-f specify different channel communications and routing.
+ **  a->  E?e, D!e
+ **  b->  E?e, M!e
+ **  c->  A?e, D!e
+ **  d->  A?e, M!e
+ **  e->  A?e, drop e and output D!1
+ **  f->  A?e, drop e and output D!0
+ **
+ ** The port description of the rout is as shown
+ **
+ **                ----------
+ **               |          |
+ **    Een <------|          |<------ Den
+ **     E0 ------>|          |------> D0
+ **     E1 ------>|          |------> D1
+ **               |          |
+ **    Aen <------|          |<------ Men
+ **     A0 ------>|          |------> M0
+ **     A1 ------>|          |------> M1
+ **               |          |
+ **               |          |               
+ **               |          |               
+ **   CLen ------>|          |------> CRen
+ **     al <------|          |<------ ar
+ **     bl <------|          |<------ br
+ **     cl <------|          |<------ cr
+ **     dl <------|          |<------ dr
+ **     el <------|          |<------ er
+ **     fl <------|          |<------ fr
+ **               |          |
+ **                ---------- 
+ **
+ ** The circuit is synthesized using the following ATACs command
+ ** atacs -mz -mp -mO -mF -mV -mX -mU -mP -mT -ms -mD -mS -mc -ya rout.hse
+ **
+ ** rout.prs
+ **
+ **   
+ ***************************************************************************/
+
+module rout;
+
+  /* 
+   * The delays here are not set the actual delays seen by the 
+   * process that we are using.  This will need to be changed before
+   * the final circuit is verified as correct.
+   */
+  delay onegate  = <90,110>;                /* Delay of single gate */
+  delay twogate  = <180,220>;               /* Delay of larger gate */
+  delay envdelay = <180,inf; 180,inf>;      /* General environment delay
+*/
+  delay envdelay2 = <540,inf; 180,inf>;     /* 3*General environment delay
+*/
+
+  input  ar   = { false, envdelay };
+  input  br   = { false, envdelay };
+  input  cr   = { false, envdelay };
+  input  dr   = { false, envdelay };
+  input  er   = { false, envdelay };
+  input  fr   = { false, envdelay };
+  output CRen = { true, onegate };
+
+  output al   = { false, onegate };
+  output bl   = { false, onegate };
+  output cl   = { false, onegate };
+  output dl   = { false, onegate };
+  output el   = { false, onegate };
+  output fl   = { false, onegate };
+  input  CLen = { false, envdelay };
+
+  output D0  = { false, onegate };
+  output D1  = { false, onegate };
+  input  Den = { false, envdelay };
+
+  output M0  = { false, onegate };
+  output M1  = { false, onegate };
+  input  Men = { false, envdelay };
+
+  input  A0  = { false, envdelay2 };
+  input  A1  = { false, envdelay2 };
+  output Aen = { true, onegate };
+
+  input  E0  = { false, envdelay };
+  input  E1  = { false, envdelay };
+  output Een = { true, onegate };
+
+  process compute;
+   *[
+      [   Den & ar & E0 -> D0+; ( Een- || CRen- ); 
+                           [~Den]; D0-; [~E0]; ( Een+ || CRen+ )
+        | Den & ar & E1 -> D1+; ( Een- || CRen- ); 
+                           [~Den]; D1-; [~E1]; ( Een+ || CRen+ )
+  
+        | Men & br & E0 -> M0+; ( Een- || CRen- ); 
+                           [~Men]; M0-; [~E0]; ( Een+ || CRen+ )
+        | Men & br & E1 -> M1+; ( Een- || CRen- ); 
+                           [~Men]; M1-; [~E1]; ( Een+ || CRen+ )
+  
+        | Den & cr & A0 -> D0+; ( Aen- || CRen- ); 
+                           [~Den]; D0-; [~A0]; ( Aen+ || CRen+ )
+        | Den & cr & A1 -> D1+; ( Aen- || CRen- ); 
+                           [~Den]; D1-; [~A1]; ( Aen+ || CRen+ )
+  
+        | Men & dr & A0 -> M0+; ( Aen- || CRen- ); 
+                           [~Men]; M0-; [~A0]; ( Aen+ || CRen+ )
+        | Men & dr & A1 -> M1+; ( Aen- || CRen- ); 
+                           [~Men]; M1-; [~A1]; ( Aen+ || CRen+ )
+  
+        | Den & er & A0 -> D1+; ( Aen- || CRen- ); 
+                           [~Den]; D1-; [~A0]; ( Aen+ || CRen+ )
+        | Den & er & A1 -> D1+; ( Aen- || CRen- ); 
+                           [~Den]; D1-; [~A1]; ( Aen+ || CRen+ )
+  
+        | Den & fr & A0 -> D0+; ( Aen- || CRen- ); 
+                           [~Den]; D0-; [~A0]; ( Aen+ || CRen+ )
+        | Den & fr & A1 -> D0+; ( Aen- || CRen- ); 
+                           [~Den]; D0-; [~A1]; ( Aen+ || CRen+ )
+      ]
+    ]
+  endprocess
+
+  process pass_ctrl;
+   *[
+      [CLen];
+      [   ar -> ( al+; [~CLen]; al-; [~ar] )
+        | br -> ( bl+; [~CLen]; bl-; [~br] )
+        | cr -> ( cl+; [~CLen]; cl-; [~cr] )
+        | dr -> ( dl+; [~CLen]; dl-; [~dr] )
+        | er -> ( el+; [~CLen]; el-; [~er] )
+        | fr -> ( fl+; [~CLen]; fl-; [~fr] )
+      ]
+    ]
+  endprocess
+
+  process left_router;
+   *[
+      CLen+ ; 
+      [ al | bl | cl | dl | el | fl ]; 
+      CLen- ; 
+      [ ~al & ~bl & ~cl & ~dl & ~el & ~fl ]
+    ]
+  endprocess
+
+  process right_router;
+   *[
+      [   true -> ar+ 
+        | true -> br+ 
+        | true -> cr+ 
+        | true -> dr+ 
+        | true -> er+ 
+        | true -> fr+ 
+      ];
+      [~CRen];
+      [   ar -> ar- 
+        | br -> br- 
+        | cr -> cr- 
+        | dr -> dr- 
+        | er -> er- 
+        | fr -> fr- 
+      ];
+      [CRen]
+    ]
+  endprocess
+
+  process A_ctrl;
+   *[
+      [ true -> A0+ | true -> A1+ ];
+      [~Aen];
+      [ A0 -> A0- | A1 -> A1- ];
+      [Aen]
+    ]
+  endprocess
+
+  process E_ctrl;
+   *[
+      [ true -> E0+ | true -> E1+ ];
+      [~Een];
+      [ E0 -> E0- | E1 -> E1- ];
+      [Een]
+    ]
+  endprocess
+
+  process D_ctrl;
+   *[
+      Den+ ; [D0 | D1] ; Den- ; [~D0 & ~D1]
+    ]
+  endprocess
+
+  process M_ctrl;
+   *[
+      Men+ ; [M0 | M1] ; Men- ; [~M0 & ~M1]
+    ]
+  endprocess
+
+endmodule

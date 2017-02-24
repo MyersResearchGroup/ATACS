@@ -1,0 +1,9 @@
+sis
+.PP
+This function is used to select whether synthesis is performed
+by SIS or not (DEFAULT=NOT).  If SIS is being used then ATACS
+will switch to speed-independent mode, verify that there is no
+CSC violations then produce a graph file named <filename>.g
+and a SIS script file named <filename>.scr.  The results from
+synthesis by SIS are stored in a file named <filename>.sis
+which is read into ATACS to get area and delay numbers.

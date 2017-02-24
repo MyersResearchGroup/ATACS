@@ -1,0 +1,14 @@
+/*****************************************************************************/
+/* A simple example which produces a non-deterministic state graph.          */
+/*****************************************************************************/
+module statem;
+
+input a;
+
+process statem;
+*[ [ skip -> a+ 
+   | skip -> a+
+   ]; a-
+ ]
+endprocess
+endmodule

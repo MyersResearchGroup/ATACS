@@ -1,0 +1,24 @@
+[+LSWo: (B2i & RAi & RAo)]
+[-LSWo: (MDlo)]
+[ Bo: (MDsi & ~MSso & ~MDso & ~SSRo & ~SSWo)] Combinational
+[ Bo: (MDli & ~LSWo & ~LSRo & ~MSlo & ~MDlo)] Combinational
+[+LSRo: (B1i & RAi & RAo)]
+[-LSRo: (MDlo)]
+[+MSso: (B3i & WAi)]
+[-MSso: (MDso)]
+[+MDso: (MDsi & SSWi)]
+[+MDso: (MDsi & SSRi)]
+[+MDso: (MDsi & MSsi)]
+[-MDso: (~MDsi)]
+[+SSRo: (B1i & WAi & WAo)]
+[-SSRo: (MDso)]
+[+SSWo: (B2i & WAi & WAo)]
+[-SSWo: (MDso)]
+[ WAo: (MDsi & ~MSso & ~MDso & ~SSRo & ~SSWo)] Combinational
+[+MSlo: (B3i & RAi)]
+[-MSlo: (MDlo)]
+[+MDlo: (LSRi & MDli)]
+[+MDlo: (LSWi & MDli)]
+[+MDlo: (MDli & MSli)]
+[-MDlo: (~MDli)]
+[ RAo: (MDli & ~LSWo & ~LSRo & ~MSlo & ~MDlo)] Combinational

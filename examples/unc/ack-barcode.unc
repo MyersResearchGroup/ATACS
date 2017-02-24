@@ -1,0 +1,45 @@
+input     mwa       0    
+input     nba       0    
+input     nvx0a     0    
+input     pba       0    
+input     svt       0    
+input     svf       0    
+input     sca       0    
+input     start     0    
+input     tb1xa     0    
+input     tbt       0    
+input     tbf       0    
+input     ta        0    
+input     wa        0   
+output    done      0    
+output    mwr       0    
+output    nbr       0    
+output    nvx0r     0    
+output    pbr       0    
+output    pbsm1     0    
+output    svr       0
+output    scr       0
+output    tb1xr     0
+output    tbr       0
+output    tr        0
+output    tsm1      0
+output    wr        0
+output    wsm1      0
+output    wsm2      0
+0        1         start+                |  tr+  wr+  wsm1+  pbr+ 
+1        23        ta+  wa+  pba+        |  tr-  wr-  wsm1-  pbr-  scr+ 
+3        4         sca+  svf-            |  nbr+ 
+4        6         nba+                  |  scr-  nbr-  tbr+
+6        8         tbt+   sca-  nba-     |  tbr-  tb1xr+ 
+6        16        tbf+  sca-  nba-      |  tbr-  nvx0r+  tsm1+  pbr+  pbsm1+
+8        9         tb1xa+  tbt-          |  wr+ 
+9        11        wa+                   |  tb1xr-  wr-  svr+ 
+11       13        svt+   tb1xa-  wa-    |  svr-  done+  
+11       3         svf+  tb1xa-  wa-     |  svr-  scr+ 
+13       0         start-  svt-          |  done-
+16       17        nvx0a+  pba+  tbf-    |  tr+  pbr-  pbsm1- 
+17       19        ta+  pba-             |  nvx0r-  tr-  tsm1-  mwr+
+19       21        mwa+  nvx0a-  ta-     |  mwr-  wr+  wsm2+
+21       24        wa+  mwa-             |  wr-  wsm2-  scr+
+23       4         sca+  ta-  wa-  pba-  |  nbr+
+24       4         sca+  wa-             |  nbr+ 

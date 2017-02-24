@@ -1,0 +1,16 @@
+[ PTYOreq: (REQ & DWack & ~ACK)] Combinational
+[+DWack: (REQ & ~DATIenb)]
+[-DWack: (~REQ & ~ACK)]
+[+DATOenb: (PTYOreq)]
+[-DATOenb: (~REQ)]
+[+ACK: (~DRack & ~PTYEack & ~DRreq & x)]
+[+ACK: (PTYOack)]
+[-ACK: (~DATOenb & ~DATIenb)]
+[ PTYEreq: (~PTYEack & DRreq & x)] Combinational
+[+DRreq: (REQ & IO & ~ACK & ~x)]
+[-DRreq: (PTYEack)]
+[+x: (DRreq)]
+[-x: (ACK)]
+[+DATIenb: (~REQ & ~DWack & ~ACK)]
+[-DATIenb: (REQ & ~IO)]
+[-DATIenb: (~REQ & ACK)]

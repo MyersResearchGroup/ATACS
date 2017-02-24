@@ -1,0 +1,92 @@
+.inputs Vin Vosc up1 up2 down1 down2 
+.dummy inc1 inc2 inc3 dec1 dec2 dec3 drain1 drain2 skipup2 skipdown2
+#@.keep skipup2 skipdown2
+#@.init_state [000000]
+#@.property AF(AG(~up2))&AF(AG(~down2))
+.graph
+
+pi1 Vin+/1 #@ [50,50] 
+Vin+/1 pi2
+Vin+/1 pi3
+pi2 Vin-/1 #@ [50,50]
+pi2 Vin-/2 #@ [50,50] 
+pi3 Vin-/1 #@ [0,0]
+pi4 Vin-/2 #@ [0,0] 
+Vin-/2 pi1
+Vin-/1 pi1
+
+pi3 up1+ #@ [0,0]  
+pi3 down2- #@ [0,0]  
+pi3 skipdown2 #@ [0,0]  
+skipdown2 pi4
+up1+ pi4
+down2- pi4
+
+po1 Vosc+/1 #@ [0,0] 
+Vosc+/1 po2
+Vosc+/1 po4
+po2 Vosc-/1 #@ [0,0]
+po3 Vosc-/2 #@ [0,0]
+po4 Vosc-/1 #@ [0,0] 
+po4 Vosc-/2 #@ [0,0] 
+Vosc-/2 po1
+Vosc-/1 po1
+
+po2 down1+ #@ [0,0]  
+po2 up2- #@ [0,0]  
+po2 skipup2 #@ [0,0]
+skipup2 po3  
+down1+ po3
+up2- po3
+
+p0 up1+ #@ [0,0] 
+p0 down1+ #@ [0,0]
+up1+ p1
+down1+ p2
+p1 skipup2 #@ [0,0]
+p2 skipdown2 #@ [0,0]
+p1 up2+ #@ [3,3] 
+p2 down2+ #@ [3,3] 
+up2+ p3
+down2+ p4
+p3 up2- #@ [0,0] 
+p4 down2- #@ [0,0] 
+up2- p5
+down2- p6
+skipup2 p5
+skipdown2 p6
+p5 up1- #@ [1,1] 
+p6 down1- #@ [1,1] 
+up1- p0
+down1- p0
+
+p2 inc1 #@ /1;inf\
+inc1 v2 
+p4 inc2 #@ /1;inf\
+inc2 v2 
+p6 inc3 #@ /1;inf\
+v1 inc3 
+
+p1 dec1 #@ /1;inf\
+v1 dec1
+p3 dec2 #@ /1;inf\
+v1 dec2
+p5 dec3 #@ /1;inf\
+dec3 v2
+
+v1 drain1
+drain1 v2
+v2 drain2
+drain2 v1
+
+v1 Vosc+/1 #@ /0;0\ [0,0]
+v2 Vosc-/1 #@ /0;0\ [0,0]
+v2 Vosc-/2 #@ /0;0\ [0,0]
+
+po1 drain1
+po4 drain2
+.marking { p0 pi1 po1 ps plock }
+#@.marking { <v1 = [125,125]><v2 = [25,25]> }
+#@.rates { <inc1 = 0><dec1 = 0><inc2 = 1><dec2 = 1><inc3 = 0><dec3 = 0><drain1 = 1><drain2 = 1> }
+#@.continuous drain1 drain2 dec1 inc1 dec2 inc2 dec3 inc3 v1 v2
+.end

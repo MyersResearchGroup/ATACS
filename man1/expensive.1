@@ -1,0 +1,54 @@
+.TH EXPENSIVE 1 "30 March 2002" "" ""
+.SH NAME
+expensive \- Toggle pruning of expensive solutions
+.SH SYNOPSIS
+.B atacs -PE
+.br
+.B atacs> expensive
+.SH DESCRIPTION
+.B expensive
+toggles the pruning of expensive solutions during automatic
+concurrency reduction.  By default, atacs does not consider cost while
+it explores the concurrency-reduction search space.  The first
+invocation of the \fBexpensive\fR command enables a branch-and-bound
+algorithm.  The cost function is the average cycle period, as
+determined by Mercer's stochastic cycle period analysis.  The bounding
+function determines a lower bound on the cost of any leaf reachable
+from the current interior node, by running the cycle period analysis
+on the TEL structure that would be obtained by omitting the
+as-yet-undecided candidate rules from the TEL structure.  This relies
+on the assumption that adding a rule to a TEL structure can only
+further delay its events, and hence it cannot decrease its average
+cycle period.  The branching function gives preference to candidate
+rules that force the working phase of the next communication to occur
+before the reset phase of the current communication in each series
+chain of communication.  Such rules tend to lead to CSC, so the
+branching function considers adding such rules before it considers
+omitting them.  For other rules, it considers omitting them before it
+considers adding them.  The second invocation of the \fBexpensive\fR
+command disables the branch-and-bound algorithm, and so on.
+
+.PP
+.SH OPTIONS
+.TP
+.BI \-PE
+This atacs option toggles the pruning of expensive solutions during
+automated concurrency reduction from the Unix shell command line.
+.TP
+.BI expensive
+This atacs command toggles the pruning of expensive solutions during
+automated concurrency reduction from within the atacs interactive
+shell.
+.SH CREDITS
+This pruning method and this command were written by Eric Robert
+Peskin (peskin@vlsigroup.ece.utah.edu).  The stochastic cycle period
+analysis method and code were developed by Eric G Mercer
+(eemercer@vlsigroup.ece.utah.edu).
+.SH BUGS
+See http://www.async.ece.utah.edu/cgi-bin/atacs
+.SH "SEE ALSO"
+.BR reduction (1), 
+.BR simcyc (1), 
+.BR profile (1), 
+.BR cycper (1), 
+.BR http://www.async.ece.utah.edu

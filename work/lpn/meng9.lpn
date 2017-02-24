@@ -1,0 +1,19 @@
+.name meng_fig_9
+
+.inputs Ai Ri
+.outputs Ao Ro
+#@.init_state [0000]
+.graph
+Ri+ Ao+
+Ao+ Ri- 
+Ri- Ao- 
+Ao- Ri+ 
+
+Ro+ Ai+
+Ai+ Ro- 
+Ro- Ai-
+Ai- Ro+ 
+
+Ri+ Ro+
+.marking {<Ai-,Ro+><Ao-,Ri+>}
+.end

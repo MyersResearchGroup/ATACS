@@ -1,0 +1,13 @@
+input	a                        0
+input	l                        0
+output	x                        0
+output	zzz00                    0
+output	zzz01                    0
+output  p                        1
+output  q                        0
+
+0  1	a+                       | x+ zzz01+ p-
+1  0	a- [l+]                  | p+                | zzz01- x- 
+1  2	a- [l-]                  | q+                | zzz00+  
+2  3	a+                       | zzz01- q-
+3  0	a-                       | x- zzz00- 

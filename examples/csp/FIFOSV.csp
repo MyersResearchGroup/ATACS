@@ -1,0 +1,24 @@
+/*****************************************************************************/
+/* FIFO (state variable)                                                     */
+/*****************************************************************************/
+module FIFOSV;
+
+input li = {false};
+input ri = {false};
+output lo = {false};
+output ro = {false};
+output x = {false};
+
+process FIFOctrl;
+*[ [li+]; lo+; x+; [li-]; lo-; [ri-@]; ro+; x-; [ri+]; ro- ]
+endprocess
+
+process Lenv;
+*[ li+; [lo+]; li-; [lo-] ]
+endprocess
+
+process Renv;
+*[ [ro+]; ri+; [ro-]; ri- ]
+endprocess
+
+endmodule

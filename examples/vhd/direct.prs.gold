@@ -1,0 +1,2 @@
+[ zget: (zput)] Combinational
+[ zput: (~zget)] Combinational

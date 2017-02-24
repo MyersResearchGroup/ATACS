@@ -1,0 +1,7 @@
+[+Addo: (~Addi)]
+[-Addo: (Addi & Outi & Shift1i)]
+[+Shift1o: (Shift2i & Shift2o)]
+[-Shift1o: (Outi & Shift1i)]
+[ Shift2o: (Addi & ~Shift1i & Addo & ~Shift1o)] Combinational
+[+Outo: (Addi & ~Shift1i & Addo)]
+[-Outo: (Outi & Shift1i)]

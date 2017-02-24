@@ -1,0 +1,54 @@
+#  This Timed Event/Level structure contains:
+.e 13 # events
+.i 4 # input events
+.r 18 # causal rules
+.n 0 # ordering rules
+.d 0 # merges
+.c 0 # conflicts
+.s 0000 # start state
+#
+# EVENTS:
+#
+reset
+#  Each of the following events has the format <action>/<occurrence>
+#   Input Events:
+Lack+/1 Lack-/1 
+Rack+/1 Rack-/1 
+#   Output Events:
+Lreq+/1 Lreq-/1 
+Rreq+/1 Rreq-/1 
+#   Dummy (Sequencing) Events:
+$HSEiii+/1 
+$HSEii+/1 
+$HSEi+/1 
+$HSE+/1 
+#
+# RULES, which have the following format:
+#  <enabling> <enabled> [<expression>] <epsilon> <lower> <upper>
+#   Causal (Behavioral) Rules:
+reset Rack+/1 [Rreq] 0 0 inf
+reset Lreq+/1  0 0 inf
+reset Lack+/1 [Lreq] 0 0 inf
+reset Rreq+/1 [~Rack] 0 0 inf
+Lack+/1 Lack-/1 [~Lreq] 0 0 inf
+Lack-/1 Lack+/1 [Lreq] 1 0 inf # INITIAL
+Rack+/1 Rack-/1 [~Rreq] 0 0 inf
+Rack-/1 Rack+/1 [Rreq] 1 0 inf # INITIAL
+Lreq+/1 $HSEi+/1 [Lack] 0 0 inf
+Lreq-/1 $HSEii+/1 [~Lack] 0 0 inf
+Rreq+/1 $HSE+/1 [Rack] 0 0 inf
+Rreq-/1 $HSEiii+/1 [~Rack] 0 0 inf
+$HSEiii+/1 Rreq+/1  1 0 inf # INITIAL
+$HSEii+/1 Lreq+/1  1 0 inf # INITIAL
+$HSEi+/1 Lreq-/1  0 0 inf
+$HSEi+/1 Rreq+/1  0 0 inf
+$HSE+/1 Rreq-/1  0 0 inf
+$HSE+/1 Lreq+/1  1 0 inf # INITIAL
+#   Ordering (Constraint) Rules:
+#
+# MERGERS:
+#
+#
+# CONFLICTS:
+#
+

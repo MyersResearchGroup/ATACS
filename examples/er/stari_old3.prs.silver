@@ -1,0 +1,13 @@
+[ x1t: (x0t)] Combinational
+[ x1f: (x0f)] Combinational
+[ ack1: (~x1t & ~x1f)] Combinational
+[+x2t: (x1t & ack3)]
+[-x2t: (~x1t & ~ack3)]
+[+x2f: (x1f & ack3)]
+[-x2f: (~x1f & ~ack3)]
+[ ack2: (~x2t & ~x2f)] Combinational
+[+x3t: (ack4 & x2t)]
+[-x3t: (~ack4)]
+[+x3f: (ack4 & x2f)]
+[-x3f: (~ack4)]
+[ ack3: (~x3t & ~x3f)] Combinational

@@ -1,0 +1,39 @@
+# mp-forward-pkt
+# HP controller, by K. Stevens
+# Meat state encoding
+# no causality discovered from .data files, so all inputs assumed caused by
+# all outputs !!!
+.inputs ackout req ackpb
+.outputs ack allocoutbound allocpb rts y0_mpforwardpkt
+#@.init_state [00001001]
+.graph
+# 0
+ackout+ y0_mpforwardpkt-
+y0_mpforwardpkt- allocoutbound- rts+
+# -> 1
+allocoutbound- req+ ackout-
+rts+ req+ ackout-
+
+# 1
+req+ allocpb+ rts-
+ackout- allocpb+ rts-
+# -> 2
+allocpb+ ackpb+
+rts- ackpb+
+
+# 2
+ackpb+ y0_mpforwardpkt+
+y0_mpforwardpkt+ ack+ allocpb-
+# -> 3
+ack+ req- ackpb-
+allocpb- req- ackpb-
+
+# 3
+req- ack- allocoutbound+
+ackpb- ack- allocoutbound+
+# -> 0
+ack- ackout+
+allocoutbound+ ackout+
+
+.marking { <ack-, ackout+> <allocoutbound+, ackout+> }
+.end

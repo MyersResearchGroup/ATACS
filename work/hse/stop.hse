@@ -1,0 +1,29 @@
+module stop;
+
+input start = {<1,inf;2,3>};
+output lt = {<1,3>};
+output preclk = {true,<19,21>};
+output clk = {<1,3>};
+output clkdel = {<4,6>};
+
+process main;
+*[[start & preclk]; clk+; preclk-; clk-; preclk+ ]
+endprocess
+
+process lt;
+*[ [clk]; lt+; [clkdel]; lt-; [~clk]; lt+; [~clkdel]; lt- ]
+endprocess
+
+process clkdel;
+*[ [clk]; clkdel+; [~clk]; clkdel- ]
+endprocess
+
+process start;
+*[ start+; [clk]; [ ~clk -> start-
+                  | ~clk -> [clk];*
+                  ]
+ ]
+endprocess
+endmodule
+
+     

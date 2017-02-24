@@ -1,0 +1,9 @@
+input	rin                      0
+input	ain                      0
+output	rout                     1
+output	aout                     0
+output	zzz00                    0
+
+0  1	rin* ain+                | rout- zzz00+ 
+1  2	rin+ ain-                | aout+ zzz00- 
+2  0	rin-                     | rout+ aout- 

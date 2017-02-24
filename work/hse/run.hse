@@ -1,0 +1,19 @@
+module run;
+
+input gclk = {<19,21>};
+input sleep = {true,<4,25;2,3>};
+output run = {<2,3>};
+output x = {true,<2,3>};
+
+process main;
+*[ [gclk]; run+; [~sleep]; x-; [sleep]; run-; [~gclk]; x+ ]
+endprocess
+
+process gclk;
+*[ gclk+; gclk- ]
+endprocess
+
+process sleep;
+*[ [run & gclk]; sleep-; sleep+; [~gclk] ]
+endprocess
+endmodule

@@ -1,0 +1,7 @@
+[+Yo: (Yi & ~Zi & ~Zo)]
+[-Yo: (~Yi & Zo)]
+[+Xo: (Xi & ~Zi & ~Zo)]
+[-Xo: (~Xi & Zo)]
+[+Zo: (Yo)]
+[+Zo: (Xo)]
+[-Zo: (Zi & ~Yo & ~Xo)]

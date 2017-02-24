@@ -1,0 +1,49 @@
+.TH STORERSG 1 "28 September 2001" "" ""
+.SH NAME
+storersg \- Stores a RSG File
+.SH SYNOPSIS
+.nf
+.BI atacs " -ss <filename>"
+.br
+.BI atacs> " storersg <filename>"
+.fi
+.SH DESCRIPTION
+.B storersg
+stores a reduced state graph into the file named
+<filename>.rsg in the following format:
+.PP
+SG:
+.br
+STATEVECTOR:INP signal INP signal ... signal signal ...
+.br
+STATES:
+.br
+<state>
+.PP
+Each state bit in a state is coded as follows:
+.br
+0 - stable low
+.br
+R - currently low, but it is enabled to rise
+.br
+1 - stable high
+.br
+F - currently high, but it is enabled to fall
+.SH OPTIONS
+.TP
+.BI \-ss
+Stores a RSG file from the command line.
+.TP
+.BI storersg
+Stores a RSG file from the interactive shell.
+.SH CREDITS
+.B storersg
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR storeg (1)
+.BR storeer (1)
+.BR storesg (1)
+.BR storeprs (1)
+.BR storenet (1)
+.BR storevhdl (1)
+.BR http://www.async.ece.utah.edu

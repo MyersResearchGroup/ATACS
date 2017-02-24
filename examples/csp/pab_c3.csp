@@ -1,0 +1,26 @@
+/*****************************************************************************/
+/* Passive/active buffer c3 from Burn's thesis                               */
+/*****************************************************************************/
+module c3;
+
+delay envdelay  = <32,48>;
+delay gatedelay = <8,12>;
+
+input li = {false,envdelay};
+input ri = {true,envdelay};
+output lo = {false,gatedelay};
+output ro = {true,gatedelay};
+
+process lapbctrl;
+*[ [li+]; (lo+ || ro-); [li-]; lo-; [ri-]; ro+; [ri+] ]
+endprocess
+
+process left;
+*[ [ro-]; ri-; [ro+]; ri+ ]
+endprocess
+
+process right;
+*[ li+; [lo+]; li-; [lo-] ]
+endprocess
+
+endmodule

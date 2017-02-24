@@ -1,0 +1,27 @@
+/*****************************************************************************/
+/* Lazy-active/Passive Buffer                                                */
+/*****************************************************************************/
+module lapb;
+
+delay env = <100,inf>;
+delay gatedelay = <1,5>;
+
+input li = {false,env};
+input ri = {false,env};
+output lo = {false,gatedelay};
+output ro = {false,gatedelay};
+
+process lapbctrl;
+*[ [li-@]; lo+; [li+]; lo-; 
+   [ri+]; ro+; [ri-]; ro- ]
+endprocess
+
+process left;
+*[ [lo+]; li+; [lo-]; li- ]
+endprocess
+
+process right;
+*[ ri+; [ro+]; ri-; [ro-] ]
+endprocess
+
+endmodule

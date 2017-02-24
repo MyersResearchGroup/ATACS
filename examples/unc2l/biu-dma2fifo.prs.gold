@@ -1,0 +1,18 @@
+[ dreq: (dreq & zzz00 & zzz01)] Combinational
+[ dreq: (ok & zzz02)] Combinational
+[ dreq: (dreq & ~zzz00 & ~zzz01)] Combinational
+[ dreq: (~frin & zzz00 & zzz01)] Combinational
+[ faout: (frin & dackn & ~dreq & ~zzz02)] Combinational
+[ faout: (ok & faout & ~zzz00)] Combinational
+[ zzz00: (dackn & zzz00 & zzz01)] Combinational
+[ zzz00: (frin & dackn & ~dreq & zzz01)] Combinational
+[ zzz00: (~cntgt1 & dreq & zzz00)] Combinational
+[ zzz00: (~cntgt1 & ~dackn & dreq & ~zzz01)] Combinational
+[ zzz00: (~dackn & zzz00 & ~zzz01)] Combinational
+[ zzz00: (~frin & ~dreq & zzz00)] Combinational
+[ zzz01: (cntgt1 & zzz01)] Combinational
+[ zzz01: (cntgt1 & ~dackn & ~zzz00)] Combinational
+[ zzz01: (dackn & zzz01)] Combinational
+[ zzz01: (~zzz00 & zzz01)] Combinational
+[ zzz02: (dackn & zzz02)] Combinational
+[ zzz02: (~ok & ~frin & ~zzz00)] Combinational

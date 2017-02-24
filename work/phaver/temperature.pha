@@ -1,0 +1,53 @@
+-- temperature controller for reactor
+--
+
+-- Phaver input file
+
+-- need to test whether violating region is contained in the region for which
+-- the bounds are met exactly, i.e to cope wi|h lack of < in automaton
+-- which forces us to transition to shutdown when x1/x2 = T_reuse, not
+-- only when < T_reuse
+
+T_reuse:=80;      -- min delay between reuse of rod
+vr:=34;           -- rate of increase with no rods present
+v1:=25;           -- rate of decrease in temp with rod 1 present
+v2:=10;           -- rate of decrease in temp with rod 2 present
+tmax:=1100;       -- maximal tolerable temperature
+tmin:=250;        -- minimal tolerable temperature
+tinit:=500;	  -- initial temperature
+
+automaton temp_controller
+state_var: x1,x2,t;
+synclabs: dummy;
+
+loc no_rods: while t <= tmax wait {t==vr & x1==1 & x2==1}
+	when t==tmax & x1>=T_reuse do {x1'==x1 & x2'==x2 & t'==t} sync dummy goto rod_1;
+	when t==tmax & x2>=T_reuse do {x1'==x1 & x2'==x2 & t'==t} sync dummy goto rod_2;
+	when t==tmax & x1<=T_reuse & x2<=T_reuse do {x1'==x1 & x2'==x2 & t'==t} sync dummy goto shutdown;
+
+loc rod_1: while t >= tmin wait {t==-v1 & x1==1 & x2==1}
+	when t==tmin do {x1' == 0 & x2'==x2 & t'==t} sync dummy goto no_rods;
+	
+loc rod_2: while t >= tmin wait {t==-v2 & x1==1 & x2==1}
+	when t==tmin do {x1'==x1 & x2'==0 & t'==t} sync dummy goto no_rods;
+	
+loc shutdown: while t==tmax wait {t==1 & x1==1 & x2==1}
+
+initially no_rods & t == tinit & x1 == T_reuse & x2 == T_reuse;
+
+end
+
+
+sys=temp_controller;
+reg=sys.reachable;
+
+forbidden=sys.{shutdown & true};
+
+reg.intersection_assign(forbidden);
+
+echo "";
+echo "Reachable forbidden states:";
+reg.print;
+echo "";
+echo "Reachable forbidden states empty?";
+reg.is_empty;

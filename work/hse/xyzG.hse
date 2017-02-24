@@ -1,0 +1,32 @@
+module xyz;
+
+input x;
+input y;
+output z;
+output w;
+output yb = {true};
+
+gate ygate;
+ y -> yb-
+~y -> yb+
+endgate
+
+gate wgate;
+yb & z -> w+
+~yb | ~z -> w-
+endgate
+
+gate zgate;
+(w | x) -> z+
+~w & ~x -> z-
+endgate
+
+process env;
+*[ x+; (y+ || ([z]; x-)); [~z]; y- ]
+endprocess
+
+assumption one;
+*[[yb]; y+; [~yb]; y-]
+endassumption
+endmodule
+

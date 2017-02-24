@@ -1,0 +1,31 @@
+/*****************************************************************************/
+/* Van Berkel's sequencer, receives communication on A and sends a           */
+/* 	communication on B followed by C.                                    */
+/*****************************************************************************/
+module seq;
+
+input ai;
+output ao;
+input bi;
+output bo;
+input ci;
+output bo;
+output co;
+
+process main;
+    *[ [ai+]; ao+; [ai-]; ao-; bo+; [bi+]; bo-; [bi-]; 
+	co+; [ci+]; co-; [ci-] ]
+endprocess
+
+process a;
+    *[ ai+; [ao+]; ai-; [ao-] ]
+endprocess
+
+process b;
+    *[ [bo+]; bi+; [bo-]; bi- ]
+endprocess
+
+process c;
+    *[ [co+]; ci+; [co-]; ci- ]
+endprocess
+endmodule

@@ -1,0 +1,25 @@
+module DME;
+
+input Dr;
+input Ur;
+input Ir;
+input Lr;
+input Ra;
+output Ia;
+output Ua;
+output Da;
+output Rr;
+output Q0;
+output Q1;
+output Q2;
+
+process DME;
+*[[ skip -> Dr+; Q2+; Rr+; Ra+; Da+; Dr-; Rr-; Ra-; Da-; Q2-
+  | skip -> Ur+; Rr+; Ra+; Ua+; Ur-; Rr-; Q0+; Ra-; Ua-;
+    [ skip -> Ur+; Q1+; Ua+; Ur-; Ua-; Q1-; *
+    | skip -> Dr+; Da+; Dr-; Q0-; Da-
+    ]
+ ]]
+endprocess
+endmodule
+

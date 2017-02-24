@@ -1,0 +1,16 @@
+.name vme
+.inputs dsr ldtack 
+.outputs lds d 
+#@.init_state [0000]
+.graph
+dsr+/1 lds+/1
+dsr-/1 lds-/1
+dsr-/1 d-/1
+ldtack+/1 d+/1
+ldtack-/1 lds+/1
+lds+/1 ldtack+/1
+lds-/1 ldtack-/1
+d+/1 dsr-/1
+d-/1 dsr+/1
+.marking {<ldtack-/1,lds+/1><d-/1,dsr+/1>}
+.end

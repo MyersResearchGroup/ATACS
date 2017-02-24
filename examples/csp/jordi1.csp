@@ -1,0 +1,20 @@
+/*****************************************************************************/
+/* Cortadella's CSC example (see async96)                                    */
+/*   Petrify requires 3 variables, while atacs requires only 2.              */
+/*****************************************************************************/
+module jordi1;
+
+output a;
+output b;
+
+process a;
+    *[ a+; a-; [b-] ]
+endprocess
+
+process b;
+    *[  b+; [a+]; b- ]
+endprocess
+
+endmodule
+
+  

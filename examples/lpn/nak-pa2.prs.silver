@@ -1,0 +1,18 @@
+[+ack: (~busack & ~busreq & ~CSC0)]
+[-ack: (~rejsend & ~ackbus & ~ackhyst & CSC0)]
+[~reqbus: (~busack & ~busreq & ~CSC0)] Combinational
+[~reqbus: (ack)] Combinational
+[~reqbus: (ackhyst & ~enableda)] Combinational
+[~reqbus: (ackhyst & ~hystreq)] Combinational
+[~hystreq: (~busack & ~busreq & ~CSC0)] Combinational
+[~hystreq: (ack)] Combinational
+[~hystreq: (~reqbus)] Combinational
+[~hystreq: (ackhyst & ~enableda)] Combinational
+[+busreq: (ackhyst & ~ack & CSC0)]
+[-busreq: (busack & ~CSC0)]
+[~enableda: (~busack & ~busreq & ~CSC0)] Combinational
+[~enableda: (ack)] Combinational
+[~enableda: (~reqbus)] Combinational
+[~enableda: (ackhyst & ~hystreq)] Combinational
+[+CSC0: (ack)]
+[-CSC0: (busreq)]

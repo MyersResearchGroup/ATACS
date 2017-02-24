@@ -1,0 +1,10 @@
+[+ack: (done)]
+[+ack: (~rejpkt & y0_sbufsendpkt2)]
+[-ack: (~y1_sbufsendpkt2 & ~y0_sbufsendpkt2)]
+[ sendline: (req & ~y1_sbufsendpkt2 & ~y0_sbufsendpkt2)] Combinational
+[ y2_sbufsendpkt2: (~req & rejpkt)] Combinational
+[+y1_sbufsendpkt2: (ackline)]
+[-y1_sbufsendpkt2: (~ackline & ~ack)]
+[-y1_sbufsendpkt2: (~req & ~ackline & ~done)]
+[+y0_sbufsendpkt2: (req & rejpkt)]
+[-y0_sbufsendpkt2: (~req)]

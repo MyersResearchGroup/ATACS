@@ -1,0 +1,52 @@
+module kimura2;
+
+output z1;
+output z2;
+output z3;
+output z4;
+output z5;
+output z6;
+output z7;
+output z8;
+
+gate one;
+~z3 -> z1+
+ z3 -> z1-
+endgate
+
+gate two;
+~z3 -> z2+
+ z3 -> z2-
+endgate
+
+gate three;
+z4 & z5 -> z3+
+~z4 | ~z5 -> z3-
+endgate
+
+gate four;
+~z5 | ~z6 -> z4+
+z5 & z6 -> z4-
+endgate
+
+gate five;
+~z6 | ~z7 -> z5+
+z6 & z7 -> z5-
+endgate
+
+gate six;
+~z4 | ~z8 -> z6+
+z4 & z8 -> z6-
+endgate
+
+gate seven;
+z1 & z8 -> z7+
+~z1 | ~z8 -> z7-
+endgate
+
+gate eight;
+z2 | z7 -> z8+
+~z2 & ~z7 -> z8-
+endgate
+
+endmodule

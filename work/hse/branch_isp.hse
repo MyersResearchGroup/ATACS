@@ -1,0 +1,215 @@
+/**
+ * AND gate with a and b inverted at the input
+ * c is initially high
+ **/
+module ii_and_gate_h;
+
+  input a = {false};
+  input b = {false};
+
+  output c = {true,<35,45>};
+
+  process and_gate;
+    *[[a | b] ; c- ; [~a & ~b] ; c+]
+  endprocess
+
+endmodule
+
+/**
+ * AND gate: c is initially low
+ **/
+module and_gate_l;
+
+  input a = {false};
+  input b = {false};
+
+  output c = {false,<35,45>};
+
+  process and_gate;
+    *[ [a & b] ; c+ ; [~a | ~b] ;  c-]
+  endprocess
+
+endmodule
+
+/**
+ * OR gate: c is initially low
+ **/
+module or_gate_l;
+
+  input a = {false};
+  input b = {false};
+
+  output c = {false,<35,45>};
+
+  process and_gate;
+    *[ [a | b] ; c+ ; [~a & ~b] ;  c-]
+  endprocess
+
+endmodule
+
+/**
+ * AND gate: c is initially low input a is inverted
+ **/
+module i_and_gate_l;
+
+  input a = {false};
+  input b = {false};
+
+  output c = {false,<35,45>};
+
+  process and_gate;
+    *[[~a & b] ; c+ ; [a | ~b] ;  c-]
+  endprocess
+
+endmodule
+
+/**
+ * ANDOR gate: c is initially low
+ **/
+module andor_gate_l;
+
+  input a = {false};
+  input b = {false};
+  input c = {false};
+
+  output d = {false,<35,45>};
+
+  process andor;
+   *[ [a | b]; [a | ~c]; [c | b]; d+ ; 
+      [~a | ~b]; [~a | ~c]; [~a | c | ~b]; [~b | ~a]; [~b | ~a | ~c];
+      [~b | c | ~b]; d- ]
+/* *[ [(a & c) | (b & ~c)] ; d+ ; [(~a & ~b) | (~a & c) | (~b & ~c)] ; d- ]*/
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * latch circuit
+ ************************************************************************/
+module latch;
+
+  input   d = {false};
+  input clk = {false};
+
+  output q = {false,<30,50>};
+
+  process latch;
+    *[[clk & d] ; q+ ; [clk & ~d] ; q-]
+  endprocess
+
+endmodule
+
+module nstage;
+
+  input clk = {false};
+  input stall_in = {false};
+  input valid_in = {false};
+  input data_in = {false};
+
+  output stall_out = {false};
+  output valid_out = {false};
+  output data_out = {false};
+
+  latch stall( d=>stall_in, clk=>stall_clk, q=>stall_out );  
+  latch valid_latch( d=>valid_in, clk=>valid_clk, q=>valid_out );
+  latch data_latch( d=>data_in, clk=>data_clk, q=>data_out );
+
+  and_gate_l stall_clk( a=>clk, b=>valid_out, c=>stall_clk );
+  ii_and_gate_h valid_clk( a=>clk, b=>stall_out, c=>valid_clk );
+  and_gate_l data_clk( a=>valid_clk, b=>valid_in, c=>data_clk );
+  
+endmodule
+
+module pstage;
+
+  input clk = {false};
+  input stall_in = {false};
+  input valid_in = {false};
+  input data_in = {false};
+
+  output stall_out = {false};
+  output valid_out = {false};
+  output data_out = {false};
+
+  latch stall( d=>stall_in, clk=>stall_clk, q=>stall_out );  
+  latch valid_latch( d=>valid_in, clk=>valid_clk, q=>valid_out );
+  latch data_latch( d=>data_in, clk=>data_clk, q=>data_out );
+
+  i_and_gate_l stall_clk( a=>clk, b=>valid_out, c=>stall_clk );
+  i_and_gate_l valid_clk( a=>stall_out, b=>clk, c=>valid_clk );
+  and_gate_l data_clk( a=>valid_clk, b=>valid_in, c=>data_clk );
+  
+endmodule
+
+module interlocked;
+
+  input  clk  = {false,<800,800>};
+  input stall3top = {false,<46,200>};
+  input stall3bot = {false,<46,200>};
+  input valid0 = {false,<46,200>};
+  input data0 = {false,<91,100>};
+  input enabled = {false,<300,300>};
+
+  nstage stage1( clk=>clk, stall_in=>stall2, valid_in=>valid0, data_in=>data0,
+                 stall_out=>stall1, valid_out=>valid1, data_out=>data1);
+
+  and_gate_l valid_top( a=>enabled, b=>valid1, c=>validtop);
+  i_and_gate_l valid_bot( a=>enabled, b=>valid1, c=>validbot);
+  andor_gate_l stall_merge( a=>stall2top, b=>stall2bot, c=>enabled,
+                            d=>stall2 );
+
+  pstage stagetop( clk=>clk, stall_in=>stall3top, valid_in=>validtop, 
+                   data_in=>data1,
+                   stall_out=>stall2top, valid_out=>valid2top, 
+                   data_out=>data2top);
+
+  pstage stagebot( clk=>clk, stall_in=>stall3bot, valid_in=>validbot, 
+                   data_in=>data1,
+                   stall_out=>stall2bot, valid_out=>valid2bot, 
+                   data_out=>data2bot);
+
+  testbench enabled;
+    *[ [data1] ; enabled+ ; [~data1] ; enabled- ]
+  endtestbench
+
+  testbench clk;
+    *[ clk+ ; clk- ]
+  endtestbench
+
+  testbench stalltop;
+    *[ [ clk & stall3top -> stall3top- ; [~clk]
+       | clk & stall3top -> [~clk]
+       | clk & ~stall3top -> stall3top+ ; [~clk]
+       | clk & ~stall3top -> [~clk]
+       ]
+     ]
+  endtestbench
+
+  testbench stallbot;
+    *[ [ clk & stall3bot -> stall3bot- ; [~clk]
+       | clk & stall3bot -> [~clk]
+       | clk & ~stall3bot -> stall3bot+ ; [~clk]
+       | clk & ~stall3bot -> [~clk]
+       ]
+     ]
+  endtestbench
+
+  testbench valid;
+    *[ [ clk & valid0 & ~stall1 -> valid0-; [~clk]
+       | clk & valid0 & ~stall1 -> [~clk]
+       | clk & ~valid0 -> valid0+; [~clk]
+       | clk & ~valid0 -> [~clk]
+       ]
+     ]
+  endtestbench
+
+  testbench data0;
+    *[ [ clk & data0 & ~stall1 -> data0- ; [~clk]
+       | clk & data0 & ~stall1 -> [~clk]
+       | clk & ~data0 & ~stall1 -> data0+ ; [~clk]
+       | clk & ~data0 & ~stall1 -> [~clk]
+       ]
+     ]
+  endtestbench
+
+endmodule

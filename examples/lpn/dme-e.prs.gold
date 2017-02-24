@@ -1,0 +1,8 @@
+[+zzz01: (~UIN & ~LIN & ~zzz00)]
+[-zzz01: (RIN)]
+[+zzz00: (UIN & ~RIN & ~zzz01)]
+[-zzz00: (LIN)]
+[ UOUT: (UIN & ~RIN & ~zzz01)] Combinational
+[ ROUT: (UIN & ~RIN & zzz01)] Combinational
+[ ROUT: (~RIN & LIN & zzz01)] Combinational
+[ LOUT: (~RIN & LIN & ~zzz01)] Combinational

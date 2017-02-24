@@ -1,0 +1,31 @@
+module fifoL;
+
+input fin = {<180,inf;180,260>};
+input seinb={true,<90,110;90,inf>};
+output seoutb={true,<90,110>};
+output fout={<180,220>};
+output eout={true,<180,220>};
+/*output foutb={true,<90,110>};
+output eoutb={<90,110>};*/
+
+process seoutb;
+*[ [fin & eout]; seoutb-; [~eout]; seoutb+ ]
+endprocess
+
+process eout;
+*[ [~seoutb]; /*eoutb+;*/ eout-; [seoutb & ~fout/*b*/]; /*eoutb-;*/ eout+ ]
+endprocess
+
+process fout;
+*[ [eout/*b*/ & seinb]; /*foutb-;*/ fout+; [~seinb]; /*foutb+;*/ fout- ]
+endprocess
+
+process fin;
+*[ fin+; [~seoutb]; fin-; [seoutb] ]
+endprocess
+
+process seinb;
+*[ [fout]; seinb-; [~fout]; seinb+ ]
+endprocess
+
+endmodule

@@ -1,0 +1,20 @@
+This directory contains the following:
+
+bin/atacs - atacs executable
+bin/atacs.tcl - tcl/tk script file
+bin/compare_literals - perl script for checking synthesis results
+bin/parg - graph displaying program by Tom Rokicki
+bin/xatacs - link for firing up xatacs
+bin/Xatacs - script to startup X-interface for atacs
+
+examples/Makefile - make file that runs all synthesis examples 
+examples/csp - csp example files and golden synthesis results
+examples/er - er example files and golden synthesis results
+examples/g - STG example files and golden synthesis results
+examples/hse - hse example files and golden synthesis results
+examples/tel - tel example files and golden synthesis results
+examples/unc - XBM example files for gC and golden synthesis results
+examples/unc2l - XBM example files for 2-level and golden synthesis results
+examples/vhd - VHDL example files and golden synthesis results
+
+man1 - manual entries for all atacs commands

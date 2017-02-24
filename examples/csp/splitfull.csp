@@ -1,0 +1,64 @@
+module splitfull;
+
+input RLin;
+input RHin;
+input Aout;
+output RLout;
+output RHout;
+output Ain;
+output CL;
+output CH;
+output A;
+output L;
+output B;
+output H;
+output x;
+
+process leftenv;
+    *[[ skip -> RLin+; [Ain+]; RLin-; [Ain-]
+     |  skip -> RHin+; [Ain+]; RHin-; [Ain-]
+     ]]
+endprocess
+
+process rightenv;
+    *[[ RLout+ -> Aout+; [RLout-]; Aout-
+     |  RHout+ -> Aout+; [RHout-]; Aout-
+     ]]
+endprocess
+
+process AB;
+    *[[ RLin+ -> A+; [CL+ & Aout+]; A-; [RLout- & CL-]
+     |  RHin+ -> x+; (A+ || B+); [CH+ & Aout+]; x-; (A- || B-); [RHout- & CH-]
+     ]]
+endprocess
+
+process C;
+    *[[ Ain+ & L+ -> CL+; [Ain- & L-]; CL-
+     | Ain+ & L+ & H+ -> CH+; [Ain- & H- & L-]; CH-
+     ]]
+endprocess
+
+process L;
+    *[[ A+ -> L+; [A-]; L-
+     |  A+ -> L+; [A-]; L-
+     ]]
+endprocess
+
+process H;
+    *[ [B+]; H+; [B-]; H- ]
+endprocess
+
+process Ain;
+    *[[L+ -> Ain+; [RLin- & CL+]; Ain-
+     | L+ & H+ -> Ain+; [RHin- & CH+] ; Ain-
+     ]]
+endprocess
+
+process RLHout;
+    *[[A+ -> RLout+; [A-]; RLout-; [Aout-]
+     | A+ & B+ -> RHout+; [A- & B-]; RHout-; [Aout-]
+     ]]
+endprocess
+
+endmodule
+

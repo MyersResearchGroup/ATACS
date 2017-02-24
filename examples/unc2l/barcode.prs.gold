@@ -1,0 +1,53 @@
+[ done: (svt & ~tb1xa & ~wa)] Combinational
+[ done: (start & done)] Combinational
+[ mwr: (~pba & ta & ~wsm1 & ~zzz00)] Combinational
+[ mwr: (nvx0a & ~tsm1)] Combinational
+[ mwr: (~mwa & mwr)] Combinational
+[ nbr: (~nba & ~pba & ~svf & sca & ~ta & ~wa & ~tbr)] Combinational
+[ nvx0r: (~nba & ~sca & tbf)] Combinational
+[ nvx0r: (~ta & tsm1)] Combinational
+[ nvx0r: (pba & tsm1)] Combinational
+[ pbr: (~nba & ~sca & tbf)] Combinational
+[ pbr: (~pba & pbr)] Combinational
+[ pbr: (~mwa & ~nvx0a & ~svt & ~svf & ~sca & start & ~tbt & ~wa & ~done & ~mwr & ~svr & ~scr & ~tb1xr & ~tbr & ~wsm2)] Combinational
+[ pbr: (~ta & wsm1)] Combinational
+[ pbsm1: (~nba & ~sca & tbf)] Combinational
+[ pbsm1: (~pba & pbsm1)] Combinational
+[ pbsm1: (~nvx0a & tsm1)] Combinational
+[ svr: (wa & svr)] Combinational
+[ svr: (tb1xa & ~tb1xr)] Combinational
+[ svr: (~svt & ~svf & svr)] Combinational
+[ svr: (tb1xa & wa)] Combinational
+[ scr: (~mwa & ~tb1xa & wa & ~svr & ~wsm1)] Combinational
+[ scr: (pba & ta & wa)] Combinational
+[ scr: (svf & ~tb1xa & ~wa)] Combinational
+[ scr: (~nba & scr)] Combinational
+[ tb1xr: (~wa & tb1xr)] Combinational
+[ tb1xr: (~nba & ~sca & tbt)] Combinational
+[ tbr: (~tbt & ~tbf & tbr)] Combinational
+[ tbr: (sca & tbr)] Combinational
+[ tbr: (nba)] Combinational
+[ tr: (~mwa & ~nvx0a & ~svt & ~svf & ~sca & start & ~tbt & ~tbf & ~wa & ~done & ~mwr & ~pbsm1 & ~svr & ~scr & ~tb1xr & ~tbr & ~wsm2)] Combinational
+[ tr: (~ta & tr)] Combinational
+[ tr: (~pba & wsm1)] Combinational
+[ tr: (nvx0a & pba & ~tbf)] Combinational
+[ tsm1: (~nba & ~sca & tbf)] Combinational
+[ tsm1: (~ta & tsm1)] Combinational
+[ tsm1: (pba & tsm1)] Combinational
+[ wr: (tb1xa & ~tbt & ~wa & ~svr)] Combinational
+[ wr: (~nvx0a & ~svt & ~svf & ~sca & start & ~tbt & ~tbf & ~wa & ~done & ~mwr & ~svr & ~scr & ~tb1xr & ~tbr & ~tsm1)] Combinational
+[ wr: (mwa & ~nvx0a & ~ta)] Combinational
+[ wr: (~ta & wsm1)] Combinational
+[ wr: (~pba & wsm1)] Combinational
+[ wsm1: (~mwa & ~nvx0a & ~svt & ~svf & ~sca & start & ~tbt & ~tbf & ~wa & ~done & ~mwr & ~svr & ~scr & ~tb1xr & ~tbr & ~tsm1 & ~wsm2)] Combinational
+[ wsm1: (~ta & wsm1)] Combinational
+[ wsm1: (~pba & wsm1)] Combinational
+[ wsm2: (~wa & wsm2)] Combinational
+[ wsm2: (mwa & ~nvx0a & ~ta)] Combinational
+[ zzz00: (pba & ta & wa)] Combinational
+[ zzz00: (wa & zzz00)] Combinational
+[ zzz00: (ta & zzz00)] Combinational
+[ zzz00: (~sca & zzz00)] Combinational
+[ zzz00: (pba & zzz00)] Combinational
+[ zzz01: (~mwa & ~tb1xa & ~ta & wa & ~svr & ~wsm1 & ~zzz00)] Combinational
+[ zzz01: (~sca & zzz01)] Combinational

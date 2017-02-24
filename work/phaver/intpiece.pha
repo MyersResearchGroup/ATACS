@@ -1,0 +1,60 @@
+-- PHAVer input file
+-- integrator example
+
+automaton integrater
+state_var : vout, clk;
+synclabs : dummy;
+
+loc inc1: while clk <= 100 wait {vout==19 & clk==1}
+   when clk >= 0 sync dummy goto inc2;
+--   when vout >= 2000 sync sync7 goto fail;
+--   when vout <= -2000 sync sync7 goto fail;
+
+loc inc2: while clk <= 100 wait {vout==20 & clk==1}
+   when clk >= 100 sync dummy goto dead1;
+--   when vout >= 2000 sync sync7 goto fail;
+--   when vout <= -2000 sync sync7 goto fail;
+
+loc dead1: while clk <= 100 wait {vout==20 & clk==1}
+   when vout <= 2000 sync dummy do {clk' == 0} goto dec1;
+--   when vout >= 2000 sync sync7 goto fail;
+--   when vout <= -2000 sync sync7 goto fail;
+
+loc dec1: while clk <= 100 wait {vout==-19 & clk==1}
+  when clk >= 0 sync dummy goto dec2;
+--   when vout >= 2000 sync sync7 goto fail;
+--   when vout <= -2000 sync sync7 goto fail;
+
+loc dec2: while clk <= 100 wait {vout==-20 & clk==1}
+  when clk >= 100 sync dummy goto dead2;
+--   when vout >= 2000 sync sync7 goto fail;
+--   when vout <= -2000 sync sync7 goto fail;
+
+loc dead2: while clk <= 100 wait {vout==-20 & clk==1}
+   when vout >= -2000 sync dummy do {clk' == 0} goto inc1; 
+--   when vout >= 2000 sync sync7 goto fail;
+--   when vout <= -2000 sync sync7 goto fail;
+
+--loc fail: while True wait {vout==0 & clk==0}
+
+initially inc1 & vout == -1000 & clk == 0; 
+
+end
+
+sys=integrater;
+reg=sys.reachable;
+reg2=reg;
+reg2.remove(clk);
+reg.loc_intersection;
+reg2.loc_intersection;
+reg.loc_union;
+reg2.loc_union;
+reg.save_gen_fp(out11);
+reg2.save_gen_fp(out12);
+echo "Does system reach a fail state?";
+reg.print;
+reg.is_empty;
+
+echo "Initial States:";
+reg3=sys.initial_states;
+reg3.print;

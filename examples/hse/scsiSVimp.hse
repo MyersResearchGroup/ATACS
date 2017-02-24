@@ -1,0 +1,38 @@
+/*****************************************************************************/
+/* Chu's SCSI Protocol Controller (timed scsiSV implementation)              */
+/*****************************************************************************/
+module scsiSVimp;
+
+delay gatedelay = <0,5>;
+delay envdelay = <20,50>;
+
+input ack = {true,envdelay};
+input go = {false,envdelay};
+output req = {true,gatedelay};
+output rdy = {false,gatedelay};
+output q = {true,gatedelay};
+
+gate q;
+~go & req -> q+
+rdy -> q-
+endgate
+
+gate req;
+~ack & ~rdy -> req+
+ack & q -> req-
+endgate
+
+gate rdy;
+q & ~req -> rdy+
+go -> rdy-
+endgate
+
+process ack;
+*[ [~req]; ack-; [req]; ack+ ]
+endprocess
+
+process go;
+*[ [rdy]; go+; [~rdy]; go- ]
+endprocess
+
+endmodule

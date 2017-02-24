@@ -1,0 +1,36 @@
+.TH CONFLICT 1 "30 March 2002" "" ""
+.SH NAME
+conflict \- Toggle pruning of rules whose enabling and enabled events conflict
+.SH SYNOPSIS
+.B atacs -PC
+.br
+.B atacs> conflict
+.SH DESCRIPTION
+.B conflict
+toggles the pruning of rules whose enabling and enabled events
+conflict during automatic concurrency reduction.  By default, atacs
+does not add rules whose enabling and enabled events conflict.  The
+first invocation of the \fBconflict\fR command disables this policy.
+The second invocation of the \fBconflict\fR command re-enables the
+policy, and so on.
+
+.PP
+.SH OPTIONS
+.TP
+.BI \-PC
+This atacs option toggles the pruning of rules whose enabling and
+enabled events conflict during automated concurrency reduction from
+the Unix shell command line.
+.TP
+.BI conflict
+This atacs command toggles the pruning of rules whose enabling and
+enabled events conflict during automated concurrency reduction from
+within the atacs interactive shell.
+.SH CREDITS
+This pruning method and this command were written by Eric Robert
+Peskin (peskin@vlsigroup.ece.utah.edu).
+.SH BUGS
+See http://www.async.ece.utah.edu/cgi-bin/atacs
+.SH "SEE ALSO"
+.BR reduction (1), 
+.BR http://www.async.ece.utah.edu

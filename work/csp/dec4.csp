@@ -1,0 +1,60 @@
+module dec4;
+
+delay	gatedelay = <100,100>;
+
+input	rqst	=  {false, <100,inf>};
+input	a1	=  {false, <100,inf>};
+input	a2	=  {false, <100,inf>};
+
+output	ack	=  {false, <100,300>};
+output	r1	=  {false, <100,300>};
+output	r2	=  {false, <100,300>};
+
+
+/* Free implementation.
+
+process ack;
+  *[ [rqst+] ; (r1+ || ack+) ; [rqst-] ; ack- ; [rqst+] ; [a2-] ; (r2+ || ack+) ;  [rqst-] ; ack- ; [a1-] ]
+endprocess
+
+process r1;
+  *[ [a1+] ; r1- ; [a1-] ]
+endprocess
+
+process r2;
+  *[ [a2+] ; r2- ; [a2-] ]
+endprocess
+
+*/
+
+/* More constrained implementation */
+
+
+process ack;
+  *[ [rqst+] ; (r1+ || ack+) ; [rqst-] ; [a1+] ; ( r1- || ack-) ; 
+     [a1- & rqst+] ; (r2+ || ack+) ; [rqst-] ; [a2+] ; ( r2- || ack-) ; [a2-]
+   ]
+endprocess
+
+
+
+
+/* environment processes */
+
+process rqst;
+  *[ rqst+ ; [ack+] ; rqst- ; [ack-] ; rqst+ ; [ack+] ; rqst- ; [ack-] ]
+endprocess
+
+process a1;
+  *[ [r1+] ; a1+ ; [r1-] ; a1- ]
+endprocess
+
+process a2;
+  *[ [r2+] ; a2+ ; [r2-] ; a2- ]
+endprocess
+
+
+
+endmodule
+
+

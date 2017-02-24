@@ -1,0 +1,56 @@
+.dummy rod2T rod1T norods1T norodsT shutdown_x2T shutdown_x1T shutdown_tT rod2_x2T rod2_x1T rod2_tT rod1_x2T rod1_x1T rod1_tT norods_x2T norods_x1T norods_tT
+
+.inputs norods2T
+#@.init_state [0]
+#@.property AG(~norods2T)
+
+shutdown_x2T x2 #@ /0;inf\ [0,0]
+shutdown_x1T x1 #@ /0;inf\ [0,0]
+shutdown_tT t #@ /0;inf\ [0,0]
+rod2T norods #@ /0;inf\ [0,0]
+rod2T x2 #@ /0;0\ [0,0]
+rod2_x2T x2 #@ /0;inf\ [0,0]
+rod2_x1T x1 #@ /0;inf\ [0,0]
+rod1T norods #@ /0;inf\ [0,0]
+rod1T x1 #@ /0;0\ [0,0]
+rod1_x2T x2 #@ /0;inf\ [0,0]
+rod1_x1T x1 #@ /0;inf\ [0,0]
+shutdown shutdown_x2T #@ /0;inf\ [0,0]
+shutdown shutdown_x1T #@ /0;inf\ [0,0]
+shutdown shutdown_tT #@ /0;inf\ [0,0]
+norods2T+ shutdown #@ /0;inf\ [0,0]
+rod2 rod2T #@ /0;inf\ [0,0]
+rod2 rod2_x2T #@ /0;inf\ [0,0]
+rod2 rod2_x1T #@ /0;inf\ [0,0]
+rod2 rod2_tT #@ /0;inf\ [0,0]
+norods1T rod2 #@ /0;inf\ [0,0]
+rod1 rod1T #@ /0;inf\ [0,0]
+rod1 rod1_x2T #@ /0;inf\ [0,0]
+rod1 rod1_x1T #@ /0;inf\ [0,0]
+rod1 rod1_tT #@ /0;inf\ [0,0]
+norodsT rod1 #@ /0;inf\ [0,0]
+norods_x2T x2 #@ /0;inf\ [0,0]
+norods_x1T x1 #@ /0;inf\ [0,0]
+norods_tT t #@ /0;inf\ [0,0]
+norods norods2T+ #@ /0;inf\ [0,0]
+norods norods1T #@ /0;inf\ [0,0]
+norods norodsT #@ /0;inf\ [0,0]
+norods norods_x2T #@ /0;inf\ [0,0]
+norods norods_x1T #@ /0;inf\ [0,0]
+norods norods_tT #@ /0;inf\ [0,0]
+t rod2T #@ /8500;8500\ [0,0]
+t rod2_tT #@ /0;inf\ [0,0]
+t rod1T #@ /8500;8500\ [0,0]
+t rod1_tT #@ /0;inf\ [0,0]
+t norods2T+ #@ /37400;37400\ [0,0]
+t norods1T #@ /37400;37400\ [0,0]
+t norodsT #@ /37400;37400\ [0,0]
+x2 norods2T+ #@ /0;2720\ [0,0]
+x2 norods1T #@ /2720;inf\ [0,0]
+x1 norods2T+ #@ /0;2720\ [0,0]
+x1 norodsT #@ /2720;inf\ [0,0]
+.marking { norods }
+#@.marking {<x1 = 2720><x2 = 2720>}
+#@.rates {<shutdown_x2T=1><shutdown_x1T=1><shutdown_tT=1><rod2_x2T=1><rod2_x1T=1><rod2_tT=10><rod1_x2T=1><rod1_x1T=1><rod1_tT=25><norods_x2T=1><norods_x1T=1><norods_tT=34>}
+#@.continuous shutdown_x2T shutdown_x1T shutdown_tT rod2_x2T rod2_x1T rod2_tT rod1_x2T rod1_x1T rod1_tT norods_x2T norods_x1T norods_tT t x2 x1
+.end

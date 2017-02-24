@@ -1,0 +1,80 @@
+.name demux_2_bits
+.inputs T Cin_0 Rin_0 Ain1_0 Ain2_0 Cin_1 Rin_1 Ain1_1 Ain2_1
+.outputs Cout_0 Aout_0 Rout1_0 Rout2_0 Cout_1 Aout_1 Rout1_1 Rout2_1
+#@.init_state [000000000000000000]
+.graph
+
+Rin_0+ Aout_0+
+Aout_0+ Rin_0- p1_0
+p1_0 Rout1_0+ Rout2_0+
+Rin_0- Aout_0-
+Aout_0- p5_0
+p5_0 Rout1_0- Rout2_0-
+
+Cin_0+ p2_0
+p2_0 Rout1_0+ Rout2_0+
+Cout_0+ Cin_0- Aout_0-
+Cin_0- p4_0
+p4_0 Rout1_0- Rout2_0-
+Cout_0- Cin_0+ Aout_0+
+
+T+ T_eq_1_0
+T_eq_1_0 Rout1_0+ T-
+T- T_eq_0_0
+T_eq_0_0 Rout2_0+ T+
+
+p7_0 Rin_0+ T+ T-
+Aout_0- p7_0
+T- p7_0
+T+ p7_0
+
+Rout1_0+ Ain1_0+ p3_0
+Ain1_0+ Rout1_0-
+Rout1_0- Ain1_0- p6_0
+Ain1_0- T_eq_1_0
+p3_0 Cout_0+
+p6_0 Cout_0-
+Rout2_0+ Ain2_0+ p3_0
+Ain2_0+ Rout2_0-
+Rout2_0- Ain2_0- p6_0
+Ain2_0- T_eq_0_0
+
+
+Rin_1+ Aout_1+
+Aout_1+ Rin_1- p1_1
+p1_1 Rout1_1+ Rout2_1+
+Rin_1- Aout_1-
+Aout_1- p5_1
+p5_1 Rout1_1- Rout2_1-
+
+Cin_1+ p2_1
+p2_1 Rout1_1+ Rout2_1+
+Cout_1+ Cin_1- Aout_1-
+Cin_1- p4_1
+p4_1 Rout1_1- Rout2_1-
+Cout_1- Cin_1+ Aout_1+
+
+T+ T_eq_1_1
+T_eq_1_1 Rout1_1+ T-
+T- T_eq_0_1
+T_eq_0_1 Rout2_1+ T+
+
+p7_1 Rin_1+ T+ T-
+Aout_1- p7_1
+T- p7_1
+T+ p7_1
+
+Rout1_1+ Ain1_1+ p3_1
+Ain1_1+ Rout1_1-
+Rout1_1- Ain1_1- p6_1
+Ain1_1- T_eq_1_1
+p3_1 Cout_1+
+p6_1 Cout_1-
+Rout2_1+ Ain2_1+ p3_1
+Ain2_1+ Rout2_1-
+Rout2_1- Ain2_1- p6_1
+Ain2_1- T_eq_0_1
+
+.marking {  T_eq_0_0 p7_0 <Cout_0-,Aout_0+> <Cout_0-,Cin_0+> T_eq_0_1 p7_1 <Cout_1-,Aout_1+> <Cout_1-,Cin_1+> }
+#@.marking {<Ain1_0-,Rout1_0+><Ain1_1-,Rout1_0+><Ain1_0-,Rout1_1+><Ain1_1-,Rout1_1+>}
+.end

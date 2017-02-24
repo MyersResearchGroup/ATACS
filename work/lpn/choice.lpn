@@ -1,0 +1,17 @@
+.name choice
+.inputs b a 
+.outputs d c 
+#@.init_state [0000]
+.graph
+b+/1 b-/1
+b-/1 d+/1
+a+/1 a-/1
+a-/1 c+/1
+d+/1 d-/1
+d-/1 p_6
+p_6 b+/1
+p_6 a+/1
+c+/1 c-/1
+c-/1 p_6
+.marking {p_6}
+.end

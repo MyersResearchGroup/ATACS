@@ -1,0 +1,12 @@
+[+XRDY: (IOSTRB & ~Areq & ~STRB & Y)]
+[-XRDY: (~IOSTRB & Areq)]
+[+Areq: (~Aack & XRDY)]
+[-Areq: (Ack & ~XRDY & ~Y)]
+[+Dreq: (~Dack & ~Areq & ~Y)]
+[-Dreq: (Ack & Y)]
+[ STRB: (Dack & Dreq & ~X)] Combinational
+[ STRB: (Aack & Areq & X)] Combinational
+[+X: (~Ack & ~STRB & Y)]
+[-X: (~Ack & ~STRB & ~Y)]
+[+Y: (STRB & ~X)]
+[-Y: (STRB & X)]

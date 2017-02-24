@@ -1,0 +1,7 @@
+[+lds: (dsr & ~ldtack & CSC0)]
+[-lds: (~d & ~CSC0)]
+[-lds: (~dsr)]
+[+d: (ldtack & lds & CSC0)]
+[-d: (~dsr & ~CSC0)]
+[+CSC0: (~lds & ~d)]
+[-CSC0: (d)]

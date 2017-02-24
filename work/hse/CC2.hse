@@ -1,0 +1,16 @@
+module CC;
+
+input A;
+input B;
+output C;
+
+process C;
+*[[A & B]; C+; [~A & ~B]; C-]
+endprocess
+
+process env;
+*[[skip -> A+; A-; * | skip -> B+; B-; * | skip -> A+ || B+; [C]];
+  [skip -> A-; A+; * | skip -> B-; B+; * | skip -> A- || B-; [~C]]
+ ]
+endprocess
+endmodule

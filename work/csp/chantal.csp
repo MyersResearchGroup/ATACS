@@ -1,0 +1,23 @@
+/*****************************************************************************/
+/* A CSC example from Chantal's paper (see london async 95).                 */
+/*****************************************************************************/
+module chantal;
+
+output ri;
+output ai;
+output ro;
+/* output x;*/
+
+process ro;
+    *[ [ri+]; ro+; [ai+]; ro- ]
+endprocess
+
+process ri;
+    *[ /*x+;*/ ri+; [ro+]; ri-; [ro-/* & x-*/] ]
+endprocess
+
+process x;
+    *[ [ro+ /*& x+*/];/* x-;*/ ai+; [ro-]; ai- ]
+endprocess
+
+endmodule

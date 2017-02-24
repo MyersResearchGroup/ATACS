@@ -1,0 +1,37 @@
+findreg <filename>
+.PP
+This function finds the enabled state and trigger signals
+for each region associated with each signal.  The result is
+stored to the file named <filename>.reg which is in the
+following form:
+.PP
+REGIONS:
+.br
+STATEVECTOR:INP signal INP signal ... signal signal ...
+.br
+EVENT : ENABLED STATE: TRIGGER SIGNALS
+.br
+<event> : <enabled state> : <trigger signals>
+.PP
+Each state bit in an enabled state is coded as follows:
+.br
+0 - stable low in all states in which <event> is enabled.
+.br
+1 - stable high in all states in which <event> is enabled.
+.br
+X - can change concurrently with <event>.
+.PP
+Each bit in the trigger signals field is coded as follows:
+.br
+0 - inverse of the signal is a trigger signal.
+.br
+1 - signal is a trigger signal.
+.br
+Z - neither signal or inverse is a trigger signal.
+.PP
+This function also checks if any trigger signal is
+non-persistent.  A trigger signal is non-persistent if it has
+value X in the enabled state.  If persistence violations
+are found, then an exception is raised and the non-persistent
+trigger signals are stored to the file named <filename>.err.
+

@@ -1,0 +1,6 @@
+[+s: (c & clk & b & a)]
+[+s: (c & clk & ~b & ~a)]
+[+s: (~c & clk & b & ~a)]
+[+s: (~c & clk & ~b & a)]
+[-s: (~sp)]
+[ sp: (~s)] Combinational

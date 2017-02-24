@@ -1,0 +1,51 @@
+/*****************************************************************************/
+/* CSP Specification for the MMU                                             */
+/*****************************************************************************/
+module mmu;
+
+input  mdli;
+output mdlo;
+output rao;
+input  rai;
+output bo;
+input  bi;
+output lsro;
+input  lsri;
+output x0;
+output x1;
+output x2;
+
+process rao;
+    *[ [mdli+]; [rai-@]; x1+; rao+; [rai+ & lsro+]; rao- ]
+endprocess
+
+process bo;
+    *[ [mdli+]; [bi-@]; x0+; bo+; [bi+ & lsro+]; bo- ]
+endprocess
+
+process lsro;
+    *[ [rai+ & bi+ & lsri-@]; x2+; lsro+; [mdlo+ & lsri+]; lsro- ]
+endprocess
+
+process mdlo;
+    *[ [mdli+ & lsri+]; mdlo+; [mdli-]; (x0- || x1- || x2-); mdlo- ]
+endprocess
+
+process xfer;
+    *[ mdli+; [mdlo+]; mdli-; [mdlo-] ]
+endprocess
+
+process data;
+    *[ [rao+]; rai+; [rao-]; rai- ]
+endprocess
+
+process sel;
+    *[ [bo+]; bi+; [bo-]; bi- ]
+endprocess
+
+process out;
+    *[ [lsro+]; lsri+; [lsro-]; lsri- ]
+endprocess
+
+endmodule
+

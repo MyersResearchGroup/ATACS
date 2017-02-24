@@ -1,0 +1,12 @@
+module nosing;
+
+input a;
+input b;
+input c;
+input f;
+output e;
+
+process main;
+*[ a+; b+; (e+ || (c+; a-)); f+; c-; e-; f-; e+; b-; e- ]
+endprocess
+endmodule

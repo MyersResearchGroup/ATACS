@@ -1,0 +1,52 @@
+# arbitration section of the VMEbus master interface
+.inputs bcsl bgninl bbsyl90
+.outputs bgnoutl bbsyl 
+.dummy idle1 idle2 bgninl_wins1 bcsl_wins1 bgninl_wins2 bcsl_wins2
+#@.init_state [11111]
+.graph
+
+initial idle1 bgninl_wins1 bcsl_wins1
+
+idle1 bgninl-/1
+bgninl-/1 bgnoutl-/1 #@[0,5]
+bgnoutl-/1 bgninl+/1 #@[20,50]
+bgninl+/1 bgnoutl+/1 #@[0,5]
+bgnoutl+/1 idle2
+idle2 initial
+
+bgninl_wins1 bgninl-/2#@[20,50]
+bgninl-/2 bgnoutl-/2  #@[0,5]
+bgnoutl-/2 bgninl+/2 #@[20,50]
+bgnoutl-/2 bcsl-/1 #@[20,50]
+bgninl+/2 bgnoutl+/2 #@[0,5]
+bgnoutl+/2 bgninl-/3 #@[20,50]
+# the master wins the second race
+bcsl-/1 bgninl-/3 #@[20,50]
+bgninl-/3 bbsyl-/1 #@[0,5]
+bbsyl-/1 bbsyl90-/1 #@[20,50]
+bbsyl-/1 bgninl+/3  #@[20,50]
+bbsyl-/1 bcsl+/1 #@[20,50]
+# raise bbsyl after bgninl+ and at least 90 ns (ignore "or when bcsl rise")
+bgninl+/3 bbsyl+/1 #@[0,5]
+bbsyl90-/1 bbsyl+/1 #@[0,5]
+bbsyl+/1 bbsyl90+/1 #@[20,50]
+bbsyl90+/1 bgninl_wins2
+bcsl+/1 bgninl_wins2
+bgninl_wins2 initial
+
+bcsl_wins1 bcsl-/2 #@[20,50]
+bcsl-/2 bgninl-/4  #@[20,50]
+bgninl-/4 bbsyl-/2 #@[0,5]
+bbsyl-/2 bbsyl90-/2 #@[20,50]
+bbsyl-/2 bgninl+/5 #@[20,50]
+bbsyl-/2 bcsl+/2 #@[20,50]
+# raise bbsyl after bgninl+ and at least 90 ns (ignore "or when bcsl rise")
+bgninl+/5 bbsyl+/2 #@[0,5]
+bbsyl90-/2 bbsyl+/2 #@[0,5]
+bbsyl+/2 bbsyl90+/2  #@[20,50]
+bbsyl90+/2 bcsl_wins2
+bcsl+/2 bcsl_wins2
+bcsl_wins2 initial
+
+.marking {initial}
+.end

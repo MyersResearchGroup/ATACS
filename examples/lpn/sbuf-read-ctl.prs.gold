@@ -1,0 +1,8 @@
+[ ack: (~busack & y0_sbufreadctl)] Combinational
+[~ramrdsbuf: (~busack & ~y1_sbufreadctl)] Combinational
+[+busreq: (ackread & y1_sbufreadctl)]
+[-busreq: (~y1_sbufreadctl & y0_sbufreadctl)]
+[+y1_sbufreadctl: (req & ~ackread)]
+[-y1_sbufreadctl: (busack)]
+[+y0_sbufreadctl: (busack)]
+[-y0_sbufreadctl: (~req)]

@@ -1,0 +1,123 @@
+/***************************************************************************
+ ** file: pchpASE.hse--Precharged half-buffer Align Shift Unit             
+ **
+ ** Center for Asynchronous Circuit and System Design (c)opyright 1999
+ **
+ ** Description:
+ **
+ ** This is the shift element that replaces the barrel shifter in align.
+ ** The circuit relies on a control unit to communicate with the low-order
+ ** bit that tells the low-order bit to shift right and grab left or 
+ ** output its value.  The low-order bit then ripples the communications 
+ ** from the controller up into the high-order bits. The behavior of the 
+ ** circuit can be quantified with the following conditional clauses:
+ **
+ **      * If mantissa is ready and you are done (no shift) output the
+ **        manitssa value immediately.
+ **      * If the mantissa is ready and you need to shift, output the
+ **        manitssa value on the right port and request a new value
+ **        from the left port.
+ **      * If the left values comes in with another shift, dump the bit 
+ **        to the right and pass the shift call to the left.
+ **      * If the left request returns and you see the done signal, output
+ **        your current bit and pass the done signal to the left.
+ **
+ ** The port description of the ASE is as shown
+ **
+ **                ----------
+ **               |          |
+ **     Mi ------>|          |------> Oi
+ **    Men <------|          |<------ Oen
+ **               |          |
+ **     Li ------>|          |------> Ri
+ **    Len <------|          |<------ Ren
+ **               |          |
+ **     SL <------|          |<------ SR
+ **     DL <------|          |<------ DR
+ **   CLen ------>|   ASE    |------> CRen 
+ **               |          |
+ **                ---------- 
+ **
+ ** The circuit is synthesized using the following ATACs command
+ ** atacs -mz -mV -mU -mP -mT -ms -mS -mc -mX -mO -mF -lh -ya ase.hse
+ **
+ **
+
+***************************************************************************/
+
+module pchbASE;
+
+  /* 
+   * The delays here are not set the actual delays seen by the 
+   * process that we are using.  This will need to be changed before
+   * the final circuit is verified as correct.
+   */
+  delay onegate  = <90,110>;            /* Delay of single gate */
+  delay twogate  = <180,220>;           /* Delay of larger gate */
+  delay envdelay = <180,inf>;   /* General environment delay */
+
+  input  SR   = { false, envdelay };
+  input  DR   = { false, envdelay };
+  output CRen = { true, onegate };
+
+  output SL   = { false, onegate };
+  output DL   = { false, onegate };
+  input  CLen = { false, envdelay };
+
+  output O0   = { false, onegate };
+  output O1   = { false, onegate };
+  input  Oen  = { false, envdelay };
+
+  input  L0   = { false, envdelay };
+  input  L1   = { false, envdelay };
+  output Len  = { true, onegate };
+
+  output R0   = { false, onegate };
+  output R1   = { false, onegate };
+  input  Ren  = { false, envdelay };
+
+  output CSC  = { false, onegate };
+
+  process compute;
+   *[
+      [  SR -> 
+              CRen-; [~SR]; CRen+;
+              
+                [ SR -> [L0]; Len-; CRen-; 
+                      [~L0 & ~SR ] ; ( Len+ || CRen+ ) ; *
+ 
+                | DR -> [L0]; Len-; CRen-;
+                    [~L0 & ~DR] ; ( Len+ || CRen+ )
+
+              ]
+        | DR -> 
+            ( O0+ ; [~Oen] ; O0- ) || ( CRen- ; [~DR] ; CRen+ )
+      ] 
+    ]
+
+  endprocess
+
+  process rightcontrol;
+   *[
+      [ true -> SR+ | true -> DR+ ];
+      [~CRen];
+      [ SR -> SR- | DR -> DR- ];
+      [CRen]
+    ]
+  endprocess
+
+  process leftdata;
+   *[
+      L0+; [~Len]; L0-; [Len]
+    ]
+  endprocess
+
+  process outdata;
+   *[
+      Oen+ ; [O0] ; Oen- ; [~O0]
+    ]
+  endprocess
+
+endmodule
+
+

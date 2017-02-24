@@ -1,0 +1,3 @@
+[ l_rcv: (~r_send)] Combinational
+[+r_send: (~r_rcv & l_send)]
+[-r_send: (r_rcv)]

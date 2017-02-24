@@ -1,0 +1,55 @@
+.TH ORDERED 1 "30 March 2002" "" ""
+.SH NAME
+ordered \- Toggle pruning of rules between events that are timed-ordered
+.SH SYNOPSIS
+.B atacs -PO
+.br
+.B atacs> ordered
+.SH DESCRIPTION
+.B ordered
+toggles the pruning of rules between events that are timed ordered
+during automated concurrency reduction.  The atacs default is that any
+events are subject to automatic concurrency reduction.  The first
+invocation of the \fBordered\fR command enables the policy of
+checking whether events are timed-concurrent in the initial,
+most-concurrent TEL structure.  Only candidate rules between events
+that are timed-concurrent in the initial TEL structure are considered.  
+The second invocation of the \fBordered\fR command disables this
+policy, and so on.
+.PP
+Finding the timed state space is an expensive operation.  Therefore,
+atacs only determines the timed concurrency information for the
+initially, most-concurrent TEL, and uses this information to remove
+entire levels from the search tree.  Unfortunately, this is not exact.
+Consider three events \fIe\fR, \fIf\fR, and \fIg\fR.  Assume that
+initially, \fIe\fR and \fIf\fR are timed-concurrent, but that \fIe\fR
+and \fIf\fR both precede \fIg\fR.  The technique of \fBordered\fR
+would consider candidate rules between \fIe\fR and \fIf\fR, but would
+eliminate candidate rules between \fIe\fR and \fIg\fR and those
+between \fIf\fR and \fIg\fR.  However, adding a rule from \fIe\fR to
+\fIf\fR could delay event \fIf\fR to the point that it becomes timed
+concurrent with event \fIg\fR, such that candidate rules between
+\fIf\fR and \fIg\fR should be reconsidered.  Thus, the technique of
+\fBordered\fR is a heuristic.
+.PP
+.SH OPTIONS
+.TP
+.BI \-PO
+This atacs option toggles the pruning of rules between events that are
+timed ordered during automated concurrency reduction from the Unix
+shell command line.
+.TP
+.BI ordered
+This atacs command toggles the pruning of rules between events that
+are timed ordered during automated concurrency reduction from within
+the atacs interactive shell.
+.SH CREDITS
+This pruning method and this command were written by Eric Robert
+Peskin (peskin@vlsigroup.ece.utah.edu).  The code to determine whether
+two events are timed concurrent was written by Curt Nelson 
+(nelscu@vlsigroup.ece.utah.edu).
+.SH BUGS
+See http://www.async.ece.utah.edu/cgi-bin/atacs
+.SH "SEE ALSO"
+.BR reduction (1),
+.BR http://www.async.ece.utah.edu

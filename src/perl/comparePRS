@@ -1,0 +1,744 @@
+eval "set PATH=/usr/bin:/usr/local/bin:/Perl/bin:${PATH};exec perl -S $0 $*"
+    if $running_under_some_shell;#above line won't run if we're already in Perl
+
+if ( ! @ARGV[1] ) {
+    exit;
+}
+
+$id = "compare - ";
+$info = 0;
+$debug = 0;
+
+$check_crt = 0;
+$check_xbm = 0;
+$verbose = 0;
+while ( $filename1 = shift){
+    if ( ! -r $filename1) { die "ERROR: Cannot read specified file: ".$filename1."\n"; }
+    open(FILE,$filename1);
+    @file1 = <FILE>;
+    close(FILE);
+    foreach $line (@file1) {
+	if ($line =~ /\w/) {
+	    if ($line =~ /=/) { $type1 = "3d"; }
+	    elsif ($line =~ /:/) { $type1 = "atacs"; }
+	    last; }}
+    if ($type1 eq "atacs") {
+	$crtname1 = $filename1;
+	$crtname1 =~ s/\.prs\b/\.crt/;
+	$have_crt{$filename1} = 0;
+	if ((-r $crtname1) && ($check_crt)) { 
+	    $no_crt_file_found = 0;
+	    if ($verbose) { print $id."Reading CRT from file $crtname1\n"; }
+	    $have_crt{$filename1} = 1;
+	    %crt1 = &read_in_crt($crtname1); }}
+    if (($type1 eq "3d") && ($check_xbm)) {
+	$xbmname1 = $filename1;
+	$xbmname1 =~ s/\.eqn\b/\.unc/;
+	$have_xbm{$filename1} = 0;
+	if ((-r $xbmname1) && ($check_xbm)) { 
+	    $no_xbm_file_found = 0;
+	    if ($verbose) { print $id."Reading XBM from file $xbmname1\n"; }
+	    $have_xbm{$filename1} = 1;
+	    %ec1 = &read_in_xbm($xbmname1); }}
+    if ($type1 eq "3d") { %equations1 = &read_3d_eqn_file(@file1); }
+    elsif ($type1 eq "atacs") { %equations1 = &read_atacs_prs_file(@file1); }
+    $equations1 = join(";",%equations1);
+    foreach $filename2 ( @ARGV ){
+	if ( ! -r $filename2) { die "ERROR: Cannot read specified file: ".$filename2."\n"; }
+	else {
+	    open(FILE,$filename2);
+	    @file2 = <FILE>;
+	    close(FILE);
+	    
+	    $literals1 = 0;
+	    $literals2 = 0;
+	    
+	    foreach $line (@file2) {
+		if ($line =~ /\w/) {
+		    if ($line =~ /=/) { $type2 = "3d"; }
+		    elsif ($line =~ /:/) { $type2 = "atacs"; }
+		    last; }}
+	    
+	    # Read in context rule tables if appropriate files exist
+	    $no_crt_file_found = 1;
+	    if ($type2 eq "atacs") {
+		$crtname2 = $filename2;
+		$crtname2 =~ s/\.prs\b/\.crt/;
+		$have_crt{$filename2} = 0;
+		if ((-r $crtname2) && ($check_crt)) { 
+		    $no_crt_file_found = 0;
+		    if ($verbose) { print $id."Reading CRT from file $crtname2\n"; }
+		    $have_crt{$filename2} = 2;
+		    %crt2 = &read_in_crt($crtname2); }}
+	    
+	    # Find excitation regions if appropriate files exist
+	    $no_xbm_file_found = 1;
+	    if ($type2 eq "3d") {
+		$xbmname2 = $filename2;
+		$xbmname2 =~ s/\.eqn\b/\.unc/;
+		$have_xbm{$filename2} = 0;
+		if ((-r $xbmname2) && ($check_xbm)) { 
+		    $no_xbm_file_found = 0;
+		    if ($verbose) { print $id."Reading XBM from file $xbmname2\n"; }
+		    $have_xbm{$filename2} = 2;
+		    %ec2 = &read_in_xbm($xbmname2); }}
+	    
+	    
+	    
+	    if ($type2 eq "3d") { %equations2 = &read_3d_eqn_file(@file2); }
+	    elsif ($type2 eq "atacs") { %equations2 = &read_atacs_prs_file(@file2); }
+	    
+#    print "FILE1:\n-------\n";
+#    while (($output,$cubes) = each(%equations1)) {
+#	print "$output = $cubes\n"; }
+#    print "\nFILE2:\n-------\n";
+#    while (($output,$cubes) = each(%equations2)) {
+#	print "$output = $cubes\n"; }
+
+	    $unmatched_outputs = 0;
+	    $unmatched_product_terms = 0;
+	    $unmatched_literals = 0;
+	    $differing_literals = 0;
+	    $diff_correct = 0;
+	    $diff_incorrect = 0;
+	    $diff_unconfirmed = 0;
+	    $product_term_redundant = 0;
+	    
+	    $equations2 = join(";",%equations2);
+	    %equations1 = %equations2 = ();
+	    &compare_equations($equations1,$equations2,$filename1,$filename2,"1","2",$type1,$type2);
+	    $equations1 = join(";",%equations1);
+	    $equations2 = join(";",%equations2);
+	    &compare_equations($equations2,$equations1,$filename2,$filename1,"2","1",$type2,$type1);
+	    print $id."Finished comparing design $filename1\n" if $verbose;
+	    print $id."There were $unmatched_outputs unmatched outputs.\n" if $unmatched_outputs && $verbose;
+	    print $id."There were $unmatched_product_terms unmatched product terms.\n" if $unmatched_product_terms && $verbose;
+	    print $id."There were $unmatched_literals unmatched literals.\n" if $unmatched_literals && $verbose;
+	    print $id."There were $differing_literals differing literals.\n" if $differing_literals && $verbose;
+#    print $id."There were $diff_correct correctly differing literals.\n";
+#    print $id."There were $diff_incorrect incorrectly differing literals.\n";
+#    print $id."There were $diff_unconfirmed unconfirmed differing literals.\n";
+#    print $id."There were $product_term_redundant redundant product terms.\n";
+	    
+	    $status = $unmatched_outputs + $unmatched_product_terms + $unmatched_literals + $differing_literals;
+	    $, = " ";
+	    $\ = "\n";
+	    print sort ($filename1,$filename2) if(!$status);
+	}
+    }
+}
+
+sub compare_equations {
+    
+    local($equations1,$equations2);
+    $equations1 = @_[0];
+    $equations2 = @_[1];
+    $infile1 = @_[2];
+    $infile2 = @_[3];
+    $infile_num1 = @_[4];
+    $infile_num2 = @_[5];
+    $infile_type1 = @_[6];
+    $infile_type2 = @_[7];
+    %equations1 = split(/;/,$equations1);
+    %equations2 = split(/;/,$equations2);
+    $equation_comparison = "";
+
+#    print "FILE1:\n-------\n";
+#    while (($output,$cubes) = each(%equations1)) {
+#	print "$output = $cubes\n"; }
+#    print "\nFILE2:\n-------\n";
+#    while (($output,$cubes) = each(%equations2)) {
+#	print "$output = $cubes\n"; }
+
+    while (($output1,$product_terms1) = each(%equations1)) {
+	if($info){print "  Processing output $output1\n";}
+	$product_terms2 = $equations2{$output1};
+	$product_terms1 =~ s/,$//;
+	$product_terms2 =~ s/,$//;
+	@product_terms1 = split(/,/,$product_terms1);
+	@product_terms2 = split(/,/,$product_terms2);
+	if (! exists($equations2{$output1})) {
+	    @literals = split(/\s+|,/,$product_terms1);
+	    $unmatched_literals += $#literals + 1;
+	    $unmatched_product_terms += $#product_terms1 + 1;
+	    $unmatched_outputs++;
+	    $equation_comparison .= $output1.":\n";
+	    $equation_comparison .= "  - output not matched in file ($infile_num2) $infile2\n"; }
+	else {
+	    $unmatched_product_terms += abs($#product_terms1 - $#product_terms2);
+	    delete $equations2{$output1};
+	    if($debug){print "Output $output1: product terms 1 : 2 = ".$product_terms1." : ".$product_terms2."\n";}
+	    @matches = ();
+	    $file1 = $infile1; $file2 = $infile2;
+	    $file_num1 = $infile_num1; $file_num2 = $infile_num2;
+	    $file_type1 = $infile_type1; $file_type2 = $infile_type2;
+	    $product_terms_switched = 0;
+	    @original_product_terms2 = @product_terms2;
+	    if ($#product_terms1 > $#product_terms2) {  
+		# comparison problems if pt_1 has more terms than pt_2 - so switch them.
+		$file1 = $infile2; $file2 = $infile1;
+		$file_num1 = $infile_num2; $file_num2 = $infile_num1;
+		$file_type1 = $infile_type2; $file_type2 = $infile_type1;
+		$product_terms_switched = 1;
+		@tmp = @product_terms1;
+		@product_terms1 = @product_terms2;
+		@product_terms2 = @tmp;
+		@original_product_terms2 = @tmp; }
+	    $i = 0;
+	    foreach $product_term1 (@product_terms1) {
+		@literals1 = split(/\s+/,$product_term1);
+		$j = 0;
+		foreach $product_term2 (@product_terms2) {
+		    @literals2 = split(/\s+/,$product_term2);
+		    foreach $literal1 (@literals1) {
+			foreach $literal2 (@literals2) {
+			    if ($literal1 eq $literal2) {
+				$matches[$i][$j]++; }}}
+		    $j++; }
+		$i++; }
+	    # Check that no other prod1 term in same column matches prod2 better than us.
+	    # If so, set our entry to 0 so that only the best match remains a positive number > 0.
+	    for ($i = 0; $i <= $#product_terms2; $i++) {
+		for ($j = 0; $j <= $#product_terms1; $j++) {
+		    $entry = $matches[$j][$i];
+		    for ($k = 0; $k <= $#product_terms1; $k++) {
+			if ($matches[$k][$i] > $entry) {
+			    $matches[$j][$i] = 0; }}}}
+	    if($debug){
+		for ($i = 0; $i <= $#product_terms1; $i++) {
+		    for ($j = 0; $j <= $#product_terms2; $j++) {
+			$equation_comparison .= " matches[$i][$j] = ".$matches[$i][$j]." "; }
+		    $equation_comparison .= "\n"; }}
+	    $i = 0;
+	    $equation_comparison .= $output1.":\n";
+	    foreach $product_term1 (@product_terms1) {
+		$max = 0;
+		$curr_j = -1;
+		@curr_match = ();
+		@literals1 = split(/\s+/,$product_term1);
+		for ($j = 0; $j <= $#product_terms2; $j++) {
+		    if (($matches[$i][$j] >= $max) && (@product_terms2[$j] =~ /\w/)) {
+			@literals2 = split(/\s+/,@product_terms2[$j]);
+			# If number of literal matches are the same, base match on product terms with closest number of literals.
+			if (($matches[$i][$j] == $max) && (abs($#literals1 - $#literals2) < abs($#literals1 - $#curr_match))) {
+			    $curr_j = $j;
+			    @curr_match = split(/\s+/,@product_terms2[$j]); }
+			elsif ($matches[$i][$j] > $max) {
+			    $curr_j = $j;
+			    @curr_match = split(/\s+/,@product_terms2[$j]);			
+			    $max = $matches[$i][$j]; }}}
+		@product_terms2[$curr_j] = "";
+		$unmatched_literals += abs($#literals1 - $#curr_match);
+		if ($product_terms_switched) {
+		    @sorted_literals1 = sort {$a cmp $b} @curr_match;
+		    @sorted_literals2 = sort {$a cmp $b} @literals1; }
+		else {
+		    @sorted_literals1 = sort {$a cmp $b} @literals1;
+		    @sorted_literals2 = sort {$a cmp $b} @curr_match; }
+		$sorted_literals1 = join(" ",@sorted_literals1);
+		$sorted_literals2 = join(" ",@sorted_literals2);
+		%literals1 = %literals2 = ();
+		$diff1 = $diff2 = "";
+		foreach $literal (@sorted_literals1) { $literals1{$literal} = 1; }
+		foreach $literal (@sorted_literals2) { $literals2{$literal} = 1; }
+		foreach $literal (keys %literals1) { 
+		    if (! exists($literals2{$literal})) { $diff1 .= $literal.","; }
+		    else { delete($literals2{$literal}); }}
+		    $diff2 = join(",",(keys %literals2));
+		if (($diff1 =~ /\w/) || ($diff2 =~ /\w/)) {
+		    $diff1 =~ s/,$//;
+		    @diff1 = split(/,/,$diff1);
+		    @diff2 = split(/,/,$diff2);
+		    @diff1 = sort {$a cmp $b} @diff1;
+		    @diff2 = sort {$a cmp $b} @diff2;
+		    $diff1 = join(",",@diff1);
+		    $diff2 = join(",",@diff2);
+		    if ($#diff1 >= $#diff2) { $diff_num = $#diff1 + 1 - abs($#diff1 - $#diff2); }
+		    else { $diff_num = $#diff2 + 1 - abs($#diff1 - $#diff2); }
+		    $differing_literals += $diff_num;
+		    if (! $check_crt) { $diff_unconfirmed += $diff_num; $check_msg = ""; } #diff not confirmed (-c argument not used)"; }
+		    elsif ($#diff1 != $#diff2) { $diff_unconfirmed += $diff_num; $check_msg = "diff not confirmed [different number of literals]"; }
+		    elsif ($no_crt_file_found) { $diff_unconfirmed += $diff_num; $check_msg = "diff not confirmed [no .crt file found]"; }
+		    if (($#diff1 == $#diff2) && $check_crt) {
+			# If same number of literals check context rule tables to see if differing literals are interchangeable.
+			if ($have_crt{$file1}) {
+			    $check_msg = &check_if_literals_interchangeable($output1,$diff1,$diff2,$sorted_literals1,$sorted_literals2,$file1); }
+			elsif ($have_crt{$file2}) {
+			    $check_msg = &check_if_literals_interchangeable($output1,$diff1,$diff2,$sorted_literals1,$sorted_literals2,$file2); }}
+		    $len_diff = length($sorted_literals1) - length($sorted_literals2);
+		    $blanks1 = $blanks2 = "";
+		    if ($len_diff > 0) { for ($a = 0; $a < $len_diff; $a++) { $blanks2 .= " "; }}
+		    elsif ($len_diff < 0) { for ($a = 0; $a > $len_diff; $a--) { $blanks1 .= " "; }}
+		    if ($check_msg =~ /\w/) {
+			$check_msg1 = "($diff1)   $check_msg";
+			$check_msg2 = "($diff2)"; }
+		    else {
+			$check_msg1 = "($diff1)";
+			$check_msg2 = "($diff2)"; }
+		    $equation_comparison .= "  ($file_num1) ".$sorted_literals1."  $blanks1 - $check_msg1\n";
+		    $equation_comparison .= "  ($file_num2) ".$sorted_literals2."  $blanks2 - $check_msg2\n";
+		}
+		else { 
+		    $equation_comparison .= "  ($file_num1) ".$sorted_literals1."\n"; 
+		    $equation_comparison .= "  ($file_num2) ".$sorted_literals2."\n"; }
+		$i++;
+	    }
+	    $product_terms2 = join(",",@product_terms2);
+#	    print "PROD2: $product_terms2\n";
+	    $product_terms2 =~ s/,(?!\w|~)//g;
+	    $product_terms2 =~ s/^,//g;
+#	    print "PROD2: $product_terms2\n";
+	    @product_terms2 = split(/,/,$product_terms2);
+	    if ($product_terms2 =~ /\w/) {
+		@literals = split(/\s+|,/,$product_terms2);
+		$unmatched_literals += $#literals + 1;
+		if (! $check_xbm) { $redundancy_check_msg = ""; } #redundancy not confirmed (-c argument not used)"; }
+		elsif ($no_xbm_file_found) { $redundancy_check_msg = "redundancy not confirmed [no .unc file found]"; }
+		else { $redundancy_check_msg = &check_if_product_terms_redundant($output1,$product_terms2,join(",",@original_product_terms2)); }
+		foreach $product_term (@product_terms2) {
+		    $equation_comparison .= "  ($file_num2) $product_term   - unmatched product term, $redundancy_check_msg\n"; }}
+	    $equation_comparison .= "\n";
+	}
+    }
+    if ($verbose) { print $equation_comparison; }
+}
+
+
+
+sub check_if_product_terms_redundant {
+
+    local($output,$redundant_product_terms,$all_product_terms,@literals,$literal,$polarity,$ecs,@ecs,$ec,@ec,$contains);
+    $output = @_[0];
+    $redundant_product_terms = @_[1];
+    $all_product_terms = @_[2];
+    @all_product_terms = split(/,/,$all_product_terms);
+    @redundant_product_terms = split(/,/,$redundant_product_terms);    
+    if ($have_xbm{$filename1}) { %ec = %ec1; }
+    elsif ($have_xbm{$filename2}) { %ec = %ec2; }
+    else { print $id."ERROR: No XBM file found (this msg should not happen)\n"; }
+    $ecs = $ec{$output1};
+    $ecs =~ s/,$//;
+    @ecs = split(/,/,$ecs);
+    $ecs = ",".$ecs.",";
+    if($debug){print "\nCheck possibly redundant product term: $redundant_product_terms\n";}
+    if($debug){print "ECS at start : $ecs\n";}
+    $redundant_product_terms = ",".$redundant_product_terms.",";
+    foreach $product_term (@all_product_terms) {
+	if ($redundant_product_terms !~ /,$product_term,/) {
+	    foreach $ec (@ecs) {
+		@ec = split(//,$ec);
+		@literals = split(/\s+/,$product_term);
+		$cube_contains_ec = 1;
+		foreach $literal (@literals) {
+		    if ($literal =~ /~/) { $polarity = "0"; }
+		    else { $polarity = "1"; }
+		    $literal =~ s/~//;
+		    if (!($polarity eq @ec[$signal_position{$literal}])) {
+			$cube_contains_ec = 0; }}
+		if ($cube_contains_ec) {
+		    $ecs =~ s/,$ec(?=,)//; }}
+	    if($debug){print "ECS after product term $product_term : $ecs\n";}
+	}}
+    if($debug){print "\n";}
+    if ($ecs !~ /\w/) { $product_term_redundant++; return("REDUNDANT [other product terms cover all excitation regions]"); }
+    else { return("not redundant [product term possibly needed to cover all excitation regions]"); }    
+}
+
+sub check_if_literals_interchangeable {
+    local($output,$diff1,$diff2,$literals1,$literals2,$filename,%crt,$diff,$literals,$literal,$i,$matches,@matches,$match,@diff);
+    $output = @_[0];
+    $diff1 = @_[1];
+    $diff2 = @_[2];
+    $literals1 = @_[3];
+    $literals2 = @_[4];
+    $filename = @_[5];
+    if ($have_crt{$filename} eq "1") { $diff = $diff1; $other_diff = $diff2; $literals = $literals1; %crt = %crt1; }
+    elsif ($have_crt{$filename} eq "2") { $diff = $diff2; $other_diff = $diff1; $literals = $literals2; %crt = %crt2; }
+    @diff = split(/,/,$diff);
+    $diff = ",".$diff.",";
+    $crts = $crt{$output};
+    $crts =~ s/;$//;
+    @crts = split(/;/,$crts);
+    @crts_tmp = @crts;
+    # Find the right table for the product term in question
+    @literals = split(/,/,$literals);
+    if($debug){print "\noutput: $output\n-------\n";}
+    #if($debug){print "  CRTS: $crts\n";}
+    if($debug){print "  literals: $literals\n";}
+    if($debug){print "  diff: $diff\n";}
+    $i = 0;
+    foreach $crt (@crts_tmp) {
+	$crt = ",".$crt;
+	if($debug){print "  CRT[$i]:\n  -------\n  $crt\n";}
+	foreach $literal (@literals) {
+	    if($debug){print "  remove literal: $literal.\n";}
+	    $crt =~ s/,(?:~?\w+(?:\(O\))?\s+)*?$literal(?:\s+~?\w+(?:\(O\))?)*?\s*(?=,)//g;
+	    if($debug){print "  ".$crt."\n"; }}
+	if ($crt !~ /\w/) { $matches .= $i.","; }
+	$i++;
+    }
+    $tmp = $matches;
+    $tmp =~ s/,$//;
+    if($debug){print "Product term $literals matches crt table(s): $tmp\n\n";}
+    # Check if the other product term can cover this table
+    @matches = split(/,/,$tmp);
+    $matches_found = 0;
+    foreach $match (@matches) {
+	$crt = @crts[$match];
+	$crt = ",".$crt;
+	if($debug){print "  CRT[$match]:\n  -------\n  $crt\n";}
+	# Remove all lines that contain a literal not in diff.
+	foreach $literal (@literals) {
+	    if ($diff !~ /,$literal,/) {
+		if($debug){print "  remove literal: $literal.\n";}
+		$crt =~ s/,(?:~?\w+(?:\(O\))?\s+)*?$literal(?:\s+~?\w+(?:\(O\))?)*?\s*(?=,)//g;
+		if($debug){print "  ".$crt."\n"; }}}
+	@other_diff = split(/,/,$other_diff);
+	foreach $literal (@other_diff) {
+	    if($debug){print "  remove other diff literal: $literal.\n";}
+	    $crt =~ s/,(?:~?\w+(?:\(O\))?\s+)*?$literal(?:\s+~?\w+(?:\(O\))?)*?\s*(?=,)//g;
+	    if($debug){print "  ".$crt."\n"; }}
+	if ($crt !~ /\w/) {
+	    # Table empty - so the alternate literals could cover this table - so remove it from list of matching tables.
+	    $matches_found++;
+	    $matches =~ s/^$match$|^$match(?=,)|,$match(?=,)|,$match$//; }
+    }
+    if (($matches !~ /\d/) && ($matches =~ /,/)) {
+	if($debug){print "Successful match\n\n";}
+	if ($#diff >= $#other_diff) { $diff_correct += $#diff + 1 - abs($#diff - $#other_diff); }
+	else { $diff_correct += $#other_diff + 1 - abs($#diff - $#other_diff); }
+	return("diff is correct [crt table covered by alternate literals]"); }
+    else {
+	if($debug){print "Unsuccessful match\n\n";}
+	if ($#matches == 0) { 
+	    # If only one matching table and it cannot be covered - alternate literals are incorrect.
+	    if ($#diff >= $#other_diff) { $diff_incorrect += $#diff + 1 - abs($#diff - $#other_diff); }
+	    else { $diff_incorrect += $#other_diff + 1 - abs($#diff - $#other_diff); }
+	    return("diff is INCORRECT [crt table not covered by alternate literals]"); }
+	elsif ($#matches > 0) { 
+	    # If several matching tables and some cannot be covered - correctness cannot be determined
+	    # since we don't know which table is the correct one.	    
+	    if ($#diff >= $#other_diff) { $diff_unconfirmed += $#diff + 1 - abs($#diff - $#other_diff); }
+	    else { $diff_unconfirmed += $#other_diff + 1 - abs($#diff - $#other_diff); }
+	    return("diff cannot be confirmed [only $matches_found of $#matches crt tables covered in multiple table match]"); }
+	else { 
+	    if ($#diff >= $#other_diff) { $diff_unconfirmed += $#diff + 1 - abs($#diff - $#other_diff); }
+	    else { $diff_unconfirmed += $#other_diff + 1 - abs($#diff - $#other_diff); }
+	    return("diff cannot be confirmed [no matching crt table]"); }}
+
+}
+
+
+sub read_in_crt {
+    local($crtname,@crt,%crt);
+    $crtname = @_[0];
+    open(FILE,$crtname);
+    @crt = <FILE>;
+    close(FILE);
+    $output = "";
+    foreach $line (@crt) {
+	$line =~ s/^\s*//;
+	$line =~ s/\s*\n//;
+	if ($line =~ /CONTEXT SIGNAL TABLES:/) {}
+	elsif ($line =~ /STATEVECTOR:/) {}
+	elsif ($line =~ /Context Rule Table for/) {
+	    if ($output =~ /\w/) { $crt{$output} .= ";"; }
+	    $output = $line;
+	    $output =~ s/Context Rule Table for (\w+)(\+|-)/$1$2/;
+	    $crt{$output} .= ""; }
+	elsif ($line =~ /:/) {
+	    $line =~ s/\w+:\s*//;
+#	    $line =~ s/\b_//g;
+	    $crt{$output} .= $line.","; }
+    }	    
+    return(%crt);
+}
+
+
+sub read_in_xbm {
+    local($i,$filename,@file);
+    $filename = @_[0];
+    $lineno = 0; $i = 0;
+    $start_state = "0";
+    open(FILE,$filename);
+    @file = <FILE>;
+    close(FILE);
+    $filename =~ s/\.unc$|\.nounc$//;
+    foreach $line (@file) { 
+	$lineno++;
+	$line =~ s/;.*//;  # Remove comments
+	$line =~ s/^\s*|\s*$//g; 
+	$line =~ s/\t/ /g;
+	if ($line !~ /\w|\d/) { }
+	elsif ($line =~ /(?:input|output)\s+\w+\s+\d+/) {
+	    # Record I/O name and initial value.
+	    $name = $value = $line;
+	    $name =~ s/\s*(?:input|output)\s+(\w+).*\s*/$1/;
+	    $value =~ s/\s*(?:input|output)\s+\w+\s+(\d+).*\s*/$1/;
+	    $signal_position{$name} = $i;
+	    @start_signal_vector[$i] = $value;
+	    if ($line =~ /^\s*input\s+/) {
+		@signal_names[$i++] = "INP $name "; }
+	    elsif ($line =~ /^\s*output\s+/) {
+		@signal_names[$i++] = "$name ";
+		$is_output{$name} = 1; }
+	}
+	elsif ($line =~ /\d+\s+\d+\s+\[?\w+(?:\+|-|\*)\]?(?:\s+\[?\w+(?:\+|-|\*)\]?)*\s*\|\s*\w*(?:\+?|-?)(?:\s+\w+(?:\+|-))*/) {
+	    $curr_state = $line;
+	    $next_state = $line;
+	    $in_burst = $line;
+	    $out_burst = $line;
+	    $level_signals = $line;
+	    $curr_state =~ s/\s*(\d+).*/$1/;
+	    $next_state =~ s/\s*\d+\s+(\d+).*/$1/;
+	    $in_burst   =~ s/\s*\d+\s+\d+\s+(.*?)\s*\|.*/$1/;
+	    $out_burst  =~ s/.*\|\s*(.*)/$1/;
+	    $graph{$curr_state}{next_state} .= $next_state.",";
+	    $graph{$curr_state}{in_burst} .= $in_burst.",";
+	    $graph{$curr_state}{out_burst} .= $out_burst.",";
+	    if ($level_signals =~ /\[/) {
+		$level_signals =~ s/.*?(\[\w+(?:\+|-)\])/$1/g;
+		$level_signals =~ s/((?:\[\w+(?:\+|-)\])*).*/$1/;
+		$level_signals =~ s/\]\[/,/g;
+		$level_signals =~ s/\[|\]//g;
+		@level_signals = split(/,/,$level_signals);
+		foreach $level_signal (@level_signals) {
+		    $is_level{$level_signal} = 1; }}
+	    if ($next_state eq $start_state) { $start_prev_burst = $in_burst; }}
+	else {
+	    print $id."Error on line ".$lineno.", skipping this line.\n"; }
+    }
+    if($debug){print "GRAPH:\n"; foreach $state (keys %graph) {
+	print $state."\t".$graph{$state}{next_state}."\t".$graph{$state}{in_burst}."\t|\t".$graph{$state}{out_burst}."\n"; }}
+    if($debug){print "\nSTATE VECTOR: ".join("",@signal_names)."\n";}
+    
+    $burst_num = 0;
+    # Insert correct values for ddc's starting before and continuing through start state.
+    @signals = split(/\s+/,$start_prev_burst);
+    foreach $signal (@signals) {
+	$name = $signal;
+	$name =~ s/\+|-|\*|\[|\]//g;
+	$position = $signal_position{$name};
+	if ($signal =~ /\*/) {
+	    if (@start_signal_vector[$position] eq "0") {
+		@start_signal_vector[$position] = "R"; }
+	    elsif (@start_signal_vector[$position] eq "1") {
+		@start_signal_vector[$position] = "F"; }}}
+    $start_vector = join("",@start_signal_vector);
+    %ec = ();
+    &build_state_graph($start_state,$start_vector,"");
+    if($debug){
+	print "\nExcitation cubes:\n";
+	foreach $signal (keys %ec) {
+	    print $signal." : ".$ec{$signal}."\n"; }
+	print "Trigger cubes:\n";
+	foreach $signal (keys %tc) {
+	    print $signal." : ".$tc{$signal}{state_vector}."\n"; }}
+    while (($signal,$position) = each (%signal_position)) { # Change outputs from x to _x
+	if ($is_output{$signal}) {
+	    delete($signal_position{$signal});
+	    $signal_position{"_".$signal} = $position; }}
+    return(%ec);
+}
+
+
+
+sub build_state_graph {
+# Build a state graph from the extended burst-mode specification.
+
+    local($i,$curr_state,$end_vector,$in_vector,@prev_rf_state_vector,@state_vector,@next_states,@in_bursts,@out_bursts);
+    $curr_state = @_[0];
+    $prev_vector = @_[1];
+    $prev_burst = @_[2];
+
+    @prev_rf_state_vector = split(//,$prev_vector);
+    $tmp_vector = $prev_vector;
+    $tmp_vector =~ s/R/1/g;
+    $tmp_vector =~ s/F/0/g;
+    @state_vector = split(//,$tmp_vector);
+    if($debug){print $id."DFS trace - state $curr_state, state vector = ",@state_vector,"\n";}
+    $next_states = $graph{$curr_state}{next_state};
+    $next_states =~ s/,$//;
+    @next_states = split(/,/,$next_states);
+    $in_bursts = $graph{$curr_state}{in_burst};
+    $in_bursts =~ s/,$//;
+    @in_bursts = split(/,/,$in_bursts);
+    $out_bursts = $graph{$curr_state}{out_burst};
+    $out_bursts =~ s/,$//;
+    @out_bursts = split(/,/,$out_bursts);
+    @rf_state_vector = @state_vector;
+    # Mark enabled inputs with R,F,-.
+    foreach $name (keys %level_signals) {
+	@rf_state_vector[$signal_position{$name}] = "-"; }
+    foreach $burst (@in_bursts) {
+	@signals = split(/\s+/,$burst);
+	foreach $signal (@signals) {
+	    $name = $signal;
+	    $name =~ s/\+|-|\*|\[|\]//g;
+	    $position = $signal_position{$name};
+	    if ($signal =~ /-(?!\])/) {
+		# Falling edge
+		@rf_state_vector[$position] = "F"; }
+	    elsif ($signal =~ /\+(?!\])/) {
+		# Rising edge
+		@rf_state_vector[$position] = "R"; }
+	    elsif ($signal =~ /\*(?!\])/) {
+		# Directed don't care
+		if (@prev_rf_state_vector[$position] eq "0") {    # First ddc occurrence in the ddc transition.
+		    @rf_state_vector[$position] = "R"; } 
+		elsif (@prev_rf_state_vector[$position] eq "1") {
+		    @rf_state_vector[$position] = "F"; }
+		elsif (@prev_rf_state_vector[$position] eq "R") { # Second or later ddc occurrence in ddc transition.
+		    @rf_state_vector[$position] = "R"; }
+		elsif (@prev_rf_state_vector[$position] eq "F") {
+		    @rf_state_vector[$position] = "F"; }
+		else { die $id."ERROR: Cannot determine value of directed don't care.\n"; }}
+	    elsif ($signal =~ /(?:\+|-)\]/) { }
+		# Specified and unspecified level signals alike are X throughout input transition.
+	    else {
+		die $id."ERROR: Signal $signal not of recognizable type (terminating edge, directed don't care, level).\n"; }
+	}
+    }
+    if($debug){print join("",@rf_state_vector)."  ".join(", ",@in_bursts)." |\n";}
+    $in_vector = join("",@rf_state_vector);
+    $state_visited{$curr_state} = 1;
+    $state_graph{$curr_state}{state_vector} = $in_vector;
+    if ($prev_burst !~ /\w/) {
+	$dfs_start_rf_state_vector = $end_vector; }
+    $states++;
+    $i = 0;
+    foreach $next_state (@next_states) {
+	if($debug){print "$curr_state  $next_state   ".@in_bursts[$i]."  |  ".@out_bursts[$i]."\n";}
+	@rf_state_vector = @state_vector;
+	$tc = join("",@state_vector);
+	$tc =~ s/0|1|R|F/-/g;
+	@tc = split(//,$tc);
+	$burst = @in_bursts[$i];
+	$in_burst = $burst;
+	$in_burst =~ s/\s+/,/g;
+	@signals = split(/\s+/,$burst);
+	# Fire all inputs in current burst to form state vector after input changes have ended.
+	foreach $signal (@signals) {
+	    $name = $signal;
+	    $name =~ s/\+|-|\*|\[|\]//g;
+	    $position = $signal_position{$name};
+	    if ($signal =~ /-/) { 
+		# Falling edge or 0 level signal
+		if ($signal !~ /\[/) { @tc[$position] = "0"; }
+		@rf_state_vector[$position] = "0"; }
+	    elsif ($signal =~ /\+/) { 
+		# Rising edge or 1 level signal
+		if ($signal !~ /\[/) { @tc[$position] = "1"; }
+		@rf_state_vector[$position] = "1"; }
+	    elsif($signal =~ /\*/) {
+		# Directed don't care.
+		if (@prev_rf_state_vector[$position] eq "0") {    # First ddc occurrence in the ddc transition.
+		    @rf_state_vector[$position] = "R"; } 
+		elsif (@prev_rf_state_vector[$position] eq "1") {
+		    @rf_state_vector[$position] = "F"; }
+		elsif (@prev_rf_state_vector[$position] eq "R") { # Second or later ddc occurrence in ddc transition.
+		    @rf_state_vector[$position] = "R"; }
+		elsif (@prev_rf_state_vector[$position] eq "F") {
+		    @rf_state_vector[$position] = "F"; }}}
+	# Mark eventual enabled outputs with R,F.
+	$burst = @out_bursts[$i];
+	$end_vector = join("",@rf_state_vector);
+	$end_burst = $in_burst;
+	@signals = split(/\s+/,$burst);
+	if ($#signals >= 0) { 
+	    $out_burst = $burst;
+	    $out_burst =~ s/\s+/$burst_num,/g;
+	    $out_burst .= $burst_num;
+	    $end_burst = $out_burst;
+	    @tmp_state_vector = @rf_state_vector;
+	    $cs = "";
+	    while (($name,$position) = each(%signal_position)) {
+		if ((@tc[$position] eq "-") && ((@rf_state_vector[$position] eq "0") || (@rf_state_vector[$position] eq "1"))) {
+		    if (@rf_state_vector[$position] eq "0") { $cs .= $name.","; }
+		    else { $cs .= "~".$name.","; }}}
+	    foreach $signal (@signals) {
+		$ec{$signal} .= join("",@tmp_state_vector).",";
+		$tc{$signal.$burst_num}{state_vector} = join("",@tc);
+		$tc{$signal.$burst_num}{trigger_signals} = $in_burst;
+		$cs{$signal.$burst_num} = $cs;
+		$name = $signal;
+		$name =~ s/\+|-//;
+		if ($signal =~ /-/) { 
+		    # Falling edge 
+		    @rf_state_vector[$signal_position{$name}] = "F"; }
+		elsif ($signal =~ /\+/) { 
+		    # Rising edge
+		    @rf_state_vector[$signal_position{$name}] = "R"; }}
+	    if($debug){print join("",@rf_state_vector)."  | ".@out_bursts[$i]."\n";}
+	    $out_vector = join("",@rf_state_vector);
+	    $state_graph{$curr_state}{next_state} .= $curr_state."_".$next_state.",";
+	    $state_graph{$curr_state}{burst} .= $in_burst.";";
+	    $state_graph{$curr_state."_".$next_state}{state_vector} = $out_vector;
+	    $state_graph{$curr_state."_".$next_state}{next_state} = $next_state;
+	    $state_graph{$curr_state."_".$next_state}{burst} = $out_burst;
+	    $end_vector = join("",@rf_state_vector);
+	    $states++;
+	    $burst_num++; }
+	else {
+	    $state_graph{$curr_state}{next_state} .= $next_state.",";
+	    $state_graph{$curr_state}{burst} .= $in_burst.";"; }
+	# Handle dfs iteration.
+	if (! $state_visited{$next_state}) { 
+	    &build_state_graph($next_state,$end_vector,$end_burst); }
+	$i++;
+    }
+}
+
+	
+sub read_3d_eqn_file {
+    local(%equations,@file,%is_output);
+    %equations = ();
+    @file = @_;
+    %is_output = ();
+    foreach $line (@file) {
+	$line =~ s/\s*\n//;
+	$line =~ s/\s*\+//;
+	$line =~ s/^\s*//;
+	if (($line =~ /\w/) && ($line =~ /=/)) {
+	    $output = $line;
+	    $output =~ s/\s*=//;
+	    $output =~ s/_Set\b//;
+	    $is_output{$output} = 1; }}
+    $prev_output = "";
+    foreach $line (@file) {
+	if (($line =~ /\w/) && ($line =~ /=/)) {
+	    $output = $line;
+	    $output =~ s/\s*=//;
+	    if ($output =~ /_Set\b/) { $polarity = "+"; }
+	    elsif ($output =~ /_Reset\b/) { $polarity = "-"; }
+	    else { $polarity = ""; }
+	    $output =~ s/_Set\b|_Reset\b//;
+	    if ($prev_output =~ /\w/) { $equations{$prev_output} = $product_terms; }
+	    $product_terms = "";
+	    $prev_output = $output.$polarity; }
+	elsif (($line =~ /\w/) && ($line !~ /=/)) {
+	    $line =~ s/(\w+)\'/~$1/g;
+#	    foreach $outsig (keys %is_output) {
+#		$line =~ s/\b$outsig\b/_$outsig/g; }
+	    $product_terms .= $line.","; }}
+    $equations{$prev_output} = $product_terms;
+    return(%equations);
+}
+
+sub read_atacs_prs_file {
+    local(%equations);
+    @file = @_;
+    foreach $line (@file) {
+	if ($line =~ /\w/) {
+	    $line =~ s/\s*\n//;
+	    $line =~ s/^\s*//;	
+	    if ($line =~ /\+|-/) { $line =~ s/\[(\+|-)\s*(\S+):\s*\(\s*(.*?)\s*\)\s*\]\s*/$2$1:$3/; }
+	    else { $line =~ s/\[\s*(\S+):\s*\(\s*(.*?)\s*\)\s*\](?:\s*Combinational\s*)/$1:$2/; }
+	    $output = $input = $line;
+	    $output =~ s/(.*):.*/$1/;
+	    $input =~ s/.*:(.*)/$1/;
+	    $input =~ s/\s*&\s*/ /g;
+	    $input =~ s/\b_//g;
+	    $equations{$output} .= $input.","; }}
+    return(%equations);
+}

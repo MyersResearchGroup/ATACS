@@ -1,0 +1,48 @@
+/*****************************************************************************/
+/* CSP Specification for the MMU (load segmentation register cycle only).    */
+/*****************************************************************************/
+module mmu;
+
+input  mdli;
+output mdlo;
+output rao;
+input  rai;
+output bo;
+input  bi;
+output lsro;
+input  lsri;
+
+process rao;
+    *[ [mdli+]; [rai-@]; rao+; [rai+ & lsro+]; rao- ]
+endprocess
+
+process bo;
+    *[ [mdli+]; [bi-@]; bo+; [bi+ & lsro+]; bo- ]
+endprocess
+
+process lsro;
+    *[ [rai+ & bi+ & lsri-@]; lsro+; [mdlo+ & lsri+]; lsro- ]
+endprocess
+
+process mdlo;
+    *[ [mdli+ & lsri+]; mdlo+; [mdli-]; mdlo- ]
+endprocess
+
+process xfer;
+    *[ mdli+; [mdlo+]; mdli-; [mdlo-] ]
+endprocess
+
+process data;
+    *[ [rao+]; rai+; [rao-]; rai- ]
+endprocess
+
+process sel;
+    *[ [bo+]; bi+; [bo-]; bi- ]
+endprocess
+
+process out;
+    *[ [lsro+]; lsri+; [lsro-]; lsri- ]
+endprocess
+
+endmodule
+

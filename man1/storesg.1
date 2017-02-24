@@ -1,0 +1,32 @@
+.TH STORESG 1 "28 September 2001" "" ""
+.SH NAME
+storesg \- Stores a SG File
+.SH SYNOPSIS
+.nf
+.BI atacs " -sm <filename>"
+.br
+.BI atacs> " storesg <filename>"
+.fi
+.SH DESCRIPTION
+.B storesg
+creates a state graph in the form used by PETRIFY.
+It writes the result to <filename>.sg.  This can be used by PETRIFY
+to find a Petri-net which has the same behavior as the state graph.
+.SH OPTIONS
+.TP
+.BI \-sm
+Stores a SG file from the command line.
+.TP
+.BI storesg
+Stores a SG file from the interactive shell.
+.SH CREDITS
+.B storesg
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR storeg (1)
+.BR storeer (1)
+.BR storersg (1)
+.BR storeprs (1)
+.BR storenet (1)
+.BR storevhdl (1)
+.BR http://www.async.ece.utah.edu

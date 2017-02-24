@@ -1,0 +1,7 @@
+[+E: (Rin & ~Rout)]
+[+E: (Aout & Rin)]
+[-E: (~Rin & Ck)]
+[ Ck: (D)] Combinational
+[ Ain: (E)] Combinational
+[+Rout: (D & Ck)]
+[-Rout: (Aout & ~D)]

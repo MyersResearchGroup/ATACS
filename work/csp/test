@@ -1,0 +1,116 @@
+time ../../bin/atacs -oa -on -tp -oq -va stari2 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari2 stage2
+time ../../bin/atacs -on -tp -oq -va stari2
+time ../../bin/atacs -oa -on -tp -oq -va stari3 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari3 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari3 stage3
+time ../../bin/atacs -on -tp -oq -va stari3 
+time ../../bin/atacs -oa -on -tp -oq -va stari4 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari4 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari4 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari4 stage4
+time ../../bin/atacs -on -tp -oq -va stari4 
+time ../../bin/atacs -oa -on -tp -oq -va stari5 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari5 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari5 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari5 stage4
+time ../../bin/atacs -oa -on -tp -oq -va stari5 stage5
+time ../../bin/atacs -on -tp -oq -va stari5 
+time ../../bin/atacs -oa -on -tp -oq -va stari6 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari6 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari6 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari6 stage4
+time ../../bin/atacs -oa -on -tp -oq -va stari6 stage5
+time ../../bin/atacs -oa -on -tp -oq -va stari6 stage6
+time ../../bin/atacs -on -tp -oq -va stari6
+time ../../bin/atacs -oa -on -tp -oq -va stari7 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari7 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari7 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari7 stage4
+time ../../bin/atacs -oa -on -tp -oq -va stari7 stage5
+time ../../bin/atacs -oa -on -tp -oq -va stari7 stage6
+time ../../bin/atacs -oa -on -tp -oq -va stari7 stage7
+time ../../bin/atacs -on -tp -oq -va stari7
+time ../../bin/atacs -oa -on -tp -oq -va stari8 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari8 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari8 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari8 stage4
+time ../../bin/atacs -oa -on -tp -oq -va stari8 stage5
+time ../../bin/atacs -oa -on -tp -oq -va stari8 stage6
+time ../../bin/atacs -oa -on -tp -oq -va stari8 stage7
+time ../../bin/atacs -oa -on -tp -oq -va stari8 stage8
+time ../../bin/atacs -on -tp -oq -va stari8
+time ../../bin/atacs -oa -on -tp -oq -va stari9 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari9 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari9 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari9 stage4
+time ../../bin/atacs -oa -on -tp -oq -va stari9 stage5
+time ../../bin/atacs -oa -on -tp -oq -va stari9 stage6
+time ../../bin/atacs -oa -on -tp -oq -va stari9 stage7
+time ../../bin/atacs -oa -on -tp -oq -va stari9 stage8
+time ../../bin/atacs -oa -on -tp -oq -va stari9 stage9
+time ../../bin/atacs -on -tp -oq -va stari9
+time ../../bin/atacs -oa -on -tp -oq -va stari10 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari10 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari10 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari10 stage4
+time ../../bin/atacs -oa -on -tp -oq -va stari10 stage5
+time ../../bin/atacs -oa -on -tp -oq -va stari10 stage6
+time ../../bin/atacs -oa -on -tp -oq -va stari10 stage7
+time ../../bin/atacs -oa -on -tp -oq -va stari10 stage8
+time ../../bin/atacs -oa -on -tp -oq -va stari10 stage9
+time ../../bin/atacs -oa -on -tp -oq -va stari10 stage10
+time ../../bin/atacs -on -tp -oq -va stari10
+time ../../bin/atacs -oa -on -tp -oq -va stari11 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari11 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari11 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari11 stage4
+time ../../bin/atacs -oa -on -tp -oq -va stari11 stage5
+time ../../bin/atacs -oa -on -tp -oq -va stari11 stage6
+time ../../bin/atacs -oa -on -tp -oq -va stari11 stage7
+time ../../bin/atacs -oa -on -tp -oq -va stari11 stage8
+time ../../bin/atacs -oa -on -tp -oq -va stari11 stage9
+time ../../bin/atacs -oa -on -tp -oq -va stari11 stage10
+time ../../bin/atacs -oa -on -tp -oq -va stari11 stage11
+time ../../bin/atacs -on -tp -oq -va stari11
+time ../../bin/atacs -oa -on -tp -oq -va stari12 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari12 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari12 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari12 stage4
+time ../../bin/atacs -oa -on -tp -oq -va stari12 stage5
+time ../../bin/atacs -oa -on -tp -oq -va stari12 stage6
+time ../../bin/atacs -oa -on -tp -oq -va stari12 stage7
+time ../../bin/atacs -oa -on -tp -oq -va stari12 stage8
+time ../../bin/atacs -oa -on -tp -oq -va stari12 stage9
+time ../../bin/atacs -oa -on -tp -oq -va stari12 stage10
+time ../../bin/atacs -oa -on -tp -oq -va stari12 stage11
+time ../../bin/atacs -oa -on -tp -oq -va stari12 stage12
+time ../../bin/atacs -on -tp -oq -va stari12
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage4
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage5
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage6
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage7
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage8
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage9
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage10
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage11
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage12
+time ../../bin/atacs -oa -on -tp -oq -va stari13 stage13
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage1
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage2
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage3
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage4
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage5
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage6
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage7
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage8
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage9
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage10
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage11
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage12
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage13
+time ../../bin/atacs -oa -on -tp -oq -va stari14 stage14
+

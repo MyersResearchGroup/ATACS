@@ -1,0 +1,147 @@
+/*****************************************************************************/
+/* An empty STARI stage (see Greenstreet's PhD thesis)                       */
+/*****************************************************************************/
+
+module emptystageB;
+
+delay logic = <100,200>;
+
+input xtin;
+input clk;
+
+output xt={logic};
+
+process datastage;
+*[ [xtin+]; xt+; [xtin- ]; xt- ] 
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* An empty STARI stage (see Greenstreet's PhD thesis)                       */
+/*****************************************************************************/
+
+module emptystage;
+
+delay logic = <100,200>;
+
+input xtin;
+input clk;
+
+output xt={logic};
+output ack={true,logic};
+
+process datastage;
+*[ [xtin+]; xt+; [xtin- ]; xt- ] 
+endprocess
+
+process ackstage;
+*[ [xt+]; ack-: [xt-]; ack+ ] 
+endprocess 
+endmodule
+
+/*****************************************************************************/
+/* An empty/full STARI stage (see Greenstreet's PhD thesis)                  */
+/*****************************************************************************/
+
+module efstage;
+
+delay logic = <100,200>;
+
+input xtin;
+input ackin;
+input clk;
+
+output xt={logic};
+output ack={true,logic};
+
+process datastage;
+*[[ackin+ & xtin+]; xt+; [ackin- & xtin- ]; xt- ] 
+endprocess
+
+process ackstage;
+*[ [xt+]; ack-; [xt-]; ack+ ] 
+endprocess 
+endmodule
+
+/*****************************************************************************/
+/* An empty/full STARI stage (see Greenstreet's PhD thesis)                  */
+/*****************************************************************************/
+
+module festage;
+
+delay logic = <100,200>;
+
+input xtin;
+input ackin;
+input clk;
+
+output xt={logic};
+output ack={true,logic};
+
+process datastage;
+*[[ackin+ & xtin+@ ]; xt+; [ackin- & xtin- ]; xt- ] 
+endprocess
+
+process ackstage;
+*[ [xt+]; ack-; [xt-]; ack+ ] 
+endprocess 
+endmodule
+
+/*****************************************************************************/
+/* A full STARI stage (see Greenstreet's PhD thesis)                         */
+/*****************************************************************************/
+module fullstage;
+
+delay logic = <100,200>;
+
+input xtin;
+input ackin;
+input clk;
+
+output xt={true,logic};
+output ack={logic};
+
+process datastage;
+*[[ackin- & xtin-@]; xt-; [ackin+ & xtin+ ]; xt+ ] 
+endprocess
+
+process ackstage;
+*[ [xt-]; ack+; [xt+]; ack- ] 
+endprocess 
+endmodule
+
+/*****************************************************************************/
+/* A collection of N STARI stages (see Greenstreet's PhD thesis)             */
+/* 	In order to add a stage, simply copy a stari instance and increment  */
+/*      all the numbers.  Also, increment the numbers in the right and       */
+/*      notempty processes.  First N/2 stages must be empty, second N/2 must */
+/*      alternate ending with a fullstage.                                   */
+/*****************************************************************************/
+
+module stari;
+
+delay pi    = <1200,1200>;
+delay skew  = <0,100>;
+
+input clk={pi};
+input ack6={true,skew};
+input x0t={skew};
+
+emptystageB stage1(xtin => x0t, xt => x1t);
+emptystage stage2(xtin => x1t, xt => x2t);
+emptystageB stage3(xtin => x2t, xt => x3t);
+efstage stage4(xtin => x3t, ackin => ack5, xt => x4t);
+fullstage stage5(xtin => x4t, ackin => ack6, xt => x5t, ack => ack5);
+
+process clk;
+    *[ clk+; clk- ]
+endprocess
+
+process left;
+    *[[clk+]; x0t+; [clk-]; x0t- ] 
+endprocess
+
+process right;
+    *[[clk+]; ack6-; [clk-]; ack6+ ] 
+endprocess
+endmodule

@@ -1,0 +1,24 @@
+/*****************************************************************************/
+/* Chu's SCSI Protocol Controller (state variable)                           */
+/*****************************************************************************/
+module scsiSV2;
+
+input ack = {true};
+input go = {false};
+output req = {true};
+output rdy = {false};
+output q = {false};
+
+process scsictrl;
+*[ req-; rdy+; q+; [go+]; rdy-; [ack-]; req+; q-; [go-]; [ack+] ]  
+endprocess
+
+process ackenv;
+*[ [req-]; ack-; [req+]; ack+ ]
+endprocess
+
+process goenv;
+*[ [rdy+]; go+; [rdy-]; go- ]
+endprocess
+
+endmodule

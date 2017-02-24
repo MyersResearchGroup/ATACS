@@ -1,0 +1,16 @@
+module twoplaces1;
+
+input Cr={false};
+input Sr={false};
+input La={true};
+output Ca={false};
+output Sa={false};
+output Lr={true};
+
+process twoplaces1;
+*[[ skip -> Sr+
+    | skip -> Cr+; Lr-; La-; Ca+; Cr-; Ca-; Sr+; Lr+; La+
+  ];
+  Sa+; Sr-; Sa-]
+endprocess
+endmodule

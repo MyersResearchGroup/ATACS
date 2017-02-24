@@ -1,0 +1,39 @@
+module temp;
+
+input getx;
+input gety;
+input addi;
+output addo;
+input zi;
+output zo;
+input eof;
+
+process accumulatorcontrol;
+
+*[[ getx+ -> [ gety+ -> addo+; [addi+]; addo-; [addi- & gety-]; *
+| eof+ -> addo+; [addi+]; addo-; [addi-]; zo+; [zi+]; zo-; [zi- & eof-]
+  ];[getx-]
+]]
+endprocess
+
+process getyandeofenv;
+*[ getx+; [ skip -> gety+; gety-; *
+          | skip -> eof+; eof-
+ ]; getx- ]
+endprocess
+
+process addenv;
+*[[ addo+ -> addi+; [addo-]; addi-
+  | addo+ -> addi+; [addo-]; addi-
+ ]]
+endprocess
+
+process zenv;
+*[ [zo+]; zi+; [zo-]; zi- ]
+
+endprocess
+
+endmodule
+
+
+

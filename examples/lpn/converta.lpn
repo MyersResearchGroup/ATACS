@@ -1,0 +1,30 @@
+# 2-4 phase handshake converter.
+# no state assignment problem.
+# 18 states
+.name converta
+
+.inputs Ai Ri
+.outputs Ao Ro x
+#@.init_state [01000]
+.graph
+
+Ri+ Ro+/1 
+Ri- Ro+/2 
+
+Ao+ Ri- 
+Ao- Ri+ 
+
+Ro+/1 Ai+/1
+Ro-/1 Ao+ Ai-/1 
+Ai+/1 x+ 
+Ai-/1 Ro+/2 
+
+Ro+/2 Ai+/2 
+Ro-/2 Ao- Ai-/2 
+Ai+/2 x-
+Ai-/2 Ro+/1 
+
+x+ Ro-/1 
+x- Ro-/2 
+.marking {<Ai-/2,Ro+/1><Ri+,Ro+/1>}
+.end

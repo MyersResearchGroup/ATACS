@@ -1,0 +1,94 @@
+/*****************************************************************************/
+/* Furber's enhanced dynamic pipeline latch controller (better delay numbers)*/
+/*****************************************************************************/
+module elatch;
+
+/* 
+Optimizes this circuit to death using their SPICE timings +/- 0%
+
+input	Rin	= {false,<180,180; 90,100>};
+input	Aout	= {false,<80,80; 80,80>};
+input	D	= {false,<580,580; 90,90>};
+output	Ain	= {false,<0,1; 0,1>};
+output	Rout	= {false,<0,1; 0,1>};
+output	E	= {false,<80,80; 80,80>};
+output	A	= {false,<110,110; 90,100>};
+output	Lt	= {false,<70,70; 70,70>};
+
+Optimizes this circuit to death using their SPICE timings +/- 10%
+
+input	Rin	= {false,<162,198; 90,100>};
+input	Aout	= {false,<72,88; 72,88>};
+input	D	= {false,<522,638; 81,99>};
+output	Ain	= {false,<0,1; 0,1>};
+output	Rout	= {false,<0,1; 0,1>};
+output	E	= {false,<72,88; 72,88>};
+output	A	= {false,<99,121; 90,100>};
+output	Lt	= {false,<63,77; 63,77>};
+
+ Optimizes this circuit to death using their SPICE timings +/- 20%
+
+input	Rin	= {false,<144,216; 80,110>};
+input	Aout	= {false,<64,96; 64,96>};
+input	D	= {false,<464,696; 72,108>};
+output	Ain	= {false,<0,1; 0,1>};
+output	Rout	= {false,<0,1; 0,1>};
+output	E	= {false,<64,96; 64,96>};
+output	A	= {false,<88,132; 80,110>};
+output	Lt	= {false,<56,84; 56,84>};
+
+ Optimizes this circuit to death using their SPICE timings +/- 30% 
+
+input	Rin	= {false,<126,234; 70,120>};
+input	Aout	= {false,<56,104; 56,104>};
+input	D	= {false,<406,752; 63,117>};
+output	Ain	= {false,<0,1; 0,1>};
+output	Rout	= {false,<0,1; 0,1>};
+output	E	= {false,<56,104; 56,104>};
+output	A	= {false,<77,143; 70,120>};
+output	Lt	= {false,<49,91; 49,91>};
+
+ Optimizes this circuit to death using their SPICE timings +/- 50% 
+
+input	Rin	= {false,<90,270; 45,150>};
+input	Aout	= {false,<40,120; 40,120>};
+input	D	= {false,<290,870; 45,135>};
+output	Ain	= {false,<0,1; 0,1>};
+output	Rout	= {false,<0,1; 0,1>};
+output	E	= {false,<40,120; 40,120>};
+output	A	= {false,<55,165; 45,150>};
+output	Lt	= {false,<35,105; 35,105>};
+*/
+input	Rin	= {false,<144,896; 144,607>};
+input	Aout	= {false,<64,191; 337,907>};
+input	D	= {false,<464,696; 72,108>};
+output	Ain	= {false,<0,1; 0,1>};
+output	Rout	= {false,<0,1; 0,1>};
+output	E	= {false,<64,96; 64,96>};
+output	A	= {false,<88,132; 80,110>};
+output	Lt	= {false,<56,84; 56,84>};
+
+process leftpart;
+    *[ [Rin+]; E+; Ain+; [Rin- & Lt+]; E-; Ain-; [A-] ]
+endprocess
+
+process rightpart;
+    *[ [D+]; A+; Rout+; [Aout+ & D-]; A-; Rout-; [Aout- & Lt-] ]
+endprocess
+
+process D;
+    *[ [E+]; D+; [E-]; D- ]
+endprocess
+
+process Lt;
+    *[ [A+]; Lt+; [Aout-]; Lt- ]
+endprocess
+
+process leftenv;
+    *[ Rin+; [Ain+]; Rin-; [Ain-] ]
+endprocess
+
+process rightenv;
+    *[ [Rout+]; Aout+; [Rout-]; Aout- ]
+endprocess
+endmodule

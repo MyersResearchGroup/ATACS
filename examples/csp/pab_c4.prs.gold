@@ -1,0 +1,4 @@
+[+ro: (~li & ~ri)]
+[-ro: (li & ri)]
+[+lo: (li & ri)]
+[-lo: (~li & ~ri)]

@@ -1,0 +1,24 @@
+[ TAck: (TAck & ~zzz00 & zzz01)] Combinational
+[ TAck: (RdIQ & TAck)] Combinational
+[ TAck: (AckPkt & TAck)] Combinational
+[ TAck: (TReq & ~zzz01)] Combinational
+[ TAck: (~RdIQ & ADBldout & ~zzz00)] Combinational
+[ TAck: (TReq & ~ADBldout & AckPkt)] Combinational
+[ PEAck: (RdIQ & ADBldout & ADBld)] Combinational
+[ PEAck: (~TReq & ~ADBldout & AckPkt & ~zzz00)] Combinational
+[ PEAck: (AckPkt & ~zzz01)] Combinational
+[ PEAck: (TReq & ~ADBldout & PEAck)] Combinational
+[ PEAck: (TReq & ~ADBldout & AckPkt & zzz00)] Combinational
+[ ADBld: (~TReq & RdIQ & ~ADBldout & TAck)] Combinational
+[ ADBld: (RdIQ & ADBld)] Combinational
+[ ADBld: (ReqSend & TReq & RdIQ & ~ADBldout & ~TAck)] Combinational
+[ zzz00: (~TReq & ADBldout & ADBld)] Combinational
+[ zzz00: (ADBldout & zzz00)] Combinational
+[ zzz00: (ReqSend & ~TReq & zzz00)] Combinational
+[ zzz00: (ReqSend & ~RdIQ & zzz00)] Combinational
+[ zzz00: (ReqSend & ~AckPkt & ~zzz01)] Combinational
+[ zzz01: (~AckPkt & zzz01)] Combinational
+[ zzz01: (~TReq & zzz00 & zzz01)] Combinational
+[ zzz01: (ADBldout)] Combinational
+[ zzz01: (TReq & ~zzz00)] Combinational
+[ zzz01: (~ReqSend)] Combinational

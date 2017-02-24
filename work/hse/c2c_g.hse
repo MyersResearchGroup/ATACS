@@ -1,0 +1,199 @@
+
+/*  pre-charge half buffer Conditional 2's Complimentor gate enable
+ **
+ ** command line: atacs -mV -mX -mc -mU -mP -mT -ms -mD -ya c2c_g.hse
+ **
+ ** SA is the most significant bit coming to the C2C.  SB is the second 
+ ** most significant bit coming to the C2C.  
+ **
+ **   SA   SB   ->  implies                    action                    
+ ** ----------------------------------------------------------------------- 
+ **   1    1    ->  valid negative number      2's compliment the number 
+ **   0    1    ->  overflow                   pass number through as is 
+ **   1    0    ->  overflow                   pass number through as is 
+ **   0    0    ->  valid positive number      pass number through as is 
+ **
+ ** if SA and SB are high, it performs a ripple 2's compliment 
+ ** ----------------------------------------------------------------------- 
+ **
+ **
+ **                                
+ **                            SAi  SBi
+ **                              |  |
+ **                          Xi  |  |   Xen
+ **                           |  |  |   ^
+ **                           |  |  |   |
+ **                           v  v  v   |
+ **                          -------------
+ **                         |             | 
+ **            Couti <------|             |<------ Cini
+ **           Couten ------>|     c2c     |------> Cen
+ **                         |             |
+ **                         |             |
+ **                          -------------
+ **                           |  ^
+ **                           |  |
+ **                           v  |
+ **                          Di  Den
+ **
+ */
+
+module c2c_g;
+
+delay onegate =  < 90, 110 >;
+delay twogate =  < 180, 220 >;
+delay envdelay = < 180, 220; 180, 220 >;
+
+input X0   = { false, envdelay };
+input X1   = { false, envdelay };
+input SA0  = { false, envdelay };
+input SA1  = { false, envdelay };
+input SB0  = { false, envdelay };
+input SB1  = { false, envdelay };
+
+input Cin0 = { false, envdelay };
+input Cin1 = { false, envdelay };
+output Cen = { true,  onegate };
+
+input Den = { false, envdelay };
+output D0 = { false, onegate };
+output D1 = { false, onegate };
+
+input Couten = { false, envdelay };
+output Cout0 = { false, onegate };
+output Cout1 = { false, onegate };
+
+output saBar = { false, onegate };
+output sbBar = { false, onegate };
+output xBar  = { false, onegate };
+output sasbx = { true, onegate };
+output Xen   = { true, onegate };
+
+
+process main;
+*[  ( [Den] || [Couten] );
+    [    
+         ( SA1 & SB1 ) ->[   X0 & Cin0 ->   ( D1+; [~Xen]; [~Den];
+D1-; 
+                                               [ ~SA1 & ~SB1 & ~X0 ];
+[Xen] )
+                                          || ( Cout0+; Cen-; [~Couten]; Cout0-;
+                                               [~Cin0]; Cen+ )
+                           | X0 & Cin1 ->    ( D0+; [~Xen]; [~Den]; D0-; 
+                                               [ ~SA1 & ~SB1 & ~X0 ];
+[Xen] )
+                                          || ( Cout1+; Cen-; [~Couten]; Cout1-;
+                                               [~Cin1]; Cen+ )
+                           | X1 & Cin0 ->    ( D0+; [~Xen]; [~Den]; D0-; 
+                                               [ ~SA1 & ~SB1 & ~X1 ];
+[Xen] )
+                                          || ( Cout0+; Cen-; [~Couten]; Cout0-;
+                                               [~Cin0]; Cen+ )
+                           | X1 & Cin1 ->    ( D1+; [~Xen]; [~Den]; D1-; 
+                                               [ ~SA1 & ~SB1 & ~X1 ];
+[Xen] )
+                                          || ( Cout0+; Cen-; [~Couten]; Cout0-;
+                                               [~Cin1]; Cen+ )
+                         ]
+       | ( SA0 | SB0 ) -> [   X0 -> D0+;
+                                    [~Xen]; 
+                                    [~Den]; 
+                                    D0-;
+                                    [ ~X0 & ~SA0 & ~SA1 & ~SB0 &
+~SB1 ]; 
+                                    [Xen]
+                            | X1 -> D1+;
+                                    [~Xen]; 
+                                    [~Den]; 
+                                    D1-; 
+                                    [ ~X1 & ~SA0 & ~SA1 & ~SB0 &
+~SB1 ]; 
+                                    [Xen]
+                          ]
+    ]
+ ]
+endprocess
+
+/*  --------------------------------------------------------------------------
+ ** enable gates
+ */
+gate Xen;
+  ( D1 | D0 ) -> Xen-
+  ( ~D1 & ~D0 & ~sasbx ) -> Xen+
+endgate
+
+gate saBar;
+  ( ~SA0 & ~SA1 ) -> saBar+
+  ( SA0 | SA1 ) -> saBar-
+endgate
+
+gate sbBar;
+  ( ~SB0 & ~SB1 ) -> sbBar+
+  ( SB0 | SB1 ) -> sbBar-
+endgate
+
+gate xBar;
+  ( ~X0 & ~X1 ) -> xBar+
+  ( X0 | X1 ) -> xBar-
+endgate
+
+gate sasbx;
+  ( saBar & sbBar & xBar ) -> sasbx-
+  ( ~saBar & ~sbBar & ~xBar ) -> sasbx+
+endgate
+
+/*  --------------------------------------------------------------------------
+ ** environment processes
+ */
+process X;
+*[ [ true -> X0+ | true -> X1+]; 
+   [~Xen]; 
+   [ X0 -> X0- | X1 -> X1- ]; 
+   [Xen]
+ ]
+endprocess
+
+process Cin;
+*[ [ SA1 & SB1 ]; 
+   [ true -> Cin0+ | true -> Cin1+]; 
+   [~Cen];
+   [ Cin0 -> Cin0- | Cin1 -> Cin1- ]; 
+   [Cen]
+ ]
+endprocess
+
+process SA;
+*[ [ true -> SA0+ | true -> SA1+ ]; 
+   [~Xen]; 
+   [ SA0 -> SA0- | SA1 -> SA1- ]; 
+   [Xen]
+ ]
+endprocess
+
+process SB;
+*[ [ true -> SB0+ | true -> SB1+ ]; 
+   [~Xen]; 
+   [ SB0 -> SB0- | SB1 -> SB1- ]; 
+   [Xen]
+ ]
+endprocess
+
+process D;
+*[ Den+; 
+   [ D0 | D1 ]; 
+   Den-; 
+   [ ~D0 & ~D1 ] 
+ ]
+endprocess
+
+process Cout;
+*[ Couten+; 
+   [ Cout0 | Cout1 ]; 
+   Couten-; 
+   [ ~Cout0 & ~Cout1 ] 
+ ]
+endprocess
+
+endmodule
+
+

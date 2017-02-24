@@ -1,0 +1,19 @@
+/*****************************************************************************/
+/* Varshavsky's example, persistent, but no single-cube cover.               */
+/*****************************************************************************/
+module varP;
+
+output w = {true};
+output x = {false};
+output y = {true};
+output z = {true};
+
+process varP;
+*[ [y-]; (z- || (w-; x+)); [y+]; z+; x-; w+ ]
+endprocess
+
+process varPy;
+*[ y-; [z- & w-]; y+; [w+] ]
+endprocess
+
+endmodule

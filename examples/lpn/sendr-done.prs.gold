@@ -1,0 +1,3 @@
+[ dones: (~w8 & y0_sendrdone)] Combinational
+[+y0_sendrdone: (w8 & reqsend)]
+[-y0_sendrdone: (~reqsend)]

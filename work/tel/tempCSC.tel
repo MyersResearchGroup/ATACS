@@ -1,0 +1,79 @@
+#
+# tempCSC
+#
+.e 21
+.i 6
+.r 34
+.n 0
+.d 0
+.c 0
+.s 0000001
+#
+# List of Events
+#
+reset
+#
+# List of Input Events
+#
+Lreq+ Lreq-
+Xack+ Xack-
+Rack+ Rack-
+#
+# List of Output Events
+#
+Lack+ Lack-
+Xreq+ Xreq-
+Rreq+ Rreq-
+CSC0+/1 CSC0-/1
+$Lreq+
+$Lreq-
+$Xack+
+$Xack-
+$Rack+
+$Rack-
+#
+# List of Causal Rules
+#
+reset Lreq+ [~Lack] 0 0 inf
+reset Xack+ [Xreq] 0 0 inf
+reset Rack+ [Rreq] 0 0 inf
+reset Xreq+ 0 1 2
+reset Rreq+ 0 1 2
+reset $Lreq+ [Lreq] 0 0 0
+Lreq+ Lreq- [Lack] 0 4 6
+Lreq- Lreq+ [~Lack] 1 20 30
+Xack+ Xack- [~Xreq] 0 4 8
+Xack- Xack+ [Xreq] 1 4 8
+Rack+ Rack- [~Rreq] 0 4 6
+Rack- Rack+ [Rreq] 1 20 30
+Lack+ CSC0-/1 0 0 inf
+Lack+ $Lreq- [~Lreq] 0 0 0
+Lack- CSC0+/1 0 0 inf
+Lack- $Lreq+ [Lreq] 1 0 0
+Xreq+ $Xack+ [Xack] 0 0 0
+Xreq- Rreq+ 1 1 2
+Xreq- $Xack- [~Xack] 0 0 0
+Rreq+ Lack- 0 1 2
+Rreq+ $Rack+ [Rack] 0 0 0
+Rreq- CSC0+/1 0 0 inf
+Rreq- $Rack- [~Rack] 0 0 0
+CSC0+/1 Xreq+ 1 1 2
+CSC0-/1 Lack- 0 1 2
+$Lreq+ Xreq+ 0 1 2
+$Lreq+ Rreq+ 0 1 2
+$Lreq- Lack- 0 1 2
+$Xack+ Lack+ 0 1 2
+$Xack+ Xreq- 0 1 2
+$Xack- Xreq+ 1 1 2
+$Rack+ Xreq- 0 1 2
+$Rack+ Rreq- 0 1 2
+$Rack- Rreq+ 1 1 2
+#
+# List of Ordering Rules
+#
+#
+# List of Mergers
+#
+#
+# List of Conflicts
+#

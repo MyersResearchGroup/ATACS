@@ -1,0 +1,156 @@
+.e 59
+.i 16
+.r 87
+.n 0
+.d 0
+.c 0
+.s 00000000000000000000000000000
+reset
+# 
+# INPUT EVENTS:
+# 
+phi4+/1 phi4-/1
+phi2+/1 phi2-/1
+B+/1 B-/1
+Gclk+/1 Gclk-/1
+A+/1 A-/1
+phi1+/1 phi1-/1
+phi3+/1 phi3-/1
+phi5+/1 phi5-/1
+# 
+# OUTPUT EVENTS:
+# 
+sumout+/1 sumout-/1
+gen21+/1 gen21-/1
+prop21+/1 prop21-/1
+gen13+/1 gen13-/1
+gen11+/1 gen11-/1
+prop13+/1 prop13-/1
+prop11+/1 prop11-/1
+HS+/1 HS-/1
+prop0+/1 prop0-/1
+Abuf+/1 Abuf-/1
+Aout+/1 Aout-/1
+Bout+/1 Bout-/1
+Bbuf+/1 Bbuf-/1
+gen0+/1 gen0-/1
+prop10+/1 prop10-/1
+prop12+/1 prop12-/1
+gen10+/1 gen10-/1
+gen12+/1 gen12-/1
+prop20+/1 prop20-/1
+gen20+/1 gen20-/1
+prop30+/1 prop30-/1
+# 
+# DUMMY EVENTS:
+# 
+# 
+# RULES:
+# 
+sumout+/1 sumout-/1 [(~phi5)]d 0 190 190
+reset sumout+/1 0 94 164
+gen21+/1 gen21-/1 [(~phi4)]d 0 143 143
+reset gen21+/1 0 87 87
+prop21+/1 prop21-/1 [(~phi3)]d 0 121 147
+reset prop21+/1 0 95 121
+gen13+/1 gen13-/1 [(~phi3)]d 0 148 148
+reset gen13+/1 0 54 98
+gen11+/1 gen11-/1 [(~phi3)]d 0 148 148
+reset gen11+/1 0 54 98
+prop13+/1 prop13-/1 [(~phi2)]d 0 138 145
+reset prop13+/1 0 83 106
+prop11+/1 prop11-/1 [(~phi2)]d 0 138 145
+reset prop11+/1 0 83 106
+HS+/1 HS-/1 [(~phi3)]d 0 156 163
+reset HS+/1 0 82 117
+prop0+/1 prop0-/1 [(~phi1)]d 0 172 172
+reset prop0+/1 0 53 96
+Abuf+/1 Abuf-/1 [(~phi1)]d 0 273 273
+reset Abuf+/1 0 179 192
+Aout+/1 Aout-/1 [(~phi1)]d 0 170 170
+reset Aout+/1 0 80 97
+phi4+/1 phi4-/1 0 598 598
+Gclk+/1 phi4+/1 0 270 270
+reset phi4+/1 0 270 270
+phi2+/1 phi2-/1 0 485 485
+Gclk+/1 phi2+/1 0 90 90
+reset phi2+/1 0 90 90
+B+/1 B-/1 0 275 275
+Gclk+/1 B+/1 0 53 110
+reset B+/1 0 53 110
+reset Gclk+/1 0 500 500
+Gclk+/1 Gclk-/1 0 500 500
+reset A+/1 0 53 110
+Gclk+/1 A+/1 0 53 110
+A+/1 A-/1 0 275 275
+reset phi1+/1 0 0 0
+Gclk+/1 phi1+/1 0 0 0
+phi1+/1 phi1-/1 0 405 405
+reset phi3+/1 0 180 180
+Gclk+/1 phi3+/1 0 180 180
+phi3+/1 phi3-/1 0 540 540
+reset phi5+/1 0 380 380
+Gclk+/1 phi5+/1 0 380 380
+phi5+/1 phi5-/1 0 513 513
+reset Bout+/1 0 80 97
+Bout+/1 Bout-/1 [(~phi1)]d 0 170 170
+reset Bbuf+/1 0 179 192
+Bbuf+/1 Bbuf-/1 [(~phi1)]d 0 273 273
+reset gen0+/1 0 79 79
+gen0+/1 gen0-/1 [(~phi2)]d 0 117 117
+reset prop10+/1 0 83 106
+prop10+/1 prop10-/1 [(~phi2)]d 0 138 145
+reset prop12+/1 0 83 106
+prop12+/1 prop12-/1 [(~phi2)]d 0 138 145
+reset gen10+/1 0 54 98
+gen10+/1 gen10-/1 [(~phi3)]d 0 148 148
+reset gen12+/1 0 54 98
+gen12+/1 gen12-/1 [(~phi3)]d 0 148 148
+reset prop20+/1 0 95 121
+prop20+/1 prop20-/1 [(~phi3)]d 0 121 147
+reset gen20+/1 0 87 87
+gen20+/1 gen20-/1 [(~phi4)]d 0 143 143
+reset prop30+/1 0 87 90
+prop30+/1 prop30-/1 [(~phi4)]d 0 128 143
+# 
+# INITIAL RULES:
+# 
+sumout-/1 sumout+/1 [(gen20 & gen21 & HS)]d 1 94 164
+gen21-/1 gen21+/1 [(gen12 & gen13 & prop21)]d 1 87 87
+prop21-/1 prop21+/1 [(prop12 & prop13)]d 1 95 121
+gen13-/1 gen13+/1 [(gen0 & prop13)]d 1 54 98
+gen11-/1 gen11+/1 [(gen0 & prop11)]d 1 54 98
+prop13-/1 prop13+/1 [(prop0)]d 1 83 106
+prop11-/1 prop11+/1 [(prop0)]d 1 83 106
+HS-/1 HS+/1 [(Abuf & Bbuf)]d 1 82 117
+prop0-/1 prop0+/1 [(A & B)]d 1 53 96
+Abuf-/1 Abuf+/1 [(A)]d 1 179 192
+Aout-/1 Aout+/1 [(A)]d 1 80 97
+Gclk-/1 Gclk+/1 1 500 500
+Bout-/1 Bout+/1 [(B)]d 1 80 97
+Bbuf-/1 Bbuf+/1 [(B)]d 1 179 192
+gen0-/1 gen0+/1 [(Aout & Bout)]d 1 79 79
+prop10-/1 prop10+/1 [(prop0)]d 1 83 106
+prop12-/1 prop12+/1 [(prop0)]d 1 83 106
+gen10-/1 gen10+/1 [(gen0 & prop10)]d 1 54 98
+gen12-/1 gen12+/1 [(gen0 & prop12)]d 1 54 98
+prop20-/1 prop20+/1 [(prop10 & prop11)]d 1 95 121
+gen20-/1 gen20+/1 [(gen10 & gen11 & prop20)]d 1 87 87
+prop30-/1 prop30+/1 [(prop20 & prop21)]d 1 87 90
+# 
+# RULES:
+# 
+# 
+# INITIAL RULES:
+# 
+# 
+# MERGERS:
+# 
+# 
+# CONFLICTS:
+# 
+# 
+# LOOPING CONFLICTS:
+# 
+--773c_6f59-6eea_5656-6113_4a7b--
+

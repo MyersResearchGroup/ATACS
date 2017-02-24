@@ -1,0 +1,147 @@
+.e 33
+.i 10
+.r 93
+.n 0
+.d 0
+.c 0
+.s 0000000000000000
+reset
+# 
+# INPUT EVENTS:
+# 
+phi2+/1 phi2-/1
+evalstart+/1 evalstart-/1
+phi1+/1 phi1-/1
+Gclk+/1 Gclk-/1
+phi3+/1 phi3-/1
+# 
+# OUTPUT EVENTS:
+# 
+out31+/1 out31-/1
+out21+/1 out21-/1
+out7+/1 out7-/1
+out5+/1 out5-/1
+out3+/1 out3-/1
+out1+/1 out1-/1
+out2+/1 out2-/1
+out4+/1 out4-/1
+out6+/1 out6-/1
+out8+/1 out8-/1
+out22+/1 out22-/1
+# 
+# DUMMY EVENTS:
+# 
+# 
+# RULES:
+# 
+evalstart+/1 evalstart-/1 0 330 350
+Gclk-/1 evalstart-/1 0 330 350
+Gclk+/1 evalstart+/1 0 330 350
+reset evalstart+/1 0 330 350
+phi2+/1 phi2-/1 0 162 162
+phi1-/1 phi2-/1 0 162 162
+phi1+/1 phi2+/1 0 110 110
+reset phi2+/1 0 110 110
+out31+/1 out31-/1 0 149 153
+phi3-/1 out31-/1 0 149 153
+out21+/1 out31+/1 0 129 139
+out22+/1 out31+/1 0 129 139
+reset out31+/1 0 129 139
+out21+/1 out21-/1 0 149 153
+phi2-/1 out21-/1 0 149 153
+out3+/1 out21+/1 0 129 139
+out1+/1 out21+/1 0 129 139
+out2+/1 out21+/1 0 129 139
+out4+/1 out21+/1 0 129 139
+reset out21+/1 0 129 139
+out7+/1 out7-/1 0 149 153
+phi1-/1 out7-/1 0 149 153
+evalstart+/1 out7+/1 0 129 139
+phi1+/1 out7+/1 0 129 139
+reset out7+/1 0 129 139
+out5+/1 out5-/1 0 149 153
+phi1-/1 out5-/1 0 149 153
+evalstart+/1 out5+/1 0 129 139
+phi1+/1 out5+/1 0 129 139
+reset out5+/1 0 129 139
+out3+/1 out3-/1 0 149 153
+phi1-/1 out3-/1 0 149 153
+evalstart+/1 out3+/1 0 129 139
+phi1+/1 out3+/1 0 129 139
+reset out3+/1 0 129 139
+out1+/1 out1-/1 0 149 153
+phi1-/1 out1-/1 0 149 153
+evalstart+/1 out1+/1 0 129 139
+phi1+/1 out1+/1 0 129 139
+reset out1+/1 0 129 139
+reset Gclk+/1 0 800 1200
+Gclk+/1 Gclk-/1 0 800 1200
+reset out2+/1 0 129 139
+phi1+/1 out2+/1 0 129 139
+evalstart+/1 out2+/1 0 129 139
+phi1-/1 out2-/1 0 149 153
+out2+/1 out2-/1 0 149 153
+reset out4+/1 0 129 139
+phi1+/1 out4+/1 0 129 139
+evalstart+/1 out4+/1 0 129 139
+phi1-/1 out4-/1 0 149 153
+out4+/1 out4-/1 0 149 153
+reset out6+/1 0 129 139
+phi1+/1 out6+/1 0 129 139
+evalstart+/1 out6+/1 0 129 139
+phi1-/1 out6-/1 0 149 153
+out6+/1 out6-/1 0 149 153
+reset out8+/1 0 129 139
+phi1+/1 out8+/1 0 129 139
+evalstart+/1 out8+/1 0 129 139
+phi1-/1 out8-/1 0 149 153
+out8+/1 out8-/1 0 149 153
+reset out22+/1 0 129 139
+out8+/1 out22+/1 0 129 139
+out6+/1 out22+/1 0 129 139
+out5+/1 out22+/1 0 129 139
+out7+/1 out22+/1 0 129 139
+phi2-/1 out22-/1 0 149 153
+out22+/1 out22-/1 0 149 153
+reset phi1+/1 0 287 287
+Gclk+/1 phi1+/1 0 287 287
+Gclk-/1 phi1-/1 0 287 287
+phi1+/1 phi1-/1 0 287 287
+reset phi3+/1 0 134 134
+phi2+/1 phi3+/1 0 134 134
+phi2-/1 phi3-/1 0 180 180
+phi3+/1 phi3-/1 0 180 180
+# 
+# INITIAL RULES:
+# 
+evalstart-/1 evalstart+/1 1 330 350
+phi2-/1 phi2+/1 1 110 110
+out31-/1 out31+/1 1 129 139
+out21-/1 out21+/1 1 129 139
+out7-/1 out7+/1 1 129 139
+out5-/1 out5+/1 1 129 139
+out3-/1 out3+/1 1 129 139
+out1-/1 out1+/1 1 129 139
+Gclk-/1 Gclk+/1 1 800 1200
+out2-/1 out2+/1 1 129 139
+out4-/1 out4+/1 1 129 139
+out6-/1 out6+/1 1 129 139
+out8-/1 out8+/1 1 129 139
+out22-/1 out22+/1 1 129 139
+phi1-/1 phi1+/1 1 287 287
+phi3-/1 phi3+/1 1 134 134
+# 
+# RULES:
+# 
+# 
+# INITIAL RULES:
+# 
+# 
+# MERGERS:
+# 
+# 
+# CONFLICTS:
+# 
+# 
+# LOOPING CONFLICTS:
+# 

@@ -1,0 +1,6 @@
+[+Lack: (Xack & Xreq)]
+[-Lack: (~Lreq & ~Xreq)]
+[+Rreq: (Lreq & ~Rack & ~Lack & ~Xreq)]
+[-Rreq: (Rack & Xreq)]
+[+Xreq: (~Xack & Rreq)]
+[-Xreq: (Lack & ~Rreq)]

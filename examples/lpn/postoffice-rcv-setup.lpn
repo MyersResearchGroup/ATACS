@@ -1,0 +1,50 @@
+# rcv-setup
+# HP controller, by K. Stevens
+# Meat state encoding
+.inputs reqrcv sending acksend
+.outputs enwoq rejsend 
+#@.init_state [00000]
+.graph
+# 0
+reqrcv+/1 enwoq+/1 #@[0,5]
+
+sending+/1 place_1
+# -> 1
+place_1 sending-/1 #@[20,50]
+place_1 reqrcv+/2 #@[20,50]
+# -> 5
+enwoq+/1 reqrcv-/1 #@[20,50]
+
+# 5
+reqrcv-/1 enwoq-/1 #@[0,5]
+# -> 0
+enwoq-/1 place_0
+
+# 1
+reqrcv+/2 rejsend+/1 #@[0,5]
+
+sending-/1 place_0
+# -> 2
+rejsend+/1 sending-/2 #@[20,50]
+rejsend+/1 acksend+/1 #@[20,50]
+
+# 2
+sending-/2 rejsend-/1  #@[0,5]
+acksend+/1 rejsend-/1 #@[0,5]
+# -> 3
+rejsend-/1 acksend-/1 #@[20,50]
+
+# 3
+acksend-/1 enwoq+/2 #@[0,5]
+# -> 4
+enwoq+/2 reqrcv-/2 #@[20,50]
+
+# 4
+reqrcv-/2 enwoq-/2 #@[0,5]
+# -> 0
+enwoq-/2 place_0
+place_0 reqrcv+/1 #@[20,50]
+place_0 sending+/1 #@[20,50]
+
+.marking { place_0 }
+.end

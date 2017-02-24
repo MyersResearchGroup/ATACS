@@ -1,0 +1,40 @@
+module	lab3;
+
+delay logic = < 1, 2>;
+delay env   = <10,20>;
+
+input	clk = {<10,10>};
+input	xin = {<5,17>};
+output	zout= {logic};
+output  q1  = {logic};
+output  q0  = {logic};
+
+process main;
+    *[
+	[~q1 & ~q0 & ~xin & clk -> skip
+	|~q1 & ~q0 &  xin & clk -> (q1+ || zout+)
+	| q1 & ~q0 & ~xin & clk -> skip
+	| q1 & ~q0 &  xin & clk -> (q0+ || zout-)
+	| q1 &  q0 & ~xin & clk -> skip
+	| q1 &  q0 &  xin & clk -> (q1- || zout+)
+	|~q1 &  q0 & ~xin & clk -> (q0- || zout-)
+	|~q1 &  q0 &  xin & clk -> (q1+ ||  q0-)
+	];                 
+	[                  ~clk
+	]
+     ]
+endprocess
+
+testbench clk;
+ *[ clk+; clk- ]
+endtestbench
+
+testbench env;
+ *[ [clk]; [ xin -> xin-
+           |~xin -> xin+
+	   | true -> skip
+           ]; [~clk]
+  ]
+endtestbench
+
+endmodule

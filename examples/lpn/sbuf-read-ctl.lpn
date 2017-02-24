@@ -1,0 +1,41 @@
+# sbuf-read-ctl
+# HP controller, by K. Stevens
+# Modified 10-13-91 to remove s5 and s6
+# Meat state encoding
+.inputs req ackread busack
+.outputs ack ramrdsbuf busreq y1_sbufreadctl y0_sbufreadctl
+#@.init_state [00000000]
+.graph
+# 0
+req+ y1_sbufreadctl+
+ackread- y1_sbufreadctl+
+y1_sbufreadctl+ ramrdsbuf+
+# -> 1
+ramrdsbuf+ ackread+
+
+# 1
+ackread+ busreq+
+# -> 2
+busreq+ busack+
+
+# 2
+busack+ y0_sbufreadctl+ y1_sbufreadctl-
+y0_sbufreadctl+ busreq-
+y1_sbufreadctl- busreq-
+# -> 3
+busreq- busack-
+
+# 3
+busack- ramrdsbuf- ack+
+# -> 4
+ramrdsbuf- req-
+ack+ req-
+
+# 4
+req- y0_sbufreadctl-
+y0_sbufreadctl- ack-
+# -> 0
+ack- ackread- req+
+
+.marking { <ackread-,y1_sbufreadctl+> <ack-,req+> }
+.end

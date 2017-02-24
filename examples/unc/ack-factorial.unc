@@ -1,0 +1,30 @@
+input	start                    0
+input	aack                     0
+input	goack                    0
+input	mulack                   0
+input	nack                     0
+input	resack                   0
+input	selfalse                 0
+input	seltrue                  0
+input	suback                   0
+output	areq                     0
+output	goreq                    0
+output	mulreq                   0
+output	nreq                     0
+output	resreq                   0
+output	selreq                   0
+output	subreq                   0
+output	zzz00                    0
+
+0  1	start+                   | areq+ 
+1  2	start- aack+             | areq- goreq+ 
+2  3	aack- goack+             | goreq- nreq+ 
+3  4	goack- nack+             | nreq- selreq+ 
+4  5	nack- seltrue+           | selreq- mulreq+ 
+4  9	nack- selfalse+          | selreq- resreq+ 
+5  6	seltrue- mulack+         | mulreq- areq+ zzz00+ 
+6  7	mulack- aack+            | areq- subreq+ 
+7  8	aack- suback+            | subreq- nreq+ zzz00- 
+8  4	suback- nack+            | nreq- selreq+ 
+9  10	selfalse- resack+        | resreq- 
+10  0	resack-                  | 

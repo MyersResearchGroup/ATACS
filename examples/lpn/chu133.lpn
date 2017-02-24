@@ -1,0 +1,25 @@
+# A/D controller
+.name a_to_d_controller
+.inputs La Da Za 
+.outputs Lr Dr Zr X
+#@.init_state [0000000]
+.graph
+La+ Dr+
+Dr+ Da+ Lr-
+
+Da+ Zr+
+Zr+ Za+
+Za+ X+
+X+ Zr-
+Zr- Za- Dr-
+Za- Lr+
+
+Lr- Zr+ La-
+La- Dr-
+Dr- Da-
+Da- X-
+X- Lr+
+
+Lr+ La+
+.marking {<Za-,Lr+><X-,Lr+>}
+.end

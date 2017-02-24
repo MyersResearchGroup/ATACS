@@ -1,0 +1,9 @@
+[+i: (~j & ~t)]
+[-i: (~j & t)]
+[+j: (i & k & ~t)]
+[+j: (~i & t)]
+[-j: (i & t)]
+[-j: (~k)]
+[~k: (~i & j & ~t)] Combinational
+[+t: (i & j)]
+[-t: (~i & j)]

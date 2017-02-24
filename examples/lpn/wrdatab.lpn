@@ -1,0 +1,42 @@
+# tms2taxi write data handshake.
+# this is the stg simulated with oesim.
+# results from async are in wrdatb.out
+# state = 
+.name wrdatab
+.inputs IOSTRB Aack Dack Ack
+.outputs XRDY Areq Dreq STRB X Y
+#@.init_state [0000000011]
+.graph
+
+IOSTRB+ XRDY+
+XRDY+ IOSTRB- Areq+
+IOSTRB- XRDY-
+XRDY- IOSTRB+ Areq-
+
+Areq+ Aack+ XRDY-
+Aack+ STRB+/1
+Areq- Aack- Dreq+ STRB-/1
+Aack- Areq+
+STRB-/1 Ack-/1
+Ack-/1 X-
+X- STRB+/2
+
+Dreq+ Dack+
+Dack+ STRB+/2
+STRB+/2 Ack+/2 Y+
+Ack+/2 Dreq- 
+Y+ Dreq-
+Dreq- Dack- STRB-/2
+Dack- Dreq+
+STRB-/2 Ack-/2 XRDY+
+Ack-/2 X+
+X+ STRB+/1
+
+STRB+/1 Ack+/1 Y-
+Ack+/1 Areq-
+
+
+Y- Areq-
+
+.marking {<XRDY-,IOSTRB+><STRB-/2,XRDY+><Dack-,Dreq+><Aack-,Areq+><X+,STRB+/1>}
+.end

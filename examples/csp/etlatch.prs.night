@@ -1,0 +1,9 @@
+[+E: (Rin & ~A)]
+[-E: (~Rin & Ck & A)]
+[~Ck: (~A)] Combinational
+[~Ck: (~D)] Combinational
+[+A: (D & ~Aout & ~Ck)]
+[-A: (~D & Aout)]
+[ Ain: (E)] Combinational
+[ Rout: (~E & A)] Combinational
+[ Rout: (Ck & A)] Combinational

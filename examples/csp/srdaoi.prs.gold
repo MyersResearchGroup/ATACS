@@ -1,0 +1,4 @@
+[+a: (i1 & i2)]
+[+a: (i3 & i4)]
+[-a: (~x)]
+[ x: (~a)] Combinational

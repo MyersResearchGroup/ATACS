@@ -1,0 +1,7 @@
+[+y: (~z)]
+[-y: (z & w)]
+[ x: (~z & ~w)] Combinational
+[ x: (~y & ~w)] Combinational
+[+z: (y & x)]
+[-z: (~y)]
+[ w: (y & ~x & z)] Combinational

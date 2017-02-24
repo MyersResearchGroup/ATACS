@@ -1,0 +1,41 @@
+.TH direct 1 "15 Novermber 2000" "" ""
+.SH NAME
+direct \- Synthesis Using the direct Algorithm
+.SH SYNOPSIS
+.nf
+.BI atacs " -yd"
+.br
+.BI atacs> " direct"
+.fi
+.SH DESCRIPTION
+.B direct
+uses the direct algorithm for synthesis. The direct method for synthesis 
+does not generate a state graph. 
+Because the direct method uses the heuristic timing analysis,
+the command, "heuristic", must be issued also.
+These are stored to the file named <filename>.prs in the following form:
+.PP
+[(+/-)<signal>: ((~)<signal1> & ... & (~)<signaln>)]
+.PP
+This routine only works on event-based specifications
+with the unique state coding. For other specifications, the  result  may  be
+incorrect.
+.SH OPTIONS
+.TP
+.BI \-yd
+Uses direct algorithm from the command line.
+.TP
+.BI direct
+Uses direct algorithm in the interactive shell.
+.SH BUGS
+.PP
+Currently only the limited class of free-choice nets can be handled.
+.SH CREDITS
+.B bdd
+was primarily written by Sung-tae Jung (stjung@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR single (1)
+.BR multicube (1)
+.BR bdd (1)
+.BR http://www.async.elen.utah.edu
+

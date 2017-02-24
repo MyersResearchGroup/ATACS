@@ -1,0 +1,74 @@
+.dummy dIl_0 dVc_0 Ilu_0 Vcu_0 dIl_1 dVc_1 Ilu_1 Vcd_1 dIl_2 dVc_2 Ild_2 Vcu_2 dIl_3 dVc_3 Ild_3 Vcd_3 
+#@.keep dIl_0 dVc_0 Ilu_0 Vcu_0 dIl_1 dVc_1 Ilu_1 Vcd_1 dIl_2 dVc_2 Ild_2 Vcu_2 dIl_3 dVc_3 Ild_3 Vcd_3 
+# Region 0
+# Continuous Arcs
+dIl_0 Il
+dVc_0 Vc
+# Intra-region Arcs
+p_0 Vcu_0 #@ [0,0]
+p_0 Ilu_0 #@ [0,0]
+# Inter-region Arcs
+Vcd_1 p_0 #@ [0,0]
+Ild_2 p_0 #@ [0,0]
+# Test Arcs
+p_0 dIl_0
+p_0 dVc_0
+Vc Vcu_0 #@ /2525;inf\ [0,0]
+Il Ilu_0 #@ /575;inf\ [0,0]
+
+# Region 1
+# Continuous Arcs
+Il dIl_1
+Vc dVc_1
+# Intra-region Arcs
+p_1 Vcd_1 #@ [0,0]
+p_1 Ilu_1 #@ [0,0]
+# Inter-region Arcs
+Vcu_0 p_1 #@ [0,0]
+Ild_3 p_1 #@ [0,0]
+# Test Arcs
+p_1 dIl_1
+p_1 dVc_1
+Vc Vcd_1 #@ /0;2475\ [0,0]
+Il Ilu_1 #@ /575;inf\ [0,0]
+
+# Region 2
+# Continuous Arcs
+dIl_2 Il
+dVc_2 Vc
+# Intra-region Arcs
+p_2 Vcu_2 #@ [0,0]
+p_2 Ild_2 #@ [0,0]
+# Inter-region Arcs
+Vcd_3 p_2 #@ [0,0]
+Ilu_0 p_2 #@ [0,0]
+# Test Arcs
+p_2 dIl_2
+p_2 dVc_2
+Vc Vcu_2 #@ /2525;inf\ [0,0]
+Il Ild_2 #@ /0;525\ [0,0]
+
+# Region 3
+# Continuous Arcs
+Il dIl_3
+dVc_3 Vc
+# Intra-region Arcs
+p_3 Vcd_3 #@ [0,0]
+p_3 Ild_3 #@ [0,0]
+# Inter-region Arcs
+Vcu_2 p_3 #@ [0,0]
+Ilu_1 p_3 #@ [0,0]
+# Test Arcs
+p_3 dIl_3
+p_3 dVc_3
+Vc Vcd_3 #@ /0;2475\ [0,0]
+Il Ild_3 #@ /0;525\ [0,0]
+
+
+#@.rates {<dIl_0 = 30><dVc_0 = 0><dIl_1 = 20><dVc_1 = 1000><dIl_2 = 8><dVc_2 = 1100><dIl_3 = 42><dVc_3 = 100>}
+
+#@.continuous Il Vc dIl_0 dVc_0 dIl_1 dVc_1 dIl_2 dVc_2 dIl_3 dVc_3 
+
+.marking{p_0}
+.end
+

@@ -1,0 +1,34 @@
+/*****************************************************************************/
+/* FIFO from SUN group (see ASYNC97)                                         */
+/*****************************************************************************/
+module fifo;
+
+input fin = {<180,inf;180,260>};
+input seinb={true,<90,110;90,inf>};
+output seoutb={true,<90,110>};
+output fout={<90,110>};
+output eout={true,<90,110>};
+output foutb={true,<90,110>};
+output eoutb={<90,110>};
+
+process seoutb;
+    *[ [fin & eout]; seoutb-; [~eout | ~fin]; seoutb+ ]
+endprocess
+
+process eout;
+    *[ [~seoutb]; eoutb+; eout-; [seoutb & foutb]; eoutb-; eout+ ]
+endprocess
+
+process fout;
+    *[ [eoutb & seinb]; foutb-; fout+; [~seinb]; foutb+; fout- ]
+endprocess
+
+testbench fin;
+*[ fin+; [~seoutb]; fin-; [seoutb] ]
+endtestbench
+
+testbench seinb;
+*[ [fout]; seinb-; [~fout]; seinb+ ]
+endtestbench
+
+endmodule

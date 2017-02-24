@@ -1,0 +1,24 @@
+/*****************************************************************************/
+/*From Compiling communicating processes into delay-insensitive VLSI circuits*/
+/* by Alain J. Martin, expansion (10)                                        */
+/*****************************************************************************/
+module m10;
+    
+input li;
+input ri;
+output lo;
+output ro;
+
+process main;
+    *[ [~ri & li]; lo+; ro+; [~li & ri]; lo-; ro- ]
+endprocess
+
+testbench Lenv;
+    *[ li+; [lo]; li-; [~lo] ]
+endtestbench
+
+testbench Renv;
+    *[ [ro]; ri+; [~ro]; ri- ]
+endtestbench
+
+endmodule

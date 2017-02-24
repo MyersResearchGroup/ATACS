@@ -1,0 +1,9 @@
+[+y0: (nakbus)]
+[-y0: (~ackctl & busctl)]
+[+busctl: (~ackctl & req & ~y1)]
+[-busctl: (ackctl & ~nakbus & y0)]
+[-busctl: (~ackbus & y1)]
+[+y1: (ackbus)]
+[-y1: (~req)]
+[ ack: (~ackctl & y1)] Combinational
+[ reqbus: (ackctl & ~y0 & ~y1)] Combinational

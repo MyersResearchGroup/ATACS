@@ -1,0 +1,23 @@
+.inputs Vosc
+.dummy drain1 drain2
+.graph
+p1 Vosc+ #@ [0,0]
+Vosc+ p2
+p2 Vosc- #@ [0,0]
+Vosc- p1
+
+v1 drain1
+drain1 v2
+v2 drain2
+drain2 v1
+
+v1 Vosc+ #@ /0;0\ [0,0]
+v2 Vosc- #@ /0;0\ [0,0]
+
+p1 drain1
+p2 drain2
+.marking { p1 }
+#@.marking { <v1=12><v2=0> }
+#@.rates { <drain1 = 1><drain2 = 1> }
+#@.continuous drain1 drain2 v1 v2
+.end

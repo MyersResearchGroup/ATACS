@@ -1,0 +1,61 @@
+#  This Timed Event/Level structure contains:
+.e 13 # events
+.i 4 # input events
+.r 20 # causal rules
+.n 0 # ordering rules
+.d 0 # merges
+.c 0 # conflicts
+.s 0000 # start state
+#
+# EVENTS:
+#
+reset
+#  Each of the following events has the format <action>[/<occurrence>]
+#  (if the occurrence is omitted, it is assumed to be 1)
+#   Input Events:
+Rreq+ Rreq- 
+Lack+ Lack- 
+#   Output Events:
+Rack+ Rack- 
+Lreq+ Lreq- 
+#   Dummy (Sequencing) Events:
+$Lack- 
+$Rreq- 
+$Rreq+ 
+$Lack+
+#
+# RULES, which have the following format:
+#  <enabling> <enabled> [<expression>] <epsilon> <lower> <upper>
+#   Causal (Behavioral) Rules:
+reset Rreq+  0 0 inf
+reset Lack+ [Lreq] 0 0 inf
+reset $Rreq+ [Rreq] 0 0 inf
+reset Lreq+ [~Lack] 0 0 inf
+####################################
+$Rreq+ Rack+ 0 0 inf
+Rack+ $Rreq- [~Rreq] 0 0 inf
+$Rreq- Rack-  0 0 inf
+Rack- $Rreq+ [Rreq] 1 0 inf  # INITIAL
+####################################
+$Lack- Lreq+  1 0 inf     # INITIAL
+Lreq+ $Lack+ [Lack] 0 0 inf
+$Lack+ Lreq-  0 0 inf
+Lreq- $Lack- [~Lack] 0 0 inf
+#####################################
+Rreq+ Rreq- [Rack] 0 0 inf
+Rreq- Rreq+ [~Rack] 1 0 inf # INITIAL
+####################################
+Lack+ Lack- [~Lreq] 0 0 inf
+Lack- Lack+ [ Lreq] 1 0 inf #INITIAL
+####################################
+$Rreq- Lreq+ 1 0 inf #INITIAL
+$Lack+ Rack+ 0 0 inf
+Lreq+ $Rreq+ 0 0 inf
+Lreq- $Rreq- 0 0 inf
+#   Ordering (Constraint) Rules:
+#
+# MERGERS:
+#
+#
+# CONFLICTS:
+#

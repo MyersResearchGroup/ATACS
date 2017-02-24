@@ -1,0 +1,40 @@
+/*****************************************************************************/
+/* Martin's precharged half-buffer circuit (see ARVLSI97).                   */
+/*****************************************************************************/
+module pchb;
+
+delay gatedelay = <90,110>;
+
+input l0={gatedelay};
+input l1={gatedelay};
+input re1={gatedelay};
+input re2={gatedelay};
+output le={gatedelay};
+output r01={gatedelay};
+output r11={gatedelay};
+output r02={gatedelay};
+output r12={gatedelay};
+
+process main;
+*[ [re1 & re2]; le+; 
+   [ l0 -> d1; (r01+ || r02+); d3 
+   | l1 -> d2; (r11+ || r12+); d4]; [~re1 & ~re2]; le-; 
+   ([~l0 & r01 -> r01- | ~l1 & r11 -> r11-] || 
+    [~l0 & r02 -> r02- | ~l1 & r12 -> r12-]) 
+ ]
+endprocess
+
+process r1;
+*[re1+; [r01 | r11]; re1-; [~r01 & ~r11]]
+endprocess
+
+process r2;
+*[re2+; [r02 | r12]; re2-; [~r02 & ~r12]]
+endprocess
+
+process l;
+*[[le]; [ skip -> l0+; [~le]; l0-
+        | skip -> l1+; [~le]; l1-
+ ]]
+endprocess
+endmodule

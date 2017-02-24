@@ -1,0 +1,21 @@
+/*****************************************************************************/
+/* A counter which counts to 3.                                         */
+/*****************************************************************************/
+module cnt3;
+
+input cnt={<19,20>};
+output q0={<1,5>};
+output q1={<1,5>};
+output o0={<1,5>};
+output o1={<1,5>};
+output done={<1,5>};
+
+process cnt3;
+    *[ cnt+; q0+; cnt-; o0+; 
+       cnt+; (q1+ || q0-); cnt-; (o1+ || o0-); 
+       cnt+; q0+; cnt-; o0+; 
+       cnt+; (q1- || q0- || done+); cnt-; (o1- || o0- || done-)
+     ]
+endprocess
+
+endmodule

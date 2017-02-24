@@ -1,0 +1,39 @@
+input	start                    0
+input	aack                     0
+input	back                     0
+input	xack                     0
+input	yack                     0
+input	resack                   0
+input	suback                   0
+input	sel1true                 0
+input	sel1false                0
+input	sel2true                 0
+input	sel2false                0
+output	areq                     0
+output	breq                     0
+output	xreq                     0
+output	yreq                     0
+output	resreq                   0
+output	subreq                   0
+output	subsm                    0
+output	sel1req                  0
+output	sel2req                  0
+output	zzz00                    0
+
+0  1	start+                   | areq+ breq+ 
+1  2	start- aack+ back+       | areq- breq- xreq+ yreq+ 
+2  5	aack- back- xack+ yack+  | xreq- yreq- sel1req+ 
+5  6	xack- yack- sel1true+    | sel1req- resreq+ 
+5  20	xack- yack- sel1false+   | sel1req- sel2req+ 
+6  7	sel1true- resack+        | resreq- 
+7  0	resack-                  | 
+20  21	sel1false- sel2true+     | sel2req- subreq+ 
+20  30	sel1false- sel2false+    | sel2req- subreq+ subsm+ 
+21  22	sel2true- suback+        | subreq- xreq+ 
+22  23	suback- xack+            | xreq- sel2req+ zzz00+ 
+23  21	xack- sel2true+          | sel2req- subreq+ zzz00- 
+23  30	xack- sel2false+         | sel2req- subreq+ subsm+ zzz00- 
+30  31	sel2false- suback+       | subreq- yreq+ zzz00+ 
+31  32	suback- yack+            | yreq- subsm- sel1req+ 
+32  6	yack- sel1true+          | sel1req- resreq+ zzz00- 
+32  20	yack- sel1false+         | sel1req- sel2req+ zzz00- 

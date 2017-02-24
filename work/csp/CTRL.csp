@@ -1,0 +1,62 @@
+/*****************************************************************************/
+/* CSP Specification for the CTRL example presented in Beijing in '96.       */
+/*****************************************************************************/
+module CTRL;
+delay  gatedelay = <1,10>;
+delay  adddelay  = <25,250; 1,15>;
+delay  cmpdelay  = <20,200; 1,15>;
+delay  regdelay  = <15,50>;
+delay  plantdelay  = <30,inf; 1,15>;
+
+output InpReq    = {false,gatedelay};
+input  InpAck    = {false,regdelay};
+output OutpReq   = {false,gatedelay};
+input  OutpAck   = {false,regdelay};
+output CmpReq    = {false,gatedelay};
+input  gt        = {false,cmpdelay};
+input  lt        = {false,cmpdelay};
+input  eq        = {false,cmpdelay};
+output AddReq    = {false,gatedelay};
+input  AddAck    = {false,adddelay};
+output PlantIncr = {false,gatedelay};
+output PlantDecr = {false,gatedelay};
+input  PlantAck  = {false,plantdelay};
+
+process ctrl;
+*[ (([InpAck-@]; InpReq+; [InpAck+]) || ([OutpAck-@]; OutpReq+; [OutpAck+])); 
+   [AddAck-@]; AddReq+; [AddAck+]; (InpReq- || OutpReq-); 
+   [gt-@ | lt-@ | eq-@]; CmpReq+; 
+   [ gt+ -> PlantDecr+; AddReq-; [PlantAck+]; PlantDecr-; [PlantAck-]; CmpReq-
+   | lt+ -> PlantIncr+; AddReq-; [PlantAck+]; PlantIncr-; [PlantAck-]; CmpReq-
+   | eq+ -> AddReq-; CmpReq-
+   ]
+ ]
+endprocess
+
+process inpenv;
+*[ [InpReq+]; InpAck+; [InpReq-]; InpAck- ]
+endprocess
+
+process outpenv;
+*[ [OutpReq+]; OutpAck+; [OutpReq-]; OutpAck- ]
+endprocess
+
+process addenv;
+*[ [AddReq+]; AddAck+; [AddReq- | AddReq- | AddReq-]; AddAck- ]
+endprocess
+
+process cmpenv;
+*[ [CmpReq+]; [ skip -> gt+; [CmpReq-]; gt-
+              | skip -> lt+; [CmpReq-]; lt-
+              | skip -> eq+; [CmpReq-]; eq-
+              ]
+ ]
+endprocess
+
+process plantenv;
+*[[ PlantDecr+ -> PlantAck+; [PlantDecr-]; PlantAck-
+  | PlantIncr+ -> PlantAck+; [PlantIncr-]; PlantAck-
+ ]]
+endprocess
+endmodule
+

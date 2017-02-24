@@ -1,0 +1,19 @@
+input	ok                       0
+input	cntgt1                   0
+input	frin                     0
+input	dackn                    1
+output	dreq                     0
+output	faout                    0
+output	zzz00                    0
+output	zzz01                    0
+output	zzz02                    1
+
+0  1	ok+ frin*                | dreq+ 
+1  2	[cntgt1+] frin* dackn-   | zzz01+ zzz02-            | dreq- 
+1  5	[cntgt1-] frin* dackn-   | zzz00+ zzz02-            | dreq- 
+2  3	frin+ dackn+             | faout+ zzz00+ 
+3  4	frin-                    | dreq+ faout- 
+4  2	[cntgt1+] frin* dackn-   | zzz00-                   | dreq- 
+4  5	[cntgt1-] frin* dackn-   | zzz01-                   | dreq- 
+5  6	ok* frin+ dackn+         | faout+ zzz00- 
+6  0	ok- frin-                | faout- zzz02+ 

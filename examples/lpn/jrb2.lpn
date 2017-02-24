@@ -1,0 +1,17 @@
+# JRB 2 
+# deterministic specification
+.inputs r0 r1 
+.outputs a0 a1 
+#@.init_state [0000] 
+.graph
+r0+ a0+
+a0+ r0-
+r0- a0-
+a0- r1+
+r1+ a1+
+a1+ r1-
+r1- a1-
+a1- r0+
+.marking {<a1-,r0+>} 
+#.initial r0=0 r1=0 a0=0 a1=0 
+.end

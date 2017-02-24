@@ -1,0 +1,8 @@
+findslack <filename>
+.PP
+This function finds amount of slack in timing constraints
+without adding additional states.  This function only works
+using geometric or partial order timing methods.  The results
+are stored in file named <filename>.slk in the following form:
+.PP
+< enabling event, enabled event, (lower bound range),(upper bound range)

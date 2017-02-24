@@ -1,0 +1,24 @@
+.dummy t1 t2 t3 t4 t5
+#@.property AG(vout >= -2000 & vout <= 2000)
+#.property AG(vout geq -2000) & AG(vout leq 2000)
+#.property AG(vout leq 2000)
+#.property AG(vout geq -2000) 
+.graph 
+inc t1
+t1 dec
+dec t2
+t2 inc
+t1 c #@ /0;0\
+t2 c #@ /0;0\
+t3 c
+inc t4 #@ /1;inf\
+dec t5 #@ /1;inf\
+t4 vout
+vout t5
+.marking { inc }
+#@.marking { <c = 0><vout=-1000> }
+#@.rates { <t3 = [1,1]><t4 = [20,20]><t5 = [20,20]> }
+#@.invariants { <inc=[c >= 0;c <= 100]><dec=[c >= 0;c <= 100]> }
+#@.enablings { <t1=[c >= 100]><t2=[c >= 100]> }
+#@.continuous t3 t4 t5 vout c
+.end

@@ -1,0 +1,5 @@
+[~Dr: (~La & ~Zr)] Combinational
+[+Lr: (~Da & ~Za & ~Zr)]
+[-Lr: (Dr & Zr)]
+[+Zr: (La)]
+[-Zr: (Da & ~La & Za)]

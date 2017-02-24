@@ -1,0 +1,33 @@
+.dummy t1 t2 t3 t4 t5 t6 t7 t8 t9 fail1 fail2 fail3 fail4 fail5
+inc1 t1 #@ [0,100]
+t1 inc2 #@ [0,inf]
+inc2 t2 #@ [0,0]
+t2 dec1 #@ [0,inf]
+dec1 t3 #@ [0,100]
+t3 dec2 #@ [0,inf]
+dec2 t4 #@ [0,0]
+t4 inc1 #@ [0,inf]
+t4 c #@ /0;0\ [0,inf]
+t2 c #@ /0;0\ [0,inf]
+t5 c #@ [0,inf]
+t6 vout #@ [0,inf]
+t7 vout #@ [0,inf]
+vout t8 #@ [0,inf]
+vout t9 #@ [0,inf]
+dec2 fail2 #@ [0,0]
+inc2 fail1 #@ [0,0]
+dec1 fail4 #@ [0,0]
+inc1 fail3 #@ [0,0]
+fail1 fail
+fail2 fail
+fail3 fail
+fail4 fail
+fail fail5
+nofail fail5
+.marking { inc1 }
+#@.marking { <c = 0> <vout = -1000> }
+#@.rates {<t6=19><t7=20><t8=19><t9=20><t5=1>}
+#@.invariants { <inc1=[c<=100;vout<=2000]> <inc2=[c<=100;vout<=2000]> <dec1=[c<=100;vout>=-2000]> <dec2=[c<=100;vout>=-2000]> <fail=[c<100]>}
+#@.enablings { <t2=[c>=100]> <t4=[c>=100]> <t6=[inc1=1]> <t7=[inc2=1]> <t8=[dec1=1]> <t9=[dec2=1]> <fail1=[vout >= 2000]> <fail2=[vout <= -2000]> <fail3=[vout >= 2000]> <fail4=[vout <= -2000]>}
+#@.continuous c vout t5 t6 t7 t8 t9
+.end

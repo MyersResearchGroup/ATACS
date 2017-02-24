@@ -1,0 +1,139 @@
+.inputs Vin Vosc up down a b
+.dummy inc dec d1 d2 restart restartp lock cycle0 cycle1 cycle2 cycle3 cycle4 cycle5 cycle6 cycle7
+#@.keep lock cycle0 cycle1 cycle2 cycle3 cycle4 cycle5 cycle6 cycle7
+#@.init_state [000000]
+#@.property AF(AG(~a))&AF(AG(~b))
+.graph
+
+pi1 Vin+ #@ [50,50] 
+pVinL Vin+ #@ [0,0]
+Vin+ pi2
+Vin+ pVinH
+pi2 Vin- #@ [50,50]
+pVinH Vin- #@ [0,0]
+Vin- pi1
+Vin- pVinL 
+
+po1 Vosc+ #@ [0,0] 
+pVoscL Vosc+ #@ [0,0]
+Vosc+ po2
+Vosc+ pVoscH
+po2 Vosc- #@ [0,0]
+pVoscH Vosc- #@ [0,0]
+Vosc- po1
+Vosc- pVoscL 
+
+p0 up+ #@ [0,0] 
+p0 down+ #@ [0,0]
+up+ p1
+down+ p2
+p1 up- #@ [0,0] 
+p2 down- #@ [0,0] 
+up- p3
+down- p3
+p3 restart #@ [0,0]
+restart p0
+
+pVinH up+ #@ [1,1]  
+pVinH down- #@ [0,0]  
+up+ pVinH
+down- pVinH
+
+pVoscH down+ #@ [1,1]  
+pVoscH up- #@ [0,0]  
+down+ pVoscH
+up- pVoscH
+
+pVinL restart #@ [0,0]
+pVoscL restart #@ [0,0]
+restart pVinL
+restart pVoscL
+
+pc0 cycle0 #@ [0,0]
+pVinH cycle0 #@ [0,0]
+cycle0 pc1
+cycle0 pVinH
+pc1 cycle1 #@ [0,0]
+pVinL cycle1 #@ [0,0]
+cycle1 pc2
+cycle1 pVinL
+pc2 cycle2 #@ [0,0]
+pVinH cycle2 #@ [0,0]
+cycle2 pc3
+cycle2 pVinH
+pc3 cycle3 #@ [0,0]
+pVinL cycle3 #@ [0,0]
+cycle3 pc4
+cycle3 pVinL
+pc4 cycle4 #@ [0,0]
+pVinH cycle4 #@ [0,0]
+cycle4 pc5
+cycle4 pVinH
+pc5 cycle5 #@ [0,0]
+pVinL cycle5 #@ [0,0]
+cycle5 pc6
+cycle5 pVinL
+pc6 cycle6 #@ [0,0]
+pVinH cycle6 #@ [0,0]
+cycle6 pc7
+cycle6 pVinH
+pc7 cycle7 #@ [0,0]
+pVinL cycle7 #@ [0,0]
+cycle7 p0p
+cycle7 pVinL
+
+p0p a+ #@ [0,0] 
+p0p b+ #@ [0,0]
+p0p lock #@ [0,0]
+a+ p1p
+b+ p2p
+p1p a- #@ [0,0] 
+p2p b- #@ [0,0] 
+a- p3p
+b- p3p
+lock p3p
+p3p restartp #@ [0,0]
+restartp p0p
+
+pVinH a+ #@ [40,40]  
+pVinH b- #@ [0,0]  
+a+ pVinH
+b- pVinH
+
+pVoscH b+ #@ [40,40]  
+pVoscH a- #@ [0,0]  
+b+ pVoscH
+a- pVoscH
+
+pVinH lock #@ [0,0]
+pVoscH lock #@ [0,0]
+lock pVinH
+lock pVoscH
+
+pVinL restartp #@ [0,0]
+pVoscL restartp #@ [0,0]
+restartp pVinL
+restartp pVoscL
+
+p2 inc #@ /1;inf\
+inc v2 
+
+p1 dec #@ /1;inf\
+v1 dec
+
+v1 d1
+d1 v2
+v2 d2
+d2 v1
+
+v1 Vosc+ #@ /0;0\ [0,0]
+v2 Vosc- #@ /0;0\ [0,0]
+
+po1 d1
+po2 d2
+
+.marking { p0 pc0 pi1 po1 pVinL pVoscL }
+#@.marking { <v1 = [40,40]><v2 = [40,40]> }
+#@.rates { <inc = 1><dec = 1><d1 = 1><d2 = 1> }
+#@.continuous d1 d2 dec inc v1 v2
+.end

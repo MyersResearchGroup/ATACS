@@ -1,0 +1,62 @@
+##
+## egm 01/17/01
+##
+## This is a celement with conflict added between a and b (i.e., a+ # b+ and
+## a- # b- ).  The purpose of this example is to create a simple test of
+## the time independent choice conflict semantics.  The semantics basically
+## states that when 2 enabled events conflict (i.e., the events have enough
+## rules marked or fired to allow them fire if timing were ignored), the 
+## choice is resolved independent of time.
+##
+.e 7
+.i 4
+.r 10
+.n 0
+.d 0
+.c 2
+.s 001
+reset
+# 
+# INPUT EVENTS:
+# 
+a+/1 a-/1
+b+/1 b-/1
+# 
+# OUTPUT EVENTS:
+# 
+c+/1 c-/1
+# 
+# DUMMY EVENTS:
+# 
+# 
+# RULES:
+# 
+a+/1 c-/1 0 90 110
+a+/1 a-/1 0 90 110
+b+/1 c-/1 0 90 110
+b+/1 b-/1 0 90 110
+c-/1 a-/1 0 90 110
+c-/1 b-/1 0 90 110
+b-/1 c+/1 0 90 110
+a-/1 c+/1 0 90 110
+# 
+# INITIAL RULES:
+# 
+c+/1 a+/1 1 30 60
+c+/1 b+/1 1 90 110
+# 
+# RULES:
+# 
+# 
+# INITIAL RULES:
+# 
+# 
+# MERGERS:
+# 
+# CONFLICTS:
+# 
+a+/1 b+/1
+a-/1 b-/1
+# 
+# LOOPING CONFLICTS:
+# 

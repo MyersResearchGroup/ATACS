@@ -1,0 +1,4 @@
+[ a1: (a)] Combinational
+[ a2: (a)] Combinational
+[+r: (r1 & r2)]
+[-r: (~r1 & ~r2)]

@@ -1,0 +1,6 @@
+[ b_req: (uno_req)] Combinational
+[+zz_req: (uno_req & mult_1_ack)]
+[-zz_req: (~uno_req)]
+[ uno_ack: (zz_ack)] Combinational
+[ a_req: (uno_req)] Combinational
+[ mult_1_req: (b_ack & ~zz_ack & uno_req & a_ack)] Combinational

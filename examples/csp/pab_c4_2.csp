@@ -1,0 +1,32 @@
+/*****************************************************************************/
+/* Passive/active buffer c4 from Burn's thesis                               */
+/*****************************************************************************/
+module c4;
+
+delay envdelay  = <32,48>;
+delay gatedelay = <8,12>;
+
+input r0 = {false,envdelay};
+output l1 = {false,gatedelay};
+output r1 = {true,gatedelay};
+output l2 = {true,gatedelay};
+output r2 = {false,gatedelay};
+input l3 = {true,envdelay};
+
+process lapbctrl1;
+*[ [r0+]; (l1+ || r1-); [r0- & l2-]; (l1- || r1+); [l2+] ]
+endprocess
+
+process lapbctrl2;
+*[ [r1- & l3-]; (l2- || r2+); [l3+]; [r1+]; (l2+ || r2-) ]
+endprocess
+
+process left;
+*[ r0+; [l1+]; r0-; [l1-] ]
+endprocess
+
+process right;
+*[ l3-; [r2+]; l3+; [r2-] ]
+endprocess
+
+endmodule

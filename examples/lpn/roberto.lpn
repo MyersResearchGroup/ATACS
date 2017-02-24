@@ -1,0 +1,20 @@
+.inputs done_in_1 done_in_2 done_out_1 done_out_2
+.outputs done ev pc
+#@.init_state [0011111]
+.graph
+pc- done+
+done+ pc+ done_in_1- done_in_2- done_out_1+ done_out_2+
+done_in_1- ev+
+done_in_2- ev+
+done_out_1+ ev+
+done_out_2+ ev+
+pc+ ev+
+ev+ done-
+done- ev- done_in_1+ done_in_2+ done_out_1- done_out_2-
+done_in_1+ pc-
+done_in_2+ pc-
+done_out_1- pc-
+done_out_2- pc-
+ev- pc-
+.marking { <ev+,done-> }
+.end

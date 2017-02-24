@@ -1,0 +1,26 @@
+module hs;
+
+delay gatedelay = <1,2>;
+delay envdelay = <10,20>;
+
+input ack1 = {envdelay};
+input ack2 = {true,envdelay};
+output req1 = {gatedelay};
+output req2 = {true,gatedelay};
+
+process one;
+*[ req1+; [req2+]; req1-; [ack1- & ack2+] ]
+endprocess
+
+process two;
+*[ [req1+]; req2-; [ack2- & ack1+]; req2+ ]
+endprocess
+
+process envone;
+*[ [req1+]; ack1+; [req1-]; ack1-] 
+endprocess
+
+process envtwo;
+*[[req2-]; ack2-; [req2+]; ack2+] 
+endprocess
+endmodule

@@ -1,0 +1,13 @@
+module small;
+
+output a = {<1,3>};
+output b = {<1,3;5,5>};
+
+process aproc;
+*[ a+; [b+]; a- ]
+endprocess
+
+process bproc;
+*[ b+; b- ]
+endprocess
+endmodule

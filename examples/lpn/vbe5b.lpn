@@ -1,0 +1,21 @@
+# controller ready for synthesis, vbe Fig 5
+.name vbe5b
+.inputs  Da La Za
+.outputs Dr Lr Zr
+#@.init_state [000000]
+.graph
+La+ Zr+ Dr+
+Zr+ Za+ Lr-
+Dr+ Da+ Lr-
+Za+ Zr-
+Da+ Zr-
+Lr- La-
+Zr- Za- Dr-
+La- Zr-
+Za- Lr+
+Dr- Da-
+Da- Lr+
+Lr+ La+
+
+.marking {<Za-,Lr+> <Da-,Lr+>} 
+.end

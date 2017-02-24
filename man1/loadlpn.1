@@ -1,0 +1,121 @@
+.TH LOADLPN 1 "13 December 2006" "" ""
+.SH NAME
+loadlpn \- Loads an LHPN File
+.SH SYNOPSIS
+.nf
+.BI atacs " -ll <filename>"
+.br
+.BI atacs> " loadlpn <filename>"
+.fi
+.SH DESCRIPTION
+.B loadlpn
+loads files in the Petri-net graph format used by tools such as SIS
+and PETRIFY.  The graph file is augmented in the following ways: 
+.PP
+Variables:
+.RS 2
+.B #@.variables x y b
+- Specifies that x and y are two variables used in the model.  All
+Boolean and continuous variables must be listed here.
+.RE
+.PP
+Initial state:
+.RS 2
+.B #@.init_state [0101]
+- Specifies the initial values for the signals in the same order that
+they are specified in the
+.B .signals 
+list. 
+.RE
+.PP
+Initial continuous values:
+.RS 2
+.B #@.init_vals {<x=0><y=[1,2]>}
+- This line sets the initial value of the continuous variables x to 0
+and y to the range [1,2]. Note that the variables x and y must appear
+in the variables declaration shown above and the continuous
+declaration shown below.
+.RE
+.PP
+Initial continuous rates:
+.RS 2
+.B #@.init_rates {<x=1><y=[1,2]>}
+- This line sets the initial rate of the continuous variable x to 1
+and the initial rate of y to the range [1,2]. Note that the variables
+x and y must appear in the variables declaration shown above and the
+continuous declaration shown below.
+.RE
+.PP
+Enabling conditions:
+.RS 2
+.B #@.enablings {<t1=[
+.I HSL Formula
+.B ]><t2=[
+.I HSL Formula
+.B ]>}
+- Specifies the enabling condition for each transition.  The enabling
+condition is in the form of a Hybrid Separation Logic (HSL) formula
+over the continuous and boolean variables.  HSL formulas are of the 
+following form:
+.RS 2
+ Exp = BoolVariable 
+     | ~BoolVariable 
+     | ContVariable >= IntegerConstant
+     | ContVariable <= IntegerConstant
+     | ContVariable = IntegerConstant
+     | (Exp)
+     | Exp & Exp 
+     | Exp | Exp
+     | Exp -> Exp
+.RE
+.RE 
+.PP
+Rate assignments:
+.RS 2
+.B #@.rate_assignments {<t1=[x:=[1,2]]><t1=[y:=0]>}
+- Specifies the rate assignment to continuous variables that occur
+when a transition fires.  In this case, x is assigned the rate range
+of [1,2] and y is assigned the rate of 0 when t1 fires.
+.RE 
+.PP
+Delay assignments: 
+.RS 2
+.B #@.delay_assignments {<t1=[1,2]>} 
+- Specifies the lower and upper delay bound on a transition.  In this
+case, transition t1 is enabled to fire between 1 and 2 time units
+after becoming enabled.  Multiple delay assignments can be defined within 
+the curly braces.  Unspecified delays will default to [0,0].
+.RE 
+.PP
+Boolean assignments:
+.RS 2
+.B #@.boolean_assignments {<t1=[b:=TRUE]>}
+- Specifies the Boolean assignments that occur upon firing a
+transition.  In this case, the Boolean variable b is assigned to
+true when transition t1 fires. The string
+.B FALSE
+an be used to assigned a variable to false.  Multiple assignments can be 
+defined within the curly braces.
+.RE
+.PP
+Continuous variables:
+.RS 2
+.B #@.continuous x y 
+- Specifies the variables in the system that are continuous.
+.RE
+.PP
+.SH OPTIONS
+.TP
+.BI \-ll
+Loads an LHPN file from the command line.
+.TP
+.BI loadlpn
+Loads an LHPN file from the interactive shell.
+.SH CREDITS
+.B loadlpn
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR storelpn (1)
+.BR showlpn (1)
+.BR printlpn (1)
+.BR http://www.async.ece.utah.edu

@@ -1,0 +1,14 @@
+module stall;
+
+input  clkg = {false, <400,400>};
+input stall = {false, <45,55>};
+
+testbench t_control;
+    *[ clkg+ ;
+       [  stall -> stall- || clkg-
+       | ~stall -> stall+ || clkg-
+       |  true  -> skip; clkg-
+       ]
+     ]
+endtestbench
+endmodule

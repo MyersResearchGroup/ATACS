@@ -1,0 +1,4 @@
+[+shop1_to_shop2_rcv: (shop1_to_shop2_send & ~shop_to_patron_send)]
+[-shop1_to_shop2_rcv: (~shop1_to_shop2_send & shop_to_patron_send)]
+[+shop_to_patron_send: (~shop_to_patron_rcv & shop1_to_shop2_rcv)]
+[-shop_to_patron_send: (shop_to_patron_rcv)]

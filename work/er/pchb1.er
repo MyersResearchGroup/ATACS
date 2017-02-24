@@ -1,0 +1,60 @@
+.e 9
+.i 4
+.r 17
+.n 0
+.d 0
+.c 0
+.s 0000
+reset
+# 
+# INPUT EVENTS:
+# 
+b0+/1 b0-/1
+be1+/1 be1-/1
+# 
+# OUTPUT EVENTS:
+# 
+b1+/1 b1-/1
+be0+/1 be0-/1
+# 
+# DUMMY EVENTS:
+# 
+# 
+# RULES:
+# 
+b1+/1 be1-/1 0 180 inf
+reset be1-/1 0 270 inf
+b0+/1 b0-/1 0 90 inf
+be0+/1 b0+/1 0 90 inf
+reset be1+/1 0 450 inf
+reset b0+/1 0 90 inf
+be0-/1 b0-/1 0 90 inf
+be1+/1 b1+/1 0 90 110
+b0+/1 b1+/1 0 90 110
+be1-/1 b1-/1 0 90 110
+reset be0+/1 0 90 110
+be0-/1 b1-/1 0 90 110
+b1+/1 be0-/1 0 90 110
+# 
+# INITIAL RULES:
+# 
+b1+/1 be1+/1 1 360 inf
+#b1-/1 be1+/1 1 90 110
+b0-/1 b0+/1 1 90 inf
+b1-/1 be0+/1 1 90 110
+b0-/1 be0+/1 1 90 110
+# 
+# RULES:
+# 
+# 
+# INITIAL RULES:
+# 
+# 
+# MERGERS:
+# 
+# 
+# CONFLICTS:
+# 
+# 
+# LOOPING CONFLICTS:
+# 

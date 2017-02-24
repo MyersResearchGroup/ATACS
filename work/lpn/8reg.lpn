@@ -1,0 +1,514 @@
+.name reg_8_bit
+.dummy EPS_A EPS_B
+.inputs A_0 B_0 Ap_0 Bp_0 A_1 B_1 Ap_1 Bp_1 A_2 B_2 Ap_2 Bp_2 A_3 B_3 Ap_3 Bp_3 A_4 B_4 Ap_4 Bp_4 A_5 B_5 Ap_5 Bp_5 A_6 B_6 Ap_6 Bp_6 A_7 B_7 Ap_7 Bp_7 req_C req_D
+.outputs ack_A_0 ack_B_0 ack_A_2 ack_B_2 ack_A_4 ack_B_4 ack_A_6 ack_B_6 C_0 Cp_0 C_1 Cp_1 C_2 Cp_2 C_3 Cp_3 C_4 Cp_4 C_5 Cp_5 C_6 Cp_6 C_7 Cp_7 D_0 Dp_0 D_1 Dp_1 D_2 Dp_2 D_3 Dp_3 D_4 Dp_4 D_5 Dp_5 D_6 Dp_6 D_7 Dp_7
+.graph
+EPS_A- p_reqAB
+EPS_B- p_reqAB
+p_reqAB EPS_A+ EPS_B+
+
+p4_C_0 EPS_A+
+p4_D_0 EPS_A+
+EPS_A+ p1_A_0
+p1_A_0 A_0+/1 A_0+/2 Ap_0+/1 Ap_0+/2
+A_0+/1 p_R_0 p2_A_0
+A_0+/2 p_R_0 p2_A_0
+Ap_0+/1 p_Rp_0 p2_A_0
+Ap_0+/2 p_Rp_0 p2_A_0
+p_R_0 A_0+/1 Ap_0+/1 A_0-
+p_Rp_0 A_0+/2 Ap_0+/2 Ap_0-
+p2_A_0 ack_A_0+
+ack_A_0+ p4_C_0 p4_D_0
+ack_A_0+ p3_A_0
+p3_A_0 A_0- Ap_0-
+A_0- p4_A_0 p_R_0
+Ap_0- p4_A_0 p_Rp_0
+p4_A_0 ack_A_0-
+ack_A_0- EPS_A-
+
+p4_C_0 EPS_B+
+p4_D_0 EPS_B+
+EPS_B+ p1_B_0
+p1_B_0 B_0+/1 B_0+/2 Bp_0+/1 Bp_0+/2
+B_0+/1 p_R_0 p2_B_0
+B_0+/2 p_R_0 p2_B_0
+Bp_0+/1 p_Rp_0 p2_B_0
+Bp_0+/2 p_Rp_0 p2_B_0
+p_R_0 B_0+/1 Bp_0+/1 B_0-
+p_Rp_0 B_0+/2 Bp_0+/2 Bp_0-
+p2_B_0 ack_B_0+
+ack_B_0+ p4_C_0 p4_D_0
+ack_B_0+ p3_B_0
+p3_B_0 B_0- Bp_0-
+B_0- p4_B_0 p_R_0
+Bp_0- p4_B_0 p_Rp_0
+p4_B_0 ack_B_0-
+ack_B_0- EPS_B-
+
+req_C+ p1_C_0
+p1_C_0 C_0+ Cp_0+
+C_0+ p_R_0 p2_C_0
+Cp_0+ p_Rp_0 p2_C_0
+p_R_0 C_0+ C_0-
+p_Rp_0 Cp_0+ Cp_0-
+p2_C_0 req_C-
+req_C- p3_C_0
+p3_C_0 C_0- Cp_0-
+C_0- p4_C_0 p_R_0
+Cp_0- p4_C_0 p_Rp_0
+p4_C_0 req_C+
+
+req_D+ p1_D_0
+p1_D_0 D_0+ Dp_0+
+D_0+ p_R_0 p2_D_0
+Dp_0+ p_Rp_0 p2_D_0
+p_R_0 D_0+ D_0-
+p_Rp_0 Dp_0+ Dp_0-
+p2_D_0 req_D-
+req_D- p3_D_0
+p3_D_0 D_0- Dp_0-
+D_0- p4_D_0 p_R_0
+Dp_0- p4_D_0 p_Rp_0
+p4_D_0 req_D+
+
+p4_C_1 EPS_A+
+p4_D_1 EPS_A+
+EPS_A+ p1_A_1
+p1_A_1 A_1+/1 A_1+/2 Ap_1+/1 Ap_1+/2
+A_1+/1 p_R_1 p2_A_1
+A_1+/2 p_R_1 p2_A_1
+Ap_1+/1 p_Rp_1 p2_A_1
+Ap_1+/2 p_Rp_1 p2_A_1
+p_R_1 A_1+/1 Ap_1+/1 A_1-
+p_Rp_1 A_1+/2 Ap_1+/2 Ap_1-
+p2_A_1 ack_A_0+
+ack_A_0+ p4_C_1 p4_D_1
+ack_A_0+ p3_A_1
+p3_A_1 A_1- Ap_1-
+A_1- p4_A_1 p_R_1
+Ap_1- p4_A_1 p_Rp_1
+p4_A_1 ack_A_0-
+
+p4_C_1 EPS_B+
+p4_D_1 EPS_B+
+EPS_B+ p1_B_1
+p1_B_1 B_1+/1 B_1+/2 Bp_1+/1 Bp_1+/2
+B_1+/1 p_R_1 p2_B_1
+B_1+/2 p_R_1 p2_B_1
+Bp_1+/1 p_Rp_1 p2_B_1
+Bp_1+/2 p_Rp_1 p2_B_1
+p_R_1 B_1+/1 Bp_1+/1 B_1-
+p_Rp_1 B_1+/2 Bp_1+/2 Bp_1-
+p2_B_1 ack_B_0+
+ack_B_0+ p4_C_1 p4_D_1
+ack_B_0+ p3_B_1
+p3_B_1 B_1- Bp_1-
+B_1- p4_B_1 p_R_1
+Bp_1- p4_B_1 p_Rp_1
+p4_B_1 ack_B_0-
+
+req_C+ p1_C_1
+p1_C_1 C_1+ Cp_1+
+C_1+ p_R_1 p2_C_1
+Cp_1+ p_Rp_1 p2_C_1
+p_R_1 C_1+ C_1-
+p_Rp_1 Cp_1+ Cp_1-
+p2_C_1 req_C-
+req_C- p3_C_1
+p3_C_1 C_1- Cp_1-
+C_1- p4_C_1 p_R_1
+Cp_1- p4_C_1 p_Rp_1
+p4_C_1 req_C+
+
+req_D+ p1_D_1
+p1_D_1 D_1+ Dp_1+
+D_1+ p_R_1 p2_D_1
+Dp_1+ p_Rp_1 p2_D_1
+p_R_1 D_1+ D_1-
+p_Rp_1 Dp_1+ Dp_1-
+p2_D_1 req_D-
+req_D- p3_D_1
+p3_D_1 D_1- Dp_1-
+D_1- p4_D_1 p_R_1
+Dp_1- p4_D_1 p_Rp_1
+p4_D_1 req_D+
+
+p4_C_2 EPS_A+
+p4_D_2 EPS_A+
+EPS_A+ p1_A_2
+p1_A_2 A_2+/1 A_2+/2 Ap_2+/1 Ap_2+/2
+A_2+/1 p_R_2 p2_A_2
+A_2+/2 p_R_2 p2_A_2
+Ap_2+/1 p_Rp_2 p2_A_2
+Ap_2+/2 p_Rp_2 p2_A_2
+p_R_2 A_2+/1 Ap_2+/1 A_2-
+p_Rp_2 A_2+/2 Ap_2+/2 Ap_2-
+p2_A_2 ack_A_2+
+ack_A_2+ p4_C_2 p4_D_2
+ack_A_2+ p3_A_2
+p3_A_2 A_2- Ap_2-
+A_2- p4_A_2 p_R_2
+Ap_2- p4_A_2 p_Rp_2
+p4_A_2 ack_A_2-
+ack_A_2- EPS_A-
+
+p4_C_2 EPS_B+
+p4_D_2 EPS_B+
+EPS_B+ p1_B_2
+p1_B_2 B_2+/1 B_2+/2 Bp_2+/1 Bp_2+/2
+B_2+/1 p_R_2 p2_B_2
+B_2+/2 p_R_2 p2_B_2
+Bp_2+/1 p_Rp_2 p2_B_2
+Bp_2+/2 p_Rp_2 p2_B_2
+p_R_2 B_2+/1 Bp_2+/1 B_2-
+p_Rp_2 B_2+/2 Bp_2+/2 Bp_2-
+p2_B_2 ack_B_2+
+ack_B_2+ p4_C_2 p4_D_2
+ack_B_2+ p3_B_2
+p3_B_2 B_2- Bp_2-
+B_2- p4_B_2 p_R_2
+Bp_2- p4_B_2 p_Rp_2
+p4_B_2 ack_B_2-
+ack_B_2- EPS_B-
+
+req_C+ p1_C_2
+p1_C_2 C_2+ Cp_2+
+C_2+ p_R_2 p2_C_2
+Cp_2+ p_Rp_2 p2_C_2
+p_R_2 C_2+ C_2-
+p_Rp_2 Cp_2+ Cp_2-
+p2_C_2 req_C-
+req_C- p3_C_2
+p3_C_2 C_2- Cp_2-
+C_2- p4_C_2 p_R_2
+Cp_2- p4_C_2 p_Rp_2
+p4_C_2 req_C+
+
+req_D+ p1_D_2
+p1_D_2 D_2+ Dp_2+
+D_2+ p_R_2 p2_D_2
+Dp_2+ p_Rp_2 p2_D_2
+p_R_2 D_2+ D_2-
+p_Rp_2 Dp_2+ Dp_2-
+p2_D_2 req_D-
+req_D- p3_D_2
+p3_D_2 D_2- Dp_2-
+D_2- p4_D_2 p_R_2
+Dp_2- p4_D_2 p_Rp_2
+p4_D_2 req_D+
+
+p4_C_3 EPS_A+
+p4_D_3 EPS_A+
+EPS_A+ p1_A_3
+p1_A_3 A_3+/1 A_3+/2 Ap_3+/1 Ap_3+/2
+A_3+/1 p_R_3 p2_A_3
+A_3+/2 p_R_3 p2_A_3
+Ap_3+/1 p_Rp_3 p2_A_3
+Ap_3+/2 p_Rp_3 p2_A_3
+p_R_3 A_3+/1 Ap_3+/1 A_3-
+p_Rp_3 A_3+/2 Ap_3+/2 Ap_3-
+p2_A_3 ack_A_2+
+ack_A_2+ p4_C_3 p4_D_3
+ack_A_2+ p3_A_3
+p3_A_3 A_3- Ap_3-
+A_3- p4_A_3 p_R_3
+Ap_3- p4_A_3 p_Rp_3
+p4_A_3 ack_A_2-
+
+p4_C_3 EPS_B+
+p4_D_3 EPS_B+
+EPS_B+ p1_B_3
+p1_B_3 B_3+/1 B_3+/2 Bp_3+/1 Bp_3+/2
+B_3+/1 p_R_3 p2_B_3
+B_3+/2 p_R_3 p2_B_3
+Bp_3+/1 p_Rp_3 p2_B_3
+Bp_3+/2 p_Rp_3 p2_B_3
+p_R_3 B_3+/1 Bp_3+/1 B_3-
+p_Rp_3 B_3+/2 Bp_3+/2 Bp_3-
+p2_B_3 ack_B_2+
+ack_B_2+ p4_C_3 p4_D_3
+ack_B_2+ p3_B_3
+p3_B_3 B_3- Bp_3-
+B_3- p4_B_3 p_R_3
+Bp_3- p4_B_3 p_Rp_3
+p4_B_3 ack_B_2-
+
+req_C+ p1_C_3
+p1_C_3 C_3+ Cp_3+
+C_3+ p_R_3 p2_C_3
+Cp_3+ p_Rp_3 p2_C_3
+p_R_3 C_3+ C_3-
+p_Rp_3 Cp_3+ Cp_3-
+p2_C_3 req_C-
+req_C- p3_C_3
+p3_C_3 C_3- Cp_3-
+C_3- p4_C_3 p_R_3
+Cp_3- p4_C_3 p_Rp_3
+p4_C_3 req_C+
+
+req_D+ p1_D_3
+p1_D_3 D_3+ Dp_3+
+D_3+ p_R_3 p2_D_3
+Dp_3+ p_Rp_3 p2_D_3
+p_R_3 D_3+ D_3-
+p_Rp_3 Dp_3+ Dp_3-
+p2_D_3 req_D-
+req_D- p3_D_3
+p3_D_3 D_3- Dp_3-
+D_3- p4_D_3 p_R_3
+Dp_3- p4_D_3 p_Rp_3
+p4_D_3 req_D+
+
+p4_C_4 EPS_A+
+p4_D_4 EPS_A+
+EPS_A+ p1_A_4
+p1_A_4 A_4+/1 A_4+/2 Ap_4+/1 Ap_4+/2
+A_4+/1 p_R_4 p2_A_4
+A_4+/2 p_R_4 p2_A_4
+Ap_4+/1 p_Rp_4 p2_A_4
+Ap_4+/2 p_Rp_4 p2_A_4
+p_R_4 A_4+/1 Ap_4+/1 A_4-
+p_Rp_4 A_4+/2 Ap_4+/2 Ap_4-
+p2_A_4 ack_A_4+
+ack_A_4+ p4_C_4 p4_D_4
+ack_A_4+ p3_A_4
+p3_A_4 A_4- Ap_4-
+A_4- p4_A_4 p_R_4
+Ap_4- p4_A_4 p_Rp_4
+p4_A_4 ack_A_4-
+ack_A_4- EPS_A-
+
+p4_C_4 EPS_B+
+p4_D_4 EPS_B+
+EPS_B+ p1_B_4
+p1_B_4 B_4+/1 B_4+/2 Bp_4+/1 Bp_4+/2
+B_4+/1 p_R_4 p2_B_4
+B_4+/2 p_R_4 p2_B_4
+Bp_4+/1 p_Rp_4 p2_B_4
+Bp_4+/2 p_Rp_4 p2_B_4
+p_R_4 B_4+/1 Bp_4+/1 B_4-
+p_Rp_4 B_4+/2 Bp_4+/2 Bp_4-
+p2_B_4 ack_B_4+
+ack_B_4+ p4_C_4 p4_D_4
+ack_B_4+ p3_B_4
+p3_B_4 B_4- Bp_4-
+B_4- p4_B_4 p_R_4
+Bp_4- p4_B_4 p_Rp_4
+p4_B_4 ack_B_4-
+ack_B_4- EPS_B-
+
+req_C+ p1_C_4
+p1_C_4 C_4+ Cp_4+
+C_4+ p_R_4 p2_C_4
+Cp_4+ p_Rp_4 p2_C_4
+p_R_4 C_4+ C_4-
+p_Rp_4 Cp_4+ Cp_4-
+p2_C_4 req_C-
+req_C- p3_C_4
+p3_C_4 C_4- Cp_4-
+C_4- p4_C_4 p_R_4
+Cp_4- p4_C_4 p_Rp_4
+p4_C_4 req_C+
+
+req_D+ p1_D_4
+p1_D_4 D_4+ Dp_4+
+D_4+ p_R_4 p2_D_4
+Dp_4+ p_Rp_4 p2_D_4
+p_R_4 D_4+ D_4-
+p_Rp_4 Dp_4+ Dp_4-
+p2_D_4 req_D-
+req_D- p3_D_4
+p3_D_4 D_4- Dp_4-
+D_4- p4_D_4 p_R_4
+Dp_4- p4_D_4 p_Rp_4
+p4_D_4 req_D+
+
+p4_C_5 EPS_A+
+p4_D_5 EPS_A+
+EPS_A+ p1_A_5
+p1_A_5 A_5+/1 A_5+/2 Ap_5+/1 Ap_5+/2
+A_5+/1 p_R_5 p2_A_5
+A_5+/2 p_R_5 p2_A_5
+Ap_5+/1 p_Rp_5 p2_A_5
+Ap_5+/2 p_Rp_5 p2_A_5
+p_R_5 A_5+/1 Ap_5+/1 A_5-
+p_Rp_5 A_5+/2 Ap_5+/2 Ap_5-
+p2_A_5 ack_A_4+
+ack_A_4+ p4_C_5 p4_D_5
+ack_A_4+ p3_A_5
+p3_A_5 A_5- Ap_5-
+A_5- p4_A_5 p_R_5
+Ap_5- p4_A_5 p_Rp_5
+p4_A_5 ack_A_4-
+
+p4_C_5 EPS_B+
+p4_D_5 EPS_B+
+EPS_B+ p1_B_5
+p1_B_5 B_5+/1 B_5+/2 Bp_5+/1 Bp_5+/2
+B_5+/1 p_R_5 p2_B_5
+B_5+/2 p_R_5 p2_B_5
+Bp_5+/1 p_Rp_5 p2_B_5
+Bp_5+/2 p_Rp_5 p2_B_5
+p_R_5 B_5+/1 Bp_5+/1 B_5-
+p_Rp_5 B_5+/2 Bp_5+/2 Bp_5-
+p2_B_5 ack_B_4+
+ack_B_4+ p4_C_5 p4_D_5
+ack_B_4+ p3_B_5
+p3_B_5 B_5- Bp_5-
+B_5- p4_B_5 p_R_5
+Bp_5- p4_B_5 p_Rp_5
+p4_B_5 ack_B_4-
+
+req_C+ p1_C_5
+p1_C_5 C_5+ Cp_5+
+C_5+ p_R_5 p2_C_5
+Cp_5+ p_Rp_5 p2_C_5
+p_R_5 C_5+ C_5-
+p_Rp_5 Cp_5+ Cp_5-
+p2_C_5 req_C-
+req_C- p3_C_5
+p3_C_5 C_5- Cp_5-
+C_5- p4_C_5 p_R_5
+Cp_5- p4_C_5 p_Rp_5
+p4_C_5 req_C+
+
+req_D+ p1_D_5
+p1_D_5 D_5+ Dp_5+
+D_5+ p_R_5 p2_D_5
+Dp_5+ p_Rp_5 p2_D_5
+p_R_5 D_5+ D_5-
+p_Rp_5 Dp_5+ Dp_5-
+p2_D_5 req_D-
+req_D- p3_D_5
+p3_D_5 D_5- Dp_5-
+D_5- p4_D_5 p_R_5
+Dp_5- p4_D_5 p_Rp_5
+p4_D_5 req_D+
+
+p4_C_6 EPS_A+
+p4_D_6 EPS_A+
+EPS_A+ p1_A_6
+p1_A_6 A_6+/1 A_6+/2 Ap_6+/1 Ap_6+/2
+A_6+/1 p_R_6 p2_A_6
+A_6+/2 p_R_6 p2_A_6
+Ap_6+/1 p_Rp_6 p2_A_6
+Ap_6+/2 p_Rp_6 p2_A_6
+p_R_6 A_6+/1 Ap_6+/1 A_6-
+p_Rp_6 A_6+/2 Ap_6+/2 Ap_6-
+p2_A_6 ack_A_6+
+ack_A_6+ p4_C_6 p4_D_6
+ack_A_6+ p3_A_6
+p3_A_6 A_6- Ap_6-
+A_6- p4_A_6 p_R_6
+Ap_6- p4_A_6 p_Rp_6
+p4_A_6 ack_A_6-
+ack_A_6- EPS_A-
+
+p4_C_6 EPS_B+
+p4_D_6 EPS_B+
+EPS_B+ p1_B_6
+p1_B_6 B_6+/1 B_6+/2 Bp_6+/1 Bp_6+/2
+B_6+/1 p_R_6 p2_B_6
+B_6+/2 p_R_6 p2_B_6
+Bp_6+/1 p_Rp_6 p2_B_6
+Bp_6+/2 p_Rp_6 p2_B_6
+p_R_6 B_6+/1 Bp_6+/1 B_6-
+p_Rp_6 B_6+/2 Bp_6+/2 Bp_6-
+p2_B_6 ack_B_6+
+ack_B_6+ p4_C_6 p4_D_6
+ack_B_6+ p3_B_6
+p3_B_6 B_6- Bp_6-
+B_6- p4_B_6 p_R_6
+Bp_6- p4_B_6 p_Rp_6
+p4_B_6 ack_B_6-
+ack_B_6- EPS_B-
+
+req_C+ p1_C_6
+p1_C_6 C_6+ Cp_6+
+C_6+ p_R_6 p2_C_6
+Cp_6+ p_Rp_6 p2_C_6
+p_R_6 C_6+ C_6-
+p_Rp_6 Cp_6+ Cp_6-
+p2_C_6 req_C-
+req_C- p3_C_6
+p3_C_6 C_6- Cp_6-
+C_6- p4_C_6 p_R_6
+Cp_6- p4_C_6 p_Rp_6
+p4_C_6 req_C+
+
+req_D+ p1_D_6
+p1_D_6 D_6+ Dp_6+
+D_6+ p_R_6 p2_D_6
+Dp_6+ p_Rp_6 p2_D_6
+p_R_6 D_6+ D_6-
+p_Rp_6 Dp_6+ Dp_6-
+p2_D_6 req_D-
+req_D- p3_D_6
+p3_D_6 D_6- Dp_6-
+D_6- p4_D_6 p_R_6
+Dp_6- p4_D_6 p_Rp_6
+p4_D_6 req_D+
+
+p4_C_7 EPS_A+
+p4_D_7 EPS_A+
+EPS_A+ p1_A_7
+p1_A_7 A_7+/1 A_7+/2 Ap_7+/1 Ap_7+/2
+A_7+/1 p_R_7 p2_A_7
+A_7+/2 p_R_7 p2_A_7
+Ap_7+/1 p_Rp_7 p2_A_7
+Ap_7+/2 p_Rp_7 p2_A_7
+p_R_7 A_7+/1 Ap_7+/1 A_7-
+p_Rp_7 A_7+/2 Ap_7+/2 Ap_7-
+p2_A_7 ack_A_6+
+ack_A_6+ p4_C_7 p4_D_7
+ack_A_6+ p3_A_7
+p3_A_7 A_7- Ap_7-
+A_7- p4_A_7 p_R_7
+Ap_7- p4_A_7 p_Rp_7
+p4_A_7 ack_A_6-
+
+p4_C_7 EPS_B+
+p4_D_7 EPS_B+
+EPS_B+ p1_B_7
+p1_B_7 B_7+/1 B_7+/2 Bp_7+/1 Bp_7+/2
+B_7+/1 p_R_7 p2_B_7
+B_7+/2 p_R_7 p2_B_7
+Bp_7+/1 p_Rp_7 p2_B_7
+Bp_7+/2 p_Rp_7 p2_B_7
+p_R_7 B_7+/1 Bp_7+/1 B_7-
+p_Rp_7 B_7+/2 Bp_7+/2 Bp_7-
+p2_B_7 ack_B_6+
+ack_B_6+ p4_C_7 p4_D_7
+ack_B_6+ p3_B_7
+p3_B_7 B_7- Bp_7-
+B_7- p4_B_7 p_R_7
+Bp_7- p4_B_7 p_Rp_7
+p4_B_7 ack_B_6-
+
+req_C+ p1_C_7
+p1_C_7 C_7+ Cp_7+
+C_7+ p_R_7 p2_C_7
+Cp_7+ p_Rp_7 p2_C_7
+p_R_7 C_7+ C_7-
+p_Rp_7 Cp_7+ Cp_7-
+p2_C_7 req_C-
+req_C- p3_C_7
+p3_C_7 C_7- Cp_7-
+C_7- p4_C_7 p_R_7
+Cp_7- p4_C_7 p_Rp_7
+p4_C_7 req_C+
+
+req_D+ p1_D_7
+p1_D_7 D_7+ Dp_7+
+D_7+ p_R_7 p2_D_7
+Dp_7+ p_Rp_7 p2_D_7
+p_R_7 D_7+ D_7-
+p_Rp_7 Dp_7+ Dp_7-
+p2_D_7 req_D-
+req_D- p3_D_7
+p3_D_7 D_7- Dp_7-
+D_7- p4_D_7 p_R_7
+Dp_7- p4_D_7 p_Rp_7
+p4_D_7 req_D+
+.marking { p_reqAB  p_Rp_0 p_Rp_1 p_Rp_2 p_Rp_3 p_Rp_4 p_Rp_5 p_Rp_6 p_Rp_7 p4_C_0 p4_C_1 p4_C_2 p4_C_3 p4_C_4 p4_C_5 p4_C_6 p4_C_7 p4_D_0 p4_D_1 p4_D_2 p4_D_3 p4_D_4 p4_D_5 p4_D_6 p4_D_7 }
+.end

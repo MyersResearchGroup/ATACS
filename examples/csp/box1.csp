@@ -1,0 +1,22 @@
+module box1;
+
+input wsapi;
+output wsapo;
+input inci;
+output inco;
+input clkapi;
+output clkapo;
+input sendi;
+output sendo;
+input reseti;
+output reseto;
+
+process block1ctrl;
+*[[ skip -> wsapi+; inco+; inci+; wsapo+; ((inco-; inci-) || wsapi-); wsapo- 
+  | skip -> clkapi+; sendo+; sendi+; reseto+; reseti+;
+	clkapo+; ((sendo-; sendi-; reseto-; reseti-) || clkapi-); clkapo-
+]]	
+endprocess
+
+endmodule
+

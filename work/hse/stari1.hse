@@ -1,0 +1,116 @@
+/*****************************************************************************/
+/* An empty STARI stage (see Greenstreet's PhD thesis)                       */
+/*****************************************************************************/
+
+module emptystage;
+
+delay logic = <100,200>;
+
+input xtin;
+input xfin;
+input ackin;
+
+output xt={logic};
+output xf={logic};
+output ack={true,logic};
+
+gate ct;
+ ackin &  xtin -> xt+
+~ackin & ~xtin -> xt-
+endgate
+
+gate cf;
+ ackin &  xfin -> xf+
+~ackin & ~xfin -> xf-
+endgate
+
+gate ack;
+ xt |  xf -> ack-
+~xt & ~xf -> ack+
+endgate
+endmodule
+
+/*****************************************************************************/
+/* A full STARI stage (see Greenstreet's PhD thesis)                         */
+/*****************************************************************************/
+
+module fullstage;
+
+delay logic = <100,200>;
+
+input xtin;
+input xfin;
+input ackin;
+
+output xt={true,logic};
+output xf={logic};
+output ack={logic};
+
+gate ct;
+~ackin & ~xtin -> xt-
+ ackin &  xtin -> xt+
+endgate
+
+gate cf;
+ ackin &  xfin -> xf+
+~ackin & ~xfin -> xf-
+endgate
+
+gate ack;
+~xt & ~xf -> ack+
+ xt |  xf -> ack-
+endgate
+endmodule
+
+/*****************************************************************************/
+/* A collection of N STARI stages (see Greenstreet's PhD thesis)             */
+/* 	In order to add a stage, simply copy a stari instance and increment  */
+/*      all the numbers.  Also, increment the numbers in the right and       */
+/*      notempty processes.  First N/2 stages must be empty, second N/2 must */
+/*      alternate ending with a fullstage.                                   */
+/*****************************************************************************/
+
+module stari;
+
+delay pi    = <1200,1200>;
+delay skew  = <0,100>;
+
+input clk={pi};
+input ack2={true,skew};
+input x0t={skew};
+input x0f={skew};
+
+emptystage stage1(xtin => x0t, xfin => x0f, ackin => ack2,
+                  xt => x1t, xf => x1f, ack => ack1);
+
+process clk;
+    *[ clk+; clk- ]
+endprocess
+
+process left;
+    *[ [clk]; [ true -> x0t+
+              | true -> x0f+
+	      ]; [~clk];
+              [ x0t -> x0t-
+              | x0f -> x0f-
+              ]
+     ]
+endprocess
+
+constraint notfull1;
+~ack1 -> x0t-
+endconstraint
+
+constraint notfull2;
+~ack1 -> x0f-
+endconstraint
+
+process right;
+    *[ [clk]; ack2-; [~clk]; ack2+ ]
+endprocess
+
+constraint notempty;
+x1t | x1f -> ack2-
+endconstraint
+
+endmodule

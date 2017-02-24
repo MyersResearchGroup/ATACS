@@ -1,0 +1,15 @@
+time ../../bin/atacs -cT -oa -oi -tp -oq -ys rappid PE1
+time ../../bin/atacs -cT -oa -oi -tp -oq -ys rappid PE2
+time ../../bin/atacs -cT -oa -oi -tp -oq -ys rappid PE3
+time ../../bin/atacs -cT -oa -oi -tp -oq -ys rappid PE4
+time ../../bin/atacs -cT -oa -oi -tp -oq -ys rappid PE5
+time ../../bin/atacs -cT -oa -oi -tp -oq -ys rappid PE6
+time ../../bin/atacs -cT -oa -oi -tp -oq -ys rappid BC
+time ../../bin/atacs -cT -oa -oi -tp -oq -ys rappid TU
+time ../../bin/atacs -cT -oa -oi -tp -oq -ys rappid AG
+time ../../bin/atacs -cT -oa -oi -tp -oq -ys rappid ir1
+
+
+
+
+

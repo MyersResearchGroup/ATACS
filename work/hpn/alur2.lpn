@@ -1,0 +1,12 @@
+.dummy fillx filly
+.graph 
+on fillx #@ /0;inf\
+on filly #@ /0;inf\
+fillx x 
+filly y
+.marking { on }
+#@.marking { <x = [3,4]> <y = [1,3]> }
+#@.rates { <fillx = [1,1]> <filly = [1,1]> }
+#@.continuous fillx x filly y
+#@.invariants { <on=[y >= 0; x >= 0; y <= 3; x <= 4]> }
+.end

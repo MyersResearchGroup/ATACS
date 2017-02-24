@@ -1,0 +1,5 @@
+[+csc0: (ack & ~go & req)]
+[-csc0: (go)]
+[+req: (~ack & ~csc0 & ~rdy)]
+[-req: (csc0)]
+[ rdy: (csc0 & ~req)] Combinational

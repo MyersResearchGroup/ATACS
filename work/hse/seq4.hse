@@ -1,0 +1,49 @@
+module seq4;
+
+delay gatedelay = <0,1>;
+delay envdelay = <2,3>; 
+
+input ar = {envdelay};
+output aa = {gatedelay};
+output a0r = {gatedelay};
+input a0a = {envdelay};
+output a1r = {gatedelay};
+input a1a = {envdelay};
+output a2r = {gatedelay};
+input a2a = {envdelay};
+output a3r = {gatedelay};
+input a3a = {envdelay};
+output csc0 = {true,gatedelay};
+output csc1 = {gatedelay};
+output csc2 = {gatedelay};
+output csc3 = {gatedelay};
+output csc4 = {gatedelay};
+
+process ctrl;
+*[ [ar]; a0r+; (csc1+ || csc0-); [a0a]; a0r-; [~a0a];
+         a1r+; (csc2+ || csc1-); [a1a]; a1r-; [~a1a]; 
+         a2r+; (csc3+ || csc2-); [a2a]; a2r-; [~a2a]; 
+         a3r+; (csc0+ || csc3-); [a3a]; aa+; [~ar]; a3r-; [~a3a]; aa- 
+/*         aa+; (csc0+ || csc4-); [~ar]; aa-*/ ]
+endprocess
+
+process a;
+*[ ar+; [aa]; ar-; [~aa] ]
+endprocess
+
+process a0;
+*[ [a0r]; a0a+; [~a0r]; a0a- ]
+endprocess
+
+process a1;
+*[ [a1r]; a1a+; [~a1r]; a1a- ]
+endprocess
+
+process a2;
+*[ [a2r]; a2a+; [~a2r]; a2a- ]
+endprocess
+
+process a3;
+*[ [a3r]; a3a+; [~a3r]; a3a- ]
+endprocess
+endmodule

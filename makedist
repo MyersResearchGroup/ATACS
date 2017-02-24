@@ -1,0 +1,9 @@
+all :   
+	cd examples
+	make clean
+	cd ../src
+	make clean
+	make static
+	cd ../..
+	tar zcvf atacs_linux.tgz atacs/INSTALL atacs/README atacs/bin atacs/examples \
+	atacs/man1

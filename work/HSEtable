@@ -1,0 +1,25 @@
+CPU time limit = 1	second	minute	hour	day	bug report(s)
+Works			 54	 61	 66	70
+Out of Memory		  0	  2	  3	 4 absstari stari1[24] gasp3
+enabled but signal not	  3	  3	  3	 3 e0 postp sbuf
+Bad header information!	  0	  0	  0	 0
+CSC violation!		  0	  0	  0	 0
+CPU time limit exceeded	 25	 14	  6	 5 BUG diffeq[23] FF fifoN
+undefined action	  0	  0	  0	 0
+Cycle detected in graph	  0	  0	  0	 0
+Safety violation	  0	  1	  2	 3 deco6 alu1 cory
+deadlocked in state	  4	  4	  4	 4 compenv deco1 domino2 simple
+Liveness violation!	  1	  1	  1	 1 a
+Verification failure	  0	  0	  0	 0
+Cannot open .hse!	  1	  1	  1	 1 fsm
+syntax error		  0	  0	  0	 0
+Deadlock!		  0	  0	  0	 0
+Output event disabled	  5	  5	  5	 5 diffeq ex1 pchbG xyzG and2_a
+questionable empty result 1	  1	  1	 1 lab3
+No rules in system!	  1	  1	  1	 1 erp
+module not found	  0	  0 	  0	 0
+Unable to solve CSC	  0	  0	  0	 0
+Couldn't create file	  0	  0	  0	 0
+Core Dumps		  0	  0	  1	 1 alu2
+==================================================
+TOTAL			 99	 99	 99	99

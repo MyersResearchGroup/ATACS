@@ -1,0 +1,19 @@
+module nondis;
+
+input a;
+input b;
+output c;
+output d;
+
+process main;
+*[ ((c+; [a]) || (d+; [b])); c-; d-; [~a & ~b] ]
+endprocess
+
+process env1;
+*[ [c]; a+; a-; [~c & ~d] ]
+endprocess
+
+process env2;
+*[ [d]; b+; b-; [~c & ~d] ]
+endprocess
+endmodule

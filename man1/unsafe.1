@@ -1,0 +1,52 @@
+.TH UNSAFE 1 "30 March 2002" "" ""
+.SH NAME
+unsafe \- Toggle pruning of TELs with rules into some but not all
+branches of a choice
+.SH SYNOPSIS
+.B atacs -PU
+.br
+.B atacs> unsafe
+.SH DESCRIPTION
+.B unsafe
+toggles the pruning of TEL structures that have rules into some but
+not all branches of a choice.  By default, atacs does not consider
+choice when it decides how to reduce concurrency in a design.  This
+causes concurrency reduction to produce TEL structures with safety
+violations.  The first invocation of the \fBunsafe\fR command enables
+the policy of ensuring the following invariant: For each choice
+\fIC\fR in a design and each event \fIe\fR outside of that choice, if
+there is a rule from \fIe\fR to any branch of \fIC\fR, then there must
+be a rule from \fIe\fR to every branch of \fIC\fR.  This eliminates
+the aforementioned safety violations.  The second invocation of the
+\fBunsafe\fR command disables this policy, and so on.
+
+.PP
+.SH OPTIONS
+.TP
+.BI \-PU
+This atacs option toggles the pruning of TEL structures that have
+rules into some but not all branches of a choice during automated
+concurrency reduction from the Unix shell command line.
+.TP
+.BI unsafe
+This atacs command toggles the pruning of TEL structures that have
+rules into some but not all branches of a choice during automated
+concurrency reduction from within the atacs interactive shell.
+.SH CREDITS
+This pruning method and this command were written by Eric Robert
+Peskin (peskin@vlsigroup.ece.utah.edu).
+.SH BUGS
+Unfortunately, in the current implementation, the definition of a
+branch of a choice is not quite correct.  The result is that, in the
+presence of complicated (e.g., multi-level) choice, \fBunsafe\fR may
+prune away TEL structures that actually could have been synthesizable
+solutions.  Thus, in the current implementation \fBunsafe\fR is a
+heuristic.  But we believe it could be made exact.
+.PP
+Also, there should be a corresponding invariant for rules that exit
+some but not all branches of a choice.
+.PP
+See also http://www.async.ece.utah.edu/cgi-bin/atacs
+.SH "SEE ALSO"
+.BR reduction (1),
+.BR http://www.async.ece.utah.edu

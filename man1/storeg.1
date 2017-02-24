@@ -1,0 +1,38 @@
+.TH STOREG 1 "28 September 2001" "" ""
+.SH NAME
+storeg \- Stores a G File
+.SH SYNOPSIS
+.nf
+.BI atacs " -sg <filename>"
+.br
+.BI atacs> " storeg <filename>"
+.fi
+.SH DESCRIPTION
+.B storeg
+stores a timed event-rule (ER) structure to the Petri-net graph format used by 
+tools such as SIS and PETRIFY.  The output file name is <filename>.g.
+The graph file is augmented with the initial state in the following format:
+.PP
+#@.init_state [0101]
+.PP
+The graph file may also need to be modified to match required naming
+conventions (i.e., all or none events on a signal must have /# and 
+the /# should start with /1 and go up).
+.SH OPTIONS
+.TP
+.BI \-sg
+Stores a G file from the command line.
+.TP
+.BI storeg
+Stores a G file from the interactive shell.
+.SH CREDITS
+.B storeg
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR storeer (1)
+.BR storersg (1)
+.BR storesg (1)
+.BR storeprs (1)
+.BR storenet (1)
+.BR storevhdl (1)
+.BR http://www.async.ece.utah.edu

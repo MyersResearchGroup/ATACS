@@ -1,0 +1,30 @@
+.TH PRINTLPN 1 "13 December 2006" "" ""
+.SH NAME
+printlpn \- Prints a labeled hybrid Petri-net (LHPN)
+.SH SYNOPSIS
+.nf
+.BI atacs " -pl <filename>"
+.br
+.BI atacs> " printlpn <filename>"
+.fi
+.SH DESCRIPTION
+.B printlpn
+prints the current LHPN 
+using Tom Rokicki's parg program or Bell Lab's Dot program depending on
+whether the dot options is selected or not.
+.SH OPTIONS
+.TP
+.BI \-pl
+Prints an LHPN from the command line.
+.TP
+.BI printlpn
+Prints an LHPN from the interactive shell.
+.SH CREDITS
+.B printlpn
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR loadlpn (1)
+.BR showlpn (1)
+.BR storelpn (1)
+.BR dot (1)
+.BR http://www.async.ece.utah.edu

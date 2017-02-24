@@ -1,0 +1,43 @@
+/*****************************************************************************/
+/* A 2-bit comparator                                                        */
+/*****************************************************************************/
+
+include compare;
+include compenv;
+
+module compare2;
+
+input  Req  = {false, <1,10>};
+input  Req0 = {false, <1,10>};
+input  Req1 = {false, <1,10>};
+input  Req2 = {false, <1,10>};
+input  Req3 = {false, <1,10>};
+input  A0   = {false, <1,10>};
+input  B0   = {false, <1,10>};
+input  A1   = {false, <1,10>};
+input  B1   = {false, <1,10>};
+input  A2   = {false, <1,10>};
+input  B2   = {false, <1,10>};
+input  A3   = {false, <1,10>};
+input  B3   = {false, <1,10>};
+output Ack  = {false, <1,10>};
+
+compare compare0(Req => Req, A => A0, B => B0, E => E0, G => G0, L => L0,
+		 Ack => Ack0);
+
+compare compare1(Req => Req, A => A1, B => B1, E => E1, G => G1, L => L1,
+		 Ack => Ack1);
+
+compenv compenv0(Req => Req0, A => A0, B => B0, Ack => Ack);
+
+compenv compenv1(Req => Req1, A => A1, B => B1, Ack => Ack);
+
+process req;
+*[ [Req0 & Req1]; Req+; [~Req0 & ~Req1]; Req- ]
+endprocess
+
+process ack;
+*[ [Ack0 & Ack1]; Ack+; [~Ack0 & ~Ack1]; Ack- ]
+endprocess
+
+endmodule

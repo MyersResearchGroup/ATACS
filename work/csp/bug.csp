@@ -1,0 +1,11 @@
+module bug;
+
+output a;
+output b;
+output c;
+
+process bug;
+*[ [c+]; a+; c-; [b+]; a-; c+ ]
+endprocess
+
+endmodule       

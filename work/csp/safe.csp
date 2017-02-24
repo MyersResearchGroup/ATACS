@@ -1,0 +1,17 @@
+/*****************************************************************************/
+/* Example with a safety violation.                                          */
+/*****************************************************************************/
+module safe;
+
+input a;
+output b;
+
+process safeenv;
+    *[ [a+@]; b+ ]
+endprocess
+
+process safe;
+    *[ a+; b+; a-; b- ]
+endprocess
+
+endmodule

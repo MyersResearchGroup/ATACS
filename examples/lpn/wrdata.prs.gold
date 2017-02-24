@@ -1,0 +1,7 @@
+[+Areq: (DSTRB & ~Dreq & ~T)]
+[-Areq: (~DSTRB & T)]
+[+Dreq: (DSTRB & ~Areq & ~WR & T)]
+[-Dreq: (~DSTRB & WR & ~T)]
+[ WR: (Dreq)] Combinational
+[+T: (Areq)]
+[-T: (Dreq)]

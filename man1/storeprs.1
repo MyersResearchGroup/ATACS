@@ -1,0 +1,33 @@
+.TH STOREPRS 1 "28 September 2001" "" ""
+.SH NAME
+storeprs \- Stores a PRS File
+.SH SYNOPSIS
+.nf
+.BI atacs " -sp <filename>"
+.br
+.BI atacs> " storeprs <filename>"
+.fi
+.SH DESCRIPTION
+.B storeprs
+stores a set of production rules to a file
+named <filename>.prs which is in the following form:
+.PP
+[(+/-)<signal>: ((~)<signal1> & ... & (~)<signaln>)]
+.SH OPTIONS
+.TP
+.BI \-sp
+Stores a PRS file from the command line.
+.TP
+.BI storeprs
+Stores a PRS file from the interactive shell.
+.SH CREDITS
+.B storeprs
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR storeg (1)
+.BR storeer (1)
+.BR storersg (1)
+.BR storesg (1)
+.BR storenet (1)
+.BR storevhdl (1)
+.BR http://www.async.ece.utah.edu

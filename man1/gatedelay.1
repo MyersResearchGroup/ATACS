@@ -1,0 +1,29 @@
+.TH GATEDELAY 1 "30 September 2001" "" ""
+.SH NAME
+gatedelay \- Sets Default Minimum and Maximum Gate Delay
+.SH SYNOPSIS
+.nf
+.BI atacs " -G#/#"
+.br
+.BI atacs> " gatedelay <number> <number>"
+.fi
+.SH DESCRIPTION
+.B "gatedelay <number> <number>" 
+gatedelay <default gate delay>
+changes the default gate delay used for new outputs added to the specification
+(DEFAULT=<0,1>).
+.SH OPTIONS
+.TP
+.BI \-G#/#
+Sets default gate delay from the command line.
+.TP
+.BI "gatedelay <number> <number>"
+Sets default gate delay in the interactive shell.
+.SH CREDITS
+.B gatedelay
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH BUGS
+.SH FILES
+.SH "SEE ALSO"
+.BR maxsize (1)
+.BR http://www.async.ece.utah.edu

@@ -1,0 +1,10 @@
+[+e: (b & a & req)]
+[+e: (~b & ~a & req & ~ack)]
+[-e: (~req)]
+[ ack: (e)] Combinational
+[ ack: (l)] Combinational
+[ ack: (g)] Combinational
+[+l: (b & ~a & req & ~ack)]
+[-l: (~req)]
+[+g: (~b & a & req & ~ack)]
+[-g: (~req)]

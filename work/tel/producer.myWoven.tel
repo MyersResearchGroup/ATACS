@@ -1,0 +1,49 @@
+#  This Timed Event/Level structure contains:
+.e 11 # events
+.i 4 # input events
+.r 15 # causal rules
+.n 0 # ordering rules
+.d 0 # merges
+.c 0 # conflicts
+.s 0000 # start state
+#
+# EVENTS:
+#
+reset
+#  Each of the following events has the format <action>/<occurrence>
+#   Input Events:
+y?+/1 y?-/1 
+x?+/1 x?-/1 
+#   Output Events:
+x!+/1 x!-/1 
+y!+/1 y!-/1 
+#   Dummy (Sequencing) Events:
+$HSEi+/1 
+$HSE+/1 
+#
+# RULES, which have the following format:
+#  <enabling> <enabled> [<expression>] <epsilon> <lower> <upper>
+#   Causal Rules:
+reset x?+/1 [x!] 0 0 inf
+reset x!+/1  0 0 inf
+reset y!+/1 [~y?] 0 0 inf
+y?+/1 y?-/1 [~y!] 0 0 inf
+y?-/1 $HSE+/1  0 0 inf
+x?+/1 x?-/1 [~x!] 0 0 inf
+x?-/1 y?+/1 [y!] 0 0 inf
+x!+/1 x!-/1 [x?] 0 0 inf
+x!+/1 y!+/1 [x?] 0 0 inf
+x!-/1 x!+/1 [~x?] 1 0 inf # INITIAL
+y!+/1 $HSEi+/1 [y?] 0 0 inf
+y!+/1 y!-/1 [y?] 0 0 inf
+y!-/1 y!+/1 [~y?] 1 0 inf # INITIAL
+$HSEi+/1 x!+/1  1 0 inf # INITIAL
+$HSE+/1 x?+/1 [x!] 1 0 inf # INITIAL
+#   Ordering (Constraint) Rules:
+#
+# MERGERS:
+#
+#
+# CONFLICTS:
+#
+

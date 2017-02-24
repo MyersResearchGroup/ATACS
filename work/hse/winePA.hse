@@ -1,0 +1,22 @@
+module wine;
+
+input reqwine;
+output reqpatron;
+output ackwine;
+input ackpatron;
+
+process shop;
+*[ [reqwine]; ackwine+; [~ackpatron]; reqpatron+; [~reqwine]; ackwine-; 
+   [ackpatron]; reqpatron-
+ ]
+endprocess
+
+process winery;
+*[ reqwine+; [ackwine]; reqwine-; [~ackwine] ]
+endprocess
+
+process patron;
+*[ [reqpatron]; ackpatron+; [~reqpatron]; ackpatron- ]
+endprocess
+endmodule
+

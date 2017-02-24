@@ -1,0 +1,19 @@
+[ peack: (~tack & ~smsg & y2_percvifc)] Combinational
+[ peack: (y2_percvifc & y1_percvifc & y0_percvifc)] Combinational
+[ peack: (tack & ~y2_percvifc & ~y1_percvifc)] Combinational
+[+treq: (woq & ~y2_percvifc)]
+[+treq: (~smsg & ~y2_percvifc & y0_percvifc)]
+[-treq: (enrcv & ~y0_percvifc)]
+[-treq: (y2_percvifc & y1_percvifc & y0_percvifc)]
+[-treq: (woq & y2_percvifc)]
+[+enrcv: (~smsg & ~y2_percvifc & y0_percvifc)]
+[-enrcv: (~ackrcvhs & ~y1_percvifc)]
+[ resreqrecv: (ackrcvhs & ~y1_percvifc)] Combinational
+[+y2_percvifc: (~woq & tack & ~y1_percvifc)]
+[+y2_percvifc: (smsg)]
+[-y2_percvifc: (~woq & ~tack & ~smsg)]
+[+y1_percvifc: (smsg)]
+[-y1_percvifc: (~tack & ackrcvhs)]
+[+y0_percvifc: (smsg)]
+[+y0_percvifc: (~tack & ~ackrcvhs & y1_percvifc)]
+[-y0_percvifc: (tack & ~y2_percvifc)]

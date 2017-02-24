@@ -1,0 +1,10 @@
+[ ack: (~busack & y0_nakpa)] Combinational
+[+reqbus: (rejsend & ~y0_nakpa)]
+[-reqbus: (~busack & y0_nakpa)]
+[+hystreq: (ackbus & ~y0_nakpa)]
+[-hystreq: (~busack & y0_nakpa)]
+[ busreq: (ackhyst & ~y0_nakpa)] Combinational
+[+enableda: (ackbus & ~y0_nakpa)]
+[-enableda: (~busack & y0_nakpa)]
+[+y0_nakpa: (busack)]
+[-y0_nakpa: (~rejsend & ~ackbus & ~ackhyst)]

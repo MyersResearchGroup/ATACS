@@ -1,0 +1,66 @@
+/*****************************************************************************/
+/* An abstract version of the stari example (see Tsairin CAV97).             */
+/*****************************************************************************/
+module abstract;
+
+input clk={<12,12>};
+input data0={<0,1>};
+input ack8={<0,1>};
+
+output data1={<1,2>};
+output ack1={true,<1,2>};
+output data2={<1,2>};
+output ack2={true,<1,2>};
+output data3={<1,2>};
+output ack3={true,<1,2>};
+output data4={true,<1,2>};
+output ack4={<1,2>};
+output data5={true,<1,2>};
+output ack5={<1,2>};
+output data6={true,<1,2>};
+output ack6={<1,2>};
+output data7={<1,2>};
+output ack7={true,<1,2>};
+
+process clk;
+    *[ clk+; clk-]
+endprocess
+
+process stage0;
+    *[ [clk]; data0+; [~clk]; data0- ]
+endprocess
+ 
+process stage1;
+    *[ [data0 & ack2]; data1+; ack1-; [~data0 & ~ack2]; data1-; ack1+ ]
+endprocess
+ 
+process stage2;
+    *[ [data1 & ack3]; data2+; ack2-; [~data1 & ~ack3]; data2-; ack2+ ]
+endprocess
+ 
+process stage3;
+    *[ [data2 & ack4]; data3+; ack3-; [~data2 & ~ack7]; data3-; ack3+ ]
+endprocess
+
+process stage4;
+    *[ [~data3 & ~ack5]; data4-; ack4+; [data3 & ack5]; data4+; ack4- ]
+endprocess
+  
+process stage5;
+    *[ [~data4 & ~ack6]; data5-; ack5+; [data4 & ack6]; data5+; ack5- ]
+endprocess
+  
+process stage6;
+    *[ [~data5 & ~ack7]; data6-; ack6+; [data5 & ack7]; data6+; ack6- ]
+endprocess
+
+process stage7;
+    *[ [data6 & ack8]; data7+; ack7-; [~data6 & ~ack8]; data7-; ack7+ ]
+endprocess
+
+process stage8;
+    *[ [clk]; ack8+; [~clk]; ack8- ]
+endprocess
+endmodule
+
+

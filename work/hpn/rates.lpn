@@ -1,0 +1,31 @@
+.dummy iL dL iU dU IncL IncU DecL DecU
+.graph
+
+pD IncL #@ [100,100]
+p0 IncL #@ [0,0]
+IncL pI
+IncL p1 
+p1 IncU #@ [0,100]
+IncU p2 
+pI DecL #@ [100,100]
+p2 DecL #@ [0,0]
+DecL p3
+DecL pD 
+p3 DecU #@ [0,100]
+DecU p0
+
+p1 iL #@ /1;inf\
+p2 iU #@ /1;inf\
+p3 dL #@ /1;inf\
+p0 dU #@ /1;inf\
+
+iL Vout
+Vout dL
+iU Vout
+Vout dU
+
+.marking { p1 pI }
+#@.marking{ <Vout=-1000> }
+#@.rates { <iL=20><iU=20><dL=19><dU=19> }
+#@.continuous Vout [-2500,2500] iL dL iU dU
+.end

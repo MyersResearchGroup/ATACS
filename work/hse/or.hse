@@ -1,0 +1,14 @@
+module or;
+
+input a;
+input b;
+output c;
+
+process orgate;
+*[ [a | b]; c+; [~a & ~b]; c- ]
+endprocess
+
+process env;
+*[ (a+ || b+); [c]; (a- || b-); [~c]]
+endprocess
+endmodule

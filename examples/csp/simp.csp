@@ -1,0 +1,13 @@
+module simp;
+
+input a;
+output b;
+input c;
+output d;
+
+process simp;
+*[[ skip -> a+; b+; a-; b-
+  | skip -> c+; d+; c-; d-
+ ]]
+endprocess
+endmodule

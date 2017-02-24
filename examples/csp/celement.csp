@@ -1,0 +1,27 @@
+/*****************************************************************************/
+/* A c-element (try some different delays).                                  */
+/*****************************************************************************/
+module celement;
+
+delay slowslow=<10,inf>;
+delay slowfast=<10,inf;2,5>;
+delay fastslow=<2,5;10,inf>;
+delay fastfast=<2,5>;
+
+input  a={fastfast};
+input  b={fastfast};
+output c={fastfast};
+
+process main;
+*[ [a+ & b+]; c+; [a- & b-]; c- ]
+endprocess
+
+testbench Aenv;
+*[ b+; [c+]; b-; [c-] ]
+endtestbench
+
+testbench Benv;
+*[ a+; [c+]; a-; [c-] ]
+endtestbench
+
+endmodule

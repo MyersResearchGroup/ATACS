@@ -1,0 +1,20 @@
+# Vanbekbergen ICCAD '90 submission Fig. 5 example
+.name vbe_fig_5
+.inputs Da La Za
+.outputs Dr Lr Zr
+#@.init_state [000000]
+.graph
+La+ Zr+ Dr+ Lr-
+Zr+ Za+
+Dr+ Da+
+Da+ Zr- Dr-
+Lr- La-
+La- Dr-
+Za+ Zr-
+Zr- Za-
+Dr- Da-
+Za- Lr+
+Da- Lr+
+Lr+ La+
+.marking {<Da-,Lr+> <Za-,Lr+>}
+.end

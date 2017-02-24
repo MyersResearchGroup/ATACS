@@ -1,0 +1,23 @@
+module postp;
+
+output a = {<1,2>};
+input b;
+input c;
+output d;
+output e;
+
+process main;
+*[ a+; a-; [ b -> d+; [~b]; d-
+           | c -> e+; [~c]; e-
+           ]
+ ]
+endprocess
+
+process env;
+*[ [a]; [ true -> b+; [d]; b-; [~d]
+        | true -> c+; [e]; c-; [~e]
+        ]
+ ]
+endprocess
+
+endmodule

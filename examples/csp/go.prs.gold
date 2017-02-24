@@ -1,0 +1,4 @@
+[+go1: (ready & ~irdy & ~selin)]
+[-go1: (irdy)]
+[+go2: (ready & ~selin)]
+[-go2: (selin & ~go1)]

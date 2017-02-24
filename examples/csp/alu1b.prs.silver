@@ -1,0 +1,2 @@
+[ A1M: (a1done)] Combinational
+[~a1prech: (~a1done & start)] Combinational

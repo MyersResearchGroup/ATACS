@@ -1,0 +1,30 @@
+/*****************************************************************************/
+/* A collection of N FIFO stages using SUN's FIFO (see ASYNC97)              */
+/* 	In order to add a stage, simply copy a fifo instance and increment   */
+/*      all the numbers.  Also, increment the numbers in the rightenv.       */
+/*****************************************************************************/
+include sunfifo2;
+
+module main;
+
+input i1 = {<180,inf;180,260>};
+input o4 = {true,<90,110;90,inf>};
+
+fifo fifo1(fin => i1, seoutb => o1, eout => x1, eoutb => x1b,
+	   fout => i2, foutb => i2b, seinb => o2);
+
+fifo fifo2(fin => i2, seoutb => o2, eout => x2, eoutb => x2b,
+	   fout => i3, foutb => i3b, seinb => o3);
+
+fifo fifo3(fin => i3, seoutb => o3, eout => x3, eoutb => x3b,
+	   fout => i4, foutb => i4b, seinb => o4);
+
+process leftenv;
+*[ i1+; [o1-]; i1-; [o1+] ]
+endprocess
+
+process rightenv;
+*[ [i4+]; o4-; [i4-]; o4+ ]
+endprocess
+
+endmodule

@@ -1,0 +1,151 @@
+.inputs Vin Vosc up down a lock 
+.dummy inc dec d1 d2 restart restartp restartpp lockr lockf skip lockrp
+#@.keep lockr lockf lockrp restart restartp restartpp
+#@.init_state [000000]
+#@.property AG((~lock)|(~a))
+.graph
+
+pi1 Vin+ #@ [498,500] 
+pVinL Vin+ #@ [0,0]
+Vin+ pi2
+Vin+ pVinH
+pi2 Vin- #@ [498,500]
+pVinH Vin- #@ [0,0]
+Vin- pi1
+Vin- pVinL 
+
+pVoscL Vosc+ #@ [0,0]
+Vosc+ pVoscH
+pVoscH Vosc- #@ [0,0]
+Vosc- pVoscL 
+
+p0 up+ #@ [0,0] 
+p0 down+ #@ [0,0]
+up+ p1
+down+ p2
+p1 up- #@ [0,0] 
+p2 down- #@ [0,0] 
+up- p3
+down- p3
+p3 restart #@ [0,0]
+restart p0
+
+pVinH up+ #@ [0,0]  
+pVinH down- #@ [0,0]  
+up+ pVinH
+down- pVinH
+
+pVoscH down+ #@ [0,0]  
+pVoscH up- #@ [0,0]  
+down+ pVoscH
+up- pVoscH
+
+pVinL restart #@ [0,0]
+pVoscL restart #@ [0,0]
+restart pVinL
+restart pVoscL
+
+p2 inc #@ /1;inf\
+inc v2 
+
+p1 dec #@ /1;inf\
+v1 dec
+
+v1 d1
+d1 v2
+v2 d2
+d2 v1
+
+v1 Vosc+ #@ /0;0\ [0,2]
+v2 Vosc- #@ /0;0\ [0,2]
+
+pVoscL d1
+pVoscH d2
+
+Vin+ pVinHp
+pVinHp Vin- #@ [0,0]
+Vosc+ pVoscHp
+pVoscHp Vosc- #@ [0,0]
+
+p0p a+/1 #@ [0,0] 
+pVinHp a+/1 #@ [2,2]  
+p0p a+/2 #@ [0,0]
+pVoscHp a+/2 #@ [2,2]  
+p0p lockr #@ [0,0]
+pVinHp lockr #@ [0,0]
+pVoscHp lockr #@ [0,0]
+a+/1 p1p
+a+/1 pVinHp
+a+/2 p1p
+a+/2 pVoscHp
+lockr pVinHp
+lockr pVoscHp
+lockr p4p
+p1p a-/1 #@ [0,0] 
+pVoscHp a-/1 #@ [0,0]  
+pVinHp a-/1 #@ [0,0]  
+a-/1 p3p
+a-/1 pVoscHp
+a-/1 pVinHp
+p3p restartp #@ [0,0]
+restartp p0p
+pVinL restartp #@ [0,0]
+pVoscL restartp #@ [0,0]
+restartp pVinL
+restartp pVoscL
+
+p4p a+/5 #@ [0,0] 
+pVinL a+/5 #@ [2,2]  
+p4p a+/6 #@ [0,0]
+pVoscL a+/6 #@ [2,2]  
+p4p lockf #@ [0,0]
+pVinL lockf #@ [0,0]
+pVoscL lockf #@ [0,0]
+a+/5 p5p
+a+/5 pVinL
+a+/6 p5p
+a+/6 pVoscL
+lockf pVinL
+lockf pVoscL
+lockf p6p
+p5p a-/2 #@ [0,0] 
+pVoscL a-/2 #@ [0,0]  
+pVinL a-/2 #@ [0,0]  
+a-/2 p0p
+a-/2 pVoscL
+a-/2 pVinL
+
+p6p lock+ #@ [0,0]
+punlock lock+ #@ [0,0]
+p6p skip #@ [2,2]
+lock+ p0pp
+skip  p0pp
+
+p0pp a+/3 #@ [0,0] 
+pVinHp a+/3 #@ [50,50]  
+p0pp a+/4 #@ [0,0]
+pVoscHp a+/4 #@ [50,50]  
+p0pp lockrp #@ [0,0]
+pVinHp lockrp #@ [0,0]
+pVoscHp lockrp #@ [0,0]
+a+/3 pXp
+a+/3 pVinHp
+a+/4 pXp
+a+/4 pVoscHp
+pXp a+/7
+a+/7 p1p
+lockrp pVinHp
+lockrp pVoscHp
+lockrp p3pp
+p3pp restartpp #@ [0,0]
+restartpp p0pp
+pVinL restartpp #@ [0,0]
+pVoscL restartpp #@ [0,0]
+restartpp pVinL
+restartpp pVoscL
+
+.marking { p0 p0p pi1 pVinL pVoscL punlock }
+#@.marking { <v1 = [398,400]><v2 = [398,400]> }
+#@.rates { <inc = 1><dec = 1><d1 = 1><d2 = 1> }
+#@.continuous d1 d2 dec inc v1 v2
+.end

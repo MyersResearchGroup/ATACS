@@ -1,0 +1,56 @@
+
+/*****************************************************************************/
+/* EE685 Project  Simplified Huffman Decoder Control                         */
+/* Zhixiang Liu                                                              */
+/*****************************************************************************/
+module deco6;
+
+input ai; 
+input bi;
+input ci;
+input full2 = {false};
+input full3 = {false};
+input shift0 = {true};
+output ao;
+output bo;
+output co;
+
+
+
+process main;
+*[[ ~full3 -> ao+; [ai]; ao-; [~ai]
+  | full3 -> skip];  
+  [ shift0 -> bo+; [bi]; bo-; [~bi]
+  | ~shift0 -> skip];
+  co+; [ci]; co-; [~ci]
+ ]
+endprocess
+
+process a;
+*[ [ao]; (full2+ || full3+); ai+; [~ao]; ai- ]
+endprocess
+
+process b;
+*[ [bo]; 
+   [ full2 -> full2-
+   | ~full3 -> skip
+   | ~full2 & full3 -> full3-];
+   bi+; [~bo]; bi- 
+ ]
+endprocess
+
+process c;
+*[ [co]; 
+   [ skip -> [ ~shift0 -> skip
+             | shift0 -> shift0-]
+            
+   | skip -> [ shift0 -> skip
+             | ~shift0 -> shift0+]
+   ]; ci+; [~co]; ci- 
+ ]
+endprocess
+
+endmodule
+
+
+

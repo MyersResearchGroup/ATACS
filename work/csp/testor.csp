@@ -1,0 +1,27 @@
+module testor;
+
+input a;
+input b;
+output c;
+
+process main;
+*[ [a+ | b+]: c+: [a- | b-]: c- ]:
+endprocess
+
+process env;
+*[[ skip -> a+; [c+/1]: a-
+  | skip -> b+; [c+/1]: b-
+  ]: [c-]
+ ] :
+endprocess
+endmodule
+
+module testit;
+
+input x;
+input y;
+output z;
+
+testor test(a => x, b => y, c => z);
+
+endmodule

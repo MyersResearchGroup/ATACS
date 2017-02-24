@@ -1,0 +1,31 @@
+module fifo;
+
+input fin = {<180,inf;180,260>};
+input seinb={true,<90,110;90,inf>};
+output seoutb={true,<90,110>};
+output fout={<90,110>};
+output eout={true,<90,110>};
+output foutb={true,<90,110>};
+output eoutb={<90,110>};
+
+process seoutb;
+*[ [fin+]; seoutb-; [eout-]; seoutb+; [eout+] ]
+endprocess
+
+process eout;
+*[ [seoutb-]; eoutb+; eout-; [seoutb+ & foutb+]; eoutb-; eout+ ]
+endprocess
+
+process fout;
+*[ [eoutb+]; foutb-; fout+; [seinb-]; foutb+; fout-; [seinb+] ]
+endprocess
+
+testbench fin;
+*[ fin+; [seoutb-]; fin-; [seoutb+] ]
+endtestbench
+
+testbench seinb;
+*[ [fout+]; seinb-; [fout-]; seinb+ ]
+endtestbench
+
+endmodule

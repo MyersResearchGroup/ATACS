@@ -1,0 +1,35 @@
+.TH BURSTGC 1 "30 September 2001" "" ""
+.SH NAME
+burstgc \- Burst-Mode gC Implementation Technology
+.SH SYNOPSIS
+.nf
+.BI atacs " -ob"
+.br
+.BI atacs> " burstgc"
+.fi
+.SH DESCRIPTION
+.B burstgc
+selects generalized C-elements as the target technology
+which are used under a burst-mode assumption.  With this selection, a 
+covering constraint and an modified entrance constraint must be 
+satisfied.  The modified entrance constraint only results in extra
+logic when a hazard can occur before the circuit is given a chance
+to stabilize.
+.SH OPTIONS
+.TP
+.BI \-ob
+Enables burst-mode gC technology from the command line.
+.TP
+.BI burstgc
+Enables burst-mode gC technology in the interactive shell.
+.SH CREDITS
+.B burstgc
+was primarily written by Chris Myers (myers@vlsigroup.elen.utah.edu).
+.SH BUGS
+.SH FILES
+.SH "SEE ALSO"
+.BR atomic (1)
+.BR gc (1)
+.BR gatelevel (1)
+.BR burst2l (1)
+.BR http://www.async.ece.utah.edu

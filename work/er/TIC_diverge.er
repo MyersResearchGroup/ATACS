@@ -1,0 +1,35 @@
+#
+# This is an example of where time independent choice causes unbounded
+# separation in the state space (bap).  The exploration will 
+# stop iff the upper bound on the below rule is infinite.  Any other 
+# bound and the separation will diverge, since the TIC makes it infinite.
+#
+.e 9
+.i 4
+.r 9
+.d 1
+.c 2
+.s 000
+reset
+a+/1 a-/1
+a+/2 a-/2
+c+/1 c-/1
+$s1
+$s2
+##########################################################################
+# THIS WILL DIVERGE IF THE UPPER BOUND IS ANYTHING BUT INFINITE ON THE
+# BELOW RULE USING TIC CHOICE IN BAP
+##########################################################################
+a-/1 a+/1  0 6 10
+##########################################################################
+a+/1 a-/1  0 6 10
+a+/1 $s1   0 0 0
+$s1  c+/1  0 3 5
+c+/1 a-/2  0 6 10
+a-/2 c-/1  0 3 5
+c-/1 $s2   1 0 0
+c-/1 $s1   1 0 0
+$s2  a+/1  0 6 10
+a-/1 a-/2
+a-/1 $s2
+a-/1 $s1

@@ -1,0 +1,839 @@
+/*****************************************************************************/
+/* tagunit module                                                            */
+/*****************************************************************************/
+module tagunit;
+
+delay gatedelay = <90,110>;
+
+input BTag;
+input TagIn1;
+input TagIn2;
+input TagIn3;
+input TagIn4;
+input TagIn5;
+input TagIn6;
+input TagIn7;
+input L1;
+input L2;
+input L3;
+input L4;
+input L5;
+input L6;
+input L7;
+input TB;
+input instRdy;
+input XBRdy;
+output Rdy = {gatedelay};
+output TagArrived = {gatedelay};
+output TagRdy = {gatedelay};
+output TagOut1 = {gatedelay};
+output TagOut2 = {gatedelay};
+output TagOut3 = {gatedelay};
+output TagOut4 = {gatedelay};
+output TagOut5 = {gatedelay};
+output TagOut6 = {gatedelay};
+output TagOut7 = {gatedelay};
+output TokenOut = {gatedelay};
+
+process rdy;
+*[[instRdy+ & XBRdy+]: Rdy+: [instRdy-]: Rdy-]:
+endprocess
+
+process tagrdy;
+*[[Rdy+ & TagArrived+]: TagRdy+: [TagArrived-]: TagRdy-]:
+endprocess
+
+process tagout;
+*[ [Rdy+ & TagArrived+]:
+	[ L1+ | L1+ -> TagOut1+; [TagArrived-/1]; TagOut1-
+        | L2+ -> TagOut2+; [TagArrived-/1]; TagOut2-
+        | L3+ -> TagOut3+; [TagArrived-/1]; TagOut3-
+        | L4+ | L4+ -> TagOut4+; [TagArrived-/1]; TagOut4-; TagOut4+
+        | L5+ -> TagOut5+; [TagArrived-/1]; TagOut5-
+        | L6+ -> TagOut6+; [TagArrived-/1]; TagOut6-
+        | L7+ -> TagOut7+; [TagArrived-/1]; TagOut7-
+        | TB+ -> TokenOut+; [TagArrived-/1]; TokenOut-
+        ]
+ ]:
+endprocess
+
+process tagarrived;
+*[[BTag+ | TagIn1+ | TagIn2+ | TagIn3+ | TagIn4+ | TagIn5+ | TagIn6+ 
+  | TagIn7+]: TagArrived+: [TagRdy+]: TagArrived- ] :
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* rdy gate                                                                  */
+/*****************************************************************************/
+module rdy;
+
+delay gatedelay = <90,110>;
+
+input TagOut1;
+input TagOut2;
+input TagOut3;
+input TagOut4;
+input TagOut5;
+input TagOut6;
+input TagOut7;
+input TokenOut;
+input instRdy;
+input XBRdy;
+output Rdy = {gatedelay};
+
+process rdy;
+*[[instRdy+ & XBRdy+]: Rdy+: [instRdy-]: Rdy-]:
+endprocess
+
+endmodule
+
+/*****************************************************************************/
+/* tagrdy gate                                                               */
+/*****************************************************************************/
+module tagrdy;
+
+delay gatedelay = <90,110>;
+
+input TagOut1;
+input TagOut2;
+input TagOut3;
+input TagOut4;
+input TagOut5;
+input TagOut6;
+input TagOut7;
+input TokenOut;
+input Rdy;
+input TagArrived;
+output TagRdy = {gatedelay};
+
+process tagrdy;
+*[[Rdy+ & TagArrived+]: TagRdy+: [TagArrived-]: TagRdy-]:
+endprocess
+
+endmodule
+
+/*****************************************************************************/
+/* tagout gate                                                               */
+/*****************************************************************************/
+module tagout;
+
+delay gatedelay = <90,110>;
+
+input L1;
+input L2;
+input L3;
+input L4;
+input L5;
+input L6;
+input L7;
+input TB;
+input Rdy;
+input TagArrived;
+output TagOut1 = {gatedelay};
+output TagOut2 = {gatedelay};
+output TagOut3 = {gatedelay};
+output TagOut4 = {gatedelay};
+output TagOut5 = {gatedelay};
+output TagOut6 = {gatedelay};
+output TagOut7 = {gatedelay};
+output TokenOut = {gatedelay};
+
+process tagout;
+*[ [Rdy+ & TagArrived+]:
+	[ L1+ | L1+ -> TagOut1+; [TagArrived-/1]; TagOut1-
+        | L2+ -> TagOut2+; [TagArrived-/1]; TagOut2-
+        | L3+ -> TagOut3+; [TagArrived-/1]; TagOut3-
+        | L4+ | L4+ -> TagOut4+; [TagArrived-/1]; TagOut4-
+        | L5+ -> TagOut5+; [TagArrived-/1]; TagOut5-
+        | L6+ -> TagOut6+; [TagArrived-/1]; TagOut6-
+        | L7+ -> TagOut7+; [TagArrived-/1]; TagOut7-
+        | TB+ -> TokenOut+; [TagArrived-/1]; TokenOut-
+        ]
+ ]:
+endprocess
+
+endmodule
+
+/*****************************************************************************/
+/* tagarrived gate                                                           */
+/*****************************************************************************/
+module tagarrived;
+
+delay gatedelay = <90,110>;
+
+input L1;
+input L2;
+input L3;
+input L4;
+input L5;
+input L6;
+input L7;
+input TB;
+input BTag;
+input TagIn1;
+input TagIn2;
+input TagIn3;
+input TagIn4;
+input TagIn5;
+input TagIn6;
+input TagIn7;
+input TagRdy = {gatedelay};
+output TagArrived = {gatedelay};
+
+process tagarrived;
+*[[BTag+ | TagIn1+ | TagIn2+ | TagIn3+ | TagIn4+ | TagIn5+ | TagIn6+ 
+  | TagIn7+]: TagArrived+: [TagRdy+]: TagArrived- ] :
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* Instruction Ready gate                                                    */
+/*****************************************************************************/
+
+module instRdy;
+
+delay rdydelay = <180,inf;90,110>;
+delay gatedelay = <90,110>;
+
+input L1;
+input L2;
+input L3;
+input L4;
+input L5;
+input L6;
+input L7;
+input TB;
+input TagAck;
+input ByteRdy;
+input ByteRdy1;
+input ByteRdy2;
+input ByteRdy3;
+input ByteRdy4;
+input ByteRdy5;
+input ByteRdy6;
+input TagOut1;
+input TagOut2;
+input TagOut3;
+input TagOut4;
+input TagOut5;
+input TagOut6;
+input TagOut7;
+input TokenOut;
+output instRdy = {rdydelay};
+
+process instRdy;
+*[[L1+ | L1+ | L2+ | L3+ | L4+ | L4+ | L5+ | L6+ | L7+ | TB+]; 
+  [ByteRdy+ & ByteRdy1+ & ByteRdy2+ & ByteRdy3+ & ByteRdy4+ & ByteRdy5+ & 
+   ByteRdy6+]: instRdy+: [TagAck+]: instRdy-]:
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* Preempt gate                                                              */
+/*****************************************************************************/
+
+module Preempt;
+
+delay gatedelay = <90,110>;
+
+input TagOut1;
+input TagOut2;
+input TagOut3;
+input TagOut4;
+input TagOut5;
+input TagOut6;
+input TagOut7;
+input TokenOut;
+input TagAck;
+input ByteRdyi;
+output Preempti = {gatedelay};
+
+process Preempt;
+*[ [TagAck+]: Preempti+: [ByteRdyi-]: Preempti-]:
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* AckGen (AG) FSM                                                           */
+/*****************************************************************************/
+module ackgen;
+
+delay gatedelay = <90,110>;
+
+input L1;
+input L2;
+input L3;
+input L4;
+input L5;
+input L6;
+input L7;
+input TB;
+input TagOut1;
+input TagOut2;
+input TagOut3;
+input TagOut4;
+input TagOut5;
+input TagOut6;
+input TagOut7;
+input TokenOut;
+output TagAck = {gatedelay};
+
+process ackgen;
+*[ [TagOut1+|TagOut2+|TagOut3+|TagOut4+|TagOut5+|TagOut6+|TagOut7+|TokenOut+]; 
+   TagAck+;
+   [TagOut1-|TagOut2-|TagOut3-|TagOut4-|TagOut5-|TagOut6-|TagOut7-|TokenOut-]; 
+   TagAck- ]
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* Byte Control FSM                                                          */
+/*****************************************************************************/
+module bytectrl;
+
+delay gatedelay = <90,110>;
+
+input L1;
+input L2;
+input L3;
+input L4;
+input L5;
+input L6;
+input L7;
+input TB;
+input TagOut1;
+input TagOut2;
+input TagOut3;
+input TagOut4;
+input TagOut5;
+input TagOut6;
+input TagOut7;
+input TokenOut;
+input Req;
+input U;
+input TagAck;
+output Ack = {gatedelay};
+output LatchDecode = {gatedelay};
+output ByteRdy = {gatedelay};
+
+process bytectrl;
+*[ [Req+ & TagAck-@]: (LatchDecode+ || ByteRdy+): [TagAck+]: 
+   (LatchDecode- || ByteRdy- || Ack+): [Req-]: Ack- ]:
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* Length Decoder                                                            */
+/*****************************************************************************/
+
+module lengdec;
+
+delay lddelay = <180,inf;180,220/*90,110*/>;
+
+input TagArrived;
+input LatchDecode;
+input preflongack;
+output L1 = {lddelay};
+output L2 = {lddelay};
+output L3 = {lddelay};
+output L4 = {lddelay};
+output L5 = {lddelay};
+output L6 = {lddelay};
+output L7 = {lddelay};
+output TB = {lddelay};
+output prefreq = {lddelay};
+output longreq = {lddelay};
+
+process ld;
+*[[LatchDecode+]; [ true -> 
+                    prefreq+: [preflongack+]: prefreq-: [preflongack-]:
+                    L1+; [LatchDecode-/1]; L1-
+                  | true -> L1+; [LatchDecode-/1]; L1-
+                  | true -> L2+; [LatchDecode-/1]; L2-
+                  | true -> L3+; [LatchDecode-/1]; L3-
+                  | true -> 
+                    longreq+: [preflongack+]: longreq-: [preflongack-]:
+                    L4+; [LatchDecode-/1]; L4-
+                  | true -> L4+; [LatchDecode-/1]; L4-
+                  | true -> L5+; [LatchDecode-/1]; L5-
+                  | true -> L6+; [LatchDecode-/1]; L6-
+                  | true -> L7+; [LatchDecode-/1]; L7-
+                  | true -> TB+; [LatchDecode-/1]; TB-
+                  ]]:
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* Prefix Ack                                                                */
+/*****************************************************************************/
+
+module preflongack;
+
+delay lddelay = <180,inf;180,220/*90,110*/>;
+
+input prefreq;
+input longreq;
+output preflongack = {lddelay};
+
+process preflongack;
+*[ [ prefreq+ -> preflongack+: [prefreq-]: preflongack-
+   | longreq+ -> preflongack+: [longreq-]: preflongack-
+ ] ]:
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* Input FIFO                                                                */
+/*****************************************************************************/
+
+module fifo;
+
+delay fifodelay = <720,inf;90,220>;
+
+input Ack;
+output Req = {fifodelay};
+/*
+output data0 = {fifodelay};
+output data1 = {fifodelay};
+output data2 = {fifodelay};
+output data3 = {fifodelay};
+output data4 = {fifodelay};
+output data5 = {fifodelay};
+output data6 = {fifodelay};
+output data7 = {fifodelay};
+
+process data0;
+*[ data0+; SYNC1: [skip]: SYNC2: data0- ]
+endprocess
+
+process data1;
+*[ data1+; SYNC1: [skip]: SYNC2: data1- ]
+endprocess
+
+process data2;
+*[ data2+; SYNC1: [skip]: SYNC2: data2- ]
+endprocess
+
+process data3;
+*[ data3+; SYNC1: [skip]: SYNC2: data3- ]
+endprocess
+
+process data4;
+*[ data4+; SYNC1: [skip]: SYNC2: data4- ]
+endprocess
+
+process data5;
+*[ data5+; SYNC1: [skip]: SYNC2: data5- ]
+endprocess
+
+process data6;
+*[ data6+; SYNC1: [skip]: SYNC2: data6- ]
+endprocess
+
+process data7;
+*[ data7+; SYNC1: [skip]: SYNC2: data7- ]
+endprocess
+*/
+process req;
+*[ SYNC1; Req+: [Ack+]: SYNC2; Req-: [Ack-] ]:
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* Steering Switch                                                           */
+/*****************************************************************************/
+
+module ss;
+
+delay xbdelay = <180,inf;360,440/*180,220*/>;
+
+input TagOut1;
+input TagOut2;
+input TagOut3;
+input TagOut4;
+input TagOut5;
+input TagOut6;
+input TagOut7;
+input TokenOut;
+output XBRdy = {xbdelay};
+ 
+process xbrdy;
+*[ XBRdy+: [TagOut1+ | TagOut2+ | TagOut3+ | TagOut4+ | TagOut5+ | TagOut6+ |
+            TagOut7+ | TokenOut+ ]: XBRdy- ]:
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* Tag In's                                                                  */
+/*****************************************************************************/
+module tagin;
+
+delay tagdelay = <720,inf;180,220>;
+
+input TagAck;
+output BTag = {tagdelay};
+output TagIn1 = {tagdelay};
+output TagIn2 = {tagdelay};
+output TagIn3 = {tagdelay};
+output TagIn4 = {tagdelay};
+output TagIn5 = {tagdelay};
+output TagIn6 = {tagdelay};
+output TagIn7 = {tagdelay};
+
+process tag;
+*[[ true -> BTag+; BTag-
+  | true -> TagIn1+; TagIn1-
+  | true -> TagIn2+; TagIn2-
+  | true -> TagIn3+; TagIn3-
+  | true -> TagIn4+; TagIn4-
+  | true -> TagIn5+; TagIn5-
+  | true -> TagIn6+; TagIn6-
+  | true -> TagIn7+; TagIn7-
+ ]: [TagAck+]]:
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* Branch Control Circuit                                                    */
+/*****************************************************************************/
+module brctrl;
+
+delay tagdelay = <720,inf;180,220>;
+delay gatedelay = <90,110>;
+
+input TokenOut;
+output BTag = {tagdelay};
+
+process brctrl;
+*[ [TokenOut+]: BTag+: BTag-: [TokenOut-] ]:
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* Byte Ready's from Other Byte Controllers.                                 */
+/*****************************************************************************/
+
+module byterdy;
+
+delay fifodelay = <720,inf;90,220>;
+
+input Preempt1;
+input Preempt2;
+input Preempt3;
+input Preempt4;
+input Preempt5;
+input Preempt6;
+output ByteRdy1 = {fifodelay};
+output ByteRdy2 = {fifodelay};
+output ByteRdy3 = {fifodelay};
+output ByteRdy4 = {fifodelay};
+output ByteRdy5 = {fifodelay};
+output ByteRdy6 = {fifodelay};
+
+process ByteRdy1;
+*[ ByteRdy1+: [Preempt1+]: ByteRdy1-: [Preempt1-] ]:
+endprocess
+
+process ByteRdy2;
+*[ ByteRdy2+: [Preempt2+]: ByteRdy2-: [Preempt2-] ]:
+endprocess
+
+process ByteRdy3;
+*[ ByteRdy3+: [Preempt3+]: ByteRdy3-: [Preempt3-] ]:
+endprocess
+
+process ByteRdy4;
+*[ ByteRdy4+: [Preempt4+]: ByteRdy4-: [Preempt4-] ]:
+endprocess
+
+process ByteRdy5;
+*[ ByteRdy5+: [Preempt5+]: ByteRdy5-: [Preempt5-] ]:
+endprocess
+
+process ByteRdy6;
+*[ ByteRdy6+: [Preempt6+]: ByteRdy6-: [Preempt6-] ]:
+endprocess
+endmodule
+
+/*****************************************************************************/
+/* tagunit                                                                   */
+/*****************************************************************************/
+module rappid;
+
+delay xbdelay = <180,inf;360,440/*180,220*/>;
+delay lddelay = <180,inf;180,220/*90,110*/>;
+delay tagdelay = <720,inf;180,220>;
+delay fifodelay = <720,inf;180,220>;
+
+input dummy;
+input Req = {fifodelay};
+input XBRdy = {xbdelay};
+input L1 = {lddelay};
+input L2 = {lddelay};
+input L3 = {lddelay};
+input L4 = {lddelay};
+input L5 = {lddelay};
+input L6 = {lddelay};
+input L7 = {lddelay};
+input TB = {lddelay};
+input prefreq = {lddelay};
+input longreq = {lddelay};
+input preflongack = {lddelay};
+input BTag = {tagdelay};
+input TagIn1 = {tagdelay};
+input TagIn2 = {tagdelay};
+input TagIn3 = {tagdelay};
+input TagIn4 = {tagdelay};
+input TagIn5 = {tagdelay};
+input TagIn6 = {tagdelay};
+input TagIn7 = {tagdelay};
+input data0 = {fifodelay};
+input data1 = {fifodelay};
+
+bytectrl BC(/*L1 => L1, L2 => L2, L3 => L3,
+              L4 => L4, L5 => L5, L6 => L6, L7 => L7, TB => TB,*/
+            Req => Req,Ack => Ack,TagAck => TagAck,ByteRdy => ByteRdy,
+            LatchDecode => LatchDecode);
+
+tagunit TU(L1 => L1, L2 => L2, L3 => L3,
+           L4 => L4, L5 => L5, L6 => L6, L7 => L7, TB => TB,
+           BTag => BTag, TagIn1 => TagIn1,
+           TagIn2 => TagIn2, TagIn3 => TagIn3, TagIn4 => TagIn4,
+           TagIn5 => TagIn5, TagIn6 => TagIn6, TagIn7 => TagIn7,
+           instRdy => instRdy,XBRdy => XBRdy,Rdy => Rdy,
+           TagRdy => TagRdy, TagArrived => TagArrived,
+           TagOut1 => TagOut1, TagOut2 => TagOut2, TagOut3 => TagOut3,
+           TagOut4 => TagOut4, TagOut5 => TagOut5, TagOut6 => TagOut6,
+           TagOut7 => TagOut7, TokenOut => TokenOut);
+
+/*
+rdy rdy1(instRdy => instRdy,XBRdy => XBRdy,Rdy => Rdy);
+
+tagrdy tagrdy1(Rdy => Rdy,TagArrived => TagArrived,TagRdy => TagRdy);
+
+tagarrived taga1(BTag => BTag, TagIn1 => TagIn1,
+                 TagIn2 => TagIn2, TagIn3 => TagIn3, TagIn4 => TagIn4,
+                 TagIn5 => TagIn5, TagIn6 => TagIn6, TagIn7 => TagIn7,
+                 TagRdy => TagRdy, TagArrived => TagArrived);
+
+tagout tago1(L1 => L1, L2 => L2, L3 => L3,
+             L4 => L4, L5 => L5, L6 => L6, L7 => L7, TB => TB,
+             TagOut1 => TagOut1, TagOut2 => TagOut2, TagOut3 => TagOut3,
+             TagOut4 => TagOut4, TagOut5 => TagOut5, TagOut6 => TagOut6,
+             TagOut7 => TagOut7, TokenOut => TokenOut,
+             Rdy => Rdy, TagArrived => TagArrived);
+*/
+
+instRdy ir1(L1 => L1,L2 => L2,L3 => L3,L4 => L4,L5 => L5,L6 => L6,L7 => L7,
+            TB => TB,
+            instRdy => instRdy, TagAck => TagAck, ByteRdy => ByteRdy,
+            ByteRdy1 => ByteRdy1, ByteRdy2 => ByteRdy2, ByteRdy3 => ByteRdy3,
+            ByteRdy4 => ByteRdy4, ByteRdy5 => ByteRdy5, ByteRdy6 => ByteRdy6);
+
+ackgen AG(TagOut1 => TagOut1, TagOut2 => TagOut2, TagOut3 => TagOut3, 
+          TagOut4 => TagOut4, TagOut5 => TagOut5, TagOut6 => TagOut6, 
+          TagOut7 => TagOut7, TokenOut => TokenOut, TagAck => TagAck);
+
+Preempt PE1(TagAck => TagAck, ByteRdyi => ByteRdy1, Preempti => Preempt1);
+
+Preempt PE2(TagAck => TagAck, ByteRdyi => ByteRdy2, Preempti => Preempt2);
+
+Preempt PE3(TagAck => TagAck, ByteRdyi => ByteRdy3, Preempti => Preempt3);
+
+Preempt PE4(TagAck => TagAck, ByteRdyi => ByteRdy4, Preempti => Preempt4);
+
+Preempt PE5(TagAck => TagAck, ByteRdyi => ByteRdy5, Preempti => Preempt5);
+
+Preempt PE6(TagAck => TagAck, ByteRdyi => ByteRdy6, Preempti => Preempt6);
+
+/* Environment processes */
+
+ByteRdy BR(Preempt1 => Preempt1, Preempt2 => Preempt2, Preempt3 => Preempt3,
+           Preempt4 => Preempt4, Preempt5 => Preempt5, Preempt6 => Preempt6,
+           ByteRdy1 => ByteRdy1, ByteRdy2 => ByteRdy2, ByteRdy3 => ByteRdy3,
+           ByteRdy4 => ByteRdy4, ByteRdy5 => ByteRdy5, ByteRdy6 => ByteRdy6);
+
+lengdec LD(L1 => L1,L2 => L2,L3 => L3,L4 => L4,L5 => L5,L6 => L6,L7 => L7,
+           TB => TB,LatchDecode => LatchDecode,prefreq => prefreq,
+           longreq => longreq, preflongack => preflongack);
+
+preflongack PA(prefreq => prefreq,longreq => longreq,
+               preflongack => preflongack);
+
+fifo fifo1(Req => Req, Ack => Ack/*,
+           data0 => data0,data1 => data1,data2 => data2,data3 => data3,
+           data4 => data4,data5 => data5,data6 => data6,data7 => data7*/);
+
+ss ss1(TagOut1 => TagOut1, TagOut2 => TagOut2, TagOut3 => TagOut3, 
+       TagOut4 => TagOut4, TagOut5 => TagOut5, TagOut6 => TagOut6, 
+       TagOut7 => TagOut7, TokenOut => TokenOut, XBRdy => XBRdy);
+
+tagin tagin1(TagAck => TagAck, BTag => BTag, TagIn1 => TagIn1,   
+             TagIn2 => TagIn2, TagIn3 => TagIn3, TagIn4 => TagIn4, 
+             TagIn5 => TagIn5, TagIn6 => TagIn6, TagIn7 => TagIn7);
+
+/* brctrl BrC(TokenOut => TokenOut, BTag => BTag); */
+
+constraint holdtime_c;
+TagArrived+ -> 
+  TagIn1- | TagIn2- | TagIn3- | TagIn4- | TagIn5- | TagIn6- | TagIn7- | BTag-
+endconstraint
+
+endmodule
+
+
+module env;
+
+input dummy;
+input XBRdy;
+input prefreq;
+input longreq;
+input preflongack;
+input Req;
+input TB;
+input L1;
+input L2;
+input L3;
+input L4;
+input L5;
+input L6;
+input L7;
+input TagIn1;
+input TagIn2;
+input TagIn3;
+input TagIn4;
+input TagIn5;
+input TagIn6;
+input TagIn7;
+input BTag;
+input Rdy;
+input TagRdy;
+input TagArrived;
+input Ack;
+input ByteRdy;
+input LatchDecode;
+input TagAck;
+input TokenOut;
+input TagOut1;
+input TagOut2;
+input TagOut3;
+input TagOut4;
+input TagOut5;
+input TagOut6;
+input TagOut7;
+input Preempt1;
+input Preempt2;
+input Preempt3;
+input Preempt4;
+input Preempt5;
+input Preempt6;
+input ByteRdy1;
+input ByteRdy2;
+input ByteRdy3;
+input ByteRdy4;
+input ByteRdy5;
+input ByteRdy6;
+input InstRdy;
+
+process main;
+*[ skip ]
+endprocess
+endmodule
+
+module main;
+
+input dummy;
+
+rappid R(dummy => dummy, XBRdy =>XBRrdy,	prefreq => prefreq,
+			longreq => longreq,	preflongack => preflongack,
+			Req => Req,		TB => TB,
+			L1 => l1,	L2 => l2,	L3 => L3,
+			L4 => l4,	L5 => l5,	L6 => L6,
+			L7 => l7,	TagIn1 => TagIn1,
+			TagIn2 => TagIn2,	TagIn3 => TagIn3,
+			TagIn4 => TagIn4,	TagIn5 => TagIn5,
+			TagIn6 => TagIn6,	TagIn7 => TagIn7,
+			BTag => BTag,
+
+			Rdy => Rdy,	TagRdy => TagRdy,
+			TagArrived => TagArrived,	Ack => Ack,
+			ByteRdy => ByteRdy,	LatchDecode => LatchDecode,
+			TagAck => TagAck,	TokenOut => TokenOut,
+			TagOut1 => TagOut1,	TagOut2 => TagOut2,
+			TagOut3 => TagOut3,	TagOut4 => TagOut4,
+			TagOut5 => TagOut5,	Preempt1 => Preempt1,
+			Preempt2 => Preempt2,	Preempt3 => Preempt3,
+			Preempt4 => Preempt4,	Preempt5 => Preempt5,
+			Preempt6 => Preempt6,	ByteRdy1 => ByteRdy1,
+			ByteRdy2 => ByteRdy2,	ByteRdy3 => ByteRdy3,
+			ByteRdy4 => ByteRdy4,	ByteRdy5 => ByteRdy5,
+			ByteRdy6 => ByteRdy6,	InstRdy => InstRdy	
+);
+
+
+env TOP(dummy => dummy);
+
+env xbrdy(dummy => dummy, XBRdy => XBRdy);
+env prefreq(dummy => dummy, prefreq => prefreq);
+env longreq(dummy => dummy, longreq => longreq);
+env preflong(dummy => dummy, preflongack => preflongack);
+env req(dummy => dummy, Req => Req);
+env tb(dummy => dummy, TB => TB);
+
+env l1(dummy => dummy, L1 => L1);
+env l2(dummy => dummy, L2 => L2);
+env l3(dummy => dummy, L3 => L3);
+env l4(dummy => dummy, L4 => L4);
+env l5(dummy => dummy, L5 => L5);
+env l6(dummy => dummy, L6 => L6);
+env l7(dummy => dummy, L7 => L7);
+
+env tagin1(dummy => dummy, TagIn1 => TagIn1);
+env tagin2(dummy => dummy, TagIn2 => TagIn2);
+env tagin3(dummy => dummy, TagIn3 => TagIn3);
+env tagin4(dummy => dummy, TagIn4 => TagIn4);
+env tagin5(dummy => dummy, TagIn5 => TagIn5);
+env tagin6(dummy => dummy, TagIn6 => TagIn6);
+env tagin7(dummy => dummy, TagIn7 => TagIn7);
+
+env BTag(dummy => dummy, btag => btag );
+env Rdy(dummy => dummy, Rdy => Rdy);
+env TagRdy(dummy => dummy, TagRdy => TagRdy);
+env TagArrived(dummy => dummy, TagArrived => TagArrived);
+env Ack(dummy => dummy, Ack => Ack);
+env ByteRdy(dummy => dummy, ByteRdy => ByteRdy);
+env LatchDecode(dummy => dummy, LatchDecode => LatchDecode);
+env TagAck(dummy => dummy, TagAck => TagAck);
+env TokenOut(dummy => dummy, TokenOut => TokenOut);
+
+env TagOut1(dummy => dummy,TagOut1 => TagOut1);
+env TagOut2(dummy => dummy,TagOut2 => TagOut2);
+env TagOut3(dummy => dummy,TagOut3 => TagOut3);
+env TagOut4(dummy => dummy,TagOut4 => TagOut4);
+env TagOut5(dummy => dummy,TagOut5 => TagOut5);
+env TagOut6(dummy => dummy,TagOut6 => TagOut6);
+env TagOut7(dummy => dummy,TagOut7 => TagOut7);
+
+env Preempt1(dummy => dummy, Preempt1 => Preempt1);
+env Preempt2(dummy => dummy, Preempt2 => Preempt2);
+env Preempt3(dummy => dummy, Preempt3 => Preempt3);
+env Preempt4(dummy => dummy, Preempt4 => Preempt4);
+env Preempt5(dummy => dummy, Preempt5 => Preempt5);
+env Preempt6(dummy => dummy, Preempt6 => Preempt6);
+
+env ByteRdy1(dummy => dummy, ByteRdy1 => ByteRdy1);
+env ByteRdy2(dummy => dummy, ByteRdy2 => ByteRdy2);
+env ByteRdy3(dummy => dummy, ByteRdy3 => ByteRdy3);
+env ByteRdy4(dummy => dummy, ByteRdy4 => ByteRdy4);
+env ByteRdy5(dummy => dummy, ByteRdy5 => ByteRdy5);
+env ByteRdy6(dummy => dummy, ByteRdy6 => ByteRdy6);
+
+env InstRdy(dummy => dummy, InstRdy => InstRdy);
+
+env holdtime(dummy => dummy, TagArrived => TagArrived,
+             BTag => BTag, TagIn1 => TagIn1,   
+             TagIn2 => TagIn2, TagIn3 => TagIn3, TagIn4 => TagIn4, 
+             TagIn5 => TagIn5, TagIn6 => TagIn6, TagIn7 => TagIn7);
+
+endmodule

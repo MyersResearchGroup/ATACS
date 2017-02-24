@@ -1,0 +1,23 @@
+/*****************************************************************************/
+/* Self-resetting dynamic AND gate                                           */
+/*****************************************************************************/
+module srdand;
+
+delay idelay = <500,500;299,299>;
+delay xdelay = <101,101;99,99>;
+delay adelay = <201,201;199,199>;
+
+input i1 = {false,idelay};
+input i2 = {false,idelay};
+output a = {false,adelay};
+output x = {true,xdelay};
+
+process a;
+*[ [i1+ & i2+]; a+; x-; a-; x+ ]
+endprocess
+
+process ienv;
+*[ (i1+ || i2+); (i1- || i2-) ]
+endprocess
+
+endmodule

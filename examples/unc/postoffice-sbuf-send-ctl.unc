@@ -1,0 +1,18 @@
+input	REJPKT                   0
+input	BEGINSEND                0
+input	ACKSEND                  0
+output	LATCHADDR                0
+output	IDLEBAR                  0
+output	REQSEND                  0
+output	zzz00                    0
+output	zzz01                    0
+
+0  1	REJPKT+                  | IDLEBAR+ LATCHADDR+ zzz01+ 
+1  2	REJPKT-                  | 
+2  3	BEGINSEND+               | LATCHADDR- 
+3  4	BEGINSEND-               | REQSEND+ 
+4  5	ACKSEND+                 | REQSEND- zzz01- 
+4  6	REJPKT+                  | zzz00+ zzz01- 
+5  0	ACKSEND-                 | IDLEBAR- 
+6  7	REJPKT- ACKSEND+         | REQSEND- LATCHADDR+ 
+7  2	ACKSEND-                 | zzz00- zzz01+ 

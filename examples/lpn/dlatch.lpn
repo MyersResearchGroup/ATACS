@@ -1,0 +1,24 @@
+.name dlatch
+.inputs D CLK
+.outputs Q
+#@.init_state [101]
+.graph
+place_q1 CLK+/1  #@[20,50]
+place_q1 D- #@[20,50]
+CLK+/1 CLK-/1 #@[20,50]
+CLK-/1 place_q1
+D- CLK+/2 #@[20,50]
+CLK+/2 Q- #@[0,5]
+Q- CLK-/2 #@[20,50]
+CLK-/2 place_q0
+place_q0 CLK+/3 #@[20,50]
+place_q0 D+ #@[20,50]
+CLK+/3 CLK-/3 #@[20,50]
+CLK-/3 place_q0
+D+ CLK+/4 #@[20,50]
+CLK+/4 Q+ #@[0,5]
+Q+ CLK-/4 #@[20,50]
+CLK-/4 place_q1
+.marking {place_q1}
+.end
+

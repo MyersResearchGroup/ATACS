@@ -1,0 +1,10 @@
+[+a: (~d & ~b & ~c)]
+[-a: (d & b & ~CSC0)]
+[-a: (b & c & CSC0)]
+[+d: (a & ~c & CSC0)]
+[-d: (~a)]
+[ b: (a)] Combinational
+[+c: (a & ~d & ~CSC0)]
+[-c: (~a)]
+[+CSC0: (c)]
+[-CSC0: (d)]

@@ -1,0 +1,12 @@
+resolve <filename>
+.PP
+This function resolves any remaining conflict problems after
+findcover has been performed using a branching method.  These
+unresolved conflicts arise due to a cycle in the context rule
+table.  Additional context rules added to solve these
+conflicts are stored to a file named <filename>.rcr in the
+following form:
+.PP
+<enabling event> <enabled event> <epsilon> <lower bound> <upper bound>
+
+

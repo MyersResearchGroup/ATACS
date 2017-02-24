@@ -1,0 +1,13 @@
+[ EndDMAInt: (~StartDMARcv & ReqInN & DRAckNormN & DRAckLastN & AckOutN & ~zzz00 & ~zzz01)] Combinational
+[ DRQ: (DRAckNormN & DRAckLastN & ~AckOutN)] Combinational
+[ DRQ: (~ReqInN & DRAckNormN)] Combinational
+[ DRQ: (~ReqInN & ~zzz00)] Combinational
+[ AckOutN: (ReqInN & AckOutN)] Combinational
+[ AckOutN: (ReqInN & ~DRAckLastN)] Combinational
+[ AckOutN: (ReqInN & ~DRAckNormN)] Combinational
+[ AckOutN: (~DRAckNormN & AckOutN)] Combinational
+[ zzz00: (ReqInN & ~DRAckNormN)] Combinational
+[ zzz00: (~DRAckNormN & zzz00)] Combinational
+[ zzz00: (ReqInN & zzz00)] Combinational
+[ zzz01: (StartDMARcv)] Combinational
+[ zzz01: (ReqInN & zzz01)] Combinational

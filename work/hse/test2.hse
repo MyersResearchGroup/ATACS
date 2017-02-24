@@ -1,0 +1,34 @@
+module test;
+input a = {<0,1>};
+input c = {<0,1>};
+input e = {<0,1>};
+input f = {<0,1>};
+output b = {<0,1>};
+output d = {<0,1>};
+input req = {<0,1>};
+
+process main;
+*[[ a -> b+; [~a]; b-
+  | c -> b+; [~c]; b- 
+ ]] 
+endprocess
+
+process main2;
+*[ [e]; d+; [~e]; d- ] 
+endprocess
+
+process env;
+*[[ req -> a+; [b & ~req]; a-; [~b]
+  | req -> c+; [b & ~req]; c-; [~b]
+ ]]
+endprocess
+
+process env2;
+*[ [req]; e+; [d & ~req]; e-; [~d] ]
+endprocess
+
+process req;
+*[ req+; [b & d]; req-; [~b & ~d]]
+endprocess
+endmodule
+

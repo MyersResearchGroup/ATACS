@@ -1,0 +1,30 @@
+/*****************************************************************************/
+/* The Sbuf-Send-Pkt2 controller from the Post Office chip.                  */
+/*****************************************************************************/
+module sbufsendpkt2;
+
+input req;
+input ackline;
+input done;
+
+output ack;
+output sendline;
+
+process main;
+*[ [req]; sendline+;
+   [ ackline & ~done -> sendline-; [~ackline]; sendline+; * 
+   | ackline &  done -> (sendline- || ack+); [~req & ~ackline & ~done]; ack-
+   ]
+ ]
+endprocess
+
+process env;
+    *[ req+; [sendline]; ackline+;
+	[~sendline -> (done+ || ackline-); [sendline]; ackline+; 
+            [~sendline & ack]; (req- || ackline- || done-); [~ack]
+        |~sendline -> ackline-; [sendline]; ackline+; *
+        ]
+     ]
+endprocess
+
+endmodule

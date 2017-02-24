@@ -1,0 +1,17 @@
+#!/bin/tcsh
+foreach i ($argv)
+        echo "GENERATING ACC FILES"
+	atacs -oqtpeD $i
+        echo "GENERATING G FILES"
+	atacs -oqlcsg $i
+	cp $1.g $1"_cge.g"
+	echo "CHECKING COMPLEX GATE EQUIVALENCE"
+        time atacs -oqoftslpleva $i"_cge"
+	echo "CHECKING FOR HAZARDS"
+	time atacs -oqoOtpvg $i
+	cp $1"_allnodes.acc" $1.acc
+        echo "DOING FULL VERIFICATION"
+	time atacs -ofoqtslpleva $i
+	echo "DONE"
+end
+

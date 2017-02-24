@@ -1,0 +1,42 @@
+/*****************************************************************************/
+/* A self-reseting gate from Shai Rotem.                                     */
+/*****************************************************************************/
+
+module srgate;
+
+delay clkdelay = <500,500;299,299>;
+delay idelay = <799,799;799,799>;
+delay pdelay = <101,101;99,99>;
+delay odelay = <201,201;199,199>;
+
+input clk  = {false,clkdelay};
+input a = {false,idelay};
+input b = {false,idelay};
+input c = {false,idelay};
+output s = {false,odelay};
+output sp = {true,pdelay};
+
+process a;
+*[[c+ & clk+]; s+; sp-; s-; sp+; [clk-];
+  [b+ & clk+]; [clk-];
+  [c- & clk+]; s+; sp-; s-; sp+; [clk-];
+  [a+ & clk+]; [clk-];
+  [c+ & clk+]; s+; sp-; s-; sp+; [clk-];
+  [b- & clk+]; [clk-];
+  [c- & clk+]; s+; sp-; s-; sp+; [clk-];
+  [a- & clk+]; [clk-] ]
+endprocess
+
+process ienv;
+*[c+; clk+; clk-; 
+  b+; clk+; clk-; [sp+]; /* I added this */
+  c-; clk+; clk-; 
+  a+; clk+; clk-; [sp+];
+  c+; clk+; clk-; 
+  b-; clk+; clk-; [sp+];
+  c-; clk+; clk-; 
+  a-; clk+; clk-; [sp+] ]
+endprocess
+
+endmodule
+

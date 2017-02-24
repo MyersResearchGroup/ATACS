@@ -1,0 +1,13 @@
+.name c_element
+.inputs a b
+.outputs c 
+#@.init_state [000]
+.graph
+a+ c+
+b+ c+
+c+ a- b-
+a- c-
+b- c-
+c- a+ b+
+.marking {<c-,a+><c-,b+>}
+.end

@@ -1,0 +1,18 @@
+.inputs turnon
+.dummy fill drain
+#.property AG((x0)geq(y+(-5)))
+.graph 
+turnon+ on
+on turnon- 
+turnon- off 
+off turnon+ 
+on fill #@ /1;inf\
+fill y 
+y drain
+.marking { on }
+#@.marking { <y = 5> }
+#@.rates { <fill = 3><drain = 2> }
+#@.invariants { <on=[y <= 10]><off=[y >= 5]> }
+#@.enablings { <turnon-=[y >= 10]><turnon+=[y <= 5]> }
+#@.continuous fill drain y
+.end

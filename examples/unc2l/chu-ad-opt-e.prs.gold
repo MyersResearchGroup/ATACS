@@ -1,0 +1,4 @@
+[ LR: (~LA & ~DA & ~ZA & ~DR)] Combinational
+[ DR: (LA)] Combinational
+[ DR: (~ZA & DR)] Combinational
+[ ZR: (~LA & DA & ~ZA & DR)] Combinational

@@ -1,0 +1,8 @@
+doall <filename>
+.PP
+This function does all the steps necessary to synthesize a timed circuit
+from either a CSP or VHDL file.  It stores the final production rules 
+derived using the synthesis procedure.  These are stored to the file named
+<filename>.prs in the following form:
+.PP
+[(+/-)<signal>: ((~)<signal1> & ... & (~)<signaln>)]

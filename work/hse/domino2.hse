@@ -1,0 +1,64 @@
+module domino;
+
+delay Globalclock = <500,500;500,500>;
+delay Local = <10,30;30,30>;
+delay Output1 = <50,70;10,20>;
+delay Output2 = <10,30;20,50>;
+delay Input1 = <40,50;10,20>;
+delay Input2 = <70,100;10,20>;
+
+input Gclk = {Globalclock};
+input clk1 = {Local};
+input clk2 = {Local};
+input a = {Input1};
+input b = {Input1};
+input c = {Input2};
+output out1 = {Output1};
+output out2 = {Output2};
+
+
+process GlobalClock;
+	*[Gclk+; 
+		([ true -> a+ | true -> [<40,50> true ]] ||
+		 [ true -> b+ | true -> [<40,50> true]] ||
+		 [ true -> c+ | true -> [<70,100> true]] );
+          Gclk-;
+                ([a -> a- | ~a -> [<30,30> true]] ||
+		 [b -> b- | ~b -> [<30,30> true]] || 
+                 [c -> c- | ~c -> [<30,30> true]]) ]
+endprocess
+
+process clk1;
+	*[[Gclk]; clk1+; [~Gclk]; clk1-]
+endprocess
+
+process clk2;
+        *[[clk1]; clk2+; [~clk1]; clk2-]
+endprocess
+
+gate first;
+a | b -> out1+
+~clk1 -> out1-
+endgate
+
+gate second;
+out1 & c -> out2+
+~clk2 -> out2-
+endgate
+
+constraint down1;
+~a & ~b -> clk1-
+endconstraint
+
+constraint down2;
+~out1 & ~c -> <0,1190> clk2-
+endconstraint
+
+endmodule
+
+
+
+
+
+
+

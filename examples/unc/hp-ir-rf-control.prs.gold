@@ -1,0 +1,12 @@
+[-ControlResetAck: (RFFrameReq)]
+[ RFFrameAck: (RFFrameReq & ~EOFEventOK & ~SCEoTSAck & ~HIFCommitAck & ~SCEoTSReq & ~HIFCommitReq & zzz00)] Combinational
+[ IntSDReq: (RFFrameReq & ~SOFEventOK & ~EOFEventOK & ~CtrEoTSAck & ~SCEoTSAck & ~zzz00 & ~zzz01)] Combinational
+[+SCEoTSReq: (~EOFEventOK & HIFCommitAck)]
+[+SCEoTSReq: (~CtrEoTSAck & ~SCEoTSAck & zzz01)]
+[-SCEoTSReq: (SCEoTSAck & ~HIFCommitAck)]
+[+HIFCommitReq: (EOFEventOK)]
+[-HIFCommitReq: (~EOFEventOK & HIFCommitAck)]
+[+zzz00: (EOFEventOK)]
+[-zzz00: (~RFFrameReq)]
+[+zzz01: (CtrEoTSAck)]
+[-zzz01: (SCEoTSAck)]

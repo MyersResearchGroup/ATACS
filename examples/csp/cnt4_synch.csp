@@ -1,0 +1,43 @@
+/*****************************************************************************/
+/* CSP specification for a 2-bit synchronous counter.                        */
+/*****************************************************************************/
+module cnt4;
+
+delay gatedelay  = <0,5>;
+delay clockdelay = <19,21>;
+
+input  phi = {false,clockdelay};
+output a = {false,gatedelay};
+output ap = {false,gatedelay};
+output b = {false,gatedelay};
+output bp = {false,gatedelay};
+output c = {false,gatedelay};
+output cp = {false,gatedelay};
+output d = {false,gatedelay};
+output dp = {false,gatedelay};
+
+process cnt;
+*[[phi+]; a+; [phi-]; ap+; [phi+];   
+  (b+ || a-); [phi-]; (bp+ || ap-); 
+  [phi+]; a+; [phi-]; ap+; [phi+];  
+  (c+ || b- || a-); [phi-]; (cp+ || bp- || ap-);  
+  [phi+]; a+; [phi-]; ap+; [phi+]; 
+  (b+ || a-); [phi-]; (bp+ || ap-);
+  [phi+]; a+; [phi-]; ap+; [phi+]; 
+  (d+ || c- || b- || a-); [phi-]; (dp+ || cp- || bp- || ap-);
+  [phi+]; a+; [phi-]; ap+; [phi+];   
+  (b+ || a-); [phi-]; (bp+ || ap-); 
+  [phi+]; a+; [phi-]; ap+; [phi+];  
+  (c+ || b- || a-); [phi-]; (cp+ || bp- || ap-);  
+  [phi+]; a+; [phi-]; ap+; [phi+]; 
+  (b+ || a-); [phi-]; (bp+ || ap-);
+  [phi+]; a+; [phi-]; ap+; [phi+]; 
+  (d- || c- || b- || a-); [phi-]; (dp- || cp- || bp- || ap-)] 
+endprocess
+
+process clk;
+*[ phi+; phi-; phi+; phi-; phi+; phi-; phi+; phi-; phi+; phi-; phi+; phi-;
+   phi+; phi-; phi+; phi-; phi+; phi-; phi+; phi-; phi+; phi-; phi+; phi-; 
+   phi+; phi-; phi+; phi-; phi+; phi-; phi+; phi- ]
+endprocess
+endmodule

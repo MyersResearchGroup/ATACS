@@ -1,0 +1,79 @@
+/*******************************************/
+/*** OUTPUT FROM ttt's aStraDG COMPILER. ***/
+/***       USE AT YOUR OWN RISK!!!       ***/
+/*******************************************/
+module fig;
+    output	Load0o	= {false};
+    input 	Load0i	= {false};
+
+    output	Load1o	= {false};
+    input 	Load1i	= {false};
+
+    output	Outo	= {false};
+    input 	Outi	= {false};
+
+    output	Shift1o	= {false};
+    input 	Shift1i	= {false};
+
+    output	Shift2o	= {false};
+    input 	Shift2i	= {false};
+
+    output	Addo	= {false};
+    input 	Addi	= {false};
+
+
+    process FIB;
+        Load0o+; [Load0i+]; Load0o-; [Load0i-];
+        Outo+; [Outi+]; Outo-; [Outi-];
+        Shift1o+; [Shift1i+]; Shift1o-; [Shift1i-];
+        Load1o+; [Load1i+]; Load1o-; [Load1i-];
+        Outo+; [Outi+]; Outo-; [Outi-];
+        Shift2o+; [Shift2i+]; Shift2o-; [Shift2i-];
+        Shift1o+; [Shift1i+]; Shift1o-; [Shift1i-];
+        *[
+            Addo+; [Addi+]; Addo-; [Addi-];
+            Outo+; [Outi+]; Outo-; [Outi-]||
+            Shift2o+; [Shift2i+]; Shift2o-; [Shift2i-];
+            Shift1o+; [Shift1i+]; Shift1o-; [Shift1i-]
+         ]
+    endprocess
+
+    process Load0sdgENV;
+        *[ [Load0o+]; Load0i+; [Load0o-]; Load0i- ]
+    endprocess
+
+    process OutsdgENV;
+        *[
+            [ skip -> [Outo+]; Outi+; [Outo-]; Outi-
+            | skip -> [Outo+]; Outi+; [Outo-]; Outi-
+            | skip -> [Outo+]; Outi+; [Outo-]; Outi-
+            ]
+         ]
+    endprocess
+
+    process Shift1sdgENV;
+        *[
+            [ skip -> [Shift1o+]; Shift1i+; [Shift1o-]; Shift1i-
+            | skip -> [Shift1o+]; Shift1i+; [Shift1o-]; Shift1i-
+            | skip -> [Shift1o+]; Shift1i+; [Shift1o-]; Shift1i-
+            ]
+         ]
+    endprocess
+
+    process Load1sdgENV;
+        *[ [Load1o+]; Load1i+; [Load1o-]; Load1i- ]
+    endprocess
+
+    process Shift2sdgENV;
+        *[
+            [ skip -> [Shift2o+]; Shift2i+; [Shift2o-]; Shift2i-
+            | skip -> [Shift2o+]; Shift2i+; [Shift2o-]; Shift2i-
+            ]
+         ]
+    endprocess
+
+    process AddsdgENV;
+        *[ [Addo+]; Addi+; [Addo-]; Addi- ]
+    endprocess
+
+endmodule

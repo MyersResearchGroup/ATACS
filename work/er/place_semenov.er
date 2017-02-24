@@ -1,0 +1,84 @@
+# Pipeline control for an async processor described in A. Semenov's et al.
+# paper: "Time Petri Net Unfoldings and Hardware Verification"
+# This paper is a technical report that was found at citeseer.nj.nec.com/cs
+.e 22
+.i 0
+.r 25
+.n 0
+.d 0
+.c 25
+.s 0
+reset
+# 
+# DUMMY EVENTS:
+# 
+$p1 $p2
+$p3 $p4
+$p5 $p6
+$p7 $p8
+$p9 $p10
+$p11
+$MARw $MARr
+$MEMr $MEMw
+$PC
+$IR
+$STORE
+$ARITH
+$ALU
+$ACCr
+#
+# RULES
+#
+$p1         $MARr    1  0  0 
+$MARr       $p2      0  1  2
+$p2         $PC      0  0  0   
+$PC         $p11     0  2  6
+$p11        $MARr    1  0  0  
+$MARr       $p3      0  1  2
+$p3         $MEMr    0  0  0  
+$MEMr       $p4      0  4  7
+$p4         $IR      0  0  0  
+$IR         $p5      0  1  2
+$p5         $STORE   0  0  0 
+$STORE      $p6      0  1  2
+$p6         $MARw    0  0  0  
+$MARw       $p8      0  1  2
+$p8         $MEMw    0  0  0 
+$MEMw       $p10     0  3  6
+$MEMw       $p1      0  3  6
+$p5         $ARITH   0  0  0  
+$ARITH      $p7      0  1  2
+$ARITH      $p1      0  1  2
+$p7         $ALU     0  0  0  
+$ALU        $p9      0  1  5
+$p9         $ACCr    0  0  0  
+$ACCr       $p10     0  1  2
+$p10        $IR      1  0  0
+#
+# CONFLICTS
+#
+$STORE $ARITH
+$STORE $p7
+$STORE $ALU
+$STORE $p9
+$STORE $ACCr
+$p6 $ARITH
+$p6 $p7
+$p6 $ALU
+$p6 $p9
+$p6 $ACCr
+$MARw $ARITH
+$MARw $p7
+$MARw $ALU
+$MARw $p9
+$MARw $ACCr
+$p8 $ARITH
+$p8 $p7
+$p8 $ALU
+$p8 $p9
+$p8 $ACCr
+$MEMw $ARITH
+$MEMw $p7
+$MEMw $ALU
+$MEMw $p9
+$MEMw $ACCr

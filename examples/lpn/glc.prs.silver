@@ -1,0 +1,6 @@
+[+rout: (~ain & rin & h & ~CSC0)]
+[-rout: (ain)]
+[+h: (~rin & CSC0)]
+[-h: (rout & ~CSC0)]
+[+CSC0: (~h)]
+[-CSC0: (~rout & h)]

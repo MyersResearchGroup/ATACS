@@ -1,0 +1,17 @@
+.inputs ss r en
+.outputs out
+#@.init_state [0010]
+.graph
+out+/1 ss+ r+
+r+ out-/1
+out-/1 en-
+en- out+/2
+ss+ out+/2
+out+/2 ss- r-
+r- out-/2
+out-/2 en+
+en+ out+/1
+ss- out+/1
+.marking {<en+,out+/1><ss-,out+/1>}
+.end
+

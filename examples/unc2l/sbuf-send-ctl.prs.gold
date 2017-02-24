@@ -1,0 +1,17 @@
+[ LATCHADDR: (REJPKT & ~REQSEND)] Combinational
+[ LATCHADDR: (~BEGINSEND & LATCHADDR)] Combinational
+[ LATCHADDR: (~REJPKT & ACKSEND & zzz00)] Combinational
+[ IDLEBAR: (REJPKT)] Combinational
+[ IDLEBAR: (REQSEND)] Combinational
+[ IDLEBAR: (zzz01)] Combinational
+[ IDLEBAR: (LATCHADDR)] Combinational
+[ IDLEBAR: (ACKSEND)] Combinational
+[ REQSEND: (REJPKT & REQSEND)] Combinational
+[ REQSEND: (~ACKSEND & REQSEND)] Combinational
+[ REQSEND: (~REJPKT & ~BEGINSEND & ~ACKSEND & ~LATCHADDR & zzz01)] Combinational
+[ zzz00: (REJPKT & REQSEND)] Combinational
+[ zzz00: (ACKSEND & zzz00)] Combinational
+[ zzz00: (REQSEND & zzz00)] Combinational
+[ zzz01: (REJPKT & ~REQSEND)] Combinational
+[ zzz01: (~REJPKT & ~ACKSEND & zzz01)] Combinational
+[ zzz01: (~ACKSEND & LATCHADDR)] Combinational

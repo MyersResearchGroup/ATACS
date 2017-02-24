@@ -1,0 +1,105 @@
+.e 19
+.i 10
+.r 37
+.n 0
+.d 1
+.c 11
+.s 0000001
+reset
+# 
+# INPUT EVENTS:
+# 
+clk+/1 clk-/1
+clk+/2 clk-/2
+ack2+/1 ack2-/1
+x0t+/1 x0t-/1
+x0f+/1 x0f-/1
+# 
+# OUTPUT EVENTS:
+# 
+x1f+/1 x1f-/1
+x1t+/1 x1t-/1
+ack1+/1 ack1-/1
+# 
+# DUMMY EVENTS:
+# 
+$6+/1
+$9+/1
+# 
+# RULES:
+# 
+clk+/1 ack2+/1 0 200 500
+clk+/2 ack2+/1 0 200 500
+reset ack2+/1 0 200 400
+## NOTE: IF THIS RULE IS NOT MARKED, THEN find_initial_marking
+## WILL INTRODUCE A SAFETY VIOLATION BY STRIPPING THE TOKEN
+## OFF OF THE OTHER CONFLICTING BRANCH THAT IS MARKED, THEREBY
+## REMOVING THE RULE FROM THE MARKING SENT TO TIMING ANALYSIS
+##
+## WITH THIS RULE UNMARKED, THIS IS A VALID MARKING!  find_initial_marking
+## SHOULD NOT STRIP TOKENS WHEN THE INITIAL MARKING IS CORRECT!
+x1f-/1 ack2+/1 0 200 400
+##
+clk-/2 $6+/1 0 100 300
+clk-/2 $9+/1 0 100 300
+clk-/1 $6+/1 0 100 300
+clk-/1 $9+/1 0 100 300
+reset clk+/2 0 1200 1200
+reset clk+/1 0 1200 1200
+clk+/2 x0f+/1 0 0 100
+clk+/1 x0t+/1 0 0 100
+x1t+/1 $6+/1 0 100 200
+$9+/1 ack2-/1 0 100 200
+$6+/1 ack2-/1 0 100 200
+x1f+/1 $9+/1 0 100 200
+clk-/1 x0t-/1 0 0 100
+clk-/2 x0f-/1 0 0 100
+clk+/1 clk-/1 0 1200 1200
+clk+/2 clk-/2 0 1200 1200
+x1t-/1 ack1+/1 0 100 200
+x1f+/1 ack1-/1 0 100 200
+x1t+/1 ack1-/1 0 100 200
+x1f-/1 ack1+/1 0 100 200
+ack2-/1 x1t-/1 0 100 200
+x0t-/1 x1t-/1 0 100 200
+ack2+/1 x1t+/1 0 100 200
+x0t+/1 x1t+/1 0 100 200
+x0f+/1 x1f+/1 0 100 200
+ack2+/1 x1f+/1 0 100 200
+x0f-/1 x1f-/1 0 100 200
+ack2-/1 x1f-/1 0 100 200
+# 
+# INITIAL RULES:
+# 
+x1t-/1 ack2+/1 1 200 400
+clk-/1 clk+/2 1 1200 1200
+clk-/2 clk+/2 1 1200 1200
+clk-/2 clk+/1 1 1200 1200
+clk-/1 clk+/1 1 1200 1200
+# 
+# RULES:
+# 
+# 
+# INITIAL RULES:
+# 
+# 
+# MERGERS:
+# 
+clk+/1 clk+/2 
+# 
+# CONFLICTS:
+# 
+clk-/1 clk+/2
+clk+/1 clk-/2
+x0t-/1 x0f-/1
+x0t+/1 x0f-/1
+$6+/1 $9+/1
+x0t+/1 x0f+/1
+x0t-/1 x0f+/1
+clk+/1 clk+/2
+clk-/1 clk-/2
+x1t+/1 x1f+/1
+x1t-/1 x1f-/1
+# 
+# LOOPING CONFLICTS:
+# 

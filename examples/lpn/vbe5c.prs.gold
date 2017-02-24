@@ -1,0 +1,6 @@
+[+Dr: (La)]
+[-Dr: (Da & ~La)]
+[+Lr: (~Da & ~Za & ~Zr)]
+[-Lr: (Zr)]
+[+Zr: (Dr)]
+[-Zr: (Za & ~Dr)]

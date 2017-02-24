@@ -1,0 +1,42 @@
+.dummy Vr V1 V2 Rod1+ Rod1- Wait1 Shutdown Rod2+ Rod2- Wait2
+.graph 
+
+NoRod Vr 
+Vr T
+T V1
+T V2
+Shutdown SD
+T Shutdown #@ /100;inf\ [10,20]
+
+NoRod Rod1+ #@ [0,0]
+Rod1+ Rod1In
+Rod1In Rod1- #@ [0,0]
+Rod1- Rod1Wait
+Rod1Wait Wait1 #@ [100,100]
+Wait1 Rod1Out
+Rod1Out Rod1+ #@ [0,0]
+Rod1- NoRod
+Rod1Wait Shutdown #@ [0,0]
+T Rod1+ #@ /100;inf\ [10,20]
+T Rod1- #@ /0;50\ [10,20]
+Rod1In V1
+
+NoRod Rod2+ #@ [0,0]
+Rod2+ Rod2In
+Rod2In Rod2- #@ [0,0]
+Rod2- Rod2Wait
+Rod2Wait Wait2 #@ [100,100]
+Wait2 Rod2Out
+Rod2Out Rod2+ #@ [0,0]
+Rod2- NoRod
+Rod2Wait Shutdown #@ [0,0]
+NoRod Shutdown #@ [0,0]
+T Rod2+ #@ /100;inf\ [10,20]
+T Rod2- #@ /0;50\ [10,20]
+Rod2In V2
+
+.marking {Rod1Out Rod2Out NoRod}
+#@.marking { <T = 0> }
+#@.rates { <Vr = 1><V1 = 1> <V2 = 2> }
+#@.continuous T Vr V1 V2
+.end

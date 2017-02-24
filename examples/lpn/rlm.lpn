@@ -1,0 +1,24 @@
+# Tam-Anh Chu Thesis Page 172
+
+.inputs Cr Sr La
+.outputs Ca Sa Lr
+#@.init_state [000000]
+.graph
+Sr+/1 Lr+ #@[0,5]
+Lr+ La+ #@[20,50]
+La+ p1
+p1 Sa+ #@[0,5]
+Sa+ Sr-/1 #@[20,50]
+Sr-/1 Sa- #@[0,5]
+Sa- p0
+p0 Sr+/2 #@[20,50]
+p0 Cr+ #@[20,50]
+Sr+/2 p1
+Cr+ Lr- #@[0,5]
+Lr- La- #@[20,50]
+La- Ca+ #@[0,5]
+Ca+ Cr- #@[20,50]
+Cr- Ca- #@[0,5]
+Ca- Sr+/1 #@[20,50]
+.marking { <Ca-,Sr+/1> }
+.end

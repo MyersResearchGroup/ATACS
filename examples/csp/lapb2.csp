@@ -1,0 +1,31 @@
+
+include lapbsv;
+
+/*****************************************************************************/
+/* A collection of N lapb stages                                             */
+/*      In order to add a stage, simply copy a lapb instance and increment   */
+/*      all the numbers.  Also, increment the numbers in the rightenv.       */
+/*****************************************************************************/
+
+module main;
+
+delay env = <100,inf>;
+
+input i1 = {false,env};
+input o3 = {false,env};
+output i3;
+output o1;
+
+process leftenv;
+*[ [o1+]; i1+; [o1-]; i1- ]
+endprocess
+
+process rightenv;
+*[ o3+; [i3+]; o3-; [i3-] ]
+endprocess
+
+lapb lapb1(li => i1, lo => o1, ri => o2, ro => i2);
+
+lapb lapb2(li => i2, lo => o2, ri => o3, ro => i3);
+
+endmodule

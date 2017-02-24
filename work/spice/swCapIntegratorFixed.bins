@@ -1,0 +1,8 @@
+.inputs V1
+.absoluteTime True
+.time 10e-6
+.pathLength 25
+.rateSampling 250
+
+V1 0
+V4 -0.5 0 0.5

@@ -1,0 +1,19 @@
+[ areq: (mulack & ~seltrue)] Combinational
+[ areq: (~aack & areq)] Combinational
+[ areq: (start)] Combinational
+[ goreq: (~goack & goreq)] Combinational
+[ goreq: (~start & aack & ~zzz00)] Combinational
+[ mulreq: (~nack & seltrue)] Combinational
+[ mulreq: (~mulack & mulreq)] Combinational
+[ nreq: (~aack & goack)] Combinational
+[ nreq: (~aack & suback)] Combinational
+[ nreq: (~nack & nreq)] Combinational
+[ resreq: (~nack & selfalse)] Combinational
+[ resreq: (~resack & resreq)] Combinational
+[ selreq: (~selfalse & ~seltrue & selreq)] Combinational
+[ selreq: (~goack & nack & ~suback)] Combinational
+[ subreq: (aack & ~mulack & zzz00)] Combinational
+[ subreq: (~suback & subreq)] Combinational
+[ zzz00: (~nack & zzz00)] Combinational
+[ zzz00: (suback)] Combinational
+[ zzz00: (mulack & ~seltrue)] Combinational

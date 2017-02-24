@@ -1,0 +1,22 @@
+.name half_handshake
+
+.inputs Ai Ri
+.outputs Ao Ro
+#@.init_state [0000]
+.graph
+#Ri+ Ao+
+Ao+ Ri- 
+Ri- Ao- 
+Ao- Ri+ 
+
+Ro+ Ai+
+Ai+ Ro- 
+Ro- Ai-
+Ai- Ro+ 
+
+Ri+ Ro+
+Ro+ Ao+
+Ro- Ao-
+Ao+ Ro-
+.marking {<Ao-,Ri+><Ai-,Ro+>}
+.end

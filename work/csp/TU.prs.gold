@@ -1,0 +1,19 @@
+[ tokenout: (tb & rdy & tagarrived)] Combinational
+[ tagout4: (l4 & rdy & tagarrived)] Combinational
+[ tagout1: (l1 & rdy & tagarrived)] Combinational
+[ tagout3: (l3 & rdy & tagarrived)] Combinational
+[ tagout7: (l7 & rdy & tagarrived)] Combinational
+[ tagout5: (l5 & rdy & tagarrived)] Combinational
+[ tagout2: (l2 & rdy & tagarrived)] Combinational
+[ tagout6: (l6 & rdy & tagarrived)] Combinational
+[ rdy: (xbrdy & instrdy)] Combinational
+[+tagarrived: (btag & ~tagrdy)]
+[+tagarrived: (tagin7 & ~tagrdy)]
+[+tagarrived: (tagin5 & ~tagrdy)]
+[+tagarrived: (tagin3 & ~tagrdy)]
+[+tagarrived: (tagin6 & ~tagrdy)]
+[+tagarrived: (tagin2 & ~tagrdy)]
+[+tagarrived: (tagin4 & ~tagrdy)]
+[+tagarrived: (tagin1 & ~tagrdy)]
+[-tagarrived: (tagrdy)]
+[ tagrdy: (rdy & tagarrived)] Combinational

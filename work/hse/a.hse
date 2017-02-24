@@ -1,0 +1,8 @@
+module a;
+input a;
+output b;
+
+process b;
+[a]; b+
+endprocess
+endmodule

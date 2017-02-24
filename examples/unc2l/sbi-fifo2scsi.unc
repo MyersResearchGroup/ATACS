@@ -1,0 +1,23 @@
+input	ok                       0
+input	reqin                    0
+input	dsel                     1
+input	fain                     0
+input	cntgt1                   0
+output	frout                    0
+output	ackout                   0
+output	sel                      0
+output	zzz00                    0
+output	zzz01                    0
+output	zzz02                    0
+
+0  1	ok+ reqin* dsel*         | frout+ 
+1  2	reqin* fain+ dsel*       | frout- zzz00+ zzz01+ 
+2  3	reqin+ fain- dsel*       | ackout+ 
+3  4	[cntgt1+] reqin- dsel-   | zzz01-                   | ackout- sel+ 
+3  8	[cntgt1-] reqin- dsel*   | zzz00-                   | ackout- 
+4  5	reqin+ dsel+             | ackout+ zzz00- 
+5  6	[cntgt1+] reqin-         | zzz00+ zzz02+            | ackout- frout+ sel- 
+5  8	[cntgt1-] reqin- dsel*   | zzz01+                   | ackout- sel- 
+6  7	reqin* fain+ dsel*       | frout- zzz01+ zzz02- 
+7  3	reqin+ fain- dsel*       | ackout+ 
+8  0	ok- reqin* dsel*         | zzz01- 

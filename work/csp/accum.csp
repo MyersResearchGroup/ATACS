@@ -1,0 +1,42 @@
+module accum;
+
+input   getxi = {false};
+output  getxo = {false};
+input   getyi = {false};
+output  getyo = {false};
+input   addi = {false};
+output  addo = {false};
+input   eofi = {false};
+output  eofo = {false};
+input   outi = {false};
+output  outo = {false};
+output  x = {false};
+
+process accum;
+*[[ getxi+ -> [ getyi+ -> addo+; [addi+]; getyo+; addo-; 
+                          [addi- & getyi-]; getyo-; *
+              | eofi+ ->  addo+; [addi+]; outo+; addo-;  
+                          [addi- & outi+]; eofo+; outo-; 
+                          [outi- & eofi-]; x+; eofo-
+              ]; getxo+; x-; [getxi-]; getxo-
+ ]]
+endprocess
+
+process add;
+*[[ addo+ -> addi+; [addo-]; addi- 
+  | addo+ -> addi+; [addo-]; addi- 
+ ]]
+endprocess
+
+process out;
+*[ [outo+]; outi+; [outo-]; outi- ]
+endprocess
+
+process env;
+*[ getxi+; [ skip -> getyi+; [getyo+]; getyi-; [getyo-]; *
+           | skip -> eofi+; [eofo+]; eofi-; [eofo-] 
+           ]; [getxo+]; getxi-; [getxo-] 
+ ]
+endprocess
+
+endmodule

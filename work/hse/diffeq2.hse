@@ -1,0 +1,110 @@
+module diffeq;
+
+delay gatedelay = <0,0>;
+delay predelay = <0,0>;
+delay aludelay = <2,2;1,3>;
+delay muldelay = <2,2;6,7>;
+/*delay startdelay = <1,2>;*/
+delay startdelay = <10,20>;
+
+input a1done = {aludelay};
+output a1prech = {true,predelay};
+
+input a2done = {aludelay};
+output a2prech = {true,predelay};
+
+input m1done = {muldelay};
+output m1prech = {true,predelay};
+
+input m2done = {muldelay};
+output m2prech = {true,predelay};
+
+input start = {startdelay}; 
+output EndP = {gatedelay};
+output A1M = {gatedelay};
+output A2M = {gatedelay};
+output M1A = {gatedelay};
+output M2A2 = {gatedelay};
+output done = {gatedelay};
+input C = {<0,0>};
+output x = {gatedelay};
+
+process alu1;
+    *[ [start]; a1prech-; [a1done]; A1M+; a1prech+;
+	[ M1A & ~a1done -> a1prech-; [a1done]; A1M-; a1prech+;
+	    [~M1A & ~a1done]; a1prech-; [a1done]; A1M+; a1prech+; *  
+	| ~start & ~a1done -> A1M-
+	]
+     ]
+endprocess	
+
+process alu2;
+    *[ [start]; a2prech-; 
+
+	[ ~C -> [ true -> C+ | true -> skip ]
+        |  C -> [ true -> C- | true -> skip ]
+        ];
+
+	[ a2done & ~C -> A2M+; x+; a2prech+; [~a2done]; a2prech-; x-; 
+	    [a2done]; a2prech+; [M2A2 & M1A & ~a2done]; 
+            A2M-; a2prech-;
+
+	    [ ~C -> [ true -> C+ | true -> skip ]
+	    |  C -> [ true -> C- | true -> skip ]
+	    ];
+
+	    [ a2done & ~C -> x+; a2prech+; [~a2done]; a2prech-; x-;
+		[~M2A2 & ~M1A & a2done]; A2M+; x+; a2prech+; [~a2done];
+		a2prech-; x-; [a2done]; x+; a2prech+; [M2A2 & M1A & ~a2done]; 
+		A2M-; a2prech-; x-; *
+	    | a2done & C -> x+; a2prech+; [~a2done]; a2prech-; x-; 
+		[~M2A2 & ~M1A & a2done]; a2prech+; [~a2done]; EndP+
+	    ]
+        | a2done & C -> a2prech+; [~a2done]; EndP+
+	]; [~start]; EndP-
+     ]
+endprocess
+
+process mul1;
+    *[ [A1M & A2M & ~m1done]; m1prech-; [m1done]; M1A+; m1prech+;  
+	[~A1M & ~m1done]; m1prech-; [~A2M & m1done]; M1A-; m1prech+ ]
+endprocess
+
+process mul2;
+    *[ [A1M & A2M]; m2prech-; [m2done]; M2A2+; m2prech+; 
+	[~A1M & ~A2M & ~m2done]; M2A2- ]
+endprocess
+
+process celem;
+    *[ [EndP & A1M]; done+; [~EndP & ~A1M]; done- ]
+endprocess
+
+process env;
+    *[ start+; [done]; start-; [~done] ]
+endprocess
+
+process a1;
+    *[ [~a1prech]; a1done+; [a1prech]; a1done- ]
+endprocess
+
+process a2;
+    *[ [~a2prech]; a2done+; [a2prech]; a2done- ]
+endprocess
+
+/*
+process a2;
+    *[ [~a2prech]; [ skip -> C+; a2done+; [a2prech]; C-; a2done- 
+		   | skip -> a2done+; [a2prech]; a2done- 
+		   ]
+     ]
+endprocess
+*/
+
+process m1;
+    *[ [~m1prech]; m1done+; [m1prech]; m1done- ]
+endprocess
+
+process m2;
+    *[ [~m2prech]; m2done+; [m2prech]; m2done- ]
+endprocess
+endmodule

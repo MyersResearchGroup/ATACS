@@ -1,0 +1,78 @@
+[ ansreq: (resultiffalse & ~swack)] Combinational
+[ ansreq: (~ansack & ansreq)] Combinational
+[ ansreq: (resultiftrue & ~swack)] Combinational
+[ anssm1: (resultiffalse & ~swack)] Combinational
+[ anssm1: (~ansack & anssm1)] Combinational
+[ fareq: (swack & update1expr0ack & ~updateiftrue)] Combinational
+[ fareq: (fnack & ~loop3exprack & ~updateifreq)] Combinational
+[ fareq: (~swack & ~update3expr0ack & fbreq)] Combinational
+[ fareq: (nack & ~nreq)] Combinational
+[ fareq: (~fback & ~update1expr0ack & fareq)] Combinational
+[ fareq: (~faack & fareq)] Combinational
+[ fasm1: (~faack & update1expr0req)] Combinational
+[ fasm1: (swack & update1expr0req)] Combinational
+[ fasm1: (~fnack & ~loop3exprack & updateiftrue)] Combinational
+[ fbreq: (swack & update3expr0ack & ~updateiffalse)] Combinational
+[ fbreq: (~fback & fbreq)] Combinational
+[ fbreq: (fnack & ~loop3exprack & ~updateifreq)] Combinational
+[ fbreq: (~swack & ~update3expr0ack & fbreq)] Combinational
+[ fbreq: (nack & ~nreq)] Combinational
+[ fbreq: (~faack & fbreq & swreq)] Combinational
+[ fbsm1: (swack & update3expr0req)] Combinational
+[ fbsm1: (~fback & update3expr0req)] Combinational
+[ fbsm1: (~fnack & ~loop3exprack & updateiffalse)] Combinational
+[ fnreq: (~fnack & loop3exprack & ~loopiffalse & ~updateifreq)] Combinational
+[ fnreq: (~ansack & ~fnack & nack & ~swreq)] Combinational
+[ fnsm1: (~fnack & ~loopiftrue & ~loopiffalse & ~resultiftrue & ~resultiffalse & start & ~swack & ~update1expr0ack & ~update3expr0ack & ~updateiftrue & ~updateiffalse & ~ansreq & ~loop3exprreq & ~loopifreq & ~resultifreq & ~swreq & ~updateifreq)] Combinational
+[ fnsm1: (ansack & ~resultiftrue & ~resultiffalse)] Combinational
+[ loop3exprreq: (~fnack & loop3exprreq)] Combinational
+[ loop3exprreq: (~faack & ~fback & loopiffalse & ~swack & ~update1expr0ack & ~update3expr0ack)] Combinational
+[ loopifreq: (fback & ~swack & update3expr0ack)] Combinational
+[ loopifreq: (update1expr0ack & ~update1expr0req)] Combinational
+[ loopifreq: (~loopiftrue & ~loopiffalse & loopifreq)] Combinational
+[ loopifreq: (faack & loopifreq)] Combinational
+[ loopifreq: (swack & loopifreq)] Combinational
+[ loopifreq: (fback & loopifreq)] Combinational
+[ loopifreq: (update3expr0ack & ~update3expr0req)] Combinational
+[ loopifreq: (faack & ~swack & update1expr0ack)] Combinational
+[ loopifreq: (faack & fback & ~fnack & ~nack & swack)] Combinational
+[ nreq: (~fnack & ~loopiftrue & ~loopiffalse & ~resultiftrue & ~resultiffalse & start & ~swack & ~update1expr0ack & ~update3expr0ack & ~updateiftrue & ~updateiffalse & ~ansreq & ~loop3exprreq & ~loopifreq & ~resultifreq & ~swreq & ~updateifreq)] Combinational
+[ nreq: (ansack & ~resultiftrue & ~resultiffalse)] Combinational
+[ resultifreq: (~fback & ~loopiftrue & swack & ~fbreq & ~update1expr0req & ~update3expr0req & ~zzz01)] Combinational
+[ resultifreq: (~resultiftrue & ~resultiffalse & resultifreq)] Combinational
+[ swreq: (~fnack & ~loop3exprack & updateiffalse)] Combinational
+[ swreq: (~update3expr0ack & update3expr0req)] Combinational
+[ swreq: (~swack & swreq)] Combinational
+[ swreq: (~fnack & ~loop3exprack & updateiftrue)] Combinational
+[ swreq: (~update1expr0ack & update1expr0req)] Combinational
+[ swreq: (fnack & ~loop3exprack & ~updateifreq)] Combinational
+[ swreq: (loopiftrue & swsm2)] Combinational
+[ swreq: (~faack & ~fback & loopiftrue & ~swack & ~update1expr0ack & ~update3expr0ack)] Combinational
+[ swreq: (nack & ~nreq)] Combinational
+[ swreq: (~fback & ~update1expr0ack & fareq)] Combinational
+[ swreq: (~faack & ~update1expr0ack & fareq)] Combinational
+[ swsm1: (~fnack & ~loop3exprack & updateiftrue)] Combinational
+[ swsm1: (~update1expr0ack & update1expr0req)] Combinational
+[ swsm1: (~swack & swsm1)] Combinational
+[ swsm2: (~swack & swsm2)] Combinational
+[ swsm2: (loopiftrue & swsm2)] Combinational
+[ swsm2: (~faack & ~fback & loopiftrue & ~swack & ~update1expr0ack & ~update3expr0ack)] Combinational
+[ update1expr0req: (~faack & update1expr0req)] Combinational
+[ update1expr0req: (swack & update1expr0req)] Combinational
+[ update1expr0req: (~fnack & ~loop3exprack & updateiftrue)] Combinational
+[ update3expr0req: (swack & update3expr0req)] Combinational
+[ update3expr0req: (~fback & update3expr0req)] Combinational
+[ update3expr0req: (~fnack & ~loop3exprack & updateiffalse)] Combinational
+[ updateifreq: (~updateiftrue & ~updateiffalse & updateifreq)] Combinational
+[ updateifreq: (loop3exprack & updateifreq)] Combinational
+[ updateifreq: (fnack & ~nack & ~swreq)] Combinational
+[ zzz00: (update1expr0ack & zzz00)] Combinational
+[ zzz00: (~loopiftrue & ~loopiffalse & zzz00)] Combinational
+[ zzz00: (faack & ~swack & ~swreq & ~zzz01)] Combinational
+[ zzz01: (~loopiftrue & ~loopiffalse & ~nack & zzz01)] Combinational
+[ zzz01: (swack & zzz01)] Combinational
+[ zzz01: (fback & zzz01)] Combinational
+[ zzz01: (faack & zzz01)] Combinational
+[ zzz01: (ansack & ~resultiftrue)] Combinational
+[ zzz01: (resultiffalse & ~swack)] Combinational
+[ zzz01: (faack & fback & ~fnack & ~nack & swack)] Combinational

@@ -1,0 +1,21 @@
+[ RASn: (ASWn & ASRn & RASn & ~RFIP)] Combinational
+[ RASn: (ASWn & DDSn & Cn & RASn)] Combinational
+[ RASn: (RFREQn & ASWn & ASRn & DDSn & ~An & ~Bn)] Combinational
+[ CASn: (DDSn & CASn)] Combinational
+[ CASn: (Bn)] Combinational
+[ CASn: (ASWn & ASRn & DDSn)] Combinational
+[ WEn: (An)] Combinational
+[ WEn: (ASWn & DDSn)] Combinational
+[ WEn: (ASWn & WEn)] Combinational
+[ DTACKn: (An)] Combinational
+[ DTACKn: (ASWn & ASRn & DDSn)] Combinational
+[ SELCA: (~DDSn & ~An)] Combinational
+[ SELCA: (~ASRn & ~An)] Combinational
+[ SELCA: (~ASWn & ~An)] Combinational
+[ RFIP: (Bn & RFIP)] Combinational
+[ RFIP: (An & RFIP)] Combinational
+[ RFIP: (~RFREQn)] Combinational
+[ zzz00: (~Cn & zzz00)] Combinational
+[ zzz00: (~Bn & zzz00)] Combinational
+[ zzz00: (~An & zzz00)] Combinational
+[ zzz00: (RFREQn & ~An & ~Bn & ~Cn)] Combinational

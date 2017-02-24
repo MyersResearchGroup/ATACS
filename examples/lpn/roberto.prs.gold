@@ -1,0 +1,4 @@
+[+done: (~pc)]
+[-done: (ev)]
+[ ev: (~done_in_1 & ~done_in_2 & done_out_1 & done_out_2 & done & pc)] Combinational
+[~pc: (done_in_1 & done_in_2 & ~done_out_1 & ~done_out_2 & ~done & ~ev)] Combinational

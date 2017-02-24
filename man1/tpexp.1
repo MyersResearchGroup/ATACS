@@ -1,0 +1,13 @@
+.XX
+tpexp - exponential approximation
+.PP
+tpexp approximates probability density functions for events
+as negative exponentials with rates equal to the expected value of
+the events' original probability density functions.  Using the
+negative exponential, a rate transition matrix is derived for
+the CTMC representing the system as a stochastic process.  The EMC
+of the CTMC is derived and the resulting transition matrix is
+stored as the transition probabilities in the state graph.
+A valid state graph must exist to run this command.  Any
+transition probabilities already stored in the state table will be
+replaced with the results of this command.

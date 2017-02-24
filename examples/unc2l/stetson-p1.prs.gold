@@ -1,0 +1,87 @@
+[ SCEventCount: (IT1EventStop & ~ComeOnBlock)] Combinational
+[ SCEventCount: (SCEventReq & SCEventCount)] Combinational
+[ SCEventCount: (IT2EventStop & ~ComeOnBlock)] Combinational
+[ SCEventEoSP: (CtrEoSPAck & zzz02)] Combinational
+[ SCEventEoSP: (CtrEoSPAck & ~zzz01)] Combinational
+[ SCEventEoSP: (SCEventReq & SCEventEoSP)] Combinational
+[ SCEoTSAck: (CtrTcbeAck)] Combinational
+[ SCEoTSAck: (SCEoTSReq & SCEoTSAck)] Combinational
+[ SCError: (TSTimeout)] Combinational
+[ SCError: (IT1EventStop & ComeOnBlock)] Combinational
+[ SCError: (IT2EventStop & ComeOnBlock)] Combinational
+[ IT12SoftResetReq: (~CtrSetbAck & CtrSetbReq)] Combinational
+[ IT12SoftResetReq: (~SCEoTSReq & IT1EventStart & ~CtrTcbeAck & ComeOnBlock)] Combinational
+[ IT12SoftResetReq: (~IT12ResetAck & CtrSetbReq)] Combinational
+[ IT12SoftResetReq: (~SCEventReq & CtrSetbReq)] Combinational
+[ IT12CalReq: (~IT12ResetAck & ~CtrSetbAck & ~IT1IntReq & ~RXReceiving)] Combinational
+[ IT12CalReq: (~IT12CalAck & IT12CalReq)] Combinational
+[ IT12CalReq: (~IT12ResetAck & ~IT1EventStart & ~CtrSetbAck & zzz02)] Combinational
+[ IT1IntReq: (SCEventReq & IT1EventStart & ~IT1EventStop & ~CtrEoSPAck & ~CtrSetaAck & ~SCEventCount & zzz00)] Combinational
+[ IT1IntReq: (~IT1EventStop & ~CtrEoSPAck & IT1IntReq & ~ComeOnBlock)] Combinational
+[ IT1IntReq: (~IT12CalStart & ~IT12CalAck & ~IT12CalReq & ~IT2IntReq & ~ComeOnBlock & RXReceiving & ~zzz02)] Combinational
+[ IT1IntReq: (~IT1EventStop & IT1IntReq & ~ComeOnBlock & zzz02)] Combinational
+[ IT1IntReq: (SCEoTSReq & ~CtrTcbeAck & ~SCEoTSAck)] Combinational
+[ IT1IntReq: (SCEoTSReq & zzz02)] Combinational
+[ IT1IntReq: (CtrTcbeAck & zzz01)] Combinational
+[ IT2IntReq: (~IT2EventStop & ~CtrEoSPAck & IT2IntReq & ~ComeOnBlock)] Combinational
+[ IT2IntReq: (SCEventReq & IT1EventStart & ~IT2EventStop & ~CtrEoSPAck & ~SCEventEoSP & zzz02)] Combinational
+[ IT2IntReq: (~IT2EventStop & IT2IntReq & ~ComeOnBlock & ~zzz02)] Combinational
+[ IT2IntReq: (SCEoTSReq & ~CtrTcbeAck & ~SCEoTSAck)] Combinational
+[ IT2IntReq: (SCEoTSReq & ~zzz02)] Combinational
+[ IT2IntReq: (CtrTcbeAck & ~zzz02)] Combinational
+[ IT2IntReq: (SCEventReq & IT1EventStart & ~IT2EventStop & ~SCEventCount & ~CtrSetbReq & ~zzz00)] Combinational
+[ IT2IntReq: (SCEventReq & IT1EventStart & ~IT2EventStop & ~CtrSetaAck & zzz00 & ~zzz01)] Combinational
+[ CtrSetaReq: (SCEventReq & IT1EventStart & ~IT2EventStop & ~CtrSetaAck & ~IT2IntReq & zzz00 & zzz01 & ~zzz02)] Combinational
+[ CtrSetaReq: (SCEventReq & ~IT1EventStop & ~CtrEoSPAck & ~CtrSetaAck & ~SCEventEoSP & ~IT1IntReq & IT2IntReq & ~zzz00)] Combinational
+[ CtrSetbReq: (~CtrSetbAck & CtrSetbReq)] Combinational
+[ CtrSetbReq: (~SCEoTSReq & IT1EventStart & ~CtrTcbeAck & ComeOnBlock)] Combinational
+[ CtrSetbReq: (~IT12ResetAck & CtrSetbReq)] Combinational
+[ CtrSetbReq: (~SCEventReq & CtrSetbReq)] Combinational
+[ AwaitingTS: (~IT12CalStart & ~IT1EventStart & AwaitingTS)] Combinational
+[ AwaitingTS: (~IT12ResetAck & ~IT12CalStart & ~IT12CalAck & ~IT1EventStart & ~CtrSetbAck & ~CtrSetbReq & RXReceiving)] Combinational
+[ ComeOnBlock: (~SCEventReq & ComeOnBlock)] Combinational
+[ ComeOnBlock: (SCEoTSReq)] Combinational
+[ ComeOnBlock: (IT12ResetAck)] Combinational
+[ ComeOnBlock: (CtrSetbAck)] Combinational
+[ ComeOnBlock: (CtrSetbReq)] Combinational
+[ RXReceiving: (~SCEoTSReq & ~TSTimeout & RXReceiving)] Combinational
+[ RXReceiving: (IT1EventStart & ~IT1EventStop & ~IT2EventStop)] Combinational
+[ RXReceiving: (~TSTimeout & AwaitingTS)] Combinational
+[ RXReceiving: (IT12CalStart)] Combinational
+[ ControlResetAck: (IT12ResetAck & ControlResetAck)] Combinational
+[ ControlResetAck: (CtrSetbAck & ControlResetAck)] Combinational
+[ zzz00: (IT1EventStop & zzz01)] Combinational
+[ zzz00: (SCEventReq & ~IT12CalStart & ~IT2EventStop & ~TSTimeout & zzz00 & zzz01)] Combinational
+[ zzz00: (SCEventReq & ~IT2EventStop & ~CtrEoSPAck & ~IT12CalReq & zzz00)] Combinational
+[ zzz00: (~IT2EventStop & IT1IntReq & ~ComeOnBlock & zzz00 & zzz01)] Combinational
+[ zzz00: (CtrEoSPAck & zzz01)] Combinational
+[ zzz00: (~SCEoTSReq & ~IT2EventStop & ~CtrEoSPAck & IT2IntReq & zzz00 & ~zzz01)] Combinational
+[ zzz00: (~SCEventReq & ~SCEoTSReq & ~CtrEoSPAck & ~SCEventCount & ~ComeOnBlock & ~zzz01)] Combinational
+[ zzz00: (SCEoTSReq & zzz01)] Combinational
+[ zzz00: (CtrSetaAck)] Combinational
+[ zzz00: (CtrTcbeAck & zzz01)] Combinational
+[ zzz00: (~SCEventReq & ~IT2EventStop & ~IT2IntReq & ~ComeOnBlock)] Combinational
+[ zzz00: (SCEventReq & IT12ResetAck & ~IT1EventStart & CtrSetbAck & ~ControlResetAck)] Combinational
+[ zzz00: (~IT12CalStart & ~TSTimeout & IT12CalReq & AwaitingTS)] Combinational
+[ zzz01: (SCEventCount & ~IT1IntReq)] Combinational
+[ zzz01: (~IT2EventStop & ~CtrSetaAck & ~IT12CalReq & ~IT2IntReq & ~ComeOnBlock & zzz01)] Combinational
+[ zzz01: (CtrEoSPAck & zzz01)] Combinational
+[ zzz01: (SCEventReq & ~IT12CalStart & ~IT2EventStop & ~TSTimeout & zzz02)] Combinational
+[ zzz01: (~SCEventReq & IT2IntReq & zzz01)] Combinational
+[ zzz01: (SCEoTSReq & zzz01)] Combinational
+[ zzz01: (CtrTcbeAck & zzz01)] Combinational
+[ zzz01: (~SCEventReq & ~IT2EventStop & ~IT2IntReq & ~ComeOnBlock)] Combinational
+[ zzz01: (SCEventReq & IT12ResetAck & ~IT1EventStart & CtrSetbAck & ~ControlResetAck)] Combinational
+[ zzz01: (~IT12CalStart & ~TSTimeout & IT12CalReq & AwaitingTS)] Combinational
+[ zzz01: (SCEventReq & IT1EventStart & ~IT2EventStop & ~CtrEoSPAck & ~SCEventCount & IT1IntReq & ~zzz00)] Combinational
+[ zzz01: (~IT2EventStop & IT1IntReq & IT2IntReq & ~zzz00 & zzz01)] Combinational
+[ zzz01: (IT1EventStop & ~ComeOnBlock)] Combinational
+[ zzz01: (CtrSetaAck & ~IT1IntReq)] Combinational
+[ zzz02: (IT1EventStop & ~ComeOnBlock)] Combinational
+[ zzz02: (SCEventReq & ~IT12CalStart & ~IT2EventStop & ~TSTimeout & zzz02)] Combinational
+[ zzz02: (~IT2EventStop & IT1IntReq & ~ComeOnBlock & zzz02)] Combinational
+[ zzz02: (SCEoTSReq & zzz01)] Combinational
+[ zzz02: (CtrTcbeAck & zzz01)] Combinational
+[ zzz02: (SCEventReq & IT12ResetAck & ~IT1EventStart & CtrSetbAck & ~ControlResetAck)] Combinational
+[ zzz02: (~IT12CalStart & ~TSTimeout & IT12CalReq & AwaitingTS)] Combinational
+[ zzz02: (CtrSetaAck & ~IT1IntReq)] Combinational

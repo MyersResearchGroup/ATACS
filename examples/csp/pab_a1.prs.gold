@@ -1,0 +1,3 @@
+[ ro: (~li & ~ri & lo)] Combinational
+[+lo: (li & ~ri)]
+[-lo: (ri)]

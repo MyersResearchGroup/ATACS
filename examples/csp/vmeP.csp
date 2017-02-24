@@ -1,0 +1,48 @@
+module vme;
+
+delay dsrdelay=<6,14>;
+delay ldtackdelay=<6,14>;
+delay outdelay=<6,14>;
+
+input dsr={dsrdelay};
+input ldtack={ldtackdelay};
+
+output d={outdelay};
+output lds={outdelay};
+
+output csc0={outdelay};
+
+process csc0;
+*[ [dsr+]; csc0+; [dsr-]; csc0-; [ldtack-] ]
+endprocess
+
+process d;
+    *[ [ldtack+]; d+; [csc0-]; d- ]
+endprocess
+
+process lds;
+    *[ [csc0+]; lds+; [csc0-]; lds-; [ldtack-] ]
+endprocess
+
+process dsr;
+    *[ dsr+; [d+]; dsr-; [d-] ]
+endprocess
+
+process ldtack;
+    *[ [lds+]; ldtack+; [lds-]; ldtack- ]
+endprocess
+
+/*
+assumption one;
+    *[ dsr+; [lds-] ]
+endassumption
+*/
+
+/* Burst-mode assumption, but unnecessary */ 
+/*
+assumption two;
+    *[ [d-]; ldtack- ]
+endassumption
+*/
+
+endmodule

@@ -1,0 +1,17 @@
+module hans;
+
+input a;
+input b;
+input c;
+output x;
+
+process foo;
+*[ [a & c]; x+; [~a & ~c]; x- ]
+endprocess
+
+process choose;
+*[[ true -> c+; (a+ || b+); b-
+  | true -> a+; c+
+ ]; [x]; a-; c-; [~x] ]
+endprocess
+endmodule

@@ -1,0 +1,19 @@
+input	LIN                      0
+input	RIN                      0
+input	UIN                      0
+output	LOUT                     0
+output	ROUT                     0
+output	UOUT                     0
+output	zzz00                    0
+output	zzz01                    1
+
+0  1	LIN+                     | ROUT+ 
+0  3	UIN+                     | ROUT+ 
+1  2	RIN+                     | LOUT+ ROUT- 
+2  0	LIN- RIN-                | LOUT- 
+3  4	RIN+                     | UOUT+ ROUT- zzz00+ zzz01- 
+4  5	UIN- RIN-                | UOUT- 
+5  6	UIN+                     | UOUT+ 
+5  7	LIN+                     | LOUT+ zzz00- 
+6  5	UIN-                     | UOUT- 
+7  0	LIN-                     | LOUT- zzz01+ 

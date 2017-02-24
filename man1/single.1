@@ -1,0 +1,34 @@
+.TH SINGLE 1 "28 September 2001" "" ""
+.SH NAME
+single \- Synthesis Using the Single Cube Algorithm
+.SH SYNOPSIS
+.nf
+.BI atacs " -ys"
+.br
+.BI atacs> " single"
+.fi
+.SH DESCRIPTION
+.B single
+uses the single cube algorithm for synthesis.  This algorithm attempts to 
+find a single cube implementation for each excitation region.  
+It stores the final production rules derived using the synthesis procedure.  
+These are stored to the file named <filename>.prs in the following form:
+.PP
+[(+/-)<signal>: ((~)<signal1> & ... & (~)<signaln>)]
+.PP
+If it fails, a multi-cube implementation is required.
+.SH OPTIONS
+.TP
+.BI \-ys
+Uses single cube algorithm from the command line.
+.TP
+.BI single
+Uses single cube algorithm in the interactive shell.
+.SH CREDITS
+.B single
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR multicube (1)
+.BR bdd (1)
+.BR direct (1)
+.BR http://www.async.elen.utah.edu

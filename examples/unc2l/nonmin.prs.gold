@@ -1,0 +1,6 @@
+[ x: (a & b & c)] Combinational
+[ x: (a & d & ~e & f & ~g)] Combinational
+[ x: (~c & ~d & f)] Combinational
+[ x: (~b & ~c & f & x)] Combinational
+[ zzz00: (b & d & ~f)] Combinational
+[ zzz00: (~a & zzz00)] Combinational

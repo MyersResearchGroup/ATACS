@@ -1,0 +1,44 @@
+/*****************************************************************************/
+/* Chu's SCSI Protocol Controller (with state variable added by hand)        */
+/*****************************************************************************/
+module scsi;
+
+delay gatedelay = <0,5>;
+delay envdelay = <20,50>;
+
+input ack = {true,envdelay};
+input go = {false,envdelay};
+output req = {true,gatedelay};
+output rdy = {false,gatedelay};
+output q = {true,gatedelay};
+
+process scsi2;
+*[ req-; rdy+; q-; [go+]; rdy-; [ack-]; req+; [go-]; q+; [ack+] ]  
+endprocess
+
+process ack;
+*[ [req-]; ack-; [req+]; ack+ ]
+endprocess
+
+process go;
+*[ [rdy+]; go+; [rdy-]; go- ]
+endprocess
+
+endmodule
+
+module main;
+
+input ack = {true,<20,50>};
+input go = {false,<20,50>};
+
+scsi scsi1(req => req1, ack => ack, go => go, rdy => rdy1);
+scsi scsi2(req => req2, ack => ack, go => go, rdy => rdy2);
+
+process left;
+*[ [req1- & req2-]; ack-; [req1+ & req2+]; ack+ ]
+endprocess
+
+process right;
+*[ [rdy1+ & rdy2+]; go+; [rdy1- & rdy2-]; go-]
+endprocess
+endmodule

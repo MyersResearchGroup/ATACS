@@ -1,0 +1,23 @@
+input	StartDMASend             0
+input	DWAckLastN               1
+input	DWAckNormN               1
+input	ReqInN                   1
+output	EndDMAInt                1
+output	DRQ                      0
+output	AckOutN                  1
+output	zzz00                    0
+output	zzz01                    0
+output	zzz02                    0
+output	zzz03                    0
+
+0  1	StartDMASend+            | EndDMAInt- zzz01+ zzz02+ zzz03+ 
+1  2	StartDMASend-            | DRQ+ 
+2  8	DWAckLastN- ReqInN-      | DRQ- 
+2  3	DWAckNormN- ReqInN-      | DRQ- zzz01- zzz02- zzz03- 
+3  4	DWAckNormN+              | AckOutN- DRQ+ 
+4  6	DWAckLastN- ReqInN+      | AckOutN+ DRQ- zzz02+ zzz03+ 
+4  5	DWAckNormN- ReqInN+      | AckOutN+ DRQ- zzz00+ zzz03+ 
+5  4	DWAckNormN+ ReqInN-      | AckOutN- DRQ+ zzz00- zzz03- 
+6  7	DWAckLastN+ ReqInN-      | AckOutN- zzz03- 
+8  7	DWAckLastN+              | AckOutN- zzz01- zzz03- 
+7  0	ReqInN+                  | AckOutN+ EndDMAInt+ zzz02- 

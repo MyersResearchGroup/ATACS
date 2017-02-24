@@ -1,0 +1,58 @@
+module beta;
+
+input a={<0,15>};
+input b={<0,15>};
+input c={<0,15>};
+input d={<0,15>};
+input e={<0,15>};
+input f={<0,15>};
+input g={<0,15>};
+input h={<0,15>};
+input i={<0,15>};
+input j={<0,15>};
+input k={<0,15>};
+
+process a;
+    *[ a+; a-]
+endprocess
+
+process b;
+    *[ b+; b-]
+endprocess
+
+process c;
+    *[ c+; c-]
+endprocess
+
+process d;
+    *[ d+; d-]
+endprocess
+
+process e;
+    *[ e+; e-]
+endprocess
+
+process f;
+    *[ f+; f-]
+endprocess
+
+process g;
+    *[ g+; g-]
+endprocess
+
+process h;
+    *[ h+; h-]
+endprocess
+
+process i;
+    *[ i+; i-]
+endprocess
+
+process j;
+    *[ j+; j-]
+endprocess
+
+process k;
+    *[ k+; k-]
+endprocess
+endmodule

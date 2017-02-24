@@ -1,0 +1,121 @@
+.e 23
+.i 8
+.r 51
+.n 0
+.d 1
+.c 18
+.s 000000000
+reset
+# 
+# INPUT EVENTS:
+# 
+out2i+/1 out2i-/1
+out1i+/1 out1i-/1
+sel11i+/1 sel11i-/1
+sel10i+/1 sel10i-/1
+# 
+# OUTPUT EVENTS:
+# 
+out2o+/1 out2o-/1
+in1+/1 in1-/1
+in0+/1 in0-/1
+out1o+/1 out1o-/1
+sel1o+/1 sel1o-/1
+sel1o+/2 sel1o-/2
+
+# 
+# DUMMY EVENTS:
+# 
+$0+/1
+$1+/1
+# 
+# RULES:
+# 
+reset sel10i+/1 0 329 762
+sel1o+/1 sel10i+/1 0 329 762
+sel1o-/2 sel11i-/1 0 201 469
+sel10i+/1 sel10i-/1 0 201 469
+sel1o-/1 sel10i-/1 0 201 469
+sel11i+/1 sel11i-/1 0 201 469
+out2o-/1 out2i-/1 0 300 468
+reset out2i+/1 0 328 761
+out2o+/1 out2i+/1 0 328 761
+out2i+/1 out2i-/1 0 300 468
+in0+/1 in0-/1 0 479 951
+reset in0+/1 0 479 951
+in1+/1 in0-/1 0 479 951
+out1i+/1 out1i-/1 0 300 468
+out1o+/1 out1i+/1 0 328 761
+reset out1i+/1 0 328 761
+out1o-/1 out1i-/1 0 300 468
+sel1o+/1 out2o+/1 0 101 235
+sel1o-/2 out2o-/1 0 101 235
+out2o+/1 sel1o-/2 0 101 235
+reset out2o+/1 0 101 235
+out1i+/1 sel1o-/1 0 101 235
+sel10i+/1 out1o+/1 0 101 235
+in0+/1 in1+/1 0 101 235
+in1+/1 in1-/1 0 101 235
+reset sel1o+/1 0 101 235
+reset in1+/1 0 101 235
+in1-/1 sel1o+/1 0 101 235
+in0-/1 in1-/1 0 101 235
+reset out1o+/1 0 101 235
+out1o+/1 sel1o-/1 0 101 235
+sel1o-/1 out1o-/1 0 101 235
+sel11i+/1 out2o+/1 0 101 235
+out2i+/1 sel1o-/2 0 101 235
+sel1o+/1 out1o+/1 0 101 235
+sel1o+/1 sel11i+/1 0 329 762
+reset sel11i+/1 0 329 762
+# 
+# INITIAL RULES:
+# 
+sel10i-/1 sel11i+/1 1 329 762
+sel11i-/1 sel11i+/1 1 329 762
+sel11i-/1 sel10i+/1 1 329 762
+sel10i-/1 sel10i+/1 1 329 762
+out2i-/1 out2i+/1 1 328 761
+in1-/1 in0+/1 1 479 951
+in0-/1 in0+/1 1 479 951
+out1i-/1 out1i+/1 1 328 761
+out2i-/1 out2o+/1 1 101 235
+sel10i-/1 sel1o+/1 1 101 235
+out2o-/1 in1+/1 1 101 235
+out1o-/1 in1+/1 1 101 235
+sel11i-/1 sel1o+/1 1 101 235
+out1i-/1 out1o+/1 1 101 235
+# 
+# RULES:
+# 
+# 
+# INITIAL RULES:
+# 
+# 
+# MERGERS:
+# 
+sel1o+/1 sel1o+/2 
+# 
+# CONFLICTS:
+# 
+$0+/1 sel11i-/1
+sel10i-/1 $1+/1
+sel10i-/1 sel11i+/1
+sel10i+/1 sel11i-/1
+sel10i+/1 sel11i+/1
+sel10i+/1 $1+/1
+sel10i-/1 sel11i-/1
+$0+/1 sel11i+/1
+$0+/1 $1+/1
+out1o-/1 out2o-/1
+out1o-/1 sel1o-/2
+out1o+/1 out2o+/1
+sel1o-/1 out2o-/1
+sel1o-/1 sel1o-/2
+sel1o-/1 out2o+/1
+out1o+/1 sel1o-/2
+out1o+/1 out2o-/1
+out1o-/1 out2o+/1
+# 
+# LOOPING CONFLICTS:
+# 

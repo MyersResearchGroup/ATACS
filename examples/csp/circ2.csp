@@ -1,0 +1,40 @@
+/* From Shai Rotem:
+
+Circuit 2:
+
+              _
+              |_   ap   /|
+               _||o---O< |----+
+              |         \|    |
+              |               |
+              | x  |\         |
+              +----| >O-------+---a
+             _|    |/
+clk -------||_
+              |
+              =
+
+The input clk goes high and then low after 3 gate delays.
+
+Circuit 2 is the part "mystery" circuit you synthesized.
+*/
+
+module circ2;
+
+delay clkdelay = <500,500;298,298>;
+delay pdelay = <101,101;99,99>;
+delay abdelay = <201,201;199,199>;
+
+input clk  = {false,clkdelay};
+output a  = {false,abdelay};
+output ap = {true,pdelay};
+
+process a;
+*[ [clk+]; a+; ap-; a-; ap+ ]
+endprocess
+
+process clkenv;
+*[ clk+; clk- ]
+endprocess
+endmodule
+

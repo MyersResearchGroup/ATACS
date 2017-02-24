@@ -1,0 +1,33 @@
+.TH ATOMIC 1 "30 September 2001" "" ""
+.SH NAME
+atomic \- Atomic Gate Implementation Technology
+.SH SYNOPSIS
+.nf
+.BI atacs " -ot"
+.br
+.BI atacs> " atomic"
+.fi
+.SH DESCRIPTION
+.B atomic
+selects atomic gates as the target technology.
+With this selection, covers are forced to include the entire excitation
+region and all quiescent states.  These covers therefore always map to
+combinational gates (possibly with tight feedback).
+.SH OPTIONS
+.TP
+.BI \-ot
+Enables atomic gate technology from the command line.
+.TP
+.BI atomic
+Enables atomic gate technology in the interactive shell.
+.SH CREDITS
+.B atomic
+was primarily written by Chris Myers (myers@vlsigroup.elen.utah.edu).
+.SH BUGS
+.SH FILES
+.SH "SEE ALSO"
+.BR gc (1)
+.BR gatelevel (1)
+.BR burstgc (1)
+.BR burst2l (1)
+.BR http://www.async.ece.utah.edu

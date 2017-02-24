@@ -1,0 +1,23 @@
+# 2-cycle FIFO controller
+.name two_phase_fifo
+.inputs Ri Ao D
+.outputs Ro Ai L
+#@.init_state [000000]
+.graph
+D- L-/2 Ro-
+L-/2 Ai-
+Ai- Ri+
+Ri+ L+/1
+Ro- Ao-
+Ao- L+/1
+
+L+/1 D+
+D+ L-/1 Ro+
+L-/1 Ai+
+Ai+ Ri-
+Ri- L+/2
+Ro+ Ao+
+Ao+ L+/2
+L+/2 D-
+.marking {<Ai-,Ri+><Ao-,L+/1>}
+.end

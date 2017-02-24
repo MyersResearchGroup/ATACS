@@ -1,0 +1,6 @@
+[+rout: (~rin & aout)]
+[-rout: (ain)]
+[+aout: (rin & ~ain & ~rout)]
+[-aout: (~rin)]
+[+zzz00: (ain)]
+[-zzz00: (rin & ~ain)]

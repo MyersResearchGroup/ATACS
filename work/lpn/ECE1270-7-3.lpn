@@ -1,0 +1,41 @@
+.outputs v01 v00 v11 v10 
+.dummy tp2top3 tp0top1 tp20top0 tp3top0 tp7top2 tp4top0 tp1top7 tp3top20 tp3top4 tp1top2 
+#@.variables v0 v1 
+#@.init_state [0110]
+#p1 = 22
+#p20 = 11
+#p7 = 21
+#p4 = 00
+#p3 = 10
+#p0 = 12
+#p2 = 20
+.graph
+p0 tp0top1 #@ [0,0]
+tp0top1 p1 #@ [0,0]
+p1 tp1top2 #@ [0,0]
+tp1top2 p2 #@ [0,0]
+p2 tp2top3 #@ [0,0]
+tp2top3 p3 #@ [0,0]
+p3 tp3top4 #@ [0,0]
+tp3top4 p4 #@ [0,0]
+p4 tp4top0 #@ [0,0]
+tp4top0 p0 #@ [0,0]
+p1 tp1top7 #@ [0,0]
+tp1top7 p7 #@ [0,0]
+p7 tp7top2 #@ [0,0]
+tp7top2 p2 #@ [0,0]
+p3 tp3top0 #@ [0,0]
+tp3top0 p0 #@ [0,0]
+p3 tp3top20 #@ [0,0]
+tp3top20 p20 #@ [0,0]
+p20 tp20top0 #@ [0,0]
+tp20top0 p0 #@ [0,0]
+.marking {p0}
+#@.init_vals {<v0=0><v1=0>}
+#@.init_rates {<v0=37653910><v1=-564818>}
+#@.enablings {<tp0top1=[v0>=-13]><tp1top2=[v1<=-1103705]><tp2top3=[v0<=-603143]><tp3top4=[v0<=-327154]><tp4top0=[v0>=-48&v1>=1]><tp1top7=[v1<=-4997008]><tp7top2=[v1<=-1103705]><tp3top0=[v1>=1]><tp3top20=[v1>=1]><tp20top0=[v1>=1]>}
+#@.rate_assignments {<tp0top1=[v0:=[173,175];v1:=[57,125]]><tp1top2=[v0:=[96,96];v1:=[-1051,-1051]]><tp2top3=[v0:=[-173,-172];v1:=[-57,122]]><tp3top4=[v0:=[-62,-62];v1:=[1480,1480]]><tp4top0=[v0:=[47,47];v1:=[1518,1518]]><tp1top7=[v0:=[-46,64];v1:=[-1287,-1070]]><tp7top2=[v0:=[-136,1];v1:=[-831,-823]]><tp3top0=[v0:=[-59,1];v1:=[1276,1355]]><tp3top20=[v0:=[-144,1];v1:=[738,744]]>}
+#@.delay_assignments {<tp0top1=[0,0]><tp1top2=[0,0]><tp2top3=[0,0]><tp3top4=[0,0]><tp4top0=[0,0]><tp1top7=[0,0]><tp7top2=[0,0]><tp3top0=[0,0]><tp3top20=[0,0]><tp20top0=[0,0]>}
+#@.boolean_assignments {<tp0top1=[v01:=TRUE;v00:=FALSE]><tp1top2=[v11:=FALSE]><tp2top3=[v01:=FALSE;v00:=TRUE]><tp3top4=[v00:=FALSE]><tp4top0=[v00:=TRUE;v11:=TRUE]><tp1top7=[v11:=FALSE;v10:=TRUE]><tp7top2=[v10:=FALSE]><tp3top0=[v11:=TRUE]><tp3top20=[v10:=TRUE]><tp20top0=[v11:=TRUE;v10:=FALSE]>}
+#@.continuous v0 v1 
+.end

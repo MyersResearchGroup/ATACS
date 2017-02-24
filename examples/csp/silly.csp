@@ -1,0 +1,17 @@
+/*****************************************************************************/
+/* Signal a is free-running, but output c is independent of it.              */
+/*****************************************************************************/
+module silly;
+
+input a;
+input b;
+output c;
+
+process a;
+*[ a+; a- ]
+endprocess
+
+process b;
+*[ b+; c+; b-; c- ]
+endprocess
+endmodule

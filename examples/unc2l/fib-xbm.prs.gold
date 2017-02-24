@@ -1,0 +1,129 @@
+[ loopifreq: (~faack & ~update3expr0ack & loopifreq)] Combinational
+[ loopifreq: (~faack & ~zzz00 & zzz01 & ~zzz02 & ~zzz03)] Combinational
+[ loopifreq: (zzz00 & ~zzz01 & zzz02 & zzz03)] Combinational
+[ loopifreq: (swack & update3expr0req)] Combinational
+[ loopifreq: (~fback & fbreq)] Combinational
+[ loopifreq: (fnack)] Combinational
+[ loopifreq: (~swack & swreq)] Combinational
+[ loopifreq: (nack)] Combinational
+[ loopifreq: (swack & update1expr0req)] Combinational
+[ fareq: (~swack & ~update1expr0ack & fareq)] Combinational
+[ fareq: (nack & ~nreq)] Combinational
+[ fareq: (fnack & ~loop3exprack & ~updateifreq)] Combinational
+[ fareq: (~fback & ~update1expr0ack & fareq)] Combinational
+[ fareq: (~faack & fareq)] Combinational
+[ fareq: (swack & update1expr0ack & ~updateifack)] Combinational
+[ ansreq: (resultifack & zzz01)] Combinational
+[ ansreq: (~ansack & ansreq)] Combinational
+[ ansreq: (resultifack & zzz00 & zzz02 & zzz03)] Combinational
+[ anssm1: (resultifack & zzz01)] Combinational
+[ anssm1: (~ansack & anssm1)] Combinational
+[ fasm1: (updateifack & zzz00 & zzz02 & zzz03)] Combinational
+[ fasm1: (~faack & update1expr0req)] Combinational
+[ fasm1: (swack & update1expr0req)] Combinational
+[ fbreq: (swack & update3expr0ack & ~updateifack)] Combinational
+[ fbreq: (~fback & fbreq)] Combinational
+[ fbreq: (~swack & ~update3expr0ack & fbreq)] Combinational
+[ fbreq: (nack & ~nreq)] Combinational
+[ fbreq: (fnack & ~loop3exprack & ~updateifreq)] Combinational
+[ fbreq: (~faack & fbreq & swreq)] Combinational
+[ fbsm1: (swack & update3expr0req)] Combinational
+[ fbsm1: (~fback & update3expr0req)] Combinational
+[ fbsm1: (updateifack & zzz01)] Combinational
+[ fnreq: (~fnack & loop3exprack & ~loopifack & ~updateifreq)] Combinational
+[ fnreq: (~ansack & ~fnack & nack & ~swreq)] Combinational
+[ fnsm1: (~fnack & ~loopifack & ~resultifack & start & ~swack & ~update1expr0ack & ~update3expr0ack & ~updateifack & loopifreq & ~ansreq & ~loop3exprreq & ~resultifreq & ~swreq & ~updateifreq)] Combinational
+[ fnsm1: (ansack & ~resultifack)] Combinational
+[ loop3exprreq: (~fnack & loop3exprreq)] Combinational
+[ loop3exprreq: (loopifack & zzz00 & ~zzz01 & zzz02 & zzz03)] Combinational
+[ nreq: (~fnack & ~loopifack & ~resultifack & start & ~swack & ~update1expr0ack & ~update3expr0ack & ~updateifack & loopifreq & ~ansreq & ~loop3exprreq & ~resultifreq & ~swreq & ~updateifreq)] Combinational
+[ nreq: (ansack & ~resultifack)] Combinational
+[ resultifreq: (resultifreq & ~zzz01 & ~zzz03)] Combinational
+[ resultifreq: (resultifreq & ~zzz01 & ~zzz02)] Combinational
+[ resultifreq: (resultifreq & ~zzz00 & ~zzz01)] Combinational
+[ resultifreq: (~fback & ~loopifack & swack & loopifreq & ~fbreq & ~update1expr0req & ~update3expr0req)] Combinational
+[ swreq: (updateifack & zzz00 & zzz02 & zzz03)] Combinational
+[ swreq: (~update1expr0ack & update1expr0req)] Combinational
+[ swreq: (~swack & swreq)] Combinational
+[ swreq: (updateifack & zzz01)] Combinational
+[ swreq: (~update3expr0ack & update3expr0req)] Combinational
+[ swreq: (loopifack & ~zzz00 & zzz01 & ~zzz02 & ~zzz03)] Combinational
+[ swreq: (nack & ~nreq)] Combinational
+[ swreq: (fnack & ~loop3exprack & ~updateifreq)] Combinational
+[ swreq: (~fback & ~update1expr0ack & fareq)] Combinational
+[ swreq: (~faack & ~update1expr0ack & fareq)] Combinational
+[ swsm1: (updateifack & zzz00 & zzz02 & zzz03)] Combinational
+[ swsm1: (~update1expr0ack & update1expr0req)] Combinational
+[ swsm1: (~swack & swsm1)] Combinational
+[ swsm2: (loopifack & ~zzz00 & zzz01 & ~zzz02 & ~zzz03)] Combinational
+[ swsm2: (~swack & swsm2)] Combinational
+[ update1expr0req: (updateifack & zzz00 & zzz02 & zzz03)] Combinational
+[ update1expr0req: (~faack & update1expr0req)] Combinational
+[ update1expr0req: (swack & update1expr0req)] Combinational
+[ update3expr0req: (swack & update3expr0req)] Combinational
+[ update3expr0req: (~fback & update3expr0req)] Combinational
+[ update3expr0req: (updateifack & zzz01)] Combinational
+[ updateifreq: (fnack & loop3exprack)] Combinational
+[ updateifreq: (updateifreq & ~zzz01 & ~zzz03)] Combinational
+[ updateifreq: (updateifreq & ~zzz01 & ~zzz02)] Combinational
+[ updateifreq: (updateifreq & ~zzz00 & ~zzz01)] Combinational
+[ zzz00: (~ansack & ~loop3exprack & ~swack & zzz00 & ~zzz01)] Combinational
+[ zzz00: (updateifack & zzz02)] Combinational
+[ zzz00: (~update1expr0ack & update1expr0req)] Combinational
+[ zzz00: (resultifack & zzz02)] Combinational
+[ zzz00: (update1expr0ack & ~update1expr0req)] Combinational
+[ zzz00: (~loopifack & ~loopifreq & zzz01)] Combinational
+[ zzz00: (faack & zzz01)] Combinational
+[ zzz00: (swack & ~loopifreq)] Combinational
+[ zzz00: (fback & zzz01)] Combinational
+[ zzz00: (~loopif & ~loopifreq & zzz00)] Combinational
+[ zzz00: (~fback & ~loopif & loopifack & ~update3expr0ack & ~loop3exprreq & ~zzz01)] Combinational
+[ zzz00: (resultif & resultifack & ~swack & ~ansreq & ~zzz01)] Combinational
+[ zzz00: (~fnack & ~loop3exprack & updateif & updateifack & ~update1expr0req & ~zzz01)] Combinational
+[ zzz00: (faack & ~swack & update1expr0ack)] Combinational
+[ zzz00: (loopifack & loop3exprreq)] Combinational
+[ zzz00: (faack & fback & ~fnack & ~nack & swack)] Combinational
+[ zzz01: (~nack & ~swack & ~zzz00 & zzz01)] Combinational
+[ zzz01: (ansack & ~resultifack)] Combinational
+[ zzz01: (loopif & ~loopifreq & zzz01)] Combinational
+[ zzz01: (~fback & loopif & loopifack & ~update3expr0ack & ~swsm2 & ~zzz03)] Combinational
+[ zzz01: (updateifack & zzz01)] Combinational
+[ zzz01: (~update3expr0ack & update3expr0req)] Combinational
+[ zzz01: (update1expr0ack & ~update1expr0req)] Combinational
+[ zzz01: (~loopifack & ~loopifreq & zzz01)] Combinational
+[ zzz01: (faack & zzz01)] Combinational
+[ zzz01: (swack & ~loopifreq)] Combinational
+[ zzz01: (fback & zzz01)] Combinational
+[ zzz01: (~resultif & resultifack & ~swack & ~zzz02)] Combinational
+[ zzz01: (faack & ~swack & update1expr0ack)] Combinational
+[ zzz01: (~fnack & ~loop3exprack & ~updateif & updateifack & ~update3expr0req & ~zzz02)] Combinational
+[ zzz01: (loopifack & swsm2)] Combinational
+[ zzz01: (faack & fback & ~fnack & ~nack & swack)] Combinational
+[ zzz02: (~ansack & ~loop3exprack & ~swack & zzz00 & ~zzz01)] Combinational
+[ zzz02: (updateifack & zzz02)] Combinational
+[ zzz02: (~update1expr0ack & update1expr0req)] Combinational
+[ zzz02: (resultifack & zzz02)] Combinational
+[ zzz02: (update1expr0ack & ~update1expr0req)] Combinational
+[ zzz02: (~loopifack & ~loopifreq & zzz02)] Combinational
+[ zzz02: (faack & ~swack & ~fbreq & ~zzz03)] Combinational
+[ zzz02: (~loopif & ~loopifreq & zzz02)] Combinational
+[ zzz02: (~faack & ~fback & ~loopif & loopifack & ~swack & ~loop3exprreq & zzz00)] Combinational
+[ zzz02: (~fback & ~loopif & loopifack & ~update3expr0ack & ~loop3exprreq & ~zzz01)] Combinational
+[ zzz02: (resultif & resultifack & ~swack & ~ansreq & ~zzz01)] Combinational
+[ zzz02: (~fnack & ~loop3exprack & updateif & updateifack & ~update1expr0req & ~zzz01)] Combinational
+[ zzz02: (loopifack & loop3exprreq)] Combinational
+[ zzz03: (~ansack & ~loop3exprack & ~update1expr0ack & ~zzz01 & zzz02)] Combinational
+[ zzz03: (updateifack & zzz02)] Combinational
+[ zzz03: (~swack & swsm1)] Combinational
+[ zzz03: (resultifack & zzz02)] Combinational
+[ zzz03: (swack & ~loopifreq)] Combinational
+[ zzz03: (~loopifack & ~loopifreq & zzz03)] Combinational
+[ zzz03: (fback & zzz00)] Combinational
+[ zzz03: (faack & zzz03)] Combinational
+[ zzz03: (~loopif & ~loopifreq & zzz03)] Combinational
+[ zzz03: (~faack & ~loopif & loopifack & ~update1expr0ack & ~loop3exprreq & zzz00)] Combinational
+[ zzz03: (~fback & ~loopif & loopifack & ~update3expr0ack & ~loop3exprreq & ~zzz01)] Combinational
+[ zzz03: (resultif & resultifack & ~swack & ~ansreq & ~zzz01)] Combinational
+[ zzz03: (~fnack & ~loop3exprack & updateif & updateifack & ~update1expr0req & ~zzz01)] Combinational
+[ zzz03: (loopifack & loop3exprreq)] Combinational
+[ zzz03: (faack & fback & ~fnack & ~nack & swack)] Combinational

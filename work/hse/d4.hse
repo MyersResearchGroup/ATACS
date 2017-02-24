@@ -1,0 +1,23 @@
+/*****************************************************************************/
+/* reshuffling d4 from Burns' dissertation */
+/*****************************************************************************/
+module d4;
+    
+input li;
+input ri;
+output lo;
+output ro;
+
+process main;
+    *[ lo+; [li & ri]; ro+; lo-; [~li & ~ri]; ro- ]
+endprocess
+
+testbench Lenv;
+    *[ [lo]; li+; [~lo]; li- ]
+endtestbench
+
+testbench Renv;
+    *[ ri+; [ro]; ri-; [~ro] ]
+endtestbench
+
+endmodule

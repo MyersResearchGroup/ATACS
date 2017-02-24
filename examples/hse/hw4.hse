@@ -1,0 +1,30 @@
+/*****************************************************************************/
+/* Example from homework 4 of the async class.                               */
+/*****************************************************************************/
+module hw4;
+
+input ai;
+input bi;
+input x;
+output ao;
+output bo;
+output y;
+
+process main;
+    *[ [ ai & x -> ao+; [~ai]; ao-
+       | ai & ~x -> bo+; [bi]; ao+; bo-; [~bi]; [~ai]; ao-
+       ]
+     ]
+endprocess
+
+process ai;
+    *[[ skip -> x+; ai+; [ao]; ai-; x-; [~ao]
+      | skip -> ai+; [ao]; ai-; [~ao]
+     ]]
+endprocess
+
+process bi;
+    *[ [bo]; bi+; [~bo]; bi- ]
+endprocess
+
+endmodule

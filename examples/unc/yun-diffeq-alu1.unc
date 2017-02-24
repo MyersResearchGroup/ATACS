@@ -1,0 +1,20 @@
+input	start                    0
+input	EvDone                   0
+input	M1A                      0
+output	Prech                    1
+output	LB                       0
+output	LA                       0
+output	LU                       0
+output	A1M                      0
+output	zzz00                    0
+output	zzz01                    0
+
+0  1	start+                   | Prech- 
+1  2	EvDone+                  | Prech+ LB+ A1M+ 
+2  3	EvDone- M1A+             | Prech- zzz01+ 
+3  4	EvDone+                  | Prech+ LA+ A1M- 
+4  5	EvDone- M1A-             | Prech- zzz00+ zzz01- 
+5  6	EvDone+                  | Prech+ LU+ LA- A1M+ 
+6  3	EvDone- M1A+             | Prech- LU- zzz00- zzz01+ 
+2  0	EvDone- start-           | LB- A1M- 
+6  0	EvDone- start-           | LB- LU- A1M- zzz00- 

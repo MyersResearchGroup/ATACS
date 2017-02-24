@@ -1,0 +1,23 @@
+/*****************************************************************************/
+/* FIFO (reshuffled)                                                         */
+/*****************************************************************************/
+module FIFOR;
+
+input li = {false};
+input ri = {false};
+output lo = {false};
+output ro = {false};
+
+process FIFOctrl;
+*[ [li+]; lo+; [ri-@ & li-]; ro+; lo-; [ri+]; ro-]
+endprocess
+
+process Lenv;
+*[ li+; [lo+]; li-; [lo-] ]
+endprocess
+
+process Renv;
+*[ [ro+]; ri+; [ro-]; ri- ]
+endprocess
+
+endmodule

@@ -1,0 +1,2858 @@
+make -C csp -f ../Makefile Root=../.. Dir=/csp PRSs
+make[1]: Entering directory `/home/ming/peskin/atacs/work/csp'
+rm -f accum2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs accum2.csp  -tsG0-1oqys > accum2.log 2>&1
+cp accum2.prs .accum2.prs-tsG0-1oqys
+cp: cannot stat `accum2.prs': No such file or directory
+make[1]: *** [.accum2.prs-tsG0-1oqys] Error 1
+rm -f accum.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs accum.csp  -tsG0-1oqys > accum.log 2>&1
+cp accum.prs .accum.prs-tsG0-1oqys
+cp: cannot stat `accum.prs': No such file or directory
+make[1]: *** [.accum.prs-tsG0-1oqys] Error 1
+rm -f bug.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs bug.csp  -tsG0-1oqys > bug.log 2>&1
+make[1]: *** [.bug.prs-tsG0-1oqys] Error 152
+rm -f chantal.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs chantal.csp  -tsG0-1oqys > chantal.log 2>&1
+cp chantal.prs .chantal.prs-tsG0-1oqys
+cp: cannot stat `chantal.prs': No such file or directory
+make[1]: *** [.chantal.prs-tsG0-1oqys] Error 1
+rm -f choice.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs choice.csp  -tsG0-1oqys > choice.log 2>&1
+cp choice.prs .choice.prs-tsG0-1oqys
+cp: cannot stat `choice.prs': No such file or directory
+make[1]: *** [.choice.prs-tsG0-1oqys] Error 1
+rm -f cmp.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cmp.csp  -tsG0-1oqys > cmp.log 2>&1
+cp cmp.prs .cmp.prs-tsG0-1oqys
+cp: cannot stat `cmp.prs': No such file or directory
+make[1]: *** [.cmp.prs-tsG0-1oqys] Error 1
+rm -f cnt6_synch.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cnt6_synch.csp  -tsG0-1oqys > cnt6_synch.log 2>&1
+make[1]: *** [.cnt6_synch.prs-tsG0-1oqys] Error 152
+rm -f cnt7_synch.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cnt7_synch.csp  -tsG0-1oqys > cnt7_synch.log 2>&1
+make[1]: *** [.cnt7_synch.prs-tsG0-1oqys] Error 152
+rm -f csc_bug.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs csc_bug.csp  -tsG0-1oqys > csc_bug.log 2>&1
+make[1]: *** [.csc_bug.prs-tsG0-1oqys] Error 152
+rm -f CTRL.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs CTRL.csp  -tsG0-1oqys > CTRL.log 2>&1
+cp CTRL.prs .CTRL.prs-tsG0-1oqys
+rm -f dec4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs dec4.csp  -tsG0-1oqys > dec4.log 2>&1
+make[1]: *** [.dec4.prs-tsG0-1oqys] Error 152
+rm -f dinvd2c.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs dinvd2c.csp  -tsG0-1oqys > dinvd2c.log 2>&1
+cp dinvd2c.prs .dinvd2c.prs-tsG0-1oqys
+cp: cannot stat `dinvd2c.prs': No such file or directory
+make[1]: *** [.dinvd2c.prs-tsG0-1oqys] Error 1
+rm -f dummy.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs dummy.csp  -tsG0-1oqys > dummy.log 2>&1
+cp dummy.prs .dummy.prs-tsG0-1oqys
+cp: cannot stat `dummy.prs': No such file or directory
+make[1]: *** [.dummy.prs-tsG0-1oqys] Error 1
+rm -f elatchX.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs elatchX.csp  -tsG0-1oqys > elatchX.log 2>&1
+make[1]: *** [.elatchX.prs-tsG0-1oqys] Error 152
+rm -f etlatchX.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs etlatchX.csp  -tsG0-1oqys > etlatchX.log 2>&1
+cp etlatchX.prs .etlatchX.prs-tsG0-1oqys
+cp: cannot stat `etlatchX.prs': No such file or directory
+make[1]: *** [.etlatchX.prs-tsG0-1oqys] Error 1
+rm -f ex2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ex2.csp  -tsG0-1oqys > ex2.log 2>&1
+cp ex2.prs .ex2.prs-tsG0-1oqys
+rm -f fifoN109.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN109.csp  -tsG0-1oqys > fifoN109.log 2>&1
+cp fifoN109.prs .fifoN109.prs-tsG0-1oqys
+cp: cannot stat `fifoN109.prs': No such file or directory
+make[1]: *** [.fifoN109.prs-tsG0-1oqys] Error 1
+rm -f fifoN19.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN19.csp  -tsG0-1oqys > fifoN19.log 2>&1
+cp fifoN19.prs .fifoN19.prs-tsG0-1oqys
+cp: cannot stat `fifoN19.prs': No such file or directory
+make[1]: *** [.fifoN19.prs-tsG0-1oqys] Error 1
+rm -f fifoN1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN1.csp  -tsG0-1oqys > fifoN1.log 2>&1
+cp fifoN1.prs .fifoN1.prs-tsG0-1oqys
+cp: cannot stat `fifoN1.prs': No such file or directory
+make[1]: *** [.fifoN1.prs-tsG0-1oqys] Error 1
+rm -f fifoN29.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN29.csp  -tsG0-1oqys > fifoN29.log 2>&1
+cp fifoN29.prs .fifoN29.prs-tsG0-1oqys
+cp: cannot stat `fifoN29.prs': No such file or directory
+make[1]: *** [.fifoN29.prs-tsG0-1oqys] Error 1
+rm -f fifoN2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN2.csp  -tsG0-1oqys > fifoN2.log 2>&1
+cp fifoN2.prs .fifoN2.prs-tsG0-1oqys
+cp: cannot stat `fifoN2.prs': No such file or directory
+make[1]: *** [.fifoN2.prs-tsG0-1oqys] Error 1
+rm -f fifoN39.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN39.csp  -tsG0-1oqys > fifoN39.log 2>&1
+cp fifoN39.prs .fifoN39.prs-tsG0-1oqys
+cp: cannot stat `fifoN39.prs': No such file or directory
+make[1]: *** [.fifoN39.prs-tsG0-1oqys] Error 1
+rm -f fifoN49.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN49.csp  -tsG0-1oqys > fifoN49.log 2>&1
+cp fifoN49.prs .fifoN49.prs-tsG0-1oqys
+cp: cannot stat `fifoN49.prs': No such file or directory
+make[1]: *** [.fifoN49.prs-tsG0-1oqys] Error 1
+rm -f fifoN4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN4.csp  -tsG0-1oqys > fifoN4.log 2>&1
+cp fifoN4.prs .fifoN4.prs-tsG0-1oqys
+cp: cannot stat `fifoN4.prs': No such file or directory
+make[1]: *** [.fifoN4.prs-tsG0-1oqys] Error 1
+rm -f fifoN59.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN59.csp  -tsG0-1oqys > fifoN59.log 2>&1
+cp fifoN59.prs .fifoN59.prs-tsG0-1oqys
+cp: cannot stat `fifoN59.prs': No such file or directory
+make[1]: *** [.fifoN59.prs-tsG0-1oqys] Error 1
+rm -f fifoN5.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN5.csp  -tsG0-1oqys > fifoN5.log 2>&1
+cp fifoN5.prs .fifoN5.prs-tsG0-1oqys
+cp: cannot stat `fifoN5.prs': No such file or directory
+make[1]: *** [.fifoN5.prs-tsG0-1oqys] Error 1
+rm -f fifoN69.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN69.csp  -tsG0-1oqys > fifoN69.log 2>&1
+cp fifoN69.prs .fifoN69.prs-tsG0-1oqys
+cp: cannot stat `fifoN69.prs': No such file or directory
+make[1]: *** [.fifoN69.prs-tsG0-1oqys] Error 1
+rm -f fifoN6.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN6.csp  -tsG0-1oqys > fifoN6.log 2>&1
+cp fifoN6.prs .fifoN6.prs-tsG0-1oqys
+cp: cannot stat `fifoN6.prs': No such file or directory
+make[1]: *** [.fifoN6.prs-tsG0-1oqys] Error 1
+rm -f fifoN79.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN79.csp  -tsG0-1oqys > fifoN79.log 2>&1
+cp fifoN79.prs .fifoN79.prs-tsG0-1oqys
+cp: cannot stat `fifoN79.prs': No such file or directory
+make[1]: *** [.fifoN79.prs-tsG0-1oqys] Error 1
+rm -f fifoN7.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN7.csp  -tsG0-1oqys > fifoN7.log 2>&1
+cp fifoN7.prs .fifoN7.prs-tsG0-1oqys
+cp: cannot stat `fifoN7.prs': No such file or directory
+make[1]: *** [.fifoN7.prs-tsG0-1oqys] Error 1
+rm -f fifoN89.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN89.csp  -tsG0-1oqys > fifoN89.log 2>&1
+cp fifoN89.prs .fifoN89.prs-tsG0-1oqys
+cp: cannot stat `fifoN89.prs': No such file or directory
+make[1]: *** [.fifoN89.prs-tsG0-1oqys] Error 1
+rm -f fifoN8.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN8.csp  -tsG0-1oqys > fifoN8.log 2>&1
+cp fifoN8.prs .fifoN8.prs-tsG0-1oqys
+cp: cannot stat `fifoN8.prs': No such file or directory
+make[1]: *** [.fifoN8.prs-tsG0-1oqys] Error 1
+rm -f fifoN99.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN99.csp  -tsG0-1oqys > fifoN99.log 2>&1
+cp fifoN99.prs .fifoN99.prs-tsG0-1oqys
+cp: cannot stat `fifoN99.prs': No such file or directory
+make[1]: *** [.fifoN99.prs-tsG0-1oqys] Error 1
+rm -f fifoN9.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN9.csp  -tsG0-1oqys > fifoN9.log 2>&1
+cp fifoN9.prs .fifoN9.prs-tsG0-1oqys
+cp: cannot stat `fifoN9.prs': No such file or directory
+make[1]: *** [.fifoN9.prs-tsG0-1oqys] Error 1
+rm -f fig.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fig.csp  -tsG0-1oqys > fig.log 2>&1
+cp fig.prs .fig.prs-tsG0-1oqys
+cp: cannot stat `fig.prs': No such file or directory
+make[1]: *** [.fig.prs-tsG0-1oqys] Error 1
+rm -f hs.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs hs.csp  -tsG0-1oqys > hs.log 2>&1
+cp hs.prs .hs.prs-tsG0-1oqys
+rm -f jordi3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs jordi3.csp  -tsG0-1oqys > jordi3.log 2>&1
+cp jordi3.prs .jordi3.prs-tsG0-1oqys
+cp: cannot stat `jordi3.prs': No such file or directory
+make[1]: *** [.jordi3.prs-tsG0-1oqys] Error 1
+rm -f jordi4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs jordi4.csp  -tsG0-1oqys > jordi4.log 2>&1
+cp jordi4.prs .jordi4.prs-tsG0-1oqys
+rm -f lab3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs lab3.csp  -tsG0-1oqys > lab3.log 2>&1
+cp lab3.prs .lab3.prs-tsG0-1oqys
+cp: cannot stat `lab3.prs': No such file or directory
+make[1]: *** [.lab3.prs-tsG0-1oqys] Error 1
+rm -f lapb2sv.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs lapb2sv.csp  -tsG0-1oqys > lapb2sv.log 2>&1
+make[1]: *** [.lapb2sv.prs-tsG0-1oqys] Error 152
+rm -f lapb3sv.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs lapb3sv.csp  -tsG0-1oqys > lapb3sv.log 2>&1
+make[1]: *** [.lapb3sv.prs-tsG0-1oqys] Error 152
+rm -f lapb4sv.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs lapb4sv.csp  -tsG0-1oqys > lapb4sv.log 2>&1
+make[1]: *** [.lapb4sv.prs-tsG0-1oqys] Error 152
+rm -f lapb5sv.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs lapb5sv.csp  -tsG0-1oqys > lapb5sv.log 2>&1
+make[1]: *** [.lapb5sv.prs-tsG0-1oqys] Error 152
+rm -f lapb6sv.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs lapb6sv.csp  -tsG0-1oqys > lapb6sv.log 2>&1
+make[1]: *** [.lapb6sv.prs-tsG0-1oqys] Error 152
+rm -f lapbsv2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs lapbsv2.csp  -tsG0-1oqys > lapbsv2.log 2>&1
+cp lapbsv2.prs .lapbsv2.prs-tsG0-1oqys
+rm -f ldpgo2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ldpgo2.csp  -tsG0-1oqys > ldpgo2.log 2>&1
+make[1]: *** [.ldpgo2.prs-tsG0-1oqys] Error 152
+rm -f live.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs live.csp  -tsG0-1oqys > live.log 2>&1
+cp live.prs .live.prs-tsG0-1oqys
+cp: cannot stat `live.prs': No such file or directory
+make[1]: *** [.live.prs-tsG0-1oqys] Error 1
+rm -f loopchk.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs loopchk.csp  -tsG0-1oqys > loopchk.log 2>&1
+cp loopchk.prs .loopchk.prs-tsG0-1oqys
+cp: cannot stat `loopchk.prs': No such file or directory
+make[1]: *** [.loopchk.prs-tsG0-1oqys] Error 1
+rm -f memlatchALL.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs memlatchALL.csp  -tsG0-1oqys > memlatchALL.log 2>&1
+cp memlatchALL.prs .memlatchALL.prs-tsG0-1oqys
+rm -f mmu.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mmu.csp  -tsG0-1oqys > mmu.log 2>&1
+make[1]: *** [.mmu.prs-tsG0-1oqys] Error 152
+rm -f mmuSV.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mmuSV.csp  -tsG0-1oqys > mmuSV.log 2>&1
+cp mmuSV.prs .mmuSV.prs-tsG0-1oqys
+rm -f mul2b.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mul2b.csp  -tsG0-1oqys > mul2b.log 2>&1
+cp mul2b.prs .mul2b.prs-tsG0-1oqys
+cp: cannot stat `mul2b.prs': No such file or directory
+make[1]: *** [.mul2b.prs-tsG0-1oqys] Error 1
+rm -f newsel.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs newsel.csp  -tsG0-1oqys > newsel.log 2>&1
+make[1]: *** [.newsel.prs-tsG0-1oqys] Error 152
+rm -f pab_b1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pab_b1.csp  -tsG0-1oqys > pab_b1.log 2>&1
+cp pab_b1.prs .pab_b1.prs-tsG0-1oqys
+rm -f pab_pa.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pab_pa.csp  -tsG0-1oqys > pab_pa.log 2>&1
+cp pab_pa.prs .pab_pa.prs-tsG0-1oqys
+rm -f pab_pla.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pab_pla.csp  -tsG0-1oqys > pab_pla.log 2>&1
+cp pab_pla.prs .pab_pla.prs-tsG0-1oqys
+rm -f par.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs par.csp  -tsG0-1oqys > par.log 2>&1
+cp par.prs .par.prs-tsG0-1oqys
+rm -f passctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs passctrl.csp  -tsG0-1oqys > passctrl.log 2>&1
+make[1]: *** [.passctrl.prs-tsG0-1oqys] Error 152
+rm -f pchb.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pchb.csp  -tsG0-1oqys > pchb.log 2>&1
+cp pchb.prs .pchb.prs-tsG0-1oqys
+rm -f pchbN.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pchbN.csp  -tsG0-1oqys > pchbN.log 2>&1
+cp pchbN.prs .pchbN.prs-tsG0-1oqys
+rm -f poset_err.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs poset_err.csp  -tsG0-1oqys > poset_err.log 2>&1
+cp poset_err.prs .poset_err.prs-tsG0-1oqys
+rm -f proj.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs proj.csp  -tsG0-1oqys > proj.log 2>&1
+cp proj.prs .proj.prs-tsG0-1oqys
+cp: cannot stat `proj.prs': No such file or directory
+make[1]: *** [.proj.prs-tsG0-1oqys] Error 1
+rm -f run.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs run.csp  -tsG0-1oqys > run.log 2>&1
+make[1]: *** [.run.prs-tsG0-1oqys] Error 152
+rm -f safe2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs safe2.csp  -tsG0-1oqys > safe2.log 2>&1
+cp safe2.prs .safe2.prs-tsG0-1oqys
+cp: cannot stat `safe2.prs': No such file or directory
+make[1]: *** [.safe2.prs-tsG0-1oqys] Error 1
+rm -f safe.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs safe.csp  -tsG0-1oqys > safe.log 2>&1
+cp safe.prs .safe.prs-tsG0-1oqys
+rm -f sbuf-ram-write.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs sbuf-ram-write.csp  -tsG0-1oqys > sbuf-ram-write.log 2>&1
+make[1]: *** [.sbuf-ram-write.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN100.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN100.csp  -tsG0-1oqys > scsiSVN100.log 2>&1
+make[1]: *** [.scsiSVN100.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN10.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN10.csp  -tsG0-1oqys > scsiSVN10.log 2>&1
+make[1]: *** [.scsiSVN10.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN110.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN110.csp  -tsG0-1oqys > scsiSVN110.log 2>&1
+make[1]: *** [.scsiSVN110.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN11.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN11.csp  -tsG0-1oqys > scsiSVN11.log 2>&1
+make[1]: *** [.scsiSVN11.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN120.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN120.csp  -tsG0-1oqys > scsiSVN120.log 2>&1
+make[1]: *** [.scsiSVN120.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN12.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN12.csp  -tsG0-1oqys > scsiSVN12.log 2>&1
+make[1]: *** [.scsiSVN12.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN130.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN130.csp  -tsG0-1oqys > scsiSVN130.log 2>&1
+make[1]: *** [.scsiSVN130.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN13.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN13.csp  -tsG0-1oqys > scsiSVN13.log 2>&1
+make[1]: *** [.scsiSVN13.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN140.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN140.csp  -tsG0-1oqys > scsiSVN140.log 2>&1
+make[1]: *** [.scsiSVN140.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN14.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN14.csp  -tsG0-1oqys > scsiSVN14.log 2>&1
+make[1]: *** [.scsiSVN14.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN150.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN150.csp  -tsG0-1oqys > scsiSVN150.log 2>&1
+make[1]: *** [.scsiSVN150.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN15.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN15.csp  -tsG0-1oqys > scsiSVN15.log 2>&1
+make[1]: *** [.scsiSVN15.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN160.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN160.csp  -tsG0-1oqys > scsiSVN160.log 2>&1
+make[1]: *** [.scsiSVN160.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN16.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN16.csp  -tsG0-1oqys > scsiSVN16.log 2>&1
+make[1]: *** [.scsiSVN16.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN170.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN170.csp  -tsG0-1oqys > scsiSVN170.log 2>&1
+make[1]: *** [.scsiSVN170.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN17.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN17.csp  -tsG0-1oqys > scsiSVN17.log 2>&1
+make[1]: *** [.scsiSVN17.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN180.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN180.csp  -tsG0-1oqys > scsiSVN180.log 2>&1
+make[1]: *** [.scsiSVN180.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN190.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN190.csp  -tsG0-1oqys > scsiSVN190.log 2>&1
+make[1]: *** [.scsiSVN190.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN200.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN200.csp  -tsG0-1oqys > scsiSVN200.log 2>&1
+make[1]: *** [.scsiSVN200.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN20.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN20.csp  -tsG0-1oqys > scsiSVN20.log 2>&1
+make[1]: *** [.scsiSVN20.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN30.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN30.csp  -tsG0-1oqys > scsiSVN30.log 2>&1
+make[1]: *** [.scsiSVN30.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN32.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN32.csp  -tsG0-1oqys > scsiSVN32.log 2>&1
+make[1]: *** [.scsiSVN32.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN40.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN40.csp  -tsG0-1oqys > scsiSVN40.log 2>&1
+make[1]: *** [.scsiSVN40.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN50.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN50.csp  -tsG0-1oqys > scsiSVN50.log 2>&1
+make[1]: *** [.scsiSVN50.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN5.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN5.csp  -tsG0-1oqys > scsiSVN5.log 2>&1
+make[1]: *** [.scsiSVN5.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN60.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN60.csp  -tsG0-1oqys > scsiSVN60.log 2>&1
+make[1]: *** [.scsiSVN60.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN6.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN6.csp  -tsG0-1oqys > scsiSVN6.log 2>&1
+make[1]: *** [.scsiSVN6.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN70.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN70.csp  -tsG0-1oqys > scsiSVN70.log 2>&1
+make[1]: *** [.scsiSVN70.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN7.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN7.csp  -tsG0-1oqys > scsiSVN7.log 2>&1
+make[1]: *** [.scsiSVN7.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN80.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN80.csp  -tsG0-1oqys > scsiSVN80.log 2>&1
+make[1]: *** [.scsiSVN80.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN8.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN8.csp  -tsG0-1oqys > scsiSVN8.log 2>&1
+make[1]: *** [.scsiSVN8.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN90.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN90.csp  -tsG0-1oqys > scsiSVN90.log 2>&1
+make[1]: *** [.scsiSVN90.prs-tsG0-1oqys] Error 152
+rm -f scsiSVN9.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs scsiSVN9.csp  -tsG0-1oqys > scsiSVN9.log 2>&1
+make[1]: *** [.scsiSVN9.prs-tsG0-1oqys] Error 152
+rm -f s.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs s.csp  -tsG0-1oqys > s.log 2>&1
+cp s.prs .s.prs-tsG0-1oqys
+rm -f small.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs small.csp  -tsG0-1oqys > small.log 2>&1
+make[1]: *** [.small.prs-tsG0-1oqys] Error 152
+rm -f stari10.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari10.csp  -tsG0-1oqys > stari10.log 2>&1
+cp stari10.prs .stari10.prs-tsG0-1oqys
+cp: cannot stat `stari10.prs': No such file or directory
+make[1]: *** [.stari10.prs-tsG0-1oqys] Error 1
+rm -f stari11.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari11.csp  -tsG0-1oqys > stari11.log 2>&1
+cp stari11.prs .stari11.prs-tsG0-1oqys
+cp: cannot stat `stari11.prs': No such file or directory
+make[1]: *** [.stari11.prs-tsG0-1oqys] Error 1
+rm -f stari12.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari12.csp  -tsG0-1oqys > stari12.log 2>&1
+cp stari12.prs .stari12.prs-tsG0-1oqys
+cp: cannot stat `stari12.prs': No such file or directory
+make[1]: *** [.stari12.prs-tsG0-1oqys] Error 1
+rm -f stari13.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari13.csp  -tsG0-1oqys > stari13.log 2>&1
+cp stari13.prs .stari13.prs-tsG0-1oqys
+cp: cannot stat `stari13.prs': No such file or directory
+make[1]: *** [.stari13.prs-tsG0-1oqys] Error 1
+rm -f stari14.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari14.csp  -tsG0-1oqys > stari14.log 2>&1
+cp stari14.prs .stari14.prs-tsG0-1oqys
+cp: cannot stat `stari14.prs': No such file or directory
+make[1]: *** [.stari14.prs-tsG0-1oqys] Error 1
+rm -f stari16.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari16.csp  -tsG0-1oqys > stari16.log 2>&1
+cp stari16.prs .stari16.prs-tsG0-1oqys
+cp: cannot stat `stari16.prs': No such file or directory
+make[1]: *** [.stari16.prs-tsG0-1oqys] Error 1
+rm -f stari18.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari18.csp  -tsG0-1oqys > stari18.log 2>&1
+cp stari18.prs .stari18.prs-tsG0-1oqys
+cp: cannot stat `stari18.prs': No such file or directory
+make[1]: *** [.stari18.prs-tsG0-1oqys] Error 1
+rm -f stari1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari1.csp  -tsG0-1oqys > stari1.log 2>&1
+cp stari1.prs .stari1.prs-tsG0-1oqys
+cp: cannot stat `stari1.prs': No such file or directory
+make[1]: *** [.stari1.prs-tsG0-1oqys] Error 1
+rm -f stari2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari2.csp  -tsG0-1oqys > stari2.log 2>&1
+cp stari2.prs .stari2.prs-tsG0-1oqys
+cp: cannot stat `stari2.prs': No such file or directory
+make[1]: *** [.stari2.prs-tsG0-1oqys] Error 1
+rm -f stari3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari3.csp  -tsG0-1oqys > stari3.log 2>&1
+cp stari3.prs .stari3.prs-tsG0-1oqys
+cp: cannot stat `stari3.prs': No such file or directory
+make[1]: *** [.stari3.prs-tsG0-1oqys] Error 1
+rm -f stari4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari4.csp  -tsG0-1oqys > stari4.log 2>&1
+cp stari4.prs .stari4.prs-tsG0-1oqys
+cp: cannot stat `stari4.prs': No such file or directory
+make[1]: *** [.stari4.prs-tsG0-1oqys] Error 1
+rm -f stari5.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari5.csp  -tsG0-1oqys > stari5.log 2>&1
+cp stari5.prs .stari5.prs-tsG0-1oqys
+cp: cannot stat `stari5.prs': No such file or directory
+make[1]: *** [.stari5.prs-tsG0-1oqys] Error 1
+rm -f stari6.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari6.csp  -tsG0-1oqys > stari6.log 2>&1
+cp stari6.prs .stari6.prs-tsG0-1oqys
+cp: cannot stat `stari6.prs': No such file or directory
+make[1]: *** [.stari6.prs-tsG0-1oqys] Error 1
+rm -f stari7.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari7.csp  -tsG0-1oqys > stari7.log 2>&1
+cp stari7.prs .stari7.prs-tsG0-1oqys
+cp: cannot stat `stari7.prs': No such file or directory
+make[1]: *** [.stari7.prs-tsG0-1oqys] Error 1
+rm -f stari8b.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari8b.csp  -tsG0-1oqys > stari8b.log 2>&1
+cp stari8b.prs .stari8b.prs-tsG0-1oqys
+cp: cannot stat `stari8b.prs': No such file or directory
+make[1]: *** [.stari8b.prs-tsG0-1oqys] Error 1
+rm -f stari8.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari8.csp  -tsG0-1oqys > stari8.log 2>&1
+cp stari8.prs .stari8.prs-tsG0-1oqys
+cp: cannot stat `stari8.prs': No such file or directory
+make[1]: *** [.stari8.prs-tsG0-1oqys] Error 1
+rm -f stari9.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari9.csp  -tsG0-1oqys > stari9.log 2>&1
+cp stari9.prs .stari9.prs-tsG0-1oqys
+cp: cannot stat `stari9.prs': No such file or directory
+make[1]: *** [.stari9.prs-tsG0-1oqys] Error 1
+rm -f stari.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari.csp  -tsG0-1oqys > stari.log 2>&1
+cp stari.prs .stari.prs-tsG0-1oqys
+cp: cannot stat `stari.prs': No such file or directory
+make[1]: *** [.stari.prs-tsG0-1oqys] Error 1
+rm -f stariE2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stariE2.csp  -tsG0-1oqys > stariE2.log 2>&1
+cp stariE2.prs .stariE2.prs-tsG0-1oqys
+cp: cannot stat `stariE2.prs': No such file or directory
+make[1]: *** [.stariE2.prs-tsG0-1oqys] Error 1
+rm -f stariE3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stariE3.csp  -tsG0-1oqys > stariE3.log 2>&1
+cp stariE3.prs .stariE3.prs-tsG0-1oqys
+cp: cannot stat `stariE3.prs': No such file or directory
+make[1]: *** [.stariE3.prs-tsG0-1oqys] Error 1
+rm -f switch.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs switch.csp  -tsG0-1oqys > switch.log 2>&1
+make[1]: *** [.switch.prs-tsG0-1oqys] Error 152
+rm -f tag10.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag10.csp  -tsG0-1oqys > tag10.log 2>&1
+make[1]: *** [.tag10.prs-tsG0-1oqys] Error 152
+rm -f tag11.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag11.csp  -tsG0-1oqys > tag11.log 2>&1
+make[1]: *** [.tag11.prs-tsG0-1oqys] Error 152
+rm -f tag12.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag12.csp  -tsG0-1oqys > tag12.log 2>&1
+make[1]: *** [.tag12.prs-tsG0-1oqys] Error 152
+rm -f tag13.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag13.csp  -tsG0-1oqys > tag13.log 2>&1
+make[1]: *** [.tag13.prs-tsG0-1oqys] Error 152
+rm -f tag14.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag14.csp  -tsG0-1oqys > tag14.log 2>&1
+make[1]: *** [.tag14.prs-tsG0-1oqys] Error 152
+rm -f tag15.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag15.csp  -tsG0-1oqys > tag15.log 2>&1
+make[1]: *** [.tag15.prs-tsG0-1oqys] Error 152
+rm -f tag16.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag16.csp  -tsG0-1oqys > tag16.log 2>&1
+make[1]: *** [.tag16.prs-tsG0-1oqys] Error 152
+rm -f tag17.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag17.csp  -tsG0-1oqys > tag17.log 2>&1
+make[1]: *** [.tag17.prs-tsG0-1oqys] Error 152
+rm -f tag18.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag18.csp  -tsG0-1oqys > tag18.log 2>&1
+make[1]: *** [.tag18.prs-tsG0-1oqys] Error 152
+rm -f tag1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag1.csp  -tsG0-1oqys > tag1.log 2>&1
+cp tag1.prs .tag1.prs-tsG0-1oqys
+rm -f tag28.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag28.csp  -tsG0-1oqys > tag28.log 2>&1
+make[1]: *** [.tag28.prs-tsG0-1oqys] Error 152
+rm -f tag2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag2.csp  -tsG0-1oqys > tag2.log 2>&1
+cp tag2.prs .tag2.prs-tsG0-1oqys
+rm -f tag3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag3.csp  -tsG0-1oqys > tag3.log 2>&1
+cp tag3.prs .tag3.prs-tsG0-1oqys
+rm -f tag4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag4.csp  -tsG0-1oqys > tag4.log 2>&1
+cp tag4.prs .tag4.prs-tsG0-1oqys
+rm -f tag5.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag5.csp  -tsG0-1oqys > tag5.log 2>&1
+cp tag5.prs .tag5.prs-tsG0-1oqys
+rm -f tag6.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag6.csp  -tsG0-1oqys > tag6.log 2>&1
+cp tag6.prs .tag6.prs-tsG0-1oqys
+rm -f tag7.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag7.csp  -tsG0-1oqys > tag7.log 2>&1
+cp tag7.prs .tag7.prs-tsG0-1oqys
+rm -f tag8.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag8.csp  -tsG0-1oqys > tag8.log 2>&1
+make[1]: *** [.tag8.prs-tsG0-1oqys] Error 152
+rm -f tag9.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag9.csp  -tsG0-1oqys > tag9.log 2>&1
+make[1]: *** [.tag9.prs-tsG0-1oqys] Error 152
+rm -f tagabs.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tagabs.csp  -tsG0-1oqys > tagabs.log 2>&1
+cp tagabs.prs .tagabs.prs-tsG0-1oqys
+rm -f tagunit3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tagunit3.csp  -tsG0-1oqys > tagunit3.log 2>&1
+cp tagunit3.prs .tagunit3.prs-tsG0-1oqys
+cp: cannot stat `tagunit3.prs': No such file or directory
+make[1]: *** [.tagunit3.prs-tsG0-1oqys] Error 1
+rm -f tagunit.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tagunit.csp  -tsG0-1oqys > tagunit.log 2>&1
+cp tagunit.prs .tagunit.prs-tsG0-1oqys
+rm -f t.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs t.csp  -tsG0-1oqys > t.log 2>&1
+make[1]: *** [.t.prs-tsG0-1oqys] Error 152
+rm -f test.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs test.csp  -tsG0-1oqys > test.log 2>&1
+cp test.prs .test.prs-tsG0-1oqys
+make[1]: Target `PRSs' not remade because of errors.
+make[1]: Leaving directory `/home/ming/peskin/atacs/work/csp'
+make: *** [csp/PRSs.subDir] Error 2
+make -C er -f ../Makefile Root=../.. Dir=/er PRSs
+make[1]: Entering directory `/home/ming/peskin/atacs/work/er'
+rm -f 0.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 0.er  -tsG0-1oqys > 0.log 2>&1
+cp 0.prs .0.prs-tsG0-1oqys
+rm -f 1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 1.er  -tsG0-1oqys > 1.log 2>&1
+cp 1.prs .1.prs-tsG0-1oqys
+rm -f and_gate_as_celement.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs and_gate_as_celement.er  -tsG0-1oqys > and_gate_as_celement.log 2>&1
+cp and_gate_as_celement.prs .and_gate_as_celement.prs-tsG0-1oqys
+cp: cannot stat `and_gate_as_celement.prs': No such file or directory
+make[1]: *** [.and_gate_as_celement.prs-tsG0-1oqys] Error 1
+rm -f bap_subset_test.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs bap_subset_test.er  -tsG0-1oqys > bap_subset_test.log 2>&1
+cp bap_subset_test.prs .bap_subset_test.prs-tsG0-1oqys
+rm -f bap_supset_test.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs bap_supset_test.er  -tsG0-1oqys > bap_supset_test.log 2>&1
+cp bap_supset_test.prs .bap_supset_test.prs-tsG0-1oqys
+rm -f conf.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs conf.er  -tsG0-1oqys > conf.log 2>&1
+cp conf.prs .conf.prs-tsG0-1oqys
+cp: cannot stat `conf.prs': No such file or directory
+make[1]: *** [.conf.prs-tsG0-1oqys] Error 1
+rm -f confl_test.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs confl_test.er  -tsG0-1oqys > confl_test.log 2>&1
+cp confl_test.prs .confl_test.prs-tsG0-1oqys
+rm -f inverter.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs inverter.er  -tsG0-1oqys > inverter.log 2>&1
+cp inverter.prs .inverter.prs-tsG0-1oqys
+cp: cannot stat `inverter.prs': No such file or directory
+make[1]: *** [.inverter.prs-tsG0-1oqys] Error 1
+rm -f lapb2_test.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs lapb2_test.er  -tsG0-1oqys > lapb2_test.log 2>&1
+cp lapb2_test.prs .lapb2_test.prs-tsG0-1oqys
+cp: cannot stat `lapb2_test.prs': No such file or directory
+make[1]: *** [.lapb2_test.prs-tsG0-1oqys] Error 1
+rm -f loop.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs loop.er  -tsG0-1oqys > loop.log 2>&1
+cp loop.prs .loop.prs-tsG0-1oqys
+cp: cannot stat `loop.prs': No such file or directory
+make[1]: *** [.loop.prs-tsG0-1oqys] Error 1
+rm -f marking_test.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs marking_test.er  -tsG0-1oqys > marking_test.log 2>&1
+cp marking_test.prs .marking_test.prs-tsG0-1oqys
+cp: cannot stat `marking_test.prs': No such file or directory
+make[1]: *** [.marking_test.prs-tsG0-1oqys] Error 1
+rm -f out.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs out.er  -tsG0-1oqys > out.log 2>&1
+cp out.prs .out.prs-tsG0-1oqys
+rm -f para.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs para.er  -tsG0-1oqys > para.log 2>&1
+cp para.prs .para.prs-tsG0-1oqys
+rm -f place_semenov.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs place_semenov.er  -tsG0-1oqys > place_semenov.log 2>&1
+cp place_semenov.prs .place_semenov.prs-tsG0-1oqys
+rm -f preproc.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs preproc.er  -tsG0-1oqys > preproc.log 2>&1
+cp preproc.prs .preproc.prs-tsG0-1oqys
+rm -f selector1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs selector1.er  -tsG0-1oqys > selector1.log 2>&1
+cp selector1.prs .selector1.prs-tsG0-1oqys
+cp: cannot stat `selector1.prs': No such file or directory
+make[1]: *** [.selector1.prs-tsG0-1oqys] Error 1
+rm -f selector2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs selector2.er  -tsG0-1oqys > selector2.log 2>&1
+make[1]: *** [.selector2.prs-tsG0-1oqys] Error 152
+rm -f selector3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs selector3.er  -tsG0-1oqys > selector3.log 2>&1
+make[1]: *** [.selector3.prs-tsG0-1oqys] Error 152
+rm -f semenov.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs semenov.er  -tsG0-1oqys > semenov.log 2>&1
+cp semenov.prs .semenov.prs-tsG0-1oqys
+cp: cannot stat `semenov.prs': No such file or directory
+make[1]: *** [.semenov.prs-tsG0-1oqys] Error 1
+rm -f s.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs s.er  -tsG0-1oqys > s.log 2>&1
+cp s.prs .s.prs-tsG0-1oqys
+rm -f simple.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs simple.er  -tsG0-1oqys > simple.log 2>&1
+cp simple.prs .simple.prs-tsG0-1oqys
+rm -f tag2_short_name.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag2_short_name.er  -tsG0-1oqys > tag2_short_name.log 2>&1
+cp tag2_short_name.prs .tag2_short_name.prs-tsG0-1oqys
+rm -f tdc.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tdc.er  -tsG0-1oqys > tdc.log 2>&1
+cp tdc.prs .tdc.prs-tsG0-1oqys
+rm -f TDC_test.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs TDC_test.er  -tsG0-1oqys > TDC_test.log 2>&1
+cp TDC_test.prs .TDC_test.prs-tsG0-1oqys
+rm -f TIC_diverge.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs TIC_diverge.er  -tsG0-1oqys > TIC_diverge.log 2>&1
+cp TIC_diverge.prs .TIC_diverge.prs-tsG0-1oqys
+cp: cannot stat `TIC_diverge.prs': No such file or directory
+make[1]: *** [.TIC_diverge.prs-tsG0-1oqys] Error 1
+rm -f TIC_test_2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs TIC_test_2.er  -tsG0-1oqys > TIC_test_2.log 2>&1
+cp TIC_test_2.prs .TIC_test_2.prs-tsG0-1oqys
+rm -f TIC_test.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs TIC_test.er  -tsG0-1oqys > TIC_test.log 2>&1
+cp TIC_test.prs .TIC_test.prs-tsG0-1oqys
+rm -f trace_check2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs trace_check2.er  -tsG0-1oqys > trace_check2.log 2>&1
+cp trace_check2.prs .trace_check2.prs-tsG0-1oqys
+rm -f trace_check3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs trace_check3.er  -tsG0-1oqys > trace_check3.log 2>&1
+cp trace_check3.prs .trace_check3.prs-tsG0-1oqys
+rm -f trace_check4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs trace_check4.er  -tsG0-1oqys > trace_check4.log 2>&1
+cp trace_check4.prs .trace_check4.prs-tsG0-1oqys
+rm -f trace_check.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs trace_check.er  -tsG0-1oqys > trace_check.log 2>&1
+cp trace_check.prs .trace_check.prs-tsG0-1oqys
+make[1]: Target `PRSs' not remade because of errors.
+make[1]: Leaving directory `/home/ming/peskin/atacs/work/er'
+make: *** [er/PRSs.subDir] Error 2
+make -C g -f ../Makefile Root=../.. Dir=/g PRSs
+make[1]: Entering directory `/home/ming/peskin/atacs/work/g'
+rm -f 10demux.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 10demux.g  -oqys > 10demux.log 2>&1
+cp 10demux.prs .10demux.prs-oqys
+cp: cannot stat `10demux.prs': No such file or directory
+make[1]: *** [.10demux.prs-oqys] Error 1
+rm -f 10fifo.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 10fifo.g  -oqys > 10fifo.log 2>&1
+make[1]: *** [.10fifo.prs-oqys] Error 152
+rm -f 10reg.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 10reg.g  -oqys > 10reg.log 2>&1
+cp 10reg.prs .10reg.prs-oqys
+cp: cannot stat `10reg.prs': No such file or directory
+make[1]: *** [.10reg.prs-oqys] Error 1
+rm -f 12demux.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 12demux.g  -oqys > 12demux.log 2>&1
+cp 12demux.prs .12demux.prs-oqys
+cp: cannot stat `12demux.prs': No such file or directory
+make[1]: *** [.12demux.prs-oqys] Error 1
+rm -f 12reg.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 12reg.g  -oqys > 12reg.log 2>&1
+cp 12reg.prs .12reg.prs-oqys
+cp: cannot stat `12reg.prs': No such file or directory
+make[1]: *** [.12reg.prs-oqys] Error 1
+rm -f 14demux.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 14demux.g  -oqys > 14demux.log 2>&1
+cp 14demux.prs .14demux.prs-oqys
+cp: cannot stat `14demux.prs': No such file or directory
+make[1]: *** [.14demux.prs-oqys] Error 1
+rm -f 15fifo.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 15fifo.g  -oqys > 15fifo.log 2>&1
+cp 15fifo.prs .15fifo.prs-oqys
+cp: cannot stat `15fifo.prs': No such file or directory
+make[1]: *** [.15fifo.prs-oqys] Error 1
+rm -f 16demux.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 16demux.g  -oqys > 16demux.log 2>&1
+cp 16demux.prs .16demux.prs-oqys
+cp: cannot stat `16demux.prs': No such file or directory
+make[1]: *** [.16demux.prs-oqys] Error 1
+rm -f 20fifo.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 20fifo.g  -oqys > 20fifo.log 2>&1
+cp 20fifo.prs .20fifo.prs-oqys
+cp: cannot stat `20fifo.prs': No such file or directory
+make[1]: *** [.20fifo.prs-oqys] Error 1
+rm -f 25fifo.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 25fifo.g  -oqys > 25fifo.log 2>&1
+cp 25fifo.prs .25fifo.prs-oqys
+cp: cannot stat `25fifo.prs': No such file or directory
+make[1]: *** [.25fifo.prs-oqys] Error 1
+rm -f 2demux.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 2demux.g  -oqys > 2demux.log 2>&1
+cp 2demux.prs .2demux.prs-oqys
+cp: cannot stat `2demux.prs': No such file or directory
+make[1]: *** [.2demux.prs-oqys] Error 1
+rm -f 2reg.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 2reg.g  -oqys > 2reg.log 2>&1
+cp 2reg.prs .2reg.prs-oqys
+cp: cannot stat `2reg.prs': No such file or directory
+make[1]: *** [.2reg.prs-oqys] Error 1
+rm -f 4demux.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 4demux.g  -oqys > 4demux.log 2>&1
+cp 4demux.prs .4demux.prs-oqys
+cp: cannot stat `4demux.prs': No such file or directory
+make[1]: *** [.4demux.prs-oqys] Error 1
+rm -f 4reg.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 4reg.g  -oqys > 4reg.log 2>&1
+cp 4reg.prs .4reg.prs-oqys
+cp: cannot stat `4reg.prs': No such file or directory
+make[1]: *** [.4reg.prs-oqys] Error 1
+rm -f 6demux.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 6demux.g  -oqys > 6demux.log 2>&1
+cp 6demux.prs .6demux.prs-oqys
+cp: cannot stat `6demux.prs': No such file or directory
+make[1]: *** [.6demux.prs-oqys] Error 1
+rm -f 6reg.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 6reg.g  -oqys > 6reg.log 2>&1
+cp 6reg.prs .6reg.prs-oqys
+cp: cannot stat `6reg.prs': No such file or directory
+make[1]: *** [.6reg.prs-oqys] Error 1
+rm -f 8demux.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 8demux.g  -oqys > 8demux.log 2>&1
+cp 8demux.prs .8demux.prs-oqys
+cp: cannot stat `8demux.prs': No such file or directory
+make[1]: *** [.8demux.prs-oqys] Error 1
+rm -f 8reg.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 8reg.g  -oqys > 8reg.log 2>&1
+cp 8reg.prs .8reg.prs-oqys
+cp: cannot stat `8reg.prs': No such file or directory
+make[1]: *** [.8reg.prs-oqys] Error 1
+rm -f and.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs and.g  -oqys > and.log 2>&1
+cp and.prs .and.prs-oqys
+cp: cannot stat `and.prs': No such file or directory
+make[1]: *** [.and.prs-oqys] Error 1
+rm -f bomb.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs bomb.g  -oqys > bomb.log 2>&1
+cp bomb.prs .bomb.prs-oqys
+rm -f cache_s1io1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cache_s1io1.g  -oqys > cache_s1io1.log 2>&1
+make[1]: *** [.cache_s1io1.prs-oqys] Error 152
+rm -f cache_s2io1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cache_s2io1.g  -oqys > cache_s2io1.log 2>&1
+make[1]: *** [.cache_s2io1.prs-oqys] Error 1
+rm -f cache_s2io2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cache_s2io2.g  -oqys > cache_s2io2.log 2>&1
+cp cache_s2io2.prs .cache_s2io2.prs-oqys
+cp: cannot stat `cache_s2io2.prs': No such file or directory
+make[1]: *** [.cache_s2io2.prs-oqys] Error 1
+rm -f celement.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs celement.g  -oqys > celement.log 2>&1
+cp celement.prs .celement.prs-oqys
+cp: cannot stat `celement.prs': No such file or directory
+make[1]: *** [.celement.prs-oqys] Error 1
+rm -f c.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs c.g  -oqys > c.log 2>&1
+cp c.prs .c.prs-oqys
+cp: cannot stat `c.prs': No such file or directory
+make[1]: *** [.c.prs-oqys] Error 1
+rm -f cgate.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cgate.g  -oqys > cgate.log 2>&1
+cp cgate.prs .cgate.prs-oqys
+rm -f choice.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs choice.g  -oqys > choice.log 2>&1
+cp choice.prs .choice.prs-oqys
+cp: cannot stat `choice.prs': No such file or directory
+make[1]: *** [.choice.prs-oqys] Error 1
+rm -f crash.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs crash.g  -oqys > crash.log 2>&1
+cp crash.prs .crash.prs-oqys
+cp: cannot stat `crash.prs': No such file or directory
+make[1]: *** [.crash.prs-oqys] Error 1
+rm -f dean-cache-ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs dean-cache-ctrl.g  -oqys > dean-cache-ctrl.log 2>&1
+make[1]: *** [.dean-cache-ctrl.prs-oqys] Error 152
+rm -f dff.chu.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs dff.chu.g  -oqys > dff.chu.log 2>&1
+cp dff.chu.prs .dff.chu.prs-oqys
+cp: cannot stat `dff.chu.prs': No such file or directory
+make[1]: *** [.dff.chu.prs-oqys] Error 1
+rm -f e.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs e.g  -oqys > e.log 2>&1
+cp e.prs .e.prs-oqys
+cp: cannot stat `e.prs': No such file or directory
+make[1]: *** [.e.prs-oqys] Error 1
+rm -f example.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs example.g  -oqys > example.log 2>&1
+cp example.prs .example.prs-oqys
+cp: cannot stat `example.prs': No such file or directory
+make[1]: *** [.example.prs-oqys] Error 1
+rm -f ex.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ex.g  -oqys > ex.log 2>&1
+make[1]: *** [.ex.prs-oqys] Error 139
+rm -f glc.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs glc.g  -oqys > glc.log 2>&1
+cp glc.prs .glc.prs-oqys
+cp: cannot stat `glc.prs': No such file or directory
+make[1]: *** [.glc.prs-oqys] Error 1
+rm -f iccd-scsi.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs iccd-scsi.g  -oqys > iccd-scsi.log 2>&1
+cp iccd-scsi.prs .iccd-scsi.prs-oqys
+cp: cannot stat `iccd-scsi.prs': No such file or directory
+make[1]: *** [.iccd-scsi.prs-oqys] Error 1
+rm -f master_read.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs master_read.g  -oqys > master_read.log 2>&1
+make[1]: *** [.master_read.prs-oqys] Error 152
+rm -f meng7.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs meng7.g  -oqys > meng7.log 2>&1
+cp meng7.prs .meng7.prs-oqys
+cp: cannot stat `meng7.prs': No such file or directory
+make[1]: *** [.meng7.prs-oqys] Error 1
+rm -f meng9.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs meng9.g  -oqys > meng9.log 2>&1
+cp meng9.prs .meng9.prs-oqys
+cp: cannot stat `meng9.prs': No such file or directory
+make[1]: *** [.meng9.prs-oqys] Error 1
+rm -f nak-pa2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs nak-pa2.g  -oqys > nak-pa2.log 2>&1
+make[1]: *** [.nak-pa2.prs-oqys] Error 152
+rm -f nor_gate.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs nor_gate.g  -oqys > nor_gate.log 2>&1
+cp nor_gate.prs .nor_gate.prs-oqys
+rm -f pe-rcv-ifc.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pe-rcv-ifc.g  -oqys > pe-rcv-ifc.log 2>&1
+cp pe-rcv-ifc.prs .pe-rcv-ifc.prs-oqys
+rm -f pe-send-ifc2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pe-send-ifc2.g  -oqys > pe-send-ifc2.log 2>&1
+cp pe-send-ifc2.prs .pe-send-ifc2.prs-oqys
+cp: cannot stat `pe-send-ifc2.prs': No such file or directory
+make[1]: *** [.pe-send-ifc2.prs-oqys] Error 1
+rm -f ram-read-sbuf2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ram-read-sbuf2.g  -oqys > ram-read-sbuf2.log 2>&1
+cp ram-read-sbuf2.prs .ram-read-sbuf2.prs-oqys
+cp: cannot stat `ram-read-sbuf2.prs': No such file or directory
+make[1]: *** [.ram-read-sbuf2.prs-oqys] Error 1
+rm -f sbufP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs sbufP.g  -oqys > sbufP.log 2>&1
+cp sbufP.prs .sbufP.prs-oqys
+cp: cannot stat `sbufP.prs': No such file or directory
+make[1]: *** [.sbufP.prs-oqys] Error 1
+rm -f sbuf-ram-writeA.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs sbuf-ram-writeA.g  -oqys > sbuf-ram-writeA.log 2>&1
+cp sbuf-ram-writeA.prs .sbuf-ram-writeA.prs-oqys
+cp: cannot stat `sbuf-ram-writeA.prs': No such file or directory
+make[1]: *** [.sbuf-ram-writeA.prs-oqys] Error 1
+rm -f semenov.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs semenov.g  -oqys > semenov.log 2>&1
+cp semenov.prs .semenov.prs-oqys
+rm -f s.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs s.g  -oqys > s.log 2>&1
+cp s.prs .s.prs-oqys
+rm -f simple.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs simple.g  -oqys > simple.log 2>&1
+make[1]: *** [.simple.prs-oqys] Error 152
+rm -f vbe5.2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs vbe5.2.g  -oqys > vbe5.2.log 2>&1
+cp vbe5.2.prs .vbe5.2.prs-oqys
+cp: cannot stat `vbe5.2.prs': No such file or directory
+make[1]: *** [.vbe5.2.prs-oqys] Error 1
+rm -f vbe5a.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs vbe5a.g  -oqys > vbe5a.log 2>&1
+make[1]: *** [.vbe5a.prs-oqys] Error 152
+rm -f vmeA.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs vmeA.g  -oqys > vmeA.log 2>&1
+cp vmeA.prs .vmeA.prs-oqys
+cp: cannot stat `vmeA.prs': No such file or directory
+make[1]: *** [.vmeA.prs-oqys] Error 1
+rm -f zzz.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs zzz.g  -oqys > zzz.log 2>&1
+cp zzz.prs .zzz.prs-oqys
+cp: cannot stat `zzz.prs': No such file or directory
+make[1]: *** [.zzz.prs-oqys] Error 1
+make[1]: Target `PRSs' not remade because of errors.
+make[1]: Leaving directory `/home/ming/peskin/atacs/work/g'
+make: *** [g/PRSs.subDir] Error 2
+make -C hse -f ../Makefile Root=../.. Dir=/hse PRSs
+make[1]: Entering directory `/home/ming/peskin/atacs/work/hse'
+rm -f a1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs a1.hse  -tsG0-1oqys > a1.log 2>&1
+cp a1.prs .a1.prs-tsG0-1oqys
+rm -f a2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs a2.hse  -tsG0-1oqys > a2.log 2>&1
+cp a2.prs .a2.prs-tsG0-1oqys
+cp: cannot stat `a2.prs': No such file or directory
+make[1]: *** [.a2.prs-tsG0-1oqys] Error 1
+rm -f a3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs a3.hse  -tsG0-1oqys > a3.log 2>&1
+cp a3.prs .a3.prs-tsG0-1oqys
+rm -f a4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs a4.hse  -tsG0-1oqys > a4.log 2>&1
+cp a4.prs .a4.prs-tsG0-1oqys
+rm -f absstari.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs absstari.hse  -tsG0-1oqys > absstari.log 2>&1
+make[1]: *** [.absstari.prs-tsG0-1oqys] Error 1
+rm -f a.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs a.hse  -tsG0-1oqys > a.log 2>&1
+cp a.prs .a.prs-tsG0-1oqys
+cp: cannot stat `a.prs': No such file or directory
+make[1]: *** [.a.prs-tsG0-1oqys] Error 1
+rm -f alu1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs alu1.hse  -tsG0-1oqys > alu1.log 2>&1
+cp alu1.prs .alu1.prs-tsG0-1oqys
+cp: cannot stat `alu1.prs': No such file or directory
+make[1]: *** [.alu1.prs-tsG0-1oqys] Error 1
+rm -f alu2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs alu2.hse  -tsG0-1oqys > alu2.log 2>&1
+make[1]: *** [.alu2.prs-tsG0-1oqys] Error 139
+rm -f and2_a.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs and2_a.hse  -tsG0-1oqys > and2_a.log 2>&1
+cp and2_a.prs .and2_a.prs-tsG0-1oqys
+cp: cannot stat `and2_a.prs': No such file or directory
+make[1]: *** [.and2_a.prs-tsG0-1oqys] Error 1
+rm -f ap.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ap.hse  -tsG0-1oqys > ap.log 2>&1
+cp ap.prs .ap.prs-tsG0-1oqys
+rm -f AP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs AP.hse  -tsG0-1oqys > AP.log 2>&1
+cp AP.prs .AP.prs-tsG0-1oqys
+rm -f b1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs b1.hse  -tsG0-1oqys > b1.log 2>&1
+cp b1.prs .b1.prs-tsG0-1oqys
+rm -f b2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs b2.hse  -tsG0-1oqys > b2.log 2>&1
+cp b2.prs .b2.prs-tsG0-1oqys
+rm -f b3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs b3.hse  -tsG0-1oqys > b3.log 2>&1
+cp b3.prs .b3.prs-tsG0-1oqys
+rm -f b4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs b4.hse  -tsG0-1oqys > b4.log 2>&1
+cp b4.prs .b4.prs-tsG0-1oqys
+rm -f b5.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs b5.hse  -tsG0-1oqys > b5.log 2>&1
+cp b5.prs .b5.prs-tsG0-1oqys
+rm -f bartkyC.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs bartkyC.hse  -tsG0-1oqys > bartkyC.log 2>&1
+cp bartkyC.prs .bartkyC.prs-tsG0-1oqys
+cp: cannot stat `bartkyC.prs': No such file or directory
+make[1]: *** [.bartkyC.prs-tsG0-1oqys] Error 1
+rm -f buffer2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs buffer2.hse  -tsG0-1oqys > buffer2.log 2>&1
+cp buffer2.prs .buffer2.prs-tsG0-1oqys
+rm -f buffer.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs buffer.hse  -tsG0-1oqys > buffer.log 2>&1
+cp buffer.prs .buffer.prs-tsG0-1oqys
+rm -f BUG.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs BUG.hse  -tsG0-1oqys > BUG.log 2>&1
+cp BUG.prs .BUG.prs-tsG0-1oqys
+cp: cannot stat `BUG.prs': No such file or directory
+make[1]: *** [.BUG.prs-tsG0-1oqys] Error 1
+rm -f c0.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs c0.hse  -tsG0-1oqys > c0.log 2>&1
+cp c0.prs .c0.prs-tsG0-1oqys
+rm -f c1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs c1.hse  -tsG0-1oqys > c1.log 2>&1
+cp c1.prs .c1.prs-tsG0-1oqys
+rm -f c2c_g.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs c2c_g.hse  -tsG0-1oqys > c2c_g.log 2>&1
+cp c2c_g.prs .c2c_g.prs-tsG0-1oqys
+rm -f CC2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs CC2.hse  -tsG0-1oqys > CC2.log 2>&1
+cp CC2.prs .CC2.prs-tsG0-1oqys
+cp: cannot stat `CC2.prs': No such file or directory
+make[1]: *** [.CC2.prs-tsG0-1oqys] Error 1
+rm -f CC.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs CC.hse  -tsG0-1oqys > CC.log 2>&1
+cp CC.prs .CC.prs-tsG0-1oqys
+cp: cannot stat `CC.prs': No such file or directory
+make[1]: *** [.CC.prs-tsG0-1oqys] Error 1
+rm -f celem.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs celem.hse  -tsG0-1oqys > celem.log 2>&1
+cp celem.prs .celem.prs-tsG0-1oqys
+rm -f clag.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs clag.hse  -tsG0-1oqys > clag.log 2>&1
+make[1]: *** [.clag.prs-tsG0-1oqys] Error 152
+rm -f cla.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cla.hse  -tsG0-1oqys > cla.log 2>&1
+make[1]: *** [.cla.prs-tsG0-1oqys] Error 152
+rm -f compenv.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs compenv.hse  -tsG0-1oqys > compenv.log 2>&1
+cp compenv.prs .compenv.prs-tsG0-1oqys
+cp: cannot stat `compenv.prs': No such file or directory
+make[1]: *** [.compenv.prs-tsG0-1oqys] Error 1
+rm -f cory.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cory.hse  -tsG0-1oqys > cory.log 2>&1
+make[1]: *** [.cory.prs-tsG0-1oqys] Error 152
+rm -f d1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs d1.hse  -tsG0-1oqys > d1.log 2>&1
+cp d1.prs .d1.prs-tsG0-1oqys
+rm -f d3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs d3.hse  -tsG0-1oqys > d3.log 2>&1
+cp d3.prs .d3.prs-tsG0-1oqys
+rm -f d4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs d4.hse  -tsG0-1oqys > d4.log 2>&1
+cp d4.prs .d4.prs-tsG0-1oqys
+rm -f d5.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs d5.hse  -tsG0-1oqys > d5.log 2>&1
+cp d5.prs .d5.prs-tsG0-1oqys
+rm -f deco1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs deco1.hse  -tsG0-1oqys > deco1.log 2>&1
+cp deco1.prs .deco1.prs-tsG0-1oqys
+cp: cannot stat `deco1.prs': No such file or directory
+make[1]: *** [.deco1.prs-tsG0-1oqys] Error 1
+rm -f deco6.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs deco6.hse  -tsG0-1oqys > deco6.log 2>&1
+cp deco6.prs .deco6.prs-tsG0-1oqys
+cp: cannot stat `deco6.prs': No such file or directory
+make[1]: *** [.deco6.prs-tsG0-1oqys] Error 1
+rm -f diffeq2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq2.hse  -tsG0-1oqys > diffeq2.log 2>&1
+make[1]: *** [.diffeq2.prs-tsG0-1oqys] Error 152
+rm -f diffeq3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq3.hse  -tsG0-1oqys > diffeq3.log 2>&1
+make[1]: *** [.diffeq3.prs-tsG0-1oqys] Error 152
+rm -f diffeq.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq.hse  -tsG0-1oqys > diffeq.log 2>&1
+cp diffeq.prs .diffeq.prs-tsG0-1oqys
+cp: cannot stat `diffeq.prs': No such file or directory
+make[1]: *** [.diffeq.prs-tsG0-1oqys] Error 1
+rm -f domino2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs domino2.hse  -tsG0-1oqys > domino2.log 2>&1
+cp domino2.prs .domino2.prs-tsG0-1oqys
+cp: cannot stat `domino2.prs': No such file or directory
+make[1]: *** [.domino2.prs-tsG0-1oqys] Error 1
+rm -f e0.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs e0.hse  -tsG0-1oqys > e0.log 2>&1
+cp e0.prs .e0.prs-tsG0-1oqys
+rm -f erp2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs erp2.hse  -tsG0-1oqys > erp2.log 2>&1
+cp erp2.prs .erp2.prs-tsG0-1oqys
+rm -f erp.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs erp.hse  -tsG0-1oqys > erp.log 2>&1
+cp erp.prs .erp.prs-tsG0-1oqys
+cp: cannot stat `erp.prs': No such file or directory
+make[1]: *** [.erp.prs-tsG0-1oqys] Error 1
+rm -f ex1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ex1.hse  -tsG0-1oqys > ex1.log 2>&1
+cp ex1.prs .ex1.prs-tsG0-1oqys
+cp: cannot stat `ex1.prs': No such file or directory
+make[1]: *** [.ex1.prs-tsG0-1oqys] Error 1
+rm -f FF.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs FF.hse  -tsG0-1oqys > FF.log 2>&1
+make[1]: *** [.FF.prs-tsG0-1oqys] Error 152
+rm -f fifoN1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN1.hse  -tsG0-1oqys > fifoN1.log 2>&1
+cp fifoN1.prs .fifoN1.prs-tsG0-1oqys
+cp: cannot stat `fifoN1.prs': No such file or directory
+make[1]: *** [.fifoN1.prs-tsG0-1oqys] Error 1
+rm -f fifoN.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifoN.hse  -tsG0-1oqys > fifoN.log 2>&1
+cp fifoN.prs .fifoN.prs-tsG0-1oqys
+cp: cannot stat `fifoN.prs': No such file or directory
+make[1]: *** [.fifoN.prs-tsG0-1oqys] Error 1
+rm -f fsm.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fsm.hse  -tsG0-1oqys > fsm.log 2>&1
+cp fsm.prs .fsm.prs-tsG0-1oqys
+cp: cannot stat `fsm.prs': No such file or directory
+make[1]: *** [.fsm.prs-tsG0-1oqys] Error 1
+rm -f gasp2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs gasp2.hse  -tsG0-1oqys > gasp2.log 2>&1
+cp gasp2.prs .gasp2.prs-tsG0-1oqys
+rm -f gasp3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs gasp3.hse  -tsG0-1oqys > gasp3.log 2>&1
+make[1]: *** [.gasp3.prs-tsG0-1oqys] Error 152
+rm -f gasp.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs gasp.hse  -tsG0-1oqys > gasp.log 2>&1
+cp gasp.prs .gasp.prs-tsG0-1oqys
+rm -f hans.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs hans.hse  -tsG0-1oqys > hans.log 2>&1
+cp hans.prs .hans.prs-tsG0-1oqys
+rm -f jordi2wc.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs jordi2wc.hse  -tsG0-1oqys > jordi2wc.log 2>&1
+cp jordi2wc.prs .jordi2wc.prs-tsG0-1oqys
+rm -f kimura1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs kimura1.hse  -tsG0-1oqys > kimura1.log 2>&1
+cp kimura1.prs .kimura1.prs-tsG0-1oqys
+cp: cannot stat `kimura1.prs': No such file or directory
+make[1]: *** [.kimura1.prs-tsG0-1oqys] Error 1
+rm -f kimura2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs kimura2.hse  -tsG0-1oqys > kimura2.log 2>&1
+cp kimura2.prs .kimura2.prs-tsG0-1oqys
+cp: cannot stat `kimura2.prs': No such file or directory
+make[1]: *** [.kimura2.prs-tsG0-1oqys] Error 1
+rm -f lab3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs lab3.hse  -tsG0-1oqys > lab3.log 2>&1
+cp lab3.prs .lab3.prs-tsG0-1oqys
+rm -f lap.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs lap.hse  -tsG0-1oqys > lap.log 2>&1
+cp lap.prs .lap.prs-tsG0-1oqys
+rm -f lines.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs lines.hse  -tsG0-1oqys > lines.log 2>&1
+cp lines.prs .lines.prs-tsG0-1oqys
+rm -f m21.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs m21.hse  -tsG0-1oqys > m21.log 2>&1
+cp m21.prs .m21.prs-tsG0-1oqys
+rm -f Martin10.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs Martin10.hse  -tsG0-1oqys > Martin10.log 2>&1
+cp Martin10.prs .Martin10.prs-tsG0-1oqys
+rm -f meta.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs meta.hse  -tsG0-1oqys > meta.log 2>&1
+cp meta.prs .meta.prs-tsG0-1oqys
+rm -f or.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs or.hse  -tsG0-1oqys > or.log 2>&1
+cp or.prs .or.prs-tsG0-1oqys
+rm -f PAa2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs PAa2.hse  -tsG0-1oqys > PAa2.log 2>&1
+cp PAa2.prs .PAa2.prs-tsG0-1oqys
+rm -f pa.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pa.hse  -tsG0-1oqys > pa.log 2>&1
+cp pa.prs .pa.prs-tsG0-1oqys
+rm -f passiveSend.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs passiveSend.hse  -tsG0-1oqys > passiveSend.log 2>&1
+cp passiveSend.prs .passiveSend.prs-tsG0-1oqys
+cp: cannot stat `passiveSend.prs': No such file or directory
+make[1]: *** [.passiveSend.prs-tsG0-1oqys] Error 1
+rm -f pchbG.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pchbG.hse  -tsG0-1oqys > pchbG.log 2>&1
+cp pchbG.prs .pchbG.prs-tsG0-1oqys
+cp: cannot stat `pchbG.prs': No such file or directory
+make[1]: *** [.pchbG.prs-tsG0-1oqys] Error 1
+rm -f pchbMUX.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pchbMUX.hse  -tsG0-1oqys > pchbMUX.log 2>&1
+cp pchbMUX.prs .pchbMUX.prs-tsG0-1oqys
+rm -f pla.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pla.hse  -tsG0-1oqys > pla.log 2>&1
+cp pla.prs .pla.prs-tsG0-1oqys
+rm -f postp.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs postp.hse  -tsG0-1oqys > postp.log 2>&1
+cp postp.prs .postp.prs-tsG0-1oqys
+cp: cannot stat `postp.prs': No such file or directory
+make[1]: *** [.postp.prs-tsG0-1oqys] Error 1
+rm -f ppp.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ppp.hse  -tsG0-1oqys > ppp.log 2>&1
+cp ppp.prs .ppp.prs-tsG0-1oqys
+rm -f repeat.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs repeat.hse  -tsG0-1oqys > repeat.log 2>&1
+cp repeat.prs .repeat.prs-tsG0-1oqys
+rm -f ring4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ring4.hse  -tsG0-1oqys > ring4.log 2>&1
+cp ring4.prs .ring4.prs-tsG0-1oqys
+rm -f rout.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs rout.hse  -tsG0-1oqys > rout.log 2>&1
+make[1]: *** [.rout.prs-tsG0-1oqys] Error 152
+rm -f run.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs run.hse  -tsG0-1oqys > run.log 2>&1
+cp run.prs .run.prs-tsG0-1oqys
+rm -f s10.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs s10.hse  -tsG0-1oqys > s10.log 2>&1
+make[1]: *** [.s10.prs-tsG0-1oqys] Error 152
+rm -f sbuf.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs sbuf.hse  -tsG0-1oqys > sbuf.log 2>&1
+make[1]: *** [.sbuf.prs-tsG0-1oqys] Error 152
+rm -f seq.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs seq.hse  -tsG0-1oqys > seq.log 2>&1
+cp seq.prs .seq.prs-tsG0-1oqys
+rm -f simple1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs simple1.hse  -tsG0-1oqys > simple1.log 2>&1
+cp simple1.prs .simple1.prs-tsG0-1oqys
+cp: cannot stat `simple1.prs': No such file or directory
+make[1]: *** [.simple1.prs-tsG0-1oqys] Error 1
+rm -f simple.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs simple.hse  -tsG0-1oqys > simple.log 2>&1
+cp simple.prs .simple.prs-tsG0-1oqys
+cp: cannot stat `simple.prs': No such file or directory
+make[1]: *** [.simple.prs-tsG0-1oqys] Error 1
+rm -f small.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs small.hse  -tsG0-1oqys > small.log 2>&1
+cp small.prs .small.prs-tsG0-1oqys
+rm -f stall.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stall.hse  -tsG0-1oqys > stall.log 2>&1
+cp stall.prs .stall.prs-tsG0-1oqys
+rm -f stari10.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari10.hse  -tsG0-1oqys > stari10.log 2>&1
+make[1]: *** [.stari10.prs-tsG0-1oqys] Error 152
+rm -f stari12.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari12.hse  -tsG0-1oqys > stari12.log 2>&1
+make[1]: *** [.stari12.prs-tsG0-1oqys] Error 152
+rm -f stari14.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari14.hse  -tsG0-1oqys > stari14.log 2>&1
+make[1]: *** [.stari14.prs-tsG0-1oqys] Error 1
+rm -f stari1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari1.hse  -tsG0-1oqys > stari1.log 2>&1
+cp stari1.prs .stari1.prs-tsG0-1oqys
+cp: cannot stat `stari1.prs': No such file or directory
+make[1]: *** [.stari1.prs-tsG0-1oqys] Error 1
+rm -f stari6.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari6.hse  -tsG0-1oqys > stari6.log 2>&1
+cp stari6.prs .stari6.prs-tsG0-1oqys
+rm -f stop.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stop.hse  -tsG0-1oqys > stop.log 2>&1
+cp stop.prs .stop.prs-tsG0-1oqys
+rm -f test.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs test.hse  -tsG0-1oqys > test.log 2>&1
+make[1]: *** [.test.prs-tsG0-1oqys] Error 152
+rm -f wchb.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wchb.hse  -tsG0-1oqys > wchb.log 2>&1
+cp wchb.prs .wchb.prs-tsG0-1oqys
+rm -f wineAA.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wineAA.hse  -tsG0-1oqys > wineAA.log 2>&1
+cp wineAA.prs .wineAA.prs-tsG0-1oqys
+rm -f winePA.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winePA.hse  -tsG0-1oqys > winePA.log 2>&1
+cp winePA.prs .winePA.prs-tsG0-1oqys
+rm -f xyzG.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs xyzG.hse  -tsG0-1oqys > xyzG.log 2>&1
+cp xyzG.prs .xyzG.prs-tsG0-1oqys
+cp: cannot stat `xyzG.prs': No such file or directory
+make[1]: *** [.xyzG.prs-tsG0-1oqys] Error 1
+make[1]: Target `PRSs' not remade because of errors.
+make[1]: Leaving directory `/home/ming/peskin/atacs/work/hse'
+make: *** [hse/PRSs.subDir] Error 2
+make -C rsg -f ../Makefile Root=../.. Dir=/rsg PRSs
+make[1]: Entering directory `/home/ming/peskin/atacs/work/rsg'
+rm -f after.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs after.rsg  -tsG0-1oqys > after.log 2>&1
+cp after.prs .after.prs-tsG0-1oqys
+rm -f before.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs before.rsg  -tsG0-1oqys > before.log 2>&1
+cp before.prs .before.prs-tsG0-1oqys
+rm -f subtc.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs subtc.rsg  -tsG0-1oqys > subtc.log 2>&1
+cp subtc.prs .subtc.prs-tsG0-1oqys
+make[1]: Leaving directory `/home/ming/peskin/atacs/work/rsg'
+make -C tel -f ../Makefile Root=../.. Dir=/tel PRSs
+make[1]: Entering directory `/home/ming/peskin/atacs/work/tel'
+rm -f AA.derived.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs AA.derived.tel  -tsG0-1oqys > AA.derived.log 2>&1
+cp AA.derived.prs .AA.derived.prs-tsG0-1oqys
+cp: cannot stat `AA.derived.prs': No such file or directory
+make[1]: *** [.AA.derived.prs-tsG0-1oqys] Error 1
+rm -f after.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs after.tel  -tsG0-1oqys > after.log 2>&1
+cp after.prs .after.prs-tsG0-1oqys
+cp: cannot stat `after.prs': No such file or directory
+make[1]: *** [.after.prs-tsG0-1oqys] Error 1
+rm -f AP.derived.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs AP.derived.tel  -tsG0-1oqys > AP.derived.log 2>&1
+cp AP.derived.prs .AP.derived.prs-tsG0-1oqys
+cp: cannot stat `AP.derived.prs': No such file or directory
+make[1]: *** [.AP.derived.prs-tsG0-1oqys] Error 1
+rm -f asleep.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs asleep.tel  -tsG0-1oqys > asleep.log 2>&1
+make[1]: *** [.asleep.prs-tsG0-1oqys] Error 152
+rm -f awake.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs awake.tel  -tsG0-1oqys > awake.log 2>&1
+cp awake.prs .awake.prs-tsG0-1oqys
+rm -f bad.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs bad.tel  -tsG0-1oqys > bad.log 2>&1
+cp bad.prs .bad.prs-tsG0-1oqys
+rm -f before.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs before.tel  -tsG0-1oqys > before.log 2>&1
+cp before.prs .before.prs-tsG0-1oqys
+rm -f clz.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs clz.tel  -tsG0-1oqys > clz.log 2>&1
+make[1]: *** [.clz.prs-tsG0-1oqys] Error 152
+rm -f compare.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs compare.tel  -tsG0-1oqys > compare.log 2>&1
+cp compare.prs .compare.prs-tsG0-1oqys
+rm -f csc.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs csc.tel  -tsG0-1oqys > csc.log 2>&1
+cp csc.prs .csc.prs-tsG0-1oqys
+rm -f dead.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs dead.tel  -tsG0-1oqys > dead.log 2>&1
+cp dead.prs .dead.prs-tsG0-1oqys
+cp: cannot stat `dead.prs': No such file or directory
+make[1]: *** [.dead.prs-tsG0-1oqys] Error 1
+rm -f experiment.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs experiment.tel  -tsG0-1oqys > experiment.log 2>&1
+cp experiment.prs .experiment.prs-tsG0-1oqys
+rm -f forever.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs forever.tel  -tsG0-1oqys > forever.log 2>&1
+cp forever.prs .forever.prs-tsG0-1oqys
+cp: cannot stat `forever.prs': No such file or directory
+make[1]: *** [.forever.prs-tsG0-1oqys] Error 1
+rm -f good.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs good.tel  -tsG0-1oqys > good.log 2>&1
+cp good.prs .good.prs-tsG0-1oqys
+rm -f lines.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs lines.tel  -tsG0-1oqys > lines.log 2>&1
+cp lines.prs .lines.prs-tsG0-1oqys
+rm -f merge.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs merge.tel  -tsG0-1oqys > merge.log 2>&1
+cp merge.prs .merge.prs-tsG0-1oqys
+rm -f mfxu.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mfxu.tel  -tsG0-1oqys > mfxu.log 2>&1
+make[1]: *** [.mfxu.prs-tsG0-1oqys] Error 152
+rm -f mle.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mle.tel  -tsG0-1oqys > mle.log 2>&1
+cp mle.prs .mle.prs-tsG0-1oqys
+cp: cannot stat `mle.prs': No such file or directory
+make[1]: *** [.mle.prs-tsG0-1oqys] Error 1
+rm -f myAPCRT.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs myAPCRT.tel  -tsG0-1oqys > myAPCRT.log 2>&1
+cp myAPCRT.prs .myAPCRT.prs-tsG0-1oqys
+cp: cannot stat `myAPCRT.prs': No such file or directory
+make[1]: *** [.myAPCRT.prs-tsG0-1oqys] Error 1
+rm -f myFurber.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs myFurber.tel  -tsG0-1oqys > myFurber.log 2>&1
+cp myFurber.prs .myFurber.prs-tsG0-1oqys
+cp: cannot stat `myFurber.prs': No such file or directory
+make[1]: *** [.myFurber.prs-tsG0-1oqys] Error 1
+rm -f myPAiso.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs myPAiso.tel  -tsG0-1oqys > myPAiso.log 2>&1
+cp myPAiso.prs .myPAiso.prs-tsG0-1oqys
+cp: cannot stat `myPAiso.prs': No such file or directory
+make[1]: *** [.myPAiso.prs-tsG0-1oqys] Error 1
+rm -f myPAlatch.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs myPAlatch.tel  -tsG0-1oqys > myPAlatch.log 2>&1
+cp myPAlatch.prs .myPAlatch.prs-tsG0-1oqys
+cp: cannot stat `myPAlatch.prs': No such file or directory
+make[1]: *** [.myPAlatch.prs-tsG0-1oqys] Error 1
+rm -f myPAnoIso.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs myPAnoIso.tel  -tsG0-1oqys > myPAnoIso.log 2>&1
+cp myPAnoIso.prs .myPAnoIso.prs-tsG0-1oqys
+cp: cannot stat `myPAnoIso.prs': No such file or directory
+make[1]: *** [.myPAnoIso.prs-tsG0-1oqys] Error 1
+rm -f PA.derived.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs PA.derived.tel  -tsG0-1oqys > PA.derived.log 2>&1
+cp PA.derived.prs .PA.derived.prs-tsG0-1oqys
+cp: cannot stat `PA.derived.prs': No such file or directory
+make[1]: *** [.PA.derived.prs-tsG0-1oqys] Error 1
+rm -f pa.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pa.tel  -tsG0-1oqys > pa.log 2>&1
+cp pa.prs .pa.prs-tsG0-1oqys
+rm -f pchb.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pchb.tel  -tsG0-1oqys > pchb.log 2>&1
+cp pchb.prs .pchb.prs-tsG0-1oqys
+rm -f PP.derived.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs PP.derived.tel  -tsG0-1oqys > PP.derived.log 2>&1
+cp PP.derived.prs .PP.derived.prs-tsG0-1oqys
+cp: cannot stat `PP.derived.prs': No such file or directory
+make[1]: *** [.PP.derived.prs-tsG0-1oqys] Error 1
+rm -f pr568.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pr568.tel  -tsG0-1oqys > pr568.log 2>&1
+cp pr568.prs .pr568.prs-tsG0-1oqys
+rm -f pr570.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pr570.tel  -tsG0-1oqys > pr570.log 2>&1
+cp pr570.prs .pr570.prs-tsG0-1oqys
+rm -f pr575.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pr575.tel  -tsG0-1oqys > pr575.log 2>&1
+cp pr575.prs .pr575.prs-tsG0-1oqys
+rm -f pr587.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pr587.tel  -tsG0-1oqys > pr587.log 2>&1
+cp pr587.prs .pr587.prs-tsG0-1oqys
+cp: cannot stat `pr587.prs': No such file or directory
+make[1]: *** [.pr587.prs-tsG0-1oqys] Error 1
+rm -f producer.myWoven.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs producer.myWoven.tel  -tsG0-1oqys > producer.myWoven.log 2>&1
+cp producer.myWoven.prs .producer.myWoven.prs-tsG0-1oqys
+cp: cannot stat `producer.myWoven.prs': No such file or directory
+make[1]: *** [.producer.myWoven.prs-tsG0-1oqys] Error 1
+rm -f ring4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ring4.tel  -tsG0-1oqys > ring4.log 2>&1
+cp ring4.prs .ring4.prs-tsG0-1oqys
+rm -f ring.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ring.tel  -tsG0-1oqys > ring.log 2>&1
+cp ring.prs .ring.prs-tsG0-1oqys
+rm -f simple.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs simple.tel  -tsG0-1oqys > simple.log 2>&1
+cp simple.prs .simple.prs-tsG0-1oqys
+rm -f stari_old10.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs stari_old10.tel  -tsG0-1oqys > stari_old10.log 2>&1
+make[1]: *** [.stari_old10.prs-tsG0-1oqys] Error 152
+rm -f tag.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tag.tel  -tsG0-1oqys > tag.log 2>&1
+cp tag.prs .tag.prs-tsG0-1oqys
+cp: cannot stat `tag.prs': No such file or directory
+make[1]: *** [.tag.prs-tsG0-1oqys] Error 1
+rm -f wineFault.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wineFault.tel  -tsG0-1oqys > wineFault.log 2>&1
+make[1]: *** [.wineFault.prs-tsG0-1oqys] Error 152
+make[1]: Target `PRSs' not remade because of errors.
+make[1]: Leaving directory `/home/ming/peskin/atacs/work/tel'
+make: *** [tel/PRSs.subDir] Error 2
+make -C unc -f ../Makefile Root=../.. Dir=/unc PRSs
+make[1]: Entering directory `/home/ming/peskin/atacs/work/unc'
+rm -f cache_s4i4o1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cache_s4i4o1.unc  -oboqys > cache_s4i4o1.log 2>&1
+make[1]: *** [.cache_s4i4o1.prs-oboqys] Error 152
+rm -f cache_s4io3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cache_s4io3.unc  -oboqys > cache_s4io3.log 2>&1
+make[1]: *** [.cache_s4io3.prs-oboqys] Error 139
+rm -f cache_s8io8.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cache_s8io8.unc  -oboqys > cache_s8io8.log 2>&1
+make[1]: *** [.cache_s8io8.prs-oboqys] Error 1
+rm -f fifocellctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fifocellctrl.unc  -oboqys > fifocellctrl.log 2>&1
+cp fifocellctrl.prs .fifocellctrl.prs-oboqys
+make[1]: Target `PRSs' not remade because of errors.
+make[1]: Leaving directory `/home/ming/peskin/atacs/work/unc'
+make: *** [unc/PRSs.subDir] Error 2
+make -C unc2l -f ../Makefile Root=../.. Dir=/unc2l PRSs
+make[1]: Entering directory `/home/ming/peskin/atacs/work/unc2l'
+rm -f 3derrNO.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 3derrNO.unc  -oloqys > 3derrNO.log 2>&1
+cp 3derrNO.prs .3derrNO.prs-oloqys
+rm -f 3dERR.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs 3dERR.unc  -oloqys > 3dERR.log 2>&1
+cp 3dERR.prs .3dERR.prs-oloqys
+rm -f ack-xbm-si.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ack-xbm-si.unc  -oloqys > ack-xbm-si.log 2>&1
+cp ack-xbm-si.prs .ack-xbm-si.prs-oloqys
+rm -f cdp-p1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cdp-p1.unc  -oloqys > cdp-p1.log 2>&1
+make[1]: *** [.cdp-p1.prs-oloqys] Error 1
+rm -f cdp-p1-xbm.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cdp-p1-xbm.unc  -oloqys > cdp-p1-xbm.log 2>&1
+cp cdp-p1-xbm.prs .cdp-p1-xbm.prs-oloqys
+rm -f cdp-p2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs cdp-p2.unc  -oloqys > cdp-p2.log 2>&1
+cp cdp-p2.prs .cdp-p2.prs-oloqys
+rm -f dean-cache-ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs dean-cache-ctrl.unc  -oloqys > dean-cache-ctrl.log 2>&1
+make[1]: *** [.dean-cache-ctrl.prs-oloqys] Error 152
+rm -f dme-eNO.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs dme-eNO.unc  -oloqys > dme-eNO.log 2>&1
+cp dme-eNO.prs .dme-eNO.prs-oloqys
+cp: cannot stat `dme-eNO.prs': No such file or directory
+make[1]: *** [.dme-eNO.prs-oloqys] Error 1
+rm -f dme-eYES2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs dme-eYES2.unc  -oloqys > dme-eYES2.log 2>&1
+cp dme-eYES2.prs .dme-eYES2.prs-oloqys
+rm -f dme-eYES.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs dme-eYES.unc  -oloqys > dme-eYES.log 2>&1
+cp dme-eYES.prs .dme-eYES.prs-oloqys
+rm -f levtest.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs levtest.unc  -oloqys > levtest.log 2>&1
+cp levtest.prs .levtest.prs-oloqys
+cp: cannot stat `levtest.prs': No such file or directory
+make[1]: *** [.levtest.prs-oloqys] Error 1
+make[1]: Target `PRSs' not remade because of errors.
+make[1]: Leaving directory `/home/ming/peskin/atacs/work/unc2l'
+make: *** [unc2l/PRSs.subDir] Error 2
+make -C vhd -f ../Makefile Root=../.. Dir=/vhd PRSs
+make[1]: Entering directory `/home/ming/peskin/atacs/work/vhd'
+rm -f a1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs a1.vhd  -tsG0-1oqys > a1.log 2>&1
+cp a1.prs .a1.prs-tsG0-1oqys
+cp: cannot stat `a1.prs': No such file or directory
+make[1]: *** [.a1.prs-tsG0-1oqys] Error 1
+rm -f AAtop.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs AAtop.vhd  -tsG0-1oqys > AAtop.log 2>&1
+cp AAtop.prs .AAtop.prs-tsG0-1oqys
+rm -f adder.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs adder.vhd  -tsG0-1oqys > adder.log 2>&1
+cp adder.prs .adder.prs-tsG0-1oqys
+cp: cannot stat `adder.prs': No such file or directory
+make[1]: *** [.adder.prs-tsG0-1oqys] Error 1
+rm -f and2_a_env.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs and2_a_env.vhd  -tsG0-1oqys > and2_a_env.log 2>&1
+cp and2_a_env.prs .and2_a_env.prs-tsG0-1oqys
+cp: cannot stat `and2_a_env.prs': No such file or directory
+make[1]: *** [.and2_a_env.prs-tsG0-1oqys] Error 1
+rm -f and2_a_top.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs and2_a_top.vhd  -tsG0-1oqys > and2_a_top.log 2>&1
+cp and2_a_top.prs .and2_a_top.prs-tsG0-1oqys
+cp: cannot stat `and2_a_top.prs': No such file or directory
+make[1]: *** [.and2_a_top.prs-tsG0-1oqys] Error 1
+rm -f and2_a.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs and2_a.vhd  -tsG0-1oqys > and2_a.log 2>&1
+cp and2_a.prs .and2_a.prs-tsG0-1oqys
+cp: cannot stat `and2_a.prs': No such file or directory
+make[1]: *** [.and2_a.prs-tsG0-1oqys] Error 1
+rm -f and2_env.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs and2_env.vhd  -tsG0-1oqys > and2_env.log 2>&1
+cp and2_env.prs .and2_env.prs-tsG0-1oqys
+cp: cannot stat `and2_env.prs': No such file or directory
+make[1]: *** [.and2_env.prs-tsG0-1oqys] Error 1
+rm -f and2_top.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs and2_top.vhd  -tsG0-1oqys > and2_top.log 2>&1
+cp and2_top.prs .and2_top.prs-tsG0-1oqys
+cp: cannot stat `and2_top.prs': No such file or directory
+make[1]: *** [.and2_top.prs-tsG0-1oqys] Error 1
+rm -f and2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs and2.vhd  -tsG0-1oqys > and2.log 2>&1
+cp and2.prs .and2.prs-tsG0-1oqys
+cp: cannot stat `and2.prs': No such file or directory
+make[1]: *** [.and2.prs-tsG0-1oqys] Error 1
+rm -f anor.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs anor.vhd  -tsG0-1oqys > anor.log 2>&1
+cp anor.prs .anor.prs-tsG0-1oqys
+cp: cannot stat `anor.prs': No such file or directory
+make[1]: *** [.anor.prs-tsG0-1oqys] Error 1
+rm -f APtop.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs APtop.vhd  -tsG0-1oqys > APtop.log 2>&1
+cp APtop.prs .APtop.prs-tsG0-1oqys
+rm -f AP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs AP.vhd  -tsG0-1oqys > AP.log 2>&1
+cp AP.prs .AP.prs-tsG0-1oqys
+cp: cannot stat `AP.prs': No such file or directory
+make[1]: *** [.AP.prs-tsG0-1oqys] Error 1
+rm -f bcmp.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs bcmp.vhd  -tsG0-1oqys > bcmp.log 2>&1
+cp bcmp.prs .bcmp.prs-tsG0-1oqys
+cp: cannot stat `bcmp.prs': No such file or directory
+make[1]: *** [.bcmp.prs-tsG0-1oqys] Error 1
+rm -f buf_a_env.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs buf_a_env.vhd  -tsG0-1oqys > buf_a_env.log 2>&1
+cp buf_a_env.prs .buf_a_env.prs-tsG0-1oqys
+cp: cannot stat `buf_a_env.prs': No such file or directory
+make[1]: *** [.buf_a_env.prs-tsG0-1oqys] Error 1
+rm -f buf_a_top.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs buf_a_top.vhd  -tsG0-1oqys > buf_a_top.log 2>&1
+cp buf_a_top.prs .buf_a_top.prs-tsG0-1oqys
+cp: cannot stat `buf_a_top.prs': No such file or directory
+make[1]: *** [.buf_a_top.prs-tsG0-1oqys] Error 1
+rm -f buf_a.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs buf_a.vhd  -tsG0-1oqys > buf_a.log 2>&1
+cp buf_a.prs .buf_a.prs-tsG0-1oqys
+cp: cannot stat `buf_a.prs': No such file or directory
+make[1]: *** [.buf_a.prs-tsG0-1oqys] Error 1
+rm -f channel.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs channel.vhd  -tsG0-1oqys > channel.log 2>&1
+cp channel.prs .channel.prs-tsG0-1oqys
+cp: cannot stat `channel.prs': No such file or directory
+make[1]: *** [.channel.prs-tsG0-1oqys] Error 1
+rm -f chan.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs chan.vhd  -tsG0-1oqys > chan.log 2>&1
+cp chan.prs .chan.prs-tsG0-1oqys
+rm -f collect.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs collect.vhd  -tsG0-1oqys > collect.log 2>&1
+cp collect.prs .collect.prs-tsG0-1oqys
+cp: cannot stat `collect.prs': No such file or directory
+make[1]: *** [.collect.prs-tsG0-1oqys] Error 1
+rm -f connection.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs connection.vhd  -tsG0-1oqys > connection.log 2>&1
+cp connection.prs .connection.prs-tsG0-1oqys
+cp: cannot stat `connection.prs': No such file or directory
+make[1]: *** [.connection.prs-tsG0-1oqys] Error 1
+rm -f consumeA.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs consumeA.vhd  -tsG0-1oqys > consumeA.log 2>&1
+cp consumeA.prs .consumeA.prs-tsG0-1oqys
+cp: cannot stat `consumeA.prs': No such file or directory
+make[1]: *** [.consumeA.prs-tsG0-1oqys] Error 1
+rm -f consumeP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs consumeP.vhd  -tsG0-1oqys > consumeP.log 2>&1
+cp consumeP.prs .consumeP.prs-tsG0-1oqys
+cp: cannot stat `consumeP.prs': No such file or directory
+make[1]: *** [.consumeP.prs-tsG0-1oqys] Error 1
+rm -f consumer3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs consumer3.vhd  -tsG0-1oqys > consumer3.log 2>&1
+cp consumer3.prs .consumer3.prs-tsG0-1oqys
+cp: cannot stat `consumer3.prs': No such file or directory
+make[1]: *** [.consumer3.prs-tsG0-1oqys] Error 1
+rm -f consumer.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs consumer.vhd  -tsG0-1oqys > consumer.log 2>&1
+cp consumer.prs .consumer.prs-tsG0-1oqys
+cp: cannot stat `consumer.prs': No such file or directory
+make[1]: *** [.consumer.prs-tsG0-1oqys] Error 1
+rm -f conveyor.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs conveyor.vhd  -tsG0-1oqys > conveyor.log 2>&1
+cp conveyor.prs .conveyor.prs-tsG0-1oqys
+rm -f csa.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs csa.vhd  -tsG0-1oqys > csa.log 2>&1
+cp csa.prs .csa.prs-tsG0-1oqys
+cp: cannot stat `csa.prs': No such file or directory
+make[1]: *** [.csa.prs-tsG0-1oqys] Error 1
+rm -f diffeq1_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq1_ctrl.vhd  -tsG0-1oqys > diffeq1_ctrl.log 2>&1
+cp diffeq1_ctrl.prs .diffeq1_ctrl.prs-tsG0-1oqys
+cp: cannot stat `diffeq1_ctrl.prs': No such file or directory
+make[1]: *** [.diffeq1_ctrl.prs-tsG0-1oqys] Error 1
+rm -f diffeq2_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq2_ctrl.vhd  -tsG0-1oqys > diffeq2_ctrl.log 2>&1
+cp diffeq2_ctrl.prs .diffeq2_ctrl.prs-tsG0-1oqys
+cp: cannot stat `diffeq2_ctrl.prs': No such file or directory
+make[1]: *** [.diffeq2_ctrl.prs-tsG0-1oqys] Error 1
+rm -f diffeq3_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq3_ctrl.vhd  -tsG0-1oqys > diffeq3_ctrl.log 2>&1
+cp diffeq3_ctrl.prs .diffeq3_ctrl.prs-tsG0-1oqys
+cp: cannot stat `diffeq3_ctrl.prs': No such file or directory
+make[1]: *** [.diffeq3_ctrl.prs-tsG0-1oqys] Error 1
+rm -f diffeq4_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq4_ctrl.vhd  -tsG0-1oqys > diffeq4_ctrl.log 2>&1
+cp diffeq4_ctrl.prs .diffeq4_ctrl.prs-tsG0-1oqys
+cp: cannot stat `diffeq4_ctrl.prs': No such file or directory
+make[1]: *** [.diffeq4_ctrl.prs-tsG0-1oqys] Error 1
+rm -f diffeq5_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq5_ctrl.vhd  -tsG0-1oqys > diffeq5_ctrl.log 2>&1
+cp diffeq5_ctrl.prs .diffeq5_ctrl.prs-tsG0-1oqys
+cp: cannot stat `diffeq5_ctrl.prs': No such file or directory
+make[1]: *** [.diffeq5_ctrl.prs-tsG0-1oqys] Error 1
+rm -f diffeq6_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq6_ctrl.vhd  -tsG0-1oqys > diffeq6_ctrl.log 2>&1
+cp diffeq6_ctrl.prs .diffeq6_ctrl.prs-tsG0-1oqys
+cp: cannot stat `diffeq6_ctrl.prs': No such file or directory
+make[1]: *** [.diffeq6_ctrl.prs-tsG0-1oqys] Error 1
+rm -f diffeq7_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq7_ctrl.vhd  -tsG0-1oqys > diffeq7_ctrl.log 2>&1
+cp diffeq7_ctrl.prs .diffeq7_ctrl.prs-tsG0-1oqys
+cp: cannot stat `diffeq7_ctrl.prs': No such file or directory
+make[1]: *** [.diffeq7_ctrl.prs-tsG0-1oqys] Error 1
+rm -f diffeq8_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq8_ctrl.vhd  -tsG0-1oqys > diffeq8_ctrl.log 2>&1
+cp diffeq8_ctrl.prs .diffeq8_ctrl.prs-tsG0-1oqys
+cp: cannot stat `diffeq8_ctrl.prs': No such file or directory
+make[1]: *** [.diffeq8_ctrl.prs-tsG0-1oqys] Error 1
+rm -f diffeq9_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq9_ctrl.vhd  -tsG0-1oqys > diffeq9_ctrl.log 2>&1
+cp diffeq9_ctrl.prs .diffeq9_ctrl.prs-tsG0-1oqys
+cp: cannot stat `diffeq9_ctrl.prs': No such file or directory
+make[1]: *** [.diffeq9_ctrl.prs-tsG0-1oqys] Error 1
+rm -f diffeq_ctrl2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq_ctrl2.vhd  -tsG0-1oqys > diffeq_ctrl2.log 2>&1
+cp diffeq_ctrl2.prs .diffeq_ctrl2.prs-tsG0-1oqys
+cp: cannot stat `diffeq_ctrl2.prs': No such file or directory
+make[1]: *** [.diffeq_ctrl2.prs-tsG0-1oqys] Error 1
+rm -f diffeq_ctrl_tb2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq_ctrl_tb2.vhd  -tsG0-1oqys > diffeq_ctrl_tb2.log 2>&1
+cp diffeq_ctrl_tb2.prs .diffeq_ctrl_tb2.prs-tsG0-1oqys
+cp: cannot stat `diffeq_ctrl_tb2.prs': No such file or directory
+make[1]: *** [.diffeq_ctrl_tb2.prs-tsG0-1oqys] Error 1
+rm -f diffeq_ctrl_tb.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq_ctrl_tb.vhd  -tsG0-1oqys > diffeq_ctrl_tb.log 2>&1
+cp diffeq_ctrl_tb.prs .diffeq_ctrl_tb.prs-tsG0-1oqys
+cp: cannot stat `diffeq_ctrl_tb.prs': No such file or directory
+make[1]: *** [.diffeq_ctrl_tb.prs-tsG0-1oqys] Error 1
+rm -f diffeq_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs diffeq_ctrl.vhd  -tsG0-1oqys > diffeq_ctrl.log 2>&1
+cp diffeq_ctrl.prs .diffeq_ctrl.prs-tsG0-1oqys
+cp: cannot stat `diffeq_ctrl.prs': No such file or directory
+make[1]: *** [.diffeq_ctrl.prs-tsG0-1oqys] Error 1
+rm -f dp_pre_dec.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs dp_pre_dec.vhd  -tsG0-1oqys > dp_pre_dec.log 2>&1
+cp dp_pre_dec.prs .dp_pre_dec.prs-tsG0-1oqys
+cp: cannot stat `dp_pre_dec.prs': No such file or directory
+make[1]: *** [.dp_pre_dec.prs-tsG0-1oqys] Error 1
+rm -f experiment.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs experiment.vhd  -tsG0-1oqys > experiment.log 2>&1
+make[1]: *** [.experiment.prs-tsG0-1oqys] Error 152
+rm -f fa_a_env.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fa_a_env.vhd  -tsG0-1oqys > fa_a_env.log 2>&1
+cp fa_a_env.prs .fa_a_env.prs-tsG0-1oqys
+cp: cannot stat `fa_a_env.prs': No such file or directory
+make[1]: *** [.fa_a_env.prs-tsG0-1oqys] Error 1
+rm -f fa_a_kill_top.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fa_a_kill_top.vhd  -tsG0-1oqys > fa_a_kill_top.log 2>&1
+cp fa_a_kill_top.prs .fa_a_kill_top.prs-tsG0-1oqys
+cp: cannot stat `fa_a_kill_top.prs': No such file or directory
+make[1]: *** [.fa_a_kill_top.prs-tsG0-1oqys] Error 1
+rm -f fa_a_kill.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs fa_a_kill.vhd  -tsG0-1oqys > fa_a_kill.log 2>&1
+cp fa_a_kill.prs .fa_a_kill.prs-tsG0-1oqys
+cp: cannot stat `fa_a_kill.prs': No such file or directory
+make[1]: *** [.fa_a_kill.prs-tsG0-1oqys] Error 1
+rm -f for.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs for.vhd  -tsG0-1oqys > for.log 2>&1
+cp for.prs .for.prs-tsG0-1oqys
+cp: cannot stat `for.prs': No such file or directory
+make[1]: *** [.for.prs-tsG0-1oqys] Error 1
+rm -f handshake.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs handshake.vhd  -tsG0-1oqys > handshake.log 2>&1
+cp handshake.prs .handshake.prs-tsG0-1oqys
+cp: cannot stat `handshake.prs': No such file or directory
+make[1]: *** [.handshake.prs-tsG0-1oqys] Error 1
+rm -f ha.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ha.vhd  -tsG0-1oqys > ha.log 2>&1
+cp ha.prs .ha.prs-tsG0-1oqys
+cp: cannot stat `ha.prs': No such file or directory
+make[1]: *** [.ha.prs-tsG0-1oqys] Error 1
+rm -f hosedexample.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs hosedexample.vhd  -tsG0-1oqys > hosedexample.log 2>&1
+cp hosedexample.prs .hosedexample.prs-tsG0-1oqys
+cp: cannot stat `hosedexample.prs': No such file or directory
+make[1]: *** [.hosedexample.prs-tsG0-1oqys] Error 1
+rm -f hoser.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs hoser.vhd  -tsG0-1oqys > hoser.log 2>&1
+cp hoser.prs .hoser.prs-tsG0-1oqys
+cp: cannot stat `hoser.prs': No such file or directory
+make[1]: *** [.hoser.prs-tsG0-1oqys] Error 1
+rm -f hose.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs hose.vhd  -tsG0-1oqys > hose.log 2>&1
+cp hose.prs .hose.prs-tsG0-1oqys
+cp: cannot stat `hose.prs': No such file or directory
+make[1]: *** [.hose.prs-tsG0-1oqys] Error 1
+rm -f hs_shifter.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs hs_shifter.vhd  -tsG0-1oqys > hs_shifter.log 2>&1
+cp hs_shifter.prs .hs_shifter.prs-tsG0-1oqys
+cp: cannot stat `hs_shifter.prs': No such file or directory
+make[1]: *** [.hs_shifter.prs-tsG0-1oqys] Error 1
+rm -f ifetch1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs ifetch1.vhd  -tsG0-1oqys > ifetch1.log 2>&1
+cp ifetch1.prs .ifetch1.prs-tsG0-1oqys
+cp: cannot stat `ifetch1.prs': No such file or directory
+make[1]: *** [.ifetch1.prs-tsG0-1oqys] Error 1
+rm -f leftAN.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs leftAN.vhd  -tsG0-1oqys > leftAN.log 2>&1
+cp leftAN.prs .leftAN.prs-tsG0-1oqys
+cp: cannot stat `leftAN.prs': No such file or directory
+make[1]: *** [.leftAN.prs-tsG0-1oqys] Error 1
+rm -f leftAP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs leftAP.vhd  -tsG0-1oqys > leftAP.log 2>&1
+cp leftAP.prs .leftAP.prs-tsG0-1oqys
+cp: cannot stat `leftAP.prs': No such file or directory
+make[1]: *** [.leftAP.prs-tsG0-1oqys] Error 1
+rm -f leftIN.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs leftIN.vhd  -tsG0-1oqys > leftIN.log 2>&1
+cp leftIN.prs .leftIN.prs-tsG0-1oqys
+cp: cannot stat `leftIN.prs': No such file or directory
+make[1]: *** [.leftIN.prs-tsG0-1oqys] Error 1
+rm -f leftIP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs leftIP.vhd  -tsG0-1oqys > leftIP.log 2>&1
+cp leftIP.prs .leftIP.prs-tsG0-1oqys
+cp: cannot stat `leftIP.prs': No such file or directory
+make[1]: *** [.leftIP.prs-tsG0-1oqys] Error 1
+rm -f leftPN.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs leftPN.vhd  -tsG0-1oqys > leftPN.log 2>&1
+cp leftPN.prs .leftPN.prs-tsG0-1oqys
+cp: cannot stat `leftPN.prs': No such file or directory
+make[1]: *** [.leftPN.prs-tsG0-1oqys] Error 1
+rm -f leftPP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs leftPP.vhd  -tsG0-1oqys > leftPP.log 2>&1
+cp leftPP.prs .leftPP.prs-tsG0-1oqys
+cp: cannot stat `leftPP.prs': No such file or directory
+make[1]: *** [.leftPP.prs-tsG0-1oqys] Error 1
+rm -f leftReceive.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs leftReceive.vhd  -tsG0-1oqys > leftReceive.log 2>&1
+cp leftReceive.prs .leftReceive.prs-tsG0-1oqys
+cp: cannot stat `leftReceive.prs': No such file or directory
+make[1]: *** [.leftReceive.prs-tsG0-1oqys] Error 1
+rm -f leftSend.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs leftSend.vhd  -tsG0-1oqys > leftSend.log 2>&1
+cp leftSend.prs .leftSend.prs-tsG0-1oqys
+cp: cannot stat `leftSend.prs': No such file or directory
+make[1]: *** [.leftSend.prs-tsG0-1oqys] Error 1
+rm -f loop.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs loop.vhd  -tsG0-1oqys > loop.log 2>&1
+cp loop.prs .loop.prs-tsG0-1oqys
+cp: cannot stat `loop.prs': No such file or directory
+make[1]: *** [.loop.prs-tsG0-1oqys] Error 1
+rm -f LRtop.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs LRtop.vhd  -tsG0-1oqys > LRtop.log 2>&1
+cp LRtop.prs .LRtop.prs-tsG0-1oqys
+rm -f LR.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs LR.vhd  -tsG0-1oqys > LR.log 2>&1
+cp LR.prs .LR.prs-tsG0-1oqys
+cp: cannot stat `LR.prs': No such file or directory
+make[1]: *** [.LR.prs-tsG0-1oqys] Error 1
+rm -f mail.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mail.vhd  -tsG0-1oqys > mail.log 2>&1
+make[1]: *** [.mail.prs-tsG0-1oqys] Error 152
+rm -f merge3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs merge3.vhd  -tsG0-1oqys > merge3.log 2>&1
+cp merge3.prs .merge3.prs-tsG0-1oqys
+cp: cannot stat `merge3.prs': No such file or directory
+make[1]: *** [.merge3.prs-tsG0-1oqys] Error 1
+rm -f merge.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs merge.vhd  -tsG0-1oqys > merge.log 2>&1
+cp merge.prs .merge.prs-tsG0-1oqys
+cp: cannot stat `merge.prs': No such file or directory
+make[1]: *** [.merge.prs-tsG0-1oqys] Error 1
+rm -f mergexample3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mergexample3.vhd  -tsG0-1oqys > mergexample3.log 2>&1
+cp mergexample3.prs .mergexample3.prs-tsG0-1oqys
+rm -f mergexample.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mergexample.vhd  -tsG0-1oqys > mergexample.log 2>&1
+cp mergexample.prs .mergexample.prs-tsG0-1oqys
+cp: cannot stat `mergexample.prs': No such file or directory
+make[1]: *** [.mergexample.prs-tsG0-1oqys] Error 1
+rm -f mult_ctrl_done_env.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mult_ctrl_done_env.vhd  -tsG0-1oqys > mult_ctrl_done_env.log 2>&1
+cp mult_ctrl_done_env.prs .mult_ctrl_done_env.prs-tsG0-1oqys
+cp: cannot stat `mult_ctrl_done_env.prs': No such file or directory
+make[1]: *** [.mult_ctrl_done_env.prs-tsG0-1oqys] Error 1
+rm -f mult_ctrl_done_top.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mult_ctrl_done_top.vhd  -tsG0-1oqys > mult_ctrl_done_top.log 2>&1
+cp mult_ctrl_done_top.prs .mult_ctrl_done_top.prs-tsG0-1oqys
+rm -f mult_ctrl_done.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mult_ctrl_done.vhd  -tsG0-1oqys > mult_ctrl_done.log 2>&1
+cp mult_ctrl_done.prs .mult_ctrl_done.prs-tsG0-1oqys
+cp: cannot stat `mult_ctrl_done.prs': No such file or directory
+make[1]: *** [.mult_ctrl_done.prs-tsG0-1oqys] Error 1
+rm -f mult_ctrl_start_config.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mult_ctrl_start_config.vhd  -tsG0-1oqys > mult_ctrl_start_config.log 2>&1
+cp mult_ctrl_start_config.prs .mult_ctrl_start_config.prs-tsG0-1oqys
+cp: cannot stat `mult_ctrl_start_config.prs': No such file or directory
+make[1]: *** [.mult_ctrl_start_config.prs-tsG0-1oqys] Error 1
+rm -f mult_ctrl_start_env.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mult_ctrl_start_env.vhd  -tsG0-1oqys > mult_ctrl_start_env.log 2>&1
+cp mult_ctrl_start_env.prs .mult_ctrl_start_env.prs-tsG0-1oqys
+cp: cannot stat `mult_ctrl_start_env.prs': No such file or directory
+make[1]: *** [.mult_ctrl_start_env.prs-tsG0-1oqys] Error 1
+rm -f mult_ctrl_start_top.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mult_ctrl_start_top.vhd  -tsG0-1oqys > mult_ctrl_start_top.log 2>&1
+make[1]: *** [.mult_ctrl_start_top.prs-tsG0-1oqys] Error 152
+rm -f mult_ctrl_start.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs mult_ctrl_start.vhd  -tsG0-1oqys > mult_ctrl_start.log 2>&1
+make[1]: *** [.mult_ctrl_start.prs-tsG0-1oqys] Error 152
+rm -f multi.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs multi.vhd  -tsG0-1oqys > multi.log 2>&1
+cp multi.prs .multi.prs-tsG0-1oqys
+cp: cannot stat `multi.prs': No such file or directory
+make[1]: *** [.multi.prs-tsG0-1oqys] Error 1
+rm -f n2p2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs n2p2.vhd  -tsG0-1oqys > n2p2.log 2>&1
+cp n2p2.prs .n2p2.prs-tsG0-1oqys
+cp: cannot stat `n2p2.prs': No such file or directory
+make[1]: *** [.n2p2.prs-tsG0-1oqys] Error 1
+rm -f newMerge.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs newMerge.vhd  -tsG0-1oqys > newMerge.log 2>&1
+cp newMerge.prs .newMerge.prs-tsG0-1oqys
+cp: cannot stat `newMerge.prs': No such file or directory
+make[1]: *** [.newMerge.prs-tsG0-1oqys] Error 1
+rm -f newMergexample.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs newMergexample.vhd  -tsG0-1oqys > newMergexample.log 2>&1
+cp newMergexample.prs .newMergexample.prs-tsG0-1oqys
+cp: cannot stat `newMergexample.prs': No such file or directory
+make[1]: *** [.newMergexample.prs-tsG0-1oqys] Error 1
+rm -f nondeterminism.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs nondeterminism.vhd  -tsG0-1oqys > nondeterminism.log 2>&1
+cp nondeterminism.prs .nondeterminism.prs-tsG0-1oqys
+cp: cannot stat `nondeterminism.prs': No such file or directory
+make[1]: *** [.nondeterminism.prs-tsG0-1oqys] Error 1
+rm -f nond.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs nond.vhd  -tsG0-1oqys > nond.log 2>&1
+cp nond.prs .nond.prs-tsG0-1oqys
+cp: cannot stat `nond.prs': No such file or directory
+make[1]: *** [.nond.prs-tsG0-1oqys] Error 1
+rm -f PARtop.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs PARtop.vhd  -tsG0-1oqys > PARtop.log 2>&1
+cp PARtop.prs .PARtop.prs-tsG0-1oqys
+rm -f PAR.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs PAR.vhd  -tsG0-1oqys > PAR.log 2>&1
+cp PAR.prs .PAR.prs-tsG0-1oqys
+cp: cannot stat `PAR.prs': No such file or directory
+make[1]: *** [.PAR.prs-tsG0-1oqys] Error 1
+rm -f PAtop.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs PAtop.vhd  -tsG0-1oqys > PAtop.log 2>&1
+cp PAtop.prs .PAtop.prs-tsG0-1oqys
+rm -f patron2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs patron2.vhd  -tsG0-1oqys > patron2.log 2>&1
+cp patron2.prs .patron2.prs-tsG0-1oqys
+cp: cannot stat `patron2.prs': No such file or directory
+make[1]: *** [.patron2.prs-tsG0-1oqys] Error 1
+rm -f patron3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs patron3.vhd  -tsG0-1oqys > patron3.log 2>&1
+cp patron3.prs .patron3.prs-tsG0-1oqys
+cp: cannot stat `patron3.prs': No such file or directory
+make[1]: *** [.patron3.prs-tsG0-1oqys] Error 1
+rm -f patronAbogus.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs patronAbogus.vhd  -tsG0-1oqys > patronAbogus.log 2>&1
+make[1]: *** [.patronAbogus.prs-tsG0-1oqys] Error 139
+rm -f patronAchan.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs patronAchan.vhd  -tsG0-1oqys > patronAchan.log 2>&1
+cp patronAchan.prs .patronAchan.prs-tsG0-1oqys
+cp: cannot stat `patronAchan.prs': No such file or directory
+make[1]: *** [.patronAchan.prs-tsG0-1oqys] Error 1
+rm -f patronA.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs patronA.vhd  -tsG0-1oqys > patronA.log 2>&1
+cp patronA.prs .patronA.prs-tsG0-1oqys
+cp: cannot stat `patronA.prs': No such file or directory
+make[1]: *** [.patronA.prs-tsG0-1oqys] Error 1
+rm -f patron_bundled.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs patron_bundled.vhd  -tsG0-1oqys > patron_bundled.log 2>&1
+cp patron_bundled.prs .patron_bundled.prs-tsG0-1oqys
+cp: cannot stat `patron_bundled.prs': No such file or directory
+make[1]: *** [.patron_bundled.prs-tsG0-1oqys] Error 1
+rm -f patron_dualrail3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs patron_dualrail3.vhd  -tsG0-1oqys > patron_dualrail3.log 2>&1
+cp patron_dualrail3.prs .patron_dualrail3.prs-tsG0-1oqys
+cp: cannot stat `patron_dualrail3.prs': No such file or directory
+make[1]: *** [.patron_dualrail3.prs-tsG0-1oqys] Error 1
+rm -f patron_dualrail.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs patron_dualrail.vhd  -tsG0-1oqys > patron_dualrail.log 2>&1
+cp patron_dualrail.prs .patron_dualrail.prs-tsG0-1oqys
+cp: cannot stat `patron_dualrail.prs': No such file or directory
+make[1]: *** [.patron_dualrail.prs-tsG0-1oqys] Error 1
+rm -f patronP2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs patronP2.vhd  -tsG0-1oqys > patronP2.log 2>&1
+cp patronP2.prs .patronP2.prs-tsG0-1oqys
+cp: cannot stat `patronP2.prs': No such file or directory
+make[1]: *** [.patronP2.prs-tsG0-1oqys] Error 1
+rm -f patron.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs patron.vhd  -tsG0-1oqys > patron.log 2>&1
+cp patron.prs .patron.prs-tsG0-1oqys
+cp: cannot stat `patron.prs': No such file or directory
+make[1]: *** [.patron.prs-tsG0-1oqys] Error 1
+rm -f PPPtop.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs PPPtop.vhd  -tsG0-1oqys > PPPtop.log 2>&1
+cp PPPtop.prs .PPPtop.prs-tsG0-1oqys
+rm -f PPtop.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs PPtop.vhd  -tsG0-1oqys > PPtop.log 2>&1
+cp PPtop.prs .PPtop.prs-tsG0-1oqys
+rm -f pre_dec.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs pre_dec.vhd  -tsG0-1oqys > pre_dec.log 2>&1
+cp pre_dec.prs .pre_dec.prs-tsG0-1oqys
+cp: cannot stat `pre_dec.prs': No such file or directory
+make[1]: *** [.pre_dec.prs-tsG0-1oqys] Error 1
+rm -f produceA.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs produceA.vhd  -tsG0-1oqys > produceA.log 2>&1
+cp produceA.prs .produceA.prs-tsG0-1oqys
+cp: cannot stat `produceA.prs': No such file or directory
+make[1]: *** [.produceA.prs-tsG0-1oqys] Error 1
+rm -f produceP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs produceP.vhd  -tsG0-1oqys > produceP.log 2>&1
+cp produceP.prs .produceP.prs-tsG0-1oqys
+cp: cannot stat `produceP.prs': No such file or directory
+make[1]: *** [.produceP.prs-tsG0-1oqys] Error 1
+rm -f producer.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs producer.vhd  -tsG0-1oqys > producer.log 2>&1
+cp producer.prs .producer.prs-tsG0-1oqys
+cp: cannot stat `producer.prs': No such file or directory
+make[1]: *** [.producer.prs-tsG0-1oqys] Error 1
+rm -f reverse.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs reverse.vhd  -tsG0-1oqys > reverse.log 2>&1
+cp reverse.prs .reverse.prs-tsG0-1oqys
+cp: cannot stat `reverse.prs': No such file or directory
+make[1]: *** [.reverse.prs-tsG0-1oqys] Error 1
+rm -f rightAN.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs rightAN.vhd  -tsG0-1oqys > rightAN.log 2>&1
+cp rightAN.prs .rightAN.prs-tsG0-1oqys
+cp: cannot stat `rightAN.prs': No such file or directory
+make[1]: *** [.rightAN.prs-tsG0-1oqys] Error 1
+rm -f rightAP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs rightAP.vhd  -tsG0-1oqys > rightAP.log 2>&1
+cp rightAP.prs .rightAP.prs-tsG0-1oqys
+cp: cannot stat `rightAP.prs': No such file or directory
+make[1]: *** [.rightAP.prs-tsG0-1oqys] Error 1
+rm -f rightIN.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs rightIN.vhd  -tsG0-1oqys > rightIN.log 2>&1
+cp rightIN.prs .rightIN.prs-tsG0-1oqys
+cp: cannot stat `rightIN.prs': No such file or directory
+make[1]: *** [.rightIN.prs-tsG0-1oqys] Error 1
+rm -f rightIP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs rightIP.vhd  -tsG0-1oqys > rightIP.log 2>&1
+cp rightIP.prs .rightIP.prs-tsG0-1oqys
+cp: cannot stat `rightIP.prs': No such file or directory
+make[1]: *** [.rightIP.prs-tsG0-1oqys] Error 1
+rm -f rightPN.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs rightPN.vhd  -tsG0-1oqys > rightPN.log 2>&1
+cp rightPN.prs .rightPN.prs-tsG0-1oqys
+cp: cannot stat `rightPN.prs': No such file or directory
+make[1]: *** [.rightPN.prs-tsG0-1oqys] Error 1
+rm -f rightPP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs rightPP.vhd  -tsG0-1oqys > rightPP.log 2>&1
+cp rightPP.prs .rightPP.prs-tsG0-1oqys
+cp: cannot stat `rightPP.prs': No such file or directory
+make[1]: *** [.rightPP.prs-tsG0-1oqys] Error 1
+rm -f rightReceive.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs rightReceive.vhd  -tsG0-1oqys > rightReceive.log 2>&1
+cp rightReceive.prs .rightReceive.prs-tsG0-1oqys
+cp: cannot stat `rightReceive.prs': No such file or directory
+make[1]: *** [.rightReceive.prs-tsG0-1oqys] Error 1
+rm -f rightSend.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs rightSend.vhd  -tsG0-1oqys > rightSend.log 2>&1
+cp rightSend.prs .rightSend.prs-tsG0-1oqys
+cp: cannot stat `rightSend.prs': No such file or directory
+make[1]: *** [.rightSend.prs-tsG0-1oqys] Error 1
+rm -f route3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs route3.vhd  -tsG0-1oqys > route3.log 2>&1
+cp route3.prs .route3.prs-tsG0-1oqys
+cp: cannot stat `route3.prs': No such file or directory
+make[1]: *** [.route3.prs-tsG0-1oqys] Error 1
+rm -f sample1_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs sample1_ctrl.vhd  -tsG0-1oqys > sample1_ctrl.log 2>&1
+cp sample1_ctrl.prs .sample1_ctrl.prs-tsG0-1oqys
+cp: cannot stat `sample1_ctrl.prs': No such file or directory
+make[1]: *** [.sample1_ctrl.prs-tsG0-1oqys] Error 1
+rm -f sample2_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs sample2_ctrl.vhd  -tsG0-1oqys > sample2_ctrl.log 2>&1
+cp sample2_ctrl.prs .sample2_ctrl.prs-tsG0-1oqys
+cp: cannot stat `sample2_ctrl.prs': No such file or directory
+make[1]: *** [.sample2_ctrl.prs-tsG0-1oqys] Error 1
+rm -f sample_ctrl2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs sample_ctrl2.vhd  -tsG0-1oqys > sample_ctrl2.log 2>&1
+cp sample_ctrl2.prs .sample_ctrl2.prs-tsG0-1oqys
+cp: cannot stat `sample_ctrl2.prs': No such file or directory
+make[1]: *** [.sample_ctrl2.prs-tsG0-1oqys] Error 1
+rm -f sample_ctrl_tb2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs sample_ctrl_tb2.vhd  -tsG0-1oqys > sample_ctrl_tb2.log 2>&1
+cp sample_ctrl_tb2.prs .sample_ctrl_tb2.prs-tsG0-1oqys
+cp: cannot stat `sample_ctrl_tb2.prs': No such file or directory
+make[1]: *** [.sample_ctrl_tb2.prs-tsG0-1oqys] Error 1
+rm -f sample_ctrl_tb.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs sample_ctrl_tb.vhd  -tsG0-1oqys > sample_ctrl_tb.log 2>&1
+cp sample_ctrl_tb.prs .sample_ctrl_tb.prs-tsG0-1oqys
+cp: cannot stat `sample_ctrl_tb.prs': No such file or directory
+make[1]: *** [.sample_ctrl_tb.prs-tsG0-1oqys] Error 1
+rm -f sample_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs sample_ctrl.vhd  -tsG0-1oqys > sample_ctrl.log 2>&1
+cp sample_ctrl.prs .sample_ctrl.prs-tsG0-1oqys
+cp: cannot stat `sample_ctrl.prs': No such file or directory
+make[1]: *** [.sample_ctrl.prs-tsG0-1oqys] Error 1
+rm -f serial1_ctrl_tb.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs serial1_ctrl_tb.vhd  -tsG0-1oqys > serial1_ctrl_tb.log 2>&1
+cp serial1_ctrl_tb.prs .serial1_ctrl_tb.prs-tsG0-1oqys
+cp: cannot stat `serial1_ctrl_tb.prs': No such file or directory
+make[1]: *** [.serial1_ctrl_tb.prs-tsG0-1oqys] Error 1
+rm -f serial1_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs serial1_ctrl.vhd  -tsG0-1oqys > serial1_ctrl.log 2>&1
+cp serial1_ctrl.prs .serial1_ctrl.prs-tsG0-1oqys
+cp: cannot stat `serial1_ctrl.prs': No such file or directory
+make[1]: *** [.serial1_ctrl.prs-tsG0-1oqys] Error 1
+rm -f serial_ctrl2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs serial_ctrl2.vhd  -tsG0-1oqys > serial_ctrl2.log 2>&1
+cp serial_ctrl2.prs .serial_ctrl2.prs-tsG0-1oqys
+cp: cannot stat `serial_ctrl2.prs': No such file or directory
+make[1]: *** [.serial_ctrl2.prs-tsG0-1oqys] Error 1
+rm -f serial_ctrl_tb2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs serial_ctrl_tb2.vhd  -tsG0-1oqys > serial_ctrl_tb2.log 2>&1
+cp serial_ctrl_tb2.prs .serial_ctrl_tb2.prs-tsG0-1oqys
+cp: cannot stat `serial_ctrl_tb2.prs': No such file or directory
+make[1]: *** [.serial_ctrl_tb2.prs-tsG0-1oqys] Error 1
+rm -f serial_ctrl_tb.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs serial_ctrl_tb.vhd  -tsG0-1oqys > serial_ctrl_tb.log 2>&1
+cp serial_ctrl_tb.prs .serial_ctrl_tb.prs-tsG0-1oqys
+cp: cannot stat `serial_ctrl_tb.prs': No such file or directory
+make[1]: *** [.serial_ctrl_tb.prs-tsG0-1oqys] Error 1
+rm -f serial_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs serial_ctrl.vhd  -tsG0-1oqys > serial_ctrl.log 2>&1
+cp serial_ctrl.prs .serial_ctrl.prs-tsG0-1oqys
+cp: cannot stat `serial_ctrl.prs': No such file or directory
+make[1]: *** [.serial_ctrl.prs-tsG0-1oqys] Error 1
+rm -f shopAPchan.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs shopAPchan.vhd  -tsG0-1oqys > shopAPchan.log 2>&1
+cp shopAPchan.prs .shopAPchan.prs-tsG0-1oqys
+cp: cannot stat `shopAPchan.prs': No such file or directory
+make[1]: *** [.shopAPchan.prs-tsG0-1oqys] Error 1
+rm -f shopAP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs shopAP.vhd  -tsG0-1oqys > shopAP.log 2>&1
+cp shopAP.prs .shopAP.prs-tsG0-1oqys
+cp: cannot stat `shopAP.prs': No such file or directory
+make[1]: *** [.shopAP.prs-tsG0-1oqys] Error 1
+rm -f shop_dualrail.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs shop_dualrail.vhd  -tsG0-1oqys > shop_dualrail.log 2>&1
+cp shop_dualrail.prs .shop_dualrail.prs-tsG0-1oqys
+cp: cannot stat `shop_dualrail.prs': No such file or directory
+make[1]: *** [.shop_dualrail.prs-tsG0-1oqys] Error 1
+rm -f shopPA_2phase.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs shopPA_2phase.vhd  -tsG0-1oqys > shopPA_2phase.log 2>&1
+cp shopPA_2phase.prs .shopPA_2phase.prs-tsG0-1oqys
+cp: cannot stat `shopPA_2phase.prs': No such file or directory
+make[1]: *** [.shopPA_2phase.prs-tsG0-1oqys] Error 1
+rm -f shopPA_bundledS.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs shopPA_bundledS.vhd  -tsG0-1oqys > shopPA_bundledS.log 2>&1
+make[1]: *** [.shopPA_bundledS.prs-tsG0-1oqys] Error 139
+rm -f shopPA_bundled.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs shopPA_bundled.vhd  -tsG0-1oqys > shopPA_bundled.log 2>&1
+cp shopPA_bundled.prs .shopPA_bundled.prs-tsG0-1oqys
+cp: cannot stat `shopPA_bundled.prs': No such file or directory
+make[1]: *** [.shopPA_bundled.prs-tsG0-1oqys] Error 1
+rm -f simple.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs simple.vhd  -tsG0-1oqys > simple.log 2>&1
+cp simple.prs .simple.prs-tsG0-1oqys
+rm -f small_pre_dec.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs small_pre_dec.vhd  -tsG0-1oqys > small_pre_dec.log 2>&1
+cp small_pre_dec.prs .small_pre_dec.prs-tsG0-1oqys
+cp: cannot stat `small_pre_dec.prs': No such file or directory
+make[1]: *** [.small_pre_dec.prs-tsG0-1oqys] Error 1
+rm -f standard.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs standard.vhd  -tsG0-1oqys > standard.log 2>&1
+cp standard.prs .standard.prs-tsG0-1oqys
+cp: cannot stat `standard.prs': No such file or directory
+make[1]: *** [.standard.prs-tsG0-1oqys] Error 1
+rm -f synor.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs synor.vhd  -tsG0-1oqys > synor.log 2>&1
+cp synor.prs .synor.prs-tsG0-1oqys
+cp: cannot stat `synor.prs': No such file or directory
+make[1]: *** [.synor.prs-tsG0-1oqys] Error 1
+rm -f tb_pre_d.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tb_pre_d.vhd  -tsG0-1oqys > tb_pre_d.log 2>&1
+cp tb_pre_d.prs .tb_pre_d.prs-tsG0-1oqys
+cp: cannot stat `tb_pre_d.prs': No such file or directory
+make[1]: *** [.tb_pre_d.prs-tsG0-1oqys] Error 1
+rm -f tb_small_pre_dec.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tb_small_pre_dec.vhd  -tsG0-1oqys > tb_small_pre_dec.log 2>&1
+cp tb_small_pre_dec.prs .tb_small_pre_dec.prs-tsG0-1oqys
+cp: cannot stat `tb_small_pre_dec.prs': No such file or directory
+make[1]: *** [.tb_small_pre_dec.prs-tsG0-1oqys] Error 1
+rm -f test1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs test1.vhd  -tsG0-1oqys > test1.log 2>&1
+cp test1.prs .test1.prs-tsG0-1oqys
+cp: cannot stat `test1.prs': No such file or directory
+make[1]: *** [.test1.prs-tsG0-1oqys] Error 1
+rm -f tl_shifter.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs tl_shifter.vhd  -tsG0-1oqys > tl_shifter.log 2>&1
+cp tl_shifter.prs .tl_shifter.prs-tsG0-1oqys
+rm -f uno1_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs uno1_ctrl.vhd  -tsG0-1oqys > uno1_ctrl.log 2>&1
+cp uno1_ctrl.prs .uno1_ctrl.prs-tsG0-1oqys
+cp: cannot stat `uno1_ctrl.prs': No such file or directory
+make[1]: *** [.uno1_ctrl.prs-tsG0-1oqys] Error 1
+rm -f uno1.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs uno1.vhd  -tsG0-1oqys > uno1.log 2>&1
+cp uno1.prs .uno1.prs-tsG0-1oqys
+cp: cannot stat `uno1.prs': No such file or directory
+make[1]: *** [.uno1.prs-tsG0-1oqys] Error 1
+rm -f uno_ctrl.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs uno_ctrl.vhd  -tsG0-1oqys > uno_ctrl.log 2>&1
+cp uno_ctrl.prs .uno_ctrl.prs-tsG0-1oqys
+cp: cannot stat `uno_ctrl.prs': No such file or directory
+make[1]: *** [.uno_ctrl.prs-tsG0-1oqys] Error 1
+rm -f wine_2phase.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_2phase.vhd  -tsG0-1oqys > wine_2phase.log 2>&1
+cp wine_2phase.prs .wine_2phase.prs-tsG0-1oqys
+cp: cannot stat `wine_2phase.prs': No such file or directory
+make[1]: *** [.wine_2phase.prs-tsG0-1oqys] Error 1
+rm -f wineAPex.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wineAPex.vhd  -tsG0-1oqys > wineAPex.log 2>&1
+cp wineAPex.prs .wineAPex.prs-tsG0-1oqys
+rm -f wine_bundled2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_bundled2.vhd  -tsG0-1oqys > wine_bundled2.log 2>&1
+cp wine_bundled2.prs .wine_bundled2.prs-tsG0-1oqys
+cp: cannot stat `wine_bundled2.prs': No such file or directory
+make[1]: *** [.wine_bundled2.prs-tsG0-1oqys] Error 1
+rm -f wine_bundledS.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_bundledS.vhd  -tsG0-1oqys > wine_bundledS.log 2>&1
+cp wine_bundledS.prs .wine_bundledS.prs-tsG0-1oqys
+cp: cannot stat `wine_bundledS.prs': No such file or directory
+make[1]: *** [.wine_bundledS.prs-tsG0-1oqys] Error 1
+rm -f wine_bundled.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_bundled.vhd  -tsG0-1oqys > wine_bundled.log 2>&1
+cp wine_bundled.prs .wine_bundled.prs-tsG0-1oqys
+rm -f wine_control.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_control.vhd  -tsG0-1oqys > wine_control.log 2>&1
+cp wine_control.prs .wine_control.prs-tsG0-1oqys
+rm -f wine_dualrail3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_dualrail3.vhd  -tsG0-1oqys > wine_dualrail3.log 2>&1
+make[1]: *** [.wine_dualrail3.prs-tsG0-1oqys] Error 152
+rm -f wine_dualrail.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_dualrail.vhd  -tsG0-1oqys > wine_dualrail.log 2>&1
+cp wine_dualrail.prs .wine_dualrail.prs-tsG0-1oqys
+cp: cannot stat `wine_dualrail.prs': No such file or directory
+make[1]: *** [.wine_dualrail.prs-tsG0-1oqys] Error 1
+rm -f wine_example2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_example2.vhd  -tsG0-1oqys > wine_example2.log 2>&1
+cp wine_example2.prs .wine_example2.prs-tsG0-1oqys
+rm -f wine_example3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_example3.vhd  -tsG0-1oqys > wine_example3.log 2>&1
+cp wine_example3.prs .wine_example3.prs-tsG0-1oqys
+rm -f wine_example4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_example4.vhd  -tsG0-1oqys > wine_example4.log 2>&1
+cp wine_example4.prs .wine_example4.prs-tsG0-1oqys
+cp: cannot stat `wine_example4.prs': No such file or directory
+make[1]: *** [.wine_example4.prs-tsG0-1oqys] Error 1
+rm -f wine_example.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_example.vhd  -tsG0-1oqys > wine_example.log 2>&1
+make[1]: *** [.wine_example.prs-tsG0-1oqys] Error 152
+rm -f winery2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winery2.vhd  -tsG0-1oqys > winery2.log 2>&1
+cp winery2.prs .winery2.prs-tsG0-1oqys
+cp: cannot stat `winery2.prs': No such file or directory
+make[1]: *** [.winery2.prs-tsG0-1oqys] Error 1
+rm -f winery3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winery3.vhd  -tsG0-1oqys > winery3.log 2>&1
+cp winery3.prs .winery3.prs-tsG0-1oqys
+cp: cannot stat `winery3.prs': No such file or directory
+make[1]: *** [.winery3.prs-tsG0-1oqys] Error 1
+rm -f winery4.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winery4.vhd  -tsG0-1oqys > winery4.log 2>&1
+cp winery4.prs .winery4.prs-tsG0-1oqys
+cp: cannot stat `winery4.prs': No such file or directory
+make[1]: *** [.winery4.prs-tsG0-1oqys] Error 1
+rm -f winery5.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winery5.vhd  -tsG0-1oqys > winery5.log 2>&1
+cp winery5.prs .winery5.prs-tsG0-1oqys
+cp: cannot stat `winery5.prs': No such file or directory
+make[1]: *** [.winery5.prs-tsG0-1oqys] Error 1
+rm -f winery6.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winery6.vhd  -tsG0-1oqys > winery6.log 2>&1
+cp winery6.prs .winery6.prs-tsG0-1oqys
+cp: cannot stat `winery6.prs': No such file or directory
+make[1]: *** [.winery6.prs-tsG0-1oqys] Error 1
+rm -f winery7.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winery7.vhd  -tsG0-1oqys > winery7.log 2>&1
+cp winery7.prs .winery7.prs-tsG0-1oqys
+cp: cannot stat `winery7.prs': No such file or directory
+make[1]: *** [.winery7.prs-tsG0-1oqys] Error 1
+rm -f winery8.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winery8.vhd  -tsG0-1oqys > winery8.log 2>&1
+cp winery8.prs .winery8.prs-tsG0-1oqys
+cp: cannot stat `winery8.prs': No such file or directory
+make[1]: *** [.winery8.prs-tsG0-1oqys] Error 1
+rm -f winery9.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winery9.vhd  -tsG0-1oqys > winery9.log 2>&1
+cp winery9.prs .winery9.prs-tsG0-1oqys
+cp: cannot stat `winery9.prs': No such file or directory
+make[1]: *** [.winery9.prs-tsG0-1oqys] Error 1
+rm -f wineryA2.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wineryA2.vhd  -tsG0-1oqys > wineryA2.log 2>&1
+cp wineryA2.prs .wineryA2.prs-tsG0-1oqys
+cp: cannot stat `wineryA2.prs': No such file or directory
+make[1]: *** [.wineryA2.prs-tsG0-1oqys] Error 1
+rm -f winery_bundled.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winery_bundled.vhd  -tsG0-1oqys > winery_bundled.log 2>&1
+cp winery_bundled.prs .winery_bundled.prs-tsG0-1oqys
+cp: cannot stat `winery_bundled.prs': No such file or directory
+make[1]: *** [.winery_bundled.prs-tsG0-1oqys] Error 1
+rm -f winery_dualrail3.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winery_dualrail3.vhd  -tsG0-1oqys > winery_dualrail3.log 2>&1
+cp winery_dualrail3.prs .winery_dualrail3.prs-tsG0-1oqys
+cp: cannot stat `winery_dualrail3.prs': No such file or directory
+make[1]: *** [.winery_dualrail3.prs-tsG0-1oqys] Error 1
+rm -f winery_dualrail.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winery_dualrail.vhd  -tsG0-1oqys > winery_dualrail.log 2>&1
+cp winery_dualrail.prs .winery_dualrail.prs-tsG0-1oqys
+cp: cannot stat `winery_dualrail.prs': No such file or directory
+make[1]: *** [.winery_dualrail.prs-tsG0-1oqys] Error 1
+rm -f wineryPchan.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wineryPchan.vhd  -tsG0-1oqys > wineryPchan.log 2>&1
+cp wineryPchan.prs .wineryPchan.prs-tsG0-1oqys
+cp: cannot stat `wineryPchan.prs': No such file or directory
+make[1]: *** [.wineryPchan.prs-tsG0-1oqys] Error 1
+rm -f wineryProbe.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wineryProbe.vhd  -tsG0-1oqys > wineryProbe.log 2>&1
+cp wineryProbe.prs .wineryProbe.prs-tsG0-1oqys
+cp: cannot stat `wineryProbe.prs': No such file or directory
+make[1]: *** [.wineryProbe.prs-tsG0-1oqys] Error 1
+rm -f wineryP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wineryP.vhd  -tsG0-1oqys > wineryP.log 2>&1
+cp wineryP.prs .wineryP.prs-tsG0-1oqys
+cp: cannot stat `wineryP.prs': No such file or directory
+make[1]: *** [.wineryP.prs-tsG0-1oqys] Error 1
+rm -f winery.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs winery.vhd  -tsG0-1oqys > winery.log 2>&1
+cp winery.prs .winery.prs-tsG0-1oqys
+cp: cannot stat `winery.prs': No such file or directory
+make[1]: *** [.winery.prs-tsG0-1oqys] Error 1
+rm -f wine_shopAA.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_shopAA.vhd  -tsG0-1oqys > wine_shopAA.log 2>&1
+cp wine_shopAA.prs .wine_shopAA.prs-tsG0-1oqys
+cp: cannot stat `wine_shopAA.prs': No such file or directory
+make[1]: *** [.wine_shopAA.prs-tsG0-1oqys] Error 1
+rm -f wine_shopAP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_shopAP.vhd  -tsG0-1oqys > wine_shopAP.log 2>&1
+cp wine_shopAP.prs .wine_shopAP.prs-tsG0-1oqys
+cp: cannot stat `wine_shopAP.prs': No such file or directory
+make[1]: *** [.wine_shopAP.prs-tsG0-1oqys] Error 1
+rm -f wine_shopPA.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_shopPA.vhd  -tsG0-1oqys > wine_shopPA.log 2>&1
+cp wine_shopPA.prs .wine_shopPA.prs-tsG0-1oqys
+cp: cannot stat `wine_shopPA.prs': No such file or directory
+make[1]: *** [.wine_shopPA.prs-tsG0-1oqys] Error 1
+rm -f wine_shopPP.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_shopPP.vhd  -tsG0-1oqys > wine_shopPP.log 2>&1
+cp wine_shopPP.prs .wine_shopPP.prs-tsG0-1oqys
+cp: cannot stat `wine_shopPP.prs': No such file or directory
+make[1]: *** [.wine_shopPP.prs-tsG0-1oqys] Error 1
+rm -f wine_shop.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_shop.vhd  -tsG0-1oqys > wine_shop.log 2>&1
+cp wine_shop.prs .wine_shop.prs-tsG0-1oqys
+cp: cannot stat `wine_shop.prs': No such file or directory
+make[1]: *** [.wine_shop.prs-tsG0-1oqys] Error 1
+rm -f wine_top.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine_top.vhd  -tsG0-1oqys > wine_top.log 2>&1
+cp wine_top.prs .wine_top.prs-tsG0-1oqys
+cp: cannot stat `wine_top.prs': No such file or directory
+make[1]: *** [.wine_top.prs-tsG0-1oqys] Error 1
+rm -f wine.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs wine.vhd  -tsG0-1oqys > wine.log 2>&1
+make[1]: *** [.wine.prs-tsG0-1oqys] Error 152
+rm -f Xchan.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs Xchan.vhd  -tsG0-1oqys > Xchan.log 2>&1
+cp Xchan.prs .Xchan.prs-tsG0-1oqys
+cp: cannot stat `Xchan.prs': No such file or directory
+make[1]: *** [.Xchan.prs-tsG0-1oqys] Error 1
+rm -f X.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs X.vhd  -tsG0-1oqys > X.log 2>&1
+cp X.prs .X.prs-tsG0-1oqys
+cp: cannot stat `X.prs': No such file or directory
+make[1]: *** [.X.prs-tsG0-1oqys] Error 1
+rm -f Ychan.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs Ychan.vhd  -tsG0-1oqys > Ychan.log 2>&1
+cp Ychan.prs .Ychan.prs-tsG0-1oqys
+cp: cannot stat `Ychan.prs': No such file or directory
+make[1]: *** [.Ychan.prs-tsG0-1oqys] Error 1
+rm -f Y.prs #  Remove stale results.
+ulimit -Sv 254756;\
+../../bin/atacs Y.vhd  -tsG0-1oqys > Y.log 2>&1
+cp Y.prs .Y.prs-tsG0-1oqys
+cp: cannot stat `Y.prs': No such file or directory
+make[1]: *** [.Y.prs-tsG0-1oqys] Error 1
+make[1]: Target `PRSs' not remade because of errors.
+make[1]: Leaving directory `/home/ming/peskin/atacs/work/vhd'
+make: *** [vhd/PRSs.subDir] Error 2
+make: Target `PRSs' not remade because of errors.

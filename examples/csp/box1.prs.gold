@@ -1,0 +1,7 @@
+[+clkapo: (reseti)]
+[-clkapo: (~clkapi & ~reseti)]
+[ reseto: (sendi)] Combinational
+[ sendo: (clkapi & ~clkapo)] Combinational
+[+wsapo: (inci)]
+[-wsapo: (~wsapi & ~inci)]
+[ inco: (wsapi & ~wsapo)] Combinational

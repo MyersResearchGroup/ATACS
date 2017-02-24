@@ -1,0 +1,20 @@
+Switched capacitor integrator with squarewave input
+.model nch nmos level=14
+.model sw1 vswitch(voff=0 von=5 ron=10k roff=100MEG)
+
+vin 1 0 pulse (1 -1 0u 0.1u 0.1u 100u 200u)
+vphi1 5 0 pulse (0 5 0u 0.01u 0.01u 0.5u 2u)
+vphi2 6 0 pulse (0 5 1u 0.01u 0.01u 0.5u 2u)
+v1 vdd 0 dc 5v
+
+*r1 1 3 2MEG
+s1 1 2 5 0 sw1
+*m1 1 5 2 vdd nch l=1.0u w=2.0u ic=0,0,5
+c1 2 0 1p ic=-1
+s2 2 3 6 0 sw1
+*m2 2 6 3 vdd nch l=1.0u w=2.0u ic=0,0,5
+c2 3 4 23p ic=1
+e 4 0 0 3 10000
+.tran .1u 400u uic
+*.plot tran v(1,0) v(4,0) v(5,0) v(6,0)
+.end

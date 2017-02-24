@@ -1,0 +1,26 @@
+input	ITSoftResetReq           1
+input	ITCalReq                 0
+input	LoadCal16Ack             0
+input	IntEventReq              0
+input	ITActive                 0
+output	ITCalStart               0
+output	ITCalAck                 0
+output	ITEventStop              0
+output	ControlResetAck          1
+output	NextEnable               0
+output	Calibrating              0
+output	LoadCal16Req             0
+output	zzz00                    0
+
+0  1	ITSoftResetReq-          | ControlResetAck- 
+1  2	ITCalReq+                | Calibrating+ NextEnable+ zzz00+ 
+2  3	ITActive+                | ITCalStart+ NextEnable- 
+3  4	ITActive-                | Calibrating- LoadCal16Req+ ITCalAck+ 
+4  5	ITCalReq- LoadCal16Ack+  | LoadCal16Req- ITCalStart- ITCalAck- 
+5  6	IntEventReq+ LoadCal16Ack- | NextEnable+ 
+6  7	ITActive+                | NextEnable- zzz00- 
+7  8	ITActive-                | ITEventStop+ LoadCal16Req+ 
+8  5	IntEventReq- LoadCal16Ack+ | ITEventStop- LoadCal16Req- zzz00+ 
+6  0	ITSoftResetReq+ IntEventReq- | NextEnable- ControlResetAck+ zzz00- 
+7  9	ITSoftResetReq+ IntEventReq- | ControlResetAck+ zzz00+ 
+9  0	ITActive-                | zzz00- 

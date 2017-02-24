@@ -1,0 +1,62 @@
+input	ansack                   0
+input	faack                    0
+input	fback                    0
+input	fnack                    0
+input	loop3exprack             0
+input	loopiftrue               0
+input	loopiffalse              0
+input	nack                     0
+input	resultiftrue             0
+input	resultiffalse            0
+input	start                    0
+input	swack                    0
+input	update1expr0ack          0
+input	update3expr0ack          0
+input	updateiftrue             0
+input	updateiffalse            0
+output	ansreq                   0
+output	anssm1                   0
+output	fareq                    0
+output	fasm1                    0
+output	fbreq                    0
+output	fbsm1                    0
+output	fnreq                    0
+output	fnsm1                    0
+output	loop3exprreq             0
+output	loopifreq                0
+output	nreq                     0
+output	resultifreq              0
+output	swreq                    0
+output	swsm1                    0
+output	swsm2                    0
+output	update1expr0req          0
+output	update3expr0req          0
+output	updateifreq              0
+output	zzz00                    0
+output	zzz01                    0
+
+0  1	start+                   | nreq+ fnsm1+ 
+1  2	nack+                    | fnreq+ 
+2  4	fnack+                   | nreq- fnreq- fnsm1- swreq+ fareq+ fbreq+ 
+4  31	swack+ faack+ fback+ nack- fnack- | swreq- fareq- fbreq- loopifreq+ zzz01+ 
+6  8	loopiftrue+ update3expr0ack- fback- | loopifreq- swreq+ swsm2+ 
+6  18	loopiffalse+ update3expr0ack- fback- | loopifreq- loop3exprreq+ 
+8  10	swack+ loopiftrue-       | swreq- swsm2- resultifreq+ 
+10  12	resultiftrue+ swack-     | resultifreq- ansreq+ 
+10  15	resultiffalse+ swack-    | resultifreq- ansreq+ anssm1+ zzz01+ 
+12  30	ansack+ resultiftrue-    | ansreq- nreq+ fnsm1+ zzz01+ 
+15  32	ansack+ resultiffalse-   | ansreq- anssm1- nreq+ fnsm1+ 
+18  19	loop3exprack+ loopiffalse- | fnreq+ 
+19  21	fnack+                   | loop3exprreq- fnreq- updateifreq+ 
+21  23	updateiftrue+ loop3exprack- fnack- | updateifreq- update1expr0req+ fasm1+ swreq+ swsm1+ 
+21  27	updateiffalse+ loop3exprack- fnack- | updateifreq- update3expr0req+ fbsm1+ swreq+ 
+23  24	update1expr0ack+ swack+ updateiftrue- | fareq+ swreq- swsm1- 
+24  33	faack+ swack-            | update1expr0req- fareq- fasm1- loopifreq+ zzz00+ 
+27  28	update3expr0ack+ swack+ updateiffalse- | fbreq+ swreq- 
+28  6	fback+ swack-            | update3expr0req- fbreq- fbsm1- loopifreq+ 
+30  2	nack+ ansack-            | fnreq+ zzz01- 
+31  8	loopiftrue+ swack- faack- fback- | loopifreq- swreq+ swsm2+ zzz01- 
+31  18	loopiffalse+ swack- faack- fback- | loopifreq- loop3exprreq+ zzz01- 
+32  2	nack+ ansack-            | fnreq+ zzz01- 
+33  8	loopiftrue+ update1expr0ack- faack- | loopifreq- swreq+ swsm2+ zzz00- 
+33  18	loopiffalse+ update1expr0ack- faack- | loopifreq- loop3exprreq+ zzz00- 

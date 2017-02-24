@@ -1,0 +1,5 @@
+[ rout: (~ain & rout)] Combinational
+[ rout: (~rin & ~ain & ~zzz00)] Combinational
+[ aout: (rin & ~ain & ~rout)] Combinational
+[ zzz00: (ain)] Combinational
+[ zzz00: (~rin & zzz00)] Combinational

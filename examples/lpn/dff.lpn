@@ -1,0 +1,51 @@
+# DFF from AFSM by Chu; original version, state splitting
+# Encoding by Chu
+.inputs phi D
+.outputs Q y1
+#@.init_state [1000]
+.graph
+# state 00
+# first half
+Q- D+/1  #@[20,50]
+Q- phi-/1 #@[20,50]
+D+/1 y1+/1 #@[0,5]
+phi-/1 y1+/1 #@[0,5]
+y1+/1 state2
+# second half
+state1_1 D+/2 #@[20,50]
+D+/2 y1+/2 #@[0,5]
+y1+/2 state2
+
+# state 10
+state2 D-/2  #@[20,50]
+state2 phi+/1 #@[20,50]
+D-/2 y1-/1 #@[0,5]
+y1-/1 state1_1
+# -> 11
+phi+/1 Q+ #@[0,5]
+Q+ D-/1 #@[20,50]
+Q+ phi-/2 #@[20,50]
+
+# state 11
+# first half
+D-/1 y1-/3 #@[0,5]
+phi-/2 y1-/3 #@[0,5]
+y1-/3 state4
+# second half
+state3_1 D-/3 #@[20,50]
+D-/3 y1-/4 #@[0,5]
+y1-/4 state4
+
+# state 01
+state4 D+/3  #@[20,50]
+state4 phi+/2 #@[20,50]
+# -> 11
+D+/3 y1+/3 #@[0,5]
+y1+/3 state3_1
+# -> 00
+phi+/2 Q- #@[0,5]
+
+.marking { <Q-,phi-/1><Q-,D+/1> }
+#.marking {<y1+/2,phi+/1><y1+/2,D-/2><y1-/4,D+/3><y1-/4,phi+/2>}
+.end
+

@@ -1,0 +1,23 @@
+# From Peter Vanbekbergen
+# Fig. 4 (c) Tau '90
+# Page 12 (CSC version)
+.inputs r1 r2 a
+.outputs a1 a2 r
+#@.init_state [000000]
+.graph
+r1+ r+
+a1+ r1-
+r1- r-
+a1- r1+
+
+r+ a+
+a+ a1+ a2+
+r- a-
+a- a1- a2-
+
+r2+ r+
+a2+ r2-
+r2- r-
+a2- r2+
+.marking {<a1-,r1+> <a2-,r2+>}
+.end

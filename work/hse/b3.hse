@@ -1,0 +1,23 @@
+/*****************************************************************************/
+/* reshuffling b3 from Burns' dissertation */
+/*****************************************************************************/
+module b3;
+    
+input li;
+input ri;
+output lo;
+output ro;
+
+process main;
+    *[ [li]; lo+; [~ri]; ro+; [~li]; lo-; [ri]; ro- ]
+endprocess
+
+testbench Lenv;
+    *[ li+; [lo]; li-; [~lo] ]
+endtestbench
+
+testbench Renv;
+    *[ [ro]; ri+; [~ro]; ri- ]
+endtestbench
+
+endmodule

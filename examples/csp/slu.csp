@@ -1,0 +1,43 @@
+/*****************************************************************************/
+/* Simple logic unit (SLU) from Myers async course.                          */
+/*****************************************************************************/
+module SLU;
+
+output Ao;
+input  AndOp;
+output Co;
+input  Ci;
+output Do;
+input  Din;
+output Eo;
+input  Ei;
+output Fo;
+input  Fi;
+
+process SLUctrl;
+*[ [AndOp-@]; Ao+; [AndOp+]; (([Ci-@]; Co+; [Ci+]) || ([Din-@]; Do+; [Din+])); 
+   [Fi-@]; Fo+; (Ao- || Co- || Do-); [Fi+];
+   [Ei-@]; Eo+; [Ei+]; Fo-; Eo-
+ ]
+endprocess
+
+process C;
+*[ [Co+]; Ci+; [Co-]; Ci- ] 
+endprocess
+
+process D;
+*[ [Do+]; Din+; [Do-]; Din- ] 
+endprocess
+
+process E;
+*[ [Eo+]; Ei+; [Eo-]; Ei- ]
+endprocess
+
+process FG;
+*[[Fo+]; Fi+; [Fo-]; Fi-] 
+endprocess
+
+process A;
+*[ [Ao+]; AndOp+; [Ao-]; AndOp- ]
+endprocess
+endmodule

@@ -1,0 +1,19 @@
+module test;
+output a = {<1,2>};
+output b = {<1,2>};
+output c = {<1,2>};
+output d = {<1,2>};
+output e = {<1,2>};
+
+process main;
+*[ a+; ((b+; d+) || (c+; e+)); a-; d-; e- ]
+endprocess
+
+process b;
+*[ [d+]; b- ]
+endprocess
+
+process c;
+*[ [e+]; c- ]
+endprocess
+endmodule

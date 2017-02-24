@@ -1,0 +1,46 @@
+.dummy off1T off0T on1T on0T off1_yT off0_yT on1_yT on0_yT x_clockT
+.inputs p
+#@.property AG(p)
+#@.init_state [1]
+off1T on0 #@ /0;inf\ [0,0]
+off1 off1T #@ /0;inf\ [0,0]
+off1 off1_yT #@ /0;inf\ [0,0]
+off0T off1 #@ /0;inf\ [0,0]
+off0T x #@ /0;0\ [0,0]
+off0 off0T #@ /0;inf\ [0,0]
+off0 off0_yT #@ /0;inf\ [0,0]
+on1T off0 #@ /0;inf\ [0,0]
+on1_yT y #@ /0;inf\ [0,0]
+on1 on1T #@ /0;inf\ [0,0]
+on1 on1_yT #@ /0;inf\ [0,0]
+on0T on1 #@ /0;inf\ [0,0]
+on0T x #@ /0;0\ [0,0]
+on0_yT y #@ /0;inf\ [0,0]
+on0 on0T #@ /0;inf\ [0,0]
+on0 on0_yT #@ /0;inf\ [0,0]
+y off1_yT #@ /0;inf\ [0,0]
+y off0T #@ /10;10\ [0,0]
+y off0_yT #@ /0;inf\ [0,0]
+y on0T #@ /20;20\ [0,0]
+x_on x_clockT #@ /0;inf\ [0,0]
+x_clockT x #@ /0;inf\ [0,0]
+x off1T #@ /4;4\ [0,0]
+x on1T #@ /4;4\ [0,0]
+
+# Added to verify the propert that water level (y) is always greater 
+# than 1 (2 in this model) and always less than 12 (24 in this model).
+notvalid p+/1 #@ [0,0]
+p+/1 valid
+valid p-/1 #@ [0,0]
+valid p-/2 #@ [0,0]
+p-/1 notvalid
+p-/2 notvalid
+y p+/1  #@ /2;24\ [0,0]
+y p-/1 #@ /0;1\ [0,0]
+y p-/2 #@ /25;inf\ [0,0]
+
+.marking { x_on on0 valid}
+#@.marking {<y = 2>}
+#@.rates {<off1_yT=2><off0_yT=2><on1_yT=1><on0_yT=1><x_clockT=1>}
+#@.continuous off1_yT off0_yT on1_yT on0_yT y x_clockT x
+.end

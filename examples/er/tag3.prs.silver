@@ -1,0 +1,9 @@
+[ Rdy_tag1: (instRdy & XBRdy)] Combinational
+[ TagRdy_tag1: (Rdy_tag1 & TagArrived_tag1)] Combinational
+[+TagArrived_tag1: (TagIn3 & ~TagRdy_tag1)]
+[+TagArrived_tag1: (TagIn2 & ~TagRdy_tag1)]
+[+TagArrived_tag1: (TagIn1 & ~TagRdy_tag1)]
+[-TagArrived_tag1: (TagRdy_tag1)]
+[ TagOut3: (L3 & Rdy_tag1 & TagArrived_tag1)] Combinational
+[ TagOut1: (L1 & Rdy_tag1 & TagArrived_tag1)] Combinational
+[ TagOut2: (L2 & Rdy_tag1 & TagArrived_tag1)] Combinational

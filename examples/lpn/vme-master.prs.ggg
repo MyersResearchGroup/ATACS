@@ -1,0 +1,10 @@
+[~brl: (~bcsl & borgtl & is0)] Combinational
+[+borgtl: (bbsyl & bcsl & writel)]
+[-borgtl: (aslin & ~is0)]
+[+aslout: (~dtackl)]
+[-aslout: (~basl & ~bgtl & bwrl & ~is0)]
+[-aslout: (~basl & ~bgtl & ~writel & ~is0)]
+[+writel: (~dtackl)]
+[-writel: (~bwrl & ~borgtl & ~is0)]
+[+is0: (~aslin & brl & ~aslout)]
+[-is0: (~bbsyl & ~brl)]

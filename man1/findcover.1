@@ -1,0 +1,16 @@
+findcover <filename>
+.PP
+This function finds the optimal cover to resolve all conflicts
+using the minimum number of context rules.  The resulting list
+of context rules are stored to the file named <filename>.cr
+which is in the following form:
+.PP
+<enabling event> <enabled event> <epsilon> <lower bound> <upper bound>
+.PP
+If the procedure is unable to find context rules to solve all
+conflicts, it will raise an exception and list the remaining
+problems in the file <filename>.err in the form:
+.PP
+Context Rule Table for <event>
+.br
+<problem state> : list of enabling events for context rules

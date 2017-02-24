@@ -1,0 +1,624 @@
+eval "set PATH=/usr/bin:/usr/local/bin:/Perl/bin:${PATH};exec perl -S $0 $*"
+    if $running_under_some_shell;#above line won't run if we're already in Perl
+
+if ( ! @ARGV[0] ) {
+    print "\n";
+    print "usage: xbm2pla [-ehi] filename\n";
+    print " Generates PLA table structures for ON-set, OFF-set,\n";
+    print " and transitions from a complete state coded extended\n";
+    print " burst-mode controller specification. Output is written\n";
+    print " to *.on, *.off, and *.trans files where '*' are the\n";
+    print " output signals of the controller.\n";
+    print " Option 'e' and 'i' generates PLA tables for use with\n";
+    print " Espresso-HF and Impymin while option 'h' generates PLA\n";
+    print " tables for use with HFMIN.\n\n";
+}
+else{
+    $info = 1;
+    $debug = 0;
+    $id = "xbm2pla - ";
+
+    #system("date");
+    $mikemin = 0;
+    $filename = @ARGV[0];
+    if (@ARGV[0] =~ /^-/) {
+	if (@ARGV[0] =~ /e|i/) { $mikemin = 1; }
+	$filename = @ARGV[1]; }
+    if ( ! -r $filename) {
+	print "ERROR: Cannot read specified file: ".$filename."\n"; }
+    else {
+	if($info){ print $id."translating file ".$filename."\n"; }
+	$lineno = 0; $i = 0;
+	$start_state = "0";
+	open(FILE,$filename);
+	@file = <FILE>;
+	close(FILE);
+	$filename =~ s/\.unc$|\.nounc$//;
+	foreach $line (@file) { 
+	    $lineno++;
+	    $line =~ s/;.*//;  # Remove comments
+	    $line =~ s/^\s+|\s+$//g; 
+	    $line =~ s/\t/ /g;
+	    $line =~ tr/A-Z/a-z/;
+	    if ($line !~ /\w|\d/) { }
+	    elsif ($line =~ /(?:input|output)\s+\w+\s+\d+/) {
+		# Record I/O name and initial value.
+		$name = $value = $line;
+		$name =~ s/\s*(?:input|output)\s+(\w+).*\s*/$1/;
+		$value =~ s/\s*(?:input|output)\s+\w+\s+(\d+).*\s*/$1/;
+		$signal_position{$name} = $i;
+		@start_signal_vector[$i] = $value;
+		if ($line =~ /^\s*input\s+/) {
+		    @signal_names[$i++] = "INP $name "; }
+		elsif ($line =~ /^\s*output\s+/) {
+		    @signal_names[$i++] = "$name ";
+		    $is_output{$name} = 1; }
+	    }
+ 	    elsif ($line =~ /\d+\s+\d+\s+\[?\w+(?:\+|-|\*)\]?(?:\s+\[?\w+(?:\+|-|\*)\]?)*\s*\|\s*\w*(?:\+?|-?)(?:\s+\w+(?:\+|-))*/) {
+		$curr_state = $line;
+		$next_state = $line;
+		$in_burst = $line;
+		$out_burst = $line;
+		$level_signals = $line;
+		$curr_state =~ s/\s*(\d+).*/$1/;
+		$next_state =~ s/\s*\d+\s+(\d+).*/$1/;
+		$in_burst   =~ s/\s*\d+\s+\d+\s+(.*?)\s*\|.*/$1/;
+		$out_burst  =~ s/.*\|\s*(.*)/$1/;
+		$graph{$curr_state}{next_state} .= $next_state.",";
+		$graph{$curr_state}{in_burst} .= $in_burst.",";
+		$graph{$curr_state}{out_burst} .= $out_burst.",";
+		if ($level_signals =~ /\[/) {
+		    $level_signals =~ s/.*?(\[\w+(?:\+|-)\])/$1/g;
+		    $level_signals =~ s/((?:\[\w+(?:\+|-)\])*).*/$1/;
+		    $level_signals =~ s/\]\[/,/g;
+		    $level_signals =~ s/\[|\]//g;
+		    @level_signals = split(/,/,$level_signals);
+		    foreach $level_signal (@level_signals) {
+			$level_signal =~ s/\+|-//;
+			$is_level{$level_signal} = 1; }}
+		if ($next_state eq $start_state) { $start_prev_burst = $in_burst; }}
+	   else {
+	       print $id."Error on line ".$lineno.", skipping this line.\n"; }
+	}
+	if($debug){print "GRAPH:\n"; foreach $state (keys %graph) {
+	    print $state."\t".$graph{$state}{next_state}."\t".$graph{$state}{in_burst}."\t|\t".$graph{$state}{out_burst}."\n"; }}
+	if($debug){print "\nSTATE VECTOR: ".join("",@signal_names)."\n";}
+	if($debug){print "level signals: ",%is_level,"\n";}
+
+	$burst_num = 0;
+	# Insert correct values for ddc's starting before and continuing through start state.
+	@signals = split(/\s+/,$start_prev_burst);
+	foreach $signal (@signals) {
+	    $name = $signal;
+	    $name =~ s/\+|-|\*|\[|\]//g;
+	    $position = $signal_position{$name};
+	    if ($signal =~ /\*/) {
+		if (@start_signal_vector[$position] eq "0") {
+		    @start_signal_vector[$position] = "U"; }
+		elsif (@start_signal_vector[$position] eq "1") {
+		    @start_signal_vector[$position] = "D"; }}}
+	$start_vector = join("",@start_signal_vector);
+	&build_state_graph($start_state,$start_vector,"");
+	%state_visited = ();
+
+	if($debug){print "\nBUILD PLA TABLES:\n\n";}
+	&build_pla_tables($start_state,$start_vector);
+	if($debug){print "\nPLA TABLES:\n";}
+	@io_vector = ();
+	while (($signal,$position) = each(%signal_position)) {
+	    @io_vector[$position] = $signal; }
+	$io_vector = join(" ",@io_vector);
+	foreach $output (keys %is_output) {
+	    $file = ".i ".($#io_vector + 1)."\n";
+	    $file .= ".o 1\n";
+	    $file .= ".ilb $io_vector\n";
+	    $file .= ".ob $output\n";
+	    $file .= ".p 0\n";
+	    $rise_onset_file = $rise_onset{$output};
+	    $rise_onset_file =~ s/,/ 1\n/g;
+	    $rise_offset_file = $rise_offset{$output};
+	    $rise_offset_file =~ s/([\d-]+)\s*.*?,/$1 0\n/g;
+	    $rise_trans_file = $rise_dynamic_trans{$output};
+	    $rise_trans_file =~ s/,/\n/g;
+	    $fall_onset_file = $fall_onset{$output};
+	    $fall_onset_file =~ s/,/ 1\n/g;
+	    $fall_offset_file = $fall_offset{$output};
+	    $fall_offset_file =~ s/([\d-]+)\s*.*?,/$1 0\n/g;
+	    $fall_trans_file = $fall_dynamic_trans{$output};
+	    $fall_trans_file =~ s/,/\n/g;
+	    $type_r = "";
+	    $type_f = "";
+	    if ($mikemin) { 
+		$type_r = ".type f\n";
+		$type_f = ".type r\n"; }
+	    if ($rise_trans_file =~ /\w+/) {
+		open(FILE,"> ".$output."_r.on");
+		print FILE $file.$type_r.$rise_onset_file.".e\n";
+		close(FILE);
+		open(FILE,"> ".$output."_r.off");
+		print FILE $file.$type_f.$rise_offset_file.".e\n";
+		close(FILE);
+		open(FILE,"> ".$output."_r.trans");
+		print FILE $rise_trans_file;
+		close(FILE); }
+	    if ($fall_trans_file =~ /\w+/) {
+		open(FILE,"> ".$output."_f.on");
+		print FILE $file.$type_r.$fall_onset_file.".e\n";
+		close(FILE);
+		open(FILE,"> ".$output."_f.off");
+		print FILE $file.$type_f.$fall_offset_file.".e\n";
+		close(FILE);
+		open(FILE,"> ".$output."_f.trans");
+		print FILE $fall_trans_file;
+		close(FILE); }
+	    if($debug){
+		print "\nOutput $output:\n------------\n";
+		print "rise on-set:\n";
+		@tmp = split(/,/,$rise_onset{$output});
+		print join("\n",@tmp)."\n";
+		print "rise off-set:\n";
+		@tmp = split(/,/,$rise_offset{$output});
+		print join("\n",@tmp)."\n";
+		print "rise trans:\n";
+		@tmp = split(/,/,$rise_dynamic_trans{$output});
+		print join("\n",@tmp)."\n";
+		print "fall on-set:\n";
+		@tmp = split(/,/,$fall_onset{$output});
+		print join("\n",@tmp)."\n";
+		print "fall off-set:\n";
+		@tmp = split(/,/,$fall_offset{$output});
+		print join("\n",@tmp)."\n";
+		print "fall trans:\n";
+		@tmp = split(/,/,$fall_dynamic_trans{$output});
+		print join("\n",@tmp)."\n"; }
+	}
+	if($debug){print "\n";}
+
+	if($info){ print $id."total states: $states\n"; }
+	if($info){ print $id."state vector: ".($#start_signal_vector+1)."\n"; }
+        $nst = "NEXT STATE TABLE:\n";
+        $nst .= "STATEVECTOR:".join("",@signal_names)."\n";
+	foreach $curr_state (keys %state_graph) {
+	    $state_vector = $state_graph{$curr_state}{state_vector};
+	    $next_states = $state_graph{$curr_state}{next_state};
+	    $bursts = $state_graph{$curr_state}{burst};
+	    if($debug){print "$curr_state\t$state_vector\t$next_states\t$bursts\n";}
+	    @next_states = split(/,/,$next_states);
+	    @bursts = split(/;/,$bursts);
+	    $i = 0;
+	    $nst .= "$curr_state: $state_vector\n";
+	    foreach $next_state (@next_states) {
+		$nst .= "  ".@bursts[$i]." -> $next_state\n"; }
+	    $nst .= "\n"; }
+	open(FILE,">".$filename.".csg");
+	#if ($debug){print $nst;}
+	print FILE $nst;
+	close(FILE);
+	#if($info){ print $id."next state table written to file $filename.csg\n"; }
+    }
+    #system("date");
+}
+
+
+sub build_pla_tables {
+# Builds on-set, off-set, and transition PLA tables for synthesis with Nowick minimizers.
+
+    local($i,$curr_state,$state_vector,@prev_vector,@state_vector,@next_states,@bursts);
+    $curr_state = @_[0];
+    $prev_vector = @_[1];
+    $state_visited{$curr_state} = 1;
+    @prev_vector = split(//,$prev_vector);
+    $state_vector = $state_graph{$curr_state}{state_vector};
+    @state_vector = split(//,$state_vector);
+    $next_states = $state_graph{$curr_state}{next_state};
+    $bursts = $state_graph{$curr_state}{burst};
+    @next_states = split(/,/,$next_states);
+    @bursts = split(/;/,$bursts);
+    $i = 0;
+    foreach $next_state (@next_states) {
+	if($debug){print $id."DFS trace - state $curr_state, prev  vector = ",@prev_vector,"\n";}
+	if($debug){print $id."DFS trace - state $curr_state, state vector = ",@state_vector,"\n";}
+	$burst = @bursts[$i++];
+	@signals = split(/,/,$burst);
+	if($debug){print "burst: $burst\n";}
+	$next_bursts = $state_graph{$next_state}{burst};
+	@next_bursts = split(/;/,$next_bursts);
+	@out_signals = split(/,/,@next_bursts[0]);
+	# Redo all terminating edge and ddc inputs in current burst to form correct state vector when in a choice branch.
+	$next_state_vector = $state_vector;
+#print join(",",@signals).": ";
+#print $next_state_vector.": ";
+	$next_state_vector =~ s/R/0/g;
+	$next_state_vector =~ s/F/1/g;
+	$name = @signals[0];
+	$name =~ s/\+\d*|-\d*|\*|\[|\]//g;
+	if (!($is_output{$name})) {
+	    $next_state_vector =~ s/U/0/g;
+	    $next_state_vector =~ s/D/1/g; }
+	@next_state_vector = split(//,$next_state_vector);
+	foreach $signal (@signals) {
+	    $name = $signal;
+	    $name =~ s/\+\d*|-\d*|\*|\[|\]//g;
+	    $position = $signal_position{$name};
+#print $position.":";
+	    if ($signal =~ /-(?!\])/) { 
+		# Falling terminating edge 
+		@next_state_vector[$position] = "F"; }
+	    elsif ($signal =~ /\+(?!\])/) { 
+		# Rising terminating edge 
+		@next_state_vector[$position] = "R"; }
+	    elsif (($signal =~ /\*/) && (@next_state_vector[$position] eq "0")) { 
+		# Rising ddc 
+		@next_state_vector[$position] = "U"; }
+	    elsif (($signal =~ /\*/) && (@next_state_vector[$position] eq "1")) { 
+		# Falling ddc 
+		@next_state_vector[$position] = "D"; }
+	    elsif ($is_level{$name}) {
+		if ($signal =~ /-/) {
+		    @next_state_vector[$position] = "0"; }
+		else {
+		    @next_state_vector[$position] = "1"; }}		
+	}
+	$next_state_vector = join("",@next_state_vector);
+#print $next_state_vector."\n";
+	# Prepare stuff for static transitions.
+	$static_transition_cube = $next_state_vector;
+	$static_start_cube = $next_state_vector;
+	$static_transition_cube =~ s/X|U|D|R|F/-/g;
+	$static_offset_cube = $next_state_vector;
+	$static_offset_cube =~ s/X|U|D|R|F/-/g;
+	@static_offset_cube = split(//,$static_offset_cube);
+	$static_start_cube =~ s/X|U|D/-/g;
+	$static_start_cube =~ s/R/0/g;
+	$static_start_cube =~ s/F/1/g;
+	# Prepare stuff for dynamic transition.
+	$dynamic_transition_cube = $next_state_vector;
+	$dynamic_start_cube = $next_state_vector;
+	$dynamic_end_cube = $next_state_vector;
+	$dynamic_offset_cube = $next_state_vector;
+	$dynamic_onset_cube = $next_state_vector;
+	$dynamic_transition_cube =~ s/X|U|D|R|F/-/g;
+	@dynamic_transition_cube = split(//,$dynamic_transition_cube);
+	$dynamic_start_cube =~ s/R/0/g;
+	$dynamic_start_cube =~ s/F/1/g;
+	@dynamic_start_cube = split(//,$dynamic_start_cube);
+	$dynamic_offset_cube =~ s/X|U|D/-/g;
+	@dynamic_offset_cube = split(//,$dynamic_offset_cube);
+	$dynamic_onset_cube =~ s/X|U|D/-/g;
+	$dynamic_onset_cube =~ s/R/1/g;
+	$dynamic_onset_cube =~ s/F/0/g;
+	@dynamic_onset_cube = split(//,$dynamic_onset_cube);
+	foreach $output (keys %is_output) {
+	    if($debug){print "next burst: $next_bursts\n";}
+	    if($debug){print "output: $output\n";}
+	    if ($next_bursts =~ /\b$output\b/) {
+		if($debug){print "dynamic\n";}
+		## Output has a dynamic transition.
+		## 1: generate OFF-set cubes for the transition.
+		$offset_cubes = "";
+		foreach $signal (@signals) {
+		    $name = $signal;
+		    $name =~ s/\+|-|\*|\[|\]//g;
+		    $position = $signal_position{$name};
+		    $output_value = 0;
+		    @offset_cube = @dynamic_offset_cube;
+		    if (@offset_cube[$position] eq "R") {
+			@offset_cube[$position] = "0";
+			$offset_cube = join("",@offset_cube);
+			$offset_cube =~ s/R|F/-/g;
+			$offset_cubes .= $offset_cube." ".join(" ",@signals).","; }
+		    elsif (@offset_cube[$position] eq "F") {
+			@offset_cube[$position] = "1";
+			$offset_cube = join("",@offset_cube);
+			$offset_cube =~ s/R|F/-/g;
+			$offset_cubes .= $offset_cube." ".join(" ",@signals).","; }
+		}
+		if($debug){print "OFFSET CUBES: $offset_cubes\n";}
+		if ($next_bursts =~ /\b$output\+/) {
+		    $rise_offset{$output} .= $offset_cubes; }
+		elsif ($next_bursts =~ /\b$output-/) {
+		    $fall_offset{$output} .= $offset_cubes; }
+		else {
+		    die $id."ERROR: cannot determine dynamic polarity for output $output.\n"; }
+		## 2: generate ON-set cube for the transition.
+		foreach $signal (@signals) {
+		    $name = $signal;
+		    $name =~ s/\+|-|\*|\[|\]//g;
+		    $position = $signal_position{$name};
+		    if ($is_level{$name}) {
+			if ($signal =~ /-/) {
+			    @dynamic_onset_cube[$position] = "0"; }
+			elsif ($signal =~ /\+/) {
+			    @dynamic_onset_cube[$position] = "1"; }
+			else {
+			    die $id."ERROR: cannot determine polarity for level signal $name\n"; }}}
+		$dynamic_onset_cube = join("",@dynamic_onset_cube);
+		if ($next_bursts =~ /\b$output\+/) {
+		    $rise_onset{$output} .= $dynamic_onset_cube.","; }
+		elsif ($next_bursts =~ /\b$output-/) {
+		    $fall_onset{$output} .= $dynamic_onset_cube.","; }
+		else {
+		    die $id."ERROR: cannot determine dynamic polarity for output $output.\n"; }
+		## 3: generate transition cubes for the transition.
+		@level_ddc_names = (keys %is_level);
+		foreach $signal (@signals) {
+		    $name = $signal;
+		    $name =~ s/\+|-|\*|\[|\]//g;
+		    $position = $signal_position{$name};
+		    if (@prev_vector[$position] =~ /U|D/) {
+			# Add any 2:nd or later occurrence ddc to the list of signals changing in the start cube.
+			push(@level_ddc_names,$name); }
+		    elsif (@next_state_vector[$position] =~ /U/) {
+			@dynamic_start_cube[$position] = "0"; }
+		    elsif (@next_state_vector[$position] =~ /D/) {
+			@dynamic_start_cube[$position] = "1"; }
+		}
+		## 3:a generate all combinations of level and ddc signals to form all possible transition start points out of start cube.
+		foreach $signal (@signals) {
+		    ## Do level based choice transition cubes according to 3D's model 
+		    ## (i.e. level stabilize before any terminating edge arrives).
+		    $name = $signal;
+		    $name =~ s/\+|-|\*|\[|\]//g;
+		    $position = $signal_position{$name};
+		    if ($is_level{$name}) {
+			@tmp = ();
+			while ($sig = pop(@level_ddc_names)) {
+			    if(!($sig eq $name)) { push(@tmp,$sig); }}
+			@level_ddc_names = @tmp;
+			if ($signal =~ /-/) {
+			    @dynamic_start_cube[$position] = "0";
+			    @dynamic_transition_cube[$position] = "0"; }
+			elsif ($signal =~ /\+/) {
+			    @dynamic_start_cube[$position] = "1";
+			    @dynamic_transition_cube[$position] = "1"; }
+			else {
+			    die $id."ERROR: cannot determine polarity for level signal $name\n"; }}}
+		#print "$curr_state\t$output\t:\t".join("",@prev_vector)."\t$next_state_vector\t$burst\t".join(",",@level_ddc_names)."\n";
+		$column_iterations = $#level_ddc_names + 1;
+	        $row_iterations = 2**$column_iterations;
+		@start_cubes = ();
+		@transition_cubes = ();
+		for ($row = 0; $row < $row_iterations; $row++) {
+		    $start_cubes[$row] = [@dynamic_start_cube];
+		    $transition_cubes[$row] = [@dynamic_transition_cube];
+		    #print @{$start_cubes[$row]}," :\n",@{$transition_cubes[$row]},"\n";
+		}
+
+		@values = ();
+ 		for ($column = 0; $column < $column_iterations; $column++) {
+		    ## Do start and transition cubes. Note that the transition cube depends on what value
+		    ## a terminating edge of a ddc has in the start cube. If the ddc has reached its final
+		    ## value in the start cube, then it must also be its final value (not '-') in the 
+		    ## transition cube, otherwise we introduce an illegal transition (3D has this bug).
+		    $sq_column = 2**$column;
+		    $name = @level_ddc_names[$column];
+		    $position = $signal_position{$name};
+		    $value = "1";
+		    for ($row = 0; $row < $row_iterations; $row++) {
+			if (($row % $sq_column) == 0) { 
+			    if ($value eq "0") { $value = "1"; }
+			    else { $value = "0"; }}
+			@values[$row] = $value.@values[$row];
+			$start_cubes[$row][$position] = $value;
+			## If ddc is a ddc or terminating edge and start cube contains its final value then
+			## transition cube must also contain its final value.
+			if (((@next_state_vector[$position] eq "U") || ($burst =~ /\b$name\+/)) && ($value eq "1")) {
+			    $transition_cubes[$row][$position] = "1"; }
+			elsif (((@next_state_vector[$position] eq "D") || ($burst =~ /\b$name-/)) && ($value eq "0")) {
+			    $transition_cubes[$row][$position] = "0"; }
+		    }
+		}
+		#print "TABLE:\n".join("\n",@values)."\n";
+		if($debug){print "START CUBES:\n";}
+		for ($j = 0; $j <= $#start_cubes; $j++) {
+		    @start_cube = @{$start_cubes[$j]};
+		    @transition_cube = @{$transition_cubes[$j]};
+		    if ($next_bursts =~ /\b$output\+/) {
+			$rise_dynamic_trans{$output} .= join("",@transition_cube).": ".join("",@start_cube).","; }
+		    elsif ($next_bursts =~ /\b$output-/) {
+			$fall_dynamic_trans{$output} .= join("",@transition_cube).": ".join("",@start_cube).","; }
+		    else {
+			die $id."ERROR: cannot determine dynamic polarity for output $output.\n"; }
+		    if($debug){print join("",@transition_cube)." : ".join("",@start_cube)."\n"; }}
+	    }
+	    else {
+		if($debug){print "static\n";}
+		## Output has a static transition (during an input or output burst).
+		## 1. Generate offset sub-cubes if there are level signals present.
+		$level_signal_present = 0;
+		$offset_cubes = "";
+		foreach $signal (@signals) {
+		    $name = $signal;
+		    $name =~ s/\+|-|\*|\[|\]//g;
+		    $position = $signal_position{$name};
+		    $output_value = 0;
+		    @offset_cube = @static_offset_cube;
+		    if ($is_level{$name}) {
+			$level_signal_present = 1;
+			if ($signal =~ /-/) {
+			    @offset_cube[$position] = "0"; }
+			elsif ($signal =~ /\+/) {
+			    @offset_cube[$position] = "1"; }
+			$offset_cube = join("",@offset_cube);
+			$offset_cubes .= $offset_cube." ".join(" ",@signals).","; }
+		    elsif ($signal =~ /\+/) {
+			@offset_cube[$position] = "0";
+			$offset_cube = join("",@offset_cube);
+			$offset_cubes .= $offset_cube." ".join(" ",@signals).","; }
+		    elsif ($signal =~ /-/) {
+			@offset_cube[$position] = "1";
+			$offset_cube = join("",@offset_cube);
+			$offset_cubes .= $offset_cube." ".join(" ",@signals).","; }
+		}
+		if ($level_signal_present) {
+		    $offset_cubes =~ s/,$//;
+		    $static_offset_cubes = $offset_cubes; }
+		else {
+		    $static_offset_cubes = $static_offset_cube." ".join(" ",@signals); }
+		## 2. Add the offset cubes to the rising or falling signal offset.
+		$position = $signal_position{$output};
+		if ((@next_state_vector[$position] eq "1") || (@next_state_vector[$position] eq "R")) {
+		    $fall_offset{$output} .= $static_offset_cubes.","; }
+		elsif ((@next_state_vector[$position] eq "0") || (@next_state_vector[$position] eq "F")) {
+		    $rise_offset{$output} .= $static_offset_cubes.","; }
+		else {
+		    die $id."ERROR: cannot determine static polarity for output $output.\n"; }
+		$static_trans{$output} .= $static_transition_cube.",";
+	    }		
+	}
+	if (! $state_visited{$next_state}) {
+	    &build_pla_tables($next_state,$next_state_vector); }
+    }
+}
+
+sub build_state_graph {
+# Build a state graph from the extended burst-mode specification.
+
+    local($i,$curr_state,$end_vector,$in_vector,@prev_rf_state_vector,@state_vector,@next_states,@in_bursts,@out_bursts);
+    $curr_state = @_[0];
+    $prev_vector = @_[1];
+    $prev_burst = @_[2];
+
+    @prev_rf_state_vector = split(//,$prev_vector);
+    $tmp_vector = $prev_vector;
+    $tmp_vector =~ s/R/1/g;
+    $tmp_vector =~ s/F/0/g;
+    @state_vector = split(//,$tmp_vector);
+    if($debug){print $id."DFS trace - state $curr_state, state vector = ",@state_vector,"\n";}
+    if($debug){print $id."DFS trace - state $curr_state, prev  vector = ",@prev_rf_state_vector,"\n";}
+    $next_states = $graph{$curr_state}{next_state};
+    $next_states =~ s/,$//;
+    @next_states = split(/,/,$next_states);
+    $in_bursts = $graph{$curr_state}{in_burst};
+    $in_bursts =~ s/,$//;
+    @in_bursts = split(/,/,$in_bursts);
+    $out_bursts = $graph{$curr_state}{out_burst};
+    $out_bursts =~ s/,$//;
+    @out_bursts = split(/,/,$out_bursts);
+    # Mark enabled inputs with R,F,D,U,X.
+    foreach $name (keys %is_level) {
+	@state_vector[$signal_position{$name}] = "X"; }
+    @rf_state_vector = @state_vector;
+    foreach $burst (@in_bursts) {
+	@signals = split(/\s+/,$burst);
+	foreach $signal (@signals) {
+	    $name = $signal;
+	    $name =~ s/\+|-|\*|\[|\]//g;
+	    $position = $signal_position{$name};
+	    if ($signal =~ /-(?!\])/) {
+		# Falling edge
+		@rf_state_vector[$position] = "F"; }
+	    elsif ($signal =~ /\+(?!\])/) {
+		# Rising edge
+		@rf_state_vector[$position] = "R"; }
+	    elsif ($signal =~ /\*(?!\])/) {
+		# Directed don't care
+		if (@prev_rf_state_vector[$position] eq "0") {    # First ddc occurrence in the ddc transition.
+		    @rf_state_vector[$position] = "U"; } 
+		elsif (@prev_rf_state_vector[$position] eq "1") {
+		    @rf_state_vector[$position] = "D"; }
+		elsif (@prev_rf_state_vector[$position] eq "U") { # Second or later ddc occurrence in ddc transition.
+		    @rf_state_vector[$position] = "U"; }
+		elsif (@prev_rf_state_vector[$position] eq "D") {
+		    @rf_state_vector[$position] = "D"; }
+		else { die $id."ERROR: Cannot determine value of directed don't care.\n"; }}
+	    elsif ($signal =~ /(?:\+|-)\]/) { }
+		# Specified and unspecified level signals alike are X throughout input transition.
+	    else {
+		die $id."ERROR: Signal $signal not of recognizable type (terminating edge, directed don't care, level).\n"; }
+	}
+    }
+    if($debug){print join("",@rf_state_vector)."  ".join(", ",@in_bursts)." |\n";}
+    $in_vector = join("",@rf_state_vector);
+    $state_visited{$curr_state} = 1;
+    $state_graph{$curr_state}{state_vector} = $in_vector;
+    if ($prev_burst !~ /\w/) {
+	$dfs_start_rf_state_vector = $end_vector; }
+    $states++;
+    $i = 0;
+    foreach $next_state (@next_states) {
+	if($debug){print "$curr_state  $next_state   ".@in_bursts[$i]."  |  ".@out_bursts[$i]."\n";}
+	@rf_state_vector = @state_vector;
+	$tc = join("",@state_vector);
+	$tc =~ s/0|1|R|F/-/g;
+	@tc = split(//,$tc);
+	$burst = @in_bursts[$i];
+	$in_burst = $burst;
+	$in_burst =~ s/\s+/,/g;
+	@signals = split(/\s+/,$burst);
+	# Fire all inputs in current burst to form state vector after input changes have ended.
+	foreach $signal (@signals) {
+	    $name = $signal;
+	    $name =~ s/\+|-|\*|\[|\]//g;
+	    $position = $signal_position{$name};
+	    if ($signal =~ /-/) { 
+		# Falling edge or 0 level signal
+		if ($signal !~ /\[/) { @tc[$position] = "0"; }
+		@rf_state_vector[$position] = "0"; }
+	    elsif ($signal =~ /\+/) { 
+		# Rising edge or 1 level signal
+		if ($signal !~ /\[/) { @tc[$position] = "1"; }
+		@rf_state_vector[$position] = "1"; }
+	    elsif($signal =~ /\*/) {
+		# Directed don't care.
+		if (@prev_rf_state_vector[$position] eq "0") {    # First ddc occurrence in the ddc transition.
+		    @rf_state_vector[$position] = "U"; } 
+		elsif (@prev_rf_state_vector[$position] eq "1") {
+		    @rf_state_vector[$position] = "D"; }
+		elsif (@prev_rf_state_vector[$position] eq "U") { # Second or later ddc occurrence in ddc transition.
+		    @rf_state_vector[$position] = "U"; }
+		elsif (@prev_rf_state_vector[$position] eq "D") {
+		    @rf_state_vector[$position] = "D"; }}}
+	# Mark eventual enabled outputs with R,F.
+	$burst = @out_bursts[$i];
+	$end_vector = join("",@rf_state_vector);
+	$end_burst = $in_burst;
+	@signals = split(/\s+/,$burst);
+	if ($#signals >= 0) { 
+	    $out_burst = $burst;
+	    $out_burst =~ s/\s+/$burst_num,/g;
+	    $out_burst .= $burst_num;
+	    $end_burst = $out_burst;
+	    @tmp_state_vector = @rf_state_vector;
+	    $cs = "";
+	    while (($name,$position) = each(%signal_position)) {
+		if ((@tc[$position] eq "-") && ((@rf_state_vector[$position] eq "0") || (@rf_state_vector[$position] eq "1"))) {
+		    if (@rf_state_vector[$position] eq "0") { $cs .= $name.","; }
+		    else { $cs .= "~".$name.","; }}}
+	    foreach $signal (@signals) {
+		$ec{$signal.$burst_num} = join("",@tmp_state_vector);
+		$tc{$signal.$burst_num}{state_vector} = join("",@tc);
+		$tc{$signal.$burst_num}{trigger_signals} = $in_burst;
+		$cs{$signal.$burst_num} = $cs;
+		$name = $signal;
+		$name =~ s/\+|-//;
+		if ($signal =~ /-/) { 
+		    # Falling edge 
+		    @rf_state_vector[$signal_position{$name}] = "F"; }
+		elsif ($signal =~ /\+/) { 
+		    # Rising edge
+		    @rf_state_vector[$signal_position{$name}] = "R"; }}
+	    if($debug){print join("",@rf_state_vector)."  | ".@out_bursts[$i]."\n";}
+	    $out_vector = join("",@rf_state_vector);
+	    $state_graph{$curr_state}{next_state} .= $curr_state."_".$next_state.",";
+	    $state_graph{$curr_state}{burst} .= $in_burst.";";
+	    $state_graph{$curr_state."_".$next_state}{state_vector} = $out_vector;
+	    $state_graph{$curr_state."_".$next_state}{next_state} = $next_state;
+	    $state_graph{$curr_state."_".$next_state}{burst} = $out_burst;
+	    $end_vector = join("",@rf_state_vector);
+	    $states++;
+	    $burst_num++; }
+	else {
+	    $state_graph{$curr_state}{next_state} .= $next_state.",";
+	    $state_graph{$curr_state}{burst} .= $in_burst.";"; }
+	# Handle dfs iteration.
+	if (! $state_visited{$next_state}) { 
+	    &build_state_graph($next_state,$end_vector,$end_burst); }
+	$i++;
+    }
+}
+
+
+
+
+

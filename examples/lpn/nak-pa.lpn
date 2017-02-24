@@ -1,0 +1,48 @@
+# nak-pa
+# HP controller, by K. Stevens
+# Meat state encoding
+# enableda related with ackhyst (??)
+.inputs rejsend ackbus ackhyst busack
+.outputs ack reqbus hystreq busreq enableda y0_nakpa
+#@.init_state [0000000000]
+.graph
+# 0
+rejsend+ reqbus+
+# -> 1
+reqbus+ ackbus+
+
+# 1 
+ackbus+ hystreq+ enableda+
+# -> 2
+hystreq+ ackhyst+
+enableda+ ackhyst+
+
+# 2
+ackhyst+ busreq+
+# -> 3
+busreq+ busack+
+
+# 3
+busack+ y0_nakpa+
+y0_nakpa+ busreq-
+# -> 4
+busreq- busack-
+
+# 4
+busack- reqbus- ack+ enableda- hystreq-
+# -> 5
+reqbus- ackbus-
+hystreq- ackhyst-
+ack+ rejsend-
+enableda- ackhyst-
+
+# 5
+ackbus- y0_nakpa-
+ackhyst- y0_nakpa-
+rejsend- y0_nakpa-
+y0_nakpa- ack-
+# -> 0
+ack- rejsend+
+
+.marking { <ack-,rejsend+> }
+.end

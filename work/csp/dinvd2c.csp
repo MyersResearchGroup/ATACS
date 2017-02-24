@@ -1,0 +1,19 @@
+    module dinvd2c;
+    input  clk = {false};
+    input  a   = {false};
+    output y   = {true};
+
+
+    process y;
+	 *[ [clk+]; [ a+ -> y- ; [clk-]; y+; [a-]
+		    | clk- -> skip ]]
+    endprocess
+
+    process aenv;
+	*[ clk+; [ skip -> a+; (clk- ; a-)
+		  |skip -> clk-]]
+    endprocess
+
+    endmodule
+    
+

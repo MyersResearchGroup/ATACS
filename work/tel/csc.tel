@@ -1,0 +1,169 @@
+#  This Timed Event/Level structure contains:
+.e 32 # events
+.i 6 # input events
+.r 36 # causal rules
+.n 0 # ordering rules
+.d 1 # merges
+.c 81 # conflicts
+.s 000000 # start state
+#
+# EVENTS:
+#
+reset
+#  Each of the following events has the format <action>/<occurrence>
+#   Input Events:
+y!+/1 y!-/1
+x!+/1 x!-/1
+z?+/1 z?-/1
+#   Output Events:
+x?+/1 x?-/1
+z!+/1 z!-/1
+z!+/2 z!-/2
+y?+/1 y?-/1
+#   Dummy (Sequencing) Events:
+$1+_winery_Yenv/1
+$0+_winery_Yenv/1
+$1+_winery_Xenv/1
+$0+_winery_Xenv/1
+$0+_patron_Zenv/1
+$1+_patron_Zenv/1
+$9+_merge_MERGE/1
+$6+_merge_MERGE/1
+$5+_merge_MERGE/1
+$7+_merge_MERGE/1
+$0+_merge_MERGE/1
+$10+_merge_MERGE/1
+$8+_merge_MERGE/1
+$3+_merge_MERGE/1
+$4+_merge_MERGE/1
+$1+_merge_MERGE/1
+$2+_merge_MERGE/1
+#
+# RULES, which have the following format:
+#  <enabling> <enabled> [<expression>] <epsilon> <lower> <upper>
+#   Causal Rules:
+reset y!+/1 0 0 inf
+reset x!+/1 0 0 inf
+reset z?+/1 0 0 inf
+reset $0+_merge_MERGE/1 0 0 inf
+y!+/1 $0+_winery_Yenv/1 [y?] 0 0 inf
+y!-/1 $1+_winery_Yenv/1 [~y?] 0 0 inf
+x!+/1 $0+_winery_Xenv/1 [x?] 0 0 inf
+x!-/1 $1+_winery_Xenv/1 [~x?] 0 0 inf
+z?+/1 $0+_patron_Zenv/1 0 0 inf
+z?-/1 $1+_patron_Zenv/1 0 0 inf
+x?+/1 $1+_merge_MERGE/1 0 0 inf
+x?-/1 $2+_merge_MERGE/1 0 0 inf
+z!+/1 $3+_merge_MERGE/1 [z?] 0 0 inf
+z!-/1 $4+_merge_MERGE/1 [~z?] 0 0 inf
+z!+/2 $7+_merge_MERGE/1 [z?] 0 0 inf
+z!-/2 $8+_merge_MERGE/1 [~z?] 0 0 inf
+y?+/1 $5+_merge_MERGE/1 0 0 inf
+y?-/1 $6+_merge_MERGE/1 0 0 inf
+$1+_winery_Yenv/1 y!+/1 1 0 inf # INITIAL
+$0+_winery_Yenv/1 y!-/1 0 0 inf
+$1+_winery_Xenv/1 x!+/1 1 0 inf # INITIAL
+$0+_winery_Xenv/1 x!-/1 0 0 inf
+$0+_patron_Zenv/1 z?-/1 [~z!] 0 0 inf
+$1+_patron_Zenv/1 z?+/1 [z!] 1 0 inf # INITIAL
+$9+_merge_MERGE/1 x?+/1 [x!] 0 0 inf
+$6+_merge_MERGE/1 z!-/2 0 0 inf
+$5+_merge_MERGE/1 z!+/2 0 0 inf
+$7+_merge_MERGE/1 y?-/1 [~y!] 0 0 inf
+$0+_merge_MERGE/1 $9+_merge_MERGE/1 [(x!)|(x?)] 0 0 inf
+$0+_merge_MERGE/1 $10+_merge_MERGE/1 [~((x!)|(x?))] 0 0 inf
+$10+_merge_MERGE/1 y?+/1 [y!] 0 0 inf
+$8+_merge_MERGE/1 $0+_merge_MERGE/1 [(x!)|(x?)|(y!)|(y?)] 1 0 inf # INITIAL
+$3+_merge_MERGE/1 x?-/1 [~x!] 0 0 inf
+$4+_merge_MERGE/1 $0+_merge_MERGE/1 [(x!)|(x?)|(y!)|(y?)] 1 0 inf # INITIAL
+$1+_merge_MERGE/1 z!+/1 0 0 inf
+$2+_merge_MERGE/1 z!-/1 0 0 inf
+#   Ordering (Constraint) Rules:
+#
+# MERGERS:
+#
+z!+/1 z!+/2
+#
+# CONFLICTS:
+#
+z!+/2 x?+/1
+z!+/2 x?-/1
+z!+/2 z!+/1
+z!+/2 z!-/1
+z!-/2 x?+/1
+z!-/2 x?-/1
+z!-/2 z!+/1
+z!-/2 z!-/1
+y?+/1 x?+/1
+y?+/1 x?-/1
+y?+/1 z!+/1
+y?+/1 z!-/1
+y?-/1 x?+/1
+y?-/1 x?-/1
+y?-/1 z!+/1
+y?-/1 z!-/1
+$9+_merge_MERGE/1 z!+/2
+$9+_merge_MERGE/1 z!-/2
+$9+_merge_MERGE/1 y?+/1
+$9+_merge_MERGE/1 y?-/1
+$6+_merge_MERGE/1 x?+/1
+$6+_merge_MERGE/1 x?-/1
+$6+_merge_MERGE/1 z!+/1
+$6+_merge_MERGE/1 z!-/1
+$6+_merge_MERGE/1 $9+_merge_MERGE/1
+$5+_merge_MERGE/1 x?+/1
+$5+_merge_MERGE/1 x?-/1
+$5+_merge_MERGE/1 z!+/1
+$5+_merge_MERGE/1 z!-/1
+$5+_merge_MERGE/1 $9+_merge_MERGE/1
+$7+_merge_MERGE/1 x?+/1
+$7+_merge_MERGE/1 x?-/1
+$7+_merge_MERGE/1 z!+/1
+$7+_merge_MERGE/1 z!-/1
+$7+_merge_MERGE/1 $9+_merge_MERGE/1
+$10+_merge_MERGE/1 x?+/1
+$10+_merge_MERGE/1 x?-/1
+$10+_merge_MERGE/1 z!+/1
+$10+_merge_MERGE/1 z!-/1
+$10+_merge_MERGE/1 $9+_merge_MERGE/1
+$8+_merge_MERGE/1 x?+/1
+$8+_merge_MERGE/1 x?-/1
+$8+_merge_MERGE/1 z!+/1
+$8+_merge_MERGE/1 z!-/1
+$8+_merge_MERGE/1 $9+_merge_MERGE/1
+$3+_merge_MERGE/1 z!+/2
+$3+_merge_MERGE/1 z!-/2
+$3+_merge_MERGE/1 y?+/1
+$3+_merge_MERGE/1 y?-/1
+$3+_merge_MERGE/1 $6+_merge_MERGE/1
+$3+_merge_MERGE/1 $5+_merge_MERGE/1
+$3+_merge_MERGE/1 $7+_merge_MERGE/1
+$3+_merge_MERGE/1 $10+_merge_MERGE/1
+$3+_merge_MERGE/1 $8+_merge_MERGE/1
+$4+_merge_MERGE/1 z!+/2
+$4+_merge_MERGE/1 z!-/2
+$4+_merge_MERGE/1 y?+/1
+$4+_merge_MERGE/1 y?-/1
+$4+_merge_MERGE/1 $6+_merge_MERGE/1
+$4+_merge_MERGE/1 $5+_merge_MERGE/1
+$4+_merge_MERGE/1 $7+_merge_MERGE/1
+$4+_merge_MERGE/1 $10+_merge_MERGE/1
+$4+_merge_MERGE/1 $8+_merge_MERGE/1
+$1+_merge_MERGE/1 z!+/2
+$1+_merge_MERGE/1 z!-/2
+$1+_merge_MERGE/1 y?+/1
+$1+_merge_MERGE/1 y?-/1
+$1+_merge_MERGE/1 $6+_merge_MERGE/1
+$1+_merge_MERGE/1 $5+_merge_MERGE/1
+$1+_merge_MERGE/1 $7+_merge_MERGE/1
+$1+_merge_MERGE/1 $10+_merge_MERGE/1
+$1+_merge_MERGE/1 $8+_merge_MERGE/1
+$2+_merge_MERGE/1 z!+/2
+$2+_merge_MERGE/1 z!-/2
+$2+_merge_MERGE/1 y?+/1
+$2+_merge_MERGE/1 y?-/1
+$2+_merge_MERGE/1 $6+_merge_MERGE/1
+$2+_merge_MERGE/1 $5+_merge_MERGE/1
+$2+_merge_MERGE/1 $7+_merge_MERGE/1
+$2+_merge_MERGE/1 $10+_merge_MERGE/1
+$2+_merge_MERGE/1 $8+_merge_MERGE/1

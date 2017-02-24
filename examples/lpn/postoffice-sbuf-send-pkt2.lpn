@@ -1,0 +1,72 @@
+# sbuf-send-pkt2
+# HP controller, by K. Stevens
+# One-hot encoding (even meat needs 3 state vars...)
+.inputs req rejpkt ackline done 
+.outputs ack sendline y2_sbufsendpkt2 y1_sbufsendpkt2 y0_sbufsendpkt2
+#@.init_state [000000000]
+.graph
+# 0
+place_0 rejpkt+/1 #@[20,50]
+place_0 req+/1 #@[20,50]
+rejpkt+/1 y2_sbufsendpkt2+/1 #@[0,5]
+
+req+/1 sendline+/1 #@[0,5]
+# -> 6
+# -> 1
+# not quite correct, but the closest SAFE approximation...
+sendline+/1 place_1_0
+place_1_0 ackline+/1  #@[20,50]
+place_1_0 rejpkt+/2 #@[20,50]
+
+# 1
+rejpkt+/2 y0_sbufsendpkt2+/1 #@[0,5]
+y0_sbufsendpkt2+/1 sendline-/1 #@[0,5]
+
+ackline+/1 y1_sbufsendpkt2+/1 #@[0,5]
+y1_sbufsendpkt2+/1 sendline-/2 #@[0,5]
+sendline-/2 place_1_1
+place_1_1 ackline-/1  #@[20,50]
+place_1_1 done+ #@[20,50]
+
+done+ ack+/1 #@[0,5]
+# -> 2
+sendline-/1 rejpkt-/2 #@[20,50]
+# -> 4
+ack+/1 req-/2 #@[20,50]
+ack+/1 ackline-/2 #@[20,50]
+ack+/1 done- #@[20,50]
+# -> 5
+
+# 2
+rejpkt-/2 ack+/2 #@[0,5]
+# -> 3
+ack+/2 req-/1#@[20,50]
+
+# 3
+req-/1 y0_sbufsendpkt2-/1 #@[0,5]
+y0_sbufsendpkt2-/1 ack-/1 #@[0,5]
+# -> 0
+ack-/1 place_0
+
+# 4
+req-/2 y1_sbufsendpkt2-/2 #@[0,5]
+ackline-/2 y1_sbufsendpkt2-/2 #@[0,5]
+done- y1_sbufsendpkt2-/2 #@[0,5]
+y1_sbufsendpkt2-/2 ack-/2 #@[0,5]
+# -> 0
+ack-/2 place_0
+
+# 5
+ackline-/1 y1_sbufsendpkt2-/1 #@[0,5]
+y1_sbufsendpkt2-/1 sendline+/2 #@[0,5]
+# -> 1
+sendline+/2 place_1_0
+
+# 6
+y2_sbufsendpkt2+/1 rejpkt-/1 #@[20,50]
+# -> 0
+rejpkt-/1 y2_sbufsendpkt2-/1 #@[0,5]
+y2_sbufsendpkt2-/1 place_0 
+
+.marking { place_0 }
+.end

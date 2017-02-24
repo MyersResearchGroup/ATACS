@@ -1,0 +1,19 @@
+# Peter Vanbekbergen
+# IWLS'91 (Page. 15)
+# Fig. 10 a
+.inputs ain rin
+.outputs rout
+.internal h
+#@.init_state [0000]
+.graph
+ain- rout+
+rout+ h-
+h- ain+ rin-
+ain+ rout-
+rout- ain-
+
+rin+ rout+
+rin- h+
+h+ rin+
+.marking {<ain-,rout+><rin-,h+>}
+.end

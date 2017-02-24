@@ -1,0 +1,31 @@
+.inputs  BUSACK  ACKREAD  REQ 
+.outputs  zzz00  BUSREQ  RAMRDSBUF  ACK 
+.dummy dummy_0 
+#@.init_state [0100000]
+.graph
+RAMRDSBUF+/0 place_0 #@[0,0]
+REQ+/0 RAMRDSBUF+/0 #@[0,5]
+ACKREAD-/0 REQ+/0 #@[20,50]
+place_0 ACKREAD+/0 #@[20,50]
+place_1 ACKREAD-/0 #@[20,50]
+place_1 REQ+/1 #@[20,50]
+dummy_0 place_1 #@[0,0]
+REQ+/1 ACKREAD-/1 #@[20,50]
+ACK- dummy_0 #@[0,0]
+zzz00- dummy_0 #@[0,0]
+REQ-/0 zzz00- #@[0,5]
+REQ-/0 ACK- #@[0,5]
+RAMRDSBUF-/0 REQ-/0 #@[20,50]
+ACK+ REQ-/0 #@[20,50]
+BUSACK- ACK+ #@[0,5]
+BUSACK- RAMRDSBUF-/0 #@[0,5]
+BUSREQ- BUSACK- #@[20,50]
+zzz00+ BUSACK- #@[20,50]
+BUSACK+ zzz00+ #@[0,5]
+BUSACK+ BUSREQ- #@[0,5]
+BUSREQ+ BUSACK+ #@[20,50]
+ACKREAD+/0 BUSREQ+ #@[0,5]
+RAMRDSBUF+/1 place_0 #@[0,0]
+ACKREAD-/1 RAMRDSBUF+/1 #@[0,5]
+.marking {place_1}
+.end

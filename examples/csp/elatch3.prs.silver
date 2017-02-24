@@ -1,0 +1,20 @@
+[ A3: (E3)] Combinational
+[ R2: (AA2)] Combinational
+[~Lt3: (~A4 & ~AA3)] Combinational
+[ AA3: (D3)] Combinational
+[~Lt1: (~AA1 & ~A2)] Combinational
+[+AA1: (D1 & ~Lt1)]
+[-AA1: (~D1)]
+[+E2: (~AA2 & R1)]
+[-E2: (AA2 & Lt2)]
+[+E1: (R0 & ~AA1)]
+[-E1: (Lt1 & AA1)]
+[+E3: (R2 & ~AA3)]
+[-E3: (Lt3 & AA3)]
+[+AA2: (D2 & ~Lt2)]
+[-AA2: (~D2)]
+[~Lt2: (~A3 & ~AA2)] Combinational
+[ A1: (E1)] Combinational
+[ R1: (AA1)] Combinational
+[ A2: (E2)] Combinational
+[ R3: (AA3)] Combinational

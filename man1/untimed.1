@@ -1,0 +1,34 @@
+.TH UNTIMED 1 "15 Novermber 2000" "" ""
+.SH NAME
+untimed \- Turns Off Timing Analysis
+.SH SYNOPSIS
+.nf
+.BI atacs " -tu"
+.br
+.BI atacs> " untimed"
+.fi
+.SH DESCRIPTION
+.B untimed
+turns off all timing analysis during synthesis and verification.  The result is
+that any circuit produced is speed-independent and any circuit verified to be
+correct is speed-independent.
+.SH OPTIONS
+.TP
+.BI \-tu
+Enables the untimed method from the command line.
+.TP
+.BI untimed
+Enables the untimed method in the interactive shell.
+.SH CREDITS
+.B untimed
+was primarily written by Chris Myers
+(myers@vlsigroup.elen.utah.edu).
+.SH BUGS
+.SH FILES
+.SH "SEE ALSO"
+.BR geometric (1)
+.BR posets (1)
+.BR bag (1)
+.BR bap (1)
+.BR baptdc (1)
+.BR http://www.async.ece.utah.edu

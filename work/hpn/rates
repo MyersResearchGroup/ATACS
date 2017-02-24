@@ -1,0 +1,25 @@
+set terminal postscript eps color
+set out "dIl.eps"
+Vin = 0.3
+G = 5e-3
+L = 1e-6
+C = 1e-12
+#
+dx2(x1,x2) = 1/L*(-x1-x2/G+Vin)
+#
+dx1(x1,x2) = x1 < 0.055 ? 1/C*(-(6.0105*x1*x1*x1-0.9917*x1*x1+0.0545*x1)+x2) : x1 >= 0.055 && x1 < 0.35 ? 1/C*(-(0.0692*x1*x1*x1-0.0421*x1*x1+0.004*x1+8.9579e-4)+x2) : 1/C*(-(0.2634*x1*x1*x1-0.2765*x1*x1+0.0968*x1-0.0112)+x2)
+#
+set ylabel "Il"
+set xlabel "Vc"
+set zlabel "dIl/dt"
+splot [x1=0:0.5][x2=0:1.1e-3] dx2(x1,x2) title "dIl/dt"
+#
+#plot [x2=0:1.1e-3] x1=0, dx2(x1,x2) title "x1=0", x1=0.055, dx2(x1,x2) title "x1=0.055", x1=0.35, dx2(x1,x2) title "x1=0.35",  x1=0.5, dx2(x1,x2) title "x1=0.5"
+set out "dVc.eps"
+set ylabel "Il"
+set xlabel "Vc"
+set zlabel "dVc/dt"
+splot [x1=0:0.5][x2=0:1.1e-3] dx1(x1,x2) title "dVc/dt"
+#
+#plot [x2=0:1.1e-3] x1=0, dx1(x1,x2) title "x1=0", x1=0.055, dx1(x1,x2) title "x1=0.055", x1=0.35, dx1(x1,x2) title "x1=0.35",  x1=0.5, dx1(x1,x2) title "x1=0.5"
+#

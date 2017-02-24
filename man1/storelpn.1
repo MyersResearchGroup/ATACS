@@ -1,0 +1,29 @@
+.TH STORELPN 1 "13 December 2006" "" ""
+.SH NAME
+storelpn \- Stores an LHPN File
+.SH SYNOPSIS
+.nf
+.BI atacs " -sl <filename>"
+.br
+.BI atacs> " storelpn <filename>"
+.fi
+.SH DESCRIPTION
+.B storelpn
+stores an LHPN to the Petri-net graph format used by 
+tools such as SIS and PETRIFY.  The output file name is <filename>.g.
+The graph file is augmented with additional information as shown in the man page for loadlpn.  
+.SH OPTIONS
+.TP
+.BI \-sl
+Stores an LHPN file from the command line.
+.TP
+.BI storelpn
+Stores an LHPN file from the interactive shell.
+.SH CREDITS
+.B storelpn
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR loadlpn (1)
+.BR showlpn (1)
+.BR printlpn (1)
+.BR http://www.async.ece.utah.edu

@@ -1,0 +1,29 @@
+/*****************************************************************************/
+/* Trying to reproduce Burns' passive Send */
+/*****************************************************************************/
+module AP;
+    
+    input xi;
+    input di;
+    input x;
+    output x0o;
+    output x1o;
+    output do;
+
+    process main;
+    *[ [xi]; do+;  [ di]; 
+	[  x -> x1o+; [~xi]; do-; [~di]; x1o- 
+	| ~x -> x0o+; [~xi]; do-; [~di]; x0o-
+	]]
+    endprocess
+
+    testbench l;
+    *[[do -> (x+ ||  di+); [~do]; di-; x- 
+     | do ->      di+; [~do]; di-
+     ]]
+    endtestbench
+
+    testbench r;
+    *[ xi+; [x0o|x1o]; xi-; [~x0o & ~x1o] ]
+    endtestbench
+endmodule

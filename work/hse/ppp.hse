@@ -1,0 +1,30 @@
+/*****************************************************************************/
+/* Three passive communications */
+/*****************************************************************************/
+module ppp;
+    
+input li;
+input mi;
+input ri;
+output lo;
+output mo;
+output ro;
+
+process main;
+    *[	[ li -> lo+];  [ mi -> mo+];  [ ri -> ro+];
+	[~li -> lo-];  [~mi -> mo-];  [~ri -> ro-] ]
+endprocess
+
+testbench Lenv;
+    *[ li+; [lo]; li-; [~lo] ]
+endtestbench
+
+testbench Menv;
+    *[ mi+; [mo]; mi-; [~mo] ]
+endtestbench
+
+testbench Renv;
+    *[ ri+; [ro]; ri-; [~ro] ]
+endtestbench
+
+endmodule

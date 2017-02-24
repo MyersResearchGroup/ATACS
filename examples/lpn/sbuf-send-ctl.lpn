@@ -1,0 +1,61 @@
+# sbuf-send-ctl
+# HP controller, by K. Stevens
+# Meat state encoding
+.inputs acksend beginsend rejpkt 
+.outputs idlebar latchaddress reqsend y0_sbufsendctl y1_sbufsendctl
+#@.init_state [00011011]
+.graph
+# 0
+rejpkt+/1 y1_sbufsendctl+/1
+y1_sbufsendctl+/1 idlebar+ latchaddress+/1
+# -> 1
+idlebar+ rejpkt-/1
+latchaddress+/1 rejpkt-/1
+
+# 1 
+rejpkt-/1 place_2
+# -> 2
+place_2 beginsend+ 
+
+# 2
+beginsend+ y1_sbufsendctl-/1 y0_sbufsendctl-/1
+y1_sbufsendctl-/1 latchaddress-/1
+y0_sbufsendctl-/1 latchaddress-/1
+# -> 3
+latchaddress-/1 beginsend-
+
+# 3
+beginsend- reqsend+/1
+# -> 4
+reqsend+/1 place_4
+place_4 acksend+/1 rejpkt+/2
+
+# 4
+acksend+/1 y0_sbufsendctl+/1
+y0_sbufsendctl+/1 reqsend-/1
+
+rejpkt+/2 y1_sbufsendctl+/2
+# -> 5
+reqsend-/1 acksend-/1
+# -> 6
+y1_sbufsendctl+/2 rejpkt-/2 acksend+/2
+
+# 5
+acksend-/1 idlebar-
+# -> 0
+idlebar- rejpkt+/1
+
+# 6
+rejpkt-/2 y0_sbufsendctl+/2
+acksend+/2 y0_sbufsendctl+/2
+y0_sbufsendctl+/2 reqsend-/2 latchaddress+/2
+# -> 7
+reqsend-/2 acksend-/2
+latchaddress+/2 acksend-/2
+
+# 7
+acksend-/2 place_2
+
+#.marking { <idlebar-,rejpkt+/1> }
+.marking { place_2 }
+.end

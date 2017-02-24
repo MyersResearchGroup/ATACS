@@ -1,0 +1,55 @@
+.dummy billiards_southwest1T billiards_southwestT billiards_southeast1T billiards_southeastT billiards_northwest1T billiards_northwestT billiards_northeast1T billiards_northeastT billiards_southwest_yT billiards_southwest_xT billiards_southeast_yT billiards_southeast_xT billiards_northwest_yT billiards_northwest_xT billiards_northeast_yT billiards_northeast_xT
+billiards_southwest1T billiards_northwest #@ [0,inf]
+billiards_southwestT billiards_southeast #@ [0,inf]
+billiards_southeast1T billiards_northeast #@ [0,inf]
+billiards_southeastT billiards_southwest #@ [0,inf]
+billiards_southeast_xT x #@ [0,inf]
+billiards_southwest billiards_southwest1T #@ [0,inf]
+billiards_southwest billiards_southwestT #@ [0,inf]
+billiards_southwest billiards_southwest_yT
+billiards_southwest billiards_southwest_xT
+billiards_northwest1T billiards_southwest #@ [0,inf]
+billiards_northwestT billiards_northeast #@ [0,inf]
+billiards_northwest_yT y #@ [0,inf]
+billiards_southeast billiards_southeast1T #@ [0,inf]
+billiards_southeast billiards_southeastT #@ [0,inf]
+billiards_southeast billiards_southeast_yT
+billiards_southeast billiards_southeast_xT
+billiards_northeast1T billiards_southeast #@ [0,inf]
+billiards_northwest billiards_northwest1T #@ [0,inf]
+billiards_northwest billiards_northwestT #@ [0,inf]
+billiards_northwest billiards_northwest_yT
+billiards_northwest billiards_northwest_xT
+billiards_northeastT billiards_northwest #@ [0,inf]
+billiards_northeast_yT y #@ [0,inf]
+billiards_northeast_xT x #@ [0,inf]
+billiards_northeast billiards_northeast1T #@ [0,inf]
+billiards_northeast billiards_northeastT #@ [0,inf]
+billiards_northeast billiards_northeast_yT
+billiards_northeast billiards_northeast_xT
+y billiards_southwest1T #@ /0;0\ [0,inf]
+y billiards_southwestT #@ /0;8\ [0,inf]
+y billiards_southwest_yT #@ [0,inf]
+y billiards_southeast1T #@ /0;0\ [0,inf]
+y billiards_southeastT #@ /0;8\ [0,inf]
+y billiards_southeast_yT #@ [0,inf]
+y billiards_northwest1T #@ /8;8\ [0,inf]
+y billiards_northwestT #@ /0;8\ [0,inf]
+y billiards_northeast1T #@ /8;8\ [0,inf]
+y billiards_northeastT #@ /0;8\ [0,inf]
+x billiards_southwest1T #@ /0;3\ [0,inf]
+x billiards_southwestT #@ /0;0\ [0,inf]
+x billiards_southwest_xT #@ [0,inf]
+x billiards_southeast1T #@ /0;3\ [0,inf]
+x billiards_southeastT #@ /3;3\ [0,inf]
+x billiards_northwest1T #@ /0;3\ [0,inf]
+x billiards_northwestT #@ /0;0\ [0,inf]
+x billiards_northwest_xT #@ [0,inf]
+x billiards_northeast1T #@ /0;3\ [0,inf]
+x billiards_northeastT #@ /3;3\ [0,inf]
+.marking { billiards_northeast }
+#@.marking {<x = 0><y = 0>}
+#@.rates {<billiards_southwest_yT=2><billiards_southwest_xT=1><billiards_southeast_yT=2><billiards_southeast_xT=1><billiards_northwest_yT=2><billiards_northwest_xT=1><billiards_northeast_yT=2><billiards_northeast_xT=1>}
+#@.invariants { <billiards_southwest=[x>=0;x<=3;y>=0;y<=8]> <billiards_southeast=[x>=0;x<=3;y>=0;y<=8]> <billiards_northwest=[x>=0;x<=3;y>=0;y<=8]> <billiards_northeast=[x>=0;x<=3;y>=0;y<=8]>}
+#@.continuous billiards_southwest_yT billiards_southwest_xT billiards_southeast_yT billiards_southeast_xT billiards_northwest_yT billiards_northwest_xT billiards_northeast_yT billiards_northeast_xT y x
+.end

@@ -1,0 +1,23 @@
+/*****************************************************************************/
+/* reshuffling pa from Burns' dissertation */
+/*****************************************************************************/
+module pa;
+    
+input li;
+input ri;
+output lo;
+output ro;
+
+process main;
+    *[ [li]; lo+; [~li]; ro+; lo-; [ri]; ro-; [~ri] ]
+endprocess
+
+testbench Lenv;
+    *[ li+; [lo]; li-; [~lo] ]
+endtestbench
+
+testbench Renv;
+    *[ [ro]; ri+; [~ro]; ri- ]
+endtestbench
+
+endmodule

@@ -1,0 +1,36 @@
+.TH BAPTDC 1 "15 Novermber 2000" "" ""
+.SH NAME
+baptdc \- Bourne Again POSETs (Time Dependent Conflict) Timing Analysis
+.SH SYNOPSIS
+.nf
+.BI atacs " -tt"
+.br
+.BI atacs> " bap"
+.fi
+.SH DESCRIPTION
+.B baptdc
+is a timing analysis method that uses a POSET to build larger zones in the
+timing analysis.  Like 
+.B geometric
+and
+.B posets
+it uses a time-dependent conflict semantics.
+.SH OPTIONS
+.TP
+.BI \-tt
+Enables the baptdc method from the command line.
+.TP
+.BI bap
+Enables the baptdc method in the interactive shell.
+.SH CREDITS
+.B baptdc
+was primarily written by Eric G Mercer (eemercer@vlsigroup.elen.utah.edu).
+.SH BUGS
+.SH FILES
+.SH "SEE ALSO"
+.BR untimed (1)
+.BR geometric (1)
+.BR posets (1)
+.BR bag (1)
+.BR bap (1)
+.BR http://www.async.ece.utah.edu

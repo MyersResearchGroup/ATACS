@@ -1,0 +1,3 @@
+[ ITEventReq: (IntITReq & ~ITEvent2Ticks & ~CtrIncAck & ~CtrIncReq)] Combinational
+[ CtrIncReq: (ITEvent2Ticks)] Combinational
+[ CtrIncReq: (IntITReq & ~CtrIncAck & CtrIncReq)] Combinational

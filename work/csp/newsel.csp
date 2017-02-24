@@ -1,0 +1,76 @@
+module selmodule;
+
+input ini;
+output ino = {<101,235>};
+
+output selo = {<101,235>};
+input sel1i;
+input sel2i;
+
+output out1o = {<101,235>};
+input out1i;
+
+output out2o = {<101,235>};
+input out2i;
+
+process main;
+*[ [ini+]; ino+; [ini-]; ino-; [sel1i-@ | sel2i-@]; selo+; 
+   [ sel1i+ & out1i-@ -> out1o+; [out1i+]; selo-; out1o-
+   | sel2i+ & out2i-@ -> out2o+; [out2i+]; selo-; out2o-
+   ]
+ ]
+endprocess
+endmodule
+
+module newsel;
+
+input out1i = {<328,761;200,468>};
+input out2i = {<328,761;200,468>};
+input out3i = {<328,761;200,468>};
+input in0 = {<479,951>};
+input sel10i = {<329,762;201,469>};
+input sel20i = {<329,762;201,469>};
+input sel11i = {<329,762;201,469>};
+input sel21i = {<329,762;201,469>};
+
+selmodule sel1(ini => in0,ino => in1,selo => sel1o,sel1i => sel10i,
+               sel2i => sel11i, out1o => out1o, out1i => out1i, out2o => x1,
+               out2i => x2);
+
+selmodule sel2(ini => x1,ino => x2,selo => sel2o,sel1i => sel20i,
+               sel2i => sel21i, out1o => out2o, out1i => out2i, 
+               out2o => out3o, out2i => out3i);
+
+process in;
+*[ in0+; [in1+]; in0-; [in1-] ] 
+endprocess
+
+process sel1env;
+*[ [sel1o+]; [ skip -> sel10i+; [sel1o-]; sel10i-
+             | skip -> sel11i+; [sel1o-]; sel11i-
+           ]
+ ]
+endprocess
+
+process sel2env;
+*[ [sel2o+]; [ skip -> sel20i+; [sel2o-]; sel20i-
+             | skip -> sel21i+; [sel2o-]; sel21i-
+           ]
+ ]
+endprocess
+
+process out1;
+*[ [out1o+]; out1i+; [out1o-]; out1i- ]
+endprocess
+
+process out2;
+*[ [out2o+]; out2i+; [out2o-]; out2i- ]
+endprocess
+
+process out3;
+*[ [out3o+]; out3i+; [out3o-]; out3i- ]
+endprocess
+endmodule
+
+ 
+

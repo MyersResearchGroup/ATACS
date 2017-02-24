@@ -1,0 +1,232 @@
+include sunfifo2;
+
+/*****************************************************************************/
+/* A collection of N FIFO stages using SUN's FIFO (see ASYNC97)              */
+/* 	In order to add a stage, simply copy a fifo instance and increment   */
+/*      all the numbers.  Also, increment the numbers in the rightenv.       */
+/*****************************************************************************/
+
+module main;
+
+input i1 = {<180,inf;180,260>};
+input o71 = {true,<90,110;90,inf>};
+
+fifo fifo1(fin => i1, seoutb => o1, eout => x1, eoutb => x1b,
+	   fout => i2, foutb => i2b, seinb => o2);
+
+fifo fifo2(fin => i2, seoutb => o2, eout => x2, eoutb => x2b,
+	   fout => i3, foutb => i3b, seinb => o3);
+
+fifo fifo3(fin => i3, seoutb => o3, eout => x3, eoutb => x3b,
+	   fout => i4, foutb => i4b, seinb => o4);
+
+fifo fifo4(fin => i4, seoutb => o4, eout => x4, eoutb => x4b,
+	   fout => i5, foutb => i5b, seinb => o5);
+
+fifo fifo5(fin => i5, seoutb => o5, eout => x5, eoutb => x5b,
+	   fout => i6, foutb => i6b, seinb => o6);
+
+fifo fifo6(fin => i6, seoutb => o6, eout => x6, eoutb => x6b,
+	   fout => i7, foutb => i7b, seinb => o7);
+
+fifo fifo7(fin => i7, seoutb => o7, eout => x7, eoutb => x7b,
+	   fout => i8, foutb => i8b, seinb => o8);
+
+fifo fifo8(fin => i8, seoutb => o8, eout => x8, eoutb => x8b,
+	   fout => i9, foutb => i9b, seinb => o9);
+
+fifo fifo9(fin => i9, seoutb => o9, eout => x9, eoutb => x9b,
+	   fout => i10, foutb => i10b, seinb => o10);
+
+fifo fifo10(fin => i10, seoutb => o10, eout => x10, eoutb => x10b,
+	   fout => i11, foutb => i11b, seinb => o11);
+
+fifo fifo11(fin => i11, seoutb => o11, eout => x11, eoutb => x11b,
+	   fout => i12, foutb => i12b, seinb => o12);
+
+fifo fifo12(fin => i12, seoutb => o12, eout => x12, eoutb => x12b,
+	   fout => i13, foutb => i13b, seinb => o13);
+
+fifo fifo13(fin => i13, seoutb => o13, eout => x13, eoutb => x13b,
+	   fout => i14, foutb => i14b, seinb => o14);
+
+fifo fifo14(fin => i14, seoutb => o14, eout => x14, eoutb => x14b,
+	   fout => i15, foutb => i15b, seinb => o15);
+
+fifo fifo15(fin => i15, seoutb => o15, eout => x15, eoutb => x15b,
+	   fout => i16, foutb => i16b, seinb => o16);
+
+fifo fifo16(fin => i16, seoutb => o16, eout => x16, eoutb => x16b,
+	   fout => i17, foutb => i17b, seinb => o17);
+
+fifo fifo17(fin => i17, seoutb => o17, eout => x17, eoutb => x17b,
+	   fout => i18, foutb => i18b, seinb => o18);
+
+fifo fifo18(fin => i18, seoutb => o18, eout => x18, eoutb => x18b,
+	   fout => i19, foutb => i19b, seinb => o19);
+
+fifo fifo19(fin => i19, seoutb => o19, eout => x19, eoutb => x19b,
+	   fout => i20, foutb => i20b, seinb => o20);
+
+fifo fifo20(fin => i20, seoutb => o20, eout => x20, eoutb => x20b,
+	   fout => i21, foutb => i21b, seinb => o21);
+
+fifo fifo21(fin => i21, seoutb => o21, eout => x21, eoutb => x21b,
+	   fout => i22, foutb => i22b, seinb => o22);
+
+fifo fifo22(fin => i22, seoutb => o22, eout => x22, eoutb => x22b,
+	   fout => i23, foutb => i23b, seinb => o23);
+
+fifo fifo23(fin => i23, seoutb => o23, eout => x23, eoutb => x23b,
+	   fout => i24, foutb => i24b, seinb => o24);
+
+fifo fifo24(fin => i24, seoutb => o24, eout => x24, eoutb => x24b,
+	   fout => i25, foutb => i25b, seinb => o25);
+
+fifo fifo25(fin => i25, seoutb => o25, eout => x25, eoutb => x25b,
+	   fout => i26, foutb => i26b, seinb => o26);
+
+fifo fifo26(fin => i26, seoutb => o26, eout => x26, eoutb => x26b,
+	   fout => i27, foutb => i27b, seinb => o27);
+
+fifo fifo27(fin => i27, seoutb => o27, eout => x27, eoutb => x27b,
+	   fout => i28, foutb => i28b, seinb => o28);
+
+fifo fifo28(fin => i28, seoutb => o28, eout => x28, eoutb => x28b,
+	   fout => i29, foutb => i29b, seinb => o29);
+
+fifo fifo29(fin => i29, seoutb => o29, eout => x29, eoutb => x29b,
+	   fout => i30, foutb => i30b, seinb => o30);
+
+fifo fifo30(fin => i30, seoutb => o30, eout => x30, eoutb => x30b,
+	   fout => i31, foutb => i31b, seinb => o31);
+
+fifo fifo31(fin => i31, seoutb => o31, eout => x31, eoutb => x31b,
+	   fout => i32, foutb => i32b, seinb => o32);
+
+fifo fifo32(fin => i32, seoutb => o32, eout => x32, eoutb => x32b,
+	   fout => i33, foutb => i33b, seinb => o33);
+
+fifo fifo33(fin => i33, seoutb => o33, eout => x33, eoutb => x33b,
+	   fout => i34, foutb => i34b, seinb => o34);
+
+fifo fifo34(fin => i34, seoutb => o34, eout => x34, eoutb => x34b,
+	   fout => i35, foutb => i35b, seinb => o35);
+
+fifo fifo35(fin => i35, seoutb => o35, eout => x35, eoutb => x35b,
+	   fout => i36, foutb => i36b, seinb => o36);
+
+fifo fifo36(fin => i36, seoutb => o36, eout => x36, eoutb => x36b,
+	   fout => i37, foutb => i37b, seinb => o37);
+
+fifo fifo37(fin => i37, seoutb => o37, eout => x37, eoutb => x37b,
+	   fout => i38, foutb => i38b, seinb => o38);
+
+fifo fifo38(fin => i38, seoutb => o38, eout => x38, eoutb => x38b,
+	   fout => i39, foutb => i39b, seinb => o39);
+
+fifo fifo39(fin => i39, seoutb => o39, eout => x39, eoutb => x39b,
+	   fout => i40, foutb => i40b, seinb => o40);
+
+fifo fifo40(fin => i40, seoutb => o40, eout => x40, eoutb => x40b,
+	   fout => i41, foutb => i41b, seinb => o41);
+
+fifo fifo41(fin => i41, seoutb => o41, eout => x41, eoutb => x41b,
+	   fout => i42, foutb => i42b, seinb => o42);
+
+fifo fifo42(fin => i42, seoutb => o42, eout => x42, eoutb => x42b,
+	   fout => i43, foutb => i43b, seinb => o43);
+
+fifo fifo43(fin => i43, seoutb => o43, eout => x43, eoutb => x43b,
+	   fout => i44, foutb => i44b, seinb => o44);
+
+fifo fifo44(fin => i44, seoutb => o44, eout => x44, eoutb => x44b,
+	   fout => i45, foutb => i45b, seinb => o45);
+
+fifo fifo45(fin => i45, seoutb => o45, eout => x45, eoutb => x45b,
+	   fout => i46, foutb => i46b, seinb => o46);
+
+fifo fifo46(fin => i46, seoutb => o46, eout => x46, eoutb => x46b,
+	   fout => i47, foutb => i47b, seinb => o47);
+
+fifo fifo47(fin => i47, seoutb => o47, eout => x47, eoutb => x47b,
+	   fout => i48, foutb => i48b, seinb => o48);
+
+fifo fifo48(fin => i48, seoutb => o48, eout => x48, eoutb => x48b,
+	   fout => i49, foutb => i49b, seinb => o49);
+
+fifo fifo49(fin => i49, seoutb => o49, eout => x49, eoutb => x49b,
+	   fout => i50, foutb => i50b, seinb => o50);
+
+fifo fifo50(fin => i50, seoutb => o50, eout => x50, eoutb => x50b,
+	   fout => i51, foutb => i51b, seinb => o51);
+
+fifo fifo51(fin => i51, seoutb => o51, eout => x51, eoutb => x51b,
+	   fout => i52, foutb => i52b, seinb => o52);
+
+fifo fifo52(fin => i52, seoutb => o52, eout => x52, eoutb => x52b,
+	   fout => i53, foutb => i53b, seinb => o53);
+
+fifo fifo53(fin => i53, seoutb => o53, eout => x53, eoutb => x53b,
+	   fout => i54, foutb => i54b, seinb => o54);
+
+fifo fifo54(fin => i54, seoutb => o54, eout => x54, eoutb => x54b,
+	   fout => i55, foutb => i55b, seinb => o55);
+
+fifo fifo55(fin => i55, seoutb => o55, eout => x55, eoutb => x55b,
+	   fout => i56, foutb => i56b, seinb => o56);
+
+fifo fifo56(fin => i56, seoutb => o56, eout => x56, eoutb => x56b,
+	   fout => i57, foutb => i57b, seinb => o57);
+
+fifo fifo57(fin => i57, seoutb => o57, eout => x57, eoutb => x57b,
+	   fout => i58, foutb => i58b, seinb => o58);
+
+fifo fifo58(fin => i58, seoutb => o58, eout => x58, eoutb => x58b,
+	   fout => i59, foutb => i59b, seinb => o59);
+
+fifo fifo59(fin => i59, seoutb => o59, eout => x59, eoutb => x59b,
+	   fout => i60, foutb => i60b, seinb => o60);
+
+fifo fifo60(fin => i60, seoutb => o60, eout => x60, eoutb => x60b,
+	   fout => i61, foutb => i61b, seinb => o61);
+
+fifo fifo61(fin => i61, seoutb => o61, eout => x61, eoutb => x61b,
+	   fout => i62, foutb => i62b, seinb => o62);
+
+fifo fifo62(fin => i62, seoutb => o62, eout => x62, eoutb => x62b,
+	   fout => i63, foutb => i63b, seinb => o63);
+
+fifo fifo63(fin => i63, seoutb => o63, eout => x63, eoutb => x63b,
+	   fout => i64, foutb => i64b, seinb => o64);
+
+fifo fifo64(fin => i64, seoutb => o64, eout => x64, eoutb => x64b,
+	   fout => i65, foutb => i65b, seinb => o65);
+
+fifo fifo65(fin => i65, seoutb => o65, eout => x65, eoutb => x65b,
+	   fout => i66, foutb => i66b, seinb => o66);
+
+fifo fifo66(fin => i66, seoutb => o66, eout => x66, eoutb => x66b,
+	   fout => i67, foutb => i67b, seinb => o67);
+
+fifo fifo67(fin => i67, seoutb => o67, eout => x67, eoutb => x67b,
+	   fout => i68, foutb => i68b, seinb => o68);
+
+fifo fifo68(fin => i68, seoutb => o68, eout => x68, eoutb => x68b,
+	   fout => i69, foutb => i69b, seinb => o69);
+
+fifo fifo69(fin => i69, seoutb => o69, eout => x69, eoutb => x69b,
+	   fout => i70, foutb => i70b, seinb => o70);
+
+fifo fifo70(fin => i70, seoutb => o70, eout => x70, eoutb => x70b,
+	   fout => i71, foutb => i71b, seinb => o71);
+
+process leftenv;
+*[ i1+; [o1-]; i1-; [o1+] ]
+endprocess
+
+process rightenv;
+*[ [i71+]; o71-; [i71-]; o71+ ]
+endprocess
+
+endmodule

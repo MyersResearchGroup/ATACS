@@ -1,0 +1,22 @@
+[ cr_rcv: (cr_send)] Combinational
+[+increment_please_send: (~dpdata_send & mem_access_please_rcv & mem_access_please_send & ~mem_rw_please)]
+[-increment_please_send: (increment_please_rcv & ~mem_access_please_send)]
+[ cb_rcv: (cb_send & ~increment_please_send)] Combinational
+[ cb_rcv: (cb_send & increment_please_rcv & ~mem_access_please_send)] Combinational
+[+splice_please_send: (calculate_please_rcv & ~mem_access_please_send)]
+[-splice_please_send: (mem_access_please_send)]
+[+calculate_please_send: (lum_rcv)]
+[-calculate_please_send: (splice_please_send)]
+[+dpdata_rcv: (dpdata_send & ~splice_please_rcv & ~mem_rw_please)]
+[-dpdata_rcv: (~dpdata_send & mem_access_please_send)]
+[+mem_access_please_send: (splice_please_rcv & splice_please_send)]
+[+mem_access_please_send: (~mem_access_please_rcv & dpdata_rcv)]
+[-mem_access_please_send: (mem_access_please_rcv & ~splice_please_send & mem_rw_please)]
+[-mem_access_please_send: (splice_please_rcv & mem_access_please_rcv & ~splice_please_send)]
+[-mem_access_please_send: (dpdata_send & mem_access_please_rcv & ~splice_please_send)]
+[-mem_access_please_send: (increment_please_send & ~dpdata_rcv)]
+[+lum_rcv: (lum_send & mem_rw_please)]
+[-lum_rcv: (calculate_please_send)]
+[+mem_rw_please: (lum_send)]
+[-mem_rw_please: (dpdata_send & ~splice_please_send & ~calculate_please_send & ~mem_access_please_send)]
+[-mem_rw_please: (dpdata_send & ~calculate_please_rcv & mem_access_please_rcv & ~splice_please_send)]

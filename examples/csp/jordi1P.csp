@@ -1,0 +1,31 @@
+module jordi1;
+
+output a={<0,2>};
+output b={<0,2>};
+output csc0={<0,2>};
+output csc1={<0,2>};
+output csc2={<0,2>};
+
+process a;
+    *[ [csc2-]; a+; [csc1-]; a- ]
+endprocess
+
+process b;
+    *[  [csc2+]; b+; [csc0-]; b- ]
+endprocess
+
+process csc0;
+    *[  [csc1+]; csc0+; [csc1- & b+]; csc0- ]
+endprocess
+
+process csc1;
+    *[  [csc2+]; csc1+; [a+]; csc1-; [a-] ]
+endprocess
+
+process csc2;
+    *[  csc2+; [csc0+]; csc2-; [b-] ]
+endprocess
+
+endmodule
+
+  

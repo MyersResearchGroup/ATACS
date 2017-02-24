@@ -1,0 +1,6 @@
+[ ri: (~ro & ~CSC0)] Combinational
+[+ro: (ri & ~CSC0)]
+[-ro: (ai & CSC0)]
+[ ai: (ro & CSC0)] Combinational
+[+CSC0: (ro & ~ai)]
+[-CSC0: (~ri & ~ro)]

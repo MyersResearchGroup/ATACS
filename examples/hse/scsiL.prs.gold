@@ -1,0 +1,6 @@
+[+rdy: (~req & q)]
+[-rdy: (go)]
+[+req: (~ack & ~rdy)]
+[-req: (ack & q)]
+[+q: (~go & req)]
+[-q: (rdy)]

@@ -1,0 +1,96 @@
+.e 33
+.i 4
+.r 36
+.n 0
+.d 0
+.c 0
+.s 0001001110
+reset
+# 
+# INPUT EVENTS:
+# 
+in+/1 in-/1
+nnclk+/1 nnclk-/1
+# 
+# OUTPUT EVENTS:
+# 
+NoIn9+/1 NoIn9-/1
+out12+/1 out12-/1
+npca+/1 npca-/1
+nstrb+/1 nstrb-/1
+NaOutDum+/1 NaOutDum-/1
+npcg+/1 npcg-/1
+out0+/1 out0-/1
+NoIn2+/1 NoIn2-/1
+# 
+# DUMMY EVENTS:
+# 
+$11+/1
+$8+/1
+$9+/1
+$5+/1
+$2+/1
+$3+/1
+$0+/1
+$1+/1
+$4+/1
+$7+/1
+$6+/1
+$10+/1
+# 
+# RULES:
+# 
+npcg+/1 npcg-/1 [(~NaOutDum)]d 1 227 227
+out12+/1 out12-/1 [(in & npca)]d 1 16 56
+NoIn9+/1 NoIn9-/1 [(~nstrb & out0)]d 0 73 74
+reset NoIn9+/1 0 73 74
+reset out12-/1 0 16 56
+reset out12+/1 0 26 33
+reset npca-/1 0 313 313
+reset npca+/1 0 280 280
+reset nstrb-/1 0 73 73
+reset nstrb+/1 0 68 71
+in+/1 in-/1 0 280 280
+reset in+/1 0 352 402
+nnclk+/1 nnclk-/1 0 500 500
+reset nnclk+/1 0 500 500
+reset NaOutDum+/1 0 280 280
+reset NaOutDum-/1 0 44 44
+reset npcg+/1 0 280 280
+reset npcg-/1 0 227 227
+reset out0+/1 0 26 33
+reset out0-/1 0 16 56
+reset NoIn2+/1 0 73 74
+NoIn2+/1 NoIn2-/1 [(~nstrb & out12)]d 0 73 74
+npca+/1 npca-/1 [(~NaOutDum)] 0 313 313
+nstrb+/1 nstrb-/1 [(~npcg)]d 0 73 73
+NaOutDum+/1 NaOutDum-/1 [(in)]d 1 44 44
+out0+/1 out0-/1 [(in & npca)]d 1 16 56
+# 
+# INITIAL RULES:
+# 
+out0-/1 out0+/1 [(~npca)]d 0 26 33
+nstrb-/1 nstrb+/1 [(in)]d 1 68 71
+NoIn9-/1 NoIn9+/1 [(nstrb)]d 1 73 74
+npca-/1 npca+/1 [(NaOutDum)]d 1 313 313 
+nnclk-/1 nnclk+/1 1 500 500
+NaOutDum-/1 NaOutDum+/1 [(~npcg)]d 0 30 30
+npcg-/1 npcg+/1 [(NaOutDum)]d 0 234 234
+out12-/1 out12+/1 [(~npca)]d 0 26 33
+in-/1 in+/1 [(~nnclk)]d 1 352 402
+NoIn2-/1 NoIn2+/1 [(nstrb)]d 1 73 74
+# 
+# RULES:
+# 
+# 
+# INITIAL RULES:
+# 
+# 
+# MERGERS:
+# 
+# 
+# CONFLICTS:
+# 
+# 
+# LOOPING CONFLICTS:
+# 

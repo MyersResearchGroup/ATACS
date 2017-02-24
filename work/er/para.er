@@ -1,0 +1,16 @@
+.e 4
+.i 0
+.r 4
+.c 2
+.s 0
+reset
+$a
+$b
+$c
+$a $b 0 0 inf
+$b $c 0 0 inf
+$a $c 0 0 inf
+$c $a 1 0 inf
+$b $c
+$a $b
+

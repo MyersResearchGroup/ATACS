@@ -1,0 +1,10 @@
+addpers <filename>
+.PP
+This function detects rules which are non-persistent, and it
+adds new causal rules to make them persistent.  A list of the
+rules added are stored to a file named <filename>.pr in the
+following form:
+.PP
+<enabling event> <enabled event> <epsilon> <lower bound> <upper bound>
+
+

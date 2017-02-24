@@ -1,0 +1,24 @@
+module proj;
+
+output a;
+output b;
+output c;
+output d;
+output e;
+output f;
+
+/*
+process proj;
+    *[[ true -> (a+ || b+); (a- || b-)
+     |  true -> (a+ || c+); (a- || c-)
+     ]]
+endprocess
+*/
+
+process proj;
+    *[d+; [ true -> (a+ || b+); (a- || b-)
+     |  true -> (a+ || c+); (a- || c-)
+     ]; d-]
+endprocess
+
+endmodule

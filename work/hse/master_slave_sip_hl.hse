@@ -1,0 +1,237 @@
+/************************************************************************
+ * Inverter with initial high output
+ ************************************************************************/
+module inverter_h;
+
+  input   in = {false};
+  output out = {true,<20,25;15,20>};
+
+  process inverter;
+    *[ [in] ; out- ; [~in] ; out+ ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * Inverter with initial low output
+ ************************************************************************/
+module inverter_l;
+
+  input   in = {true};
+  output out = {false,<20,25;15,20>};
+
+  process inverter;
+    *[ [~in] ; out+ ; [in] ; out- ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * Data clock circuit
+ * NOTE: Valid is computed on the opposite edge of th eclock.  It is
+ * stable before this edge arrives.
+ ************************************************************************/
+module and_gate;
+
+  input a = {false};
+  input b = {false};
+
+  output c = {false,<0,0>};
+
+  process logic;
+    *[ [a & b]; c+; [~a | ~b]; c- ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * Valid clock circuit
+ * NOTE: sin changes on the opposite phase of clk, thus it is stable 
+ * when clk arrives.  Its inversion does not need to be included in 
+ * our delay estimates
+ ************************************************************************/
+module valid_clk;
+
+  input sin = {false};
+  input clk = {false};
+
+  output valid_clk = {false,<35,45>};
+
+  inverter_h stalln( in => sin, out => stalln );
+
+  process valid_clk;
+    *[ [clk & stalln]; valid_clk+; [~clk]; valid_clk- ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * Data clock circuit
+ * NOTE: Valid is computed on the opposite edge of th eclock.  It is
+ * stable before this edge arrives.
+ ************************************************************************/
+module data_clk;
+
+  input vin = {false};
+  input clk = {false};
+
+  output data_clk = {false,<35,45>};
+
+  process valid_clk;
+    *[ [clk & vin]; data_clk+; [~clk]; data_clk- ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * latch circuit
+ ************************************************************************/
+module re_latch;
+
+  input   d = {false};
+  input clk = {false};
+
+  output q = {false,<40,50>};
+
+  process re_latch;
+    *[ [clk & d]; q+; [~clk]; [clk & ~d]; q- ;[~clk] ]
+  endprocess
+
+endmodule
+
+/************************************************************************
+ * stall latch circuit for master
+ ************************************************************************/
+module stall_latch;
+
+  input stall_in = {false};
+  input valid_in = {false};
+  input      clk = {false};
+
+  output stall_out = {false,<40,50>};
+
+  process stall_latch;
+    *[ [clk & stall_in & valid_in] ; stall_out+ ; [~clk] ; 
+       [clk & ~stall_in & valid_in] ; stall_out- ; [~clk] ]
+/** Synthesis shows that these cases never happen.
+       | clk & ~stall_in & ~valid_in -> stall_out- ; [~clk]
+       | clk & stall_in & ~valid_in -> stall_out- ; [~clk]
+       | clk & stall_in & valid_in -> [~clk] ; *
+       ]]
+**/
+  endprocess
+
+endmodule
+
+
+/**************************************************************************
+ ** MASTER-SLAVE SIP STAGE
+ *************************************************************************/
+module master_slave_sip_stage;
+
+  input      clk = {false};
+  input  data_in = {false};
+  input valid_in = {false};
+  input stall_in = {false};
+
+  output  data_out = {false};
+  output valid_out = {false};
+  output stall_out = {false};
+
+  /************************************************************************
+   ** MASTER STAGE
+   ***********************************************************************/
+
+  /** Stall Latch
+   ** Folded logic into latch to because gate is hazardous.  This is
+   ** not an issue since the latch is not active while gate is hazardous
+   **/
+  stall_latch stall_out( stall_in => stall_S, valid_in => valid_int,
+                         clk => clk, stall_out => stall_out );
+
+  /** Valid clock and latch **/
+  inverter_h clkn_M( in => clk, out => clkn_M );
+  valid_clk valid_clk_M( sin => stall_out, clk => clkn_M, 
+                         valid_clk => valid_clk_M );
+  re_latch valid_M( d => valid_in, clk => valid_clk_M, q => valid_int );
+
+  /** Data clock and latch **/
+  inverter_l valid_clk_Mn( in => valid_clk_M, out => valid_clk_Mn );
+  data_clk data_clk_Mn( vin => valid_int, clk => valid_clk_Mn, 
+                       data_clk => data_clk_Mn );
+  inverter_h data_clk_M( in => data_clk_Mn, out => data_clk_M );
+  re_latch data_M( d => data_in, clk => data_clk_M, q => data_int );
+
+
+  /************************************************************************
+   ** SLAVE STAGE
+   ***********************************************************************/
+
+  /** Stall Latch **/
+  inverter_h clkn_S( in => clk, out => clkn_S );
+  re_latch stall_S( d => stall_in, clk => clkn_S, q => stall_S );
+
+  /** Valid clock and latch **/
+  valid_clk valid_clk_S( sin => stall_S, clk => clk, 
+                         valid_clk => valid_clk_S );
+  re_latch valid_S( d => valid_int, clk => valid_clk_S, q => valid_out );
+
+  /** Data clock and latch **/
+  data_clk data_clk_S( vin => valid_int, clk => valid_clk_S, 
+                       data_clk => data_clk_S );
+  re_latch data_S( d => data_int, clk => data_clk_S, q => data_out );
+  
+endmodule
+
+module master_slave_sip;
+
+  input    gclk  = {false,<800,800>};
+  input stall_in = {false,<60,155>};
+  input valid_in = {false,<75,95>};
+  input data_in = {false,<156,205>};
+
+  master_slave_sip_stage stage_1( clk => gclk, 
+                                  data_in => data_in, 
+                                  valid_in => valid_in, 
+                                  stall_in => stall_2,
+                                  data_out => data_1,
+                                  valid_out => valid_1, 
+                                  stall_out => stall_out  );
+
+  master_slave_sip_stage stage_2( clk => gclk, 
+                                  data_in => data_1, 
+                                  valid_in => valid_1, 
+                                  stall_in => stall_in,
+                                  data_out => data_out,
+                                  valid_out => valid_out, 
+                                  stall_out => stall_2  );
+
+
+  testbench t_clock;
+    *[ gclk+ ; gclk- ]
+  endtestbench
+
+  testbench t_stall_in;
+    *[ [  gclk & stall_in -> stall_in- ; [~gclk]
+       |  gclk & stall_in -> [~gclk]
+       | gclk & ~stall_in & valid_out -> stall_in+ ; [~gclk]
+       | gclk & ~stall_in & valid_out -> [~gclk]
+       ]
+     ]
+  endtestbench
+
+  /** Valid cannot reset until it is no longer being stalled
+      Valid can set anytime after the correct clock edge because a
+        stall is never forwarded for invalid data
+      Valid can remain unchanged for any number of cycles
+   **/
+  testbench t_valid_in;
+    *[ [ gclk & valid_in & ~stall_out -> valid_in- || data_in- ; [~gclk]
+       | gclk & valid_in & ~stall_out -> [~gclk]
+       |             gclk & ~valid_in -> valid_in+ || data_in+ ; [~gclk]
+       |             gclk & ~valid_in -> [~gclk]
+       ]
+     ]
+  endtestbench
+
+endmodule

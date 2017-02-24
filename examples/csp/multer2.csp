@@ -1,0 +1,16 @@
+/*****************************************************************************/
+/* A CSC example with multiple excitation regions.                           */
+/*****************************************************************************/
+module multer2;
+
+output a;
+output b;
+output c;
+output d;
+output x;
+
+process main;
+    *[ a+; (b+ || d+); a-; (b- || d-); a+; (b+ || c+); a-; (b- || c-) ]
+endprocess
+
+endmodule

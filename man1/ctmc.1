@@ -1,0 +1,20 @@
+.XX
+ctmc - continuous time markovian analysis
+.PP
+This approximates probability density functions for events";
+as negative exponentials with rates equal to the expected value of
+the events' original probability density functions.  Using the
+negative exponential, a rate transition matrix is derived for
+the CTMC representing the system as a stochastic process.  The EMC
+of the CTMC is derived and the resulting transition matrix is
+stored as the transition probabilities in the state graph and the
+steady state transition probablities are found using the reduced
+power method. From the steady state distribution of the EMC, the
+long-term distribution for the CTMC is found according to:
+.br
+                   zQ = 0,
+.br
+where z is the steady state vector and Q is the transition rate
+matrix.  This represents the distribution of probability on states
+when the rate of change of the system is zero.  State graph
+required for this command.  Results are saved in state table.

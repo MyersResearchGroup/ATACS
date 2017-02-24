@@ -1,0 +1,25 @@
+input	StartDMASend             0
+input	DAckNormN                1
+input	DAckLastN                1
+input	DTCN                     1
+input	AckInN                   1
+output	DReqN                    1
+output	ReadyN                   1
+output	ReqOutN                  1
+output	EndDMAInt                1
+output	zzz00                    0
+output	zzz01                    0
+
+0  1	StartDMASend+            | EndDMAInt- zzz01+ 
+1  2	StartDMASend-            | DReqN- 
+2  3	DAckNormN-               | ReadyN- zzz01- 
+2  8	DAckLastN-               | ReadyN- DReqN+ zzz01- 
+3  4	DTCN-                    | ReadyN+ zzz00+ 
+4  5	DAckNormN+ DTCN+         | ReqOutN- zzz00- 
+5  6	DAckNormN- AckInN-       | ReqOutN+ 
+6  3	AckInN+                  | ReadyN- 
+5  7	DAckLastN- AckInN-       | ReqOutN+ DReqN+ 
+7  8	AckInN+                  | ReadyN- 
+8  9	DTCN-                    | ReadyN+ ReqOutN- zzz01+ 
+9  10	DAckLastN+ DTCN+ AckInN- | ReqOutN+ zzz01- 
+10  0	AckInN+                  | EndDMAInt+ 

@@ -1,0 +1,249 @@
+# Data used to generate graph:
+# Vcd Vcu Ild Ilu dVc dIl
+# 0 102 0 45 -207 29
+# 0 102 67 382 -5 25
+# 0 102 404 1033 489 15
+# 0 102 1055 1100 848 8
+# 204 1633 0 45 -875 20
+# 204 1633 67 382 -673 16
+# 204 1633 404 1033 -179 6
+# 204 1633 1055 1100 180 -1
+# 1735 4796 0 45 -287 -3
+# 1735 4796 67 382 -85 -7
+# 1735 4796 404 1033 409 -17
+# 1735 4796 1055 1100 768 -24
+# 4898 5000 0 45 -893 -20
+# 4898 5000 67 382 -690 -24
+# 4898 5000 404 1033 -197 -34
+# 4898 5000 1055 1100 163 -41
+
+.dummy dVc_0 dIl_0 dVc_1 dIl_1 dVc_2 dIl_2 dVc_3 dIl_3 dVc_4 dIl_4 dVc_5 dIl_5 dVc_6 dIl_6 dVc_7 dIl_7 dVc_8 dIl_8 dVc_9 dIl_9 dVc_10 dIl_10 dVc_11 dIl_11 dVc_12 dIl_12 dVc_13 dIl_13 dVc_14 dIl_14 dVc_15 dIl_15 Vcu_0 Vcd_1 Vcu_1 Vcd_2 Vcu_2 Vcd_3 Ilu_0 Ild_1 Ilu_1 Ild_2 Ilu_2 Ild_3 
+#@.keep dVc_0 dIl_0 dVc_1 dIl_1 dVc_2 dIl_2 dVc_3 dIl_3 dVc_4 dIl_4 dVc_5 dIl_5 dVc_6 dIl_6 dVc_7 dIl_7 dVc_8 dIl_8 dVc_9 dIl_9 dVc_10 dIl_10 dVc_11 dIl_11 dVc_12 dIl_12 dVc_13 dIl_13 dVc_14 dIl_14 dVc_15 dIl_15 Vcu_0 Vcd_1 Vcu_1 Vcd_2 Vcu_2 Vcd_3 Ilu_0 Ild_1 Ilu_1 Ild_2 Ilu_2 Ild_3 
+.inputs a b
+#@.property AG(AF(a))&AG(AF(b))
+#@.init_state [00]
+
+# Test Arcs - Continuous Places to Discrete Transitions
+Vc Vcu_0 #@ /204;1633\ [0,0]
+Vc Vcd_1 #@ /0;102\ [0,0]
+Vc Vcu_1 #@ /1735;4796\ [0,0]
+Vc Vcd_2 #@ /204;1633\ [0,0]
+Vc Vcu_2 #@ /4898;inf\ [0,0]
+Vc Vcd_3 #@ /1735;4796\ [0,0]
+Il Ilu_0 #@ /67;382\ [0,0]
+Il Ild_1 #@ /0;45\ [0,0]
+Il Ilu_1 #@ /404;1033\ [0,0]
+Il Ild_2 #@ /67;382\ [0,0]
+Il Ilu_2 #@ /1055;inf\ [0,0]
+Il Ild_3 #@ /404;1033\ [0,0]
+
+# Arcs along each dimensions axis
+Vc_3 Vcd_3 #@ [0,0]
+Vcd_3 Vc_2 #@ [0,0]
+Vc_2 Vcd_2 #@ [0,0]
+Vcd_2 Vc_1 #@ [0,0]
+Vc_1 Vcd_1 #@ [0,0]
+Vcd_1 Vc_0 #@ [0,0]
+Vc_0 Vcu_0 #@ [0,0]
+Vcu_0 Vc_1 #@ [0,0]
+Vc_1 Vcu_1 #@ [0,0]
+Vcu_1 Vc_2 #@ [0,0]
+Vc_2 Vcu_2 #@ [0,0]
+Vcu_2 Vc_3 #@ [0,0]
+Il_3 Ild_3 #@ [0,0]
+Ild_3 Il_2 #@ [0,0]
+Il_2 Ild_2 #@ [0,0]
+Ild_2 Il_1 #@ [0,0]
+Il_1 Ild_1 #@ [0,0]
+Ild_1 Il_0 #@ [0,0]
+Il_0 Ilu_0 #@ [0,0]
+Ilu_0 Il_1 #@ [0,0]
+Il_1 Ilu_1 #@ [0,0]
+Ilu_1 Il_2 #@ [0,0]
+Il_2 Ilu_2 #@ [0,0]
+Ilu_2 Il_3 #@ [0,0]
+
+# Region 0
+# Continuous Arcs
+Vc dVc_0
+dIl_0 Il
+# Test Arcs
+Vc_0 dVc_0
+Vc_0 dIl_0
+Il_0 dVc_0
+Il_0 dIl_0
+
+# Region 1
+# Continuous Arcs
+Vc dVc_1
+dIl_1 Il
+# Test Arcs
+Vc_0 dVc_1
+Vc_0 dIl_1
+Il_1 dVc_1
+Il_1 dIl_1
+
+# Region 2
+# Continuous Arcs
+dVc_2 Vc
+dIl_2 Il
+# Test Arcs
+Vc_0 dVc_2
+Vc_0 dIl_2
+Il_2 dVc_2
+Il_2 dIl_2
+
+# Region 3
+# Continuous Arcs
+dVc_3 Vc
+dIl_3 Il
+# Test Arcs
+Vc_0 dVc_3
+Vc_0 dIl_3
+Il_3 dVc_3
+Il_3 dIl_3
+
+# Region 4
+# Continuous Arcs
+Vc dVc_4
+dIl_4 Il
+# Test Arcs
+Vc_1 dVc_4
+Vc_1 dIl_4
+Il_0 dVc_4
+Il_0 dIl_4
+
+# Region 5
+# Continuous Arcs
+Vc dVc_5
+dIl_5 Il
+# Test Arcs
+Vc_1 dVc_5
+Vc_1 dIl_5
+Il_1 dVc_5
+Il_1 dIl_5
+
+# Region 6
+# Continuous Arcs
+Vc dVc_6
+dIl_6 Il
+# Test Arcs
+Vc_1 dVc_6
+Vc_1 dIl_6
+Il_2 dVc_6
+Il_2 dIl_6
+
+# Region 7
+# Continuous Arcs
+dVc_7 Vc
+Il dIl_7
+# Test Arcs
+Vc_1 dVc_7
+Vc_1 dIl_7
+Il_3 dVc_7
+Il_3 dIl_7
+
+# Region 8
+# Continuous Arcs
+Vc dVc_8
+Il dIl_8
+# Test Arcs
+Vc_2 dVc_8
+Vc_2 dIl_8
+Il_0 dVc_8
+Il_0 dIl_8
+
+# Region 9
+# Continuous Arcs
+Vc dVc_9
+Il dIl_9
+# Test Arcs
+Vc_2 dVc_9
+Vc_2 dIl_9
+Il_1 dVc_9
+Il_1 dIl_9
+
+# Region 10
+# Continuous Arcs
+dVc_10 Vc
+Il dIl_10
+# Test Arcs
+Vc_2 dVc_10
+Vc_2 dIl_10
+Il_2 dVc_10
+Il_2 dIl_10
+
+# Region 11
+# Continuous Arcs
+dVc_11 Vc
+Il dIl_11
+# Test Arcs
+Vc_2 dVc_11
+Vc_2 dIl_11
+Il_3 dVc_11
+Il_3 dIl_11
+
+# Region 12
+# Continuous Arcs
+Vc dVc_12
+Il dIl_12
+# Test Arcs
+Vc_3 dVc_12
+Vc_3 dIl_12
+Il_0 dVc_12
+Il_0 dIl_12
+
+# Region 13
+# Continuous Arcs
+Vc dVc_13
+Il dIl_13
+# Test Arcs
+Vc_3 dVc_13
+Vc_3 dIl_13
+Il_1 dVc_13
+Il_1 dIl_13
+
+# Region 14
+# Continuous Arcs
+Vc dVc_14
+Il dIl_14
+# Test Arcs
+Vc_3 dVc_14
+Vc_3 dIl_14
+Il_2 dVc_14
+Il_2 dIl_14
+
+# Region 15
+# Continuous Arcs
+dVc_15 Vc
+Il dIl_15
+# Test Arcs
+Vc_3 dVc_15
+Vc_3 dIl_15
+Il_3 dVc_15
+Il_3 dIl_15
+
+# Added to verify the property that AG(AF(Il <= 300)) && AG(AF(Il >= 700))
+aLow a+ #@ [0,0]
+a+ aHigh
+aHigh a- #@ [0,0]
+a- aLow
+Il a+ #@ /0;300\ [0,0]
+Il a- #@ /300;inf\ [0,0]
+
+bLow b+ #@ [0,0]
+b+ bHigh
+bHigh b- #@ [0,0]
+b- bLow
+Il b+ #@ /700;inf\ [0,0]
+Il b- #@ /0;700\ [0,0]
+
+
+#@.rates {<dVc_0 = 207><dIl_0 = 29><dVc_1 = 5><dIl_1 = 25><dVc_2 = 489><dIl_2 = 15><dVc_3 = 848><dIl_3 = 8><dVc_4 = 875><dIl_4 = 20><dVc_5 = 673><dIl_5 = 16><dVc_6 = 179><dIl_6 = 6><dVc_7 = 180><dIl_7 = 1><dVc_8 = 287><dIl_8 = 3><dVc_9 = 85><dIl_9 = 7><dVc_10 = 409><dIl_10 = 17><dVc_11 = 768><dIl_11 = 24><dVc_12 = 893><dIl_12 = 20><dVc_13 = 690><dIl_13 = 24><dVc_14 = 197><dIl_14 = 34><dVc_15 = 163><dIl_15 = 41>}
+
+#@.continuous Vc Il dVc_0 dIl_0 dVc_1 dIl_1 dVc_2 dIl_2 dVc_3 dIl_3 dVc_4 dIl_4 dVc_5 dIl_5 dVc_6 dIl_6 dVc_7 dIl_7 dVc_8 dIl_8 dVc_9 dIl_9 dVc_10 dIl_10 dVc_11 dIl_11 dVc_12 dIl_12 dVc_13 dIl_13 dVc_14 dIl_14 dVc_15 dIl_15 
+
+#@.marking{<Vc = [4000,4700]><Il = [400,500]>}
+.marking{ Vc_2 Il_2 aLow bLow }
+.end
+

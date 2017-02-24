@@ -1,0 +1,34 @@
+/* Udding's example */
+module udding;
+
+    input	a;
+    input	b;
+    output	c;
+    output	d;
+
+process ctrl;
+    *[ [ a+     -> (c+ || ([b+]; d+));
+	[ a-	-> (c- || ([b-]; d-))
+	| b-	-> (c- || ([a-]; d-))
+	]
+       | b+     -> (c+ || ([a+]; d+));
+	[ a-	-> (c- || ([b-]; d-))
+	| b-	-> (c- || ([a-]; d-))
+	]
+       ]
+     ]
+endprocess
+
+process env;
+    *[ [ skip -> a+; b+; [c+ & d+]; 
+	[ skip	-> a-; b-; [c- & d-]
+	| skip	-> b-; a-; [c- & d-]
+	]
+       | skip -> b+; a+; [c+ & d+]; 
+	[ skip	-> a-; b-; [c- & d-]
+	| skip	-> b-; a-; [c- & d-]
+	]
+       ]
+     ]
+endprocess
+endmodule

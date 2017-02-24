@@ -1,0 +1,43 @@
+/*****************************************************************************/
+/* Sbuf-RAM-Write block from the post office chip.                           */
+/*****************************************************************************/
+module SbufRamWrite;
+
+delay onedelay = <6,14>;
+
+input req={<6,14>};
+input precharged={<6,14>};
+input done={true,<6,14>};
+input wenin={<6,14>};
+input wsldin={<6,14>};
+
+output ack={<6,14>};
+output prbar={<6,14>};
+output wsen={true,<6,14>};
+output wen={<6,14>};
+output wsld={<6,14>};
+
+process ctrl;
+*[ [done- & precharged+ & req+]; prbar+; [precharged-]; wen+; 
+   [wenin+ & done+]; (wsen- || wen-); [wenin-]; wsld+; [wsldin+]; wsld-;
+   [wsldin- & req-]; (wsen+ || prbar-) ]
+endprocess
+
+process ack;
+*[ [wenin+ & done+]; ack+; [req- & wsldin-]; ack- ]
+endprocess
+
+process req;
+*[ req+; [ack+]; req-; [ack-] ]
+endprocess
+
+process done;
+*[ done-; [wen+]; done+; [wsen+] ]
+endprocess
+
+process env;
+*[ precharged+; [prbar+]; precharged-; [wen+]; 
+   (wenin+ || done+); [wsen- & wen-]; wenin-; [wsld+]; wsldin+; [wsld-];
+   wsldin-; [prbar-] ]
+endprocess
+endmodule

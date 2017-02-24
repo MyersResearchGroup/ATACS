@@ -1,0 +1,33 @@
+/*****************************************************************************/
+/* A self-reseting dynamic OR gate.                                          */
+/*****************************************************************************/
+module srdor;
+
+/* Original delays
+delay idelay = <500,500;299,299>;
+delay xdelay = <101,101;99,99>;
+delay adelay = <201,201;199,199>;
+*/
+
+delay idelay = <450,inf;269,299>;
+delay xdelay = <101,139;99,119>;
+delay adelay = <201,221;199,219>;
+
+input i1 = {false,idelay};
+input i2 = {false,idelay};
+output a = {false,adelay};
+output x = {true,xdelay};
+
+process a;
+*[[ i1+ -> a+; x-; a-; x+
+  | i2+ -> a+; x-; a-; x+ 
+ ]]
+endprocess
+
+process ienv;
+*[[ skip -> i1+; i1- 
+  | skip -> i2+; i2- 
+ ]]
+endprocess
+
+endmodule

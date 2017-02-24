@@ -1,0 +1,82 @@
+input   cchack                   0
+input   decodeiserrack           0
+input   eack                     0
+input   errcheckiftrue           0
+input   errcheckiffalse          0
+input   hornerack                0
+input   iserrsetnsynreq          0
+input   nack                     0
+input   ndecack                  0
+input   sack                     0
+input   setneiftrue              0
+input   setneiffalse             0
+input   setnsyn1iftrue           0
+input   setnsyn1iffalse          0
+input   shuffack                 0
+input   start                    0
+input   synack                   0
+input   syndromeiftrue           0
+input   syndromeiffalse          0
+input   tack                     0
+input   tchack                   0
+output  cchreq                   0
+output  decodeiserrreq           0
+output  ereq                     0
+output  enable                   0
+output  errcheckifreq            0
+output  hornerreq                0
+output  hornersm1                0
+output  iserrsetnsynack          0
+output  nreq                     0
+output  nsm1                     0
+output  nsm2                     0
+output  ndecreq                  0
+output  sreq                     0
+output  setneifreq               0
+output  setnsyn1ifreq            0
+output  shuffreq                 0
+output  synreq                   0
+output  synsm1                   0
+output  synsm2                   0
+output  syndromeifreq            0
+output  treq                     0
+output  tchreq                   0
+output  zzz00                    0
+output  zzz01                    0
+0  1    start+                   | tchreq+ 
+1  2    start- tchack+           | treq+ 
+2  4    tack+                    | tchreq- treq- setnsyn1ifreq+ 
+4  6    setnsyn1iftrue+ tchack- tack- | setnsyn1ifreq- nreq+ nsm1+ synreq+ synsm1+ 
+4  41   setnsyn1iffalse+ tchack- tack- | setnsyn1ifreq- nreq+ nsm2+ synreq+ synsm1+ 
+6  8    nack+ synack+ setnsyn1iftrue- | nreq- nsm1- synreq- synsm1- syndromeifreq+ 
+8  10   syndromeiftrue+ nack- synack- | syndromeifreq- cchreq+ 
+8  17   syndromeiffalse+ nack- synack- | syndromeifreq- setneifreq+ 
+10  11  cchack+ syndromeiftrue-  | sreq+ 
+11  13  sack+                    | cchreq- sreq- ndecreq+ hornerreq+ 
+13  14  ndecack+ hornerack+ cchack- sack- | nreq+ synreq+ 
+14  45  nack+ synack+            | ndecreq- nreq- hornerreq- synreq- syndromeifreq+ 
+17  19  setneiftrue+ syndromeiffalse- | setneifreq- nreq+ nsm1+ ereq+ 
+17  38  setneiffalse+ syndromeiffalse- | setneifreq- nreq+ nsm2+ ereq+ zzz01+ 
+19  43  nack+ eack+ setneiftrue- | nreq- nsm1- ereq- shuffreq+ synsm2+ 
+21  22  shuffack+                | synreq+ zzz01- 
+22  23  synack+                  | shuffreq- synreq- synsm2- zzz00+ 
+23  24  shuffack- synack-        | shuffreq+ synsm2+ 
+24  25  shuffack+                | synreq+ zzz01+ 
+25  27  synack+                  | shuffreq- synreq- synsm2- errcheckifreq+ zzz00- 
+27  29  errcheckiftrue+ shuffack- synack- | errcheckifreq- ndecreq+ hornerreq+ hornersm1+ zzz01- 
+27  33  errcheckiffalse+ shuffack- synack- | errcheckifreq- decodeiserrreq+ enable+ zzz01- 
+29  30  ndecack+ hornerack+ errcheckiftrue- | nreq+ synreq+ zzz01+ 
+30  44  nack+ synack+            | ndecreq- nreq- hornerreq- synreq- hornersm1- errcheckifreq+ 
+33  35  decodeiserrack+ errcheckiffalse- | decodeiserrreq- zzz01+ 
+35  36  iserrsetnsynreq+ decodeiserrack- | iserrsetnsynack+ zzz01- 
+36  0   iserrsetnsynreq-         | iserrsetnsynack- enable- 
+38  39  nack+ eack+ setneiffalse- | nreq- nsm2- ereq- 
+39  21  nack- eack-              | shuffreq+ synsm2+ 
+41  46  nack+ synack+ setnsyn1iffalse- | nreq- nsm2- synreq- synsm1- syndromeifreq+ 
+43  22  shuffack+ nack- eack-    | synreq+ 
+44  29  errcheckiftrue+ ndecack- nack- hornerack- synack- | errcheckifreq- ndecreq+ hornerreq+ hornersm1+ zzz01- 
+44  33  errcheckiffalse+ ndecack- nack- hornerack- synack- | errcheckifreq- decodeiserrreq+ enable+ zzz01- 
+45  10  syndromeiftrue+ ndecack- nack- hornerack- synack- | syndromeifreq- cchreq+ 
+45  17  syndromeiffalse+ ndecack- nack- hornerack- synack- | syndromeifreq- setneifreq+ 
+46  10  syndromeiftrue+ nack- synack- | syndromeifreq- cchreq+ 
+46  17  syndromeiffalse+ nack- synack- | syndromeifreq- setneifreq+ 

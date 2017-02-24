@@ -1,0 +1,121 @@
+/*****************************************************************************/
+/* CSP Specification for the MMU                                             */
+/*****************************************************************************/
+module mmu;
+
+delay  gatedelay = <0,18>;
+delay  mdelay    = <600,inf; 100,600>;
+delay  bdelay    = <40,260>;
+delay  rdelay    = <40,180>;
+
+input  MDli = {false,mdelay};
+output MDlo = {false,gatedelay};
+output RAo  = {false,gatedelay};
+input  RAi  = {false,rdelay};
+output Bo   = {false,gatedelay};
+input  B1i  = {false,bdelay};
+input  B2i  = {false,bdelay};
+input  B3i  = {false,bdelay};
+output LSRo = {false,gatedelay};
+input  LSRi = {false,rdelay};
+output LSWo = {false,gatedelay};
+input  LSWi = {false,rdelay};
+output MSlo = {false,gatedelay};
+input  MSli = {false,mdelay};
+input  MDsi = {false,mdelay};
+output MDso = {false,gatedelay};
+output WAo  = {false,gatedelay};
+input  WAi  = {false,rdelay};
+output SSRo = {false,gatedelay};
+input  SSRi = {false,rdelay};
+output SSWo = {false,gatedelay};
+input  SSWi = {false,rdelay};
+output MSso = {false,gatedelay};
+input  MSsi = {false,mdelay};
+
+process main;
+*[[ MDli+ -> (([RAi-@ | RAi-@ | RAi-@]; RAo+) 
+           || (/*[B1i-@ | B2i-@ | B3i-@];*/ Bo+)); [RAi+];
+    [ B1i+ -> [LSRi-@]; LSRo+; (RAo- || Bo-); [LSRi+]; MDlo+; LSRo-; 
+                [MDli-]; MDlo-
+    | B2i+ -> [LSWi-@]; LSWo+; (RAo- || Bo-); [LSWi+]; MDlo+; LSWo-; 
+                [MDli-]; MDlo-
+    | B3i+ -> [MSli-@]; MSlo+; (RAo- || Bo-); [MSli+]; MDlo+; MSlo-;
+                [MDli-]; MDlo-
+    ]
+ |  MDsi+ -> (([WAi-@ | WAi-@ | WAi-@]; WAo+) 
+           || (/*[B1i-@ | B2i-@ | B3i-@];*/ Bo+)); [WAi+];
+    [ B1i+ -> [SSRi-@]; SSRo+; (WAo- || Bo-); [SSRi+]; MDso+; SSRo-; 
+                [MDsi-]; MDso-
+    | B2i+ -> [SSWi-@]; SSWo+; (WAo- || Bo-); [SSWi+]; MDso+; SSWo-; 
+                [MDsi-]; MDso-
+    | B3i+ -> [MSsi-@]; MSso+; (WAo- || Bo-); [MSsi+]; MDso+; MSso-;
+                [MDsi-]; MDso-
+    ]
+ ]]
+endprocess
+
+process md;
+*[[ true (2.0) -> MDli+; [ MDlo+ -> MDli-; [MDlo-]
+                   | MDlo+ -> MDli-; [MDlo-]
+                   | MDlo+ -> MDli-; [MDlo-]
+                   ]
+  | true (1.0) -> MDsi+; [ MDso+ -> MDsi-; [MDso-]
+                   | MDso+ -> MDsi-; [MDso-]
+                   | MDso+ -> MDsi-; [MDso-]
+                   ]
+ ]]
+endprocess
+
+process ra;
+*[ [RAo+]; RAi+; [ RAo- -> RAi-
+                 | RAo- -> RAi-
+                 | RAo- -> RAi-
+                 ]
+ ]
+endprocess
+
+process wa;
+*[ [WAo+]; WAi+; [ WAo- -> WAi-
+                 | WAo- -> WAi-
+                 | WAo- -> WAi-
+                 ]
+ ]
+endprocess
+
+process bo;
+*[[ Bo+ -> [ true (0.01) -> B1i+; [Bo-]; B1i-
+           | true (0.01) -> B2i+; [Bo-]; B2i-
+           | true (0.98) -> B3i+; [Bo-]; B3i-
+           ]
+  | Bo+ -> [ true (0.01) -> B1i+; [Bo-]; B1i-
+           | true (0.01) -> B2i+; [Bo-]; B2i-
+           | true (0.98) -> B3i+; [Bo-]; B3i-
+           ]
+ ]]
+endprocess
+
+process lsr;
+*[[LSRo+]; LSRi+; [LSRo-]; LSRi- ]
+endprocess
+
+process lsw;
+*[[LSWo+]; LSWi+; [LSWo-]; LSWi- ]
+endprocess
+
+process msl;
+*[[MSlo+]; MSli+; [MSlo-]; MSli- ]
+endprocess
+
+process ssr;
+*[[SSRo+]; SSRi+; [SSRo-]; SSRi- ]
+endprocess
+
+process ssw;
+*[[SSWo+]; SSWi+; [SSWo-]; SSWi- ]
+endprocess
+
+process ms;
+*[[MSso+]; MSsi+; [MSso-]; MSsi- ]
+endprocess
+endmodule

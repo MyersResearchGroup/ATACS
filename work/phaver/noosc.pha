@@ -1,0 +1,156 @@
+-- Data used to generate automaton:
+-- Vcd Vcu Ild Ilu dVc dIl
+-- 0 10200 0 4500 -207 29
+-- 0 10200 6700 38200 -5 24
+-- 0 10200 40400 103300 489 12
+-- 0 10200 105500 110000 848 3
+-- 20400 163300 0 4500 -875 20
+-- 20400 163300 6700 38200 -673 15
+-- 20400 163300 40400 103300 -179 3
+-- 20400 163300 105500 110000 180 -5
+-- 173500 479600 0 4500 -287 -3
+-- 173500 479600 6700 38200 -85 -8
+-- 173500 479600 40400 103300 409 -20
+-- 173500 479600 105500 110000 768 -29
+-- 489800 500000 0 4500 -893 -20
+-- 489800 500000 6700 38200 -690 -25
+-- 489800 500000 40400 103300 -197 -37
+-- 489800 500000 105500 110000 163 -46
+
+automaton a1
+state_var: Vc,Il;
+synclabs: dummy;
+
+loc ld0r0: while Il>0 & Il<=6700 & Vc<=0 wait {Vc==0 & Il==29}
+  when Il==6700 sync dummy goto ld0r1;
+  when Vc>=0 sync dummy goto l0;
+
+loc ld0r1: while Il>=4500 & Il<=40400 & Vc<=0 wait {Vc==0 & Il==24}
+  when Il==4500 sync dummy goto ld0r0;
+  when Il==40400 sync dummy goto ld0r2;
+  when Vc>=0 sync dummy goto l1;
+
+loc ld0r2: while Il>=38200 & Il<=105500 & Vc<=0 wait {Vc==489 & Il==12}
+  when Il==38200 sync dummy goto ld0r1;
+  when Il==105500 sync dummy goto ld0r3;
+  when Vc>=0 sync dummy goto l2;
+
+loc ld0r3: while Il>=103300 & Vc<=0 wait {Vc==848 & Il==3}
+  when Il==103300 sync dummy goto ld0r2;
+  when Vc>=0 sync dummy goto l3;
+
+loc ld1r0: while Il<=0 & Vc>0 & Vc<=20400 wait {Vc==-207 & Il==29}
+  when Il>=0 sync dummy goto l0;
+  when Vc==20400 sync dummy goto ld1r4;
+
+loc ld1r4: while Il<=0 & Vc>=10200 & Vc<=173500 wait {Vc==-875 & Il==20}
+  when Il>=0 sync dummy goto l4;
+  when Vc==10200 sync dummy goto ld1r0;
+  when Vc==173500 sync dummy goto ld1r8;
+
+loc ld1r8: while Il<=0 & Vc>=163300 & Vc<=489800 wait {Vc==-287 & Il==0}
+  when Il>=0 sync dummy goto l8;
+  when Vc==163300 sync dummy goto ld1r4;
+  when Vc==489800 sync dummy goto ld1r12;
+
+loc ld1r12: while Il<=0 & Vc>=479600 wait {Vc==-893 & Il==0}
+  when Il>=0 sync dummy goto l12;
+  when Vc==479600 sync dummy goto ld1r8;
+
+loc l0: while Il>=0 & Il<=6700 & Vc>=0 & Vc<=20400 wait {Vc==-207 & Il==29}
+  when Il==0 sync dummy goto ld1r0;
+  when Il==6700 sync dummy goto l1;
+  when Vc==0 sync dummy goto ld0r0;
+  when Vc==20400 sync dummy goto l4;
+
+loc l1: while Il>=4500 & Il<=40400 & Vc>=0 & Vc<=20400 wait {Vc==-5 & Il==24}
+  when Il==4500 sync dummy goto l0;
+  when Il==40400 sync dummy goto l2;
+  when Vc==0 sync dummy goto ld0r1;
+  when Vc==20400 sync dummy goto l5;
+
+loc l2: while Il>=38200 & Il<=105500 & Vc>=0 & Vc<=20400 wait {Vc==489 & Il==12}
+  when Il==38200 sync dummy goto l1;
+  when Il==105500 sync dummy goto l3;
+  when Vc==0 sync dummy goto ld0r2;
+  when Vc==20400 sync dummy goto l6;
+
+loc l3: while Il>=103300 & Vc>=0 & Vc<=20400 wait {Vc==848 & Il==3}
+  when Il==103300 sync dummy goto l2;
+  when Vc==0 sync dummy goto ld0r3;
+  when Vc==20400 sync dummy goto l7;
+
+loc l4: while Il>=0 & Il<=6700 & Vc>=10200 & Vc<=173500 wait {Vc==-875 & Il==20}
+  when Il==0 sync dummy goto ld1r4;
+  when Il==6700 sync dummy goto l5;
+  when Vc==10200 sync dummy goto l0;
+  when Vc==173500 sync dummy goto l8;
+
+loc l5: while Il>=4500 & Il<=40400 & Vc>=10200 & Vc<=173500 wait {Vc==-673 & Il==15}
+  when Il==4500 sync dummy goto l4;
+  when Il==40400 sync dummy goto l6;
+  when Vc==10200 sync dummy goto l1;
+  when Vc==173500 sync dummy goto l9;
+
+loc l6: while Il>=38200 & Il<=105500 & Vc>=10200 & Vc<=173500 wait {Vc==-179 & Il==3}
+  when Il==38200 sync dummy goto l5;
+  when Il==105500 sync dummy goto l7;
+  when Vc==10200 sync dummy goto l2;
+  when Vc==173500 sync dummy goto l10;
+
+loc l7: while Il>=103300 & Vc>=10200 & Vc<=173500 wait {Vc==180 & Il==-5}
+  when Il==103300 sync dummy goto l6;
+  when Vc==10200 sync dummy goto l3;
+  when Vc==173500 sync dummy goto l11;
+
+loc l8: while Il>=0 & Il<=6700 & Vc>=163300 & Vc<=489800 wait {Vc==-287 & Il==-3}
+  when Il==0 sync dummy goto ld1r8;
+  when Il==6700 sync dummy goto l9;
+  when Vc==163300 sync dummy goto l4;
+  when Vc==489800 sync dummy goto l12;
+
+loc l9: while Il>=4500 & Il<=40400 & Vc>=163300 & Vc<=489800 wait {Vc==-85 & Il==-8}
+  when Il==4500 sync dummy goto l8;
+  when Il==40400 sync dummy goto l10;
+  when Vc==163300 sync dummy goto l5;
+  when Vc==489800 sync dummy goto l13;
+
+loc l10: while Il>=38200 & Il<=105500 & Vc>=163300 & Vc<=489800 wait {Vc==409 & Il==-20}
+  when Il==38200 sync dummy goto l9;
+  when Il==105500 sync dummy goto l11;
+  when Vc==163300 sync dummy goto l6;
+  when Vc==489800 sync dummy goto l14;
+
+loc l11: while Il>=103300 & Vc>=163300 & Vc<=489800 wait {Vc==768 & Il==-29}
+  when Il==103300 sync dummy goto l10;
+  when Vc==163300 sync dummy goto l7;
+  when Vc==489800 sync dummy goto l15;
+
+loc l12: while Il>=0 & Il<=6700 & Vc>=479600 wait {Vc==-893 & Il==-20}
+  when Il==0 sync dummy goto ld1r12;
+  when Il==6700 sync dummy goto l13;
+  when Vc==479600 sync dummy goto l8;
+
+loc l13: while Il>=4500 & Il<=40400 & Vc>=479600 wait {Vc==-690 & Il==-25}
+  when Il==4500 sync dummy goto l12;
+  when Il==40400 sync dummy goto l14;
+  when Vc==479600 sync dummy goto l9;
+
+loc l14: while Il>=38200 & Il<=105500 & Vc>=479600 wait {Vc==-197 & Il==-37}
+  when Il==38200 sync dummy goto l13;
+  when Il==105500 sync dummy goto l15;
+  when Vc==479600 sync dummy goto l10;
+
+loc l15: while Il>=103300 & Vc>=479600 wait {Vc==163 & Il==-46}
+  when Il==103300 sync dummy goto l14;
+  when Vc==479600 sync dummy goto l11;
+
+initially l0 & Il==1 & Vc==1;
+
+end
+
+sys=a1;
+reg=sys.reachable;
+reg.loc_union;
+--print reg;
+

@@ -1,0 +1,35 @@
+.TH MULTICUBE 1 "15 Novermber 2000" "" ""
+.SH NAME
+multicube \- Synthesis Using the Multicube Algorithm
+.SH SYNOPSIS
+.nf
+.BI atacs " -ym"
+.br
+.BI atacs> " multicube"
+.fi
+.SH DESCRIPTION
+.B multicube
+uses the multicube algorithm for synthesis.  Primes are found using espresso 
+to which candidate primes are added when necessary and an optimal cover is then
+found.  It stores the final production rules derived using the synthesis 
+procedure.  These are stored to the file named <filename>.prs in the following 
+form:
+.PP
+[(+/-)<signal>: ((~)<signal1> & ... & (~)<signaln>)]
+.SH OPTIONS
+.TP
+.BI \-ym
+Uses multicube algorithm from the command line.
+.TP
+.BI multicube
+Uses multicube algorithm in the interactive shell.
+.SH CREDITS
+.B multicube
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR single (1)
+.BR bdd (1)
+.BR direct (1)
+.BR http://www.async.elen.utah.edu
+multicube
+.PP

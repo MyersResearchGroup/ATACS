@@ -1,0 +1,59 @@
+#  This Timed Event/Level structure contains:
+.e 14 # events
+.i 4 # input events
+.r 22 # causal rules
+.n 0 # ordering rules
+.d 0 # merges
+.c 0 # conflicts
+.s 0000 # start state
+#
+# EVENTS:
+#
+reset
+#  Each of the following events has the format <action>[/<occurrence>]
+#  (if the occurrence is omitted, it is assumed to be 1)
+#   Input Events:
+r?+ r?- 
+l!+ l!- 
+#   Output Events:
+l?+ l?- 
+r!+ r!- 
+#   Dummy (Sequencing) Events:
+$HSE5 
+$HSE4 
+$HSE3 
+$HSE2 
+$HSE1 
+#
+# RULES, which have the following format:
+#  <enabling> <enabled> [<expression>] <epsilon> <lower> <upper>
+#   Causal (Behavioral) Rules:
+reset r?+ [r!] 0 0 inf
+reset l!+  0 0 inf
+reset l?+ [l!] 0 0 inf
+reset r!+ [~r?] 0 0 inf
+r?+ r?- [~r!] 0 0 inf
+r?- $HSE2  0 0 inf
+l!+ l!- [l?] 0 0 inf
+l!- l!+ [~l?] 1 0 inf # INITIAL
+l?+ $HSE4 [~l!] 0 0 inf
+l?+ r!+  0 0 inf
+l?- r!-  0 0 inf
+l?- $HSE3  0 0 inf
+r!+ $HSE1 [r?] 0 0 inf
+r!- $HSE5 [~r?] 0 0 inf
+r!- l?+  1 0 inf # INITIAL
+$HSE5 r!+  1 0 inf # INITIAL
+$HSE4 l?-  0 0 inf
+$HSE3 l?+ [l!] 1 0 inf # INITIAL
+$HSE2 r?+ [r!] 1 0 inf # INITIAL
+$HSE1 l?-  0 0 inf
+$HSE1 r!-  0 0 inf
+$HSE1 $HSE3  0 0 inf
+#   Ordering (Constraint) Rules:
+#
+# MERGERS:
+#
+#
+# CONFLICTS:
+#

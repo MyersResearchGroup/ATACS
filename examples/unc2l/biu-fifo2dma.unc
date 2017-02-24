@@ -1,0 +1,16 @@
+input	ok                       0
+input	fain                     0
+input	dackn                    1
+input	cntgt1                   0
+output	frout                    0
+output	dreq                     0
+output	zzz00                    0
+output	zzz01                    0
+
+0  1	ok+                      | frout+ 
+1  2	fain+                    | dreq+ frout- 
+2  3	dackn- fain* [cntgt1+]   | zzz01+                   | dreq- 
+2  5	dackn- fain* [cntgt1-]   | zzz00+                   | dreq- 
+3  4	fain- dackn+             | frout+ zzz01- 
+4  2	fain+                    | dreq+ frout- 
+5  0	ok- fain- dackn+         | zzz00- 

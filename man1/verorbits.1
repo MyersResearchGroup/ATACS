@@ -1,0 +1,29 @@
+.TH VERORBITS 1 "28 September 2001" "" ""
+.SH NAME
+verorbits \- Verify Using Orbits
+.SH SYNOPSIS
+.nf
+.BI atacs " -vo"
+.br
+.BI atacs> " verorbits"
+.fi
+.SH DESCRIPTION
+.B verorbits
+uses Orbits to verify a circuits meets its specification.  Orbits is a 
+timed circuit verifier designed by Tom Rokicki.  If a failure
+is detected, then an error trace is produced.
+.SH OPTIONS
+.TP
+.BI \-vo
+Performs verification using Orbits from the command line.
+.TP
+.BI verorbits
+Performs verification using Orbits in the interactive shell.
+.SH CREDITS
+.B verorbits
+interface to Orbits was primarily written by Chris Myers 
+(myers@vlsigroup.ece.utah.edu) and Orbits was written by Tom Rokicki
+(rokicki@cs.stanford.edu).
+.SH "SEE ALSO"
+.BR verify (1)
+.BR http://www.async.elen.utah.edu

@@ -1,0 +1,172 @@
+/*****************************************************************************/
+/* rdy gate                                                                  */
+/*****************************************************************************/
+module rdy;
+
+delay gatedelay = <90,110>;
+
+input instRdy;
+input XBRdy;
+output Rdy = {gatedelay};
+
+process rdy;
+*[[instRdy+ & XBRdy+]; Rdy+; [instRdy-]; Rdy-]
+endprocess
+
+endmodule
+
+/*****************************************************************************/
+/* tagrdy gate                                                               */
+/*****************************************************************************/
+module tagrdy;
+
+delay gatedelay = <90,110>;
+
+input Rdy;
+input TagArrived;
+output TagRdy = {gatedelay};
+
+process tagrdy;
+*[[Rdy+ & TagArrived+]; TagRdy+; 
+  [TagArrived- | TagArrived- | TagArrived- | TagArrived- | TagArrived- | 
+   TagArrived- | TagArrived-]; TagRdy-]
+endprocess
+
+endmodule
+
+/*****************************************************************************/
+/* tagcircuit gate                                                           */
+/*****************************************************************************/
+module tagcircuit;
+
+delay gatedelay = <90,110>;
+
+input instRdy;
+input XBRdy;
+input L1;
+input L2;
+input L3;
+input L4;
+input L5;
+input L6;
+input L7;
+input TagIn1;
+input TagIn2;
+input TagIn3;
+input TagIn4;
+input TagIn5;
+input TagIn6;
+input TagIn7;
+input Rdy;
+input TagRdy = {gatedelay};
+output TagOut1 = {gatedelay};
+output TagOut2 = {gatedelay};
+output TagOut3 = {gatedelay};
+output TagOut4 = {gatedelay};
+output TagOut5 = {gatedelay};
+output TagOut6 = {gatedelay};
+output TagOut7 = {gatedelay};
+output TagArrived = {gatedelay};
+
+process tagarrived;
+*[[TagIn1+ | TagIn2+ | TagIn3+ | TagIn4+ | TagIn5+ | TagIn6+ | TagIn7+]; 
+  TagArrived+; [TagRdy+]; 
+  [ L1+ -> TagArrived- 
+  | L2+ -> TagArrived-
+  | L3+ -> TagArrived-
+  | L4+ -> TagArrived-
+  | L5+ -> TagArrived-
+  | L6+ -> TagArrived-
+  | L7+ -> TagArrived-
+  ]
+ ]
+endprocess
+
+process tagout;
+*[ [Rdy+ & TagArrived+];
+	[ L1+ -> TagOut1+; [TagArrived-]; TagOut1-
+        | L2+ -> TagOut2+; [TagArrived-]; TagOut2-
+        | L3+ -> TagOut3+; [TagArrived-]; TagOut3-
+        | L4+ -> TagOut4+; [TagArrived-]; TagOut4-
+        | L5+ -> TagOut5+; [TagArrived-]; TagOut5-
+        | L6+ -> TagOut6+; [TagArrived-]; TagOut6-
+        | L7+ -> TagOut7+; [TagArrived-]; TagOut7-
+        ]
+ ]
+endprocess
+
+endmodule
+
+/*****************************************************************************/
+/* tagunit                                                                   */
+/*****************************************************************************/
+module tagunit;
+
+delay rdydelay = <180,inf;90,110>;
+delay xbdelay = <180,inf;360,440/*180,220*/>;
+delay lddelay = <180,inf;180,220/*90,110*/>;
+delay tagdelay = <720,inf;180,220>;
+
+input instRdy = {rdydelay};
+input XBRdy = {xbdelay};
+input L1 = {lddelay};
+input L2 = {lddelay};
+input L3 = {lddelay};
+input L4 = {lddelay};
+input L5 = {lddelay};
+input L6 = {lddelay};
+input L7 = {lddelay};
+input TagIn1 = {tagdelay};
+input TagIn2 = {tagdelay};
+input TagIn3 = {tagdelay};
+input TagIn4 = {tagdelay};
+input TagIn5 = {tagdelay};
+input TagIn6 = {tagdelay};
+input TagIn7 = {tagdelay};
+
+rdy rdy1(instRdy => instRdy,XBRdy => XBRdy,Rdy => Rdy);
+
+tagrdy tagrdy1(Rdy => Rdy,TagArrived => TagArrived,TagRdy => TagRdy);
+
+tagcircuit tag1(instRdy => instRdy,XBRdy => XBRdy,L1 => L1, L2 => L2, L3 => L3,
+                L4 => L4, L5 => L5, L6 => L6, L7 => L7, TagIn1 => TagIn1,
+                TagIn2 => TagIn2, TagIn3 => TagIn3, TagIn4 => TagIn4,
+                TagIn5 => TagIn5, TagIn6 => TagIn6, TagIn7 => TagIn7,
+		TagOut1 => TagOut1, TagOut2 => TagOut2, TagOut3 => TagOut3,
+		TagOut4 => TagOut4, TagOut5 => TagOut5, TagOut6 => TagOut6,
+		TagOut7 => TagOut7,Rdy => Rdy,TagRdy => TagRdy,
+                TagArrived => TagArrived);
+
+process ld;
+*[[ true -> L1+; [TagOut1+]; L1-
+  | true -> L2+; [TagOut2+]; L2-
+  | true -> L3+; [TagOut3+]; L3-
+  | true -> L4+; [TagOut4+]; L4-
+  | true -> L5+; [TagOut5+]; L5-
+  | true -> L6+; [TagOut6+]; L6-
+  | true -> L7+; [TagOut7+]; L7-
+ ]]
+endprocess
+
+process instRdy;
+*[[L1+ | L2+ | L3+ | L4+ | L5+ | L6+ | L7+]; instRdy+; 
+  [L1- | L2- | L3- | L4- | L5- | L6- | L7-]; instRdy- ]
+endprocess
+ 
+process xbrdy;
+*[ XBRdy+; [TagOut1+ | TagOut2+ | TagOut3+ | TagOut4+ | TagOut5+ | TagOut6+ |
+            TagOut7+]; XBRdy- ]
+endprocess
+
+process tag;
+*[[ true -> TagIn1+; TagIn1-
+  | true -> TagIn2+; TagIn2-
+  | true -> TagIn3+; TagIn3-
+  | true -> TagIn4+; TagIn4-
+  | true -> TagIn5+; TagIn5-
+  | true -> TagIn6+; TagIn6-
+  | true -> TagIn7+; TagIn7-
+ ]; [TagOut1+ | TagOut2+ | TagOut3+ | TagOut4+ | TagOut5+ | TagOut6+ | 
+     TagOut7+]]
+endprocess
+endmodule

@@ -1,0 +1,46 @@
+[ SDEventSOF: (SDEventReq & ~EoSPAck & ~SOF1Req & ~zzz00 & ~zzz01 & ~zzz02 & ~zzz03)] Combinational
+[ SDEventEOF: (SDEventReq & ~EoSPAck & zzz00 & zzz01 & zzz03)] Combinational
+[ SDEventData: (SDEventReq & ~EoSPAck & ~EOF3Req & ~zzz00 & zzz01 & ~zzz02 & ~zzz03)] Combinational
+[ SCEventReq: (~EoSPAck & ~SOF1Ack & ~SOF2Ack & ~EOF1Ack & ~EOF2Ack & ~EOF3Ack & zzz02)] Combinational
+[ SCEventReq: (SDEventReq & ~EoSPAck & ~DataAck & ~SOF1Ack & ~EOF1Ack & ~zzz00 & ~zzz02 & zzz03)] Combinational
+[ SCEventReq: (~EoSPAck & ~SOF1Ack & ~EOF3Ack & zzz00 & ~zzz03)] Combinational
+[ EoSPReq: (EOF2Ack)] Combinational
+[ EoSPReq: (EoSPAck)] Combinational
+[ EoSPReq: (EoSPReq & ~zzz00 & zzz03)] Combinational
+[ EoSPReq: (SDEventReq & ~SOF1Req & ~zzz00 & ~zzz02 & zzz03)] Combinational
+[ EoSPReq: (~EOF3Ack & zzz00 & zzz01 & ~zzz03)] Combinational
+[ EoSPReq: (~SOF2Ack & ~SOF1Req & ~zzz01 & zzz02 & ~zzz03)] Combinational
+[ DataReq: (SDEventReq & ~SOF1Req & ~EOF2Req & ~zzz01 & ~zzz02 & zzz03)] Combinational
+[ DataReq: (EoSPAck & EOF1Req)] Combinational
+[ DataReq: (DataAck)] Combinational
+[ DataReq: (EOF1Ack)] Combinational
+[ SOF1Req: (~EoSPAck & zzz00 & ~zzz01)] Combinational
+[ SOF1Req: (SOF1Ack)] Combinational
+[ SOF2Req: (SOF2Ack)] Combinational
+[ SOF2Req: (~SOF1Ack & ~EoSPReq & zzz02 & zzz03)] Combinational
+[ EOF1Req: (SDEventReq & ~SOF1Req & ~EOF2Req & ~zzz01 & ~zzz02 & zzz03)] Combinational
+[ EOF1Req: (EoSPAck & EOF1Req)] Combinational
+[ EOF1Req: (DataAck)] Combinational
+[ EOF1Req: (EOF1Ack)] Combinational
+[ EOF2Req: (EOF2Ack)] Combinational
+[ EOF2Req: (EoSPAck & EOF2Req)] Combinational
+[ EOF2Req: (~EOF1Ack & EoSPReq & zzz02 & zzz03)] Combinational
+[ EOF3Req: (~EoSPAck & ~EOF2Ack & zzz01 & zzz02)] Combinational
+[ EOF3Req: (EOF3Ack)] Combinational
+[ SDResetAck: (~SDEventReq & SDResetAck)] Combinational
+[ zzz00: (~SOF1Ack & zzz00)] Combinational
+[ zzz00: (EOF3Ack)] Combinational
+[ zzz00: (EoSPAck & EOF1Req)] Combinational
+[ zzz01: (SDEventReq & zzz01)] Combinational
+[ zzz01: (zzz00 & zzz01)] Combinational
+[ zzz01: (EoSPAck & EOF2Req)] Combinational
+[ zzz01: (EOF2Ack)] Combinational
+[ zzz01: (DataAck)] Combinational
+[ zzz02: (~EoSPAck & ~EOF3Ack & zzz02)] Combinational
+[ zzz02: (SOF1Ack)] Combinational
+[ zzz02: (EOF1Ack)] Combinational
+[ zzz03: (~EoSPAck & ~SOF2Ack & ~EOF2Ack & zzz03)] Combinational
+[ zzz03: (~EOF1Req & zzz00 & zzz03)] Combinational
+[ zzz03: (EoSPAck & ~EOF1Req & zzz00)] Combinational
+[ zzz03: (SOF1Ack)] Combinational
+[ zzz03: (~SDEventReq)] Combinational

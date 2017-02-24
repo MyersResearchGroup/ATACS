@@ -1,0 +1,466 @@
+eval "set PATH=/usr/bin:/usr/local/bin:/Perl/bin:${PATH};exec perl -S $0 $*"
+    if $running_under_some_shell;#above line won't run if we're already in Perl
+
+if ( ! @ARGV[0] ) {
+    print "\n";
+    print "usage: xbm2csg [-dvr] filename\n";
+    print " Generates a compacted state graph structure from\n";
+    print " an extended burst-mode controller specification.\n";
+    print " Option -d generates a csg with delayed feedbacks.\n";
+    print " Option -v prints out detailed information.\n";
+    print " Option -r generates a fully expanded rsg.\n\n";
+}
+else{
+    $| = 1;
+    $info = 1;
+    $debug = 0;
+    $id = "xbm2csg - ";
+
+    system("date");
+    $delayed_feedback = 0;
+    $generate_rsg = 0;
+    if (@ARGV[0] =~ /^-/) {
+	$filename = @ARGV[1];
+	if (@ARGV[0] =~ /d/) {
+	    $delayed_feedback = 1; }
+	if (@ARGV[0] =~ /v/) {
+	    $debug = 1; }
+	if (@ARGV[0] =~ /r/) {
+	    $generate_rsg = 1; }}
+    else {
+	$filename = @ARGV[0]; }
+    if ( ! -r $filename) {
+	die "ERROR: Cannot read specified file: ".$filename."\n"; }
+    if($info){ print $id."translating file ".$filename."\n"; }
+    $lineno = 0; $i = 0;
+    $start_state = "0";
+    open(FILE,$filename);
+    @file = <FILE>;
+    close(FILE);
+    $filename =~ s/\.unc$|\.nounc$//;
+    foreach $line (@file) { 
+	$lineno++;
+	$line =~ s/;.*//;  # Remove comments
+	$line =~ s/^\s*|\s*$//g; 
+	$line =~ s/\t/ /g;
+#	$line =~ tr/A-Z/a-z/;
+	if ($line !~ /\w|\d/) { }
+	elsif ($line =~ /(?:input|output)\s+\w+\s+\d+/i) {
+	    # Record I/O name and initial value.
+	    $name = $value = $line;
+	    $name =~ s/\s*(?:input|output)\s+(\w+).*\s*/$1/i;
+	    $value =~ s/\s*(?:input|output)\s+\w+\s+(\d+).*\s*/$1/i;
+	    if ($line =~ /^\s*input\s+/i) {
+		$signal_position{$name} = $i;
+		@start_signal_vector[$i] = $value;
+		@signal_names[$i++] = "INP $name "; }
+	    elsif ($line =~ /^\s*output\s+/i) {
+		$output_signal_values{$name} = $value;
+		$is_output{$name} = 1; 
+		if ($delayed_feedback) {
+		    $signal_position{"_$name"} = $i;
+		    @start_signal_vector[$i] = $value;
+		    @signal_names[$i++] = "INP _$name "; }}
+	}
+	elsif ($line =~ /\d+\s+\d+\s+\[?\w+(?:\+|-|\*)\]?(?:\s+\[?\w+(?:\+|-|\*)\]?)*\s*\|\s*\w*(?:\+?|-?)(?:\s+\w+(?:\+|-))*/) {
+	    $xbm_states++;
+	    $curr_state = $line;
+	    $next_state = $line;
+	    $in_burst = $line;
+	    $out_burst = $line;
+	    $level_signals = $line;
+	    $curr_state =~ s/\s*(\d+).*/$1/;
+	    $next_state =~ s/\s*\d+\s+(\d+).*/$1/;
+	    $in_burst   =~ s/\s*\d+\s+\d+\s+(.*?)\s*\|.*/$1/;
+	    $out_burst  =~ s/.*\|\s*(.*)/$1/;
+	    $graph{$curr_state}{next_state} .= $next_state.",";
+	    $graph{$curr_state}{in_burst} .= $in_burst.",";
+	    $graph{$curr_state}{out_burst} .= $out_burst.",";
+	    if ($level_signals =~ /\[/) {
+		$level_signals =~ s/.*?(\[\w+(?:\+|-)\])/$1/g;
+		$level_signals =~ s/((?:\[\w+(?:\+|-)\])*).*/$1/;
+		$level_signals =~ s/\]\[/,/g;
+		$level_signals =~ s/\[|\]//g;
+		@level_signals = split(/,/,$level_signals);
+		foreach $level_signal (@level_signals) {
+		    $level_signal =~ s/\+|-//;
+		    $is_level{$level_signal} = 1; }}
+	    if ($next_state eq $start_state) { $start_prev_burst = $in_burst; }}
+	else {
+	    print $id."Error on line ".$lineno.", skipping this line.\n"; }
+    }
+    while (($name,$value) = each(%output_signal_values)) {
+	$signal_position{"$name"} = $i;
+	@signal_names[$i] = "$name ";
+	@start_signal_vector[$i++] = $value; }
+
+    if($debug){print "GRAPH:\n"; foreach $state (keys %graph) {
+	print $state."\t".$graph{$state}{next_state}."\t".$graph{$state}{in_burst}."\t|\t".$graph{$state}{out_burst}."\n"; }}
+    if($debug){print "\nSTATE VECTOR: ".join("",@signal_names)."\n";}
+    if($debug){print "level signals: ",%is_level,"\n";}
+    
+    $burst_num = 0;
+    # Insert correct values for ddc's starting before and continuing through start state.
+    @signals = split(/\s+/,$start_prev_burst);
+    foreach $signal (@signals) {
+	$name = $signal;
+	$name =~ s/\+|-|\*|\[|\]//g;
+	$position = $signal_position{$name};
+	if ($signal =~ /\*/) {
+	    if (@start_signal_vector[$position] eq "0") {
+		@start_signal_vector[$position] = "U"; }
+	    elsif (@start_signal_vector[$position] eq "1") {
+		@start_signal_vector[$position] = "D"; }}}
+    $start_vector = join("",@start_signal_vector);
+    &build_state_graph($start_state,$start_vector,"");
+    %csg = %state_graph;
+    %state_visited = ();
+    %rsg = ();
+    if ($generate_rsg) {
+	if($info) { print $id."RSG processing csg states:\n"; }
+	foreach $start_state (@start_states) {
+	    &expand_csg_to_rsg($start_state); }
+	if($info) { print "\n"; }}
+    
+    if($info){ print $id."xbm states:   $xbm_states\n"; }
+    if($info){ print $id."csg states:   $states\n"; }
+    if($info){ print $id."state vector: $#start_signal_vector\n"; }
+    # Translate state names to numbers only format and state vector R,F to U,D.
+    if ($generate_rsg) {
+	%tmp_state_graph = %rsg; }
+    else {
+	%tmp_state_graph = %state_graph; }
+    %state_graph = ();
+    $i = 0;
+    foreach $state (keys %tmp_state_graph) {
+	$map_states{$state} = $i++; }
+    foreach $state (keys %tmp_state_graph) {
+	$next_states = $tmp_state_graph{$state}{next_state};
+	$state_vector = $tmp_state_graph{$state}{state_vector};
+	if (! $generate_rsg) { $state_vector =~ tr/RF/UD/; }
+	$next_states =~ s/,$//;
+	@next_states = split(/,/,$next_states);
+	$next_states = "";
+	foreach $next_state (@next_states) {
+	    $next_states .= $map_states{$next_state}.","; }
+	$state_graph{$map_states{$state}}{next_state} = $next_states;
+	$state_graph{$map_states{$state}}{state_vector} = $state_vector;
+    }
+    $states = $edges = "";
+    # Collect states and edges.
+    foreach $curr_state (keys %state_graph) {
+	$state_vector = $state_graph{$curr_state}{state_vector};
+	$next_states = $state_graph{$curr_state}{next_state};
+	@next_states = split(/,/,$next_states);
+	$bursts = $state_graph{$curr_state}{burst};
+	$states .= "$curr_state:$state_vector\n";
+	foreach $next_state (@next_states) {
+	    $next_state_vector = $state_graph{$next_state}{state_vector};
+	    $edges .= "$curr_state:$state_vector -> $next_state:$next_state_vector\n";
+	}}
+    if($debug){
+	print "\nCompacted state graph: (curr state, state vector, next states, bursts)\n----------------------\n";
+	foreach $curr_state (keys %csg) {
+	    $state_vector = $csg{$curr_state}{state_vector};
+	    $next_states = $csg{$curr_state}{next_state};
+	    @next_states = split(/,/,$next_states);
+	    $bursts = $csg{$curr_state}{burst};
+	    print "$curr_state:\t$state_vector\t$next_states\t$bursts\n"; }
+	print "----------------------\n\n"; }
+    if($generate_rsg && $debug){
+	print "Expanded state graph: (curr state, state vector, next states, bursts)\n----------------------\n";
+	foreach $curr_state (keys %rsg) {
+	    $state_vector = $rsg{$curr_state}{state_vector};
+	    $next_states = $rsg{$curr_state}{next_state};
+	    @next_states = split(/,/,$next_states);
+	    $bursts = $rsg{$curr_state}{burst};
+	    print "$curr_state:\t$state_vector\t$next_states\t$bursts\n"; }
+	print "----------------------\n\n"; }
+    # Write out compacted state graph to file.
+    $csg = "SG:\n";
+    $csg .= "STATEVECTOR:".join("",@signal_names)."\n";
+    $csg .= "STATES:\n";
+    $csg .= $states;
+    $csg .= "EDGES:\n";
+    $csg .= $edges;
+    open(FILE,">".$filename.".rsg");
+    if ($debug){print "Compacted state graph: (Atacs format)\n----------------------\n$csg";}
+    print FILE $csg;
+    close(FILE);    
+    if($info && $generate_rsg){ print $id."Expanded state graph written to file $filename.rsg\n"; }
+    elsif($info){ print $id."Compacted state graph written to file $filename.rsg\n"; }
+    system("date");
+}
+
+
+sub expand_csg_to_rsg {
+# Expand the csg to an rsg - does not currently support level signals.
+    local($curr_state,@state_vector,@next_states,@bursts,$i);
+    $curr_state = @_[0];
+    @state_vector = split(//,$state_graph{$curr_state}{state_vector});
+    @next_states = split(/,/,$state_graph{$curr_state}{next_state});
+    @bursts = split(/;/,$state_graph{$curr_state}{burst});
+    $i = 0;
+    if (! $state_visited{$curr_state}) {
+	$state_visited{$curr_state} = 1;
+	$rsg{$curr_state}{state_vector} = join("",@state_vector);
+	$rsg{$curr_state}{burst} = join(";",@bursts);
+	foreach $next_state (@next_states) {
+	    $burst = @bursts[$i];
+	    $burst =~ s/^\w+\*,|,\w+\*//g;
+	    if (($total_rsg_states - $old_rsg_states)) { 
+		$old_rsg_states = $total_rsg_states;
+		$total_rsg_states += $rsg_states;
+		$rsg_states = 0;
+		@tmp_burst = split(/,/,$burst);
+		$tmp_num = $#tmp_burst + 1;
+		@tmp_burst = split(//,$burst);
+		$tmp_string = "\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r";
+		if ($#tmp_burst > 50) { $tmp_burst = join("",@tmp_burst[0..50])."..."; }
+		else { $tmp_burst = join("",@tmp_burst)."   "; for ($i = 50; $i > $#tmp_burst; $i--) { $tmp_burst .= " "; } }
+		print $total_rsg_states."   burst($tmp_num): ".$tmp_burst.$tmp_string.$tmp_string; }
+	    @signals = split(/,/,$burst);
+	    if ($#signals > 0) {
+		$state_base = $curr_state;
+		$end_state = $next_state;
+		&build_diamond($curr_state,$burst,@state_vector); }
+	    else {
+		$rsg_states++;
+		$rsg{$curr_state}{next_state} .= $next_state.","; }
+	    if (! $state_visited{$next_state}) {
+		&expand_csg_to_rsg($next_state); }
+	    $i++;
+	}
+    }
+}	
+
+sub build_diamond {
+# Uses -,# instead of -,+ for signal polarity.
+# Input $signals must be free of ddc's as their enabling remain constant throughout burst (filter out from burst before calling this function).
+    local($prev_state,$signals,$position,$old_value,@prev_vector,@signals);
+    $prev_state = @_[0];
+    $signals = @_[1];
+    $signals =~ s/\+/#/g;
+    @prev_vector = @_[2..$#_];
+    @signals = split(/,/,$signals);
+    if ($rsg_states > 1000) { 
+	$total_rsg_states += $rsg_states;
+	$rsg_states = 0;
+	$tmp_string = "\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r";
+	print $total_rsg_states.$tmp_string.$tmp_string; }
+    foreach $signal (@signals) {
+	#print "signal: $signal\n";
+	if ($signal =~ /\w/) {
+	    $name = $signal;
+	    $name =~ s/#\d*|-\d*//;
+	    $tmp_signals = $signals;
+	    $tmp_signals =~ s/\b$signal//;
+	    $sid = $tmp_signals;
+	    $sid =~ s/(\#|-)\d*/$1/g;
+	    $sid =~ s/\b\w+\b/1/g;
+	    $sid =~ s/^,/0,/;
+	    $sid =~ s/,(?!\w)/,0/g;
+	    $sid =~ s/#|-//g;
+	    $sid =~ s/,//g;
+	    $state = $state_base."_".$sid;
+	    if ($rsg{$prev_state}{next_state} !~ /\b$state,/) {
+		$rsg{$prev_state}{next_state} .= $state.","; }
+	    $position = $signal_position{$name};
+	    $old_value = @prev_vector[$position];
+	    if ($signal =~ /-/) { @prev_vector[$position] = "0"; }
+	    else { @prev_vector[$position] = "1"; }
+	    $prev_vector = join("",@prev_vector);
+	    $rsg{$state}{state_vector} = $prev_vector;
+	    $rsg_states++;
+	    if ((index($prev_vector,"R") != rindex($prev_vector,"R")) || (index($prev_vector,"F") != rindex($prev_vector,"F")) ||
+		(($prev_vector =~ /R/) && ($prev_vector =~ /F/))) {
+		&build_diamond($state,$tmp_signals,@prev_vector); }
+	    else { 
+		if ($rsg{$state}{next_state} !~ /\b$end_state,/) {
+		    $rsg{$state}{next_state} .= $end_state.","; 
+		    $tmp_sig = $signal;
+		    $tmp_sig =~ s/#/\+/;
+		    $rsg{$state}{burst} = $tmp_sig; }}
+	    @prev_vector[$position] = $old_value;
+	}
+    }
+}
+
+
+sub build_state_graph {
+# Build a state graph from the extended burst-mode specification.
+
+    local($i,$curr_state,$end_vector,$in_vector,@prev_rf_state_vector,@state_vector,@next_states,@in_bursts,@out_bursts);
+    $curr_state = @_[0];
+    $prev_vector = @_[1];
+    $prev_burst = @_[2];
+
+    @prev_rf_state_vector = split(//,$prev_vector);
+    $tmp_vector = $prev_vector;
+    $tmp_vector =~ s/R/1/g;
+    $tmp_vector =~ s/F/0/g;
+    @state_vector = split(//,$tmp_vector);
+    if($debug){print $id."DFS trace - state $curr_state, state vector = ",@state_vector,"\n";}
+    if($debug){print $id."DFS trace - state $curr_state, prev  vector = ",@prev_rf_state_vector,"\n";}
+    $next_states = $graph{$curr_state}{next_state};
+    $next_states =~ s/,$//;
+    @next_states = split(/,/,$next_states);
+    $in_bursts = $graph{$curr_state}{in_burst};
+    $in_bursts =~ s/,$//;
+    @in_bursts = split(/,/,$in_bursts);
+    $out_bursts = $graph{$curr_state}{out_burst};
+    $out_bursts =~ s/,$//;
+    @out_bursts = split(/,/,$out_bursts);
+    # Mark enabled inputs with R,F,D,U,X.
+    foreach $name (keys %is_level) {
+	@state_vector[$signal_position{$name}] = "X"; }
+#    @rf_state_vector = @state_vector; #old
+    $i = 0;
+    foreach $burst (@in_bursts) {
+	@rf_state_vector = @state_vector; #new
+	@signals = split(/\s+/,$burst);
+	foreach $signal (@signals) {
+	    $name = $signal;
+	    $name =~ s/\+|-|\*|\[|\]//g;
+	    $position = $signal_position{$name};
+	    if ($signal =~ /-(?!\])/) {
+		# Falling edge
+		@rf_state_vector[$position] = "F"; }
+	    elsif ($signal =~ /\+(?!\])/) {
+		# Rising edge
+		@rf_state_vector[$position] = "R"; }
+	    elsif ($signal =~ /\*(?!\])/) {
+		# Directed don't care
+		if (@prev_rf_state_vector[$position] eq "0") {    # First ddc occurrence in the ddc transition.
+		    @rf_state_vector[$position] = "U"; } 
+		elsif (@prev_rf_state_vector[$position] eq "1") {
+		    @rf_state_vector[$position] = "D"; }
+		elsif (@prev_rf_state_vector[$position] eq "U") { # Second or later ddc occurrence in ddc transition.
+		    @rf_state_vector[$position] = "U"; }
+		elsif (@prev_rf_state_vector[$position] eq "D") {
+		    @rf_state_vector[$position] = "D"; }
+		else { die $id."ERROR: Cannot determine value of directed don't care.\n"; }}
+	    elsif ($signal =~ /(?:\+|-)\]/) {  # Level signal
+		if ($signal =~ /\+/) {
+		    @rf_state_vector[$position] = "1"; }
+		else {
+		    @rf_state_vector[$position] = "0"; }
+	    }
+	    else {
+		die $id."ERROR: Signal $signal not of recognizable type (terminating edge, directed don't care, level).\n"; }
+	}
+	$state_graph{$curr_state.".$i"}{state_vector} = join("",@rf_state_vector); #new
+	if ($curr_state eq $start_state) { # Collect start states needed for later rsg generation.
+	    @start_states[$i] = $curr_state.".$i"; }
+	$states++;
+	$i++;
+    }
+    if($debug){print join("",@rf_state_vector)."  ".join(", ",@in_bursts)." |\n";}
+    $in_vector = join("",@rf_state_vector);
+    $state_visited{$curr_state} = 1;
+#    $state_graph{$curr_state}{state_vector} = $in_vector; #old
+    $i = 0;
+    foreach $next_state (@next_states) {
+	if($debug){print "$curr_state  $next_state   ".@in_bursts[$i]."  |  ".@out_bursts[$i]."\n";}
+	@next_state_next_states = split(/,/,$graph{$next_state}{next_state});
+	@rf_state_vector = @state_vector;
+	$burst = @in_bursts[$i];
+	$in_burst = $burst;
+	$in_burst =~ s/\s+/,/g;
+	@signals = split(/\s+/,$burst);
+	# Fire all inputs in current burst to form state vector after input changes have ended.
+	foreach $signal (@signals) {
+	    $name = $signal;
+	    $name =~ s/\+|-|\*|\[|\]//g;
+	    $position = $signal_position{$name};
+	    if ($signal =~ /-/) { 
+		# Falling edge or 0 level signal
+		@rf_state_vector[$position] = "0"; }
+	    elsif ($signal =~ /\+/) { 
+		# Rising edge or 1 level signal
+		@rf_state_vector[$position] = "1"; }
+	    elsif($signal =~ /\*/) {
+		# Directed don't care.
+		if (@prev_rf_state_vector[$position] eq "0") {    # First ddc occurrence in the ddc transition.
+		    @rf_state_vector[$position] = "U"; } 
+		elsif (@prev_rf_state_vector[$position] eq "1") {
+		    @rf_state_vector[$position] = "D"; }
+		elsif (@prev_rf_state_vector[$position] eq "U") { # Second or later ddc occurrence in ddc transition.
+		    @rf_state_vector[$position] = "U"; }
+		elsif (@prev_rf_state_vector[$position] eq "D") {
+		    @rf_state_vector[$position] = "D"; }}}
+	# Mark eventual enabled outputs with R,F.
+	$burst = @out_bursts[$i];
+	$end_vector = join("",@rf_state_vector);
+	$end_burst = $in_burst;
+	@signals = split(/\s+/,$burst);
+	if ($#signals >= 0) { 
+	    $out_burst = $burst;
+	    $out_burst =~ s/\s+/$burst_num,/g;
+	    $out_burst .= $burst_num;
+	    $end_burst = $out_burst;
+	    @tmp_state_vector = @rf_state_vector;
+	    foreach $signal (@signals) {
+		$name = $signal;
+		$name =~ s/\+|-//;
+		if ($signal =~ /-/) { 
+		    # Falling edge 
+		    @rf_state_vector[$signal_position{$name}] = "F"; }
+		elsif ($signal =~ /\+/) { 
+		    # Rising edge
+		    @rf_state_vector[$signal_position{$name}] = "R"; }}
+	    if($debug){print join("",@rf_state_vector)."  | ".@out_bursts[$i]."\n";}
+	    $out_vector = join("",@rf_state_vector);
+	    $outp_state = "$curr_state.$i\_$next_state.o";
+	    if ($delayed_feedback) {
+		$inp_vector = $out_vector;
+		$inp_vector =~ tr/RF/10/;
+		$inp_state = "$curr_state.$i\_$next_state.i";
+		$fb_out_burst = $burst;
+		$fb_out_burst =~ s/\s+/,/g;
+		$fb_out_burst =~ s/(\w+(?:\+|-))/_$1/g;
+		@signals = split(/,/,$fb_out_burst);
+		@rf_state_vector = split(//,$inp_vector);
+		foreach $signal (@signals) {
+		    $name = $signal;
+		    $name =~ s/\+|-//;
+		    if ($signal =~ /-/) { 
+			@rf_state_vector[$signal_position{$name}] = "F"; }
+		    elsif ($signal =~ /\+/) { 
+			@rf_state_vector[$signal_position{$name}] = "R"; }}
+		$inp_vector = join("",@rf_state_vector);
+		$state_graph{$curr_state.".$i"}{next_state} .= "$outp_state,";
+		$state_graph{$curr_state.".$i"}{burst} .= $in_burst.";";
+		$state_graph{$outp_state}{state_vector} = $out_vector;
+		$state_graph{$outp_state}{next_state} = $inp_state;
+		$state_graph{$outp_state}{burst} = $out_burst;
+		$state_graph{$inp_state}{state_vector} = $inp_vector;
+		for ($j = 0; $j <= $#next_state_next_states; $j++) {
+		    $state_graph{$inp_state}{next_state} .= $next_state.".$j,";
+		    $state_graph{$inp_state}{burst} .= $fb_out_burst.";"; }
+		$states++; }
+	    else {
+		$state_graph{$curr_state.".$i"}{next_state} .= "$outp_state,";
+		$state_graph{$curr_state.".$i"}{burst} .= $in_burst.";";
+		$state_graph{$outp_state}{state_vector} = $out_vector;
+		for ($j = 0; $j <= $#next_state_next_states; $j++) {
+		    $state_graph{$outp_state}{next_state} .= $next_state.".$j,";
+		    $state_graph{$outp_state}{burst} .= $out_burst.";"; }}
+	    $end_vector = join("",@rf_state_vector);
+	    $states++;
+	    $burst_num++; }
+	else {
+	    for ($j = 0; $j <= $#next_state_next_states; $j++) {
+		$state_graph{$curr_state.".$i"}{next_state} .= $next_state.".$j,";
+		$state_graph{$curr_state.".$i"}{burst} .= $in_burst.";"; }}
+	# Handle dfs iteration.
+	if (! $state_visited{$next_state}) { 
+	    &build_state_graph($next_state,$end_vector,$end_burst); }
+	$i++;
+    }
+}
+
+
+
+
+

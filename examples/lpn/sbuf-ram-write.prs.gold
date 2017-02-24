@@ -1,0 +1,9 @@
+[ ack: (~y1_sbuframwrite)] Combinational
+[~prbar: (y0_sbuframwrite & y1_sbuframwrite)] Combinational
+[ wen: (~precharged & ~y0_sbuframwrite & y1_sbuframwrite)] Combinational
+[ wsen: (y1_sbuframwrite)] Combinational
+[ wsld: (~wenin & ~y0_sbuframwrite & ~y1_sbuframwrite)] Combinational
+[+y0_sbuframwrite: (wsldin)]
+[-y0_sbuframwrite: (~done & precharged & req)]
+[+y1_sbuframwrite: (~req & ~wsldin & y0_sbuframwrite)]
+[-y1_sbuframwrite: (done & wenin)]

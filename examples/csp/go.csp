@@ -1,0 +1,27 @@
+/*****************************************************************************/
+/* Another go signal controller for RAPPID length decoder.                   */
+/*****************************************************************************/
+module go;
+
+input ready={<20,inf;10,20>};
+input irdy={<10,inf;2,5>};
+input selin={<10,inf;2,5>};
+output go1={<2,5>};
+output go2={<2,5>};
+
+process go;
+    *[ [ready+]; (go1+ || go2+); [irdy+]; go1-; [selin+]; go2- ]
+endprocess
+
+process ready;
+    *[ ready+; [selin+ & irdy+]; ready- ]
+endprocess
+
+process irdy;
+    *[ [ready+]; irdy+; [go2-]; irdy- ]
+endprocess
+
+process selin;
+    *[ [ready+]; selin+; [ready-]; selin- ]
+endprocess
+endmodule

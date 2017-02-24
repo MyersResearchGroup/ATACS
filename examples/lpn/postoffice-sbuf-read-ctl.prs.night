@@ -1,0 +1,6 @@
+[+zzz00: (BUSACK)]
+[-zzz00: (~REQ)]
+[ BUSREQ: (~BUSACK & ACKREAD & ~zzz00 & RAMRDSBUF)] Combinational
+[+RAMRDSBUF: (~ACKREAD & REQ)]
+[-RAMRDSBUF: (~BUSACK & zzz00)]
+[ ACK: (~BUSACK & REQ & zzz00)] Combinational

@@ -1,0 +1,54 @@
+.TH SUBSET 1 "30 March 2002" "" ""
+.SH NAME
+subset \- Toggle assumption that a subset of rules implies a superset of states
+.SH SYNOPSIS
+.B atacs -PS
+.br
+.B atacs> subset
+.SH DESCRIPTION
+.B subset
+toggles the pruning of TEL structures that have a subset of the rules
+of any TEL structure that is known to have a CSC violation during
+automated concurrency reduction.  The atacs default is to attempt
+synthesis on such TEL structures.  The first invocation
+of the \fBsubset\fR command enables the policy of checking whether
+any TEL structure beneath the current node in the
+concurrency-reduction search tree would have a subset of the rules of
+some TEL structure that has already failed synthesis because of a CSC
+violation.  If so, the entire sub-tree rooted at this node is pruned.
+The second invocation of the \fBsubset\fR command disables this policy
+and so on.
+.PP
+This policy relies on the assumption that adding a new rule to a TEL
+structure cannot introduce new states.  Unfortunately, this assumption
+is not always valid.  A new rule can delay its enabled event to the
+point that it becomes concurrent with some event with which it was not
+previously concurrent.  It could even delay its enabled event such
+that it now follows an event which it previously preceded.  This
+usually only happens in TEL structures that rely on timing to achieve
+CSC.  However, even in the speed-independent context, adding a rule
+between two previously disjoint processes can split states and
+invalidate the assumption.  Thus, the technique of \fBsubset\fR is a
+heuristic.
+.PP
+.SH OPTIONS
+.TP
+.BI \-PS
+This atacs option toggles the pruning of TEL structures that have a
+subset of the rules of any TEL structure that is known to have a CSC
+violation during automated concurrency reduction from the Unix shell
+command line.
+.TP
+.BI subset
+This atacs command toggles the pruning of TEL structures that have a
+subset of the rules of any TEL structure that is known to have a CSC
+violation during automated concurrency reduction from within the atacs
+interactive shell.
+.SH CREDITS
+This pruning method and this command were written by Eric Robert
+Peskin (peskin@vlsigroup.ece.utah.edu).
+.SH BUGS
+See http://www.async.ece.utah.edu/cgi-bin/atacs
+.SH "SEE ALSO"
+.BR reduction (1),
+.BR http://www.async.ece.utah.edu

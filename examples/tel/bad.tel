@@ -1,0 +1,131 @@
+#  This Timed Event/Level structure contains:
+.e 32 # events
+.i 12 # input events
+.r 48 # causal rules
+.n 0 # ordering rules
+.d 0 # merges
+.c 32 # conflicts
+.s 00000000 # start state
+#
+# EVENTS:
+#
+reset
+#  Each of the following events has the format <action>[/<occurrence>]
+#  (if the occurrence is omitted, it is assumed to be 1)
+#   Input Events:
+shop1_to_patron?+ shop1_to_patron?- 
+shop2_to_patron?+ shop2_to_patron?- 
+shop2_to_patron!+ shop2_to_patron!- 
+winery_to_shop2?+ winery_to_shop2?- 
+winery_to_shop1!+ winery_to_shop1!- 
+winery_to_shop2!+ winery_to_shop2!- 
+#   Output Events:
+winery_to_shop1?+ winery_to_shop1?- 
+shop1_to_patron!+ shop1_to_patron!- 
+#   Dummy (Sequencing) Events:
+$HSE6 
+$HSE5 
+$HSE4 
+$HSE3 
+$HSE2 
+$HSE1 
+$3+_patron_THE_PATRON 
+$4+_patron_THE_PATRON 
+$0+_patron_THE_PATRON 
+$2+_patron_THE_PATRON 
+$1+_patron_THE_PATRON 
+$3+_winery_THE_WINERY 
+$2+_winery_THE_WINERY 
+$0+_winery_THE_WINERY 
+$1+_winery_THE_WINERY 
+#
+# RULES, which have the following format:
+#  <enabling> <enabled> [<expression>] <epsilon> <lower> <upper>
+#   Causal (Behavioral) Rules:
+reset winery_to_shop2?+ [winery_to_shop2!] 0 0 inf
+reset winery_to_shop1?+ [winery_to_shop1!] 0 0 inf
+reset $0+_patron_THE_PATRON [(shop1_to_patron!)|(shop1_to_patron?)|(shop2_to_patron!)|(shop2_to_patron?)] 0 0 0
+reset $3+_winery_THE_WINERY [~(maybe_THE_WINERY)] 0 0 0
+reset $2+_winery_THE_WINERY [maybe_THE_WINERY] 0 0 0
+reset shop1_to_patron!+ [~shop1_to_patron?] 0 0 inf
+shop1_to_patron?+ shop1_to_patron?- [~shop1_to_patron!] 0 0 inf
+shop1_to_patron?- $1+_patron_THE_PATRON  0 0 inf
+shop2_to_patron?+ shop2_to_patron?- [~shop2_to_patron!] 0 0 inf
+shop2_to_patron?- $2+_patron_THE_PATRON  0 0 inf
+shop2_to_patron!+ shop2_to_patron!- [shop2_to_patron?] 0 0 inf
+shop2_to_patron!- $HSE2 [~shop2_to_patron?] 0 0 inf
+winery_to_shop2?+ winery_to_shop2?- [~winery_to_shop2!] 0 0 inf
+winery_to_shop2?- shop2_to_patron!+  0 0 inf
+winery_to_shop1!+ winery_to_shop1!- [winery_to_shop1?] 0 0 inf
+winery_to_shop1!- $1+_winery_THE_WINERY [~winery_to_shop1?] 0 0 inf
+winery_to_shop2!+ winery_to_shop2!- [winery_to_shop2?] 0 0 inf
+winery_to_shop2!- $0+_winery_THE_WINERY [~winery_to_shop2?] 0 0 inf
+winery_to_shop1?+ $HSE5 [~winery_to_shop1!] 0 0 inf
+winery_to_shop1?+ shop1_to_patron!+  0 0 inf
+winery_to_shop1?- $HSE3  0 0 inf
+winery_to_shop1?- shop1_to_patron!-  0 0 inf
+shop1_to_patron!+ $HSE1 [shop1_to_patron?] 0 0 inf
+shop1_to_patron!+ winery_to_shop1?-  0 0 inf
+shop1_to_patron!- $HSE6 [~shop1_to_patron?] 0 0 inf
+$HSE6 shop1_to_patron!+  1 0 inf # INITIAL
+$HSE6 winery_to_shop1?+  1 0 inf # INITIAL
+$HSE6 $HSE3  0 0 inf
+$HSE5 winery_to_shop1?-  0 0 inf
+$HSE5 shop1_to_patron!+  0 0 inf
+$HSE4 winery_to_shop2?+ [winery_to_shop2!] 1 0 inf # INITIAL
+$HSE3 winery_to_shop1?+ [winery_to_shop1!] 1 0 inf # INITIAL
+$HSE2 $HSE4  0 0 inf
+$HSE1 shop1_to_patron!-  0 0 inf
+$HSE1 $HSE3  0 0 inf
+$HSE1 winery_to_shop1?-  0 0 inf
+$3+_patron_THE_PATRON shop1_to_patron?+ [shop1_to_patron!] 0 0 inf
+$4+_patron_THE_PATRON shop2_to_patron?+ [shop2_to_patron!] 0 0 inf
+$0+_patron_THE_PATRON $3+_patron_THE_PATRON [(shop1_to_patron!)|(shop1_to_patron?)] 0 0 0
+$0+_patron_THE_PATRON $4+_patron_THE_PATRON [~((shop1_to_patron!)|(shop1_to_patron?))] 0 0 0
+$2+_patron_THE_PATRON $0+_patron_THE_PATRON [(shop1_to_patron!)|(shop1_to_patron?)|(shop2_to_patron!)|(shop2_to_patron?)] 1 0 0 # INITIAL
+$1+_patron_THE_PATRON $0+_patron_THE_PATRON [(shop1_to_patron!)|(shop1_to_patron?)|(shop2_to_patron!)|(shop2_to_patron?)] 1 0 0 # INITIAL
+$3+_winery_THE_WINERY winery_to_shop1!+  0 0 inf
+$2+_winery_THE_WINERY winery_to_shop2!+  0 0 inf
+$0+_winery_THE_WINERY $3+_winery_THE_WINERY [~(maybe_THE_WINERY)] 1 0 0 # INITIAL
+$0+_winery_THE_WINERY $2+_winery_THE_WINERY [maybe_THE_WINERY] 1 0 0 # INITIAL
+$1+_winery_THE_WINERY $3+_winery_THE_WINERY [~(maybe_THE_WINERY)] 1 0 0 # INITIAL
+$1+_winery_THE_WINERY $2+_winery_THE_WINERY [maybe_THE_WINERY] 1 0 0 # INITIAL
+#   Ordering (Constraint) Rules:
+#
+# MERGERS:
+#
+#
+# CONFLICTS:
+#
+shop1_to_patron?+ shop2_to_patron?+ 
+shop1_to_patron?+ shop2_to_patron?- 
+shop1_to_patron?+ $4+_patron_THE_PATRON 
+shop1_to_patron?+ $2+_patron_THE_PATRON 
+shop2_to_patron?+ shop1_to_patron?- 
+shop2_to_patron?- shop1_to_patron?- 
+winery_to_shop1!+ $2+_winery_THE_WINERY 
+winery_to_shop1!+ $0+_winery_THE_WINERY 
+winery_to_shop1!- $2+_winery_THE_WINERY 
+winery_to_shop1!- $0+_winery_THE_WINERY 
+winery_to_shop2!+ $1+_winery_THE_WINERY 
+winery_to_shop2!+ $3+_winery_THE_WINERY 
+winery_to_shop2!+ winery_to_shop1!+ 
+winery_to_shop2!+ winery_to_shop1!- 
+winery_to_shop2!- $1+_winery_THE_WINERY 
+winery_to_shop2!- $3+_winery_THE_WINERY 
+winery_to_shop2!- winery_to_shop1!+ 
+winery_to_shop2!- winery_to_shop1!- 
+$3+_patron_THE_PATRON shop2_to_patron?+ 
+$3+_patron_THE_PATRON shop2_to_patron?- 
+$4+_patron_THE_PATRON shop1_to_patron?- 
+$4+_patron_THE_PATRON $3+_patron_THE_PATRON 
+$2+_patron_THE_PATRON shop1_to_patron?- 
+$2+_patron_THE_PATRON $3+_patron_THE_PATRON 
+$1+_patron_THE_PATRON shop2_to_patron?+ 
+$1+_patron_THE_PATRON shop2_to_patron?- 
+$1+_patron_THE_PATRON $4+_patron_THE_PATRON 
+$1+_patron_THE_PATRON $2+_patron_THE_PATRON 
+$3+_winery_THE_WINERY $2+_winery_THE_WINERY 
+$3+_winery_THE_WINERY $0+_winery_THE_WINERY 
+$1+_winery_THE_WINERY $2+_winery_THE_WINERY 
+$1+_winery_THE_WINERY $0+_winery_THE_WINERY 

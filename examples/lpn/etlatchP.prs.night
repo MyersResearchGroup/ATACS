@@ -1,0 +1,9 @@
+[ Rout: (~E & csc0)] Combinational
+[ Rout: (Ck & csc0)] Combinational
+[+E: (Rin & ~csc0)]
+[-E: (~Rin & Ck & csc0)]
+[ Ain: (E)] Combinational
+[~Ck: (~csc0)] Combinational
+[~Ck: (~D)] Combinational
+[+csc0: (~Aout & D & ~Ck)]
+[-csc0: (Aout & ~D)]

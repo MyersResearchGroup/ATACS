@@ -1,0 +1,35 @@
+.TH NOT_FIRST 1 "30 March 2002" "" ""
+.SH NAME
+not_first \- Toggle stopping concurrency reduction after the first solution
+.SH SYNOPSIS
+.B atacs -PN
+.br
+.B atacs> not_first
+.SH DESCRIPTION
+.B not_first
+toggles the pruning of all but the first solution during automated
+concurrency reduction.  The atacs default is that automated
+concurrency reduction continues to look for more solutions even after
+it finds the first solution.  The first invocation of the
+\fBnot_first\fR command enables the policy of stopping after the first
+solution is found.  The second invocation disables it again, and so
+on.
+.PP
+.SH OPTIONS
+.TP
+.BI \-PN
+This atacs option toggles the pruning of all but the first solution
+during automated concurrency reduction from the Unix shell command line.
+.TP
+.BI not_first
+This atacs command toggles the pruning of all but the first solution
+during automated concurrency reduction from within the atacs
+interactive shell.
+.SH CREDITS
+This pruning method and this command were written by Eric Robert
+Peskin (peskin@vlsigroup.ece.utah.edu)
+.SH BUGS
+See http://www.async.ece.utah.edu/cgi-bin/atacs
+.SH "SEE ALSO"
+.BR reduction (1),
+.BR http://www.async.ece.utah.edu

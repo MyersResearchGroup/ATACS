@@ -1,0 +1,4 @@
+[ Ca: (Cr & ~La)] Combinational
+[ Sa: (Sr & La)] Combinational
+[+Lr: (Sr)]
+[-Lr: (Cr)]

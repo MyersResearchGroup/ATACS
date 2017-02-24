@@ -1,0 +1,5 @@
+[ Ro: (D)] Combinational
+[+Ai: (D & ~L)]
+[-Ai: (~D & ~L)]
+[ L: (Ri & ~Ao & ~D)] Combinational
+[ L: (~Ri & Ao & D)] Combinational

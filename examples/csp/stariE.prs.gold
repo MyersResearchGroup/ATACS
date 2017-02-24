@@ -1,0 +1,5 @@
+[+xfZ: (xf0 & ack0)]
+[-xfZ: (~xf0 & ~ack0)]
+[+xtZ: (xt0 & ack0)]
+[-xtZ: (~xt0 & ~ack0)]
+[ ack0: (~xfZ & ~xtZ)] Combinational

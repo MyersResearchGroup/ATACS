@@ -1,0 +1,26 @@
+[ frout: (~fain & zzz00 & zzz02)] Combinational
+[ frout: (ok & ~fain & ~sel & ~zzz00 & ~zzz01)] Combinational
+[ ackout: (dsel & ackout & ~zzz01 & ~zzz02)] Combinational
+[ ackout: (ackout & ~zzz00 & ~zzz01)] Combinational
+[ ackout: (ackout & zzz00 & zzz01)] Combinational
+[ ackout: (reqin & dsel & sel)] Combinational
+[ ackout: (reqin & ~fain & zzz00 & zzz01)] Combinational
+[ sel: (sel & ~zzz01 & ~zzz02)] Combinational
+[ sel: (sel & ~zzz00 & ~zzz01)] Combinational
+[ sel: (~dsel & ~fain & ~frout & zzz00 & ~zzz01)] Combinational
+[ zzz00: (~reqin & cntgt1 & ackout & ~zzz01)] Combinational
+[ zzz00: (~reqin & zzz00 & ~zzz01)] Combinational
+[ zzz00: (cntgt1 & ~sel & zzz00)] Combinational
+[ zzz00: (~dsel & zzz00 & ~zzz01)] Combinational
+[ zzz00: (reqin & ~sel & zzz00)] Combinational
+[ zzz00: (~ackout & ~sel & zzz00)] Combinational
+[ zzz00: (fain)] Combinational
+[ zzz01: (ok & ~ackout & zzz01)] Combinational
+[ zzz01: (ok & ~zzz00 & zzz01)] Combinational
+[ zzz01: (ok & dsel & zzz01)] Combinational
+[ zzz01: (reqin & zzz00 & zzz01)] Combinational
+[ zzz01: (~reqin & ~cntgt1 & ackout & ~zzz00)] Combinational
+[ zzz01: (~cntgt1 & ackout & zzz01)] Combinational
+[ zzz01: (fain)] Combinational
+[ zzz02: (~reqin & dsel & cntgt1 & ackout & ~zzz01)] Combinational
+[ zzz02: (~fain & zzz02)] Combinational

@@ -1,0 +1,17 @@
+.dummy t1 t2 rate1 rate2 rate3
+.graph 
+t2 p1
+p1 t1 #@ [6,12]
+t1 p2 
+p2 t2 #@ [6,12]
+p1 rate1 #@ /1;inf\
+p2 rate2 #@ /1;inf\
+p2 rate3 #@ /1;inf\
+rate1 y
+rate1 z 
+rate2 y
+rate3 z
+.marking { p1 }
+#@.rates { <rate1 = 1><rate2 = 2><rate3 = 3> }
+#@.continuous rate1 rate2 rate3 y z
+.end

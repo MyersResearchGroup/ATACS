@@ -1,0 +1,16 @@
+Tip:  This might mean you have not checked in all the files you have
+modified.  Consider running the shell command
+
+        cvs commit
+
+(with NO file name) to commit all the files you have modified.  You
+will be prompted for one log message for all the files.  It is best to
+run this as soon as you have fixed a given bug or implemented a given
+feature.
+
+If you need to check in a group of files but not all the files you
+have modified, you can use the shell command
+
+        cvs commit <file1> <file2>...
+
+See http://shade.cse.unsw.edu.au/gnu/docs/cvs_95.html#SEC99 for details.

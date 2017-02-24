@@ -1,0 +1,96 @@
+/*****************************************************************************/
+/* One stage of Greenstreet's stari protocol (event-based, maybe wrong).     */
+/*****************************************************************************/
+module stari;
+
+input clk={<12,12>};
+input tclk={<0,2>};
+input rclk={true,<0,2>};
+
+input xt0={<2,4>};
+input xf0={<2,4>};
+output ack0={true,<2,4>};
+
+input ackZ={true,<2,4>};
+output xtZ={<2,4>};
+output xfZ={<2,4>};
+
+process left;
+    *[[ tclk+ -> xt0+; [tclk-]; xt0-
+      | tclk+ -> xf0+; [tclk-]; xf0-
+     ]]
+endprocess
+
+process stage0;
+*[[ xt0+ -> xtZ+; ack0-; [xt0- & ackZ-]; xtZ-; ack0+; [ackZ+]
+  | xf0+ -> xfZ+; ack0-; [xf0- & ackZ-]; xfZ-; ack0+; [ackZ+]
+ ]]
+endprocess
+
+process right;
+*[[ rclk- -> ackZ-; [rclk+]; ackZ+
+  | rclk- -> ackZ-; [rclk+]; ackZ+ 
+ ]]
+endprocess
+
+process tclk;
+    *[[ clk+ -> tclk+; [clk-]; tclk- 
+      | clk+ -> tclk+; [clk-]; tclk- 
+     ]]
+endprocess
+
+process rclk;
+    *[[ clk+ -> rclk-; [clk-]; rclk+
+      | clk+ -> rclk-; [clk-]; rclk+ 
+     ]]
+endprocess
+
+process clk;
+    *[[ skip -> clk+; clk-
+      | skip -> clk+; clk- 
+     ]]
+endprocess
+
+endmodule
+
+/*
+output ack1={true,<2,4>};
+output xt1={<2,4>};
+output xf1={<2,4>};
+
+output ack2={true,<2,4>};
+output xt2={<2,4>};
+output xf2={<2,4>};
+
+output ack3={true,<2,4>};
+output xt3={<2,4>};
+output xf3={<2,4>};
+*/
+
+/*
+process stage0;
+*[[ xt0+ -> xt1+; ack0-; [xt0- & ack1-]; xt1-; ack0+; [ack1+]
+  | xf0+ -> xf1+; ack0-; [xf0- & ack1-]; xf1-; ack0+; [ack1+]
+ ]]
+endprocess
+
+process stage1;
+*[[ xt1+ -> xt2+; ack1-; [xt1- & ack2-]; xt2-; ack1+; [ack2+]
+  | xf1+ -> xf2+; ack1-; [xf1- & ack2-]; xf2-; ack1+; [ack2+]
+ ]]
+endprocess
+
+process stage2;
+*[[ xt2+ -> xt3+; ack2-; [xt2- & ack3-]; xt3-; ack2+; [ack3+]
+  | xf2+ -> xf3+; ack2-; [xf2- & ack3-]; xf3-; ack2+; [ack3+]
+ ]]
+endprocess
+
+process stage3;
+*[[ xt3+ -> xtZ+; ack3-; [xt3- & ackZ-]; xtZ-; ack3+; [ackZ+]
+  | xf3+ -> xfZ+; ack3-; [xf3- & ackZ-]; xfZ-; ack3+; [ackZ+]
+ ]]
+endprocess
+*/
+
+

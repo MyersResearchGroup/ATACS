@@ -1,0 +1,76 @@
+# This Timed Event/Level structure contains:
+.e 22 # events
+.i 8 # input events
+.r 35 # causal rules
+.n 0 # ordering rules
+.d 0 # merges
+.c 0 # conflicts
+.s 00000000 # start state
+#
+# EVENTS:
+#
+reset
+# Each of the following events has the format <action>[/<occurrence>]
+# (if the occurrence is omitted, it is assumed to be 1)
+# Input Events:
+mdl?+ mdl?- 
+b!+ b!- 
+msl?+ msl?- 
+ra!+ ra!- 
+# Output Events:
+ra?+ ra?- 
+b?+ b?- 
+msl!+ msl!- 
+mdl!+ mdl!- 
+# Dummy (Sequencing) Events:
+$7+_control_uut 
+$HSE 
+$HSE/2 
+$HSE/3 
+$HSE/4 
+#
+# RULES, which have the following format:
+# <enabling> <enabled> [<expression>] <epsilon> <lower> <upper>
+# Causal (Behavioral) Rules:
+reset mdl?+  0 60 100
+reset b!+  0 5 26
+reset msl?+ [msl!] 0 0 0
+reset ra!+  0 4 18
+reset ra?+ [((mdl!)|(mdl?))&(ra!)] 0 0 0
+reset b?+ [((mdl!)|(mdl?))&(b!)] 0 0 0
+reset $HSE/3  0 0 0
+reset $HSE/4  0 0 0
+reset msl!+ [~msl?] 0 1 2
+mdl?+ mdl?- [mdl!] 0 10 60
+mdl?- mdl?+ [~mdl!] 1 60 100 # INITIAL
+b!+ b!- [b?] 0 5 26
+b!- b!+ [~b?] 1 5 26 # INITIAL
+msl?+ msl?- [~msl!] 0 10 60
+msl?- $HSE/2  1 0 0 # INITIAL
+ra!+ ra!- [ra?] 0 4 18
+ra!- ra!+ [~ra?] 1 4 18 # INITIAL
+ra?+ ra?- [~ra!] 0 0 2
+ra?+ msl!+  0 0 2
+ra?- $HSE/3  1 0 0 # INITIAL
+b?+ b?- [~b!] 0 0 2
+b?+ msl!+  0 0 2
+b?- $HSE/4  1 0 0 # INITIAL
+msl!+ $HSE [msl?] 0 0 0
+msl!- msl!+ [~msl?] 1 1 2 # INITIAL
+mdl!+ mdl!- [~mdl?] 0 0 2
+mdl!+ $7+_control_uut  0 0 0
+mdl!- $7+_control_uut  0 0 0
+$7+_control_uut $HSE/3 [(mdl!)|(mdl?)] 1 0 0 # INITIAL
+$7+_control_uut $HSE/4 [(mdl!)|(mdl?)] 1 0 0 # INITIAL
+$HSE msl!-  0 0 2
+$HSE mdl!+ [mdl?] 0 0 2
+$HSE/2 msl?+ [msl!] 0 60 100
+$HSE/3 ra?+ [ra!] 0 0 2
+$HSE/4 b?+ [b!] 0 0 2
+# Ordering (Constraint) Rules:
+#
+# MERGERS:
+#
+#
+# CONFLICTS:
+#

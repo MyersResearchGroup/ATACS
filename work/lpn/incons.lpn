@@ -1,0 +1,13 @@
+.name incons
+.inputs a 
+.outputs b c
+#@.init_state [000]
+a+ b+
+a+ c+
+c+ b-
+b+ a-
+b- a-
+a- c-
+c- a+
+.marking {<c-,a+>}
+.end

@@ -1,0 +1,29 @@
+module inv;
+
+input in={false,<1,2>};
+output out={true,<2,3>};
+
+process inv;
+*[ [in]; out-; [~in]; out+ ]
+endprocess
+endmodule
+
+module buf;
+
+input in={false,<3,4>};
+output out={false,<4,5>};
+
+process inv;
+*[ [in]; out+; [~in]; out- ]
+endprocess
+endmodule
+
+module main;
+
+input a={<8,10>};
+
+buf buf1(in => a, out => b);
+inv inv1(in => b, out => a);
+
+endmodule
+

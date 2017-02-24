@@ -1,0 +1,29 @@
+input	RFREQn                   1
+input	ASWn                     1
+input	ASRn                     1
+input	DDSn                     1
+input	An                       1
+input	Bn                       1
+input	Cn                       1
+output	RASn                     1
+output	CASn                     1
+output	WEn                      1
+output	DTACKn                   1
+output	SELCA                    0
+output	RFIP                     0
+output	zzz00                    0
+
+0  1	ASWn-                    | RASn- 
+1  2	An-                      | DTACKn- WEn- SELCA+ 
+2  3	Bn- DDSn-                | CASn- 
+3  4	ASWn+ DDSn+              | RASn+ CASn+ WEn+ DTACKn+ SELCA- 
+4  0	An+ Bn+                  | 
+0  5	ASRn- DDSn-              | RASn- 
+5  6	An-                      | DTACKn- SELCA+ 
+6  7	Bn-                      | CASn- 
+7  8	ASRn+ DDSn+              | RASn+ CASn+ DTACKn+ SELCA- 
+8  0	An+ Bn+                  | 
+0  9	RFREQn-                  | RFIP+ 
+9  10	Cn-                      | RASn- 
+10  11	An- Bn- RFREQn+          | RFIP- RASn+ zzz00+ 
+11  0	Cn+ An+ Bn+              | zzz00- 

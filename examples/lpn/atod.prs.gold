@@ -1,0 +1,6 @@
+[ lr: (~za & ~dr & ~x)] Combinational
+[+dr: (la)]
+[-dr: (~la & ~zr & x)]
+[ zr: (da & ~lr & ~x)] Combinational
+[+x: (da & za)]
+[-x: (~da)]

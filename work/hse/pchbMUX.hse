@@ -1,0 +1,52 @@
+/* pre-charge half buffer 2-1 MUX */
+/* sel = 0, Pass A. */
+/* sel = 1, Pass B. */
+module pchbMUX;
+
+delay onegate = <90,110>;
+delay twogate = <180,220>;
+delay envdelay = <180,220;180,220>;
+
+input A0 = {envdelay};
+input A1 = {envdelay};
+input B0 = {envdelay};
+input B1 = {envdelay};
+input Sel0 = {envdelay};
+input Sel1 = {envdelay};
+input De = {envdelay};
+output D0 = {onegate};
+output D1 = {onegate};
+output en = {true,onegate};
+
+process main;
+*[ [De]; [  A0 & B0 -> ( D0+ || [Sel0 | Sel1] )
+          | A1 & B1 -> ( D1+ || [Sel0 | Sel1] )
+          | A0 & Sel0 -> ( D0+ || [B0 | B1] )
+	  | A1 & Sel0 -> ( D1+ || [B0 | B1] )
+	  | B0 & Sel1 -> ( D0+ || [A0 | A1] )
+	  | B1 & Sel1 -> ( D1+ || [A0 | A1] )
+          ]; 	   
+	   en-; 
+	   [~De]; [ D0 -> D0- | D1 -> D1-];
+           [~A0 & ~A1 & ~B0 & ~B1 & ~Sel0 & ~Sel1]; en+ ]
+endprocess
+
+process A;
+*[[ true -> A0+ | true -> A1+]; [~en]; [ A0 -> A0- | A1 -> A1- ]; [en]]
+endprocess
+
+process B;
+*[[ true -> B0+ | true -> B1+]; [~en]; [ B0 -> B0- | B1 -> B1- ]; [en]]
+endprocess
+
+process Sel;
+*[[ true -> Sel0+ | true -> Sel1+]; [~en]; 
+	[ Sel0 -> Sel0- | Sel1 -> Sel1- ]; [en]]
+endprocess
+
+process D;
+*[ De+; [D0 | D1]; De-; [~D0 & ~D1] ]
+endprocess
+endmodule
+
+

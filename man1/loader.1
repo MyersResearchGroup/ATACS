@@ -1,0 +1,68 @@
+.TH LOADER 1 "28 September 2001" "" ""
+.SH NAME
+loader \- Loads a ER File
+.SH SYNOPSIS
+.nf
+.BI atacs " -le <filename>"
+.br
+.BI atacs> " loader <filename>"
+.fi
+.SH DESCRIPTION
+.B loader
+loads the timed event-rule (ER) structure file named <filename>.er.
+This file must be in the following form:
+.PP
+ .e <number of events>
+.br
+ .i <number of inputs>
+.br
+ .r <number of causal rules>
+.br
+ .n <number of ordering rules>
+.br
+ .d <number of merges>
+.br
+ .c <number of conflicts>
+.br
+reset
+.br
+input events
+.br
+other events
+.br
+causal rules in the following form:
+.br
+<enabling> <enabled> <epsilon> <l> <u> <dist>
+.br
+ordering rules in the same form:
+.br
+merges in the following form:
+.br
+if a disjunctive merge:  <signal+/1> <signal+/2>
+.br
+if a conjunctive merge:  <signal-/1> <signal-/2>
+.br
+conflicts in the following form:
+.br
+<signal+/1> <signal+/2>
+.SH OPTIONS
+.TP
+.BI \-le
+Loads a ER file from the command line.
+.TP
+.BI loader
+Loads a ER file from the interactive shell.
+.SH CREDITS
+.B loader
+was primarily written by Chris Myers (myers@vlsigroup.ece.utah.edu).
+.SH "SEE ALSO"
+.BR loadfile (1)
+.BR loadcsp (1)
+.BR loadhse (1)
+.BR loadvhdl (1)
+.BR loadtel (1)
+.BR loadg (1)
+.BR loadxbm (1)
+.BR loadrsg (1)
+.BR loadprs (1)
+.BR http://www.async.ece.utah.edu

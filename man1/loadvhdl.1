@@ -1,0 +1,77 @@
+.TH LOADVHDL 1 "13 December 2006" "" ""
+.SH NAME
+loadvhdl \- Loads a VHDL or VHDL-AMS File
+.SH SYNOPSIS
+.nf
+.BI atacs " -lv <filename>"
+.br
+.BI atacs> " loadvhdl <filename>"
+.fi
+.SH DESCRIPTION
+.B loadvhdl
+compiles the VHDL or VHDL-AMS file named <filename>.vhd to a timed event/level
+(TEL) structure and stores it to <filename>.tel.  This structure is
+immediately loaded, and its constraint graph is generated.  The
+VHDL-AMS subset that is supported allows variables of types 
+.B std_logic
+for representing Boolean signals and 
+.B real 
+for representing
+continuous quantities.  Continuous variables can be initialized using
+.B break 
+statements.  The rates of continuous variables can be
+updated using simultaneous statements such as the 
+.B if-use 
+and
+.B case-use 
+statements.  Sequential behavior can be specified using
+.B process 
+statements without sensitivity lists.  Within a 
+.B process, 
+supported statements are 
+.B wait, 
+signal assignment, 
+.B if-then, 
+.B case, 
+and 
+.B while-loop.  
+Finally, 
+.B assert
+statements can be used to state basic safety properties about the
+system.  For convenience, our VHDL-AMS descriptions also use
+procedures defined in the 
+.B handshake 
+and 
+.B nondeterminism
+packages.  These packages are explained in detail in
+.I Asynchronous Circuit Design
+by Chris J. Myers.  For example, the 
+.B assign 
+procedure
+performs an assignment to a signal at some random time within a
+bounded range specified by its parameters and waits until the
+assignment has been performed before returning.  The 
+.B span
+procedure takes two real values and returns a random value within that
+range.  The 
+.B span 
+procedure is used to assign a range of rate to a continuous variable.
+.SH OPTIONS
+.TP
+.BI \-lv
+Loads a VHDL file from the command line.
+.TP
+.BI loadvhdl
+Loads a VHDL file from the interactive shell.
+.SH CREDITS
+.B loadvhdl
+was primarily written by Hao Zheng (hao@vlsigroup.ece.utah.edu) and
+Chris Myers (myers@vlsigroup.ece.utah.edu).  Additions were made to
+loadvhdl in 2006 by Nick Seegmiller (seegmill@vlsigroup.ece.utah.edu)
+to support VHDL-AMS extensions.
+.SH "SEE ALSO"
+.BR loadlpn (1)
+.BR storelpn (1)
+.BR showlpn (1)
+.BR printlpn (1)
+.BR http://www.async.ece.utah.edu

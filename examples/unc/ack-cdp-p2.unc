@@ -1,0 +1,41 @@
+input	decodeiserrreq           0
+input	echack                   0
+input	iserrsetnsynack          0
+input	lchack                   0
+input	schack                   0
+input	shuffack                 0
+input	statack                  0
+input	statorsynack             0
+input	synack                   0
+output	decodeiserrack           0
+output	echreq                   0
+output	enable                   0
+output	iserrsetnsynreq          0
+output	lchreq                   0
+output	schreq                   0
+output	shuffreq                 0
+output	statreq                  0
+output	statsm1                  0
+output	statorsynreq             0
+output	synreq                   0
+output	synsm2                   0
+output	zzz00                    0
+output	zzz01                    0
+output	zzz02                    1
+
+0  1	decodeiserrreq+          | decodeiserrack+ zzz01+ zzz02- 
+1  2	decodeiserrreq-          | decodeiserrack- enable+ statreq+ 
+2  4	statack+                 | statreq- shuffreq+ synsm2+ zzz01- zzz02+ 
+4  5	shuffack+ statack-       | synreq+ 
+5  6	synack+                  | shuffreq- synreq- synsm2- 
+6  7	shuffack- synack-        | statorsynreq+ statsm1+ 
+7  8	statorsynack+            | statreq+ 
+8  10	statack+                 | statorsynreq- statreq- statsm1- shuffreq+ synsm2+ zzz00+ zzz02- 
+10  11	shuffack+ statorsynack- statack- | synreq+ zzz00- zzz01+ 
+11  12	synack+                  | shuffreq- synreq- synsm2- zzz00+ zzz01- 
+12  13	shuffack- synack-        | statorsynreq+ statsm1+ 
+13  14	statorsynack+            | statreq+ zzz00- zzz01+ 
+14  16	statack+                 | statorsynreq- statreq- statsm1- schreq+ echreq+ lchreq+ 
+16  18	schack+ echack+ lchack+ statorsynack- statack- | schreq- echreq- lchreq- iserrsetnsynreq+ enable- zzz01- zzz02+ 
+18  20	iserrsetnsynack+ schack- echack- lchack- | iserrsetnsynreq- 
+20  1	decodeiserrreq+ iserrsetnsynack- | decodeiserrack+ zzz01+ zzz02- 

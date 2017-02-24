@@ -1,0 +1,23 @@
+CPU time limit = 1	second	minute	hour	bug report(s)
+Works			264	315	334		
+Out of Memory		  0	 34	 70
+enabled but signal not	 24	 27	 28	PR#272
+Bad header information!	 16	 16	 16	PR#273
+CSC violation!		 10	 12	 16	PR#274
+CPU time limit exceeded	172	 75	 14
+undefined action	 14	 13	 13	PR#275
+Cycle detected in graph	  9	 12	 12	PR#265,270
+Safety violation	  8	  9	  9	PR#269
+deadlocked in state	  3	  6	  6	PR# 89,206,215,263,268
+Liveness violation!	  4	  4	  4	PR# 77,207
+Verification failure	  3	  3	  3	PR#276
+Cannot access .tel!	  2	  2	  2	PR#277	nond.vhd standard.vhd
+syntax error		  0	  2	  2	PR#278 
+Deadlock!		  1	  1	  1	PR#280	rcv-setup.g
+Output event disabled	  1	  1	  1	PR#281	mle.tel
+component not found	  1	  1	  1	PR#282  uno1.vhd
+Unable to solve CSC	  0	  1	  1	PR#283	choice.csp
+Couldn't create file	  0	  0	  1	PR#249	selector1.er
+Core Dumps		  2	  0	  0
+============================================
+TOTAL			534	534	534
