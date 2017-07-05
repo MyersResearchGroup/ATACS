@@ -1,0 +1,31 @@
+.inputs dsr dsw ldtack
+.outputs d dtack lds
+#@.init_state [000000]
+.graph
+d+/2 dtack+/2
+d+/1 lds+/1
+d-/2 p3 
+d-/2 p4
+d-/1 dtack+/1
+dsr+ lds+/2
+dsr- d-/2
+dsw+ d+/1
+dsw- p3 
+dsw- p4
+dtack+/2 dsr-
+dtack+/1 dsw-
+dtack-/1 p1
+lds+/2 ldtack+/2
+lds+/1 ldtack+/1
+lds-/1 ldtack-/1
+ldtack+/2 d+/2
+ldtack+/1 d-/1
+ldtack-/1 p2
+p1 dsr+ 
+p1 dsw+
+p2 lds+/2 
+p2 lds+/1
+p3 lds-/1
+p4 dtack-/1
+.marking {p1 p2}
+.end

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>edu.utah.ece.async</groupId>
+	<artifactId>ATACS</artifactId>
+	<version>6.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>ATACS</name>
+	<description>The ATACS tool is for the synthesis and verification of timed asynchronous circuits.</description>
+	<url>https://github.com/MyersResearchGroup/ATACS</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/MyersResearchGroup/ATACS/issues</url>
+	</issueManagement>
+
+	<properties>
+		<!-- We have to make sure we're building on the same charset on all platforms 
+			or bad things happen. -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<modules>
+		<module>gui</module>
+	</modules>
+
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+                	<exclude>**/*.java</exclude>
+            	</excludes>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<excludes>
+                	<exclude>**/*.java</exclude>
+            	</excludes>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<!-- settings for javac. -->
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+
+					<testExcludes>
+						<exclude>edu/utah/ece/async/ibiosim/conversion/gcm2sbml/*.java</exclude>
+						<exclude>edu/utah/ece/async/ibiosim/conversion/scripts/*.java</exclude>
+					</testExcludes>
+				</configuration>
+			</plugin>
+		</plugins>
+		<!-- todo: add any other plugins needed here -->
+	</build>
+</project>

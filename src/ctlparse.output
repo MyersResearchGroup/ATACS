@@ -1,0 +1,494 @@
+Grammar
+
+    0 $accept: statement $end
+
+    1 statement: VARIABLE
+    2          | TR
+    3          | '~' statement
+    4          | statement '|' statement
+    5          | statement '&' statement
+    6          | statement EU statement
+    7          | EF statement
+    8          | statement AU statement
+    9          | EX statement
+   10          | AX statement
+   11          | EG statement
+   12          | AF statement
+   13          | AG statement
+   14          | '(' statement ')'
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'&' (38) 5
+'(' (40) 14
+')' (41) 14
+'|' (124) 4
+'~' (126) 3
+error (256)
+VARIABLE (258) 1
+EF (259) 7
+AX (260) 10
+AU (261) 8
+TR (262) 2
+AG (263) 13
+AF (264) 12
+EU (265) 6
+EG (266) 11
+EX (267) 9
+
+
+Nonterminals, with rules where they appear
+
+$accept (18)
+    on left: 0
+statement (19)
+    on left: 1 2 3 4 5 6 7 8 9 10 11 12 13 14, on right: 0 3 4 5 6
+    7 8 9 10 11 12 13 14
+
+
+State 0
+
+    0 $accept: . statement $end
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 11
+
+
+State 1
+
+    1 statement: VARIABLE .
+
+    $default  reduce using rule 1 (statement)
+
+
+State 2
+
+    3 statement: '~' . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 12
+
+
+State 3
+
+    7 statement: EF . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 13
+
+
+State 4
+
+   10 statement: AX . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 14
+
+
+State 5
+
+    2 statement: TR .
+
+    $default  reduce using rule 2 (statement)
+
+
+State 6
+
+   13 statement: AG . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 15
+
+
+State 7
+
+   12 statement: AF . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 16
+
+
+State 8
+
+   11 statement: EG . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 17
+
+
+State 9
+
+    9 statement: EX . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 18
+
+
+State 10
+
+   14 statement: '(' . statement ')'
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 19
+
+
+State 11
+
+    0 $accept: statement . $end
+    4 statement: statement . '|' statement
+    5          | statement . '&' statement
+    6          | statement . EU statement
+    8          | statement . AU statement
+
+    $end  shift, and go to state 20
+    '|'   shift, and go to state 21
+    '&'   shift, and go to state 22
+    AU    shift, and go to state 23
+    EU    shift, and go to state 24
+
+
+State 12
+
+    3 statement: '~' statement .
+    4          | statement . '|' statement
+    5          | statement . '&' statement
+    6          | statement . EU statement
+    8          | statement . AU statement
+
+    AU  error (nonassociative)
+    EU  error (nonassociative)
+
+    $default  reduce using rule 3 (statement)
+
+
+State 13
+
+    4 statement: statement . '|' statement
+    5          | statement . '&' statement
+    6          | statement . EU statement
+    7          | EF statement .
+    8          | statement . AU statement
+
+    AU  error (nonassociative)
+    EU  error (nonassociative)
+
+    $default  reduce using rule 7 (statement)
+
+
+State 14
+
+    4 statement: statement . '|' statement
+    5          | statement . '&' statement
+    6          | statement . EU statement
+    8          | statement . AU statement
+   10          | AX statement .
+
+    AU  error (nonassociative)
+    EU  error (nonassociative)
+
+    $default  reduce using rule 10 (statement)
+
+
+State 15
+
+    4 statement: statement . '|' statement
+    5          | statement . '&' statement
+    6          | statement . EU statement
+    8          | statement . AU statement
+   13          | AG statement .
+
+    AU  error (nonassociative)
+    EU  error (nonassociative)
+
+    $default  reduce using rule 13 (statement)
+
+
+State 16
+
+    4 statement: statement . '|' statement
+    5          | statement . '&' statement
+    6          | statement . EU statement
+    8          | statement . AU statement
+   12          | AF statement .
+
+    AU  error (nonassociative)
+    EU  error (nonassociative)
+
+    $default  reduce using rule 12 (statement)
+
+
+State 17
+
+    4 statement: statement . '|' statement
+    5          | statement . '&' statement
+    6          | statement . EU statement
+    8          | statement . AU statement
+   11          | EG statement .
+
+    AU  error (nonassociative)
+    EU  error (nonassociative)
+
+    $default  reduce using rule 11 (statement)
+
+
+State 18
+
+    4 statement: statement . '|' statement
+    5          | statement . '&' statement
+    6          | statement . EU statement
+    8          | statement . AU statement
+    9          | EX statement .
+
+    AU  error (nonassociative)
+    EU  error (nonassociative)
+
+    $default  reduce using rule 9 (statement)
+
+
+State 19
+
+    4 statement: statement . '|' statement
+    5          | statement . '&' statement
+    6          | statement . EU statement
+    8          | statement . AU statement
+   14          | '(' statement . ')'
+
+    '|'  shift, and go to state 21
+    '&'  shift, and go to state 22
+    AU   shift, and go to state 23
+    EU   shift, and go to state 24
+    ')'  shift, and go to state 25
+
+
+State 20
+
+    0 $accept: statement $end .
+
+    $default  accept
+
+
+State 21
+
+    4 statement: statement '|' . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 26
+
+
+State 22
+
+    5 statement: statement '&' . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 27
+
+
+State 23
+
+    8 statement: statement AU . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 28
+
+
+State 24
+
+    6 statement: statement EU . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    EF        shift, and go to state 3
+    AX        shift, and go to state 4
+    TR        shift, and go to state 5
+    AG        shift, and go to state 6
+    AF        shift, and go to state 7
+    EG        shift, and go to state 8
+    EX        shift, and go to state 9
+    '('       shift, and go to state 10
+
+    statement  go to state 29
+
+
+State 25
+
+   14 statement: '(' statement ')' .
+
+    $default  reduce using rule 14 (statement)
+
+
+State 26
+
+    4 statement: statement . '|' statement
+    4          | statement '|' statement .
+    5          | statement . '&' statement
+    6          | statement . EU statement
+    8          | statement . AU statement
+
+    AU  shift, and go to state 23
+    EU  shift, and go to state 24
+
+    $default  reduce using rule 4 (statement)
+
+
+State 27
+
+    4 statement: statement . '|' statement
+    5          | statement . '&' statement
+    5          | statement '&' statement .
+    6          | statement . EU statement
+    8          | statement . AU statement
+
+    AU  shift, and go to state 23
+    EU  shift, and go to state 24
+
+    $default  reduce using rule 5 (statement)
+
+
+State 28
+
+    4 statement: statement . '|' statement
+    5          | statement . '&' statement
+    6          | statement . EU statement
+    8          | statement . AU statement
+    8          | statement AU statement .
+
+    AU  error (nonassociative)
+    EU  error (nonassociative)
+
+    $default  reduce using rule 8 (statement)
+
+
+State 29
+
+    4 statement: statement . '|' statement
+    5          | statement . '&' statement
+    6          | statement . EU statement
+    6          | statement EU statement .
+    8          | statement . AU statement
+
+    AU  error (nonassociative)
+    EU  error (nonassociative)
+
+    $default  reduce using rule 6 (statement)

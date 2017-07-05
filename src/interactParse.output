@@ -1,0 +1,328 @@
+Terminals unused in grammar
+
+   COMMA
+   LEFT_BRACE
+   NUMBER
+   RIGHT_BRACE
+   UNKNOWN_TOKEN
+
+
+Grammar
+
+    0 $accept: line $end
+
+    1 line: line promoter
+    2     | line gene
+    3     | line interaction
+    4     | /* empty */
+
+    5 gene: GENE TEXT
+
+    6 $@1: /* empty */
+
+    7 $@2: /* empty */
+
+    8 $@3: /* empty */
+
+    9 promoter: PROMOTER TEXT $@1 LEFT_CURLY $@2 activate RIGHT_CURLY LEFT_CURLY $@3 repressed RIGHT_CURLY
+
+   10 activate: activate TEXT
+   11         | /* empty */
+
+   12 repressed: repressed TEXT
+   13          | /* empty */
+
+   14 $@4: /* empty */
+
+   15 $@5: /* empty */
+
+   16 interaction: INTERACTION LEFT_CURLY $@4 activate RIGHT_CURLY LEFT_CURLY TEXT $@5 RIGHT_CURLY
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+COMMA (258)
+GENE (259) 5
+PROMOTER (260) 9
+INTERACTION (261) 16
+LEFT_BRACE (262)
+LEFT_CURLY (263) 9 16
+NUMBER (264)
+RIGHT_BRACE (265)
+RIGHT_CURLY (266) 9 16
+TEXT (267) 5 9 10 12 16
+UNKNOWN_TOKEN (268)
+
+
+Nonterminals, with rules where they appear
+
+$accept (14)
+    on left: 0
+line (15)
+    on left: 1 2 3 4, on right: 0 1 2 3
+gene (16)
+    on left: 5, on right: 2
+promoter (17)
+    on left: 9, on right: 1
+$@1 (18)
+    on left: 6, on right: 9
+$@2 (19)
+    on left: 7, on right: 9
+$@3 (20)
+    on left: 8, on right: 9
+activate (21)
+    on left: 10 11, on right: 9 10 16
+repressed (22)
+    on left: 12 13, on right: 9 12
+interaction (23)
+    on left: 16, on right: 3
+$@4 (24)
+    on left: 14, on right: 16
+$@5 (25)
+    on left: 15, on right: 16
+
+
+State 0
+
+    0 $accept: . line $end
+
+    $default  reduce using rule 4 (line)
+
+    line  go to state 1
+
+
+State 1
+
+    0 $accept: line . $end
+    1 line: line . promoter
+    2     | line . gene
+    3     | line . interaction
+
+    $end         shift, and go to state 2
+    GENE         shift, and go to state 3
+    PROMOTER     shift, and go to state 4
+    INTERACTION  shift, and go to state 5
+
+    gene         go to state 6
+    promoter     go to state 7
+    interaction  go to state 8
+
+
+State 2
+
+    0 $accept: line $end .
+
+    $default  accept
+
+
+State 3
+
+    5 gene: GENE . TEXT
+
+    TEXT  shift, and go to state 9
+
+
+State 4
+
+    9 promoter: PROMOTER . TEXT $@1 LEFT_CURLY $@2 activate RIGHT_CURLY LEFT_CURLY $@3 repressed RIGHT_CURLY
+
+    TEXT  shift, and go to state 10
+
+
+State 5
+
+   16 interaction: INTERACTION . LEFT_CURLY $@4 activate RIGHT_CURLY LEFT_CURLY TEXT $@5 RIGHT_CURLY
+
+    LEFT_CURLY  shift, and go to state 11
+
+
+State 6
+
+    2 line: line gene .
+
+    $default  reduce using rule 2 (line)
+
+
+State 7
+
+    1 line: line promoter .
+
+    $default  reduce using rule 1 (line)
+
+
+State 8
+
+    3 line: line interaction .
+
+    $default  reduce using rule 3 (line)
+
+
+State 9
+
+    5 gene: GENE TEXT .
+
+    $default  reduce using rule 5 (gene)
+
+
+State 10
+
+    9 promoter: PROMOTER TEXT . $@1 LEFT_CURLY $@2 activate RIGHT_CURLY LEFT_CURLY $@3 repressed RIGHT_CURLY
+
+    $default  reduce using rule 6 ($@1)
+
+    $@1  go to state 12
+
+
+State 11
+
+   16 interaction: INTERACTION LEFT_CURLY . $@4 activate RIGHT_CURLY LEFT_CURLY TEXT $@5 RIGHT_CURLY
+
+    $default  reduce using rule 14 ($@4)
+
+    $@4  go to state 13
+
+
+State 12
+
+    9 promoter: PROMOTER TEXT $@1 . LEFT_CURLY $@2 activate RIGHT_CURLY LEFT_CURLY $@3 repressed RIGHT_CURLY
+
+    LEFT_CURLY  shift, and go to state 14
+
+
+State 13
+
+   16 interaction: INTERACTION LEFT_CURLY $@4 . activate RIGHT_CURLY LEFT_CURLY TEXT $@5 RIGHT_CURLY
+
+    $default  reduce using rule 11 (activate)
+
+    activate  go to state 15
+
+
+State 14
+
+    9 promoter: PROMOTER TEXT $@1 LEFT_CURLY . $@2 activate RIGHT_CURLY LEFT_CURLY $@3 repressed RIGHT_CURLY
+
+    $default  reduce using rule 7 ($@2)
+
+    $@2  go to state 16
+
+
+State 15
+
+   10 activate: activate . TEXT
+   16 interaction: INTERACTION LEFT_CURLY $@4 activate . RIGHT_CURLY LEFT_CURLY TEXT $@5 RIGHT_CURLY
+
+    RIGHT_CURLY  shift, and go to state 17
+    TEXT         shift, and go to state 18
+
+
+State 16
+
+    9 promoter: PROMOTER TEXT $@1 LEFT_CURLY $@2 . activate RIGHT_CURLY LEFT_CURLY $@3 repressed RIGHT_CURLY
+
+    $default  reduce using rule 11 (activate)
+
+    activate  go to state 19
+
+
+State 17
+
+   16 interaction: INTERACTION LEFT_CURLY $@4 activate RIGHT_CURLY . LEFT_CURLY TEXT $@5 RIGHT_CURLY
+
+    LEFT_CURLY  shift, and go to state 20
+
+
+State 18
+
+   10 activate: activate TEXT .
+
+    $default  reduce using rule 10 (activate)
+
+
+State 19
+
+    9 promoter: PROMOTER TEXT $@1 LEFT_CURLY $@2 activate . RIGHT_CURLY LEFT_CURLY $@3 repressed RIGHT_CURLY
+   10 activate: activate . TEXT
+
+    RIGHT_CURLY  shift, and go to state 21
+    TEXT         shift, and go to state 18
+
+
+State 20
+
+   16 interaction: INTERACTION LEFT_CURLY $@4 activate RIGHT_CURLY LEFT_CURLY . TEXT $@5 RIGHT_CURLY
+
+    TEXT  shift, and go to state 22
+
+
+State 21
+
+    9 promoter: PROMOTER TEXT $@1 LEFT_CURLY $@2 activate RIGHT_CURLY . LEFT_CURLY $@3 repressed RIGHT_CURLY
+
+    LEFT_CURLY  shift, and go to state 23
+
+
+State 22
+
+   16 interaction: INTERACTION LEFT_CURLY $@4 activate RIGHT_CURLY LEFT_CURLY TEXT . $@5 RIGHT_CURLY
+
+    $default  reduce using rule 15 ($@5)
+
+    $@5  go to state 24
+
+
+State 23
+
+    9 promoter: PROMOTER TEXT $@1 LEFT_CURLY $@2 activate RIGHT_CURLY LEFT_CURLY . $@3 repressed RIGHT_CURLY
+
+    $default  reduce using rule 8 ($@3)
+
+    $@3  go to state 25
+
+
+State 24
+
+   16 interaction: INTERACTION LEFT_CURLY $@4 activate RIGHT_CURLY LEFT_CURLY TEXT $@5 . RIGHT_CURLY
+
+    RIGHT_CURLY  shift, and go to state 26
+
+
+State 25
+
+    9 promoter: PROMOTER TEXT $@1 LEFT_CURLY $@2 activate RIGHT_CURLY LEFT_CURLY $@3 . repressed RIGHT_CURLY
+
+    $default  reduce using rule 13 (repressed)
+
+    repressed  go to state 27
+
+
+State 26
+
+   16 interaction: INTERACTION LEFT_CURLY $@4 activate RIGHT_CURLY LEFT_CURLY TEXT $@5 RIGHT_CURLY .
+
+    $default  reduce using rule 16 (interaction)
+
+
+State 27
+
+    9 promoter: PROMOTER TEXT $@1 LEFT_CURLY $@2 activate RIGHT_CURLY LEFT_CURLY $@3 repressed . RIGHT_CURLY
+   12 repressed: repressed . TEXT
+
+    RIGHT_CURLY  shift, and go to state 28
+    TEXT         shift, and go to state 29
+
+
+State 28
+
+    9 promoter: PROMOTER TEXT $@1 LEFT_CURLY $@2 activate RIGHT_CURLY LEFT_CURLY $@3 repressed RIGHT_CURLY .
+
+    $default  reduce using rule 9 (promoter)
+
+
+State 29
+
+   12 repressed: repressed TEXT .
+
+    $default  reduce using rule 12 (repressed)

@@ -1,0 +1,900 @@
+Grammar
+
+    0 $accept: statement $end
+
+    1 statement: VARIABLE
+    2          | TR
+    3          | FA
+    4          | '~' statement
+    5          | statement '|' statement
+    6          | statement '&' statement
+    7          | statement IMP statement
+    8          | statement EU statement
+    9          | statement AU statement
+   10          | statement AU '_' CONSTANT statement
+   11          | EF statement
+   12          | AG statement
+   13          | AF statement
+   14          | AF '_' CONSTANT statement
+   15          | EG statement
+   16          | EG '_' CONSTANT statement
+   17          | '(' statement ')'
+
+   18 @1: /* empty */
+
+   19 statement: VARIABLE '.' @1 statement
+   20          | VARIABLE GEQ VARIABLE '+' CONSTANT
+   21          | VARIABLE GEQ VARIABLE '-' CONSTANT
+   22          | VARIABLE GEQ CONSTANT
+   23          | VARIABLE GEQ VARIABLE
+   24          | VARIABLE GT VARIABLE '+' CONSTANT
+   25          | VARIABLE GT VARIABLE '-' CONSTANT
+   26          | VARIABLE GT CONSTANT
+   27          | VARIABLE GT VARIABLE
+   28          | VARIABLE LEQ VARIABLE '+' CONSTANT
+   29          | VARIABLE LEQ VARIABLE '-' CONSTANT
+   30          | VARIABLE LEQ CONSTANT
+   31          | VARIABLE LEQ VARIABLE
+   32          | VARIABLE LT VARIABLE '+' CONSTANT
+   33          | VARIABLE LT VARIABLE '-' CONSTANT
+   34          | VARIABLE LT CONSTANT
+   35          | VARIABLE LT VARIABLE
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'&' (38) 6
+'(' (40) 17
+')' (41) 17
+'+' (43) 20 24 28 32
+'-' (45) 21 25 29 33
+'.' (46) 19
+'_' (95) 10 14 16
+'|' (124) 5
+'~' (126) 4
+error (256)
+VARIABLE (258) 1 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35
+CONSTANT (259) 10 14 16 20 21 22 24 25 26 28 29 30 32 33 34
+GEQ (260) 20 21 22 23
+GT (261) 24 25 26 27
+LEQ (262) 28 29 30 31
+LT (263) 32 33 34 35
+AU (264) 9 10
+EU (265) 8
+IMP (266) 7
+AG (267) 12
+EG (268) 15 16
+AF (269) 13 14
+EF (270) 11
+FA (271) 3
+TR (272) 2
+BOUNDED (273)
+
+
+Nonterminals, with rules where they appear
+
+$accept (28)
+    on left: 0
+statement (29)
+    on left: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 19 20 21 22
+    23 24 25 26 27 28 29 30 31 32 33 34 35, on right: 0 4 5 6 7 8 9
+    10 11 12 13 14 15 16 17 19
+@1 (30)
+    on left: 18, on right: 19
+
+
+State 0
+
+    0 $accept: . statement $end
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 10
+
+
+State 1
+
+    1 statement: VARIABLE .
+   19          | VARIABLE . '.' @1 statement
+   20          | VARIABLE . GEQ VARIABLE '+' CONSTANT
+   21          | VARIABLE . GEQ VARIABLE '-' CONSTANT
+   22          | VARIABLE . GEQ CONSTANT
+   23          | VARIABLE . GEQ VARIABLE
+   24          | VARIABLE . GT VARIABLE '+' CONSTANT
+   25          | VARIABLE . GT VARIABLE '-' CONSTANT
+   26          | VARIABLE . GT CONSTANT
+   27          | VARIABLE . GT VARIABLE
+   28          | VARIABLE . LEQ VARIABLE '+' CONSTANT
+   29          | VARIABLE . LEQ VARIABLE '-' CONSTANT
+   30          | VARIABLE . LEQ CONSTANT
+   31          | VARIABLE . LEQ VARIABLE
+   32          | VARIABLE . LT VARIABLE '+' CONSTANT
+   33          | VARIABLE . LT VARIABLE '-' CONSTANT
+   34          | VARIABLE . LT CONSTANT
+   35          | VARIABLE . LT VARIABLE
+
+    GEQ  shift, and go to state 11
+    GT   shift, and go to state 12
+    LEQ  shift, and go to state 13
+    LT   shift, and go to state 14
+    '.'  shift, and go to state 15
+
+    $default  reduce using rule 1 (statement)
+
+
+State 2
+
+    4 statement: '~' . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 16
+
+
+State 3
+
+   12 statement: AG . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 17
+
+
+State 4
+
+   15 statement: EG . statement
+   16          | EG . '_' CONSTANT statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '_'       shift, and go to state 18
+    '('       shift, and go to state 9
+
+    statement  go to state 19
+
+
+State 5
+
+   13 statement: AF . statement
+   14          | AF . '_' CONSTANT statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '_'       shift, and go to state 20
+    '('       shift, and go to state 9
+
+    statement  go to state 21
+
+
+State 6
+
+   11 statement: EF . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 22
+
+
+State 7
+
+    3 statement: FA .
+
+    $default  reduce using rule 3 (statement)
+
+
+State 8
+
+    2 statement: TR .
+
+    $default  reduce using rule 2 (statement)
+
+
+State 9
+
+   17 statement: '(' . statement ')'
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 23
+
+
+State 10
+
+    0 $accept: statement . $end
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+
+    $end  shift, and go to state 24
+    '|'   shift, and go to state 25
+    '&'   shift, and go to state 26
+    AU    shift, and go to state 27
+    EU    shift, and go to state 28
+    IMP   shift, and go to state 29
+
+
+State 11
+
+   20 statement: VARIABLE GEQ . VARIABLE '+' CONSTANT
+   21          | VARIABLE GEQ . VARIABLE '-' CONSTANT
+   22          | VARIABLE GEQ . CONSTANT
+   23          | VARIABLE GEQ . VARIABLE
+
+    VARIABLE  shift, and go to state 30
+    CONSTANT  shift, and go to state 31
+
+
+State 12
+
+   24 statement: VARIABLE GT . VARIABLE '+' CONSTANT
+   25          | VARIABLE GT . VARIABLE '-' CONSTANT
+   26          | VARIABLE GT . CONSTANT
+   27          | VARIABLE GT . VARIABLE
+
+    VARIABLE  shift, and go to state 32
+    CONSTANT  shift, and go to state 33
+
+
+State 13
+
+   28 statement: VARIABLE LEQ . VARIABLE '+' CONSTANT
+   29          | VARIABLE LEQ . VARIABLE '-' CONSTANT
+   30          | VARIABLE LEQ . CONSTANT
+   31          | VARIABLE LEQ . VARIABLE
+
+    VARIABLE  shift, and go to state 34
+    CONSTANT  shift, and go to state 35
+
+
+State 14
+
+   32 statement: VARIABLE LT . VARIABLE '+' CONSTANT
+   33          | VARIABLE LT . VARIABLE '-' CONSTANT
+   34          | VARIABLE LT . CONSTANT
+   35          | VARIABLE LT . VARIABLE
+
+    VARIABLE  shift, and go to state 36
+    CONSTANT  shift, and go to state 37
+
+
+State 15
+
+   19 statement: VARIABLE '.' . @1 statement
+
+    $default  reduce using rule 18 (@1)
+
+    @1  go to state 38
+
+
+State 16
+
+    4 statement: '~' statement .
+    5          | statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+
+    $default  reduce using rule 4 (statement)
+
+
+State 17
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+   12          | AG statement .
+
+    $default  reduce using rule 12 (statement)
+
+
+State 18
+
+   16 statement: EG '_' . CONSTANT statement
+
+    CONSTANT  shift, and go to state 39
+
+
+State 19
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+   15          | EG statement .
+
+    $default  reduce using rule 15 (statement)
+
+
+State 20
+
+   14 statement: AF '_' . CONSTANT statement
+
+    CONSTANT  shift, and go to state 40
+
+
+State 21
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+   13          | AF statement .
+
+    $default  reduce using rule 13 (statement)
+
+
+State 22
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+   11          | EF statement .
+
+    $default  reduce using rule 11 (statement)
+
+
+State 23
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+   17          | '(' statement . ')'
+
+    '|'  shift, and go to state 25
+    '&'  shift, and go to state 26
+    AU   shift, and go to state 27
+    EU   shift, and go to state 28
+    IMP  shift, and go to state 29
+    ')'  shift, and go to state 41
+
+
+State 24
+
+    0 $accept: statement $end .
+
+    $default  accept
+
+
+State 25
+
+    5 statement: statement '|' . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 42
+
+
+State 26
+
+    6 statement: statement '&' . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 43
+
+
+State 27
+
+    9 statement: statement AU . statement
+   10          | statement AU . '_' CONSTANT statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '_'       shift, and go to state 44
+    '('       shift, and go to state 9
+
+    statement  go to state 45
+
+
+State 28
+
+    8 statement: statement EU . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 46
+
+
+State 29
+
+    7 statement: statement IMP . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 47
+
+
+State 30
+
+   20 statement: VARIABLE GEQ VARIABLE . '+' CONSTANT
+   21          | VARIABLE GEQ VARIABLE . '-' CONSTANT
+   23          | VARIABLE GEQ VARIABLE .
+
+    '+'  shift, and go to state 48
+    '-'  shift, and go to state 49
+
+    $default  reduce using rule 23 (statement)
+
+
+State 31
+
+   22 statement: VARIABLE GEQ CONSTANT .
+
+    $default  reduce using rule 22 (statement)
+
+
+State 32
+
+   24 statement: VARIABLE GT VARIABLE . '+' CONSTANT
+   25          | VARIABLE GT VARIABLE . '-' CONSTANT
+   27          | VARIABLE GT VARIABLE .
+
+    '+'  shift, and go to state 50
+    '-'  shift, and go to state 51
+
+    $default  reduce using rule 27 (statement)
+
+
+State 33
+
+   26 statement: VARIABLE GT CONSTANT .
+
+    $default  reduce using rule 26 (statement)
+
+
+State 34
+
+   28 statement: VARIABLE LEQ VARIABLE . '+' CONSTANT
+   29          | VARIABLE LEQ VARIABLE . '-' CONSTANT
+   31          | VARIABLE LEQ VARIABLE .
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+
+    $default  reduce using rule 31 (statement)
+
+
+State 35
+
+   30 statement: VARIABLE LEQ CONSTANT .
+
+    $default  reduce using rule 30 (statement)
+
+
+State 36
+
+   32 statement: VARIABLE LT VARIABLE . '+' CONSTANT
+   33          | VARIABLE LT VARIABLE . '-' CONSTANT
+   35          | VARIABLE LT VARIABLE .
+
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+
+    $default  reduce using rule 35 (statement)
+
+
+State 37
+
+   34 statement: VARIABLE LT CONSTANT .
+
+    $default  reduce using rule 34 (statement)
+
+
+State 38
+
+   19 statement: VARIABLE '.' @1 . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 56
+
+
+State 39
+
+   16 statement: EG '_' CONSTANT . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 57
+
+
+State 40
+
+   14 statement: AF '_' CONSTANT . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 58
+
+
+State 41
+
+   17 statement: '(' statement ')' .
+
+    $default  reduce using rule 17 (statement)
+
+
+State 42
+
+    5 statement: statement . '|' statement
+    5          | statement '|' statement .
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+
+    $default  reduce using rule 5 (statement)
+
+
+State 43
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    6          | statement '&' statement .
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+
+    $default  reduce using rule 6 (statement)
+
+
+State 44
+
+   10 statement: statement AU '_' . CONSTANT statement
+
+    CONSTANT  shift, and go to state 59
+
+
+State 45
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+    9          | statement AU statement .
+   10          | statement . AU '_' CONSTANT statement
+
+    $default  reduce using rule 9 (statement)
+
+
+State 46
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    8          | statement EU statement .
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+
+    $default  reduce using rule 8 (statement)
+
+
+State 47
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    7          | statement IMP statement .
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+
+    $default  reduce using rule 7 (statement)
+
+
+State 48
+
+   20 statement: VARIABLE GEQ VARIABLE '+' . CONSTANT
+
+    CONSTANT  shift, and go to state 60
+
+
+State 49
+
+   21 statement: VARIABLE GEQ VARIABLE '-' . CONSTANT
+
+    CONSTANT  shift, and go to state 61
+
+
+State 50
+
+   24 statement: VARIABLE GT VARIABLE '+' . CONSTANT
+
+    CONSTANT  shift, and go to state 62
+
+
+State 51
+
+   25 statement: VARIABLE GT VARIABLE '-' . CONSTANT
+
+    CONSTANT  shift, and go to state 63
+
+
+State 52
+
+   28 statement: VARIABLE LEQ VARIABLE '+' . CONSTANT
+
+    CONSTANT  shift, and go to state 64
+
+
+State 53
+
+   29 statement: VARIABLE LEQ VARIABLE '-' . CONSTANT
+
+    CONSTANT  shift, and go to state 65
+
+
+State 54
+
+   32 statement: VARIABLE LT VARIABLE '+' . CONSTANT
+
+    CONSTANT  shift, and go to state 66
+
+
+State 55
+
+   33 statement: VARIABLE LT VARIABLE '-' . CONSTANT
+
+    CONSTANT  shift, and go to state 67
+
+
+State 56
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+   19          | VARIABLE '.' @1 statement .
+
+    $default  reduce using rule 19 (statement)
+
+
+State 57
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+   16          | EG '_' CONSTANT statement .
+
+    $default  reduce using rule 16 (statement)
+
+
+State 58
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+   14          | AF '_' CONSTANT statement .
+
+    $default  reduce using rule 14 (statement)
+
+
+State 59
+
+   10 statement: statement AU '_' CONSTANT . statement
+
+    VARIABLE  shift, and go to state 1
+    '~'       shift, and go to state 2
+    AG        shift, and go to state 3
+    EG        shift, and go to state 4
+    AF        shift, and go to state 5
+    EF        shift, and go to state 6
+    FA        shift, and go to state 7
+    TR        shift, and go to state 8
+    '('       shift, and go to state 9
+
+    statement  go to state 68
+
+
+State 60
+
+   20 statement: VARIABLE GEQ VARIABLE '+' CONSTANT .
+
+    $default  reduce using rule 20 (statement)
+
+
+State 61
+
+   21 statement: VARIABLE GEQ VARIABLE '-' CONSTANT .
+
+    $default  reduce using rule 21 (statement)
+
+
+State 62
+
+   24 statement: VARIABLE GT VARIABLE '+' CONSTANT .
+
+    $default  reduce using rule 24 (statement)
+
+
+State 63
+
+   25 statement: VARIABLE GT VARIABLE '-' CONSTANT .
+
+    $default  reduce using rule 25 (statement)
+
+
+State 64
+
+   28 statement: VARIABLE LEQ VARIABLE '+' CONSTANT .
+
+    $default  reduce using rule 28 (statement)
+
+
+State 65
+
+   29 statement: VARIABLE LEQ VARIABLE '-' CONSTANT .
+
+    $default  reduce using rule 29 (statement)
+
+
+State 66
+
+   32 statement: VARIABLE LT VARIABLE '+' CONSTANT .
+
+    $default  reduce using rule 32 (statement)
+
+
+State 67
+
+   33 statement: VARIABLE LT VARIABLE '-' CONSTANT .
+
+    $default  reduce using rule 33 (statement)
+
+
+State 68
+
+    5 statement: statement . '|' statement
+    6          | statement . '&' statement
+    7          | statement . IMP statement
+    8          | statement . EU statement
+    9          | statement . AU statement
+   10          | statement . AU '_' CONSTANT statement
+   10          | statement AU '_' CONSTANT statement .
+
+    $default  reduce using rule 10 (statement)

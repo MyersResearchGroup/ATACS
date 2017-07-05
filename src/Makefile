@@ -22,7 +22,7 @@ RELEASE := $(shell uname -r)
 
 BASIC_DEFS = -std=c++11 -DTIMERS -DEXPANDNET -DMEMSTATS # -DXIF -DDDEBUG -D_NO_STATS_ -DMATSTATS -DSUBTIME
 
-BIN	= ../../bin
+BIN	= ../bin
 
 #TCLINC = -I/usr/include/tcl
 TCLINC = 
@@ -117,7 +117,7 @@ else
 ifeq ($(OS), Darwin)
 #      TCLINC = -I/sw/include
       #TCLTKLIBS = -L/sw/lib
-      PKGINC = -I../../include
+      PKGINC = -I/usr/local/include
       PKGLIBS = -L/usr/local/lib -L/sw/lib
       XLIB = -L/usr/X11R6/lib
 #      TCLTKLIBS = -ltcl -ltk -ldl
