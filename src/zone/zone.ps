@@ -1,0 +1,149 @@
+%!PS
+%%BoundingBox: 70 70 110 110
+%
+%   Draws 2-d geometric regions on a 10x10 grid from the matrix.  Draws it
+%   small (36 point).
+%
+100 100 translate
+1 1 scale
+1 setlinecap 1 setlinejoin
+currentlinewidth 0.5 setlinewidth
+/sc { 7.2 mul exch 7.2 mul exch } def
+/dashline {
+   gsave
+      [1 2] 0 setdash
+      sc moveto sc lineto stroke
+   grestore
+} def
+/labelhor {
+    /i exch def
+   gsave
+       0 i sc moveto
+      /Times-Roman findfont 8 scalefont setfont
+      i (     ) cvs dup stringwidth pop 2 add neg -2 rmoveto show
+   grestore
+} def
+/labelvert {
+    /i exch def
+   gsave
+      i 0 sc moveto
+      /Times-Roman findfont 8 scalefont setfont
+      i (      ) cvs dup stringwidth pop 2 div neg -8 rmoveto show
+   grestore
+} def
+/hor {
+   /i exch def
+   /j exch def
+   0 i j i dashline
+   i labelhor
+} def
+/vert {
+   /i exch def
+   /j exch def
+   i 0 i j dashline
+   i labelvert
+} def
+/labelx {
+   /lbl exch def
+   /Times-Roman findfont 8 scalefont setfont
+   0 0 moveto
+   0 -8 rmoveto
+   lbl show
+} def
+/labely {
+   /lbl exch def
+   /Times-Roman findfont 8 scalefont setfont
+   0 0 moveto
+   lbl stringwidth pop 2 add neg 0 rmoveto
+   lbl show
+} def
+/domatrix {
+%   tj - ti <= a_{ij}
+%   pop /xint exch def neg /ymin exch def /yint exch def pop neg /xmin exch def
+%   /ymax exch def /xmax exch def pop
+%   ti - tj <= a_{ij}
+   pop
+   /yint exch def
+   /ymax exch def
+   /xint exch def
+   pop
+   /xmax exch def
+   neg /ymin exch def
+   neg /xmin exch def
+   pop
+   gsave
+      xint yint add 0.01 le
+      ymax ymin sub 0.01 le or
+      xmax xmin sub 0.01 le or
+      {
+         currentlinewidth 2.2 setlinewidth
+      }
+      {
+      }
+      ifelse
+      xmin ymin sc moveto xmin xmin yint add sc lineto
+      ymax yint sub ymax sc lineto xmax ymax sc lineto
+      xmax xmax xint sub sc lineto xint ymin add ymin sc lineto
+      closepath
+      gsave
+        0.8 setgray fill
+      grestore stroke
+   grestore
+   7.2 xmax 0 gt {xmax}{xmin}ifelse mul 0 moveto 0 0 lineto
+   0 7.2 ymax 0 gt {ymax}{ymin}ifelse mul lineto stroke
+   ymax 0 gt {
+       0 1 ymax {	
+	   /x exch 7.2 mul def
+	   0 x moveto 1.2 0 rlineto stroke
+       } for
+   }{
+       ymin 1 0 {	
+	   /x exch 7.2 mul def
+	   0 x moveto 1.2 0 rlineto stroke
+       } for
+   }ifelse
+   xmax 0 gt {
+       0 1 xmax {	
+	   /x exch 7.2 mul def
+	   x 0 moveto 0 1.2 rlineto stroke
+       } for
+   }{
+       xmin 1 0 {	
+	   /x exch 7.2 mul def
+	   x 0 moveto 0 1.2 rlineto stroke
+       } for
+   }ifelse
+   ymax 0 gt {
+       0 2 ymax {	
+	   /x exch 7.2 mul def
+	   0 x moveto 2 0 rlineto stroke
+       } for
+   }{
+       ymin 2 0 {	
+	   /x exch 7.2 mul def
+	   0 x moveto 2 0 rlineto stroke
+       } for
+   }ifelse
+   xmax 0 gt {
+       0 2 xmax {	
+	   /x exch 7.2 mul def
+	   x 0 moveto 0 2 rlineto stroke
+       } for
+   }{
+       xmin 2 0 {	
+	   /x exch 7.2 mul def
+	   x 0 moveto 0 2 rlineto stroke
+       } for
+   }ifelse
+   xmax ymax hor
+   ymax xmax vert
+   ymax xmin vert
+   xmax ymin hor
+} def
+% Matrix goes here
+ 0 -18 -24
+36 0  -4
+48 14  0 domatrix
+(t2) labelx
+(t1) labely
+showpage
