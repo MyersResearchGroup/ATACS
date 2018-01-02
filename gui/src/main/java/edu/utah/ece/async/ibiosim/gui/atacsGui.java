@@ -136,9 +136,8 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 	 * @throws Exception
 	 */
 	public atacsGui(boolean libsbmlFound) {
-		super(false,true,libsbmlFound);
+		super(libsbmlFound);
 		Executables.libsbmlFound = libsbmlFound;
-		async = lema || atacs;
 		Thread.setDefaultUncaughtExceptionHandler(new Utility.UncaughtExceptionHandler());
 		ENVVAR = System.getenv("ATACSGUI");
 		System.setProperty("software.running", "ATACS Version " + atacsVersion);
@@ -407,18 +406,12 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ShortCutKey));
 		saveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ShortCutKey | InputEvent.SHIFT_MASK));
 		run.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ShortCutKey));
-		if (lema) {
-			newSBMLModel.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ShortCutKey));
-		} else {
-			check.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, ShortCutKey));
-
-			refresh.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
-			newSBMLModel.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ShortCutKey));
-			createAnal.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ShortCutKey | InputEvent.SHIFT_MASK));
-			createSynth.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, ShortCutKey | InputEvent.SHIFT_MASK));
-			createLearn.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ShortCutKey | InputEvent.SHIFT_MASK));
-
-		}
+		check.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, ShortCutKey));
+		refresh.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
+		newSBMLModel.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ShortCutKey));
+		createAnal.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ShortCutKey | InputEvent.SHIFT_MASK));
+		createSynth.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, ShortCutKey | InputEvent.SHIFT_MASK));
+		createLearn.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ShortCutKey | InputEvent.SHIFT_MASK));
 		newLhpn.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ShortCutKey));
 		graph.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, ShortCutKey));
 		probGraph.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ShortCutKey | InputEvent.SHIFT_MASK));
@@ -597,9 +590,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			// file.addSeparator();
 			help.add(about);
 		}
-		if (lema) {
-			menuBar.add(view);
-		}
+		menuBar.add(view);
 		view.add(viewModGraph);
 		view.add(viewCircuit);
 		view.add(viewRules);
@@ -659,9 +650,9 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 
 		// Packs the frame and displays it
 		mainPanel = new JPanel(new BorderLayout());
-		tree = new FileTree(null, this, lema, atacs, false);
+		tree = new FileTree(null, this, false, true, false);
 
-		EditPreferences editPreferences = new EditPreferences(frame, async);
+		EditPreferences editPreferences = new EditPreferences(frame, true);
 		editPreferences.setDefaultPreferences();
 		tree.setExpandibleIcons(!IBioSimPreferences.INSTANCE.isPlusMinusIconsEnabled());
 
@@ -1243,7 +1234,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		// if the open popup menu is selected on a sim directory
 		else if (e.getActionCommand().equals("openSim")) {
 			try {
-				openAnalysisView(tree.getFile());
+				openAnalysisView(tree.getFile(), true);
 			} catch (Exception e0) {
 			}
 		} else if (e.getActionCommand().equals("openSynth")) {
@@ -1305,7 +1296,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			addToTree(theFile.replace(".prop", ".xml"));
 		} else if (e.getActionCommand().equals("createAnalysis")) {
 			try {
-				createAnalysisView(tree.getFile());
+				createAnalysisView(tree.getFile(),true);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				JOptionPane.showMessageDialog(frame, "You must select a valid model file for analysis.", "Error",
@@ -1413,7 +1404,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 						}
 						addToTree(verName.trim());
 						VerificationView verify = new VerificationView(root + File.separator + verName, verName,
-								circuitFileNoPath, log, this, lema, atacs);
+								circuitFileNoPath, log, this, false, true);
 						verify.save();
 						addTab(verName, verify, "Verification");
 					}
@@ -1433,15 +1424,15 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		} 
 		else if (e.getActionCommand().equals("modelEditor")) {
 			// if the edit popup menu is selected on a dot file
-			openModelEditor(false);
+			openModelEditor(false, true);
 		}
 		// if the edit popup menu is selected on a dot file
 		else if (e.getActionCommand().equals("modelTextEditor")) {
-			openModelEditor(true);
+			openModelEditor(true, true);
 		}
 		// if the edit popup menu is selected on an sbml file
 		else if (e.getActionCommand().equals("sbmlEditor")) {
-			openSBML(tree.getFile());
+			openSBML(tree.getFile(), true);
 		} else if (e.getActionCommand().equals("stateGraph")) {
 			try {
 				String directory = root + File.separator + getTitleAt(tab.getSelectedIndex());
@@ -2144,7 +2135,8 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			if (comp instanceof JTabbedPane) {
 				// int index = -1;
 				if (comp instanceof SynthesisView) {
-					synthesizeSBOL((SynthesisView) comp);
+					// TODO: why here?
+					//synthesizeSBOL((SynthesisView) comp);
 				} else {
 					for (int i = 0; i < ((JTabbedPane) comp).getTabCount(); i++) {
 						Component component = ((JTabbedPane) comp).getComponent(i);
@@ -2213,7 +2205,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		// if the open project menu item is selected
 		else if (e.getSource() == pref) {
 			PreferencesDialog.showPreferences(frame);
-			EditPreferences editPreferences = new EditPreferences(frame, async);
+			EditPreferences editPreferences = new EditPreferences(frame, true);
 			editPreferences.preferences();
 			tree.setExpandibleIcons(!IBioSimPreferences.INSTANCE.isPlusMinusIconsEnabled());
 		} else if (e.getSource() == clearRecent) {
@@ -2228,7 +2220,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		}
 		// if the new circuit model menu item is selected
 		else if (e.getSource() == newSBMLModel) {
-			createModel(false);
+			createModel(false, true);
 		} 
 		// if the new vhdl menu item is selected
 		else if (e.getSource() == newVhdl) {
@@ -2485,26 +2477,17 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 							if (!lpnUSF) {
 								String outFileName = file[file.length - 1];
 
-								if (/* !lema && */ !atacs) {
-									Translator t1 = new Translator();
-									t1.convertLPN2SBML(filename, "");
-									t1.setFilename(
-											root + File.separator + outFileName.replace(".lpn", ".xml"));
-									t1.outputSBML();
-									outFileName = outFileName.replace(".lpn", ".xml");
-								} else {
-									FileOutputStream out = new FileOutputStream(
-											new File(root + File.separator + outFileName));
-									FileInputStream in = new FileInputStream(new File(filename));
-									// log.addText(filename);
-									int read = in.read();
-									while (read != -1) {
-										out.write(read);
-										read = in.read();
-									}
-									in.close();
-									out.close();
+								FileOutputStream out = new FileOutputStream(
+										new File(root + File.separator + outFileName));
+								FileInputStream in = new FileInputStream(new File(filename));
+								// log.addText(filename);
+								int read = in.read();
+								while (read != -1) {
+									out.write(read);
+									read = in.read();
 								}
+								in.close();
+								out.close();
 								addToTree(outFileName);
 							} else {
 								ANTLRFileStream in = new ANTLRFileStream(filename);
@@ -3885,10 +3868,10 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			if (tree.getFile().length() >= 5 && tree.getFile().substring(tree.getFile().length() - 5).equals(".sbml")
 					|| tree.getFile().length() >= 4
 					&& tree.getFile().substring(tree.getFile().length() - 4).equals(".xml")) {
-				openSBML(tree.getFile());
+				openSBML(tree.getFile(), true);
 			} else if (tree.getFile().length() >= 4
 					&& tree.getFile().substring(tree.getFile().length() - 4).equals(".gcm")) {
-				openModelEditor(false);
+				openModelEditor(false, true);
 			} else if (tree.getFile().length() >= 4
 					&& tree.getFile().substring(tree.getFile().length() - 4).equals(".vhd")) {
 				openModel("VHDL");
@@ -3950,7 +3933,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				}
 				if (sim) {
 					try {
-						openAnalysisView(tree.getFile());
+						openAnalysisView(tree.getFile(),true);
 					} catch (Exception e0) {
 						e0.printStackTrace();
 					}
@@ -4017,40 +4000,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		}
 		synthFilePath = synthFilePath + "_" + synthIndex;
 		return synthFilePath;
-	}
-
-	private void synthesizeSBOL(SynthesisView synthView) {
-		synthView.save();
-		ActionEvent projectSynthesized = new ActionEvent(newProj, ActionEvent.ACTION_PERFORMED,
-				GlobalConstants.SBOL_SYNTH_COMMAND + "_" + synthView.getSpecFileID().replace(".xml", ""));
-		actionPerformed(projectSynthesized);
-		if (!synthView.getRootDirectory().equals(root)) {
-			// String outputFileID = synthView.getSpecFileID();
-			// int version = 1;
-			// while(!overwrite(root + separator + outputFileID, outputFileID))
-			// {
-			// outputFileID = synthView.getSpecFileID().replace(".xml", "") +
-			// "_" + version + ".xml";
-			// version++;
-			// }
-			List<String> solutionFileIDs = synthView.run(root);
-			if (solutionFileIDs.size() > 0) {
-				for (String solutionFileID : solutionFileIDs) {
-					addToTree(solutionFileID);
-				}
-				ModelEditor modelEditor;
-				try {
-					modelEditor = new ModelEditor(root + File.separator, solutionFileIDs.get(0), this, log,
-							false, null, null, null, false, false);
-					ActionEvent applyLayout = new ActionEvent(synthView, ActionEvent.ACTION_PERFORMED,
-							"layout_verticalHierarchical");
-					modelEditor.getSchematic().actionPerformed(applyLayout);
-					addTab(solutionFileIDs.get(0), modelEditor, "Model Editor");
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-			}
-		}
 	}
 
 	private void openSynth() {
@@ -4203,7 +4152,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			}
 			// if (!graphFile.equals("")) {
 			VerificationView ver = new VerificationView(root + File.separator + verName, verName, "flag", log, this,
-					lema, atacs);
+					false, true);
 			// ver.addMouseListener(this);
 			// verPanel.add(ver);
 			// AbstPane abst = new AbstPane(root + separator + verName, ver,
@@ -4652,9 +4601,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				viewModGraph.setEnabled(true);
 				createAnal.setEnabled(true);
 				createAnal.setActionCommand("createAnalysis");
-				if (lema) {
-					createLearn.setEnabled(true);
-				}
 				createSynth.setEnabled(true);
 				createSynth.setActionCommand("createSynthesis");
 				createVer.setEnabled(true);
