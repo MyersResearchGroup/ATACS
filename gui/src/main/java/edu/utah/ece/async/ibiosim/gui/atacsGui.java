@@ -18,6 +18,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
@@ -42,8 +43,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Properties;
@@ -80,6 +81,7 @@ import org.antlr.runtime.TokenStream;
 import org.jlibsedml.SEDMLDocument;
 
 import edu.utah.ece.async.sboldesigner.sbol.editor.SBOLDesignerPlugin;
+import edu.utah.ece.async.sboldesigner.sbol.editor.SBOLEditorPreferences;
 import edu.utah.ece.async.ibiosim.dataModels.util.Executables;
 import edu.utah.ece.async.ibiosim.dataModels.util.GlobalConstants;
 import edu.utah.ece.async.ibiosim.dataModels.util.IBioSimPreferences;
@@ -868,7 +870,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			sedmlDocument = new SEDMLDocument(1, 2);
 			writeSEDMLDocument();
 
-			refresh();
+			refresh(false,true,false);
 			tab.removeAll();
 			addRecentProject(filename);
 
@@ -967,7 +969,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					currentProjectId = GlobalConstants.getFilename(root);
 					readSEDMLDocument();
 					readSBOLDocument();
-					refresh();
+					refresh(false,true,false);
 					addToTree(currentProjectId + ".sbol");
 					tab.removeAll();
 					addRecentProject(projDir);
@@ -4169,6 +4171,8 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 	 * This is the main method. It excecutes the BioSim GUI FrontEnd program.
 	 */
 	public static void main(String args[]) {
+		String message = "";
+
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac os")) {
 			if (System.getenv("DDLD_LIBRARY_PATH") == null) {
 				System.out.println("DDLD_LIBRARY_PATH is missing");
@@ -4177,7 +4181,43 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 
 		boolean libsbmlFound = true;
 		Executables.checkExecutables();
-		Runtime.getRuntime();
+		ArrayList<String> errors = Executables.getErrors();
+		if (errors.size()>0) {
+			message = "<html>WARNING: Some external components are missing or have problems.<br>" +
+					"You may continue but with some loss of functionality.";	
+			System.err.println("WARNING: Some external components are missing or have problems.\n" +
+					"You may continue but with some loss of functionality.");	
+			for (int i = 0; i < errors.size(); i++) {
+				message += "<br>" + errors.get(i);
+				System.err.println(errors.get(i));
+			}
+			message += "<br></html>";
+
+			JPanel msgPanel = new JPanel(new BorderLayout());
+			JPanel checkPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+			JLabel msg = new JLabel(message);
+			msgPanel.add(msg, BorderLayout.NORTH);
+			JCheckBox jcb = new JCheckBox("Do not ask me again");
+			jcb.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// if-else statement below is used to update checkbox in settings whenever this one is changed.
+					if (jcb.isSelected()) {
+						Preferences.userRoot().put("atacs.ignore.external.warnings", "true");
+					} 
+
+				}
+			});
+			checkPanel.add(jcb);
+			msgPanel.add(checkPanel, BorderLayout.SOUTH);
+			if (!Preferences.userRoot().get("atacs.ignore.external.warnings", "").equals("true")) {
+				int value = JOptionPane.showConfirmDialog(null , msgPanel , "Problems with External Components" , JOptionPane.OK_CANCEL_OPTION);
+				if (value == JOptionPane.CANCEL_OPTION) return;
+			}
+		} else {
+			Preferences.userRoot().put("atacs.ignore.external.warnings", "false");
+		}
 		new atacsGui(libsbmlFound);
 	}
 
