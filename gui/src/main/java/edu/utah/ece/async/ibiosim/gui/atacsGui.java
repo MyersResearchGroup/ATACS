@@ -44,7 +44,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Observable;
 import java.util.Observer;
 import java.util.Properties;
 import java.util.Set;
@@ -55,7 +55,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -79,15 +78,13 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.TokenStream;
 import org.jlibsedml.SEDMLDocument;
-import org.sbolstandard.core2.SBOLDocument;
 
 import edu.utah.ece.async.sboldesigner.sbol.editor.SBOLDesignerPlugin;
-import edu.utah.ece.async.ibiosim.dataModels.biomodel.util.SBMLutilities;
+import edu.utah.ece.async.ibiosim.dataModels.util.Executables;
 import edu.utah.ece.async.ibiosim.dataModels.util.GlobalConstants;
 import edu.utah.ece.async.ibiosim.dataModels.util.IBioSimPreferences;
 import edu.utah.ece.async.ibiosim.dataModels.util.exceptions.BioSimException;
 import edu.utah.ece.async.ibiosim.gui.analysisView.AnalysisView;
-import edu.utah.ece.async.ibiosim.gui.analysisView.Run;
 import edu.utah.ece.async.ibiosim.gui.graphEditor.Graph;
 import edu.utah.ece.async.ibiosim.gui.learnView.DataManager;
 import edu.utah.ece.async.ibiosim.gui.learnView.LearnView;
@@ -126,6 +123,10 @@ import edu.utah.ece.async.lema.verification.platu.platuLpn.io.PlatuGrammarParser
 public class atacsGui extends Gui implements Observer, MouseListener, ActionListener, MouseMotionListener, MouseWheelListener {
 
 	private static final String atacsVersion = "6.1";
+	private JMenuItem newVhdl, newLhpn, newG, newCsp, newHse, newUnc, newRsg;
+	private JMenuItem importG, importCsp, importHse, importUnc, importVhdl, importRsg;
+	
+	protected JMenuItem viewCircuit, viewRules, viewTrace, viewLog,	saveAsVerilog, viewModGraph;
 
 	/**
 	 * This is the constructor for the Proj class. It initializes all the input
@@ -136,7 +137,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 	 */
 	public atacsGui(boolean libsbmlFound) {
 		super(false,true,libsbmlFound);
-		SBMLutilities.libsbmlFound = libsbmlFound;
+		Executables.libsbmlFound = libsbmlFound;
 		async = lema || atacs;
 		Thread.setDefaultUncaughtExceptionHandler(new Utility.UncaughtExceptionHandler());
 		ENVVAR = System.getenv("ATACSGUI");
@@ -257,14 +258,8 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		pref = new JMenuItem("Preferences");
 		newProj = new JMenuItem("Project");
 		newSBMLModel = new JMenuItem("Model");
-		newSBOL = new JMenuItem("Part");
-		newGridModel = new JMenuItem("Grid Model");
-		newSpice = new JMenuItem("Spice Circuit");
 		newVhdl = new JMenuItem("VHDL Model");
-		newS = new JMenuItem("Assembly File");
-		newInst = new JMenuItem("Instruction File");
 		newLhpn = new JMenuItem("LPN Model");
-		newProperty = new JMenuItem("Property"); // DK
 		newG = new JMenuItem("Petri Net");
 		newCsp = new JMenuItem("CSP Model");
 		newHse = new JMenuItem("Handshaking Expansion");
@@ -272,32 +267,17 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		newRsg = new JMenuItem("Reduced State Graph");
 		graph = new JMenuItem("TSD Graph");
 		probGraph = new JMenuItem("Histogram");
-		importSbol = new JMenuItem("SBOL File");
-		importGenBank = new JMenuItem("GenBank File");
-		importFasta = new JMenuItem("Fasta File");
 		importSedml = new JMenuItem("SED-ML File");
 		importSbml = new JMenuItem("SBML Model");
-		importBioModel = new JMenuItem("BioModel");
-		importVirtualPart = new JMenuItem("Virtual Part");
-		convertToLPN = new JMenuItem("Convert To LPN"); // convert
 		importG = new JMenuItem("Petri Net");
 		importLpn = new JMenuItem("LPN Model");
 		importVhdl = new JMenuItem("VHDL Model");
-		importS = new JMenuItem("Assembly File");
-		importInst = new JMenuItem("Instruction File");
-		importProperty = new JMenuItem("Property File");
-		importSpice = new JMenuItem("Spice Circuit");
 		importCsp = new JMenuItem("CSP Model");
 		importHse = new JMenuItem("Handshaking Expansion");
 		importUnc = new JMenuItem("Extended Burst Mode Machine");
 		importRsg = new JMenuItem("Reduced State Graph");
 		exportSBML = new JMenuItem("SBML");
 		exportFlatSBML = new JMenuItem("Flat SBML");
-		exportSBOL1 = new JMenuItem("SBOL 1.1");
-		exportSBOL2 = new JMenuItem("SBOL 2.0");
-		exportSynBioHub = new JMenuItem("SynBioHub");
-		exportGenBank = new JMenuItem("GenBank");
-		exportFasta = new JMenuItem("Fasta");
 		exportArchive = new JMenuItem("Archive");
 		exportCsv = new JMenuItem("CSV");
 		exportDat = new JMenuItem("DAT");
@@ -323,12 +303,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		viewRules = new JMenuItem("Production Rules");
 		viewTrace = new JMenuItem("Error Trace");
 		viewLog = new JMenuItem("Log");
-		viewCoverage = new JMenuItem("Coverage Report");
-		viewLHPN = new JMenuItem("Model");
 		viewModGraph = new JMenuItem("Model");
-		viewLearnedModel = new JMenuItem("Learned Model");
-		viewModBrowser = new JMenuItem("Model in Browser");
-		viewSG = new JMenuItem("State Graph");
 		createAnal = new JMenuItem("Analysis Tool");
 		createLearn = new JMenuItem("Learn Tool");
 		createSbml = new JMenuItem("Create SBML File");
@@ -363,47 +338,26 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		bugReport.addActionListener(this);
 		newProj.addActionListener(this);
 		newSBMLModel.addActionListener(this);
-		newSBOL.addActionListener(this);
-		newGridModel.addActionListener(this);
 		newVhdl.addActionListener(this);
-		newS.addActionListener(this);
-		newInst.addActionListener(this);
 		newLhpn.addActionListener(this);
-		newProperty.addActionListener(this); // DK
-		convertToLPN.addActionListener(this);
 		newG.addActionListener(this);
 		newCsp.addActionListener(this);
 		newHse.addActionListener(this);
 		newUnc.addActionListener(this);
 		newRsg.addActionListener(this);
-		newSpice.addActionListener(this);
 		exit.addActionListener(this);
 		about.addActionListener(this);
-		importSbol.addActionListener(this);
-		importGenBank.addActionListener(this);
-		importFasta.addActionListener(this);
 		importSedml.addActionListener(this);
 		importSbml.addActionListener(this);
-		importBioModel.addActionListener(this);
-		importVirtualPart.addActionListener(this);
 		importVhdl.addActionListener(this);
-		importS.addActionListener(this);
-		importInst.addActionListener(this);
-		importProperty.addActionListener(this);
 		importLpn.addActionListener(this);
 		importG.addActionListener(this);
 		importCsp.addActionListener(this);
 		importHse.addActionListener(this);
 		importUnc.addActionListener(this);
 		importRsg.addActionListener(this);
-		importSpice.addActionListener(this);
 		exportSBML.addActionListener(this);
 		exportFlatSBML.addActionListener(this);
-		exportSBOL1.addActionListener(this);
-		exportSBOL2.addActionListener(this);
-		exportSynBioHub.addActionListener(this);
-		exportGenBank.addActionListener(this);
-		exportFasta.addActionListener(this);
 		exportArchive.addActionListener(this);
 		exportCsv.addActionListener(this);
 		exportDat.addActionListener(this);
@@ -427,12 +381,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		viewRules.addActionListener(this);
 		viewTrace.addActionListener(this);
 		viewLog.addActionListener(this);
-		viewCoverage.addActionListener(this);
-		viewLHPN.addActionListener(this);
 		viewModGraph.addActionListener(this);
-		viewLearnedModel.addActionListener(this);
-		viewModBrowser.addActionListener(this);
-		viewSG.addActionListener(this);
 		createAnal.addActionListener(this);
 		createLearn.addActionListener(this);
 		createSbml.addActionListener(this);
@@ -445,9 +394,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		check.setActionCommand("check");
 		refresh.setActionCommand("refresh");
 		viewModGraph.setActionCommand("viewModel");
-		viewLHPN.setActionCommand("viewModel");
-		viewModBrowser.setActionCommand("browse");
-		viewSG.setActionCommand("stateGraph");
 		createLearn.setActionCommand("createLearn");
 		createSbml.setActionCommand("createSBML");
 		createVer.setActionCommand("createVerify");
@@ -468,9 +414,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 
 			refresh.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
 			newSBMLModel.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ShortCutKey));
-			newSBOL.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ShortCutKey | InputEvent.ALT_MASK));
-
-			newGridModel.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, ShortCutKey | InputEvent.ALT_MASK));
 			createAnal.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ShortCutKey | InputEvent.SHIFT_MASK));
 			createSynth.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, ShortCutKey | InputEvent.SHIFT_MASK));
 			createLearn.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ShortCutKey | InputEvent.SHIFT_MASK));
@@ -502,32 +445,18 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ShortCutKey));
 		pref.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, ShortCutKey));
 
-		importSbol.setEnabled(false);
-		importGenBank.setEnabled(false);
-		importFasta.setEnabled(false);
 		importSedml.setEnabled(false);
 		importSbml.setEnabled(false);
-		importBioModel.setEnabled(false);
-		importVirtualPart.setEnabled(false);
 		importVhdl.setEnabled(false);
-		importS.setEnabled(false);
-		importInst.setEnabled(false);
-		importProperty.setEnabled(false);
 		importLpn.setEnabled(false);
 		importG.setEnabled(false);
 		importCsp.setEnabled(false);
 		importHse.setEnabled(false);
 		importUnc.setEnabled(false);
 		importRsg.setEnabled(false);
-		importSpice.setEnabled(false);
 		exportMenu.setEnabled(false);
 		exportSBML.setEnabled(false);
 		exportFlatSBML.setEnabled(false);
-		exportSBOL1.setEnabled(false);
-		exportSBOL2.setEnabled(false);
-		exportSynBioHub.setEnabled(false);
-		exportGenBank.setEnabled(false);
-		exportFasta.setEnabled(false);
 		exportArchive.setEnabled(false);
 		exportCsv.setEnabled(false);
 		exportDat.setEnabled(false);
@@ -540,20 +469,13 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		exportAvi.setEnabled(false);
 		exportMp4.setEnabled(false);
 		newSBMLModel.setEnabled(false);
-		newSBOL.setEnabled(false);
-		newGridModel.setEnabled(false);
 		newVhdl.setEnabled(false);
-		newS.setEnabled(false);
-		newInst.setEnabled(false);
 		newLhpn.setEnabled(false);
-		newProperty.setEnabled(false); // DK
-		convertToLPN.setEnabled(false);
 		newG.setEnabled(false);
 		newCsp.setEnabled(false);
 		newHse.setEnabled(false);
 		newUnc.setEnabled(false);
 		newRsg.setEnabled(false);
-		newSpice.setEnabled(false);
 		graph.setEnabled(false);
 		probGraph.setEnabled(false);
 		save.setEnabled(false);
@@ -589,13 +511,8 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		viewRules.setEnabled(false);
 		viewTrace.setEnabled(false);
 		viewLog.setEnabled(false);
-		viewCoverage.setEnabled(false);
-		viewLHPN.setEnabled(false);
 		viewModel.setEnabled(false);
 		viewModGraph.setEnabled(false);
-		viewLearnedModel.setEnabled(false);
-		viewModBrowser.setEnabled(false);
-		viewSG.setEnabled(false);
 		createAnal.setEnabled(false);
 		createLearn.setEnabled(false);
 		createSbml.setEnabled(false);
@@ -623,98 +540,40 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		edit.add(delete);
 		file.add(newMenu);
 		newMenu.add(newProj);
-		if (!async) {
-			newMenu.add(newSBMLModel);
-			newMenu.add(newGridModel);
-			newMenu.add(newSBOL);
-		} else if (lema) {
-			newMenu.add(newSBMLModel);
-		}
 		newMenu.add(graph);
 		newMenu.add(probGraph);
-		if (atacs) {
-			newMenu.add(newVhdl);
-			newMenu.add(newG);
-			newMenu.add(newLhpn);
-			newMenu.add(newCsp);
-			newMenu.add(newHse);
-			newMenu.add(newUnc);
-			newMenu.add(newRsg);
-			newMenu.add(newProperty);
-		} else if (lema) {
-			newMenu.add(newVhdl);
-			newMenu.add(newProperty);
-			newMenu.add(newS);
-			newMenu.add(newInst);
-			// newMenu.add(newSpice);
-		}
+		newMenu.add(newVhdl);
+		newMenu.add(newG);
+		newMenu.add(newLhpn);
+		newMenu.add(newCsp);
+		newMenu.add(newHse);
+		newMenu.add(newUnc);
+		newMenu.add(newRsg);
 		file.add(openProj);
 		file.add(openRecent);
-		// openMenu.add(openProj);
 		file.addSeparator();
 		file.add(close);
 		file.add(closeAll);
 		file.addSeparator();
 		file.add(save);
-		if (!async) {
-			// file.add(saveSBOL);
-			file.add(check);
-		}
 		file.add(run);
 		file.add(saveAs);
-		if (lema) {
-			file.add(saveAsVerilog);
-		}
 		file.add(saveAll);
-		if (!async) {
-			file.addSeparator();
-			file.add(refresh);
-		}
-		/*
-		 * if (lema) { file.add(saveModel); }
-		 */
 		file.addSeparator();
 		file.add(importMenu);
-		if (!async) {
-			// importMenu.add(importDot);
-			importMenu.add(importSbml);
-			importMenu.add(importBioModel);
-			// TODO: Removed due to issues with JParts
-			// importMenu.add(importVirtualPart);
-			importMenu.add(importLpn);
-			importMenu.add(importSbol);
-			importMenu.add(importGenBank);
-			importMenu.add(importFasta);
-			importMenu.add(importSedml);
-		} else if (atacs) {
-			importMenu.add(importVhdl);
-			importMenu.add(importG);
-			importMenu.add(importLpn);
-			importMenu.add(importCsp);
-			importMenu.add(importHse);
-			importMenu.add(importUnc);
-			importMenu.add(importRsg);
-		} else {
-			importMenu.add(importVhdl);
-			importMenu.add(importSbml);
-			importMenu.add(importS);
-			importMenu.add(importInst);
-			importMenu.add(importProperty);
-			importMenu.add(importLpn);
-			// importMenu.add(importSpice);
-		}
+		importMenu.add(importVhdl);
+		importMenu.add(importG);
+		importMenu.add(importLpn);
+		importMenu.add(importCsp);
+		importMenu.add(importHse);
+		importMenu.add(importUnc);
+		importMenu.add(importRsg);
 		file.add(exportMenu);
 		exportMenu.add(exportDataMenu);
 		exportMenu.add(exportImageMenu);
 		exportMenu.add(exportMovieMenu);
 		exportMenu.add(exportFlatSBML);
 		exportMenu.add(exportSBML);
-		exportMenu.add(exportSBOL1);
-		exportMenu.add(exportSBOL2);
-		exportMenu.add(exportSynBioHub);
-		exportMenu.add(exportGenBank);
-		exportMenu.add(exportFasta);
-		// Removed for now since not working
 		exportMenu.add(exportArchive);
 
 		exportDataMenu.add(exportTsd);
@@ -727,7 +586,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		exportImageMenu.add(exportSvg);
 		exportMovieMenu.add(exportAvi);
 		exportMovieMenu.add(exportMp4);
-		// file.addSeparator();
 		help.add(manual);
 		help.add(bugReport);
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac os")) {
@@ -742,44 +600,14 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		if (lema) {
 			menuBar.add(view);
 		}
-		if (lema) {
-			// view.add(viewVHDL);
-			// view.add(viewVerilog);
-			view.add(viewLHPN);
-			view.addSeparator();
-			view.add(viewLearnedModel);
-			view.add(viewCoverage);
-			view.add(viewLog);
-			view.add(viewTrace);
-
-		} else if (atacs) {
-			view.add(viewModGraph);
-			view.add(viewCircuit);
-			view.add(viewRules);
-			view.add(viewTrace);
-			view.add(viewLog);
-		} else {
-			view.add(viewModGraph);
-			// view.add(viewModBrowser);
-			view.add(viewLearnedModel);
-			view.add(viewSG);
-			view.add(viewLog);
-			// view.addSeparator();
-			// view.add(refresh);
-		}
+		view.add(viewModGraph);
+		view.add(viewCircuit);
+		view.add(viewRules);
+		view.add(viewTrace);
+		view.add(viewLog);
 		tools.add(createAnal);
-		if (!atacs) {
-			tools.add(createLearn);
-		}
-		if (!lema) {
-			tools.add(createSynth);
-		}
-		if (async) {
-			tools.add(createVer);
-		}
-		// else {
-		// tools.add(createSbml);
-		// }
+		tools.add(createSynth);
+		tools.add(createVer);
 		root = null;
 
 		// Create recent project menu items
@@ -816,40 +644,18 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		Preferences biosimrc = Preferences.userRoot();
 		viewer = biosimrc.get("biosim.general.viewer", "");
 		for (int i = 0; i < 10; i++) {
-			if (atacs) {
-				recentProjects[i].setText(biosimrc.get("atacs.recent.project." + i, ""));
-				recentProjectPaths[i] = biosimrc.get("atacs.recent.project.path." + i, "");
-				if (!recentProjects[i].getText().trim().equals("") && !recentProjectPaths[i].trim().equals("")) {
-					openRecent.add(recentProjects[i]);
-					numberRecentProj = i + 1;
-				} else {
-					break;
-				}
-			} else if (lema) {
-				recentProjects[i].setText(biosimrc.get("lema.recent.project." + i, ""));
-				recentProjectPaths[i] = biosimrc.get("lema.recent.project.path." + i, "");
-				if (!recentProjects[i].getText().trim().equals("") && !recentProjectPaths[i].trim().equals("")) {
-					openRecent.add(recentProjects[i]);
-					numberRecentProj = i + 1;
-				} else {
-					break;
-				}
+			recentProjects[i].setText(biosimrc.get("atacs.recent.project." + i, ""));
+			recentProjectPaths[i] = biosimrc.get("atacs.recent.project.path." + i, "");
+			if (!recentProjects[i].getText().trim().equals("") && !recentProjectPaths[i].trim().equals("")) {
+				openRecent.add(recentProjects[i]);
+				numberRecentProj = i + 1;
 			} else {
-				recentProjects[i].setText(biosimrc.get("biosim.recent.project." + i, ""));
-				recentProjectPaths[i] = biosimrc.get("biosim.recent.project.path." + i, "");
-				if (!recentProjects[i].getText().trim().equals("") && !recentProjectPaths[i].trim().equals("")) {
-					openRecent.add(recentProjects[i]);
-					numberRecentProj = i + 1;
-				} else {
-					break;
-				}
+				break;
 			}
 		}
 		openRecent.addSeparator();
 		openRecent.add(clearRecent);
-		SBMLLevelVersion = "L3V1";
-		GlobalConstants.SBML_LEVEL = 3;
-		GlobalConstants.SBML_VERSION = 1;
+		SBMLLevelVersion = "L3V2";
 
 		// Packs the frame and displays it
 		mainPanel = new JPanel(new BorderLayout());
@@ -956,19 +762,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		uOfUPanel.add(name, "North");
 		uOfUPanel.add(version, "Center");
 		uOfUPanel.add(uOfU, "South");
-		if (lema) {
-			aboutPanel.add(new javax.swing.JLabel(ResourceManager.getImageIcon("LEMA.png")),
-					"North");
-		} else if (atacs) {
-			aboutPanel.add(
-					new javax.swing.JLabel(ResourceManager.getImageIcon("ATACS.png")),
-					"North");
-		} else {
-			aboutPanel.add(
-					new javax.swing.JLabel(ResourceManager.getImageIcon("iBioSim.png")),
-					"North");
-		}
-		// aboutPanel.add(bioSim, "North");
+		aboutPanel.add(new javax.swing.JLabel(ResourceManager.getImageIcon("ATACS.png")),"North");
 		aboutPanel.add(uOfUPanel, "Center");
 		aboutPanel.add(buttons, "South");
 		f.setContentPane(aboutPanel);
@@ -1008,28 +802,12 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		}
 		Preferences biosimrc = Preferences.userRoot();
 		for (int i = 0; i < numberRecentProj; i++) {
-			if (atacs) {
-				biosimrc.put("atacs.recent.project." + i, recentProjects[i].getText());
-				biosimrc.put("atacs.recent.project.path." + i, recentProjectPaths[i]);
-			} else if (lema) {
-				biosimrc.put("lema.recent.project." + i, recentProjects[i].getText());
-				biosimrc.put("lema.recent.project.path." + i, recentProjectPaths[i]);
-			} else {
-				biosimrc.put("biosim.recent.project." + i, recentProjects[i].getText());
-				biosimrc.put("biosim.recent.project.path." + i, recentProjectPaths[i]);
-			}
+			biosimrc.put("atacs.recent.project." + i, recentProjects[i].getText());
+			biosimrc.put("atacs.recent.project.path." + i, recentProjectPaths[i]);
 		}
 		for (int i = numberRecentProj; i < 10; i++) {
-			if (atacs) {
-				biosimrc.put("atacs.recent.project." + i, "");
-				biosimrc.put("atacs.recent.project.path." + i, "");
-			} else if (lema) {
-				biosimrc.put("lema.recent.project." + i, "");
-				biosimrc.put("lema.recent.project.path." + i, "");
-			} else {
-				biosimrc.put("biosim.recent.project." + i, "");
-				biosimrc.put("biosim.recent.project.path," + i, "");
-			}
+			biosimrc.put("atacs.recent.project." + i, "");
+			biosimrc.put("atacs.recent.project.path." + i, "");
 		}
 		System.exit(1);
 		return true;
@@ -1087,28 +865,17 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			}
 			new File(filename).mkdir();
 			try {
-				if (lema) {
-					new FileWriter(new File(filename + GlobalConstants.separator + "LEMA.prj")).close();
-				} else if (atacs) {
-					new FileWriter(new File(filename + GlobalConstants.separator + "ATACS.prj")).close();
-				} else {
-					new FileWriter(new File(filename + GlobalConstants.separator + "BioSim.prj")).close();
-				}
+				new FileWriter(new File(filename + File.separator + "ATACS.prj")).close();
 			} catch (IOException e1) {
 				JOptionPane.showMessageDialog(frame, "Unable to create a new project.", "Error",
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			root = filename;
-			currentProjectId = root.split(GlobalConstants.separator)[root.split(GlobalConstants.separator).length - 1];
+			currentProjectId = GlobalConstants.getFilename(root);
 
 			sedmlDocument = new SEDMLDocument(1, 2);
 			writeSEDMLDocument();
-
-			sbolDocument = new SBOLDocument();
-			sbolDocument.setCreateDefaults(true);
-			sbolDocument.setDefaultURIprefix(EditPreferences.getDefaultUriPrefix());
-			writeSBOLDocument();
 
 			refresh();
 			tab.removeAll();
@@ -1118,38 +885,23 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 
 			// importDot.setEnabled(true);
 			importMenu.setEnabled(true);
-			importSbol.setEnabled(true);
-			importGenBank.setEnabled(true);
-			importFasta.setEnabled(true);
 			importSedml.setEnabled(true);
 			importSbml.setEnabled(true);
-			importBioModel.setEnabled(true);
-			importVirtualPart.setEnabled(true);
 			importVhdl.setEnabled(true);
-			importS.setEnabled(true);
-			importInst.setEnabled(true);
-			importProperty.setEnabled(true);
 			importLpn.setEnabled(true);
 			importG.setEnabled(true);
 			importCsp.setEnabled(true);
 			importHse.setEnabled(true);
 			importUnc.setEnabled(true);
 			importRsg.setEnabled(true);
-			importSpice.setEnabled(true);
 			newSBMLModel.setEnabled(true);
-			newSBOL.setEnabled(true);
-			newGridModel.setEnabled(true);
 			newVhdl.setEnabled(true);
-			newProperty.setEnabled(true); // DK
-			newS.setEnabled(true);
-			newInst.setEnabled(true);
 			newLhpn.setEnabled(true);
 			newG.setEnabled(true);
 			newCsp.setEnabled(true);
 			newHse.setEnabled(true);
 			newUnc.setEnabled(true);
 			newRsg.setEnabled(true);
-			newSpice.setEnabled(true);
 			graph.setEnabled(true);
 			probGraph.setEnabled(true);
 		}
@@ -1179,10 +931,10 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			projDir = Utility.browse(frame, file, null, JFileChooser.DIRECTORIES_ONLY, "Open", -1);
 			if (projDir.endsWith(".prj")) {
 				biosimrc.put("biosim.general.project_dir", projDir);
-				String[] tempArray = projDir.split(GlobalConstants.separator);
+				String[] tempArray = GlobalConstants.splitPath(projDir);
 				projDir = "";
 				for (int i = 0; i < tempArray.length - 1; i++) {
-					projDir = projDir + tempArray[i] + GlobalConstants.separator;
+					projDir = projDir + tempArray[i] + File.separator;
 				}
 			}
 		} else if (e.getSource() == recentProjects[0]) {
@@ -1215,18 +967,13 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					if (temp.equals(".prj")) {
 						isProject = true;
 					}
-					if (lema && temp.equals("LEMA.prj")) {
+					if (temp.equals("ATACS.prj")) {
 						isProject = true;
-					} else if (atacs && temp.equals("ATACS.prj")) {
-						isProject = true;
-					} else if (temp.equals("BioSim.prj")) {
-						isProject = true;
-					}
+					} 
 				}
 				if (isProject) {
 					root = projDir;
-					currentProjectId = root
-							.split(GlobalConstants.separator)[root.split(GlobalConstants.separator).length - 1];
+					currentProjectId = GlobalConstants.getFilename(root);
 					readSEDMLDocument();
 					readSBOLDocument();
 					refresh();
@@ -1236,38 +983,23 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 
 					// importDot.setEnabled(true);
 					importMenu.setEnabled(true);
-					importSbol.setEnabled(true);
-					importGenBank.setEnabled(true);
-					importFasta.setEnabled(true);
 					importSedml.setEnabled(true);
 					importSbml.setEnabled(true);
-					importBioModel.setEnabled(true);
-					importVirtualPart.setEnabled(true);
 					importVhdl.setEnabled(true);
-					importS.setEnabled(true);
-					importInst.setEnabled(true);
-					importProperty.setEnabled(true);
 					importLpn.setEnabled(true);
 					importG.setEnabled(true);
 					importCsp.setEnabled(true);
 					importHse.setEnabled(true);
 					importUnc.setEnabled(true);
 					importRsg.setEnabled(true);
-					importSpice.setEnabled(true);
 					newSBMLModel.setEnabled(true);
-					newSBOL.setEnabled(true);
-					newGridModel.setEnabled(true);
 					newVhdl.setEnabled(true);
-					newS.setEnabled(true);
-					newInst.setEnabled(true);
 					newLhpn.setEnabled(true);
-					newProperty.setEnabled(true); // DK
 					newG.setEnabled(true);
 					newCsp.setEnabled(true);
 					newHse.setEnabled(true);
 					newUnc.setEnabled(true);
 					newRsg.setEnabled(true);
-					newSpice.setEnabled(true);
 					graph.setEnabled(true);
 					probGraph.setEnabled(true);
 				} else {
@@ -1323,11 +1055,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 						return;
 					}
 				}
-			}
-		} else if (e.getSource() == viewCoverage) {
-			Component comp = tab.getSelectedComponent();
-			for (int i = 0; i < ((JTabbedPane) comp).getTabCount(); i++) {
-				Component component = ((JTabbedPane) comp).getComponent(i);
 			}
 		} else if (e.getSource() == saveModel) {
 			Component comp = tab.getSelectedComponent();
@@ -1404,46 +1131,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			if (comp instanceof ModelEditor) {
 				((ModelEditor) comp).exportSBML();
 			}
-		} else if (e.getSource() == exportSBOL1) {
-			Component comp = tab.getSelectedComponent();
-			if (comp instanceof ModelEditor) {
-				((ModelEditor) comp).exportSBOLFileType("SBOL1");
-			} else if (comp instanceof SBOLDesignerPlugin) {
-				exportSBOL((SBOLDesignerPlugin) comp, "SBOL1");
-			}
-		} else if (e.getSource() == exportSBOL2) {
-			Component comp = tab.getSelectedComponent();
-			if (comp instanceof ModelEditor) {
-				((ModelEditor) comp).exportSBOLFileType("SBOL");
-			} else if (comp instanceof SBOLDesignerPlugin) {
-				exportSBOL((SBOLDesignerPlugin) comp, "SBOL");
-			}
-		} else if (e.getSource() == exportSynBioHub) {
-			Component comp = tab.getSelectedComponent();
-			if (comp instanceof ModelEditor) {
-				((ModelEditor) comp).exportSynBioHub();
-			} else if (comp instanceof SBOLDesignerPlugin) {
-				// TODO: change to upload for SBOLDesigner
-				exportSBOL((SBOLDesignerPlugin) comp, "SBOL");
-			}
-		} else if (e.getSource() == exportGenBank) {
-			Component comp = tab.getSelectedComponent();
-			if (comp instanceof ModelEditor) {
-				((ModelEditor) comp).exportSBOLFileType("GenBank");
-			} else if (comp instanceof SBOLDesignerPlugin) {
-				exportSBOL((SBOLDesignerPlugin) comp, "GenBank");
-			}
-		} else if (e.getSource() == exportFasta) {
-			Component comp = tab.getSelectedComponent();
-			if (comp instanceof ModelEditor) {
-				((ModelEditor) comp).exportSBOLFileType("Fasta");
-			} else if (comp instanceof SBOLDesignerPlugin) {
-				exportSBOL((SBOLDesignerPlugin) comp, "Fasta");
-			}
-		} else if (e.getSource() == exportArchive) {
-			// exportSEDML();
-			exportCombineArchive();
-		}
+		} 
 		else if (e.getSource() == exportCsv) {
 			Component comp = tab.getSelectedComponent();
 			if (comp instanceof Graph) {
@@ -1531,13 +1219,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			try {
 				String directory = "";
 				String theFile = "";
-				if (!async) {
-					theFile = "iBioSim.html";
-				} else if (atacs) {
-					theFile = "ATACS.html";
-				} else {
-					theFile = "LEMA.html";
-				}
+				theFile = "ATACS.html";
 				Preferences biosimrc = Preferences.userRoot();
 				String command = biosimrc.get("biosim.general.browser", "");
 				if (System.getProperty("os.name").contentEquals("Linux")
@@ -1634,8 +1316,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		else if (e.getActionCommand().equals("createSynthesis")) {
 			if (root != null) {
 				for (int i = 0; i < tab.getTabCount(); i++) {
-					if (getTitleAt(i).equals(tree.getFile().split(
-							GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1])) {
+					if (getTitleAt(i).equals(GlobalConstants.getFilename(tree.getFile()))) {
 						tab.setSelectedIndex(i);
 						if (save(i, 0) == 0) {
 							return;
@@ -1648,15 +1329,15 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				if (synthName != null && !synthName.trim().equals("")) {
 					synthName = synthName.trim();
 					try {
-						if (overwrite(root + GlobalConstants.separator + synthName, synthName)) {
-							new File(root + GlobalConstants.separator + synthName).mkdir();
+						if (overwrite(root + File.separator + synthName, synthName)) {
+							new File(root + File.separator + synthName).mkdir();
 							String sbmlFile = tree.getFile();
-							String[] getFilename = sbmlFile.split(GlobalConstants.separator);
+							String[] getFilename = GlobalConstants.splitPath(sbmlFile);
 							String circuitFileNoPath = getFilename[getFilename.length - 1];
 							try {
 								FileOutputStream out = new FileOutputStream(
-										new File(root + GlobalConstants.separator + synthName.trim()
-										+ GlobalConstants.separator + synthName.trim() + ".syn"));
+										new File(root + File.separator + synthName.trim()
+										+ File.separator + synthName.trim() + ".syn"));
 								out.write(("synthesis.file=" + circuitFileNoPath + "\n").getBytes());
 								out.close();
 							} catch (IOException e1) {
@@ -1665,10 +1346,10 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 							}
 							try {
 								FileInputStream in = new FileInputStream(
-										new File(root + GlobalConstants.separator + circuitFileNoPath));
+										new File(root + File.separator + circuitFileNoPath));
 								FileOutputStream out = new FileOutputStream(
-										new File(root + GlobalConstants.separator + synthName.trim()
-										+ GlobalConstants.separator + circuitFileNoPath));
+										new File(root + File.separator + synthName.trim()
+										+ File.separator + circuitFileNoPath));
 								int read = in.read();
 								while (read != -1) {
 									out.write(read);
@@ -1681,9 +1362,9 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 										"Error Saving File", JOptionPane.ERROR_MESSAGE);
 							}
 							addToTree(synthName.trim());
-							String work = root + GlobalConstants.separator + synthName;
-							String circuitFile = root + GlobalConstants.separator + synthName.trim()
-							+ GlobalConstants.separator + circuitFileNoPath;
+							String work = root + File.separator + synthName;
+							String circuitFile = root + File.separator + synthName.trim()
+							+ File.separator + circuitFileNoPath;
 							JPanel synthPane = new JPanel();
 							SynthesisViewATACS synth = new SynthesisViewATACS(work, circuitFile, log, this);
 							synthPane.add(synth);
@@ -1703,8 +1384,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		else if (e.getActionCommand().equals("createVerify")) {
 			if (root != null) {
 				for (int i = 0; i < tab.getTabCount(); i++) {
-					if (getTitleAt(i).equals(tree.getFile().split(
-							GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1])) {
+					if (getTitleAt(i).equals(GlobalConstants.getFilename(tree.getFile()))) {
 						tab.setSelectedIndex(i);
 						if (save(i, 0) == 0) {
 							return;
@@ -1717,14 +1397,14 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				if (verName != null && !verName.trim().equals("")) {
 					verName = verName.trim();
 					// try {
-					if (overwrite(root + GlobalConstants.separator + verName, verName)) {
-						new File(root + GlobalConstants.separator + verName).mkdir();
+					if (overwrite(root + File.separator + verName, verName)) {
+						new File(root + File.separator + verName).mkdir();
 						String sbmlFile = tree.getFile();
-						String[] getFilename = sbmlFile.split(GlobalConstants.separator);
+						String[] getFilename = GlobalConstants.splitPath(sbmlFile);
 						String circuitFileNoPath = getFilename[getFilename.length - 1];
 						try {
-							FileOutputStream out = new FileOutputStream(new File(root + GlobalConstants.separator
-									+ verName.trim() + GlobalConstants.separator + verName.trim() + ".ver"));
+							FileOutputStream out = new FileOutputStream(new File(root + File.separator
+									+ verName.trim() + File.separator + verName.trim() + ".ver"));
 							out.write(("verification.file=" + circuitFileNoPath + "\n").getBytes());
 							out.close();
 						} catch (IOException e1) {
@@ -1732,7 +1412,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 									JOptionPane.ERROR_MESSAGE);
 						}
 						addToTree(verName.trim());
-						VerificationView verify = new VerificationView(root + GlobalConstants.separator + verName, verName,
+						VerificationView verify = new VerificationView(root + File.separator + verName, verName,
 								circuitFileNoPath, log, this, lema, atacs);
 						verify.save();
 						addTab(verName, verify, "Verification");
@@ -1764,19 +1444,19 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			openSBML(tree.getFile());
 		} else if (e.getActionCommand().equals("stateGraph")) {
 			try {
-				String directory = root + GlobalConstants.separator + getTitleAt(tab.getSelectedIndex());
+				String directory = root + File.separator + getTitleAt(tab.getSelectedIndex());
 				File work = new File(directory);
 				for (String f : new File(directory).list()) {
 					if (f.contains("_sg.dot")) {
 						Runtime exec = Runtime.getRuntime();
 						if (System.getProperty("os.name").contentEquals("Linux")) {
-							log.addText("Executing:\ndotty " + directory + GlobalConstants.separator + f + "\n");
+							log.addText("Executing:\ndotty " + directory + File.separator + f + "\n");
 							exec.exec("dotty " + f, null, work);
 						} else if (System.getProperty("os.name").toLowerCase().startsWith("mac os")) {
-							log.addText("Executing:\nopen " + directory + GlobalConstants.separator + f + "\n");
+							log.addText("Executing:\nopen " + directory + File.separator + f + "\n");
 							exec.exec("open " + f, null, work);
 						} else {
-							log.addText("Executing:\ndotty " + directory + GlobalConstants.separator + f + "\n");
+							log.addText("Executing:\ndotty " + directory + File.separator + f + "\n");
 							exec.exec("dotty " + f, null, work);
 						}
 						return;
@@ -1800,8 +1480,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				theFile = filename.substring(filename.lastIndexOf('\\') + 1);
 			}
 			for (int i = 0; i < tab.getTabCount(); i++) {
-				if (getTitleAt(i).equals(tree.getFile().split(
-						GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1])) {
+				if (getTitleAt(i).equals(GlobalConstants.getFilename(tree.getFile()))) {
 					tab.setSelectedIndex(i);
 					if (save(i, 0) == 0) {
 						return;
@@ -1816,18 +1495,18 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					String file = theFile;
 					String[] findTheFile = file.split("\\.");
 					theFile = findTheFile[0] + ".dot";
-					File dot = new File(root + GlobalConstants.separator + theFile);
+					File dot = new File(root + File.separator + theFile);
 					dot.delete();
 					LPN lhpn = new LPN();
 					lhpn.addObserver(this);
 					try {
-						lhpn.load(directory + GlobalConstants.separator + theFile);
+						lhpn.load(directory + File.separator + theFile);
 					} catch (BioSimException e1) {
 						JOptionPane.showMessageDialog(atacsGui.frame, e1.getMessage(), e1.getTitle(),
 								JOptionPane.ERROR_MESSAGE);
 						e1.printStackTrace();
 					}
-					lhpn.printDot(directory + GlobalConstants.separator + file);
+					lhpn.printDot(directory + File.separator + file);
 					// String cmd = "atacs -cPllodpl " + file;
 					Runtime exec = Runtime.getRuntime();
 					// Process ATACS = exec.exec(cmd, null, work);
@@ -1836,10 +1515,10 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					if (dot.exists()) {
 						Preferences biosimrc = Preferences.userRoot();
 						String command = biosimrc.get("biosim.general.graphviz", "");
-						log.addText(command + " " + root + GlobalConstants.separator + theFile + "\n");
+						log.addText(command + " " + root + File.separator + theFile + "\n");
 						exec.exec(command + theFile, null, work);
 					} else {
-						File log = new File(root + GlobalConstants.separator + "atacs.log");
+						File log = new File(root + File.separator + "atacs.log");
 						BufferedReader input = new BufferedReader(new FileReader(log));
 						String line = null;
 						JTextArea messageArea = new JTextArea();
@@ -1890,16 +1569,16 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				// new Run(null);
 				JCheckBox dummy = new JCheckBox();
 				dummy.setSelected(false);
-				JList empty = new JList();
+//				JList empty = new JList();
 				// JRadioButton emptyButton = new JRadioButton();
-				Run.createProperties(0, 0, 0, "Print Interval", 1, 1, 1, 1, 0, directory, 314159, 1, 1, new String[0],
-						"tsd.printer", "amount", "false", (directory + theFile).split(GlobalConstants.separator),
-						"none", frame, directory + theFile, 0.1, 0.1, 0.1, 15, 2.0, empty, empty, empty, null, false,
-						false, false);
-				log.addText("Executing:\n" + reb2sacExecutable + " --target.encoding=dot --out=" + directory + out
+//				Run.createProperties(0, 0, 0, "Print Interval", 1, 1, 1, 1, 0, directory, 314159, 1, 1, new String[0],
+//						"tsd.printer", "amount", "false", GlobalConstants.splitPath(directory + theFile),
+//						"none", frame, directory + theFile, 0.1, 0.1, 0.1, 15, 2.0, empty, empty, empty, null, false,
+//						false, false);
+				log.addText("Executing:\n" + Executables.reb2sacExecutable + " --target.encoding=dot --out=" + directory + out
 						+ ".dot " + directory + theFile + "\n");
 				Runtime exec = Runtime.getRuntime();
-				Process graph = exec.exec(reb2sacExecutable + " --target.encoding=dot --out=" + out + ".dot " + theFile,
+				Process graph = exec.exec(Executables.reb2sacExecutable + " --target.encoding=dot --out=" + out + ".dot " + theFile,
 						envp, work);
 				String error = "";
 				String output = "";
@@ -1949,16 +1628,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			} catch (IOException e1) {
 				JOptionPane.showMessageDialog(frame, "Error graphing SBML file.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
-		} else if (e.getSource() == viewLearnedModel) {
-			Component comp = tab.getSelectedComponent();
-			for (int i = 0; i < ((JTabbedPane) comp).getTabCount(); i++) {
-				Component component = ((JTabbedPane) comp).getComponent(i);
-				if (component instanceof LearnView) {
-					((LearnView) component).viewModel();
-					return;
-				}
-			}
-		}
+		} 
 		// if the graph popup menu is selected on an sbml file
 		else if (e.getActionCommand().equals("graph")) {
 			String directory = "";
@@ -1973,8 +1643,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				theFile = filename.substring(filename.lastIndexOf('\\') + 1);
 			}
 			for (int i = 0; i < tab.getTabCount(); i++) {
-				if (getTitleAt(i).equals(tree.getFile().split(
-						GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1])) {
+				if (getTitleAt(i).equals(GlobalConstants.getFilename(tree.getFile()))) {
 					tab.setSelectedIndex(i);
 					if (save(i, 0) == 0) {
 						return;
@@ -1990,18 +1659,18 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					String file = theFile;
 					String[] findTheFile = file.split("\\.");
 					theFile = findTheFile[0] + ".dot";
-					File dot = new File(root + GlobalConstants.separator + theFile);
+					File dot = new File(root + File.separator + theFile);
 					dot.delete();
 					LPN lhpn = new LPN();
 					lhpn.addObserver(this);
 					try {
-						lhpn.load(root + GlobalConstants.separator + file);
+						lhpn.load(root + File.separator + file);
 					} catch (BioSimException e1) {
 						JOptionPane.showMessageDialog(atacsGui.frame, e1.getMessage(), e1.getTitle(),
 								JOptionPane.ERROR_MESSAGE);
 						e1.printStackTrace();
 					}
-					lhpn.printDot(root + GlobalConstants.separator + theFile);
+					lhpn.printDot(root + File.separator + theFile);
 					// String cmd = "atacs -cPllodpl " + file;
 					Runtime exec = Runtime.getRuntime();
 					// Process ATACS = exec.exec(cmd, null, work);
@@ -2010,10 +1679,10 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					if (dot.exists()) {
 						Preferences biosimrc = Preferences.userRoot();
 						String command = biosimrc.get("biosim.general.graphviz", "");
-						log.addText(command + " " + root + GlobalConstants.separator + theFile + "\n");
+						log.addText(command + " " + root + File.separator + theFile + "\n");
 						exec.exec(command + " " + theFile, null, work);
 					} else {
-						File log = new File(root + GlobalConstants.separator + "atacs.log");
+						File log = new File(root + File.separator + "atacs.log");
 						BufferedReader input = new BufferedReader(new FileReader(log));
 						String line = null;
 						JTextArea messageArea = new JTextArea();
@@ -2064,16 +1733,16 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				// new Run(null);
 				JCheckBox dummy = new JCheckBox();
 				dummy.setSelected(false);
-				JList empty = new JList();
+//				JList empty = new JList();
 				// JRadioButton emptyButton = new JRadioButton();
-				Run.createProperties(0, 0, 0, "Print Interval", 1, 1, 1, 1, 0, directory, 314159, 1, 1, new String[0],
-						"tsd.printer", "amount", "false", (directory + theFile).split(GlobalConstants.separator),
-						"none", frame, directory + theFile, 0.1, 0.1, 0.1, 15, 2.0, empty, empty, empty, null, false,
-						false, false);
-				log.addText("Executing:\n" + reb2sacExecutable + " --target.encoding=dot --out=" + directory + out
+//				Run.createProperties(0, 0, 0, "Print Interval", 1, 1, 1, 1, 0, directory, 314159, 1, 1, new String[0],
+//						"tsd.printer", "amount", "false", GlobalConstants.splitPath(directory + theFile),
+//						"none", frame, directory + theFile, 0.1, 0.1, 0.1, 15, 2.0, empty, empty, empty, null, false,
+//						false, false);
+				log.addText("Executing:\n" + Executables.reb2sacExecutable + " --target.encoding=dot --out=" + directory + out
 						+ ".dot " + directory + theFile + "\n");
 				Runtime exec = Runtime.getRuntime();
-				Process graph = exec.exec(reb2sacExecutable + " --target.encoding=dot --out=" + out + ".dot " + theFile,
+				Process graph = exec.exec(Executables.reb2sacExecutable + " --target.encoding=dot --out=" + out + ".dot " + theFile,
 						null, work);
 				String error = "";
 				String output = "";
@@ -2140,8 +1809,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				theFile = filename.substring(filename.lastIndexOf('\\') + 1);
 			}
 			for (int i = 0; i < tab.getTabCount(); i++) {
-				if (getTitleAt(i).equals(tree.getFile().split(
-						GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1])) {
+				if (getTitleAt(i).equals(GlobalConstants.getFilename(tree.getFile()))) {
 					tab.setSelectedIndex(i);
 					if (save(i, 0) == 0) {
 						return;
@@ -2160,17 +1828,17 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			try {
 				// new Run(null);
 				JCheckBox dummy = new JCheckBox();
-				JList empty = new JList();
+//				JList empty = new JList();
 				dummy.setSelected(false);
-				Run.createProperties(0, 0, 0.0, "Print Interval", 1.0, 1.0, 1.0, 1.0, 0, directory, 314159L, 1, 1,
-						new String[0], "tsd.printer", "amount", "false",
-						(directory + theFile).split(GlobalConstants.separator), "none", frame, directory + theFile, 0.1,
-						0.1, 0.1, 15, 2.0, empty, empty, empty, null, false, false, false);
-				log.addText("Executing:\n" + reb2sacExecutable + " --target.encoding=xhtml --out=" + directory + out
+//				Run.createProperties(0, 0, 0.0, "Print Interval", 1.0, 1.0, 1.0, 1.0, 0, directory, 314159L, 1, 1,
+//						new String[0], "tsd.printer", "amount", "false",
+//						GlobalConstants.splitPath(directory + theFile), "none", frame, directory + theFile, 0.1,
+//						0.1, 0.1, 15, 2.0, empty, empty, empty, null, false, false, false);
+				log.addText("Executing:\n" + Executables.reb2sacExecutable + " --target.encoding=xhtml --out=" + directory + out
 						+ ".xhtml " + directory + theFile + "\n");
 				Runtime exec = Runtime.getRuntime();
 				Process browse = exec.exec(
-						reb2sacExecutable + " --target.encoding=xhtml --out=" + out + ".xhtml " + theFile, envp, work);
+						Executables.reb2sacExecutable + " --target.encoding=xhtml --out=" + out + ".xhtml " + theFile, envp, work);
 				String error = "";
 				String output = "";
 				InputStream reb = browse.getErrorStream();
@@ -2255,7 +1923,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 						else if (component instanceof ModelEditor) {
 							((ModelEditor) component).saveParams(false, "", true, null);
 						} else if (component instanceof AnalysisView) {
-							((AnalysisView) component).save("");
+							((AnalysisView) component).save();
 						} else if (component instanceof MovieContainer) {
 							((MovieContainer) component).savePreferences();
 						}
@@ -2271,7 +1939,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			} else if (comp instanceof JScrollPane) {
 				String fileName = getTitleAt(tab.getSelectedIndex());
 				try {
-					File output = new File(root + GlobalConstants.separator + fileName);
+					File output = new File(root + File.separator + fileName);
 					output.createNewFile();
 					FileOutputStream outStream = new FileOutputStream(output);
 					Component[] array = ((JScrollPane) comp).getComponents();
@@ -2284,7 +1952,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 						}
 					}
 					outStream.close();
-					log.addText("Saving file:\n" + root + GlobalConstants.separator + fileName);
+					log.addText("Saving file:\n" + root + File.separator + fileName);
 					this.updateAsyncViews(fileName);
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(frame, "Error saving file " + fileName, "Error",
@@ -2445,7 +2113,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					}
 				}
 				try {
-					File output = new File(root + GlobalConstants.separator + newName);
+					File output = new File(root + File.separator + newName);
 					output.createNewFile();
 					FileOutputStream outStream = new FileOutputStream(output);
 					Component[] array = ((JScrollPane) comp).getComponents();
@@ -2458,8 +2126,8 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 						}
 					}
 					outStream.close();
-					log.addText("Saving file:\n" + root + GlobalConstants.separator + newName);
-					File oldFile = new File(root + GlobalConstants.separator + fileName);
+					log.addText("Saving file:\n" + root + File.separator + newName);
+					File oldFile = new File(root + File.separator + fileName);
 					oldFile.delete();
 					tab.setTitleAt(tab.getSelectedIndex(), newName);
 					addToTree(newName);
@@ -2548,9 +2216,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			EditPreferences editPreferences = new EditPreferences(frame, async);
 			editPreferences.preferences();
 			tree.setExpandibleIcons(!IBioSimPreferences.INSTANCE.isPlusMinusIconsEnabled());
-			if (sbolDocument != null) {
-				sbolDocument.setDefaultURIprefix(EditPreferences.getDefaultUriPrefix());
-			}
 		} else if (e.getSource() == clearRecent) {
 			removeAllRecentProjects();
 		} else if ((e.getSource() == openProj) || (e.getSource() == recentProjects[0])
@@ -2564,20 +2229,10 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		// if the new circuit model menu item is selected
 		else if (e.getSource() == newSBMLModel) {
 			createModel(false);
-		} else if (e.getSource() == newGridModel) {
-			createModel(true);
-		}
+		} 
 		// if the new vhdl menu item is selected
 		else if (e.getSource() == newVhdl) {
 			newModel("VHDL", ".vhd");
-		}
-		// if the new assembly menu item is selected
-		else if (e.getSource() == newS) {
-			newModel("Assembly", ".s");
-		}
-		// if the new instruction file menu item is selected
-		else if (e.getSource() == newInst) {
-			newModel("Instruction", ".inst");
 		}
 		// if the new petri net menu item is selected
 		else if (e.getSource() == newG) {
@@ -2586,9 +2241,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		// if the new lhpn menu item is selected
 		else if (e.getSource() == newLhpn) {
 			createLPN();
-		} else if (e.getSource() == newProperty) { // DK
-			newModel("Property", ".prop");
-		}
+		} 
 		// if the new csp menu item is selected
 		else if (e.getSource() == newCsp) {
 			newModel("CSP", ".csp");
@@ -2605,18 +2258,13 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		else if (e.getSource() == newRsg) {
 			newModel("Reduced State Graph", ".rsg");
 		}
-		// if the new rsg menu item is selected
-		else if (e.getSource() == newSpice) {
-			newModel("Spice Circuit", ".cir");
-		} else if (e.getSource().equals(importSedml)) {
+		else if (e.getSource().equals(importSedml)) {
 			importSEDML();
 		}
 		// if the import sbml menu item is selected
 		else if (e.getSource() == importSbml) {
 			importSBML(null);
-		} else if (e.getSource() == importVirtualPart) {
-			// importVirtualPart();
-		}
+		} 
 		// if the import dot menu item is selected
 		/*
 		 * else if (e.getSource() == importDot) { importGCM(); }
@@ -2624,12 +2272,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		// if the import vhdl menu item is selected
 		else if (e.getSource() == importVhdl) {
 			importFile("VHDL", ".vhd", ".vhd");
-		} else if (e.getSource() == importProperty) {
-			importFile("Property", ".prop", ".prop");
-		} else if (e.getSource() == importS) {
-			importFile("Assembly", ".s", ".s");
-		} else if (e.getSource() == importInst) {
-			importFile("Instruction", ".inst", ".inst");
 		} else if (e.getSource() == importLpn) {
 			importLPN();
 		} else if (e.getSource() == importG) {
@@ -2650,10 +2292,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		// if the import rsg menu item is selected
 		else if (e.getSource() == importRsg) {
 			importFile("Reduced State Graph", ".rsg", ".rsg");
-		}
-		// if the import spice menu item is selected
-		else if (e.getSource() == importSpice) {
-			importFile("Spice Circuit", ".cir", ".cir");
 		}
 		// if the Graph data menu item is clicked
 		else if (e.getSource() == graph) {
@@ -2776,8 +2414,8 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 							"A model ID can only contain letters, digits, and underscores.\nIt also cannot start with a digit.",
 							"Invalid ID", JOptionPane.ERROR_MESSAGE);
 				} else {
-					if (overwrite(root + GlobalConstants.separator + lhpnName, lhpnName)) {
-						File f = new File(root + GlobalConstants.separator + lhpnName);
+					if (overwrite(root + File.separator + lhpnName, lhpnName)) {
+						File f = new File(root + File.separator + lhpnName);
 						f.createNewFile();
 						LPN lpn = new LPN();
 						lpn.addObserver(this);
@@ -2786,7 +2424,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 						if (i != -1) {
 							tab.remove(i);
 						}
-						LHPNEditor lhpn = new LHPNEditor(root + GlobalConstants.separator, f.getName(), null, this);
+						LHPNEditor lhpn = new LHPNEditor(root + File.separator, f.getName(), null, this);
 						// lhpn.addMouseListener(this);
 						addTab(f.getName(), lhpn, "LHPN Editor");
 						addToTree(f.getName());
@@ -2815,15 +2453,15 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			return;
 		} else if (!filename.equals("")) {
 			biosimrc.put("biosim.general.import_dir", filename);
-			String[] file = filename.split(GlobalConstants.separator);
+			String[] file = GlobalConstants.splitPath(filename);
 			try {
 				if (new File(filename).exists()) {
 					file[file.length - 1] = file[file.length - 1].replaceAll("[^a-zA-Z0-9_.]+", "_");
 					if (Character.isDigit(file[file.length - 1].charAt(0))) {
 						file[file.length - 1] = "M" + file[file.length - 1];
 					}
-					if (checkFiles(root + GlobalConstants.separator + file[file.length - 1], filename.trim())) {
-						if (overwrite(root + GlobalConstants.separator + file[file.length - 1],
+					if (checkFiles(root + File.separator + file[file.length - 1], filename.trim())) {
+						if (overwrite(root + File.separator + file[file.length - 1],
 								file[file.length - 1])) {
 							// Identify which LPN format is imported.
 							BufferedReader input = new BufferedReader(new FileReader(filename));
@@ -2851,12 +2489,12 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 									Translator t1 = new Translator();
 									t1.convertLPN2SBML(filename, "");
 									t1.setFilename(
-											root + GlobalConstants.separator + outFileName.replace(".lpn", ".xml"));
+											root + File.separator + outFileName.replace(".lpn", ".xml"));
 									t1.outputSBML();
 									outFileName = outFileName.replace(".lpn", ".xml");
 								} else {
 									FileOutputStream out = new FileOutputStream(
-											new File(root + GlobalConstants.separator + outFileName));
+											new File(root + File.separator + outFileName));
 									FileInputStream in = new FileInputStream(new File(filename));
 									// log.addText(filename);
 									int read = in.read();
@@ -2875,7 +2513,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 								PlatuGrammarParser antlrParser = new PlatuGrammarParser(tokenStream);
 								Set<LPN> lpnSet = antlrParser.lpn();
 								for (LPN lpn : lpnSet) {
-									lpn.save(root + GlobalConstants.separator + lpn.getLabel() + ".lpn");
+									lpn.save(root + File.separator + lpn.getLabel() + ".lpn");
 									addToTree(lpn.getLabel() + ".lpn");
 								}
 							}
@@ -2885,7 +2523,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				if (filename.substring(filename.length() - 2, filename.length()).equals(".g")) {
 					// log.addText(filename + file[file.length - 1]);
 					File work = new File(root);
-					String oldName = root + GlobalConstants.separator + file[file.length - 1];
+					String oldName = root + File.separator + file[file.length - 1];
 					// String newName = oldName.replace(".lpn",
 					// "_NEW.g");
 					Process atacs = Runtime.getRuntime().exec("atacs -lgsl " + oldName, null, work);
@@ -2920,11 +2558,10 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 	private void viewModel() {
 		try {
 			if (tree.getFile().length() >= 4 && tree.getFile().substring(tree.getFile().length() - 4).equals(".lpn")) {
-				String filename = tree.getFile()
-						.split(GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1];
+				String filename = GlobalConstants.getFilename(tree.getFile());
 				String[] findTheFile = filename.split("\\.");
 				String theFile = findTheFile[0] + ".dot";
-				File dot = new File(root + GlobalConstants.separator + theFile);
+				File dot = new File(root + File.separator + theFile);
 				dot.delete();
 				LPN lhpn = new LPN();
 				lhpn.addObserver(this);
@@ -2934,16 +2571,16 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					JOptionPane.showMessageDialog(atacsGui.frame, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
 					e.printStackTrace();
 				}
-				lhpn.printDot(root + GlobalConstants.separator + theFile);
+				lhpn.printDot(root + File.separator + theFile);
 				File work = new File(root);
 				Runtime exec = Runtime.getRuntime();
 				if (dot.exists()) {
 					Preferences biosimrc = Preferences.userRoot();
 					String command = biosimrc.get("biosim.general.graphviz", "");
-					log.addText(command + " " + root + GlobalConstants.separator + theFile + "\n");
+					log.addText(command + " " + root + File.separator + theFile + "\n");
 					exec.exec(command + " " + theFile, null, work);
 				} else {
-					File log = new File(root + GlobalConstants.separator + "atacs.log");
+					File log = new File(root + File.separator + "atacs.log");
 					BufferedReader input = new BufferedReader(new FileReader(log));
 					String line = null;
 					JTextArea messageArea = new JTextArea();
@@ -2963,11 +2600,10 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				}
 			} else if (tree.getFile().length() >= 2
 					&& tree.getFile().substring(tree.getFile().length() - 2).equals(".g")) {
-				String filename = tree.getFile()
-						.split(GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1];
+				String filename = GlobalConstants.getFilename(tree.getFile());
 				String[] findTheFile = filename.split("\\.");
 				String theFile = findTheFile[0] + ".dot";
-				File dot = new File(root + GlobalConstants.separator + theFile);
+				File dot = new File(root + File.separator + theFile);
 				dot.delete();
 				String cmd = "atacs -cPlgodpe " + filename;
 				File work = new File(root);
@@ -2978,10 +2614,10 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				if (dot.exists()) {
 					Preferences biosimrc = Preferences.userRoot();
 					String command = biosimrc.get("biosim.general.graphviz", "");
-					log.addText(command + " " + root + GlobalConstants.separator + theFile + "\n");
+					log.addText(command + " " + root + File.separator + theFile + "\n");
 					exec.exec(command + " " + theFile, null, work);
 				} else {
-					File log = new File(root + GlobalConstants.separator + "atacs.log");
+					File log = new File(root + File.separator + "atacs.log");
 					BufferedReader input = new BufferedReader(new FileReader(log));
 					String line = null;
 					JTextArea messageArea = new JTextArea();
@@ -3093,8 +2729,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				}
 			} else if (tree.getFile().length() >= 4
 					&& tree.getFile().substring(tree.getFile().length() - 4).equals(".csp")) {
-				String filename = tree.getFile()
-						.split(GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1];
+				String filename = GlobalConstants.getFilename(tree.getFile());
 				String cmd = "atacs -lcslllodpl " + filename;
 				File work = new File(root);
 				Runtime exec = Runtime.getRuntime();
@@ -3104,13 +2739,13 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				String[] findTheFile = filename.split("\\.");
 				// String directory = "";
 				String theFile = findTheFile[0] + ".dot";
-				if (new File(root + GlobalConstants.separator + theFile).exists()) {
+				if (new File(root + File.separator + theFile).exists()) {
 					Preferences biosimrc = Preferences.userRoot();
 					String command = biosimrc.get("biosim.general.graphviz", "");
 					log.addText(command + " " + root + theFile + "\n");
 					exec.exec(command + " " + theFile, null, work);
 				} else {
-					File log = new File(root + GlobalConstants.separator + "atacs.log");
+					File log = new File(root + File.separator + "atacs.log");
 					BufferedReader input = new BufferedReader(new FileReader(log));
 					String line = null;
 					JTextArea messageArea = new JTextArea();
@@ -3130,8 +2765,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				}
 			} else if (tree.getFile().length() >= 4
 					&& tree.getFile().substring(tree.getFile().length() - 4).equals(".hse")) {
-				String filename = tree.getFile()
-						.split(GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1];
+				String filename = GlobalConstants.getFilename(tree.getFile());
 				String cmd = "atacs -lhslllodpl " + filename;
 				File work = new File(root);
 				Runtime exec = Runtime.getRuntime();
@@ -3141,13 +2775,13 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				String[] findTheFile = filename.split("\\.");
 				// String directory = "";
 				String theFile = findTheFile[0] + ".dot";
-				if (new File(root + GlobalConstants.separator + theFile).exists()) {
+				if (new File(root + File.separator + theFile).exists()) {
 					Preferences biosimrc = Preferences.userRoot();
 					String command = biosimrc.get("biosim.general.graphviz", "");
 					log.addText(command + " " + root + theFile + "\n");
 					exec.exec(command + " " + theFile, null, work);
 				} else {
-					File log = new File(root + GlobalConstants.separator + "atacs.log");
+					File log = new File(root + File.separator + "atacs.log");
 					BufferedReader input = new BufferedReader(new FileReader(log));
 					String line = null;
 					JTextArea messageArea = new JTextArea();
@@ -3167,8 +2801,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				}
 			} else if (tree.getFile().length() >= 4
 					&& tree.getFile().substring(tree.getFile().length() - 4).equals(".unc")) {
-				String filename = tree.getFile()
-						.split(GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1];
+				String filename = GlobalConstants.getFilename(tree.getFile());
 				String cmd = "atacs -lxodps " + filename;
 				File work = new File(root);
 				Runtime exec = Runtime.getRuntime();
@@ -3178,13 +2811,13 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				String[] findTheFile = filename.split("\\.");
 				// String directory = "";
 				String theFile = findTheFile[0] + ".dot";
-				if (new File(root + GlobalConstants.separator + theFile).exists()) {
+				if (new File(root + File.separator + theFile).exists()) {
 					Preferences biosimrc = Preferences.userRoot();
 					String command = biosimrc.get("biosim.general.graphviz", "");
 					log.addText(command + " " + root + theFile + "\n");
 					exec.exec(command + " " + theFile, null, work);
 				} else {
-					File log = new File(root + GlobalConstants.separator + "atacs.log");
+					File log = new File(root + File.separator + "atacs.log");
 					BufferedReader input = new BufferedReader(new FileReader(log));
 					String line = null;
 					JTextArea messageArea = new JTextArea();
@@ -3204,8 +2837,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				}
 			} else if (tree.getFile().length() >= 4
 					&& tree.getFile().substring(tree.getFile().length() - 4).equals(".rsg")) {
-				String filename = tree.getFile()
-						.split(GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1];
+				String filename = GlobalConstants.getFilename(tree.getFile());
 				String cmd = "atacs -lsodps " + filename;
 				File work = new File(root);
 				Runtime exec = Runtime.getRuntime();
@@ -3215,13 +2847,13 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				String[] findTheFile = filename.split("\\.");
 				// String directory = "";
 				String theFile = findTheFile[0] + ".dot";
-				if (new File(root + GlobalConstants.separator + theFile).exists()) {
+				if (new File(root + File.separator + theFile).exists()) {
 					Preferences biosimrc = Preferences.userRoot();
 					String command = biosimrc.get("biosim.general.graphviz", "");
 					log.addText(command + " " + root + theFile + "\n");
 					exec.exec(command + " " + theFile, null, work);
 				} else {
-					File log = new File(root + GlobalConstants.separator + "atacs.log");
+					File log = new File(root + File.separator + "atacs.log");
 					BufferedReader input = new BufferedReader(new FileReader(log));
 					String line = null;
 					JTextArea messageArea = new JTextArea();
@@ -3482,19 +3114,19 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 												JOptionPane.PLAIN_MESSAGE, null, OPTIONS, OPTIONS[0]);
 										if (value == YES_OPTION) {
 											((AnalysisView) ((JTabbedPane) tab.getComponentAt(index)).getComponent(i))
-											.save("");
+											.save();
 										} else if (value == CANCEL_OPTION) {
 											return 0;
 										} else if (value == YES_TO_ALL_OPTION) {
 											((AnalysisView) ((JTabbedPane) tab.getComponentAt(index)).getComponent(i))
-											.save("");
+											.save();
 											autosave = 1;
 										} else if (value == NO_TO_ALL_OPTION) {
 											autosave = 2;
 										}
 									} else if (autosave == 1) {
 										((AnalysisView) ((JTabbedPane) tab.getComponentAt(index)).getComponent(i))
-										.save("");
+										.save();
 									}
 								}
 							} else if (((JTabbedPane) tab.getComponentAt(index))
@@ -3733,9 +3365,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				rename.addMouseListener(this);
 				rename.setActionCommand("rename");
 				popup.add(create);
-				if (!lema) {
-					popup.add(createSynthesis);
-				}
+				popup.add(createSynthesis);
 				popup.add(createLearn);
 				popup.add(createVerification);
 				popup.addSeparator();
@@ -3778,13 +3408,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				rename.addActionListener(this);
 				rename.addMouseListener(this);
 				rename.setActionCommand("rename");
-				if (atacs) {
-					popup.add(createSynthesis);
-				}
-				// popup.add(createAnalysis);
-				if (lema) {
-					popup.add(createLearn);
-				}
+				popup.add(createSynthesis);
 				popup.add(createVerification);
 				popup.addSeparator();
 				popup.add(viewModel);
@@ -3809,13 +3433,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				rename.addActionListener(this);
 				rename.addMouseListener(this);
 				rename.setActionCommand("rename");
-				if (lema) {
-					popup.add(viewModel);
-					popup.addSeparator();
-					popup.add(copy);
-					popup.add(rename);
-					popup.add(delete);
-				}
 			} else if (tree.getFile().endsWith(".sv")) {
 				JMenuItem viewModel = new JMenuItem("View Model");
 				viewModel.addActionListener(this);
@@ -3833,13 +3450,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				rename.addActionListener(this);
 				rename.addMouseListener(this);
 				rename.setActionCommand("rename");
-				if (lema) {
-					popup.add(viewModel);
-					popup.addSeparator();
-					popup.add(copy);
-					popup.add(rename);
-					popup.add(delete);
-				}
 			} else if (tree.getFile().endsWith(".g")) {
 				JMenuItem createSynthesis = new JMenuItem("Create Synthesis View");
 				createSynthesis.addActionListener(this);
@@ -3873,13 +3483,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				rename.addActionListener(this);
 				rename.addMouseListener(this);
 				rename.setActionCommand("rename");
-				if (atacs) {
-					popup.add(createSynthesis);
-				}
-				// popup.add(createAnalysis);
-				// if (lema) {
-				// popup.add(createLearn);
-				// }
+				popup.add(createSynthesis);
 				popup.add(createVerification);
 				popup.addSeparator();
 				popup.add(viewModel);
@@ -3932,18 +3536,10 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				rename.addActionListener(this);
 				rename.addMouseListener(this);
 				rename.setActionCommand("rename");
-				if (atacs) {
-					popup.add(createSynthesis);
-				}
+				popup.add(createSynthesis);
 				popup.add(createAnalysis);
 				popup.add(createVerification);
-				if (lema) {
-					popup.add(createLearn);
-					popup.addSeparator();
-				}
-				if (atacs || lema) {
-					popup.add(convertToVerilog);
-				}
+				popup.add(convertToVerilog);
 				popup.add(viewModel);
 				popup.addSeparator();
 				popup.add(view);
@@ -3975,12 +3571,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				rename.addActionListener(this);
 				rename.addMouseListener(this);
 				rename.setActionCommand("rename");
-
-				if (lema) {
-					popup.add(createLearn);
-					popup.addSeparator();
-					popup.add(viewModel);
-				}
 				popup.addSeparator();
 				popup.add(view);
 				popup.add(copy);
@@ -4065,13 +3655,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				rename.addActionListener(this);
 				rename.addMouseListener(this);
 				rename.setActionCommand("rename");
-				if (atacs) {
-					popup.add(createSynthesis);
-				}
-				// popup.add(createAnalysis);
-				if (lema) {
-					popup.add(createLearn);
-				}
+				popup.add(createSynthesis);
 				popup.add(createVerification);
 				popup.addSeparator();
 				popup.add(viewModel);
@@ -4112,13 +3696,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				rename.addActionListener(this);
 				rename.addMouseListener(this);
 				rename.setActionCommand("rename");
-				if (atacs) {
-					popup.add(createSynthesis);
-				}
-				// popup.add(createAnalysis);
-				if (lema) {
-					popup.add(createLearn);
-				}
+				popup.add(createSynthesis);
 				popup.add(createVerification);
 				popup.addSeparator();
 				popup.add(viewModel);
@@ -4462,7 +4040,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				}
 				ModelEditor modelEditor;
 				try {
-					modelEditor = new ModelEditor(root + GlobalConstants.separator, solutionFileIDs.get(0), this, log,
+					modelEditor = new ModelEditor(root + File.separator, solutionFileIDs.get(0), this, log,
 							false, null, null, null, false, false);
 					ActionEvent applyLayout = new ActionEvent(synthView, ActionEvent.ACTION_PERFORMED,
 							"layout_verticalHierarchical");
@@ -4478,8 +4056,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 	private void openSynth() {
 		boolean done = false;
 		for (int i = 0; i < tab.getTabCount(); i++) {
-			if (getTitleAt(i).equals(tree.getFile()
-					.split(GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1])) {
+			if (getTitleAt(i).equals(GlobalConstants.getFilename(tree.getFile()))) {
 				tab.setSelectedIndex(i);
 				done = true;
 			}
@@ -4509,11 +4086,9 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				}
 			}
 
-			String synthFile = tree.getFile() + GlobalConstants.separator
-					+ tree.getFile().split(
-							GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1]
-									+ ".syn";
-			String synthFile2 = tree.getFile() + GlobalConstants.separator + ".syn";
+			String synthFile = tree.getFile() + File.separator
+					+ GlobalConstants.getFilename(tree.getFile()) + ".syn";
+			String synthFile2 = tree.getFile() + File.separator + ".syn";
 			Properties load = new Properties();
 			String synthesisFile = "";
 			try {
@@ -4529,9 +4104,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					in.close();
 					if (load.containsKey("synthesis.file")) {
 						synthesisFile = load.getProperty("synthesis.file");
-						synthesisFile = synthesisFile.split(
-								GlobalConstants.separator)[synthesisFile.split(GlobalConstants.separator).length
-								                           - 1];
+						synthesisFile = GlobalConstants.getFilename(synthesisFile);
 					}
 				}
 				// FileOutputStream out = new FileOutputStream(new
@@ -4552,7 +4125,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					break;
 				}
 			}
-			if (!(new File(root + GlobalConstants.separator + synthesisFile).exists())) {
+			if (!(new File(root + File.separator + synthesisFile).exists())) {
 				JOptionPane.showMessageDialog(frame,
 						"Unable to open view because " + synthesisFile + " is missing.", "Error",
 						JOptionPane.ERROR_MESSAGE);
@@ -4562,17 +4135,14 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			SynthesisViewATACS synth = new SynthesisViewATACS(tree.getFile(), "flag", log, this);
 			// synth.addMouseListener(this);
 			synthPanel.add(synth);
-			addTab(tree.getFile()
-					.split(GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1],
-					synthPanel, "Synthesis");
+			addTab(GlobalConstants.getFilename(tree.getFile()),	synthPanel, "Synthesis");
 		}
 	}
 
 	private void openVerify() {
 		boolean done = false;
 		for (int i = 0; i < tab.getTabCount(); i++) {
-			if (getTitleAt(i).equals(tree.getFile()
-					.split(GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1])) {
+			if (getTitleAt(i).equals(GlobalConstants.getFilename(tree.getFile()))) {
 				tab.setSelectedIndex(i);
 				done = true;
 			}
@@ -4595,9 +4165,8 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			 * = tree.getFile() + separator + // list[i]; } } } } } }
 			 */
 
-			String verName = tree.getFile()
-					.split(GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1];
-			String verFile = tree.getFile() + GlobalConstants.separator + verName + ".ver";
+			String verName = GlobalConstants.getFilename(tree.getFile());
+			String verFile = tree.getFile() + File.separator + verName + ".ver";
 			Properties load = new Properties();
 			String verifyFile = "";
 			try {
@@ -4607,8 +4176,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					in.close();
 					if (load.containsKey("verification.file")) {
 						verifyFile = load.getProperty("verification.file");
-						verifyFile = verifyFile.split(
-								GlobalConstants.separator)[verifyFile.split(GlobalConstants.separator).length - 1];
+						verifyFile = GlobalConstants.getFilename(verifyFile);
 					}
 				}
 				// FileOutputStream out = new FileOutputStream(new
@@ -4634,7 +4202,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				return;
 			}
 			// if (!graphFile.equals("")) {
-			VerificationView ver = new VerificationView(root + GlobalConstants.separator + verName, verName, "flag", log, this,
+			VerificationView ver = new VerificationView(root + File.separator + verName, verName, "flag", log, this,
 					lema, atacs);
 			// ver.addMouseListener(this);
 			// verPanel.add(ver);
@@ -4644,9 +4212,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			// abstPanel.add(abst);
 			// verTab.add("verify", verPanel);
 			// verTab.add("abstract", abstPanel);
-			addTab(tree.getFile()
-					.split(GlobalConstants.separator)[tree.getFile().split(GlobalConstants.separator).length - 1], ver,
-					"Verification");
+			addTab(GlobalConstants.getFilename(tree.getFile()), ver, "Verification");
 		}
 	}
 
@@ -4661,70 +4227,17 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		}
 
 		boolean libsbmlFound = true;
-		try {
-			System.loadLibrary("sbmlj");
-			// For extra safety, check that the jar file is in the classpath.
-			Class.forName("org.sbml.libsbml.libsbml");
-		} catch (UnsatisfiedLinkError e) {
-			libsbmlFound = false;
-		} catch (ClassNotFoundException e) {
-			libsbmlFound = false;
-		} catch (SecurityException e) {
-			libsbmlFound = false;
-		}
+		Executables.checkExecutables();
 		Runtime.getRuntime();
-		int exitValue = 1;
-		try {
-			if (System.getProperty("os.name").contentEquals("Linux")) {
-				reb2sacExecutable = "reb2sac.linux64";
-			} else if (System.getProperty("os.name").toLowerCase().startsWith("mac os")) {
-				reb2sacExecutable = "reb2sac.mac64";
-			} else {
-				reb2sacExecutable = "reb2sac.exe";
-			}
-			ProcessBuilder ps = new ProcessBuilder(reb2sacExecutable, "");
-			Map<String, String> env = ps.environment();
-			if (System.getenv("ATACSGUI") != null) {
-				env.put("ATACSGUI", System.getenv("ATACSGUI"));
-			}
-			if (System.getenv("LD_LIBRARY_PATH") != null) {
-				env.put("LD_LIBRARY_PATH", System.getenv("LD_LIBRARY_PATH"));
-			}
-			if (System.getenv("DDLD_LIBRARY_PATH") != null) {
-				env.put("DYLD_LIBRARY_PATH", System.getenv("DDLD_LIBRARY_PATH"));
-			}
-			if (System.getenv("PATH") != null) {
-				env.put("PATH", System.getenv("PATH"));
-			}
-			envp = new String[env.size()];
-			int i = 0;
-			for (String envVar : env.keySet()) {
-				envp[i] = envVar + "=" + env.get(envVar);
-				i++;
-			}
-			ps.redirectErrorStream(true);
-			Process reb2sac = ps.start();
-			if (reb2sac != null) {
-				exitValue = reb2sac.waitFor();
-			}
-			if (exitValue != 255 && exitValue != -1) {
-				SBMLutilities.reb2sacFound = false;
-			}
-		} catch (IOException e) {
-			SBMLutilities.reb2sacFound = false;
-		} catch (InterruptedException e) {
-			SBMLutilities.reb2sacFound = false;
-		}
-		exitValue = 1;
 		new atacsGui(libsbmlFound);
 	}
 
 	public void updateAsyncViews(String updatedFile) {
 		for (int i = 0; i < tab.getTabCount(); i++) {
 			String tab = this.getTitleAt(i);
-			String properties = root + GlobalConstants.separator + tab + GlobalConstants.separator + tab + ".ver";
-			String properties1 = root + GlobalConstants.separator + tab + GlobalConstants.separator + tab + ".synth";
-			String properties2 = root + GlobalConstants.separator + tab + GlobalConstants.separator + tab + ".lrn";
+			String properties = root + File.separator + tab + File.separator + tab + ".ver";
+			String properties1 = root + File.separator + tab + File.separator + tab + ".synth";
+			String properties2 = root + File.separator + tab + File.separator + tab + ".lrn";
 			if (new File(properties).exists()) {
 				VerificationView verify = ((VerificationView) (this.tab.getComponentAt(i)));
 				verify.reload();
@@ -4746,7 +4259,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					p.load(load);
 					load.close();
 					if (p.containsKey("learn.file")) {
-						String[] getProp = p.getProperty("learn.file").split(GlobalConstants.separator);
+						String[] getProp = GlobalConstants.splitPath(p.getProperty("learn.file"));
 						check = getProp[getProp.length - 1];
 					} else {
 						check = "";
@@ -4792,11 +4305,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		exportArchive.setEnabled(true);
 		exportSBML.setEnabled(false);
 		exportFlatSBML.setEnabled(false);
-		exportSBOL1.setEnabled(false);
-		exportSBOL2.setEnabled(false);
-		exportSynBioHub.setEnabled(false);
-		exportGenBank.setEnabled(false);
-		exportFasta.setEnabled(false);
 		exportDataMenu.setEnabled(false);
 		exportImageMenu.setEnabled(false);
 		exportMovieMenu.setEnabled(false);
@@ -4812,10 +4320,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		exportMp4.setEnabled(false);
 		saveAsVerilog.setEnabled(false);
 		viewCircuit.setEnabled(false);
-		viewSG.setEnabled(false);
 		viewLog.setEnabled(false);
-		viewCoverage.setEnabled(false);
-		viewLearnedModel.setEnabled(false);
 		refresh.setEnabled(false);
 		select.setEnabled(false);
 		cut.setEnabled(false);
@@ -4868,11 +4373,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			exportMenu.setEnabled(true);
 			exportSBML.setEnabled(true);
 			exportFlatSBML.setEnabled(true);
-			exportSBOL1.setEnabled(true);
-			exportSBOL2.setEnabled(true);
-			exportSynBioHub.setEnabled(true);
-			exportGenBank.setEnabled(true);
-			exportFasta.setEnabled(true);
 			exportImageMenu.setEnabled(true);
 			exportJpg.setEnabled(true);
 		} else if (comp instanceof SBOLDesignerPlugin) {
@@ -4886,11 +4386,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			closeAll.setEnabled(true);
 			check.setEnabled(true);
 			exportMenu.setEnabled(true);
-			exportSBOL1.setEnabled(true);
-			exportSBOL2.setEnabled(true);
-			exportSynBioHub.setEnabled(true);
-			exportGenBank.setEnabled(true);
-			exportFasta.setEnabled(true);
 		} else if (comp instanceof LHPNEditor) {
 			saveButton.setEnabled(true);
 			saveasButton.setEnabled(true);
@@ -4932,11 +4427,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			Component learnComponent = null;
 			Boolean learn = false;
 			Boolean learnLHPN = false;
-			for (String s : new File(root + GlobalConstants.separator + getTitleAt(tab.getSelectedIndex())).list()) {
-				if (s.contains("_sg.dot")) {
-					viewSG.setEnabled(true);
-				}
-			}
 			for (Component c : ((JTabbedPane) comp).getComponents()) {
 				if (c instanceof LearnView) {
 					learn = true;
@@ -4955,10 +4445,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				closeAll.setEnabled(true);
 				run.setEnabled(true);
 				if (learn && learnComponent != null) {
-					if (new File(root + GlobalConstants.separator + getTitleAt(tab.getSelectedIndex())
-					+ GlobalConstants.separator + "method.gcm").exists()) {
-						viewLearnedModel.setEnabled(true);
-					}
 					run.setEnabled(true);
 					saveModel.setEnabled(((LearnView) learnComponent).getViewModelEnabled());
 					saveAsVerilog.setEnabled(false);
@@ -5013,10 +4499,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				closeAll.setEnabled(true);
 				run.setEnabled(true);
 			} else if (component instanceof LearnView) {
-				if (new File(root + GlobalConstants.separator + getTitleAt(tab.getSelectedIndex())
-				+ GlobalConstants.separator + "method.gcm").exists()) {
-					viewLearnedModel.setEnabled(true);
-				}
 				saveButton.setEnabled(true);
 				runButton.setEnabled(true);
 				save.setEnabled(true);
@@ -5036,10 +4518,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				close.setEnabled(true);
 				closeAll.setEnabled(true);
 				if (learn && learnComponent != null) {
-					if (new File(root + GlobalConstants.separator + getTitleAt(tab.getSelectedIndex())
-					+ GlobalConstants.separator + "method.gcm").exists()) {
-						viewLearnedModel.setEnabled(true);
-					}
 					run.setEnabled(true);
 					saveModel.setEnabled(((LearnView) learnComponent).getViewModelEnabled());
 					viewCircuit.setEnabled(((LearnView) learnComponent).getViewModelEnabled());
@@ -5054,10 +4532,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				closeAll.setEnabled(true);
 				run.setEnabled(true);
 				if (learn && learnComponent != null) {
-					if (new File(root + GlobalConstants.separator + getTitleAt(tab.getSelectedIndex())
-					+ GlobalConstants.separator + "method.gcm").exists()) {
-						viewLearnedModel.setEnabled(true);
-					}
 					run.setEnabled(true);
 					saveModel.setEnabled(((LearnView) learnComponent).getViewModelEnabled());
 					viewCircuit.setEnabled(((LearnView) learnComponent).getViewModelEnabled());
@@ -5123,7 +4597,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 
 	private void enableTreeMenu() {
 		viewModGraph.setEnabled(false);
-		viewModBrowser.setEnabled(false);
 		createAnal.setEnabled(false);
 		createSynth.setEnabled(false);
 		createLearn.setEnabled(false);
@@ -5137,7 +4610,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		viewRules.setEnabled(false);
 		viewTrace.setEnabled(false);
 		viewCircuit.setEnabled(false);
-		viewLHPN.setEnabled(false);
 		saveAsVerilog.setEnabled(false);
 		if (tree.getFile() != null) {
 			if (tree.getFile().equals(root)) {
@@ -5145,7 +4617,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			} else if (tree.getFile().endsWith(".sbml") || tree.getFile().endsWith(".xml")) {
 				viewModGraph.setEnabled(true);
 				viewModGraph.setActionCommand("graph");
-				viewModBrowser.setEnabled(true);
 				createAnal.setEnabled(true);
 				createAnal.setActionCommand("createAnalysis");
 				createSynth.setEnabled(true);
@@ -5176,7 +4647,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				copy.setEnabled(true);
 				rename.setEnabled(true);
 				delete.setEnabled(true);
-				viewLHPN.setEnabled(true);
 			} else if (tree.getFile().endsWith(".lpn")) {
 				viewModel.setEnabled(true);
 				viewModGraph.setEnabled(true);
@@ -5191,7 +4661,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				copy.setEnabled(true);
 				rename.setEnabled(true);
 				delete.setEnabled(true);
-				viewLHPN.setEnabled(true);
 				saveAsVerilog.setEnabled(true);
 			} else if (tree.getFile().endsWith(".hse") || tree.getFile().endsWith(".unc")
 					|| tree.getFile().endsWith(".csp") || tree.getFile().endsWith(".vhd")
@@ -5204,14 +4673,12 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				copy.setEnabled(true);
 				rename.setEnabled(true);
 				delete.setEnabled(true);
-				viewLHPN.setEnabled(true);
 			} else if (tree.getFile().endsWith(".s") || tree.getFile().endsWith(".inst")) {
 				createAnal.setEnabled(true);
 				createVer.setEnabled(true);
 				copy.setEnabled(true);
 				rename.setEnabled(true);
 				delete.setEnabled(true);
-				viewLHPN.setEnabled(true);
 			} else if (new File(tree.getFile()).isDirectory()) {
 				boolean sim = false;
 				boolean synth = false;
@@ -5235,5 +4702,11 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				}
 			}
 		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 }
