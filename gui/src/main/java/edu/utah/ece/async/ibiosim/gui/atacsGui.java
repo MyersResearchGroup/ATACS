@@ -80,8 +80,6 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.TokenStream;
 import org.jlibsedml.SEDMLDocument;
 
-import edu.utah.ece.async.sboldesigner.sbol.editor.SBOLDesignerPlugin;
-import edu.utah.ece.async.sboldesigner.sbol.editor.SBOLEditorPreferences;
 import edu.utah.ece.async.ibiosim.dataModels.util.Executables;
 import edu.utah.ece.async.ibiosim.dataModels.util.GlobalConstants;
 import edu.utah.ece.async.ibiosim.dataModels.util.IBioSimPreferences;
@@ -1883,14 +1881,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				((LHPNEditor) comp).save();
 			} else if (comp instanceof ModelEditor) {
 				((ModelEditor) comp).save(false);
-			} else if (comp instanceof SBOLDesignerPlugin) {
-				try {
-					((SBOLDesignerPlugin) comp).saveSBOL();
-					readSBOLDocument();
-					log.addText("Saving SBOL file: " + ((SBOLDesignerPlugin) comp).getFileName() + "\n");
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(frame, "Error Saving SBOL File.", "Error", JOptionPane.ERROR_MESSAGE);
-				}
 			} else if (comp instanceof Graph) {
 				((Graph) comp).save();
 			} else if (comp instanceof VerificationView) {
@@ -1989,22 +1979,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 				} else {
 					((ModelEditor) comp).saveAs(newName);
 				}
-			} else if (comp instanceof SBOLDesignerPlugin) {
-				String oldName = ((SBOLDesignerPlugin) comp).getFileName();
-				String newName = JOptionPane.showInputDialog(frame, "Enter SBOL file name:", "SBOL File Name",
-						JOptionPane.PLAIN_MESSAGE);
-				if (!newName.endsWith(".sbol"))
-					newName += ".sbol";
-				((SBOLDesignerPlugin) comp).setFileName(newName);
-				try {
-					((SBOLDesignerPlugin) comp).saveSBOL();
-					readSBOLDocument();
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(frame, "Error Saving SBOL File.", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-				addToTree(newName);
-				updateTabName(oldName.replace(".sbol", ""), newName.replace(".sbol", ""));
-				log.addText("Saving SBOL file: " + ((SBOLDesignerPlugin) comp).getFileName() + "\n");
 			} else if (comp instanceof Graph) {
 				((Graph) comp).saveAs();
 			} else if (comp instanceof VerificationView) {
@@ -2190,8 +2164,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			} else if (comp instanceof ModelEditor) {
 				((ModelEditor) comp).exportSBML();
 				// TODO: should give choice of SBML or SBOL
-			} else if (comp instanceof SBOLDesignerPlugin) {
-				exportSBOL((SBOLDesignerPlugin) comp, "SBOL");
 			} else if (comp instanceof JTabbedPane) {
 				Component component = ((JTabbedPane) comp).getSelectedComponent();
 				if (component instanceof Graph) {
@@ -2953,61 +2925,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 					} else {
 						return 3;
 					}
-				}
-			}
-			if (autosave == 0) {
-				return 1;
-			} else if (autosave == 1) {
-				return 2;
-			} else {
-				return 3;
-			}
-		} else if (tab.getComponentAt(index).getName().contains("SBOL Designer")) {
-			SBOLDesignerPlugin editor = (SBOLDesignerPlugin) tab.getComponentAt(index);
-			if (editor.isModified()) {
-				if (autosave == 0) {
-					int value = JOptionPane.showOptionDialog(frame,
-							"Do you want to save changes to " + getTitleAt(index) + "?", "Save Changes",
-							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, OPTIONS, OPTIONS[0]);
-					if (value == YES_OPTION) {
-						try {
-							editor.saveSBOL();
-							readSBOLDocument();
-						} catch (Exception e) {
-							JOptionPane.showMessageDialog(frame, "Error Saving SBOL File.", "Error",
-									JOptionPane.ERROR_MESSAGE);
-						}
-						log.addText("Saving SBOL file: " + editor.getFileName() + "\n");
-						return 1;
-					} else if (value == NO_OPTION) {
-						return 1;
-					} else if (value == CANCEL_OPTION) {
-						return 0;
-					} else if (value == YES_TO_ALL_OPTION) {
-						try {
-							editor.saveSBOL();
-							readSBOLDocument();
-						} catch (Exception e) {
-							JOptionPane.showMessageDialog(frame, "Error Saving SBOL File.", "Error",
-									JOptionPane.ERROR_MESSAGE);
-						}
-						log.addText("Saving SBOL file: " + editor.getFileName() + "\n");
-						return 2;
-					} else if (value == NO_TO_ALL_OPTION) {
-						return 3;
-					}
-				} else if (autosave == 1) {
-					try {
-						editor.saveSBOL();
-						readSBOLDocument();
-					} catch (Exception e) {
-						JOptionPane.showMessageDialog(frame, "Error Saving SBOL File.", "Error",
-								JOptionPane.ERROR_MESSAGE);
-					}
-					log.addText("Saving SBOL file: " + editor.getFileName() + "\n");
-					return 2;
-				} else {
-					return 3;
 				}
 			}
 			if (autosave == 0) {
@@ -4364,17 +4281,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			exportFlatSBML.setEnabled(true);
 			exportImageMenu.setEnabled(true);
 			exportJpg.setEnabled(true);
-		} else if (comp instanceof SBOLDesignerPlugin) {
-			saveButton.setEnabled(true);
-			checkButton.setEnabled(true);
-			exportButton.setEnabled(true);
-			save.setEnabled(true);
-			// saveSBOL.setEnabled(true);
-			saveAll.setEnabled(true);
-			close.setEnabled(true);
-			closeAll.setEnabled(true);
-			check.setEnabled(true);
-			exportMenu.setEnabled(true);
 		} else if (comp instanceof LHPNEditor) {
 			saveButton.setEnabled(true);
 			saveasButton.setEnabled(true);
