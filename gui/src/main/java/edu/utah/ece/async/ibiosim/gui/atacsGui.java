@@ -135,9 +135,8 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 	 * 
 	 * @throws Exception
 	 */
-	public atacsGui(boolean libsbmlFound) {
-		super(libsbmlFound);
-		Executables.libsbmlFound = libsbmlFound;
+	public atacsGui() {
+		super();
 		Thread.setDefaultUncaughtExceptionHandler(new Utility.UncaughtExceptionHandler());
 		ENVVAR = System.getenv("ATACSGUI");
 		System.setProperty("software.running", "ATACS Version " + atacsVersion);
@@ -4096,7 +4095,6 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 			}
 		}
 
-		boolean libsbmlFound = true;
 		Executables.checkExecutables();
 		ArrayList<String> errors = Executables.getErrors();
 		if (errors.size()>0) {
@@ -4135,7 +4133,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		} else {
 			Preferences.userRoot().put("atacs.ignore.external.warnings", "false");
 		}
-		new atacsGui(libsbmlFound);
+		new atacsGui();
 	}
 
 	public void updateAsyncViews(String updatedFile) {
