@@ -20,7 +20,7 @@ Grammar
 
     0 $accept: start_point $end
 
-    1 $@1: %empty
+    1 $@1: /* empty */
 
     2 start_point: $@1 design_file
     3            | csp_compiler
@@ -31,7 +31,7 @@ Grammar
 
     7 design_unit: context_clause library_unit
 
-    8 context_clause: %empty
+    8 context_clause: /* empty */
     9               | context_clause context_item
 
    10 context_item: library_clause
@@ -52,19 +52,19 @@ Grammar
    20 library_list: LIBRARY VID
    21             | library_list ',' VID
 
-   22 $@2: %empty
+   22 $@2: /* empty */
 
    23 entity_declaration: ENTITY VID $@2 entity_descr
 
    24 entity_descr: IS entity_header entity_declarative_part END endofentity ';'
    25             | IS entity_header entity_declarative_part VBEGIN entity_statement_part END endofentity ';'
 
-   26 endofentity: %empty
+   26 endofentity: /* empty */
    27            | ENTITY
    28            | VID
    29            | ENTITY VID
 
-   30 entity_header: %empty
+   30 entity_header: /* empty */
    31              | generic_clause
    32              | port_clause
    33              | generic_clause port_clause
@@ -73,7 +73,7 @@ Grammar
 
    35 port_clause: PORT '(' interface_list ')' ';'
 
-   36 entity_declarative_part: %empty
+   36 entity_declarative_part: /* empty */
    37                        | entity_declarative_part entity_declarative_item
 
    38 entity_declarative_item: subprogram_declaration
@@ -104,7 +104,7 @@ Grammar
    61 gtp_body: gtp_body ',' entity_class box_symbol
    62         | entity_class box_symbol
 
-   63 box_symbol: %empty
+   63 box_symbol: /* empty */
    64           | BOX
 
    65 group_declaration: GROUP VID ':' VID '(' gd_body ')' ';'
@@ -114,26 +114,26 @@ Grammar
    68        | VID
    69        | CHARLIT
 
-   70 entity_statement_part: %empty
+   70 entity_statement_part: /* empty */
    71                      | entity_statement_part entity_statement
 
    72 entity_statement: concurrent_assertion_statement
    73                 | concurrent_procedure_call
    74                 | process_statement
 
-   75 $@3: %empty
+   75 $@3: /* empty */
 
    76 architecture_body: ARCHITECTURE VID OF VID IS $@3 architecture_declarative_part VBEGIN architecture_statement_part END architail ';'
 
-   77 architail: %empty
+   77 architail: /* empty */
    78          | ARCHITECTURE VID
    79          | ARCHITECTURE
    80          | VID
 
-   81 architecture_declarative_part: %empty
+   81 architecture_declarative_part: /* empty */
    82                              | architecture_declarative_part block_declarative_item
 
-   83 architecture_statement_part: %empty
+   83 architecture_statement_part: /* empty */
    84                            | architecture_statement_part concurrent_statement
    85                            | architecture_statement_part simultaneous_statement
 
@@ -141,7 +141,7 @@ Grammar
 
    87 config_tail: IS configuration_declarative_part block_configuration END configtail ';'
 
-   88 configtail: %empty
+   88 configtail: /* empty */
    89           | CONFIGURATION
    90           | VID
    91           | CONFIGURATION VID
@@ -150,7 +150,7 @@ Grammar
    93                               | attribute_specification
    94                               | group_declaration
 
-   95 configuration_declarative_part: %empty
+   95 configuration_declarative_part: /* empty */
    96                               | configuration_declarative_part configuration_declarative_item
 
    97 block_configuration: FOR block_specification us ci END FOR ';'
@@ -162,10 +162,10 @@ Grammar
   101    | INT
   102    | REAL
 
-  103 us: %empty
+  103 us: /* empty */
   104   | us use_clause
 
-  105 ci: %empty
+  105 ci: /* empty */
   106   | ci configuration_item
 
   107 configuration_item: block_configuration
@@ -176,17 +176,17 @@ Grammar
   111                        | FOR component_specification block_configuration END FOR ';'
   112                        | FOR component_specification binding_indication ';' block_configuration END FOR ';'
 
-  113 $@4: %empty
+  113 $@4: /* empty */
 
   114 package_declaration: PACKAGE VID $@4 package_tail
 
   115 package_tail: IS package_declarative_part END packagetail ';'
   116             | IS package_declarative_part END packagetail VID ';'
 
-  117 packagetail: %empty
+  117 packagetail: /* empty */
   118            | PACKAGE
 
-  119 package_declarative_part: %empty
+  119 package_declarative_part: /* empty */
   120                         | package_declarative_part package_declarative_item
 
   121 package_declarative_item: subprogram_declaration
@@ -214,10 +214,10 @@ Grammar
   141 package_body: package_body_head IS package_body_declarative_part END pac_body_tail ';'
   142             | package_body_head IS package_body_declarative_part END pac_body_tail VID ';'
 
-  143 pac_body_tail: %empty
+  143 pac_body_tail: /* empty */
   144              | PACKAGE BODY
 
-  145 package_body_declarative_part: %empty
+  145 package_body_declarative_part: /* empty */
   146                              | package_body_declarative_part package_body_declarative_item
 
   147 package_body_declarative_item: subprogram_declaration
@@ -239,7 +239,7 @@ Grammar
   161                         | func_head FUNCTION designator RETURN mark
   162                         | func_head FUNCTION designator '(' interface_list ')' RETURN mark
 
-  163 func_head: %empty
+  163 func_head: /* empty */
   164          | PURE
   165          | IMPURE
 
@@ -248,17 +248,17 @@ Grammar
   167 subprogram_body: sub_body_head subprogram_declarative_part VBEGIN subprogram_statement_part END subprog_tail ';'
   168                | sub_body_head subprogram_declarative_part VBEGIN subprogram_statement_part END subprog_tail designator ';'
 
-  169 subprog_tail: %empty
+  169 subprog_tail: /* empty */
   170             | PROCEDURE
   171             | FUNCTION
 
-  172 subprogram_statement_part: %empty
+  172 subprogram_statement_part: /* empty */
   173                          | subprogram_statement_part sequential_statement
 
   174 designator: VID
   175           | STRLIT
 
-  176 subprogram_declarative_part: %empty
+  176 subprogram_declarative_part: /* empty */
   177                            | subprogram_declarative_part subprogram_declarative_item
 
   178 subprogram_declarative_item: subprogram_declaration
@@ -309,18 +309,18 @@ Grammar
 
   213 signal_declaration: SIGNAL identifier_list ':' subtype_indication signal_kind assign_exp ';' signal_mode
 
-  214 signal_kind: %empty
+  214 signal_kind: /* empty */
   215            | REGISTER
   216            | BUS
 
-  217 signal_mode: %empty
+  217 signal_mode: /* empty */
   218            | AT VIN
   219            | AT VOUT
 
   220 variable_declaration: var_decl_head VARIABLE identifier_list ':' subtype_indication ';'
   221                     | var_decl_head VARIABLE identifier_list ':' subtype_indication ASSIGN expression ';'
 
-  222 var_decl_head: %empty
+  222 var_decl_head: /* empty */
   223              | SHARED
 
   224 terminal_declaration: TERMINAL identifier_list ':' subnature_indication ';'
@@ -335,7 +335,7 @@ Grammar
   231 across_aspect: identifier_list tolerances assign_exp ACROSS
 
   232 tolerances: TOLER expression
-  233           | %empty
+  233           | /* empty */
 
   234 through_aspect: identifier_list tolerances assign_exp THROUGH
 
@@ -347,11 +347,11 @@ Grammar
 
   239 file_declaration: VFILE identifier_list ':' subtype_indication ';'
 
-  240 $@5: %empty
+  240 $@5: /* empty */
 
   241 file_declaration: VFILE identifier_list ':' subtype_indication $@5 external_file_association ';'
 
-  242 file_access_mode: %empty
+  242 file_access_mode: /* empty */
   243                 | OPEN expression
 
   244 external_file_association: file_access_mode IS file_logical_name
@@ -365,13 +365,13 @@ Grammar
   249           | CHARLIT
   250           | STRLIT
 
-  251 al_decl_head: %empty
+  251 al_decl_head: /* empty */
   252             | ':' sub_indications
 
   253 al_decl_tail: signature
-  254             | %empty
+  254             | /* empty */
 
-  255 signature_symbol: %empty
+  255 signature_symbol: /* empty */
   256                 | signature
 
   257 signature: '[' signature_body signature_tail ']'
@@ -380,15 +380,15 @@ Grammar
   259 signature_body: name
   260               | signature_body ',' name
 
-  261 signature_tail: %empty
+  261 signature_tail: /* empty */
   262               | RETURN name
 
-  263 recursive_units: %empty
+  263 recursive_units: /* empty */
   264                | design_file
 
-  265 $@6: %empty
+  265 $@6: /* empty */
 
-  266 $@7: %empty
+  266 $@7: /* empty */
 
   267 component_declaration: COMPONENT VID $@6 recursive_units $@7 component_declaration_tail comp_decl_tail
 
@@ -397,7 +397,7 @@ Grammar
   270                           | comp_decl_head port_clause
   271                           | comp_decl_head generic_clause port_clause
 
-  272 comp_decl_head: %empty
+  272 comp_decl_head: /* empty */
   273               | IS
 
   274 comp_decl_tail: END COMPONENT ';'
@@ -405,7 +405,7 @@ Grammar
 
   276 attribute_declaration: ATTRIBUTE VID ':' VID ';'
 
-  277 $@8: %empty
+  277 $@8: /* empty */
 
   278 attribute_specification: ATTRIBUTE VID $@8 OF entity_specification IS expression ';'
 
@@ -455,7 +455,7 @@ Grammar
   314 component_list: VID
   315               | component_list ',' VID
 
-  316 binding_indication: %empty
+  316 binding_indication: /* empty */
   317                   | USE entity_aspect
   318                   | USE entity_aspect map_aspects
   319                   | map_aspects
@@ -491,7 +491,7 @@ Grammar
 
   338 signal_specification: signal_list ':' mark
 
-  339 $@9: %empty
+  339 $@9: /* empty */
 
   340 label_declaration: VID $@9 statement_name_list ';'
 
@@ -501,7 +501,7 @@ Grammar
   343 statement_name: VID
   344               | label_array
 
-  345 $@10: %empty
+  345 $@10: /* empty */
 
   346 label_array: VID $@10 index_constraint
 
@@ -526,7 +526,7 @@ Grammar
   358 physical_type_definition: range_constraint UNITS base_unit_declaration sud END UNITS
   359                         | range_constraint UNITS base_unit_declaration sud END UNITS VID
 
-  360 sud: %empty
+  360 sud: /* empty */
   361    | sud secondary_unit_declaration
 
   362 base_unit_declaration: VID ';'
@@ -628,15 +628,15 @@ Grammar
 
   426 block_label: label BLOCK
 
-  427 is_symbol: %empty
+  427 is_symbol: /* empty */
   428          | IS
 
-  429 block_header: %empty
+  429 block_header: /* empty */
   430             | generic_clause
   431             | generic_clause generic_map_aspect ';'
   432             | port_clause
 
-  433 $@11: %empty
+  433 $@11: /* empty */
 
   434 block_header: port_clause $@11 port_map_aspect ';'
   435             | generic_clause port_clause
@@ -644,10 +644,10 @@ Grammar
   437             | generic_clause generic_map_aspect ';' port_clause
   438             | generic_clause generic_map_aspect ';' port_clause port_map_aspect ';'
 
-  439 block_declarative_part: %empty
+  439 block_declarative_part: /* empty */
   440                       | block_declarative_part block_declarative_item
 
-  441 block_statement_part: %empty
+  441 block_statement_part: /* empty */
   442                     | block_statement_part concurrent_statement
   443                     | block_statement_part simultaneous_statement
 
@@ -676,7 +676,7 @@ Grammar
   466                       | quantity_declaration
   467                       | terminal_declaration
 
-  468 $@12: %empty
+  468 $@12: /* empty */
 
   469 process_statement: process_head process_tail $@12 process_declarative_part VBEGIN process_statement_part END postpone process_end
 
@@ -688,7 +688,7 @@ Grammar
   474             | POSTPONED PROCESS
   475             | label POSTPONED PROCESS
 
-  476 postpone: %empty
+  476 postpone: /* empty */
   477         | POSTPONED
 
   478 process_tail: is_symbol
@@ -697,7 +697,7 @@ Grammar
   480 sensitivity_list: name
   481                 | sensitivity_list ',' name
 
-  482 process_declarative_part: %empty
+  482 process_declarative_part: /* empty */
   483                         | process_declarative_part process_declarative_item
 
   484 process_declarative_item: subprogram_declaration
@@ -715,7 +715,7 @@ Grammar
   496                         | group_template_declaration
   497                         | group_declaration
 
-  498 process_statement_part: %empty
+  498 process_statement_part: /* empty */
   499                       | process_statement_part sequential_statement
 
   500 concurrent_procedure_call: procedure_call_statement
@@ -750,7 +750,7 @@ Grammar
   523 target: name
   524       | aggregate
 
-  525 options: %empty
+  525 options: /* empty */
   526        | delay_mechanism
   527        | GUARDED
   528        | GUARDED delay_mechanism
@@ -762,7 +762,7 @@ Grammar
   532 conditional_waveforms: waveform_head waveform
   533                      | waveform_head waveform WHEN expression
 
-  534 waveform_head: %empty
+  534 waveform_head: /* empty */
   535              | waveform_head waveform WHEN expression ELSE
 
   536 selected_signal_assignment: WITH expression SELECT target LE options selected_waveforms ';'
@@ -775,11 +775,11 @@ Grammar
 
   541 generation_head: generation_scheme GENERATE
 
-  542 generate_tail: %empty
+  542 generate_tail: /* empty */
   543              | VID
 
   544 generate_declarative_part: generate_declarative_part block_declarative_item
-  545                          | %empty
+  545                          | /* empty */
 
   546 concurrent_statement_sequence: concurrent_statement
   547                              | simultaneous_statement
@@ -802,7 +802,7 @@ Grammar
   559                | simultaneous_procedural_statement
   560                | null_statement
 
-  561 sequence_of_simul_statements: %empty
+  561 sequence_of_simul_statements: /* empty */
   562                             | sequence_of_simul_statements simul_statement
 
   563 simple_simultaneous_statement: label simple_expression EQ simple_expression tolerances ';'
@@ -813,10 +813,10 @@ Grammar
   567 simultaneous_if_statement: label IF expression USE sequence_of_simul_statements simul_elsifthen simul_else_part END USE VID ';'
   568                          | IF expression USE sequence_of_simul_statements simul_elsifthen simul_else_part END USE ';'
 
-  569 simul_elsifthen: %empty
+  569 simul_elsifthen: /* empty */
   570                | simul_elsifthen ELSIF expression USE sequence_of_simul_statements
 
-  571 simul_else_part: %empty
+  571 simul_else_part: /* empty */
   572                | ELSE sequence_of_simul_statements
 
   573 simultaneous_case_statement: label_symbol CASE expression USE simul_case_statement_alternative END CASE VID ';'
@@ -825,7 +825,7 @@ Grammar
   575 simul_case_statement_alternative: WHEN choices ARROW sequence_of_simul_statements
   576                                 | simul_case_statement_alternative WHEN choices ARROW sequence_of_simul_statements
 
-  577 $@13: %empty
+  577 $@13: /* empty */
 
   578 simultaneous_procedural_statement: procedural_head is_symbol $@13 sequence_of_declarative_items VBEGIN process_statement_part END procedural_end
 
@@ -835,7 +835,7 @@ Grammar
   581 procedural_head: PROCEDURAL
   582                | label PROCEDURAL
 
-  583 sequence_of_declarative_items: %empty
+  583 sequence_of_declarative_items: /* empty */
   584                              | sequence_of_declarative_items procedural_declarative_item
 
   585 procedural_declarative_item: subprogram_declaration
@@ -927,7 +927,7 @@ Grammar
 
   652 assertion_statement: ASSERT expression tralass ';'
 
-  653 tralass: %empty
+  653 tralass: /* empty */
   654        | REPORT expression
   655        | SEVERITY VID
   656        | REPORT expression SEVERITY VID
@@ -979,18 +979,18 @@ Grammar
   685 if_statement: label_symbol IF expression THEN sequence_of_statements elsifthen else_part END IF ';'
   686             | label_symbol IF expression THEN sequence_of_statements elsifthen else_part END IF VID ';'
 
-  687 elsifthen: %empty
+  687 elsifthen: /* empty */
   688          | elsifthen ELSIF expression THEN sequence_of_statements
 
-  689 else_part: %empty
+  689 else_part: /* empty */
   690          | ELSE sequence_of_statements
 
-  691 label_symbol: %empty
+  691 label_symbol: /* empty */
   692             | label
 
   693 label: VID ':'
 
-  694 sequence_of_statements: %empty
+  694 sequence_of_statements: /* empty */
   695                       | sequence_of_statements sequential_statement
 
   696 case_statement: label_symbol CASE expression IS case_statement_alternative END CASE ';'
@@ -1002,7 +1002,7 @@ Grammar
   700 loop_statement: label_symbol iteration_scheme LOOP sequence_of_statements END LOOP ';'
   701               | label_symbol iteration_scheme LOOP sequence_of_statements END LOOP VID ';'
 
-  702 iteration_scheme: %empty
+  702 iteration_scheme: /* empty */
   703                 | WHILE expression
   704                 | FOR VID VIN discrete_range
 
@@ -1010,7 +1010,7 @@ Grammar
   706               | label_symbol NEXT VID ';'
   707               | label_symbol NEXT WHEN expression ';'
 
-  708 $@14: %empty
+  708 $@14: /* empty */
 
   709 next_statement: label_symbol NEXT VID $@14 WHEN expression ';'
 
@@ -1018,7 +1018,7 @@ Grammar
   711               | label_symbol EXIT VID ';'
   712               | label_symbol EXIT WHEN expression ';'
 
-  713 $@15: %empty
+  713 $@15: /* empty */
 
   714 exit_statement: label_symbol EXIT VID $@15 WHEN expression ';'
 
@@ -1034,7 +1034,7 @@ Grammar
   721 break_statement: label_symbol BREAK break_elements when_symbol ';'
   722                | label_symbol BREAK when_symbol ';'
 
-  723 when_symbol: %empty
+  723 when_symbol: /* empty */
   724            | WHEN expression
 
   725 break_elements: break_element
@@ -1060,7 +1060,7 @@ Grammar
 
   740 in_out_symbol: VIN
   741              | VOUT
-  742              | %empty
+  742              | /* empty */
 
   743 interface_constant_declaration: CONSTANT identifier_list ':' subtype_indication assign_exp
   744                               | CONSTANT identifier_list ':' VIN subtype_indication assign_exp
@@ -1071,10 +1071,10 @@ Grammar
   747 interface_variable_declaration: VARIABLE identifier_list ':' subtype_indication assign_exp
   748                               | VARIABLE identifier_list ':' mode subtype_indication assign_exp
 
-  749 bus_symbol: %empty
+  749 bus_symbol: /* empty */
   750           | BUS
 
-  751 assign_exp: %empty
+  751 assign_exp: /* empty */
   752           | ASSIGN expression
 
   753 interface_unknown_declaration: identifier_list ':' subtype_indication bus_symbol assign_exp
@@ -1187,7 +1187,7 @@ Grammar
   833          | NEW mark mark allocator1
   834          | NEW qualified_expression
 
-  835 allocator1: %empty
+  835 allocator1: /* empty */
   836           | gen_association_list
 
   837 qualified_expression: mark '\'' '(' expression ')'
@@ -1225,7 +1225,7 @@ Grammar
   860 expression_list: expression
   861                | expression_list ',' expression
 
-  862 expressions: %empty
+  862 expressions: /* empty */
   863            | expressions ',' expression
 
   864 insl_name: mark gen_association_list
@@ -1269,7 +1269,7 @@ Grammar
   892 csp_compiler: csp_compiler basic_module
   893             | basic_module
 
-  894 $@16: %empty
+  894 $@16: /* empty */
 
   895 basic_module: MODULE VID ';' $@16 decls constructs ENDMODULE
   896             | INCLUDE filename ';'
@@ -1280,13 +1280,13 @@ Grammar
   899 path_name: path_name '/' VID
   900          | VID
   901          | '~'
-  902          | %empty
+  902          | /* empty */
 
   903 file_name: VID
   904          | '*'
 
   905 decls: decls decl
-  906      | %empty
+  906      | /* empty */
 
   907 decl: delaydecl
   908     | definedecl
@@ -1662,9 +1662,9 @@ VID (429) 20 21 23 28 29 60 65 66 68 76 78 80 86 90 91 98 99 114 116
 ACTION (430) 943 944 948 949 950 951 956 958 1012 1013 1014
 CHARLIT (431) 67 69 249 287 351 850 869
 ID (432)
-GE (433) 798
+NEQ (433) 794
 LE (434) 522 536 673 674 675 676 796
-NEQ (435) 794
+GE (435) 798
 MED_PRECEDENCE (436)
 MAX_PRECEDENCE (437)
 
@@ -10443,9 +10443,9 @@ State 760
     '>'  shift, and go to state 1043
     '<'  shift, and go to state 1044
     '='  shift, and go to state 1045
-    GE   shift, and go to state 1046
+    NEQ  shift, and go to state 1046
     LE   shift, and go to state 1047
-    NEQ  shift, and go to state 1048
+    GE   shift, and go to state 1048
 
     $default  reduce using rule 790 (relation)
 
@@ -14220,9 +14220,9 @@ State 1045
 
 State 1046
 
-  798 relational_operator: GE .
+  794 relational_operator: NEQ .
 
-    $default  reduce using rule 798 (relational_operator)
+    $default  reduce using rule 794 (relational_operator)
 
 
 State 1047
@@ -14234,9 +14234,9 @@ State 1047
 
 State 1048
 
-  794 relational_operator: NEQ .
+  798 relational_operator: GE .
 
-    $default  reduce using rule 794 (relational_operator)
+    $default  reduce using rule 798 (relational_operator)
 
 
 State 1049

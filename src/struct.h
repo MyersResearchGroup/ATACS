@@ -63,7 +63,7 @@
 
 //#define free nop
 
-//using namespace std;
+using namespace std;
 
 /*****************************************************************************/
 /* Miscellaneous definitions.                                                */

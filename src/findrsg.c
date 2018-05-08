@@ -98,7 +98,7 @@
 #include <bdduser.h>
 #include <Bdd.h>
 #else
-#include "cudd/include/cuddObj.hh"
+#include "cudd/cuddObj.hh"
 #endif
 
 bool fromG;

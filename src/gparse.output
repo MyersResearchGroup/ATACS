@@ -48,45 +48,45 @@ Grammar
    35     | MARKING marking '\n'
    36     | ATACS VERIFY '{' vevents '}' '\n'
 
-   37 @1: %empty
+   37 @1: /* empty */
 
    38 line: ATACS SEARCH @1 '{' sevents '}' '\n'
 
-   39 inputs: %empty
+   39 inputs: /* empty */
    40       | inputs ID
 
-   41 outputs: %empty
+   41 outputs: /* empty */
    42        | outputs ID
 
-   43 internals: %empty
+   43 internals: /* empty */
    44          | internals ID
 
-   45 variables: %empty
+   45 variables: /* empty */
    46          | variables ID
 
    47 variable: ID
 
-   48 dummys: %empty
+   48 dummys: /* empty */
    49       | dummys ID
    50       | dummys ID '+'
    51       | dummys ID '-'
 
-   52 failtrans: %empty
+   52 failtrans: /* empty */
    53          | failtrans ID
 
-   54 nondisabling: %empty
+   54 nondisabling: /* empty */
    55             | nondisabling ID
 
-   56 keeps: %empty
+   56 keeps: /* empty */
    57      | keeps ID
 
-   58 abstracts: %empty
+   58 abstracts: /* empty */
    59          | abstracts ID
 
-   60 noninps: %empty
+   60 noninps: /* empty */
    61        | noninps ID
 
-   62 continuous: %empty
+   62 continuous: /* empty */
    63           | continuous ID
    64           | continuous ID '[' '-' INF ',' '-' INTEGER ']'
    65           | continuous ID '[' '-' INTEGER ',' '-' INTEGER ']'
@@ -146,7 +146,7 @@ Grammar
 
   107 bound: '[' relop hsf ']'
   108      | '[' hsf ',' hsf ']'
-  109      | %empty
+  109      | /* empty */
 
   110 init_state: '[' INTEGER ']'
   111           | '[' ID ']'
@@ -178,7 +178,7 @@ Grammar
   132 init_rates: '{' init_rates_set '}'
 
   133 init_rates_set: init_rates_set init_rate
-  134               | %empty
+  134               | /* empty */
 
   135 init_rate: '<' variable '=' INTEGER '>'
   136          | '<' variable '=' '-' INTEGER '>'
@@ -194,7 +194,7 @@ Grammar
   145 init_vals: '{' init_vals_set '}'
 
   146 init_vals_set: init_vals_set init_val
-  147              | %empty
+  147              | /* empty */
 
   148 init_val: '<' variable '=' INTEGER '>'
   149         | '<' variable '=' '-' INTEGER '>'
@@ -210,7 +210,7 @@ Grammar
   158 rates: '{' rate_set '}'
 
   159 rate_set: rate_set trate
-  160         | %empty
+  160         | /* empty */
 
   161 trate: '<' place '=' INTEGER '>'
   162      | '<' place '=' '[' INTEGER ',' INTEGER ']' '>'
@@ -218,7 +218,7 @@ Grammar
   163 invariants: '{' invariant_set '}'
 
   164 invariant_set: invariant_set invariant
-  165              | %empty
+  165              | /* empty */
 
   166 invariant: '<' place '=' '[' hsf_ineqs ']' '>'
 
@@ -229,10 +229,10 @@ Grammar
   170     | node node ATACS cons expr plow pup lower upper rate weight
   171     | node node ATACS cons exprd plow pup lower upper rate weight
 
-  172 cons: %empty
+  172 cons: /* empty */
   173     | '{' ID '}'
 
-  174 expr: %empty
+  174 expr: /* empty */
   175     | '(' hsf ')'
 
   176 hsf: hsf '|' andexpr
@@ -316,7 +316,7 @@ Grammar
 
   241 exprd: '(' hsf DISABLE
 
-  242 plow: %empty
+  242 plow: /* empty */
   243     | '/' INTEGER
   244     | '\\' INTEGER
   245     | '/' '-' INTEGER
@@ -324,7 +324,7 @@ Grammar
   247     | '/' '-' INF
   248     | '\\' '-' INF
 
-  249 pup: %empty
+  249 pup: /* empty */
   250    | ';' '-' INTEGER '\\'
   251    | ';' '-' INTEGER '/'
   252    | ';' INTEGER '\\'
@@ -332,17 +332,17 @@ Grammar
   254    | ';' INF '\\'
   255    | ';' INF '/'
 
-  256 lower: %empty
+  256 lower: /* empty */
   257      | '[' INTEGER
 
-  258 upper: %empty
+  258 upper: /* empty */
   259      | ',' INTEGER ']'
   260      | ',' INF ']'
 
-  261 rate: %empty
+  261 rate: /* empty */
   262     | REAL
 
-  263 weight: %empty
+  263 weight: /* empty */
   264       | INTEGER
 
   265 node: signal_trans
@@ -356,28 +356,28 @@ Grammar
   271 enables: '{' enable_set '}'
 
   272 enable_set: enable_set enable
-  273           | %empty
+  273           | /* empty */
 
   274 enable: '<' node '=' '[' hsf_ineqs ']' '>'
 
   275 assigns: '{' assign_set '}'
 
   276 assign_set: assign_set assign
-  277           | %empty
+  277           | /* empty */
 
   278 assign: '<' node '=' '[' ineqs ']' '>'
 
   279 rate_assigns: '{' rate_assign_set '}'
 
   280 rate_assign_set: rate_assign_set rate_assign
-  281                | %empty
+  281                | /* empty */
 
   282 rate_assign: '<' node '=' '[' rate_ineqs ']' '>'
 
   283 delay_assigns: '{' delay_assign_set '}'
 
   284 delay_assign_set: delay_assign_set delay_assign
-  285                 | %empty
+  285                 | /* empty */
 
   286 delay_assign: '<' node '=' UNIFORM '(' INTEGER ',' INTEGER ')' '>'
   287             | '<' node '=' UNIFORM '(' INTEGER ',' INF ')' '>'
@@ -390,21 +390,21 @@ Grammar
   293 priority_assigns: '{' priority_assign_set '}'
 
   294 priority_assign_set: priority_assign_set priority_assign
-  295                    | %empty
+  295                    | /* empty */
 
   296 priority_assign: '<' node '=' '[' hsf ']' '>'
 
   297 transition_rates: '{' transition_rate_set '}'
 
   298 transition_rate_set: transition_rate_set transition_rate
-  299                    | %empty
+  299                    | /* empty */
 
   300 transition_rate: '<' node '=' '[' hsf ']' '>'
 
   301 bool_assigns: '{' bool_assign_set '}'
 
   302 bool_assign_set: bool_assign_set bool_assign
-  303                | %empty
+  303                | /* empty */
 
   304 bool_assign: '<' node '=' '[' bool_ineqs ']' '>'
 

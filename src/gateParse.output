@@ -9,17 +9,17 @@ Grammar
 
     1 line: line one_gate
     2     | line one_latch
-    3     | %empty
+    3     | /* empty */
 
-    4 $@1: %empty
+    4 $@1: /* empty */
 
-    5 $@2: %empty
+    5 $@2: /* empty */
 
     6 one_gate: GATE TEXT $@1 LEFT_CURLY $@2 gates RIGHT_CURLY
 
-    7 $@3: %empty
+    7 $@3: /* empty */
 
-    8 $@4: %empty
+    8 $@4: /* empty */
 
     9 one_latch: LATCH TEXT $@3 LEFT_CURLY $@4 gates RIGHT_CURLY
 

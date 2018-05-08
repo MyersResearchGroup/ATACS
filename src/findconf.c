@@ -564,7 +564,7 @@ void chk_sync_covering(stateADT curstate,regionADT *regions,int k,int nsignals,
 /* Check if a state is a final state.                                        */
 /* (i.e., all enabled events state1 are fired or disabled in state2)         */
 /*****************************************************************************/
-bool isfinal(char * state1,char * state2,int nsignals)
+bool is_final(char * state1,char * state2,int nsignals)
 {
   int j; 
   
@@ -836,7 +836,7 @@ void old_chk_entrance(stateADT *state_table,stateADT curstate,
 	    diff=TRUE;
 
 	if ((diff) && (burst)) {
-	  if (isfinal(curstate->state,curstate->state,nsignals)){
+	  if (is_final(curstate->state,curstate->state,nsignals)){
 	    bit=curstate->state[k];
 	  } else 
 	    bit=final(state_table,curstate->state,k,nsignals,curstate);
@@ -879,7 +879,7 @@ void old_chk_entrance(stateADT *state_table,stateADT curstate,
 	  if ((diff) && (burst)) {
 	    //printf("Finding final state for %s->%s\n",
 	    //	   predstate->stateptr->state,curstate->state);
-	    if (isfinal(predstate->stateptr->state,curstate->state,nsignals)){
+	    if (is_final(predstate->stateptr->state,curstate->state,nsignals)){
 	      //  printf("%s is the final state\n",curstate->state);
 	      bit=curstate->state[k];
 	    } else 
@@ -969,7 +969,7 @@ void chk_entrance(stateADT *state_table,stateADT curstate,regionADT *regions,
   for (predstate=curstate->pred;predstate;predstate=predstate->next) {
     /*
     if (burst) {
-      if (isfinal(predstate->stateptr->state,curstate->state,nsignals)) {
+      if (is_final(predstate->stateptr->state,curstate->state,nsignals)) {
 	for (l=0;l<nsignals;l++)
 	  if ((curstate->state[l]=='R')||(curstate->state[l]=='F'))
 	    finstate[l]=curstate->state[l];

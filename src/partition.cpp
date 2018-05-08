@@ -33,7 +33,7 @@
 // OR PERFORMANCE OF THIS SOFTWARE.                                            
 ///////////////////////////////////////////////////////////////////////////////
 #include <cassert>
-#include <limits.h>
+
 #ifndef MAXINT
 #ifndef OSX
 #ifndef NT

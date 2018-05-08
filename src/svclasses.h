@@ -1,6 +1,5 @@
 // svclasses.h
 // class declarations for classes used in state coding version 2
-#include "limits.h"
 #ifndef _SVCLASSES_
 #define _SVCLASSES_
 
