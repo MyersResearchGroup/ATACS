@@ -1832,7 +1832,7 @@ int process_command(char menu,char command,designADT design,char * selection,
       synthesis(SYNTHESIS,DOALL,design,sifile,newfile);
       simulate(design->filename,design->signals,design->events,design->merges,
                design->rules,design->regions,design->ninpsig,design->ninputs,
-               design->nsignals,design->nevents,design->startstate);
+               design->nsignals,design->nevents,design->startstate,design->gatelevel);
       break;
     case NET:
       synthesis(SYNTHESIS,DOALL,design,sifile,newfile);

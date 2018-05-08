@@ -129,18 +129,19 @@ ifeq ($(OS), Darwin)
     #MDBLIB = ${PKGLIBS} -L/home/ming/software/src/memdebug -lmemdb
       DEFS = $(BASIC_DEFS) -D_NO_STATS_ -DOSX 
 else
-      #echo "Assuming MSWindows OS"
+#      echo "Assuming Windows OS"
+$(warning "This is a windows OS")
       DEFS = $(BASIC_DEFS) -DNT
 #      TCLINC = -I/cygdrive/e/research/nobackup/cad/cygwin/cygwin-b20/include
-      PKGINC = -I../../include
+      PKGINC = -I/usr/local/include
       INC = $(TCLINC) $(PKGINC) #-I/cygdrive/e/research/nobackup/cad/cygwin/cygwin-b20/H-i586-cygwin32/i586-cygwin32/include
       YFLAGS	= -vd
       XFLAGS1 = -DX 
-      XFLAGS2 = -L../../bin
+      XFLAGS2 = -L/usr/local/bin
       XLIB = #-L/cygdrive/e/research/nobackup/cad/cygwin/cygwin-b20/H-i586-cygwin32/lib
 #      TCLTKLIBS = -L/cygdrive/e/research/nobackup/cad/cygwin/cygwin-b20/H-i586-cygwin32/lib -ltk80 -ltcl80 
       TCLTKLIBS = 
-      PKGLIBS = -L../../winlib -L../../bin
+      PKGLIBS = -L/usr/local/winlib -L/usr/local/bin
       BASIC_DEFS = -DTIMER -D_NO_STATS_
     endif
   endif
