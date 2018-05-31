@@ -26,7 +26,7 @@ BIN	= ../bin
 
 #TCLINC = -I/usr/include/tcl
 TCLINC = 
-PKGINC = -I../../include
+PKGINC = -I../include
 MDBINC = -I/home/ming/software/src/memdebug
 INC = $(TCLINC) $(PKGINC)
 YFLAGS = -vd
@@ -49,7 +49,7 @@ ifeq ($(OS),Linux)
   else
     ifeq ($(ARCH),x86_64)
       MDBLIB = -L/home/ming/software/src/memdebug -lmemdb
-      PKGLIBS = -L../../lib64
+      PKGLIBS = -L../lib
       XLIB = -L/usr/X11R6/lib
 #    TCLTKLIBS = -ltk -ltcl -ldl
       TCLTKLIBS = 

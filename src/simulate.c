@@ -930,10 +930,10 @@ simulate(char * filename, signalADT *signals, eventADT *events,
     //print_env_modules(fp, events, merges, rules, nevents, ninputs, startstate);
 
     fclose(fp);
-    printf("Executing command:  verilog %s\n", outname);
-    fprintf(lg, "Executing command:  verilog %s\n", outname);
-    sprintf(shellcommand, "verilog %s", outname);
-    system(shellcommand);
+    //    printf("Executing command:  verilog %s\n", outname);
+    //fprintf(lg, "Executing command:  verilog %s\n", outname);
+    //sprintf(shellcommand, "verilog %s", outname);
+    //system(shellcommand);
 }
 
 
