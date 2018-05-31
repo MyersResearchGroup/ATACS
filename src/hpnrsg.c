@@ -2717,7 +2717,7 @@ int velocity(hpnZoneADT zone,cStateADT cState,dMarkingADT marking,
       /* foreach continuous transition t2 in the postset of p */
       int den = 0;
       for(int t2=0;t2<nevents;t2++) {
-        if(rules[p][t2] > NORULE &&
+        if(rules[p][t2]->ruletype > NORULE &&
            events[t2]->type & CONT) {
           den += (rules[p][t2]->weight * events[t2]->rate);
         }
@@ -2758,7 +2758,7 @@ int velocity(hpnZoneADT zone,cStateADT cState,dMarkingADT marking,
       /* foreach continuous transition t2 in the postset of p */
       int den = 0;
       for(int t2=0;t2<nevents;t2++) {
-        if(rules[t2][p] > NORULE &&
+        if(rules[t2][p]->ruletype > NORULE &&
            events[t2]->type & CONT) {
           den += (rules[t2][p]->weight * events[t2]->rate);
         }

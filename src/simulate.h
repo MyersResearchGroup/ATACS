@@ -54,7 +54,7 @@
 void simulate(char * filename,signalADT *signals,eventADT *events,
               mergeADT *merges,ruleADT **rules,regionADT *regions,
               int ninpsig,int ninputs,int nsignals,int nevents,
-              char * startstate);
+              char * startstate, int atomic);
 
 #endif  /* simulate.h */
 

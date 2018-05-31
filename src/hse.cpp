@@ -30,7 +30,7 @@
 #include <errno.h>
 #include "hse.hpp"
 #include "cpu_time_tracker.h"
-#include <iomanip>
+//#include <iomanip>
 #include <algorithm>
 
 // *********************************************************************
@@ -372,13 +372,14 @@ bool handshaking_expansion(char command, designADT design){
 		       Possibility(max,basename+"_HSE_CURRENT",""));
 	time.mark();
 	table << "\\results{"
-	      << setprecision(2) << setiosflags(ios::fixed)
+	  //	      << setprecision(2) << setiosflags(ios::fixed)
 	      << time.resource_time().first << "}{" // cpu time
 	      << distance(missing.begin(),boundary) << "}{" // levels
 	      << aTEL.simulations << "}{" // TELs
 	      << aTEL.attempts << "}{" // leaves
 	      << aTEL.solutions << "}{"  // PRSs
-	      << setprecision(0);
+	  //	      << setprecision(0)
+	  ;
 	if(aTEL.good.empty()){
 	  throw("No solution found.");
 	}
@@ -387,7 +388,8 @@ bool handshaking_expansion(char command, designADT design){
 	      << aTEL.good.rbegin()->ave << "}{"  // max period
 	      << aTEL.good.begin()->ave << "}" << endl; // min period
 	messages << "The solutions are:  " << endl
-		 << setprecision(3) << aTEL.good;
+	  //<< setprecision(3)
+		 << aTEL.good;
 	reload(design, basename, aTEL.best.name, RSG);
 	design->status |= REDUCED;
       }

@@ -49,35 +49,35 @@ unsigned int max_size( int size, processkeyADT processkey,
 ostream& dump( ostream& s, int size, 
 	       processkeyADT processkey, processADT dbm, 
 	       eventADT *events, bool zero_based){
-  if ( size == 0 ) {
-    return( s );
-  }
-  int end = (zero_based) ? size - 1 : size;
-  unsigned int w = max_size( size, processkey, events, zero_based ) + 1;
-  // Output the column labels
-  s << setw( w+1 ) << " "; 
-  for ( int i = (zero_based) ? 0 : 1 ; i <= end ; ++i ) {
-    s << setw( w ) << events[processkey[i].eventnum]->event;
-  }
-  s << endl << setw( w+1 ) << " ";
-  for ( int i = (zero_based) ? 0 : 1 ; i <= end ; ++i ) {
-    s << setw( w ) << setfill( '-' ) << "-" << setfill( ' ' );
-  }
-  // Print the matrix with Row identifiers.
-  s << endl;
-  for ( int i = (zero_based) ? 0 : 1 ; i <= end ; ++i ) {
-    if ( i != ((zero_based) ? 0 : 1) ) s << endl;
-    s << setw( w ) << events[processkey[i].eventnum]->event << "|";
-    for ( int j = (zero_based) ? 0 : 1 ; j <= end ; ++j ) {
-      if ( dbm[i][j] == INFIN || dbm[i][j] == _UNBOUNDED_ ) {
-	s << setw( w ) << "U";
-      }
-      else {
-	s << setw( w ) << dbm[i][j];
-      }
-    }
-  }
-  s << endl;
+  /* if ( size == 0 ) { */
+  /*   return( s ); */
+  /* } */
+  /* int end = (zero_based) ? size - 1 : size; */
+  /* unsigned int w = max_size( size, processkey, events, zero_based ) + 1; */
+  /* // Output the column labels */
+  /* s << setw( w+1 ) << " ";  */
+  /* for ( int i = (zero_based) ? 0 : 1 ; i <= end ; ++i ) { */
+  /*   s << setw( w ) << events[processkey[i].eventnum]->event; */
+  /* } */
+  /* s << endl << setw( w+1 ) << " "; */
+  /* for ( int i = (zero_based) ? 0 : 1 ; i <= end ; ++i ) { */
+  /*   s << setw( w ) << setfill( '-' ) << "-" << setfill( ' ' ); */
+  /* } */
+  /* // Print the matrix with Row identifiers. */
+  /* s << endl; */
+  /* for ( int i = (zero_based) ? 0 : 1 ; i <= end ; ++i ) { */
+  /*   if ( i != ((zero_based) ? 0 : 1) ) s << endl; */
+  /*   s << setw( w ) << events[processkey[i].eventnum]->event << "|"; */
+  /*   for ( int j = (zero_based) ? 0 : 1 ; j <= end ; ++j ) { */
+  /*     if ( dbm[i][j] == INFIN || dbm[i][j] == _UNBOUNDED_ ) { */
+  /* 	s << setw( w ) << "U"; */
+  /*     } */
+  /*     else { */
+  /* 	s << setw( w ) << dbm[i][j]; */
+  /*     } */
+  /*   } */
+  /* } */
+  /* s << endl; */
   return( s );
 }
 
@@ -110,35 +110,35 @@ ostream& dump( ostream& s, clocksADT dbm, int num_clocks){
   if ( num_clocks == 0 ) {
     return( s );
   }
-  unsigned int w = 6;
-  // Output the column labels
-  s << setw( w+1 ) << " "; 
-  for ( int i = 0 ; i <= num_clocks ; ++i ) {
-    ostringstream tmp;
-    tmp << "r" << i << ends;
-    s << setw( w ) << tmp.str();
-  }
-  s << endl << setw( w+1 ) << " ";
-  for ( int i = 0 ; i <= num_clocks ; ++i ) {
-    s << setw( w ) << setfill( '-' ) << "-" << setfill( ' ' );
-  }
-  // Print the matrix with Row identifiers.
-  s << endl;
-  for ( int i = 0 ; i <= num_clocks ; ++i ) {
-    if ( i ) s << endl;
-    ostringstream tmp;
-    tmp << "r" << i << ends;
-    s << setw( w ) << tmp.str() << "|";
-    for ( int j = 0 ; j <= num_clocks ; ++j ) {
-      if ( dbm[i][j] == INFIN || dbm[i][j] == _UNBOUNDED_ ) {
-        s << setw( w ) << "U";
-      }
-      else {
-        s << setw( w ) << dbm[i][j];
-      }
-    }
-  }
-  s << endl;
+  /* unsigned int w = 6; */
+  /* // Output the column labels */
+  /* s << setw( w+1 ) << " ";  */
+  /* for ( int i = 0 ; i <= num_clocks ; ++i ) { */
+  /*   ostringstream tmp; */
+  /*   tmp << "r" << i << ends; */
+  /*   s << setw( w ) << tmp.str(); */
+  /* } */
+  /* s << endl << setw( w+1 ) << " "; */
+  /* for ( int i = 0 ; i <= num_clocks ; ++i ) { */
+  /*   s << setw( w ) << setfill( '-' ) << "-" << setfill( ' ' ); */
+  /* } */
+  /* // Print the matrix with Row identifiers. */
+  /* s << endl; */
+  /* for ( int i = 0 ; i <= num_clocks ; ++i ) { */
+  /*   if ( i ) s << endl; */
+  /*   ostringstream tmp; */
+  /*   tmp << "r" << i << ends; */
+  /*   s << setw( w ) << tmp.str() << "|"; */
+  /*   for ( int j = 0 ; j <= num_clocks ; ++j ) { */
+  /*     if ( dbm[i][j] == INFIN || dbm[i][j] == _UNBOUNDED_ ) { */
+  /*       s << setw( w ) << "U"; */
+  /*     } */
+  /*     else { */
+  /*       s << setw( w ) << dbm[i][j]; */
+  /*     } */
+  /*   } */
+  /* } */
+  /* s << endl; */
   return( s );
 }  
 
