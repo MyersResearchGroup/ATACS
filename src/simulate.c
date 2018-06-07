@@ -208,6 +208,8 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
 
     int i = 0;
     int sig = 0;
+    coverlistADT cur_cover;
+    
     for (int input = ninpsig; input < nsignals; input++) {
         sig = input;
         i = 2 * input + 1;
@@ -220,6 +222,34 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
         fprintf(fp, "assign %s = ", signals[sig]->name);
         bool OPEN = FALSE;
         for (cur_region = regions[i]; cur_region; cur_region = cur_region->link) { //once with i for set
+	  if (cur_region->covers && cur_region->covers->cover) {
+	    for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
+		 cur_cover=cur_cover->link) {
+	      if (cur_region->cover[0] != 'E') { //if don't care?
+                if (!firstOR) fprintf(fp, " | ");
+                firstOR = FALSE;
+                firstAND = TRUE;
+                for (j = 0; j < nsignals; j++) {
+                    if (!OPEN)
+                        fprintf(fp, "(");
+                    OPEN = TRUE;
+                    if ((cur_cover->cover[j] == '0')) { //only include signal into cover if 1 or 0
+                        if (!firstAND) fprintf(fp, " & ");
+                        fprintf(fp, "~%s", signals[j]->name);
+                        firstAND = FALSE;
+                    }
+                    if ((cur_cover->cover[j] == '1')) { //only include signal into cover if 1 or 0
+                        if (!firstAND) fprintf(fp, " & ");
+                        fprintf(fp, "%s", signals[j]->name);
+                        firstAND = FALSE;
+                    }
+                }
+                if (OPEN)
+                    fprintf(fp, ")");
+		OPEN = FALSE;
+	      }
+	    }
+	  } else {
             if (cur_region->cover[0] != 'E') { //if don't care?
                 if (!firstOR) fprintf(fp, " | ");
                 firstOR = FALSE;
@@ -241,15 +271,45 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
                 }
                 if (OPEN)
                     fprintf(fp, ")");
-
-            }
-            //  fprintf(fp, ");");
-
+		OPEN = FALSE;
+	    }
+	  }
         }
         //firstOR=TRUE;
         bool RESET = FALSE;
         OPEN = FALSE;
         for (cur_region = regions[i + 1]; cur_region; cur_region = cur_region->link) { //once with i for set
+	  if (cur_region->covers && cur_region->covers->cover) {
+	    for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
+		 cur_cover=cur_cover->link) {
+	      if (cur_region->cover[0] != 'E') { //if don't care?
+                if (!firstOR) fprintf(fp, " | ");
+                firstOR = FALSE;
+                firstAND = TRUE;
+                for (j = 0; j < nsignals; j++) {
+                    if (!OPEN)
+                        fprintf(fp, "(");
+                    OPEN = TRUE;
+                    if ((cur_region->cover[j] == '0')) { //only include signal into cover if 1 or 0
+                        if (!firstAND) fprintf(fp, " | ");
+                        fprintf(fp, "%s", signals[j]->name);
+                        firstAND = FALSE;
+                        RESET = TRUE;
+                    }
+                    if ((cur_region->cover[j] == '1')) { //only include signal into cover if 1 or 0
+                        if (!firstAND) fprintf(fp, " | ");
+                        fprintf(fp, "~%s", signals[j]->name);
+                        firstAND = FALSE;
+                        RESET = TRUE;
+                    }
+                }
+                if (RESET) {
+                    fprintf(fp, ")");
+                    fprintf(fp, " & %s", signals[sig]->name); //& SIG
+                }
+	      }
+	    }
+	  } else {
             if (cur_region->cover[0] != 'E') { //if don't care?
                 if (!firstOR) fprintf(fp, " | ");
                 firstOR = FALSE;
@@ -276,6 +336,7 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
                     fprintf(fp, " & %s", signals[sig]->name); //& SIG
                 }
             }
+	  }
         }
         fprintf(fp, ";\n");
     }
@@ -291,6 +352,8 @@ print_WC_standard_gate_production(FILE *fp, signalADT *signals, regionADT *regio
 
     int i = 0;
     int sig = 0;
+    coverlistADT cur_cover;
+
     for (int input = ninpsig; input < nsignals; input++) {
 
         sig = input;
@@ -304,7 +367,34 @@ print_WC_standard_gate_production(FILE *fp, signalADT *signals, regionADT *regio
         int set_counter = 1;
         int reset_counter = 1;
         for (cur_region = regions[i]; cur_region; cur_region = cur_region->link) { //once with i for set
+	  if (cur_region->covers && cur_region->covers->cover) {
+	    for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
+		 cur_cover=cur_cover->link) {
+	      if (cur_region->cover[0] != 'E') { //if don't care?
 
+                fprintf(fp, "assign %s_SET%i = ", signals[input]->name, set_counter);
+                set_counter++;
+
+                firstAND = TRUE;
+                for (j = 0; j < nsignals; j++) {
+
+                    if ((cur_region->cover[j] == '0')) { //only include signal into cover if 1 or 0
+                        if (!firstAND) fprintf(fp, " & ");
+                        fprintf(fp, "~%s", signals[j]->name);
+                        firstAND = FALSE;
+                        SET = TRUE;
+                    }
+                    if ((cur_region->cover[j] == '1')) { //only include signal into cover if 1 or 0
+                        if (!firstAND) fprintf(fp, " & ");
+                        fprintf(fp, "%s", signals[j]->name);
+                        firstAND = FALSE;
+                        SET = TRUE;
+                    }
+                }
+                fprintf(fp, ";\n");
+	      }
+	    }
+	  } else {
             if (cur_region->cover[0] != 'E') { //if don't care?
 
                 fprintf(fp, "assign %s_SET%i = ", signals[input]->name, set_counter);
@@ -327,11 +417,38 @@ print_WC_standard_gate_production(FILE *fp, signalADT *signals, regionADT *regio
                     }
                 }
                 fprintf(fp, ";\n");
-
-            }
+	    }
+	  }
         }
 
         for (cur_region = regions[i + 1]; cur_region; cur_region = cur_region->link) { //once with i for reset
+	  if (cur_region->covers && cur_region->covers->cover) {
+	    for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
+		 cur_cover=cur_cover->link) {
+	      if (cur_region->cover[0] != 'E') { //if don't care?
+
+                fprintf(fp, "assign %s_RESET%i = ", signals[input]->name, reset_counter);
+                reset_counter++;
+
+                firstAND = TRUE;
+                for (j = 0; j < nsignals; j++) {
+                    if ((cur_region->cover[j] == '0')) { //only include signal into cover if 1 or 0
+                        if (!firstAND) fprintf(fp, " & ");
+                        fprintf(fp, "~%s", signals[j]->name);
+                        firstAND = FALSE;
+                        RESET = TRUE;
+                    }
+                    if ((cur_region->cover[j] == '1')) { //only include signal into cover if 1 or 0
+                        if (!firstAND) fprintf(fp, " & ");
+                        fprintf(fp, "%s", signals[j]->name);
+                        firstAND = FALSE;
+                        RESET = TRUE;
+                    }
+                }
+                fprintf(fp, ";\n");
+	      }
+	    }
+	  } else {
             if (cur_region->cover[0] != 'E') { //if don't care?
 
                 fprintf(fp, "assign %s_RESET%i = ", signals[input]->name, reset_counter);
@@ -353,8 +470,8 @@ print_WC_standard_gate_production(FILE *fp, signalADT *signals, regionADT *regio
                     }
                 }
                 fprintf(fp, ";\n");
-
-            }
+	    }
+	  }
         }
         fprintf(fp, "\n");
 
