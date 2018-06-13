@@ -225,7 +225,7 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
 	  if (cur_region->covers && cur_region->covers->cover) {
 	    for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
 		 cur_cover=cur_cover->link) {
-	      if (cur_region->cover[0] != 'E') { //if don't care?
+	      if (cur_cover->cover[0] != 'E') { //if don't care?
                 if (!firstOR) fprintf(fp, " | ");
                 firstOR = FALSE;
                 firstAND = TRUE;
@@ -282,7 +282,7 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
 	  if (cur_region->covers && cur_region->covers->cover) {
 	    for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
 		 cur_cover=cur_cover->link) {
-	      if (cur_region->cover[0] != 'E') { //if don't care?
+	      if (cur_cover->cover[0] != 'E') { //if don't care?
                 if (!firstOR) fprintf(fp, " | ");
                 firstOR = FALSE;
                 firstAND = TRUE;
