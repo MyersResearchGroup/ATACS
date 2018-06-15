@@ -94,37 +94,6 @@ print_initialization(FILE *fp, eventADT *events, char * startstate, int i) {
     fprintf(fp, "  end\n\n");
 }
 
-
-/*****************************************************************************/
-/* Print the Workcraft initialization.                                                 */
-
-/*****************************************************************************/
-
-void
-print_WC_gate_initialization(FILE *fp, signalADT *signals,
-        char * startstate, int nsignals) {
-
-    fprintf(fp, "// Initial state: \n// ");
-
-    for (int i = 0; i < nsignals; i++) {
-
-        int value;
-
-        if (startstate == NULL) {
-            printf("ERROR:  Need initial state information.\n");
-            fprintf(lg, "ERROR:  Need initial state information.\n");
-	    return;
-        } else value = startstate[i];
-        if (value == '0') {
-            fprintf(fp, "!%s ", signals[i]->name);
-        } else {
-            fprintf(fp, "%s ", signals[i]->name);
-        }
-    }
-    fprintf(fp, "\n");
-
-}
-
 /*****************************************************************************/
 /* Print the initialization.                                                 */
 
@@ -284,14 +253,15 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
 	    }
 	  }
         }
-        //firstOR=TRUE;
+        firstOR=TRUE;
         bool RESET = FALSE;
         for (cur_region = regions[i + 1]; cur_region; cur_region = cur_region->link) { //once with i for set
 	  if (cur_region->covers && cur_region->covers->cover) {
 	    for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
 		 cur_cover=cur_cover->link) {
 	      if (cur_cover->cover[0] != 'E') { //if don't care?
-                if (!firstOR) fprintf(fp, " | ");
+                if (!firstOR) fprintf(fp, " & ");
+		else fprintf(fp, " | ");
                 firstOR = FALSE;
                 firstAND = TRUE;
 		OPEN = FALSE;
@@ -314,13 +284,13 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
                 }
                 if (RESET) {
                     fprintf(fp, ")");
-                    fprintf(fp, " & %s", signals[sig]->name); //& SIG
                 }
 	      }
 	    }
 	  } else {
             if (cur_region->cover[0] != 'E') { //if don't care?
-                if (!firstOR) fprintf(fp, " | ");
+                if (!firstOR) fprintf(fp, " & ");
+		else fprintf(fp, " | ");
                 firstOR = FALSE;
                 firstAND = TRUE;
 		OPEN = FALSE;
@@ -343,11 +313,13 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
                 }
                 if (RESET) {
                     fprintf(fp, ")");
-                    fprintf(fp, " & %s", signals[sig]->name); //& SIG
                 }
             }
 	  }
         }
+	if (RESET) {
+	  fprintf(fp, " & %s", signals[sig]->name); //& SIG
+	}
         fprintf(fp, ";\n");
     }
 }
@@ -356,37 +328,77 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
 /* Print initialization                                                      */
 /*****************************************************************************/
 void
-print_WC_standard_gate_initialization(FILE *fp, signalADT *signals, regionADT *regions,
-				      int nsignals, int ninpsig, char *startstate) {
+print_WC_gate_initialization(FILE *fp, signalADT *signals, regionADT *regions,
+			     int nsignals, int ninpsig, char *startstate, int gateLevel) {
   int i = 0;
   int sig = 0;
 
-  fprintf(fp, "initial begin\n");
-  for (int input = ninpsig; input < nsignals; input++) {
-    sig = input;
-    i = 2 * input + 1;
-    int j;
-    regionADT cur_region;
-    coverlistADT cur_cover;
-    bool initialValue;
-    bool SETValue = FALSE;
-    bool RESETValue = TRUE;
+  fprintf(fp, "// Initial state: \n// ");
+
+  for (int i = 0; i < nsignals; i++) {
+
+    int value;
+
+    if (startstate == NULL) {
+      printf("ERROR:  Need initial state information.\n");
+      fprintf(lg, "ERROR:  Need initial state information.\n");
+      return;
+    } else value = startstate[i];
+    if (value == '0') {
+      fprintf(fp, "!%s ", signals[i]->name);
+    } else {
+      fprintf(fp, "%s ", signals[i]->name);
+    }
+  }
+
+  if (gateLevel) {
+    for (int input = ninpsig; input < nsignals; input++) {
+      sig = input;
+      i = 2 * input + 1;
+      int j;
+      regionADT cur_region;
+      coverlistADT cur_cover;
+      bool initialValue;
+      bool SETValue = FALSE;
+      bool RESETValue = TRUE;
     
-    int set_counter = 1;
-    int reset_counter = 1;
-    for (cur_region = regions[i]; cur_region; cur_region = cur_region->link) { //once with i for set
-      if (cur_region->covers && cur_region->covers->cover) {
-	for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
-	     cur_cover=cur_cover->link) {
-	  if (cur_cover->cover[0] != 'E') { //if don't care?
+      int set_counter = 1;
+      int reset_counter = 1;
+      for (cur_region = regions[i]; cur_region; cur_region = cur_region->link) { //once with i for set
+	if (cur_region->covers && cur_region->covers->cover) {
+	  for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
+	       cur_cover=cur_cover->link) {
+	    if (cur_cover->cover[0] != 'E') { //if don't care?
+	      initialValue = TRUE;
+	      for (j = 0; j < nsignals; j++) {
+		if (cur_cover->cover[j] == '0') {
+		  if (startstate[j] == '1') {
+		    initialValue = FALSE;
+		  }
+		}
+		if (cur_cover->cover[j] == '1') { 
+		  if (startstate[j] == '0') {
+		    initialValue = FALSE;
+		  }
+		}
+	      }
+	      if (initialValue) {
+		SETValue = TRUE;
+	      }
+	      fprintf(fp, "%c%s_SET%i ",initialValue?' ':'!', signals[input]->name, set_counter);
+	      set_counter++;
+	    }
+	  }
+	} else {
+	  if (cur_region->cover[0] != 'E') { //if don't care?
 	    initialValue = TRUE;
 	    for (j = 0; j < nsignals; j++) {
-	      if (cur_cover->cover[j] == '0') {
+	      if (cur_region->cover[j] == '0') { //only include signal into cover if 1 or 0
 		if (startstate[j] == '1') {
 		  initialValue = FALSE;
 		}
 	      }
-	      if (cur_cover->cover[j] == '1') { 
+	      if (cur_region->cover[j] == '1') { //only include signal into cover if 1 or 0
 		if (startstate[j] == '0') {
 		  initialValue = FALSE;
 		}
@@ -395,46 +407,46 @@ print_WC_standard_gate_initialization(FILE *fp, signalADT *signals, regionADT *r
 	    if (initialValue) {
 	      SETValue = TRUE;
 	    }
-	    fprintf(fp, "    %s_SET%i = %c;\n", signals[input]->name, set_counter, initialValue?'1':'0');
+	    fprintf(fp, "%c%s_SET%i ",initialValue?' ':'!', signals[input]->name, set_counter);
 	    set_counter++;
 	  }
 	}
-      } else {
-	if (cur_region->cover[0] != 'E') { //if don't care?
-	  initialValue = TRUE;
-	  for (j = 0; j < nsignals; j++) {
-	    if (cur_region->cover[j] == '0') { //only include signal into cover if 1 or 0
-	      if (startstate[j] == '1') {
-		initialValue = FALSE;
-	      }
-	    }
-	    if (cur_region->cover[j] == '1') { //only include signal into cover if 1 or 0
-	      if (startstate[j] == '0') {
-		initialValue = FALSE;
-	      }
-	    }
-	  }
-	  if (initialValue) {
-	    SETValue = TRUE;
-	  }
-	  fprintf(fp, "    %s_SET%i = %c;\n", signals[input]->name, set_counter, initialValue?'1':'0');
-	  set_counter++;
-	}
       }
-    }
-    for (cur_region = regions[i+1]; cur_region; cur_region = cur_region->link) { //once with i for set
-      if (cur_region->covers && cur_region->covers->cover) {
-	for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
-	     cur_cover=cur_cover->link) {
-	  if (cur_cover->cover[0] != 'E') { //if don't care?
+      for (cur_region = regions[i+1]; cur_region; cur_region = cur_region->link) { //once with i for set
+	if (cur_region->covers && cur_region->covers->cover) {
+	  for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
+	       cur_cover=cur_cover->link) {
+	    if (cur_cover->cover[0] != 'E') { //if don't care?
+	      initialValue = TRUE;
+	      for (j = 0; j < nsignals; j++) {
+		if (cur_cover->cover[j] == '0') {
+		  if (startstate[j] == '1') {
+		    initialValue = FALSE;
+		  }
+		}
+		if (cur_cover->cover[j] == '1') { 
+		  if (startstate[j] == '0') {
+		    initialValue = FALSE;
+		  }
+		}
+	      }
+	      if (initialValue) {
+		RESETValue = FALSE;
+	      }
+	      fprintf(fp, "%c%s_RESET%i ",initialValue?' ':'!', signals[input]->name, set_counter);
+	      reset_counter++;
+	    }
+	  }
+	} else {
+	  if (cur_region->cover[0] != 'E') { //if don't care?
 	    initialValue = TRUE;
 	    for (j = 0; j < nsignals; j++) {
-	      if (cur_cover->cover[j] == '0') {
+	      if (cur_region->cover[j] == '0') { //only include signal into cover if 1 or 0
 		if (startstate[j] == '1') {
 		  initialValue = FALSE;
 		}
 	      }
-	      if (cur_cover->cover[j] == '1') { 
+	      if (cur_region->cover[j] == '1') { //only include signal into cover if 1 or 0
 		if (startstate[j] == '0') {
 		  initialValue = FALSE;
 		}
@@ -443,46 +455,25 @@ print_WC_standard_gate_initialization(FILE *fp, signalADT *signals, regionADT *r
 	    if (initialValue) {
 	      RESETValue = FALSE;
 	    }
-	    fprintf(fp, "    %s_RESET%i = %c;\n", signals[input]->name, reset_counter, initialValue?'1':'0');
+	    fprintf(fp, "%c%s_RESET%i ",initialValue?' ':'!', signals[input]->name, set_counter);
 	    reset_counter++;
 	  }
 	}
-      } else {
-	if (cur_region->cover[0] != 'E') { //if don't care?
-	  initialValue = TRUE;
-	  for (j = 0; j < nsignals; j++) {
-	    if (cur_region->cover[j] == '0') { //only include signal into cover if 1 or 0
-	      if (startstate[j] == '1') {
-		initialValue = FALSE;
-	      }
-	    }
-	    if (cur_region->cover[j] == '1') { //only include signal into cover if 1 or 0
-	      if (startstate[j] == '0') {
-		initialValue = FALSE;
-	      }
-	    }
-	  }
-	  if (initialValue) {
-	    RESETValue = FALSE;
-	  }
-	  fprintf(fp, "    %s_RESET%i = %c;\n", signals[input]->name, reset_counter, initialValue?'1':'0');
-	  reset_counter++;
-	}
       }
-    }
-    if (set_counter == 2 && reset_counter == 2) { //single set and reset function
-      // do nothing
-    } else if (set_counter > 2 && reset_counter == 2){ //multiset, single reset function
-      fprintf(fp, "    %s_SET = %c;\n", signals[input]->name, SETValue?'1':'0');
-    } else if (set_counter == 2 && reset_counter > 2) { //single set, multireset functions
-      fprintf(fp, "    %s_nRESET = %c;\n", signals[input]->name, RESETValue?'1':'0');
-    } else { //multiset and multireset functions
-      fprintf(fp, "    %s_SET = %c;\n", signals[input]->name, SETValue?'1':'0');
-      fprintf(fp, "    %s_nRESET = %c;\n", signals[input]->name, RESETValue?'1':'0');
+      if (set_counter == 2 && reset_counter == 2) { //single set and reset function
+	// do nothing
+      } else if (set_counter > 2 && reset_counter == 2){ //multiset, single reset function
+	fprintf(fp, "%c%s_SET ", SETValue?' ':'!', signals[input]->name);
+      } else if (set_counter == 2 && reset_counter > 2) { //single set, multireset functions
+	fprintf(fp, "%c%s_nRESET ", SETValue?' ':'!', signals[input]->name);
+      } else { //multiset and multireset functions
+	fprintf(fp, "%c%s_SET ", SETValue?' ':'!', signals[input]->name);
+	fprintf(fp, "%c%s_nRESET ", SETValue?' ':'!', signals[input]->name);
+      }
     }
   }
   
-  fprintf(fp, "end\n\n");
+  fprintf(fp, "\n\n");
 }
 
 /*****************************************************************************/
@@ -1025,7 +1016,6 @@ print_gate_modules(FILE *fp, signalADT *signals, regionADT *regions,
     print_WC_gate_interface(fp, signals, regions, nsignals, ninpsig);
 
     if (gateLevel) {
-      print_WC_standard_gate_initialization(fp, signals, regions, nsignals, ninpsig, startstate);
       print_WC_standard_gate_production(fp, signals, regions, nsignals, ninpsig);
 
     } else {
@@ -1035,7 +1025,8 @@ print_gate_modules(FILE *fp, signalADT *signals, regionADT *regions,
 
     }
 
-    print_WC_gate_initialization(fp, signals, startstate, nsignals);
+    print_WC_gate_initialization(fp, signals, regions, nsignals, ninpsig, startstate, gateLevel);
+
     fprintf(fp, "endmodule\n\n\n");
 
 }
