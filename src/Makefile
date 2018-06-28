@@ -148,38 +148,6 @@ endif
 endif
 endif
 
-ifeq ($(HOSTNAME),jiaqi)
-  PKGINC = -I/usr/local/include -I/usr/src/linux/include
-  MDBINC =
-  MDBLIB = -lmemdb
-  PKGLIBS = -L/usr/local/lib
-endif
-
-ifeq ($(HOSTNAME),zorac.elen.utah.edu)
-  PKGINC = -I/usr/local/include
-  PKGLIBS = -L/usr/local/lib
-endif
-
-ifeq ($(HOSTNAME),wu.elen.utah.edu)
-  PKGINC = -I/usr/local/include
-  PKGLIBS = -L/usr/local/lib
-endif
-
-ifeq ($(HOSTNAME),mudd.cs.byu.edu)
-  PKGINC = -I/usr/local/include
-  PKGLIBS = -L/usr/local/lib
-endif
-
-ifeq ($(HOSTNAME),liao)
-  PKGINC = -I/usr/local/include
-  PKGLIBS = -L/usr/local/lib
-endif
-
-#ifeq ($(HOSTNAME),tang.ece.utah.edu)
-#  PKGINC = -I/home/tang/myers/BioSim/include
-#  PKGLIBS = -L/home/tang/myers/BioSim/lib64
-#endif
-
 # To add a new source file, just create the source file, cvs add it,
 # and add its name to the variable SOURCES.  The Makefile will
 # automatically treat the corresponding .o file as a target, and scan
@@ -215,7 +183,7 @@ OBJECTS = $(addsuffix .o, $(basename ${SOURCES}) gparse ctlparse tctlparse lex.y
 AllObjs = $(OBJECTS) solvecsc.o slack.o
 
 #CFLAGS = $(DEFS) $(MDBDEF) $(INC) $(MDBINC) -Wall -g
-CFLAGS = $(DEFS) $(INC) -Wall -g #-Wno-deprecated #-static
+CFLAGS = $(DEFS) $(INC) -Wall -g -s #-Wno-deprecated #-static
 Compile = $(CC) $(CFLAGS) $(BFLAG) -c#  Compile a source file.
 Command = ${Compile} $<# Compile the source file that is the first prerequisite
 liBase = $(PKGLIBS) $(XLIB) $(TCLTKLIBS) $(STATLIBS) -lm 
