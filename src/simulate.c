@@ -361,14 +361,17 @@ print_WC_gate_initialization(FILE *fp, signalADT *signals, regionADT *regions,
       bool initialValue;
       bool SETValue = FALSE;
       bool RESETValue = TRUE;
+      bool foundIt;
     
       int set_counter = 1;
       int reset_counter = 1;
       for (cur_region = regions[i]; cur_region; cur_region = cur_region->link) { //once with i for set
 	if (cur_region->covers && cur_region->covers->cover) {
+	  foundIt = FALSE;
 	  for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
 	       cur_cover=cur_cover->link) {
 	    if (cur_cover->cover[0] != 'E') { //if don't care?
+	      foundIt = TRUE;
 	      initialValue = TRUE;
 	      for (j = 0; j < nsignals; j++) {
 		if (cur_cover->cover[j] == '0') {
@@ -384,10 +387,13 @@ print_WC_gate_initialization(FILE *fp, signalADT *signals, regionADT *regions,
 	      }
 	      if (initialValue) {
 		SETValue = TRUE;
+		break;
 	      }
-	      fprintf(fp, "%c%s_SET%i ",initialValue?' ':'!', signals[input]->name, set_counter);
-	      set_counter++;
 	    }
+	  }
+	  if (foundIt) {
+	    fprintf(fp, "%c%s_SET%i ",initialValue?' ':'!', signals[input]->name, set_counter);
+	    set_counter++;
 	  }
 	} else {
 	  if (cur_region->cover[0] != 'E') { //if don't care?
@@ -414,9 +420,11 @@ print_WC_gate_initialization(FILE *fp, signalADT *signals, regionADT *regions,
       }
       for (cur_region = regions[i+1]; cur_region; cur_region = cur_region->link) { //once with i for set
 	if (cur_region->covers && cur_region->covers->cover) {
+	  foundIt = FALSE;
 	  for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
 	       cur_cover=cur_cover->link) {
 	    if (cur_cover->cover[0] != 'E') { //if don't care?
+	      foundIt=TRUE;
 	      initialValue = TRUE;
 	      for (j = 0; j < nsignals; j++) {
 		if (cur_cover->cover[j] == '0') {
@@ -432,10 +440,13 @@ print_WC_gate_initialization(FILE *fp, signalADT *signals, regionADT *regions,
 	      }
 	      if (initialValue) {
 		RESETValue = FALSE;
+		break;
 	      }
-	      fprintf(fp, "%c%s_RESET%i ",initialValue?' ':'!', signals[input]->name, set_counter);
-	      reset_counter++;
 	    }
+	  }
+	  if (foundIt) {
+	    fprintf(fp, "%c%s_RESET%i ",initialValue?' ':'!', signals[input]->name, reset_counter);
+	    reset_counter++;
 	  }
 	} else {
 	  if (cur_region->cover[0] != 'E') { //if don't care?
@@ -455,7 +466,7 @@ print_WC_gate_initialization(FILE *fp, signalADT *signals, regionADT *regions,
 	    if (initialValue) {
 	      RESETValue = FALSE;
 	    }
-	    fprintf(fp, "%c%s_RESET%i ",initialValue?' ':'!', signals[input]->name, set_counter);
+	    fprintf(fp, "%c%s_RESET%i ",initialValue?' ':'!', signals[input]->name, reset_counter);
 	    reset_counter++;
 	  }
 	}
@@ -465,10 +476,10 @@ print_WC_gate_initialization(FILE *fp, signalADT *signals, regionADT *regions,
       } else if (set_counter > 2 && reset_counter == 2){ //multiset, single reset function
 	fprintf(fp, "%c%s_SET ", SETValue?' ':'!', signals[input]->name);
       } else if (set_counter == 2 && reset_counter > 2) { //single set, multireset functions
-	fprintf(fp, "%c%s_nRESET ", SETValue?' ':'!', signals[input]->name);
+	fprintf(fp, "%c%s_nRESET ", RESETValue?' ':'!', signals[input]->name);
       } else { //multiset and multireset functions
 	fprintf(fp, "%c%s_SET ", SETValue?' ':'!', signals[input]->name);
-	fprintf(fp, "%c%s_nRESET ", SETValue?' ':'!', signals[input]->name);
+	fprintf(fp, "%c%s_nRESET ", RESETValue?' ':'!', signals[input]->name);
       }
     }
   }
@@ -501,16 +512,20 @@ print_WC_standard_gate_production(FILE *fp, signalADT *signals, regionADT *regio
         int reset_counter = 1;
         for (cur_region = regions[i]; cur_region; cur_region = cur_region->link) { //once with i for set
 	  if (cur_region->covers && cur_region->covers->cover) {
+	    firstOR = TRUE;
 	    for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
 		 cur_cover=cur_cover->link) {
 	      if (cur_cover->cover[0] != 'E') { //if don't care?
-
-                fprintf(fp, "assign %s_SET%i = ", signals[input]->name, set_counter);
-                set_counter++;
-
+		if (firstOR) {
+		  fprintf(fp, "assign %s_SET%i = ", signals[input]->name, set_counter);
+		  set_counter++;
+		  firstOR = FALSE;
+		} else {
+		  fprintf(fp, " | ");
+		}
+		fprintf(fp,"(");
                 firstAND = TRUE;
                 for (j = 0; j < nsignals; j++) {
-
                     if (cur_cover->cover[j] == '0') { //only include signal into cover if 1 or 0
                         if (!firstAND) fprintf(fp, " & ");
                         fprintf(fp, "~%s", signals[j]->name);
@@ -524,9 +539,10 @@ print_WC_standard_gate_production(FILE *fp, signalADT *signals, regionADT *regio
                         SET = TRUE;
                     }
                 }
-                fprintf(fp, ";\n");
+		fprintf(fp,")");
 	      }
 	    }
+	    if (!firstOR) fprintf(fp, ";\n");
 	  } else {
             if (cur_region->cover[0] != 'E') { //if don't care?
 
@@ -556,13 +572,18 @@ print_WC_standard_gate_production(FILE *fp, signalADT *signals, regionADT *regio
 
         for (cur_region = regions[i + 1]; cur_region; cur_region = cur_region->link) { //once with i for reset
 	  if (cur_region->covers && cur_region->covers->cover) {
+	    firstOR = TRUE;
 	    for (cur_cover=cur_region->covers;cur_cover && cur_cover->cover;
 		 cur_cover=cur_cover->link) {
 	      if (cur_cover->cover[0] != 'E') { //if don't care?
-
-                fprintf(fp, "assign %s_RESET%i = ", signals[input]->name, reset_counter);
-                reset_counter++;
-
+		if (firstOR) {
+		  fprintf(fp, "assign %s_RESET%i = ", signals[input]->name, reset_counter);
+		  reset_counter++;
+		  firstOR = FALSE;
+		} else {
+		  fprintf(fp, " | ");
+		}
+		fprintf(fp,"(");
                 firstAND = TRUE;
                 for (j = 0; j < nsignals; j++) {
                     if (cur_cover->cover[j] == '0') { //only include signal into cover if 1 or 0
@@ -578,9 +599,10 @@ print_WC_standard_gate_production(FILE *fp, signalADT *signals, regionADT *regio
                         RESET = TRUE;
                     }
                 }
-                fprintf(fp, ";\n");
+		fprintf(fp,")");
 	      }
 	    }
+	    if (!firstOR) fprintf(fp, ";\n");
 	  } else {
             if (cur_region->cover[0] != 'E') { //if don't care?
 
@@ -893,10 +915,10 @@ print_WC_gate_interface(FILE *fp, signalADT *signals, regionADT *regions,
     int i;
     fprintf(fp, "module ");
     for (i = 0; i < nsignals; i++) {
-        fprintf(fp, "%s", signals[i]->name);
+        fprintf(fp, "%s_", signals[i]->name);
 
     }
-    fprintf(fp, "_net(");
+    fprintf(fp, "net(");
     for (i = 0; i < nsignals; i++) {
         if (i < nsignals - 1)
             fprintf(fp, "%s, ", signals[i]->name);
