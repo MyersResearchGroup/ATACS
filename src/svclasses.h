@@ -15,6 +15,7 @@
 #include <values.h> // for MAXINT
 #endif
 #endif
+#include <climits>
 
 #include "CTextTel.h"
 
