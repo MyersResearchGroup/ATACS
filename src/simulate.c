@@ -194,6 +194,7 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
 
         regionADT cur_region;
 	bool OPEN;
+	bool SET = FALSE;
 	
         firstOR = TRUE;
         fprintf(fp, "assign %s = ", signals[sig]->name);
@@ -206,6 +207,7 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
                 firstOR = FALSE;
                 firstAND = TRUE;
 		OPEN = FALSE;
+		SET = TRUE;
                 for (j = 0; j < nsignals; j++) {
                     if (!OPEN)
                         fprintf(fp, "(");
@@ -232,6 +234,7 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
                 firstOR = FALSE;
                 firstAND = TRUE;
 		OPEN = FALSE;
+		SET = TRUE;
                 for (j = 0; j < nsignals; j++) {
                     if (!OPEN)
                         fprintf(fp, "(");
@@ -261,7 +264,7 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
 		 cur_cover=cur_cover->link) {
 	      if (cur_cover->cover[0] != 'E') { //if don't care?
                 if (!firstOR) fprintf(fp, " & ");
-		else fprintf(fp, " | ");
+		else if (SET) fprintf(fp, " | ");
                 firstOR = FALSE;
                 firstAND = TRUE;
 		OPEN = FALSE;
@@ -290,7 +293,7 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
 	  } else {
             if (cur_region->cover[0] != 'E') { //if don't care?
                 if (!firstOR) fprintf(fp, " & ");
-		else fprintf(fp, " | ");
+		else if (SET) fprintf(fp, " | ");
                 firstOR = FALSE;
                 firstAND = TRUE;
 		OPEN = FALSE;
@@ -317,7 +320,7 @@ print_WC_gate_production(FILE *fp, signalADT *signals, regionADT *regions,
             }
 	  }
         }
-	if (RESET) {
+	if (RESET && SET) {
 	  fprintf(fp, " & %s", signals[sig]->name); //& SIG
 	}
         fprintf(fp, ";\n");
