@@ -43,6 +43,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Observable;
@@ -95,6 +96,7 @@ import edu.utah.ece.async.ibiosim.gui.synthesisView.SynthesisView;
 import edu.utah.ece.async.ibiosim.gui.synthesisView.SynthesisViewATACS;
 import edu.utah.ece.async.ibiosim.gui.util.FileTree;
 import edu.utah.ece.async.ibiosim.gui.util.Log;
+import edu.utah.ece.async.ibiosim.gui.util.OSXHandlers;
 import edu.utah.ece.async.ibiosim.gui.util.Utility;
 import edu.utah.ece.async.ibiosim.gui.util.preferences.EditPreferences;
 import edu.utah.ece.async.ibiosim.gui.util.preferences.PreferencesDialog;
@@ -132,10 +134,15 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 	 * This is the constructor for the Proj class. It initializes all the input
 	 * fields, puts them on panels, adds the panels to the frame, and then
 	 * displays the frame.
+	 * @throws InstantiationException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws NoSuchMethodException 
+	 * @throws ClassNotFoundException 
 	 * 
 	 * @throws Exception
 	 */
-	public atacsGui() {
+	public atacsGui() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 		super();
 		Thread.setDefaultUncaughtExceptionHandler(new Utility.UncaughtExceptionHandler());
 		ENVVAR = System.getenv("ATACSGUI");
@@ -581,7 +588,8 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 		help.add(manual);
 		help.add(bugReport);
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac os")) {
-			OSXSetup();
+			OSXHandlers osxHandlers = new OSXHandlers(this);
+			osxHandlers.addEventHandlers();
 		} else {
 			edit.addSeparator();
 			edit.add(pref);
@@ -714,7 +722,7 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 	}
 
 	// TODO: keeper
-	private void about() {
+	public void about() {
 		final JFrame f = new JFrame("About");
 		JLabel name;
 		JLabel version;
@@ -4085,8 +4093,13 @@ public class atacsGui extends Gui implements Observer, MouseListener, ActionList
 
 	/**
 	 * This is the main method. It excecutes the BioSim GUI FrontEnd program.
+	 * @throws InstantiationException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws NoSuchMethodException 
+	 * @throws ClassNotFoundException 
 	 */
-	public static void main(String args[]) {
+	public static void main(String args[]) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 		String message = "";
 
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac os")) {
