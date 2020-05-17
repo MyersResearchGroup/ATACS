@@ -1,19 +1,19 @@
-/* A Bison parser, made by GNU Bison 2.7.12-4996.  */
+/* A Bison parser, made by GNU Bison 3.0.2.  */
 
 /* Bison implementation for Yacc-like parsers in C
-   
-      Copyright (C) 1984, 1989-1990, 2000-2013 Free Software Foundation, Inc.
-   
+
+   Copyright (C) 1984, 1989-1990, 2000-2013 Free Software Foundation, Inc.
+
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
-   
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
@@ -26,7 +26,7 @@
    special exception, which will cause the skeleton and the resulting
    Bison output files to be licensed under the GNU General Public
    License without this special exception.
-   
+
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
@@ -44,7 +44,7 @@
 #define YYBISON 1
 
 /* Bison version.  */
-#define YYBISON_VERSION "2.7.12-4996"
+#define YYBISON_VERSION "3.0.2"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -63,14 +63,14 @@
 #define yyparse         gparse
 #define yylex           glex
 #define yyerror         gerror
-#define yylval          glval
-#define yychar          gchar
 #define yydebug         gdebug
 #define yynerrs         gnerrs
 
+#define yylval          glval
+#define yychar          gchar
+
 /* Copy the first part of user declarations.  */
-/* Line 371 of yacc.c  */
-#line 1 "gparse.y"
+#line 1 "gparse.y" /* yacc.c:339  */
 
 #define YYSTYPE Node_Ptr
 #include "struct.h"
@@ -89,14 +89,13 @@
   
 #include "glex.c"
 
-/* Line 371 of yacc.c  */
-#line 94 "gparse.c"
+#line 93 "gparse.c" /* yacc.c:339  */
 
-# ifndef YY_NULL
+# ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
-#   define YY_NULL nullptr
+#   define YY_NULLPTR nullptr
 #  else
-#   define YY_NULL 0
+#   define YY_NULLPTR 0
 #  endif
 # endif
 
@@ -112,7 +111,7 @@
    by #include "gparse.h".  */
 #ifndef YY_G_GPARSE_H_INCLUDED
 # define YY_G_GPARSE_H_INCLUDED
-/* Enabling traces.  */
+/* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
 #endif
@@ -120,126 +119,112 @@
 extern int gdebug;
 #endif
 
-/* Tokens.  */
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-   /* Put the tokens into the symbol table, so that GDB and other debuggers
-      know about them.  */
-   enum yytokentype {
-     IDIV = 258,
-     MINF = 259,
-     MAXF = 260,
-     FLOOR = 261,
-     CEIL = 262,
-     COMMENTS = 263,
-     ID = 264,
-     INPUTS = 265,
-     OUTPUTS = 266,
-     INTERNAL = 267,
-     GRAPH = 268,
-     END = 269,
-     INTEGER = 270,
-     MARKING = 271,
-     NAME = 272,
-     INIT_STATE = 273,
-     DUMMYS = 274,
-     ATACS = 275,
-     DISABLE = 276,
-     NOT = 277,
-     VERIFY = 278,
-     SEARCH = 279,
-     REAL = 280,
-     INF = 281,
-     KEEPS = 282,
-     NONINPS = 283,
-     ABSTRACTS = 284,
-     CONTINUOUS = 285,
-     RATES = 286,
-     PROPERTY = 287,
-     INVARIANTS = 288,
-     ENABLINGS = 289,
-     ASSIGNS = 290,
-     RATE_ASSIGNS = 291,
-     DELAY_ASSIGNS = 292,
-     PRIORITY_ASSIGNS = 293,
-     BOOL_ASSIGNS = 294,
-     INT_ASSIGNS = 295,
-     BOOL_FALSE = 296,
-     BOOL_TRUE = 297,
-     ASSIGN = 298,
-     VARIABLES = 299,
-     INITRATES = 300,
-     INITVALS = 301,
-     INITINTS = 302,
-     Pr = 303,
-     Ss = 304,
-     AU = 305,
-     EU = 306,
-     EG = 307,
-     EF = 308,
-     AG = 309,
-     AF = 310,
-     PG = 311,
-     PF = 312,
-     PU = 313,
-     PX = 314,
-     INTEGERS = 315,
-     UNIFORM = 316,
-     NORMAL = 317,
-     EXPONENTIAL = 318,
-     GAMMA = 319,
-     LOGNORMAL = 320,
-     CHISQ = 321,
-     LAPLACE = 322,
-     CAUCHY = 323,
-     RAYLEIGH = 324,
-     POISSON = 325,
-     BINOMIAL = 326,
-     BERNOULLI = 327,
-     AND = 328,
-     OR = 329,
-     XOR = 330,
-     IMPLIC = 331,
-     TRANS_RATES = 332,
-     FAILTRANS = 333,
-     INT = 334,
-     BIT = 335,
-     RATE = 336,
-     BOOL = 337,
-     NONDISABLING = 338
-   };
+  enum yytokentype
+  {
+    IDIV = 258,
+    MINF = 259,
+    MAXF = 260,
+    FLOOR = 261,
+    CEIL = 262,
+    COMMENTS = 263,
+    ID = 264,
+    INPUTS = 265,
+    OUTPUTS = 266,
+    INTERNAL = 267,
+    GRAPH = 268,
+    END = 269,
+    INTEGER = 270,
+    MARKING = 271,
+    NAME = 272,
+    INIT_STATE = 273,
+    DUMMYS = 274,
+    ATACS = 275,
+    DISABLE = 276,
+    NOT = 277,
+    VERIFY = 278,
+    SEARCH = 279,
+    REAL = 280,
+    INF = 281,
+    KEEPS = 282,
+    NONINPS = 283,
+    ABSTRACTS = 284,
+    CONTINUOUS = 285,
+    RATES = 286,
+    PROPERTY = 287,
+    INVARIANTS = 288,
+    ENABLINGS = 289,
+    ASSIGNS = 290,
+    RATE_ASSIGNS = 291,
+    DELAY_ASSIGNS = 292,
+    PRIORITY_ASSIGNS = 293,
+    BOOL_ASSIGNS = 294,
+    INT_ASSIGNS = 295,
+    BOOL_FALSE = 296,
+    BOOL_TRUE = 297,
+    ASSIGN = 298,
+    VARIABLES = 299,
+    INITRATES = 300,
+    INITVALS = 301,
+    INITINTS = 302,
+    Pr = 303,
+    Ss = 304,
+    AU = 305,
+    EU = 306,
+    EG = 307,
+    EF = 308,
+    AG = 309,
+    AF = 310,
+    PG = 311,
+    PF = 312,
+    PU = 313,
+    PX = 314,
+    INTEGERS = 315,
+    UNIFORM = 316,
+    NORMAL = 317,
+    EXPONENTIAL = 318,
+    GAMMA = 319,
+    LOGNORMAL = 320,
+    CHISQ = 321,
+    LAPLACE = 322,
+    CAUCHY = 323,
+    RAYLEIGH = 324,
+    POISSON = 325,
+    BINOMIAL = 326,
+    BERNOULLI = 327,
+    AND = 328,
+    OR = 329,
+    XOR = 330,
+    IMPLIC = 331,
+    TRANS_RATES = 332,
+    FAILTRANS = 333,
+    INT = 334,
+    BIT = 335,
+    RATE = 336,
+    BOOL = 337,
+    NONDISABLING = 338
+  };
 #endif
 
-
+/* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef int YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
-# define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 #endif
 
+
 extern YYSTYPE glval;
 
-#ifdef YYPARSE_PARAM
-#if defined __STDC__ || defined __cplusplus
-int gparse (void *YYPARSE_PARAM);
-#else
-int gparse ();
-#endif
-#else /* ! YYPARSE_PARAM */
-#if defined __STDC__ || defined __cplusplus
 int gparse (void);
-#else
-int gparse ();
-#endif
-#endif /* ! YYPARSE_PARAM */
 
 #endif /* !YY_G_GPARSE_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-/* Line 390 of yacc.c  */
-#line 243 "gparse.c"
+#line 228 "gparse.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -253,11 +238,8 @@ typedef unsigned char yytype_uint8;
 
 #ifdef YYTYPE_INT8
 typedef YYTYPE_INT8 yytype_int8;
-#elif (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
-typedef signed char yytype_int8;
 #else
-typedef short int yytype_int8;
+typedef signed char yytype_int8;
 #endif
 
 #ifdef YYTYPE_UINT16
@@ -277,8 +259,7 @@ typedef short int yytype_int16;
 #  define YYSIZE_T __SIZE_TYPE__
 # elif defined size_t
 #  define YYSIZE_T size_t
-# elif ! defined YYSIZE_T && (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+# elif ! defined YYSIZE_T
 #  include <stddef.h> /* INFRINGES ON USER NAME SPACE */
 #  define YYSIZE_T size_t
 # else
@@ -300,11 +281,30 @@ typedef short int yytype_int16;
 # endif
 #endif
 
-#ifndef __attribute__
-/* This feature is available in gcc versions 2.5 and later.  */
-# if (! defined __GNUC__ || __GNUC__ < 2 \
-      || (__GNUC__ == 2 && __GNUC_MINOR__ < 5))
-#  define __attribute__(Spec) /* empty */
+#ifndef YY_ATTRIBUTE
+# if (defined __GNUC__                                               \
+      && (2 < __GNUC__ || (__GNUC__ == 2 && 96 <= __GNUC_MINOR__)))  \
+     || defined __SUNPRO_C && 0x5110 <= __SUNPRO_C
+#  define YY_ATTRIBUTE(Spec) __attribute__(Spec)
+# else
+#  define YY_ATTRIBUTE(Spec) /* empty */
+# endif
+#endif
+
+#ifndef YY_ATTRIBUTE_PURE
+# define YY_ATTRIBUTE_PURE   YY_ATTRIBUTE ((__pure__))
+#endif
+
+#ifndef YY_ATTRIBUTE_UNUSED
+# define YY_ATTRIBUTE_UNUSED YY_ATTRIBUTE ((__unused__))
+#endif
+
+#if !defined _Noreturn \
+     && (!defined __STDC_VERSION__ || __STDC_VERSION__ < 201112)
+# if defined _MSC_VER && 1200 <= _MSC_VER
+#  define _Noreturn __declspec (noreturn)
+# else
+#  define _Noreturn YY_ATTRIBUTE ((__noreturn__))
 # endif
 #endif
 
@@ -315,24 +315,25 @@ typedef short int yytype_int16;
 # define YYUSE(E) /* empty */
 #endif
 
+#if defined __GNUC__ && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
+/* Suppress an incorrect diagnostic about yylval being uninitialized.  */
+# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN \
+    _Pragma ("GCC diagnostic push") \
+    _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")\
+    _Pragma ("GCC diagnostic ignored \"-Wmaybe-uninitialized\"")
+# define YY_IGNORE_MAYBE_UNINITIALIZED_END \
+    _Pragma ("GCC diagnostic pop")
+#else
+# define YY_INITIAL_VALUE(Value) Value
+#endif
+#ifndef YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+# define YY_IGNORE_MAYBE_UNINITIALIZED_END
+#endif
+#ifndef YY_INITIAL_VALUE
+# define YY_INITIAL_VALUE(Value) /* Nothing. */
+#endif
 
-/* Identity function, used to suppress warnings about constant conditions.  */
-#ifndef lint
-# define YYID(N) (N)
-#else
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
-static int
-YYID (int yyi)
-#else
-static int
-YYID (yyi)
-    int yyi;
-#endif
-{
-  return yyi;
-}
-#endif
 
 #if ! defined yyoverflow || YYERROR_VERBOSE
 
@@ -351,8 +352,7 @@ YYID (yyi)
 #    define alloca _alloca
 #   else
 #    define YYSTACK_ALLOC alloca
-#    if ! defined _ALLOCA_H && ! defined EXIT_SUCCESS && (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+#    if ! defined _ALLOCA_H && ! defined EXIT_SUCCESS
 #     include <stdlib.h> /* INFRINGES ON USER NAME SPACE */
       /* Use EXIT_SUCCESS as a witness for stdlib.h.  */
 #     ifndef EXIT_SUCCESS
@@ -364,8 +364,8 @@ YYID (yyi)
 # endif
 
 # ifdef YYSTACK_ALLOC
-   /* Pacify GCC's `empty if-body' warning.  */
-#  define YYSTACK_FREE(Ptr) do { /* empty */; } while (YYID (0))
+   /* Pacify GCC's 'empty if-body' warning.  */
+#  define YYSTACK_FREE(Ptr) do { /* empty */; } while (0)
 #  ifndef YYSTACK_ALLOC_MAXIMUM
     /* The OS might guarantee only one guard page at the bottom of the stack,
        and a page size can be as small as 4096 bytes.  So we cannot safely
@@ -381,7 +381,7 @@ YYID (yyi)
 #  endif
 #  if (defined __cplusplus && ! defined EXIT_SUCCESS \
        && ! ((defined YYMALLOC || defined malloc) \
-	     && (defined YYFREE || defined free)))
+             && (defined YYFREE || defined free)))
 #   include <stdlib.h> /* INFRINGES ON USER NAME SPACE */
 #   ifndef EXIT_SUCCESS
 #    define EXIT_SUCCESS 0
@@ -389,15 +389,13 @@ YYID (yyi)
 #  endif
 #  ifndef YYMALLOC
 #   define YYMALLOC malloc
-#   if ! defined malloc && ! defined EXIT_SUCCESS && (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+#   if ! defined malloc && ! defined EXIT_SUCCESS
 void *malloc (YYSIZE_T); /* INFRINGES ON USER NAME SPACE */
 #   endif
 #  endif
 #  ifndef YYFREE
 #   define YYFREE free
-#   if ! defined free && ! defined EXIT_SUCCESS && (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+#   if ! defined free && ! defined EXIT_SUCCESS
 void free (void *); /* INFRINGES ON USER NAME SPACE */
 #   endif
 #  endif
@@ -407,7 +405,7 @@ void free (void *); /* INFRINGES ON USER NAME SPACE */
 
 #if (! defined yyoverflow \
      && (! defined __cplusplus \
-	 || (defined YYSTYPE_IS_TRIVIAL && YYSTYPE_IS_TRIVIAL)))
+         || (defined YYSTYPE_IS_TRIVIAL && YYSTYPE_IS_TRIVIAL)))
 
 /* A type that is properly aligned for any stack member.  */
 union yyalloc
@@ -432,16 +430,16 @@ union yyalloc
    elements in the stack, and YYPTR gives the new location of the
    stack.  Advance YYPTR to a properly aligned location for the next
    stack.  */
-# define YYSTACK_RELOCATE(Stack_alloc, Stack)				\
-    do									\
-      {									\
-	YYSIZE_T yynewbytes;						\
-	YYCOPY (&yyptr->Stack_alloc, Stack, yysize);			\
-	Stack = &yyptr->Stack_alloc;					\
-	yynewbytes = yystacksize * sizeof (*Stack) + YYSTACK_GAP_MAXIMUM; \
-	yyptr += yynewbytes / sizeof (*yyptr);				\
-      }									\
-    while (YYID (0))
+# define YYSTACK_RELOCATE(Stack_alloc, Stack)                           \
+    do                                                                  \
+      {                                                                 \
+        YYSIZE_T yynewbytes;                                            \
+        YYCOPY (&yyptr->Stack_alloc, Stack, yysize);                    \
+        Stack = &yyptr->Stack_alloc;                                    \
+        yynewbytes = yystacksize * sizeof (*Stack) + YYSTACK_GAP_MAXIMUM; \
+        yyptr += yynewbytes / sizeof (*yyptr);                          \
+      }                                                                 \
+    while (0)
 
 #endif
 
@@ -460,7 +458,7 @@ union yyalloc
           for (yyi = 0; yyi < (Count); yyi++)   \
             (Dst)[yyi] = (Src)[yyi];            \
         }                                       \
-      while (YYID (0))
+      while (0)
 #  endif
 # endif
 #endif /* !YYCOPY_NEEDED */
@@ -476,17 +474,19 @@ union yyalloc
 #define YYNNTS  100
 /* YYNRULES -- Number of rules.  */
 #define YYNRULES  320
-/* YYNRULES -- Number of states.  */
+/* YYNSTATES -- Number of states.  */
 #define YYNSTATES  725
 
-/* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
+/* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
+   by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
 #define YYMAXUTOK   338
 
-#define YYTRANSLATE(YYX)						\
+#define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
 
-/* YYTRANSLATE[YYLEX] -- Bison symbol number corresponding to YYLEX.  */
+/* YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to TOKEN-NUM
+   as returned by yylex, without out-of-bounds checking.  */
 static const yytype_uint8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -526,190 +526,7 @@ static const yytype_uint8 yytranslate[] =
 };
 
 #if YYDEBUG
-/* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
-   YYRHS.  */
-static const yytype_uint16 yyprhs[] =
-{
-       0,     0,     3,     6,     8,    10,    13,    16,    19,    22,
-      26,    30,    34,    38,    43,    47,    52,    57,    62,    67,
-      72,    77,    82,    87,    92,    97,   102,   107,   112,   117,
-     122,   127,   132,   137,   142,   147,   152,   156,   163,   164,
-     172,   173,   176,   177,   180,   181,   184,   185,   188,   190,
-     191,   194,   198,   202,   203,   206,   207,   210,   211,   214,
-     215,   218,   219,   222,   223,   226,   236,   246,   255,   264,
-     272,   281,   290,   298,   300,   302,   304,   311,   318,   325,
-     332,   338,   344,   349,   354,   357,   360,   363,   365,   369,
-     372,   376,   379,   384,   388,   394,   400,   402,   406,   411,
-     416,   421,   426,   428,   430,   432,   434,   436,   438,   443,
-     449,   450,   454,   458,   461,   463,   467,   470,   472,   478,
-     484,   490,   496,   498,   504,   511,   523,   535,   546,   557,
-     567,   578,   589,   599,   603,   606,   607,   613,   620,   632,
-     644,   655,   666,   676,   687,   698,   708,   712,   715,   716,
-     722,   729,   741,   753,   764,   775,   785,   796,   807,   817,
-     821,   824,   825,   831,   841,   845,   848,   849,   857,   859,
-     862,   865,   877,   889,   890,   894,   895,   899,   903,   907,
-     909,   913,   915,   918,   925,   929,   931,   935,   939,   941,
-     944,   948,   952,   956,   960,   962,   966,   971,   976,   978,
-     981,   983,   985,   990,   997,   999,  1001,  1003,  1005,  1007,
-    1010,  1012,  1015,  1017,  1019,  1021,  1023,  1025,  1027,  1029,
-    1031,  1033,  1035,  1037,  1039,  1041,  1043,  1045,  1047,  1049,
-    1051,  1053,  1055,  1057,  1059,  1063,  1065,  1069,  1071,  1075,
-    1077,  1081,  1085,  1089,  1090,  1093,  1096,  1100,  1104,  1108,
-    1112,  1113,  1118,  1123,  1127,  1131,  1135,  1139,  1140,  1143,
-    1144,  1148,  1152,  1153,  1155,  1156,  1158,  1160,  1162,  1165,
-    1170,  1173,  1178,  1182,  1185,  1186,  1194,  1198,  1201,  1202,
-    1210,  1214,  1217,  1218,  1226,  1230,  1233,  1234,  1245,  1256,
-    1265,  1275,  1285,  1291,  1299,  1303,  1306,  1307,  1315,  1319,
-    1322,  1323,  1331,  1335,  1338,  1339,  1347,  1351,  1353,  1357,
-    1361,  1363,  1365,  1368,  1370,  1373,  1377,  1379,  1381,  1384,
-    1386
-};
-
-/* YYRHS -- A `-1'-separated list of the rules' RHS.  */
-static const yytype_int16 yyrhs[] =
-{
-     109,     0,    -1,   109,   110,    -1,   110,    -1,    84,    -1,
-      14,    84,    -1,    13,    84,    -1,   154,    84,    -1,   179,
-      84,    -1,    17,     9,    84,    -1,    10,   112,    84,    -1,
-      11,   113,    84,    -1,    12,   114,    84,    -1,    20,    44,
-     115,    84,    -1,    19,   117,    84,    -1,    20,    19,   117,
-      84,    -1,    20,    78,   118,    84,    -1,    20,    83,   119,
-      84,    -1,    20,    27,   120,    84,    -1,    20,    29,   121,
-      84,    -1,    20,    28,   122,    84,    -1,    20,    30,   123,
-      84,    -1,    20,    32,   124,    84,    -1,    20,    18,   137,
-      84,    -1,    20,    16,   139,    84,    -1,    20,    45,   142,
-      84,    -1,    20,    46,   145,    84,    -1,    20,    31,   148,
-      84,    -1,    20,    33,   151,    84,    -1,    20,    34,   181,
-      84,    -1,    20,    35,   184,    84,    -1,    20,    36,   187,
-      84,    -1,    20,    37,   190,    84,    -1,    20,    38,   193,
-      84,    -1,    20,    77,   196,    84,    -1,    20,    39,   199,
-      84,    -1,    16,   139,    84,    -1,    20,    23,    85,   204,
-      86,    84,    -1,    -1,    20,    24,   111,    85,   206,    86,
-      84,    -1,    -1,   112,     9,    -1,    -1,   113,     9,    -1,
-      -1,   114,     9,    -1,    -1,   115,     9,    -1,     9,    -1,
-      -1,   117,     9,    -1,   117,     9,    87,    -1,   117,     9,
-      88,    -1,    -1,   118,     9,    -1,    -1,   119,     9,    -1,
-      -1,   120,     9,    -1,    -1,   121,     9,    -1,    -1,   122,
-       9,    -1,    -1,   123,     9,    -1,   123,     9,    89,    88,
-      26,    90,    88,    15,    91,    -1,   123,     9,    89,    88,
-      15,    90,    88,    15,    91,    -1,   123,     9,    89,    88,
-      26,    90,    15,    91,    -1,   123,     9,    89,    88,    15,
-      90,    15,    91,    -1,   123,     9,    89,    15,    90,    15,
-      91,    -1,   123,     9,    89,    88,    26,    90,    26,    91,
-      -1,   123,     9,    89,    88,    15,    90,    26,    91,    -1,
-     123,     9,    89,    15,    90,    26,    91,    -1,   125,    -1,
-     127,    -1,   158,    -1,    48,   164,    25,    85,   126,    86,
-      -1,    48,    92,    93,    85,   126,    86,    -1,    49,   164,
-      25,    85,   125,    86,    -1,    49,    92,    93,    85,   125,
-      86,    -1,    56,   136,    94,   125,    95,    -1,    57,   136,
-      94,   125,    95,    -1,    59,    94,   125,    95,    -1,   125,
-      58,   136,   125,    -1,   131,   128,    -1,   131,   129,    -1,
-     131,   130,    -1,   131,    -1,   128,    96,   131,    -1,    96,
-     131,    -1,   129,    97,   131,    -1,    97,   131,    -1,   130,
-      88,    98,   131,    -1,    88,    98,   131,    -1,   134,   136,
-      94,   131,    95,    -1,   134,   136,    94,   158,    95,    -1,
-     132,    -1,    85,   133,    86,    -1,   131,   135,   136,   131,
-      -1,   131,   135,   136,   158,    -1,   158,   135,   136,   131,
-      -1,   158,   135,   136,   158,    -1,    54,    -1,    55,    -1,
-      52,    -1,    53,    -1,    50,    -1,    51,    -1,    89,   164,
-     158,    91,    -1,    89,   158,    90,   158,    91,    -1,    -1,
-      89,    15,    91,    -1,    89,     9,    91,    -1,    89,    91,
-      -1,     9,    -1,    85,   140,    86,    -1,   140,   141,    -1,
-     141,    -1,    99,   180,    90,   180,    98,    -1,    99,   138,
-      90,   180,    98,    -1,    99,   180,    90,   138,    98,    -1,
-      99,   138,    90,   138,    98,    -1,   138,    -1,    99,   138,
-      92,    15,    98,    -1,    99,   138,    92,    88,    15,    98,
-      -1,    99,   138,    92,    89,    88,    26,    90,    88,    15,
-      91,    98,    -1,    99,   138,    92,    89,    88,    15,    90,
-      88,    15,    91,    98,    -1,    99,   138,    92,    89,    88,
-      26,    90,    15,    91,    98,    -1,    99,   138,    92,    89,
-      88,    15,    90,    15,    91,    98,    -1,    99,   138,    92,
-      89,    15,    90,    15,    91,    98,    -1,    99,   138,    92,
-      89,    88,    26,    90,    26,    91,    98,    -1,    99,   138,
-      92,    89,    88,    15,    90,    26,    91,    98,    -1,    99,
-     138,    92,    89,    15,    90,    26,    91,    98,    -1,    85,
-     143,    86,    -1,   143,   144,    -1,    -1,    99,   116,    92,
-      15,    98,    -1,    99,   116,    92,    88,    15,    98,    -1,
-      99,   116,    92,    89,    88,    26,    90,    88,    15,    91,
-      98,    -1,    99,   116,    92,    89,    88,    15,    90,    88,
-      15,    91,    98,    -1,    99,   116,    92,    89,    88,    26,
-      90,    15,    91,    98,    -1,    99,   116,    92,    89,    88,
-      15,    90,    15,    91,    98,    -1,    99,   116,    92,    89,
-      15,    90,    15,    91,    98,    -1,    99,   116,    92,    89,
-      88,    26,    90,    26,    91,    98,    -1,    99,   116,    92,
-      89,    88,    15,   100,    26,    91,    98,    -1,    99,   116,
-      92,    89,    15,    90,    26,    91,    98,    -1,    85,   146,
-      86,    -1,   146,   147,    -1,    -1,    99,   116,    92,    15,
-      98,    -1,    99,   116,    92,    88,    15,    98,    -1,    99,
-     116,    92,    89,    88,    26,    90,    88,    15,    91,    98,
-      -1,    99,   116,    92,    89,    88,    15,    90,    88,    15,
-      91,    98,    -1,    99,   116,    92,    89,    88,    26,    90,
-      15,    91,    98,    -1,    99,   116,    92,    89,    88,    15,
-      90,    15,    91,    98,    -1,    99,   116,    92,    89,    15,
-      90,    15,    91,    98,    -1,    99,   116,    92,    89,    88,
-      26,    90,    26,    91,    98,    -1,    99,   116,    92,    89,
-      88,    15,    90,    26,    91,    98,    -1,    99,   116,    92,
-      89,    15,    90,    26,    91,    98,    -1,    85,   149,    86,
-      -1,   149,   150,    -1,    -1,    99,   138,    92,    15,    98,
-      -1,    99,   138,    92,    89,    15,    90,    15,    91,    98,
-      -1,    85,   152,    86,    -1,   152,   153,    -1,    -1,    99,
-     138,    92,    89,   168,    91,    98,    -1,   155,    -1,   155,
-     179,    -1,   179,   179,    -1,   179,   179,    20,   156,   157,
-     173,   174,   175,   176,   177,   178,    -1,   179,   179,    20,
-     156,   172,   173,   174,   175,   176,   177,   178,    -1,    -1,
-      85,     9,    86,    -1,    -1,    94,   158,    95,    -1,   158,
-      97,   159,    -1,   158,    76,   159,    -1,   159,    -1,   159,
-      96,   160,    -1,   160,    -1,   101,   160,    -1,    80,    94,
-     161,    90,   161,    95,    -1,   161,   164,   161,    -1,   161,
-      -1,   161,    87,   162,    -1,   161,    88,   162,    -1,   162,
-      -1,   162,     9,    -1,   162,   102,   163,    -1,   162,   103,
-     163,    -1,   162,   104,   163,    -1,   162,   105,   163,    -1,
-     163,    -1,    94,   158,    95,    -1,    81,    94,     9,    95,
-      -1,    79,    94,   158,    95,    -1,     9,    -1,    88,   163,
-      -1,    41,    -1,    42,    -1,   165,    94,   161,    95,    -1,
-     166,    94,   161,    90,   161,    95,    -1,    15,    -1,    25,
-      -1,    26,    -1,    92,    -1,    99,    -1,    99,    92,    -1,
-      98,    -1,    98,    92,    -1,    22,    -1,    63,    -1,    66,
-      -1,    67,    -1,    68,    -1,    69,    -1,    70,    -1,    72,
-      -1,    82,    -1,     6,    -1,     7,    -1,    74,    -1,    73,
-      -1,    75,    -1,    61,    -1,    62,    -1,    64,    -1,    65,
-      -1,    71,    -1,     4,    -1,     5,    -1,     3,    -1,   167,
-     106,   170,    -1,   170,    -1,   168,   106,   158,    -1,   158,
-      -1,   169,   106,   171,    -1,   171,    -1,   138,    43,   158,
-      -1,   138,    43,   158,    -1,    94,   158,    21,    -1,    -1,
-     103,    15,    -1,   107,    15,    -1,   103,    88,    15,    -1,
-     107,    88,    15,    -1,   103,    88,    26,    -1,   107,    88,
-      26,    -1,    -1,   106,    88,    15,   107,    -1,   106,    88,
-      15,   103,    -1,   106,    15,   107,    -1,   106,    15,   103,
-      -1,   106,    26,   107,    -1,   106,    26,   103,    -1,    -1,
-      89,    15,    -1,    -1,    90,    15,    91,    -1,    90,    26,
-      91,    -1,    -1,    25,    -1,    -1,    15,    -1,   180,    -1,
-     138,    -1,     9,    87,    -1,     9,    87,   103,    15,    -1,
-       9,    88,    -1,     9,    88,   103,    15,    -1,    85,   182,
-      86,    -1,   182,   183,    -1,    -1,    99,   179,    92,    89,
-     168,    91,    98,    -1,    85,   185,    86,    -1,   185,   186,
-      -1,    -1,    99,   179,    92,    89,   167,    91,    98,    -1,
-      85,   188,    86,    -1,   188,   189,    -1,    -1,    99,   179,
-      92,    89,   169,    91,    98,    -1,    85,   191,    86,    -1,
-     191,   192,    -1,    -1,    99,   179,    92,    61,    94,    15,
-      90,    15,    95,    98,    -1,    99,   179,    92,    61,    94,
-      15,    90,    26,    95,    98,    -1,    99,   179,    92,    63,
-      94,   158,    95,    98,    -1,    99,   179,    92,    89,    15,
-      90,    15,    91,    98,    -1,    99,   179,    92,    89,    15,
-      90,    26,    91,    98,    -1,    99,   179,    92,    15,    98,
-      -1,    99,   179,    92,    89,   158,    91,    98,    -1,    85,
-     194,    86,    -1,   194,   195,    -1,    -1,    99,   179,    92,
-      89,   158,    91,    98,    -1,    85,   197,    86,    -1,   197,
-     198,    -1,    -1,    99,   179,    92,    89,   158,    91,    98,
-      -1,    85,   200,    86,    -1,   200,   201,    -1,    -1,    99,
-     179,    92,    89,   202,    91,    98,    -1,   202,   106,   203,
-      -1,   203,    -1,     9,    43,   158,    -1,   204,    90,   205,
-      -1,   205,    -1,     9,    -1,    22,     9,    -1,   180,    -1,
-      22,   180,    -1,   206,    90,   207,    -1,   207,    -1,     9,
-      -1,    22,     9,    -1,   180,    -1,    22,   180,    -1
-};
-
-/* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
+  /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
        0,    25,    25,    26,    30,    31,    32,    33,    34,    35,
@@ -786,13 +603,13 @@ static const char *const yytname[] =
   "priority_assign_set", "priority_assign", "transition_rates",
   "transition_rate_set", "transition_rate", "bool_assigns",
   "bool_assign_set", "bool_assign", "bool_ineqs", "bool_ineq", "vevents",
-  "vevent", "sevents", "sevent", YY_NULL
+  "vevent", "sevents", "sevent", YY_NULLPTR
 };
 #endif
 
 # ifdef YYPRINT
-/* YYTOKNUM[YYLEX-NUM] -- Internal token number corresponding to
-   token YYLEX-NUM.  */
+/* YYTOKNUM[NUM] -- (External) token number corresponding to the
+   (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
@@ -809,180 +626,18 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-/* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
-static const yytype_uint8 yyr1[] =
-{
-       0,   108,   109,   109,   110,   110,   110,   110,   110,   110,
-     110,   110,   110,   110,   110,   110,   110,   110,   110,   110,
-     110,   110,   110,   110,   110,   110,   110,   110,   110,   110,
-     110,   110,   110,   110,   110,   110,   110,   110,   111,   110,
-     112,   112,   113,   113,   114,   114,   115,   115,   116,   117,
-     117,   117,   117,   118,   118,   119,   119,   120,   120,   121,
-     121,   122,   122,   123,   123,   123,   123,   123,   123,   123,
-     123,   123,   123,   124,   124,   125,   125,   125,   125,   125,
-     126,   126,   126,   126,   127,   127,   127,   127,   128,   128,
-     129,   129,   130,   130,   131,   131,   131,   132,   133,   133,
-     133,   133,   134,   134,   134,   134,   135,   135,   136,   136,
-     136,   137,   137,   137,   138,   139,   140,   140,   141,   141,
-     141,   141,   141,   141,   141,   141,   141,   141,   141,   141,
-     141,   141,   141,   142,   143,   143,   144,   144,   144,   144,
-     144,   144,   144,   144,   144,   144,   145,   146,   146,   147,
-     147,   147,   147,   147,   147,   147,   147,   147,   147,   148,
-     149,   149,   150,   150,   151,   152,   152,   153,   154,   155,
-     155,   155,   155,   156,   156,   157,   157,   158,   158,   158,
-     159,   159,   160,   160,   160,   160,   161,   161,   161,   162,
-     162,   162,   162,   162,   162,   163,   163,   163,   163,   163,
-     163,   163,   163,   163,   163,   163,   163,   164,   164,   164,
-     164,   164,   165,   165,   165,   165,   165,   165,   165,   165,
-     165,   165,   165,   166,   166,   166,   166,   166,   166,   166,
-     166,   166,   166,   166,   167,   167,   168,   168,   169,   169,
-     170,   171,   172,   173,   173,   173,   173,   173,   173,   173,
-     174,   174,   174,   174,   174,   174,   174,   175,   175,   176,
-     176,   176,   177,   177,   178,   178,   179,   179,   180,   180,
-     180,   180,   181,   182,   182,   183,   184,   185,   185,   186,
-     187,   188,   188,   189,   190,   191,   191,   192,   192,   192,
-     192,   192,   192,   192,   193,   194,   194,   195,   196,   197,
-     197,   198,   199,   200,   200,   201,   202,   202,   203,   204,
-     204,   205,   205,   205,   205,   206,   206,   207,   207,   207,
-     207
-};
-
-/* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
-static const yytype_uint8 yyr2[] =
-{
-       0,     2,     2,     1,     1,     2,     2,     2,     2,     3,
-       3,     3,     3,     4,     3,     4,     4,     4,     4,     4,
-       4,     4,     4,     4,     4,     4,     4,     4,     4,     4,
-       4,     4,     4,     4,     4,     4,     3,     6,     0,     7,
-       0,     2,     0,     2,     0,     2,     0,     2,     1,     0,
-       2,     3,     3,     0,     2,     0,     2,     0,     2,     0,
-       2,     0,     2,     0,     2,     9,     9,     8,     8,     7,
-       8,     8,     7,     1,     1,     1,     6,     6,     6,     6,
-       5,     5,     4,     4,     2,     2,     2,     1,     3,     2,
-       3,     2,     4,     3,     5,     5,     1,     3,     4,     4,
-       4,     4,     1,     1,     1,     1,     1,     1,     4,     5,
-       0,     3,     3,     2,     1,     3,     2,     1,     5,     5,
-       5,     5,     1,     5,     6,    11,    11,    10,    10,     9,
-      10,    10,     9,     3,     2,     0,     5,     6,    11,    11,
-      10,    10,     9,    10,    10,     9,     3,     2,     0,     5,
-       6,    11,    11,    10,    10,     9,    10,    10,     9,     3,
-       2,     0,     5,     9,     3,     2,     0,     7,     1,     2,
-       2,    11,    11,     0,     3,     0,     3,     3,     3,     1,
-       3,     1,     2,     6,     3,     1,     3,     3,     1,     2,
-       3,     3,     3,     3,     1,     3,     4,     4,     1,     2,
-       1,     1,     4,     6,     1,     1,     1,     1,     1,     2,
-       1,     2,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     3,     1,     3,     1,     3,     1,
-       3,     3,     3,     0,     2,     2,     3,     3,     3,     3,
-       0,     4,     4,     3,     3,     3,     3,     0,     2,     0,
-       3,     3,     0,     1,     0,     1,     1,     1,     2,     4,
-       2,     4,     3,     2,     0,     7,     3,     2,     0,     7,
-       3,     2,     0,     7,     3,     2,     0,    10,    10,     8,
-       9,     9,     5,     7,     3,     2,     0,     7,     3,     2,
-       0,     7,     3,     2,     0,     7,     3,     1,     3,     3,
-       1,     1,     2,     1,     2,     3,     1,     1,     2,     1,
-       2
-};
-
-/* YYDEFACT[STATE-NAME] -- Default reduction number in state STATE-NUM.
-   Performed when YYTABLE doesn't specify something else to do.  Zero
-   means the default is an error.  */
-static const yytype_uint16 yydefact[] =
-{
-       0,   114,    40,    42,    44,     0,     0,     0,     0,    49,
-       0,     4,     0,     3,   267,     0,   168,     0,   266,   268,
-     270,     0,     0,     0,     6,     5,     0,     0,     0,     0,
-       0,     0,    49,     0,    38,    57,    61,    59,    63,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    46,     0,
-       0,     0,    53,    55,     1,     2,     7,   169,     8,   170,
-       0,     0,    41,    10,    43,    11,    45,    12,   114,     0,
-     122,     0,   117,    36,     9,    50,    14,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,   161,     0,   233,
-     231,   232,   221,   222,   198,   204,   212,   205,   206,   200,
-     201,     0,     0,   104,   105,   102,   103,   226,   227,   213,
-     228,   229,   214,   215,   216,   217,   218,   230,   219,   224,
-     223,   225,     0,     0,     0,   220,     0,     0,     0,     0,
-       0,    73,    74,    87,    96,   110,    75,   179,   181,   185,
-     188,   194,     0,     0,   166,     0,   274,     0,   278,     0,
-     282,     0,   286,     0,   296,     0,   304,     0,     0,   135,
-       0,   148,     0,   300,     0,     0,     0,   173,   269,   271,
-       0,     0,   115,   116,    51,    52,    24,     0,     0,   113,
-      23,    15,   311,     0,   313,     0,   310,     0,    58,    18,
-      62,    20,    60,    19,    64,    21,     0,    27,   207,   210,
-     208,     0,   207,     0,     0,     0,     0,     0,     0,     0,
-     199,     0,   182,    22,     0,     0,     0,    84,    85,    86,
-       0,     0,     0,     0,     0,     0,     0,   207,     0,   189,
-       0,     0,     0,     0,     0,     0,     0,    28,     0,    29,
-       0,    30,     0,    31,     0,    32,     0,    33,     0,    35,
-      47,    13,     0,    25,     0,    26,     0,    34,    54,    16,
-      56,    17,     0,   175,     0,     0,     0,   112,   111,   312,
-     314,     0,     0,   317,     0,   319,     0,   316,     0,   159,
-       0,   160,     0,   211,   209,     0,     0,     0,     0,     0,
-       0,   106,   107,   110,    97,   110,   195,     0,    89,    91,
-       0,     0,     0,     0,     0,     0,   178,   177,   180,   186,
-     187,   184,   190,   191,   192,   193,     0,     0,   164,     0,
-     165,   272,     0,   273,   276,     0,   277,   280,     0,   281,
-     284,     0,   285,   294,     0,   295,   302,     0,   303,   133,
-       0,   134,   146,     0,   147,   298,     0,   299,     0,     0,
-     243,   243,     0,     0,     0,     0,     0,     0,     0,    37,
-     309,   318,   320,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,   197,     0,   196,     0,     0,    93,    88,    90,
-       0,     0,     0,     0,     0,   202,     0,     0,     0,     0,
-       0,     0,     0,     0,    48,     0,     0,     0,   174,     0,
-       0,     0,   250,   250,   121,   119,   123,     0,     0,     0,
-     120,   118,    39,   315,     0,     0,     0,     0,   110,   110,
-       0,     0,     0,     0,     0,     0,     0,    98,    99,   100,
-     101,    92,     0,   108,    94,    95,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,   242,   176,   244,
-       0,   245,     0,     0,   257,   257,   124,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,   110,
-      77,    76,    79,    78,   183,   109,   203,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,   246,   248,   247,   249,     0,     0,
-       0,     0,   259,   259,     0,     0,     0,     0,    69,    72,
-       0,     0,     0,     0,     0,     0,   162,     0,     0,     0,
-       0,     0,   237,     0,     0,     0,     0,   235,     0,     0,
-     239,   292,     0,     0,   204,     0,     0,     0,     0,   307,
-     136,     0,     0,     0,   149,     0,     0,     0,     0,   254,
-     253,   256,   255,     0,   258,     0,   262,   262,     0,     0,
-       0,     0,     0,     0,     0,     0,    68,    71,     0,    67,
-      70,     0,     0,     0,     0,    82,    83,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,   137,     0,     0,     0,   150,     0,
-       0,     0,     0,   252,   251,     0,     0,   263,   264,   264,
-     129,   132,     0,     0,     0,     0,     0,     0,    66,    65,
-       0,    80,    81,   167,   236,   275,   240,   279,   234,   241,
-     283,   238,     0,     0,     0,     0,   293,   297,   308,   305,
-     306,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     301,   260,   261,   265,   171,   172,   128,   131,     0,   127,
-     130,     0,     0,     0,     0,   289,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,   126,   125,   163,     0,     0,   290,
-     291,   142,   145,     0,     0,     0,     0,     0,     0,   155,
-     158,     0,     0,     0,     0,     0,     0,   287,   288,   141,
-       0,   144,   140,   143,     0,   154,   157,     0,   153,   156,
-       0,   139,   138,   152,   151
-};
-
-/* YYDEFGOTO[NTERM-NUM].  */
-static const yytype_int16 yydefgoto[] =
-{
-      -1,    12,    13,    82,    21,    22,    23,   158,   395,    29,
-     165,   166,    83,    85,    84,    86,   130,   421,   422,   132,
-     217,   218,   219,   133,   134,   208,   135,   293,   221,    79,
-      14,    27,    71,    72,   160,   252,   341,   162,   254,   344,
-      88,   196,   281,   145,   236,   320,    15,    16,   263,   350,
-     136,   137,   138,   139,   140,   141,   201,   142,   143,   526,
-     523,   529,   527,   530,   351,   402,   454,   502,   556,   608,
-     654,    17,    18,   147,   238,   323,   149,   240,   326,   151,
-     242,   329,   153,   244,   332,   155,   246,   335,   164,   256,
-     347,   157,   248,   338,   538,   539,   185,   186,   276,   277
-};
-
-/* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
-   STATE-NUM.  */
 #define YYPACT_NINF -286
+
+#define yypact_value_is_default(Yystate) \
+  (!!((Yystate) == (-286)))
+
+#define YYTABLE_NINF -1
+
+#define yytable_value_is_error(Yytable_value) \
+  0
+
+  /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
+     STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
       55,   -58,  -286,  -286,  -286,   -35,    -4,     0,   109,  -286,
@@ -1060,7 +715,87 @@ static const yytype_int16 yypact[] =
      785,  -286,  -286,  -286,  -286
 };
 
-/* YYPGOTO[NTERM-NUM].  */
+  /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
+     Performed when YYTABLE does not specify something else to do.  Zero
+     means the default is an error.  */
+static const yytype_uint16 yydefact[] =
+{
+       0,   114,    40,    42,    44,     0,     0,     0,     0,    49,
+       0,     4,     0,     3,   267,     0,   168,     0,   266,   268,
+     270,     0,     0,     0,     6,     5,     0,     0,     0,     0,
+       0,     0,    49,     0,    38,    57,    61,    59,    63,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    46,     0,
+       0,     0,    53,    55,     1,     2,     7,   169,     8,   170,
+       0,     0,    41,    10,    43,    11,    45,    12,   114,     0,
+     122,     0,   117,    36,     9,    50,    14,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,   161,     0,   233,
+     231,   232,   221,   222,   198,   204,   212,   205,   206,   200,
+     201,     0,     0,   104,   105,   102,   103,   226,   227,   213,
+     228,   229,   214,   215,   216,   217,   218,   230,   219,   224,
+     223,   225,     0,     0,     0,   220,     0,     0,     0,     0,
+       0,    73,    74,    87,    96,   110,    75,   179,   181,   185,
+     188,   194,     0,     0,   166,     0,   274,     0,   278,     0,
+     282,     0,   286,     0,   296,     0,   304,     0,     0,   135,
+       0,   148,     0,   300,     0,     0,     0,   173,   269,   271,
+       0,     0,   115,   116,    51,    52,    24,     0,     0,   113,
+      23,    15,   311,     0,   313,     0,   310,     0,    58,    18,
+      62,    20,    60,    19,    64,    21,     0,    27,   207,   210,
+     208,     0,   207,     0,     0,     0,     0,     0,     0,     0,
+     199,     0,   182,    22,     0,     0,     0,    84,    85,    86,
+       0,     0,     0,     0,     0,     0,     0,   207,     0,   189,
+       0,     0,     0,     0,     0,     0,     0,    28,     0,    29,
+       0,    30,     0,    31,     0,    32,     0,    33,     0,    35,
+      47,    13,     0,    25,     0,    26,     0,    34,    54,    16,
+      56,    17,     0,   175,     0,     0,     0,   112,   111,   312,
+     314,     0,     0,   317,     0,   319,     0,   316,     0,   159,
+       0,   160,     0,   211,   209,     0,     0,     0,     0,     0,
+       0,   106,   107,   110,    97,   110,   195,     0,    89,    91,
+       0,     0,     0,     0,     0,     0,   178,   177,   180,   186,
+     187,   184,   190,   191,   192,   193,     0,     0,   164,     0,
+     165,   272,     0,   273,   276,     0,   277,   280,     0,   281,
+     284,     0,   285,   294,     0,   295,   302,     0,   303,   133,
+       0,   134,   146,     0,   147,   298,     0,   299,     0,     0,
+     243,   243,     0,     0,     0,     0,     0,     0,     0,    37,
+     309,   318,   320,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,   197,     0,   196,     0,     0,    93,    88,    90,
+       0,     0,     0,     0,     0,   202,     0,     0,     0,     0,
+       0,     0,     0,     0,    48,     0,     0,     0,   174,     0,
+       0,     0,   250,   250,   121,   119,   123,     0,     0,     0,
+     120,   118,    39,   315,     0,     0,     0,     0,   110,   110,
+       0,     0,     0,     0,     0,     0,     0,    98,    99,   100,
+     101,    92,     0,   108,    94,    95,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,   242,   176,   244,
+       0,   245,     0,     0,   257,   257,   124,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,   110,
+      77,    76,    79,    78,   183,   109,   203,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,   246,   248,   247,   249,     0,     0,
+       0,     0,   259,   259,     0,     0,     0,     0,    69,    72,
+       0,     0,     0,     0,     0,     0,   162,     0,     0,     0,
+       0,     0,   237,     0,     0,     0,     0,   235,     0,     0,
+     239,   292,     0,     0,   204,     0,     0,     0,     0,   307,
+     136,     0,     0,     0,   149,     0,     0,     0,     0,   254,
+     253,   256,   255,     0,   258,     0,   262,   262,     0,     0,
+       0,     0,     0,     0,     0,     0,    68,    71,     0,    67,
+      70,     0,     0,     0,     0,    82,    83,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,   137,     0,     0,     0,   150,     0,
+       0,     0,     0,   252,   251,     0,     0,   263,   264,   264,
+     129,   132,     0,     0,     0,     0,     0,     0,    66,    65,
+       0,    80,    81,   167,   236,   275,   240,   279,   234,   241,
+     283,   238,     0,     0,     0,     0,   293,   297,   308,   305,
+     306,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+     301,   260,   261,   265,   171,   172,   128,   131,     0,   127,
+     130,     0,     0,     0,     0,   289,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,   126,   125,   163,     0,     0,   290,
+     291,   142,   145,     0,     0,     0,     0,     0,     0,   155,
+     158,     0,     0,     0,     0,     0,     0,   287,   288,   141,
+       0,   144,   140,   143,     0,   154,   157,     0,   153,   156,
+       0,   139,   138,   152,   151
+};
+
+  /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
     -286,  -286,   844,  -286,  -286,  -286,  -286,  -286,   517,   847,
@@ -1075,10 +810,24 @@ static const yytype_int16 yypgoto[] =
     -286,  -286,  -286,  -286,  -286,   302,  -286,   641,  -286,   548
 };
 
-/* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
-   positive, shift that token.  If negative, reduce the rule which
-   number is the opposite.  If YYTABLE_NINF, syntax error.  */
-#define YYTABLE_NINF -1
+  /* YYDEFGOTO[NTERM-NUM].  */
+static const yytype_int16 yydefgoto[] =
+{
+      -1,    12,    13,    82,    21,    22,    23,   158,   395,    29,
+     165,   166,    83,    85,    84,    86,   130,   421,   422,   132,
+     217,   218,   219,   133,   134,   208,   135,   293,   221,    79,
+      14,    27,    71,    72,   160,   252,   341,   162,   254,   344,
+      88,   196,   281,   145,   236,   320,    15,    16,   263,   350,
+     136,   137,   138,   139,   140,   141,   201,   142,   143,   526,
+     523,   529,   527,   530,   351,   402,   454,   502,   556,   608,
+     654,    17,    18,   147,   238,   323,   149,   240,   326,   151,
+     242,   329,   153,   244,   332,   155,   246,   335,   164,   256,
+     347,   157,   248,   338,   538,   539,   185,   186,   276,   277
+};
+
+  /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
+     positive, shift that token.  If negative, reduce the rule whose
+     number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint16 yytable[] =
 {
       70,   131,   171,   209,   289,   211,    57,    59,   375,   203,
@@ -1181,12 +930,6 @@ static const yytype_uint16 yytable[] =
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,    51,    52,     0,     0,     0,     0,    53
 };
-
-#define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-286)))
-
-#define yytable_value_is_error(Yytable_value) \
-  YYID (0)
 
 static const yytype_int16 yycheck[] =
 {
@@ -1291,8 +1034,8 @@ static const yytype_int16 yycheck[] =
       -1,    77,    78,    -1,    -1,    -1,    -1,    83
 };
 
-/* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
-   symbol of state STATE-NUM.  */
+  /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
+     symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
        0,     9,    10,    11,    12,    13,    14,    16,    17,    19,
@@ -1370,30 +1113,92 @@ static const yytype_uint8 yystos[] =
       91,    98,    98,    98,    98
 };
 
-#define yyerrok		(yyerrstatus = 0)
-#define yyclearin	(yychar = YYEMPTY)
-#define YYEMPTY		(-2)
-#define YYEOF		0
+  /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
+static const yytype_uint8 yyr1[] =
+{
+       0,   108,   109,   109,   110,   110,   110,   110,   110,   110,
+     110,   110,   110,   110,   110,   110,   110,   110,   110,   110,
+     110,   110,   110,   110,   110,   110,   110,   110,   110,   110,
+     110,   110,   110,   110,   110,   110,   110,   110,   111,   110,
+     112,   112,   113,   113,   114,   114,   115,   115,   116,   117,
+     117,   117,   117,   118,   118,   119,   119,   120,   120,   121,
+     121,   122,   122,   123,   123,   123,   123,   123,   123,   123,
+     123,   123,   123,   124,   124,   125,   125,   125,   125,   125,
+     126,   126,   126,   126,   127,   127,   127,   127,   128,   128,
+     129,   129,   130,   130,   131,   131,   131,   132,   133,   133,
+     133,   133,   134,   134,   134,   134,   135,   135,   136,   136,
+     136,   137,   137,   137,   138,   139,   140,   140,   141,   141,
+     141,   141,   141,   141,   141,   141,   141,   141,   141,   141,
+     141,   141,   141,   142,   143,   143,   144,   144,   144,   144,
+     144,   144,   144,   144,   144,   144,   145,   146,   146,   147,
+     147,   147,   147,   147,   147,   147,   147,   147,   147,   148,
+     149,   149,   150,   150,   151,   152,   152,   153,   154,   155,
+     155,   155,   155,   156,   156,   157,   157,   158,   158,   158,
+     159,   159,   160,   160,   160,   160,   161,   161,   161,   162,
+     162,   162,   162,   162,   162,   163,   163,   163,   163,   163,
+     163,   163,   163,   163,   163,   163,   163,   164,   164,   164,
+     164,   164,   165,   165,   165,   165,   165,   165,   165,   165,
+     165,   165,   165,   166,   166,   166,   166,   166,   166,   166,
+     166,   166,   166,   166,   167,   167,   168,   168,   169,   169,
+     170,   171,   172,   173,   173,   173,   173,   173,   173,   173,
+     174,   174,   174,   174,   174,   174,   174,   175,   175,   176,
+     176,   176,   177,   177,   178,   178,   179,   179,   180,   180,
+     180,   180,   181,   182,   182,   183,   184,   185,   185,   186,
+     187,   188,   188,   189,   190,   191,   191,   192,   192,   192,
+     192,   192,   192,   192,   193,   194,   194,   195,   196,   197,
+     197,   198,   199,   200,   200,   201,   202,   202,   203,   204,
+     204,   205,   205,   205,   205,   206,   206,   207,   207,   207,
+     207
+};
 
-#define YYACCEPT	goto yyacceptlab
-#define YYABORT		goto yyabortlab
-#define YYERROR		goto yyerrorlab
+  /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
+static const yytype_uint8 yyr2[] =
+{
+       0,     2,     2,     1,     1,     2,     2,     2,     2,     3,
+       3,     3,     3,     4,     3,     4,     4,     4,     4,     4,
+       4,     4,     4,     4,     4,     4,     4,     4,     4,     4,
+       4,     4,     4,     4,     4,     4,     3,     6,     0,     7,
+       0,     2,     0,     2,     0,     2,     0,     2,     1,     0,
+       2,     3,     3,     0,     2,     0,     2,     0,     2,     0,
+       2,     0,     2,     0,     2,     9,     9,     8,     8,     7,
+       8,     8,     7,     1,     1,     1,     6,     6,     6,     6,
+       5,     5,     4,     4,     2,     2,     2,     1,     3,     2,
+       3,     2,     4,     3,     5,     5,     1,     3,     4,     4,
+       4,     4,     1,     1,     1,     1,     1,     1,     4,     5,
+       0,     3,     3,     2,     1,     3,     2,     1,     5,     5,
+       5,     5,     1,     5,     6,    11,    11,    10,    10,     9,
+      10,    10,     9,     3,     2,     0,     5,     6,    11,    11,
+      10,    10,     9,    10,    10,     9,     3,     2,     0,     5,
+       6,    11,    11,    10,    10,     9,    10,    10,     9,     3,
+       2,     0,     5,     9,     3,     2,     0,     7,     1,     2,
+       2,    11,    11,     0,     3,     0,     3,     3,     3,     1,
+       3,     1,     2,     6,     3,     1,     3,     3,     1,     2,
+       3,     3,     3,     3,     1,     3,     4,     4,     1,     2,
+       1,     1,     4,     6,     1,     1,     1,     1,     1,     2,
+       1,     2,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     3,     1,     3,     1,     3,     1,
+       3,     3,     3,     0,     2,     2,     3,     3,     3,     3,
+       0,     4,     4,     3,     3,     3,     3,     0,     2,     0,
+       3,     3,     0,     1,     0,     1,     1,     1,     2,     4,
+       2,     4,     3,     2,     0,     7,     3,     2,     0,     7,
+       3,     2,     0,     7,     3,     2,     0,    10,    10,     8,
+       9,     9,     5,     7,     3,     2,     0,     7,     3,     2,
+       0,     7,     3,     2,     0,     7,     3,     1,     3,     3,
+       1,     1,     2,     1,     2,     3,     1,     1,     2,     1,
+       2
+};
 
 
-/* Like YYERROR except do call yyerror.  This remains here temporarily
-   to ease the transition to the new meaning of YYERROR, for GCC.
-   Once GCC version 2 has supplanted version 1, this can go.  However,
-   YYFAIL appears to be in use.  Nevertheless, it is formally deprecated
-   in Bison 2.4.2's NEWS entry, where a plan to phase it out is
-   discussed.  */
+#define yyerrok         (yyerrstatus = 0)
+#define yyclearin       (yychar = YYEMPTY)
+#define YYEMPTY         (-2)
+#define YYEOF           0
 
-#define YYFAIL		goto yyerrlab
-#if defined YYFAIL
-  /* This is here to suppress warnings from the GCC cpp's
-     -Wunused-macros.  Normally we don't worry about that warning, but
-     some users do, and we want to make it easy for users to remove
-     YYFAIL uses, which will produce warnings from Bison 2.5.  */
-#endif
+#define YYACCEPT        goto yyacceptlab
+#define YYABORT         goto yyabortlab
+#define YYERROR         goto yyerrorlab
+
 
 #define YYRECOVERING()  (!!yyerrstatus)
 
@@ -1410,27 +1215,15 @@ do                                                              \
   else                                                          \
     {                                                           \
       yyerror (YY_("syntax error: cannot back up")); \
-      YYERROR;							\
-    }								\
-while (YYID (0))
+      YYERROR;                                                  \
+    }                                                           \
+while (0)
 
 /* Error token number */
-#define YYTERROR	1
-#define YYERRCODE	256
+#define YYTERROR        1
+#define YYERRCODE       256
 
 
-/* This macro is provided for backward compatibility. */
-#ifndef YY_LOCATION_PRINT
-# define YY_LOCATION_PRINT(File, Loc) ((void) 0)
-#endif
-
-
-/* YYLEX -- calling `yylex' with the right arguments.  */
-#ifdef YYLEX_PARAM
-# define YYLEX yylex (YYLEX_PARAM)
-#else
-# define YYLEX yylex ()
-#endif
 
 /* Enable debugging if requested.  */
 #if YYDEBUG
@@ -1440,40 +1233,36 @@ while (YYID (0))
 #  define YYFPRINTF fprintf
 # endif
 
-# define YYDPRINTF(Args)			\
-do {						\
-  if (yydebug)					\
-    YYFPRINTF Args;				\
-} while (YYID (0))
+# define YYDPRINTF(Args)                        \
+do {                                            \
+  if (yydebug)                                  \
+    YYFPRINTF Args;                             \
+} while (0)
 
-# define YY_SYMBOL_PRINT(Title, Type, Value, Location)			  \
-do {									  \
-  if (yydebug)								  \
-    {									  \
-      YYFPRINTF (stderr, "%s ", Title);					  \
-      yy_symbol_print (stderr,						  \
-		  Type, Value); \
-      YYFPRINTF (stderr, "\n");						  \
-    }									  \
-} while (YYID (0))
+/* This macro is provided for backward compatibility. */
+#ifndef YY_LOCATION_PRINT
+# define YY_LOCATION_PRINT(File, Loc) ((void) 0)
+#endif
 
 
-/*--------------------------------.
-| Print this symbol on YYOUTPUT.  |
-`--------------------------------*/
+# define YY_SYMBOL_PRINT(Title, Type, Value, Location)                    \
+do {                                                                      \
+  if (yydebug)                                                            \
+    {                                                                     \
+      YYFPRINTF (stderr, "%s ", Title);                                   \
+      yy_symbol_print (stderr,                                            \
+                  Type, Value); \
+      YYFPRINTF (stderr, "\n");                                           \
+    }                                                                     \
+} while (0)
 
-/*ARGSUSED*/
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+
+/*----------------------------------------.
+| Print this symbol's value on YYOUTPUT.  |
+`----------------------------------------*/
+
 static void
 yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
-#else
-static void
-yy_symbol_value_print (yyoutput, yytype, yyvaluep)
-    FILE *yyoutput;
-    int yytype;
-    YYSTYPE const * const yyvaluep;
-#endif
 {
   FILE *yyo = yyoutput;
   YYUSE (yyo);
@@ -1482,8 +1271,6 @@ yy_symbol_value_print (yyoutput, yytype, yyvaluep)
 # ifdef YYPRINT
   if (yytype < YYNTOKENS)
     YYPRINT (yyoutput, yytoknum[yytype], *yyvaluep);
-# else
-  YYUSE (yyoutput);
 # endif
   YYUSE (yytype);
 }
@@ -1493,22 +1280,11 @@ yy_symbol_value_print (yyoutput, yytype, yyvaluep)
 | Print this symbol on YYOUTPUT.  |
 `--------------------------------*/
 
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static void
 yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
-#else
-static void
-yy_symbol_print (yyoutput, yytype, yyvaluep)
-    FILE *yyoutput;
-    int yytype;
-    YYSTYPE const * const yyvaluep;
-#endif
 {
-  if (yytype < YYNTOKENS)
-    YYFPRINTF (yyoutput, "token %s (", yytname[yytype]);
-  else
-    YYFPRINTF (yyoutput, "nterm %s (", yytname[yytype]);
+  YYFPRINTF (yyoutput, "%s %s (",
+             yytype < YYNTOKENS ? "token" : "nterm", yytname[yytype]);
 
   yy_symbol_value_print (yyoutput, yytype, yyvaluep);
   YYFPRINTF (yyoutput, ")");
@@ -1519,16 +1295,8 @@ yy_symbol_print (yyoutput, yytype, yyvaluep)
 | TOP (included).                                                   |
 `------------------------------------------------------------------*/
 
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static void
 yy_stack_print (yytype_int16 *yybottom, yytype_int16 *yytop)
-#else
-static void
-yy_stack_print (yybottom, yytop)
-    yytype_int16 *yybottom;
-    yytype_int16 *yytop;
-#endif
 {
   YYFPRINTF (stderr, "Stack now");
   for (; yybottom <= yytop; yybottom++)
@@ -1539,49 +1307,42 @@ yy_stack_print (yybottom, yytop)
   YYFPRINTF (stderr, "\n");
 }
 
-# define YY_STACK_PRINT(Bottom, Top)				\
-do {								\
-  if (yydebug)							\
-    yy_stack_print ((Bottom), (Top));				\
-} while (YYID (0))
+# define YY_STACK_PRINT(Bottom, Top)                            \
+do {                                                            \
+  if (yydebug)                                                  \
+    yy_stack_print ((Bottom), (Top));                           \
+} while (0)
 
 
 /*------------------------------------------------.
 | Report that the YYRULE is going to be reduced.  |
 `------------------------------------------------*/
 
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static void
-yy_reduce_print (YYSTYPE *yyvsp, int yyrule)
-#else
-static void
-yy_reduce_print (yyvsp, yyrule)
-    YYSTYPE *yyvsp;
-    int yyrule;
-#endif
+yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule)
 {
+  unsigned long int yylno = yyrline[yyrule];
   int yynrhs = yyr2[yyrule];
   int yyi;
-  unsigned long int yylno = yyrline[yyrule];
   YYFPRINTF (stderr, "Reducing stack by rule %d (line %lu):\n",
-	     yyrule - 1, yylno);
+             yyrule - 1, yylno);
   /* The symbols being reduced.  */
   for (yyi = 0; yyi < yynrhs; yyi++)
     {
       YYFPRINTF (stderr, "   $%d = ", yyi + 1);
-      yy_symbol_print (stderr, yyrhs[yyprhs[yyrule] + yyi],
-		       &(yyvsp[(yyi + 1) - (yynrhs)])
-		       		       );
+      yy_symbol_print (stderr,
+                       yystos[yyssp[yyi + 1 - yynrhs]],
+                       &(yyvsp[(yyi + 1) - (yynrhs)])
+                                              );
       YYFPRINTF (stderr, "\n");
     }
 }
 
-# define YY_REDUCE_PRINT(Rule)		\
-do {					\
-  if (yydebug)				\
-    yy_reduce_print (yyvsp, Rule); \
-} while (YYID (0))
+# define YY_REDUCE_PRINT(Rule)          \
+do {                                    \
+  if (yydebug)                          \
+    yy_reduce_print (yyssp, yyvsp, Rule); \
+} while (0)
 
 /* Nonzero means print parse trace.  It is left uninitialized so that
    multiple parsers can coexist.  */
@@ -1595,7 +1356,7 @@ int yydebug;
 
 
 /* YYINITDEPTH -- initial size of the parser's stacks.  */
-#ifndef	YYINITDEPTH
+#ifndef YYINITDEPTH
 # define YYINITDEPTH 200
 #endif
 
@@ -1618,15 +1379,8 @@ int yydebug;
 #   define yystrlen strlen
 #  else
 /* Return the length of YYSTR.  */
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static YYSIZE_T
 yystrlen (const char *yystr)
-#else
-static YYSIZE_T
-yystrlen (yystr)
-    const char *yystr;
-#endif
 {
   YYSIZE_T yylen;
   for (yylen = 0; yystr[yylen]; yylen++)
@@ -1642,16 +1396,8 @@ yystrlen (yystr)
 #  else
 /* Copy YYSRC to YYDEST, returning the address of the terminating '\0' in
    YYDEST.  */
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static char *
 yystpcpy (char *yydest, const char *yysrc)
-#else
-static char *
-yystpcpy (yydest, yysrc)
-    char *yydest;
-    const char *yysrc;
-#endif
 {
   char *yyd = yydest;
   const char *yys = yysrc;
@@ -1681,27 +1427,27 @@ yytnamerr (char *yyres, const char *yystr)
       char const *yyp = yystr;
 
       for (;;)
-	switch (*++yyp)
-	  {
-	  case '\'':
-	  case ',':
-	    goto do_not_strip_quotes;
+        switch (*++yyp)
+          {
+          case '\'':
+          case ',':
+            goto do_not_strip_quotes;
 
-	  case '\\':
-	    if (*++yyp != '\\')
-	      goto do_not_strip_quotes;
-	    /* Fall through.  */
-	  default:
-	    if (yyres)
-	      yyres[yyn] = *yyp;
-	    yyn++;
-	    break;
+          case '\\':
+            if (*++yyp != '\\')
+              goto do_not_strip_quotes;
+            /* Fall through.  */
+          default:
+            if (yyres)
+              yyres[yyn] = *yyp;
+            yyn++;
+            break;
 
-	  case '"':
-	    if (yyres)
-	      yyres[yyn] = '\0';
-	    return yyn;
-	  }
+          case '"':
+            if (yyres)
+              yyres[yyn] = '\0';
+            return yyn;
+          }
     do_not_strip_quotes: ;
     }
 
@@ -1724,11 +1470,11 @@ static int
 yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
                 yytype_int16 *yyssp, int yytoken)
 {
-  YYSIZE_T yysize0 = yytnamerr (YY_NULL, yytname[yytoken]);
+  YYSIZE_T yysize0 = yytnamerr (YY_NULLPTR, yytname[yytoken]);
   YYSIZE_T yysize = yysize0;
   enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
   /* Internationalized format string. */
-  const char *yyformat = YY_NULL;
+  const char *yyformat = YY_NULLPTR;
   /* Arguments of yyformat. */
   char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
   /* Number of reported tokens (one for the "unexpected", one per
@@ -1736,10 +1482,6 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
   int yycount = 0;
 
   /* There are many possibilities here to consider:
-     - Assume YYFAIL is not used.  It's too flawed to consider.  See
-       <http://lists.gnu.org/archive/html/bison-patches/2009-12/msg00024.html>
-       for details.  YYERROR is fine as it does not invoke this
-       function.
      - If this state is a consistent state with a default action, then
        the only way this function was invoked is if the default action
        is an error action.  In that case, don't check for expected
@@ -1789,7 +1531,7 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
                   }
                 yyarg[yycount++] = yytname[yyx];
                 {
-                  YYSIZE_T yysize1 = yysize + yytnamerr (YY_NULL, yytname[yyx]);
+                  YYSIZE_T yysize1 = yysize + yytnamerr (YY_NULLPTR, yytname[yyx]);
                   if (! (yysize <= yysize1
                          && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
                     return 2;
@@ -1856,26 +1598,17 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
 | Release the memory associated to this symbol.  |
 `-----------------------------------------------*/
 
-/*ARGSUSED*/
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static void
 yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep)
-#else
-static void
-yydestruct (yymsg, yytype, yyvaluep)
-    const char *yymsg;
-    int yytype;
-    YYSTYPE *yyvaluep;
-#endif
 {
   YYUSE (yyvaluep);
-
   if (!yymsg)
     yymsg = "Deleting";
   YY_SYMBOL_PRINT (yymsg, yytype, yyvaluep, yylocationp);
 
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
   YYUSE (yytype);
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 }
 
 
@@ -1884,18 +1617,8 @@ yydestruct (yymsg, yytype, yyvaluep)
 /* The lookahead symbol.  */
 int yychar;
 
-
-#ifndef YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
-# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
-# define YY_IGNORE_MAYBE_UNINITIALIZED_END
-#endif
-#ifndef YY_INITIAL_VALUE
-# define YY_INITIAL_VALUE(Value) /* Nothing. */
-#endif
-
 /* The semantic value of the lookahead symbol.  */
-YYSTYPE yylval YY_INITIAL_VALUE(yyval_default);
-
+YYSTYPE yylval;
 /* Number of syntax errors so far.  */
 int yynerrs;
 
@@ -1904,35 +1627,16 @@ int yynerrs;
 | yyparse.  |
 `----------*/
 
-#ifdef YYPARSE_PARAM
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
-int
-yyparse (void *YYPARSE_PARAM)
-#else
-int
-yyparse (YYPARSE_PARAM)
-    void *YYPARSE_PARAM;
-#endif
-#else /* ! YYPARSE_PARAM */
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 int
 yyparse (void)
-#else
-int
-yyparse ()
-
-#endif
-#endif
 {
     int yystate;
     /* Number of tokens to shift before error messages enabled.  */
     int yyerrstatus;
 
     /* The stacks and their tools:
-       `yyss': related to states.
-       `yyvs': related to semantic values.
+       'yyss': related to states.
+       'yyvs': related to semantic values.
 
        Refer to the stacks through separate pointers, to allow yyoverflow
        to reallocate them elsewhere.  */
@@ -2000,23 +1704,23 @@ yyparse ()
 
 #ifdef yyoverflow
       {
-	/* Give user a chance to reallocate the stack.  Use copies of
-	   these so that the &'s don't force the real ones into
-	   memory.  */
-	YYSTYPE *yyvs1 = yyvs;
-	yytype_int16 *yyss1 = yyss;
+        /* Give user a chance to reallocate the stack.  Use copies of
+           these so that the &'s don't force the real ones into
+           memory.  */
+        YYSTYPE *yyvs1 = yyvs;
+        yytype_int16 *yyss1 = yyss;
 
-	/* Each stack pointer address is followed by the size of the
-	   data in use in that stack, in bytes.  This used to be a
-	   conditional around just the two extra args, but that might
-	   be undefined if yyoverflow is a macro.  */
-	yyoverflow (YY_("memory exhausted"),
-		    &yyss1, yysize * sizeof (*yyssp),
-		    &yyvs1, yysize * sizeof (*yyvsp),
-		    &yystacksize);
+        /* Each stack pointer address is followed by the size of the
+           data in use in that stack, in bytes.  This used to be a
+           conditional around just the two extra args, but that might
+           be undefined if yyoverflow is a macro.  */
+        yyoverflow (YY_("memory exhausted"),
+                    &yyss1, yysize * sizeof (*yyssp),
+                    &yyvs1, yysize * sizeof (*yyvsp),
+                    &yystacksize);
 
-	yyss = yyss1;
-	yyvs = yyvs1;
+        yyss = yyss1;
+        yyvs = yyvs1;
       }
 #else /* no yyoverflow */
 # ifndef YYSTACK_RELOCATE
@@ -2024,22 +1728,22 @@ yyparse ()
 # else
       /* Extend the stack our own way.  */
       if (YYMAXDEPTH <= yystacksize)
-	goto yyexhaustedlab;
+        goto yyexhaustedlab;
       yystacksize *= 2;
       if (YYMAXDEPTH < yystacksize)
-	yystacksize = YYMAXDEPTH;
+        yystacksize = YYMAXDEPTH;
 
       {
-	yytype_int16 *yyss1 = yyss;
-	union yyalloc *yyptr =
-	  (union yyalloc *) YYSTACK_ALLOC (YYSTACK_BYTES (yystacksize));
-	if (! yyptr)
-	  goto yyexhaustedlab;
-	YYSTACK_RELOCATE (yyss_alloc, yyss);
-	YYSTACK_RELOCATE (yyvs_alloc, yyvs);
+        yytype_int16 *yyss1 = yyss;
+        union yyalloc *yyptr =
+          (union yyalloc *) YYSTACK_ALLOC (YYSTACK_BYTES (yystacksize));
+        if (! yyptr)
+          goto yyexhaustedlab;
+        YYSTACK_RELOCATE (yyss_alloc, yyss);
+        YYSTACK_RELOCATE (yyvs_alloc, yyvs);
 #  undef YYSTACK_RELOCATE
-	if (yyss1 != yyssa)
-	  YYSTACK_FREE (yyss1);
+        if (yyss1 != yyssa)
+          YYSTACK_FREE (yyss1);
       }
 # endif
 #endif /* no yyoverflow */
@@ -2048,10 +1752,10 @@ yyparse ()
       yyvsp = yyvs + yysize - 1;
 
       YYDPRINTF ((stderr, "Stack size increased to %lu\n",
-		  (unsigned long int) yystacksize));
+                  (unsigned long int) yystacksize));
 
       if (yyss + yystacksize - 1 <= yyssp)
-	YYABORT;
+        YYABORT;
     }
 
   YYDPRINTF ((stderr, "Entering state %d\n", yystate));
@@ -2080,7 +1784,7 @@ yybackup:
   if (yychar == YYEMPTY)
     {
       YYDPRINTF ((stderr, "Reading a token: "));
-      yychar = YYLEX;
+      yychar = yylex ();
     }
 
   if (yychar <= YYEOF)
@@ -2145,7 +1849,7 @@ yyreduce:
   yylen = yyr2[yyn];
 
   /* If YYLEN is nonzero, implement the default value of the action:
-     `$$ = $1'.
+     '$$ = $1'.
 
      Otherwise, the following line sets YYVAL to garbage.
      This behavior is undocumented and Bison
@@ -2159,14 +1863,13 @@ yyreduce:
   switch (yyn)
     {
         case 9:
-/* Line 1787 of yacc.c  */
-#line 35 "gparse.y"
-    { free((yyvsp[(2) - (3)])); }
+#line 35 "gparse.y" /* yacc.c:1646  */
+    { free((yyvsp[-1])); }
+#line 1869 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 38:
-/* Line 1787 of yacc.c  */
-#line 65 "gparse.y"
+#line 65 "gparse.y" /* yacc.c:1646  */
     {
 		    (yyval) = Enter_IO (DUMMY_NODE, "dummy");
 		    Node_Ptr n = Enter_Place ("dummy_p");
@@ -2174,1076 +1877,1076 @@ yyreduce:
 		    Enter_Succ (n,(yyval),0,INFIN,0,(-1)*INFIN,INFIN,NULL,
 				NULL,NULL,false,0.0,1);
 		  }
+#line 1881 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 41:
-/* Line 1787 of yacc.c  */
-#line 76 "gparse.y"
+#line 76 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_IO (INPUT_NODE, (char*)(yyvsp[(2) - (2)]));
+		    (yyval) = Enter_IO (INPUT_NODE, (char*)(yyvsp[0]));
 		  }
+#line 1889 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 43:
-/* Line 1787 of yacc.c  */
-#line 83 "gparse.y"
+#line 83 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_IO (OUTPUT_NODE, (char*)(yyvsp[(2) - (2)]));
+		    (yyval) = Enter_IO (OUTPUT_NODE, (char*)(yyvsp[0]));
 		  }
+#line 1897 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 45:
-/* Line 1787 of yacc.c  */
-#line 90 "gparse.y"
+#line 90 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_IO (INTERNAL_NODE, (char*)(yyvsp[(2) - (2)]));
+		    (yyval) = Enter_IO (INTERNAL_NODE, (char*)(yyvsp[0]));
 		  }
+#line 1905 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 47:
-/* Line 1787 of yacc.c  */
-#line 97 "gparse.y"
+#line 97 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_Variable((char*)(yyvsp[(2) - (2)]));
+		    (yyval) = Enter_Variable((char*)(yyvsp[0]));
 		  }
+#line 1913 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 48:
-/* Line 1787 of yacc.c  */
-#line 103 "gparse.y"
+#line 103 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_Variable((char*)(yyvsp[(1) - (1)]));
+		    (yyval) = Enter_Variable((char*)(yyvsp[0]));
 		  }
+#line 1921 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 50:
-/* Line 1787 of yacc.c  */
-#line 110 "gparse.y"
+#line 110 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_IO (DUMMY_NODE, (char*)(yyvsp[(2) - (2)]));
+		    (yyval) = Enter_IO (DUMMY_NODE, (char*)(yyvsp[0]));
 		  }
+#line 1929 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 51:
-/* Line 1787 of yacc.c  */
-#line 114 "gparse.y"
+#line 114 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_IO (DUMMY_NODE, strcat((char*)(yyvsp[(2) - (3)]),"+"));
+		    (yyval) = Enter_IO (DUMMY_NODE, strcat((char*)(yyvsp[-1]),"+"));
 		  }
+#line 1937 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 52:
-/* Line 1787 of yacc.c  */
-#line 118 "gparse.y"
+#line 118 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_IO (DUMMY_NODE, strcat((char*)(yyvsp[(2) - (3)]),"-"));
+		    (yyval) = Enter_IO (DUMMY_NODE, strcat((char*)(yyvsp[-1]),"-"));
 		  }
+#line 1945 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 54:
-/* Line 1787 of yacc.c  */
-#line 125 "gparse.y"
+#line 125 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_FailTrans ((char*)(yyvsp[(2) - (2)]));
+		    Enter_FailTrans ((char*)(yyvsp[0]));
 		  }
+#line 1953 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 56:
-/* Line 1787 of yacc.c  */
-#line 132 "gparse.y"
+#line 132 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_NonDisabling ((char*)(yyvsp[(2) - (2)]));
+		    Enter_NonDisabling ((char*)(yyvsp[0]));
 		  }
+#line 1961 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 58:
-/* Line 1787 of yacc.c  */
-#line 139 "gparse.y"
+#line 139 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Keep ((char*)(yyvsp[(2) - (2)]));
-		    free((yyvsp[(2) - (2)]));
+		    Enter_Keep ((char*)(yyvsp[0]));
+		    free((yyvsp[0]));
 		  }
+#line 1970 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 60:
-/* Line 1787 of yacc.c  */
-#line 147 "gparse.y"
+#line 147 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Abstract ((char*)(yyvsp[(2) - (2)]));
-		    free((yyvsp[(2) - (2)]));
+		    Enter_Abstract ((char*)(yyvsp[0]));
+		    free((yyvsp[0]));
 		  }
+#line 1979 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 62:
-/* Line 1787 of yacc.c  */
-#line 155 "gparse.y"
+#line 155 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_NonInp ((char*)(yyvsp[(2) - (2)]));
-		    free((yyvsp[(2) - (2)]));
+		    Enter_NonInp ((char*)(yyvsp[0]));
+		    free((yyvsp[0]));
 		  }
+#line 1988 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 64:
-/* Line 1787 of yacc.c  */
-#line 163 "gparse.y"
+#line 163 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Cont ((char*)(yyvsp[(2) - (2)]),(-1)*INFIN,INFIN);
-		    free((yyvsp[(2) - (2)]));
+		    Enter_Cont ((char*)(yyvsp[0]),(-1)*INFIN,INFIN);
+		    free((yyvsp[0]));
 		  }
+#line 1997 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 65:
-/* Line 1787 of yacc.c  */
-#line 168 "gparse.y"
+#line 168 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Cont ((char*)(yyvsp[(2) - (9)]),(-1)*INFIN,(-1)*atoi((char*)(yyvsp[(8) - (9)])));
-		    free((yyvsp[(2) - (9)]));
-		    free((yyvsp[(8) - (9)]));
+		    Enter_Cont ((char*)(yyvsp[-7]),(-1)*INFIN,(-1)*atoi((char*)(yyvsp[-1])));
+		    free((yyvsp[-7]));
+		    free((yyvsp[-1]));
 		  }
+#line 2007 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 66:
-/* Line 1787 of yacc.c  */
-#line 174 "gparse.y"
+#line 174 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Cont ((char*)(yyvsp[(2) - (9)]),(-1)*atoi((char*)(yyvsp[(5) - (9)])),
-				(-1)*atoi((char*)(yyvsp[(8) - (9)])));
-		    free((yyvsp[(2) - (9)]));
-		    free((yyvsp[(5) - (9)]));
-		    free((yyvsp[(8) - (9)]));
+		    Enter_Cont ((char*)(yyvsp[-7]),(-1)*atoi((char*)(yyvsp[-4])),
+				(-1)*atoi((char*)(yyvsp[-1])));
+		    free((yyvsp[-7]));
+		    free((yyvsp[-4]));
+		    free((yyvsp[-1]));
 		  }
+#line 2019 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 67:
-/* Line 1787 of yacc.c  */
-#line 182 "gparse.y"
+#line 182 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Cont ((char*)(yyvsp[(2) - (8)]),(-1)*INFIN,atoi((char*)(yyvsp[(7) - (8)])));
-		    free((yyvsp[(2) - (8)]));
-		    free((yyvsp[(7) - (8)]));
+		    Enter_Cont ((char*)(yyvsp[-6]),(-1)*INFIN,atoi((char*)(yyvsp[-1])));
+		    free((yyvsp[-6]));
+		    free((yyvsp[-1]));
 		  }
+#line 2029 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 68:
-/* Line 1787 of yacc.c  */
-#line 188 "gparse.y"
+#line 188 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Cont ((char*)(yyvsp[(2) - (8)]),(-1)*atoi((char*)(yyvsp[(5) - (8)])),
-				atoi((char*)(yyvsp[(7) - (8)])));
-		    free((yyvsp[(2) - (8)]));
-		    free((yyvsp[(5) - (8)]));
-		    free((yyvsp[(7) - (8)]));
+		    Enter_Cont ((char*)(yyvsp[-6]),(-1)*atoi((char*)(yyvsp[-3])),
+				atoi((char*)(yyvsp[-1])));
+		    free((yyvsp[-6]));
+		    free((yyvsp[-3]));
+		    free((yyvsp[-1]));
 		  }
+#line 2041 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 69:
-/* Line 1787 of yacc.c  */
-#line 196 "gparse.y"
+#line 196 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Cont ((char*)(yyvsp[(2) - (7)]),atoi((char*)(yyvsp[(4) - (7)])),atoi((char*)(yyvsp[(6) - (7)])));
-		    free((yyvsp[(2) - (7)]));
-		    free((yyvsp[(4) - (7)]));
-		    free((yyvsp[(6) - (7)]));
+		    Enter_Cont ((char*)(yyvsp[-5]),atoi((char*)(yyvsp[-3])),atoi((char*)(yyvsp[-1])));
+		    free((yyvsp[-5]));
+		    free((yyvsp[-3]));
+		    free((yyvsp[-1]));
 		  }
+#line 2052 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 70:
-/* Line 1787 of yacc.c  */
-#line 203 "gparse.y"
+#line 203 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Cont ((char*)(yyvsp[(2) - (8)]),(-1)*INFIN,INFIN);
-		    free((yyvsp[(2) - (8)]));
+		    Enter_Cont ((char*)(yyvsp[-6]),(-1)*INFIN,INFIN);
+		    free((yyvsp[-6]));
 		  }
+#line 2061 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 71:
-/* Line 1787 of yacc.c  */
-#line 208 "gparse.y"
+#line 208 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Cont ((char*)(yyvsp[(2) - (8)]),(-1)*atoi((char*)(yyvsp[(5) - (8)])),INFIN);
-		    free((yyvsp[(2) - (8)]));
-		    free((yyvsp[(5) - (8)]));
+		    Enter_Cont ((char*)(yyvsp[-6]),(-1)*atoi((char*)(yyvsp[-3])),INFIN);
+		    free((yyvsp[-6]));
+		    free((yyvsp[-3]));
 		  }
+#line 2071 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 72:
-/* Line 1787 of yacc.c  */
-#line 214 "gparse.y"
+#line 214 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Cont ((char*)(yyvsp[(2) - (7)]),atoi((char*)(yyvsp[(4) - (7)])),INFIN);
-		    free((yyvsp[(2) - (7)]));
-		    free((yyvsp[(4) - (7)]));
+		    Enter_Cont ((char*)(yyvsp[-5]),atoi((char*)(yyvsp[-3])),INFIN);
+		    free((yyvsp[-5]));
+		    free((yyvsp[-3]));
 		  }
+#line 2081 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 73:
-/* Line 1787 of yacc.c  */
-#line 221 "gparse.y"
+#line 221 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Prop((char*)(yyvsp[(1) - (1)]));
-		    free((yyvsp[(1) - (1)]));
+		    Enter_Prop((char*)(yyvsp[0]));
+		    free((yyvsp[0]));
 		  }
+#line 2090 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 74:
-/* Line 1787 of yacc.c  */
-#line 226 "gparse.y"
+#line 226 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Prop((char*)(yyvsp[(1) - (1)]));
-		    free((yyvsp[(1) - (1)]));
+		    Enter_Prop((char*)(yyvsp[0]));
+		    free((yyvsp[0]));
 		  }
+#line 2099 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 76:
-/* Line 1787 of yacc.c  */
-#line 234 "gparse.y"
+#line 234 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (6)]))+strlen((char*)(yyvsp[(3) - (6)]))+
-					strlen((char*)(yyvsp[(5) - (6)]))+5);
+		  (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-4]))+strlen((char*)(yyvsp[-3]))+
+					strlen((char*)(yyvsp[-1]))+5);
 		  strcpy((char*)(yyval),"Pr");
-		  strcat((char*)(yyval), (char*)(yyvsp[(2) - (6)]));
-		  strcat((char*)(yyval), (char*)(yyvsp[(3) - (6)]));
+		  strcat((char*)(yyval), (char*)(yyvsp[-4]));
+		  strcat((char*)(yyval), (char*)(yyvsp[-3]));
 		  strcat((char*)(yyval), "{");
-		  strcat((char*)(yyval), (char*)(yyvsp[(5) - (6)]));
+		  strcat((char*)(yyval), (char*)(yyvsp[-1]));
 		  strcat((char*)(yyval), "}");
-		  free((yyvsp[(2) - (6)]));
-		  free((yyvsp[(3) - (6)]));
-		  free((yyvsp[(5) - (6)])); 
+		  free((yyvsp[-4]));
+		  free((yyvsp[-3]));
+		  free((yyvsp[-1])); 
 		}
+#line 2117 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 77:
-/* Line 1787 of yacc.c  */
-#line 248 "gparse.y"
+#line 248 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(5) - (6)]))+7);
+		  (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+7);
 		  strcpy((char*)(yyval),"Pr");
 		  strcat((char*)(yyval),"=");
 		  strcat((char*)(yyval),"?");
 		  strcat((char*)(yyval), "{");
-		  strcat((char*)(yyval), (char*)(yyvsp[(5) - (6)]));
+		  strcat((char*)(yyval), (char*)(yyvsp[-1]));
 		  strcat((char*)(yyval), "}");
-		  free((yyvsp[(5) - (6)])); 
+		  free((yyvsp[-1])); 
 		}
+#line 2132 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 78:
-/* Line 1787 of yacc.c  */
-#line 259 "gparse.y"
+#line 259 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (6)]))+strlen((char*)(yyvsp[(3) - (6)]))+
-					strlen((char*)(yyvsp[(5) - (6)]))+5);
+		  (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-4]))+strlen((char*)(yyvsp[-3]))+
+					strlen((char*)(yyvsp[-1]))+5);
 		  strcpy((char*)(yyval),"SS");
-		  strcat((char*)(yyval), (char*)(yyvsp[(2) - (6)]));
-		  strcat((char*)(yyval), (char*)(yyvsp[(3) - (6)]));
+		  strcat((char*)(yyval), (char*)(yyvsp[-4]));
+		  strcat((char*)(yyval), (char*)(yyvsp[-3]));
 		  strcat((char*)(yyval), "{");
-		  strcat((char*)(yyval), (char*)(yyvsp[(5) - (6)]));
+		  strcat((char*)(yyval), (char*)(yyvsp[-1]));
 		  strcat((char*)(yyval), "}");
-		  free((yyvsp[(2) - (6)]));
-		  free((yyvsp[(3) - (6)]));
-		  free((yyvsp[(5) - (6)])); 
+		  free((yyvsp[-4]));
+		  free((yyvsp[-3]));
+		  free((yyvsp[-1])); 
 		}
+#line 2150 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 79:
-/* Line 1787 of yacc.c  */
-#line 273 "gparse.y"
+#line 273 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(5) - (6)]))+7);
+		  (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+7);
 		  strcpy((char*)(yyval),"SS");
 		  strcat((char*)(yyval),"=");
 		  strcat((char*)(yyval),"?");
 		  strcat((char*)(yyval), "{");
-		  strcat((char*)(yyval), (char*)(yyvsp[(5) - (6)]));
+		  strcat((char*)(yyval), (char*)(yyvsp[-1]));
 		  strcat((char*)(yyval), "}");
-		  free((yyvsp[(5) - (6)])); 
+		  free((yyvsp[-1])); 
 		}
+#line 2165 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 80:
-/* Line 1787 of yacc.c  */
-#line 286 "gparse.y"
+#line 286 "gparse.y" /* yacc.c:1646  */
     {
 		    int boundlen = 0;
-		    if ((yyvsp[(2) - (5)])) boundlen = strlen((char*)(yyvsp[(2) - (5)]));
+		    if ((yyvsp[-3])) boundlen = strlen((char*)(yyvsp[-3]));
 		    (yyval) = (Node*)GetBlock(boundlen+
-					 strlen((char*)(yyvsp[(4) - (5)]))+5);
+					 strlen((char*)(yyvsp[-1]))+5);
 		    strcat((char*)(yyval),"PG(");
-		    if ((yyvsp[(2) - (5)])) strcat((char*)(yyval),(char*)(yyvsp[(2) - (5)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(4) - (5)]));
+		    if ((yyvsp[-3])) strcat((char*)(yyval),(char*)(yyvsp[-3]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),")");
-		    if ((yyvsp[(2) - (5)])) free((yyvsp[(2) - (5)]));
-		    free((yyvsp[(4) - (5)]));
+		    if ((yyvsp[-3])) free((yyvsp[-3]));
+		    free((yyvsp[-1]));
 		  }
+#line 2182 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 81:
-/* Line 1787 of yacc.c  */
-#line 299 "gparse.y"
+#line 299 "gparse.y" /* yacc.c:1646  */
     {
 		    int boundlen = 0;
-		    if ((yyvsp[(2) - (5)])) boundlen = strlen((char*)(yyvsp[(2) - (5)]));
+		    if ((yyvsp[-3])) boundlen = strlen((char*)(yyvsp[-3]));
 		    (yyval) = (Node*)GetBlock(boundlen+
-					 strlen((char*)(yyvsp[(4) - (5)]))+5);
+					 strlen((char*)(yyvsp[-1]))+5);
 		    strcat((char*)(yyval),"PF(");
-		    if ((yyvsp[(2) - (5)])) strcat((char*)(yyval),(char*)(yyvsp[(2) - (5)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(4) - (5)]));
+		    if ((yyvsp[-3])) strcat((char*)(yyval),(char*)(yyvsp[-3]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),")");
-		    if ((yyvsp[(2) - (5)])) free((yyvsp[(2) - (5)]));
-		    free((yyvsp[(4) - (5)]));
+		    if ((yyvsp[-3])) free((yyvsp[-3]));
+		    free((yyvsp[-1]));
 		  }
+#line 2199 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 82:
-/* Line 1787 of yacc.c  */
-#line 312 "gparse.y"
+#line 312 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock(strlen((char*)(yyvsp[(3) - (4)]))+5);
+		    (yyval) = (Node*)GetBlock(strlen((char*)(yyvsp[-1]))+5);
 		    strcat((char*)(yyval),"PX(");
-		    strcat((char*)(yyval),(char*)(yyvsp[(3) - (4)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),")");
-		    free((yyvsp[(3) - (4)]));
+		    free((yyvsp[-1]));
 		  }
+#line 2211 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 83:
-/* Line 1787 of yacc.c  */
-#line 320 "gparse.y"
+#line 320 "gparse.y" /* yacc.c:1646  */
     {
 		    int boundlen = 0;
-		    if ((yyvsp[(3) - (4)])) boundlen = strlen((char*)(yyvsp[(3) - (4)]));
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (4)]))+
+		    if ((yyvsp[-1])) boundlen = strlen((char*)(yyvsp[-1]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-3]))+
 					  boundlen+4+
-					  strlen((char*)(yyvsp[(4) - (4)])));
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (4)]));
+					  strlen((char*)(yyvsp[0])));
+		    strcpy((char*)(yyval),(char*)(yyvsp[-3]));
 		    strcat((char*)(yyval),"PU");
-		    if ((yyvsp[(3) - (4)])) strcat((char*)(yyval),(char*)(yyvsp[(3) - (4)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(4) - (4)]));
-		    free((yyvsp[(1) - (4)]));
-		    if ((yyvsp[(3) - (4)])) free((yyvsp[(3) - (4)]));
-		    free((yyvsp[(4) - (4)]));
+		    if ((yyvsp[-1])) strcat((char*)(yyval),(char*)(yyvsp[-1]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-3]));
+		    if ((yyvsp[-1])) free((yyvsp[-1]));
+		    free((yyvsp[0]));
 		  }
+#line 2230 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 84:
-/* Line 1787 of yacc.c  */
-#line 337 "gparse.y"
+#line 337 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (2)]))+
-					  strlen((char*)(yyvsp[(2) - (2)]))+2);
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (2)]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+
+					  strlen((char*)(yyvsp[0]))+2);
+		    strcpy((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),"&");
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (2)]));
-		    free((yyvsp[(1) - (2)]));
-		    free((yyvsp[(2) - (2)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-1]));
+		    free((yyvsp[0]));
 		  }
+#line 2244 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 85:
-/* Line 1787 of yacc.c  */
-#line 347 "gparse.y"
+#line 347 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (2)]))+
-					  strlen((char*)(yyvsp[(2) - (2)]))+2);
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (2)]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+
+					  strlen((char*)(yyvsp[0]))+2);
+		    strcpy((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),"|");
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (2)]));
-		    free((yyvsp[(1) - (2)]));
-		    free((yyvsp[(2) - (2)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-1]));
+		    free((yyvsp[0]));
 		  }
+#line 2258 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 86:
-/* Line 1787 of yacc.c  */
-#line 357 "gparse.y"
+#line 357 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (2)]))+
-					  strlen((char*)(yyvsp[(2) - (2)]))+3);
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (2)]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+
+					  strlen((char*)(yyvsp[0]))+3);
+		    strcpy((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),"->");
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (2)]));
-		    free((yyvsp[(1) - (2)]));
-		    free((yyvsp[(2) - (2)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-1]));
+		    free((yyvsp[0]));
 		  }
+#line 2272 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 88:
-/* Line 1787 of yacc.c  */
-#line 370 "gparse.y"
+#line 370 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (3)]))+
-					  strlen((char*)(yyvsp[(3) - (3)]))+2);
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (3)]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					  strlen((char*)(yyvsp[0]))+2);
+		    strcpy((char*)(yyval),(char*)(yyvsp[-2]));
 		    strcat((char*)(yyval),"&");
-		    strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
-		    free((yyvsp[(1) - (3)]));
-		    free((yyvsp[(3) - (3)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-2]));
+		    free((yyvsp[0]));
 		  }
+#line 2286 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 89:
-/* Line 1787 of yacc.c  */
-#line 380 "gparse.y"
+#line 380 "gparse.y" /* yacc.c:1646  */
     {
-		   (yyval) = (yyvsp[(2) - (2)]);
+		   (yyval) = (yyvsp[0]);
 		  }
+#line 2294 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 90:
-/* Line 1787 of yacc.c  */
-#line 385 "gparse.y"
+#line 385 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (3)]))+
-					  strlen((char*)(yyvsp[(3) - (3)]))+2);
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (3)]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					  strlen((char*)(yyvsp[0]))+2);
+		    strcpy((char*)(yyval),(char*)(yyvsp[-2]));
 		    strcat((char*)(yyval),"|");
-		    strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
-		    free((yyvsp[(1) - (3)]));
-		    free((yyvsp[(3) - (3)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-2]));
+		    free((yyvsp[0]));
 		  }
+#line 2308 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 91:
-/* Line 1787 of yacc.c  */
-#line 395 "gparse.y"
+#line 395 "gparse.y" /* yacc.c:1646  */
     {
-		   (yyval) = (yyvsp[(2) - (2)]);
+		   (yyval) = (yyvsp[0]);
 		  }
+#line 2316 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 92:
-/* Line 1787 of yacc.c  */
-#line 401 "gparse.y"
+#line 401 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (4)]))+
-					  strlen((char*)(yyvsp[(4) - (4)]))+3);
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (4)]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-3]))+
+					  strlen((char*)(yyvsp[0]))+3);
+		    strcpy((char*)(yyval),(char*)(yyvsp[-3]));
 		    strcat((char*)(yyval),"->");
-		    strcat((char*)(yyval),(char*)(yyvsp[(4) - (4)]));
-		    free((yyvsp[(1) - (4)]));
-		    free((yyvsp[(4) - (4)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-3]));
+		    free((yyvsp[0]));
                   }
+#line 2330 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 93:
-/* Line 1787 of yacc.c  */
-#line 411 "gparse.y"
+#line 411 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (yyvsp[(3) - (3)]);
+		    (yyval) = (yyvsp[0]);
 		  }
+#line 2338 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 94:
-/* Line 1787 of yacc.c  */
-#line 419 "gparse.y"
+#line 419 "gparse.y" /* yacc.c:1646  */
     {
 		    int boundlen = 0;
-		    if ((yyvsp[(2) - (5)])) boundlen = strlen((char*)(yyvsp[(2) - (5)]));
-		    (yyval) = (Node*)GetBlock(strlen((char*)(yyvsp[(1) - (5)]))+
+		    if ((yyvsp[-3])) boundlen = strlen((char*)(yyvsp[-3]));
+		    (yyval) = (Node*)GetBlock(strlen((char*)(yyvsp[-4]))+
 					 boundlen+
-					 strlen((char*)(yyvsp[(4) - (5)]))+3);
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (5)]));
+					 strlen((char*)(yyvsp[-1]))+3);
+		    strcpy((char*)(yyval),(char*)(yyvsp[-4]));
 		    strcat((char*)(yyval),"(");
-		    if ((yyvsp[(2) - (5)])) strcat((char*)(yyval),(char*)(yyvsp[(2) - (5)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(4) - (5)]));
+		    if ((yyvsp[-3])) strcat((char*)(yyval),(char*)(yyvsp[-3]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),")");
-		    if ((yyvsp[(2) - (5)])) free((yyvsp[(2) - (5)]));
-		    free((yyvsp[(4) - (5)]));
+		    if ((yyvsp[-3])) free((yyvsp[-3]));
+		    free((yyvsp[-1]));
 		  }
+#line 2357 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 95:
-/* Line 1787 of yacc.c  */
-#line 434 "gparse.y"
+#line 434 "gparse.y" /* yacc.c:1646  */
     {
 		    
 		    int boundlen = 0;
-		    if ((yyvsp[(2) - (5)])) boundlen = strlen((char*)(yyvsp[(2) - (5)]));
-		    (yyval) = (Node*)GetBlock(strlen((char*)(yyvsp[(1) - (5)]))+
+		    if ((yyvsp[-3])) boundlen = strlen((char*)(yyvsp[-3]));
+		    (yyval) = (Node*)GetBlock(strlen((char*)(yyvsp[-4]))+
 					 boundlen+
-					 strlen((char*)(yyvsp[(4) - (5)]))+3);
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (5)]));
+					 strlen((char*)(yyvsp[-1]))+3);
+		    strcpy((char*)(yyval),(char*)(yyvsp[-4]));
 		    strcat((char*)(yyval),"(");
-		    if ((yyvsp[(2) - (5)])) strcat((char*)(yyval),(char*)(yyvsp[(2) - (5)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(4) - (5)]));
+		    if ((yyvsp[-3])) strcat((char*)(yyval),(char*)(yyvsp[-3]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),")");
-		    if((yyvsp[(2) - (5)])) free((yyvsp[(2) - (5)]));
-		    free((yyvsp[(4) - (5)]));
+		    if((yyvsp[-3])) free((yyvsp[-3]));
+		    free((yyvsp[-1]));
 		  }
+#line 2377 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 97:
-/* Line 1787 of yacc.c  */
-#line 453 "gparse.y"
+#line 453 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (3)]))+3);
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+3);
 		    strcpy((char*)(yyval),"{");
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (3)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),"}");
-		    free((yyvsp[(2) - (3)]));
+		    free((yyvsp[-1]));
 		  }
+#line 2389 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 98:
-/* Line 1787 of yacc.c  */
-#line 463 "gparse.y"
+#line 463 "gparse.y" /* yacc.c:1646  */
     {
 		    int boundlen = 0;
-		    if ((yyvsp[(3) - (4)])) boundlen = strlen((char*)(yyvsp[(3) - (4)]));
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (4)]))+
-					  strlen((char*)(yyvsp[(2) - (4)]))+
+		    if ((yyvsp[-1])) boundlen = strlen((char*)(yyvsp[-1]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-3]))+
+					  strlen((char*)(yyvsp[-2]))+
 					  boundlen+1+
-					  strlen((char*)(yyvsp[(4) - (4)])));
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (4)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (4)]));
-		    if ((yyvsp[(3) - (4)])) strcat((char*)(yyval),(char*)(yyvsp[(3) - (4)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(4) - (4)]));
-		    free((yyvsp[(1) - (4)]));
-		    if ((yyvsp[(3) - (4)])) free((yyvsp[(3) - (4)]));
-		    free((yyvsp[(4) - (4)]));
+					  strlen((char*)(yyvsp[0])));
+		    strcpy((char*)(yyval),(char*)(yyvsp[-3]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-2]));
+		    if ((yyvsp[-1])) strcat((char*)(yyval),(char*)(yyvsp[-1]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-3]));
+		    if ((yyvsp[-1])) free((yyvsp[-1]));
+		    free((yyvsp[0]));
 		  }
+#line 2409 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 99:
-/* Line 1787 of yacc.c  */
-#line 479 "gparse.y"
+#line 479 "gparse.y" /* yacc.c:1646  */
     {
 		    int boundlen = 0;
-		    if ((yyvsp[(3) - (4)])) boundlen = strlen((char*)(yyvsp[(3) - (4)]));
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (4)]))+
-					  strlen((char*)(yyvsp[(2) - (4)]))+
+		    if ((yyvsp[-1])) boundlen = strlen((char*)(yyvsp[-1]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-3]))+
+					  strlen((char*)(yyvsp[-2]))+
 					  boundlen+1+
-					  strlen((char*)(yyvsp[(4) - (4)])));
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (4)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (4)]));
-		    if ((yyvsp[(3) - (4)])) strcat((char*)(yyval),(char*)(yyvsp[(3) - (4)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(4) - (4)]));
-		    free((yyvsp[(1) - (4)]));
-		    if ((yyvsp[(3) - (4)])) free((yyvsp[(3) - (4)]));
-		    free((yyvsp[(4) - (4)]));
+					  strlen((char*)(yyvsp[0])));
+		    strcpy((char*)(yyval),(char*)(yyvsp[-3]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-2]));
+		    if ((yyvsp[-1])) strcat((char*)(yyval),(char*)(yyvsp[-1]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-3]));
+		    if ((yyvsp[-1])) free((yyvsp[-1]));
+		    free((yyvsp[0]));
 		  }
+#line 2429 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 100:
-/* Line 1787 of yacc.c  */
-#line 495 "gparse.y"
+#line 495 "gparse.y" /* yacc.c:1646  */
     {
 		    int boundlen = 0;
-		    if ((yyvsp[(3) - (4)])) boundlen = strlen((char*)(yyvsp[(3) - (4)]));
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (4)]))+
-					  strlen((char*)(yyvsp[(2) - (4)]))+
+		    if ((yyvsp[-1])) boundlen = strlen((char*)(yyvsp[-1]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-3]))+
+					  strlen((char*)(yyvsp[-2]))+
 					  boundlen+1+
-					  strlen((char*)(yyvsp[(4) - (4)])));
+					  strlen((char*)(yyvsp[0])));
 
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (4)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (4)]));
-		    if ((yyvsp[(3) - (4)])) strcat((char*)(yyval),(char*)(yyvsp[(3) - (4)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(4) - (4)]));
-		    free((yyvsp[(1) - (4)]));
-		    if ((yyvsp[(3) - (4)])) free((yyvsp[(3) - (4)]));
-		    free((yyvsp[(4) - (4)]));
+		    strcpy((char*)(yyval),(char*)(yyvsp[-3]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-2]));
+		    if ((yyvsp[-1])) strcat((char*)(yyval),(char*)(yyvsp[-1]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-3]));
+		    if ((yyvsp[-1])) free((yyvsp[-1]));
+		    free((yyvsp[0]));
 		  }
+#line 2450 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 101:
-/* Line 1787 of yacc.c  */
-#line 512 "gparse.y"
+#line 512 "gparse.y" /* yacc.c:1646  */
     {
 		    int boundlen = 0;
-		    if ((yyvsp[(3) - (4)])) boundlen = strlen((char*)(yyvsp[(3) - (4)]));
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (4)]))+
-					  strlen((char*)(yyvsp[(2) - (4)]))+
+		    if ((yyvsp[-1])) boundlen = strlen((char*)(yyvsp[-1]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-3]))+
+					  strlen((char*)(yyvsp[-2]))+
 					  boundlen+1+
-					  strlen((char*)(yyvsp[(4) - (4)])));
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (4)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (4)]));
-		    if ((yyvsp[(3) - (4)])) strcat((char*)(yyval),(char*)(yyvsp[(3) - (4)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(4) - (4)]));
-		    free((yyvsp[(1) - (4)]));
-		    if ((yyvsp[(3) - (4)])) free((yyvsp[(3) - (4)]));
-		    free((yyvsp[(4) - (4)]));
+					  strlen((char*)(yyvsp[0])));
+		    strcpy((char*)(yyval),(char*)(yyvsp[-3]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-2]));
+		    if ((yyvsp[-1])) strcat((char*)(yyval),(char*)(yyvsp[-1]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-3]));
+		    if ((yyvsp[-1])) free((yyvsp[-1]));
+		    free((yyvsp[0]));
 		  }
+#line 2470 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 102:
-/* Line 1787 of yacc.c  */
-#line 529 "gparse.y"
+#line 529 "gparse.y" /* yacc.c:1646  */
     {(yyval)=(Node*)CopyString("AG");}
+#line 2476 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 103:
-/* Line 1787 of yacc.c  */
-#line 530 "gparse.y"
+#line 530 "gparse.y" /* yacc.c:1646  */
     {(yyval)=(Node*)CopyString("AF");}
+#line 2482 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 104:
-/* Line 1787 of yacc.c  */
-#line 531 "gparse.y"
+#line 531 "gparse.y" /* yacc.c:1646  */
     {(yyval)=(Node*)CopyString("EG");}
+#line 2488 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 105:
-/* Line 1787 of yacc.c  */
-#line 532 "gparse.y"
+#line 532 "gparse.y" /* yacc.c:1646  */
     {(yyval)=(Node*)CopyString("EF");}
+#line 2494 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 106:
-/* Line 1787 of yacc.c  */
-#line 535 "gparse.y"
+#line 535 "gparse.y" /* yacc.c:1646  */
     {(yyval)=(Node*)CopyString("AU");}
+#line 2500 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 107:
-/* Line 1787 of yacc.c  */
-#line 536 "gparse.y"
+#line 536 "gparse.y" /* yacc.c:1646  */
     {(yyval)=(Node*)CopyString("EU");}
+#line 2506 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 108:
-/* Line 1787 of yacc.c  */
-#line 540 "gparse.y"
+#line 540 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (4)]))+
-					  strlen((char*)(yyvsp[(3) - (4)]))+3);
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					  strlen((char*)(yyvsp[-1]))+3);
 		    strcpy((char*)(yyval),"[");
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (4)]));
-		    strcat((char*)(yyval),(char*)(yyvsp[(3) - (4)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-2]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),"]");
-		    free((yyvsp[(2) - (4)]));
-		    free((yyvsp[(3) - (4)]));
+		    free((yyvsp[-2]));
+		    free((yyvsp[-1]));
 		  }
+#line 2521 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 109:
-/* Line 1787 of yacc.c  */
-#line 551 "gparse.y"
+#line 551 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (5)]))+
-					  strlen((char*)(yyvsp[(4) - (5)]))+4);
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-3]))+
+					  strlen((char*)(yyvsp[-1]))+4);
 		    strcpy((char*)(yyval),"[");
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (5)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-3]));
 		    strcpy((char*)(yyval),",");
-		    strcat((char*)(yyval),(char*)(yyvsp[(4) - (5)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),"]");
-		    free((yyvsp[(2) - (5)]));
-		    free((yyvsp[(4) - (5)]));
+		    free((yyvsp[-3]));
+		    free((yyvsp[-1]));
 		  }
+#line 2537 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 110:
-/* Line 1787 of yacc.c  */
-#line 562 "gparse.y"
+#line 562 "gparse.y" /* yacc.c:1646  */
     { (yyval) = NULL;}
+#line 2543 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 111:
-/* Line 1787 of yacc.c  */
-#line 566 "gparse.y"
+#line 566 "gparse.y" /* yacc.c:1646  */
     {
-		    Set_Initial_State((char*)(yyvsp[(2) - (3)]));
-		    free((yyvsp[(2) - (3)]));
+		    Set_Initial_State((char*)(yyvsp[-1]));
+		    free((yyvsp[-1]));
 		  }
+#line 2552 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 112:
-/* Line 1787 of yacc.c  */
-#line 571 "gparse.y"
+#line 571 "gparse.y" /* yacc.c:1646  */
     {
-		    Set_Initial_State((char*)(yyvsp[(2) - (3)]));
-		    free((yyvsp[(2) - (3)]));
+		    Set_Initial_State((char*)(yyvsp[-1]));
+		    free((yyvsp[-1]));
 		  }
+#line 2561 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 114:
-/* Line 1787 of yacc.c  */
-#line 579 "gparse.y"
+#line 579 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_Place ((char*)(yyvsp[(1) - (1)]));
+		    (yyval) = Enter_Place ((char*)(yyvsp[0]));
 		  }
+#line 2569 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 118:
-/* Line 1787 of yacc.c  */
-#line 592 "gparse.y"
+#line 592 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, EDGE_MARK, (yyvsp[(2) - (5)]), (yyvsp[(4) - (5)]), 1, 1);
+		    Enter_Mark (&initial_marking, EDGE_MARK, (yyvsp[-3]), (yyvsp[-1]), 1, 1);
 		  }
+#line 2577 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 119:
-/* Line 1787 of yacc.c  */
-#line 596 "gparse.y"
+#line 596 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, EDGE_MARK, (yyvsp[(2) - (5)]), (yyvsp[(4) - (5)]), 1, 1);
+		    Enter_Mark (&initial_marking, EDGE_MARK, (yyvsp[-3]), (yyvsp[-1]), 1, 1);
 		  }
+#line 2585 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 120:
-/* Line 1787 of yacc.c  */
-#line 600 "gparse.y"
+#line 600 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, EDGE_MARK, (yyvsp[(2) - (5)]), (yyvsp[(4) - (5)]), 1, 1);
+		    Enter_Mark (&initial_marking, EDGE_MARK, (yyvsp[-3]), (yyvsp[-1]), 1, 1);
 		  }
+#line 2593 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 121:
-/* Line 1787 of yacc.c  */
-#line 604 "gparse.y"
+#line 604 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, EDGE_MARK, (yyvsp[(2) - (5)]), (yyvsp[(4) - (5)]), 1, 1);
+		    Enter_Mark (&initial_marking, EDGE_MARK, (yyvsp[-3]), (yyvsp[-1]), 1, 1);
 		  }
+#line 2601 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 122:
-/* Line 1787 of yacc.c  */
-#line 608 "gparse.y"
+#line 608 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, PLACE_MARK, NULL, (yyvsp[(1) - (1)]), 1, 1);
+		    Enter_Mark (&initial_marking, PLACE_MARK, NULL, (yyvsp[0]), 1, 1);
 		  }
+#line 2609 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 123:
-/* Line 1787 of yacc.c  */
-#line 612 "gparse.y"
+#line 612 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,
-				(yyvsp[(2) - (5)]),atoi((char*)(yyvsp[(4) - (5)])),
-				atoi((char*)(yyvsp[(4) - (5)])));
-		    free((yyvsp[(4) - (5)]));
+				(yyvsp[-3]),atoi((char*)(yyvsp[-1])),
+				atoi((char*)(yyvsp[-1])));
+		    free((yyvsp[-1]));
 		  }
+#line 2620 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 124:
-/* Line 1787 of yacc.c  */
-#line 619 "gparse.y"
+#line 619 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,(yyvsp[(2) - (6)]),
-				(-1)*atoi((char*)(yyvsp[(4) - (6)])),(-1)*atoi((char*)(yyvsp[(4) - (6)])));
-		    free((yyvsp[(4) - (6)]));
+		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,(yyvsp[-4]),
+				(-1)*atoi((char*)(yyvsp[-2])),(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-2]));
 		  }
+#line 2630 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 125:
-/* Line 1787 of yacc.c  */
-#line 625 "gparse.y"
+#line 625 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,
-				(yyvsp[(2) - (11)]),(-1)*INFIN,
-				(-1)*atoi((char*)(yyvsp[(9) - (11)])));
-		    free((yyvsp[(9) - (11)]));
+				(yyvsp[-9]),(-1)*INFIN,
+				(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-2]));
 		  }
+#line 2641 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 126:
-/* Line 1787 of yacc.c  */
-#line 632 "gparse.y"
+#line 632 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,(yyvsp[(2) - (11)]),
-				(-1)*atoi((char*)(yyvsp[(6) - (11)])),(-1)*atoi((char*)(yyvsp[(9) - (11)])));
-		    free((yyvsp[(6) - (11)]));
-		    free((yyvsp[(9) - (11)]));
+		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,(yyvsp[-9]),
+				(-1)*atoi((char*)(yyvsp[-5])),(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-5]));
+		    free((yyvsp[-2]));
 		  }
+#line 2652 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 127:
-/* Line 1787 of yacc.c  */
-#line 639 "gparse.y"
+#line 639 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,
-				(yyvsp[(2) - (10)]),(-1)*INFIN,
-				(-1)*atoi((char*)(yyvsp[(8) - (10)])));
-		    free((yyvsp[(8) - (10)]));
+				(yyvsp[-8]),(-1)*INFIN,
+				(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-2]));
 		  }
+#line 2663 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 128:
-/* Line 1787 of yacc.c  */
-#line 646 "gparse.y"
+#line 646 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,(yyvsp[(2) - (10)]),
-				(-1)*atoi((char*)(yyvsp[(6) - (10)])),(-1)*atoi((char*)(yyvsp[(8) - (10)])));
-		    free((yyvsp[(6) - (10)]));
-		    free((yyvsp[(8) - (10)]));
+		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,(yyvsp[-8]),
+				(-1)*atoi((char*)(yyvsp[-4])),(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-4]));
+		    free((yyvsp[-2]));
 		  }
+#line 2674 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 129:
-/* Line 1787 of yacc.c  */
-#line 653 "gparse.y"
+#line 653 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,
-				(yyvsp[(2) - (9)]),atoi((char*)(yyvsp[(5) - (9)])),
-				atoi((char*)(yyvsp[(7) - (9)])));
-		    free((yyvsp[(5) - (9)]));
-		    free((yyvsp[(7) - (9)]));
+				(yyvsp[-7]),atoi((char*)(yyvsp[-4])),
+				atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-4]));
+		    free((yyvsp[-2]));
 		  }
+#line 2686 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 130:
-/* Line 1787 of yacc.c  */
-#line 661 "gparse.y"
+#line 661 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,(yyvsp[(2) - (10)]),
+		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,(yyvsp[-8]),
 				(-1)*INFIN,INFIN);
 		  }
+#line 2695 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 131:
-/* Line 1787 of yacc.c  */
-#line 666 "gparse.y"
+#line 666 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,(yyvsp[(2) - (10)]),
-				(-1)*atoi((char*)(yyvsp[(6) - (10)])),INFIN);
-		    free((yyvsp[(6) - (10)]));
+		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,(yyvsp[-8]),
+				(-1)*atoi((char*)(yyvsp[-4])),INFIN);
+		    free((yyvsp[-4]));
 		  }
+#line 2705 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 132:
-/* Line 1787 of yacc.c  */
-#line 673 "gparse.y"
+#line 673 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, PLACE_MARK, NULL,
-				(yyvsp[(2) - (9)]),atoi((char*)(yyvsp[(5) - (9)])),
+				(yyvsp[-7]),atoi((char*)(yyvsp[-4])),
 				INFIN);
-		    free((yyvsp[(5) - (9)]));
+		    free((yyvsp[-4]));
 		  }
+#line 2716 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 136:
-/* Line 1787 of yacc.c  */
-#line 689 "gparse.y"
+#line 689 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, RATE_MARK, NULL,
-				(yyvsp[(2) - (5)]),atoi((char*)(yyvsp[(4) - (5)])),atoi((char*)(yyvsp[(4) - (5)])));
-		    free((yyvsp[(4) - (5)]));
+				(yyvsp[-3]),atoi((char*)(yyvsp[-1])),atoi((char*)(yyvsp[-1])));
+		    free((yyvsp[-1]));
 		  }
+#line 2726 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 137:
-/* Line 1787 of yacc.c  */
-#line 695 "gparse.y"
+#line 695 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, RATE_MARK, NULL,(yyvsp[(2) - (6)]),
-				(-1)*atoi((char*)(yyvsp[(5) - (6)])),(-1)*atoi((char*)(yyvsp[(5) - (6)])));
-		    free((yyvsp[(4) - (6)]));
+		    Enter_Mark (&initial_marking, RATE_MARK, NULL,(yyvsp[-4]),
+				(-1)*atoi((char*)(yyvsp[-1])),(-1)*atoi((char*)(yyvsp[-1])));
+		    free((yyvsp[-2]));
 		  }
+#line 2736 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 138:
-/* Line 1787 of yacc.c  */
-#line 701 "gparse.y"
+#line 701 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, RATE_MARK, NULL,
-				(yyvsp[(2) - (11)]),(-1)*INFIN,(-1)*atoi((char*)(yyvsp[(9) - (11)])));
-		    free((yyvsp[(9) - (11)]));
+				(yyvsp[-9]),(-1)*INFIN,(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-2]));
 		  }
+#line 2746 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 139:
-/* Line 1787 of yacc.c  */
-#line 707 "gparse.y"
+#line 707 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, RATE_MARK, NULL,(yyvsp[(2) - (11)]),
-				(-1)*atoi((char*)(yyvsp[(6) - (11)])),(-1)*atoi((char*)(yyvsp[(9) - (11)])));
-		    free((yyvsp[(6) - (11)]));
-		    free((yyvsp[(9) - (11)]));
+		    Enter_Mark (&initial_marking, RATE_MARK, NULL,(yyvsp[-9]),
+				(-1)*atoi((char*)(yyvsp[-5])),(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-5]));
+		    free((yyvsp[-2]));
 		  }
+#line 2757 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 140:
-/* Line 1787 of yacc.c  */
-#line 714 "gparse.y"
+#line 714 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, RATE_MARK, NULL,
-				(yyvsp[(2) - (10)]),(-1)*INFIN,(-1)*atoi((char*)(yyvsp[(8) - (10)])));
-		    free((yyvsp[(8) - (10)]));
+				(yyvsp[-8]),(-1)*INFIN,(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-2]));
 		  }
+#line 2767 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 141:
-/* Line 1787 of yacc.c  */
-#line 720 "gparse.y"
+#line 720 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, RATE_MARK, NULL,(yyvsp[(2) - (10)]),
-				(-1)*atoi((char*)(yyvsp[(6) - (10)])),(-1)*atoi((char*)(yyvsp[(8) - (10)])));
-		    free((yyvsp[(6) - (10)]));
-		    free((yyvsp[(8) - (10)]));
+		    Enter_Mark (&initial_marking, RATE_MARK, NULL,(yyvsp[-8]),
+				(-1)*atoi((char*)(yyvsp[-4])),(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-4]));
+		    free((yyvsp[-2]));
 		  }
+#line 2778 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 142:
-/* Line 1787 of yacc.c  */
-#line 727 "gparse.y"
+#line 727 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, RATE_MARK, NULL,
-				(yyvsp[(2) - (9)]),atoi((char*)(yyvsp[(5) - (9)])),atoi((char*)(yyvsp[(7) - (9)])));
-		    free((yyvsp[(5) - (9)]));
-		    free((yyvsp[(7) - (9)]));
+				(yyvsp[-7]),atoi((char*)(yyvsp[-4])),atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-4]));
+		    free((yyvsp[-2]));
 		  }
+#line 2789 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 143:
-/* Line 1787 of yacc.c  */
-#line 734 "gparse.y"
+#line 734 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, RATE_MARK, NULL,(yyvsp[(2) - (10)]),
+		    Enter_Mark (&initial_marking, RATE_MARK, NULL,(yyvsp[-8]),
 				(-1)*INFIN,INFIN);
 		  }
+#line 2798 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 144:
-/* Line 1787 of yacc.c  */
-#line 739 "gparse.y"
+#line 739 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, RATE_MARK, NULL,(yyvsp[(2) - (10)]),
-				(-1)*atoi((char*)(yyvsp[(6) - (10)])),INFIN);
-		    free((yyvsp[(6) - (10)]));
+		    Enter_Mark (&initial_marking, RATE_MARK, NULL,(yyvsp[-8]),
+				(-1)*atoi((char*)(yyvsp[-4])),INFIN);
+		    free((yyvsp[-4]));
 		  }
+#line 2808 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 145:
-/* Line 1787 of yacc.c  */
-#line 746 "gparse.y"
+#line 746 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, RATE_MARK, NULL,
-				(yyvsp[(2) - (9)]),atoi((char*)(yyvsp[(5) - (9)])),INFIN);
-		    free((yyvsp[(5) - (9)]));
+				(yyvsp[-7]),atoi((char*)(yyvsp[-4])),INFIN);
+		    free((yyvsp[-4]));
 		  }
+#line 2818 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 149:
-/* Line 1787 of yacc.c  */
-#line 762 "gparse.y"
+#line 762 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, VAR_MARK, NULL,
-				(yyvsp[(2) - (5)]),atoi((char*)(yyvsp[(4) - (5)])),
-				atoi((char*)(yyvsp[(4) - (5)])));
-		    free((yyvsp[(4) - (5)]));
+				(yyvsp[-3]),atoi((char*)(yyvsp[-1])),
+				atoi((char*)(yyvsp[-1])));
+		    free((yyvsp[-1]));
 		  }
+#line 2829 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 150:
-/* Line 1787 of yacc.c  */
-#line 769 "gparse.y"
+#line 769 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, VAR_MARK, NULL,(yyvsp[(2) - (6)]),
-				(-1)*atoi((char*)(yyvsp[(5) - (6)])),(-1)*atoi((char*)(yyvsp[(5) - (6)])));
-		    free((yyvsp[(4) - (6)]));
+		    Enter_Mark (&initial_marking, VAR_MARK, NULL,(yyvsp[-4]),
+				(-1)*atoi((char*)(yyvsp[-1])),(-1)*atoi((char*)(yyvsp[-1])));
+		    free((yyvsp[-2]));
 		  }
+#line 2839 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 151:
-/* Line 1787 of yacc.c  */
-#line 775 "gparse.y"
+#line 775 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, VAR_MARK, NULL,
-				(yyvsp[(2) - (11)]),(-1)*INFIN,
-				(-1)*atoi((char*)(yyvsp[(9) - (11)])));
-		    free((yyvsp[(9) - (11)]));
+				(yyvsp[-9]),(-1)*INFIN,
+				(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-2]));
 		  }
+#line 2850 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 152:
-/* Line 1787 of yacc.c  */
-#line 782 "gparse.y"
+#line 782 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, VAR_MARK, NULL,(yyvsp[(2) - (11)]),
-				(-1)*atoi((char*)(yyvsp[(6) - (11)])),(-1)*atoi((char*)(yyvsp[(9) - (11)])));
-		    free((yyvsp[(6) - (11)]));
-		    free((yyvsp[(9) - (11)]));
+		    Enter_Mark (&initial_marking, VAR_MARK, NULL,(yyvsp[-9]),
+				(-1)*atoi((char*)(yyvsp[-5])),(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-5]));
+		    free((yyvsp[-2]));
 		  }
+#line 2861 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 153:
-/* Line 1787 of yacc.c  */
-#line 789 "gparse.y"
+#line 789 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, VAR_MARK, NULL,
-				(yyvsp[(2) - (10)]),(-1)*INFIN,
-				(-1)*atoi((char*)(yyvsp[(8) - (10)])));
-		    free((yyvsp[(8) - (10)]));
+				(yyvsp[-8]),(-1)*INFIN,
+				(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-2]));
 		  }
+#line 2872 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 154:
-/* Line 1787 of yacc.c  */
-#line 796 "gparse.y"
+#line 796 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking,VAR_MARK, NULL,(yyvsp[(2) - (10)]),
-				(-1)*atoi((char*)(yyvsp[(6) - (10)])),(-1)*atoi((char*)(yyvsp[(8) - (10)])));
-		    free((yyvsp[(6) - (10)]));
-		    free((yyvsp[(8) - (10)]));
+		    Enter_Mark (&initial_marking,VAR_MARK, NULL,(yyvsp[-8]),
+				(-1)*atoi((char*)(yyvsp[-4])),(-1)*atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-4]));
+		    free((yyvsp[-2]));
 		  }
+#line 2883 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 155:
-/* Line 1787 of yacc.c  */
-#line 803 "gparse.y"
+#line 803 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, VAR_MARK, NULL,
-				(yyvsp[(2) - (9)]),atoi((char*)(yyvsp[(5) - (9)])),
-				atoi((char*)(yyvsp[(7) - (9)])));
-		    free((yyvsp[(5) - (9)]));
-		    free((yyvsp[(7) - (9)]));
+				(yyvsp[-7]),atoi((char*)(yyvsp[-4])),
+				atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-4]));
+		    free((yyvsp[-2]));
 		  }
+#line 2895 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 156:
-/* Line 1787 of yacc.c  */
-#line 811 "gparse.y"
+#line 811 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, VAR_MARK, NULL,(yyvsp[(2) - (10)]),
+		    Enter_Mark (&initial_marking, VAR_MARK, NULL,(yyvsp[-8]),
 				(-1)*INFIN,INFIN);
 		  }
+#line 2904 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 157:
-/* Line 1787 of yacc.c  */
-#line 816 "gparse.y"
+#line 816 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Mark (&initial_marking, VAR_MARK, NULL,(yyvsp[(2) - (10)]),
-				(-1)*atoi((char*)(yyvsp[(6) - (10)])),INFIN);
-		    free((yyvsp[(6) - (10)]));
+		    Enter_Mark (&initial_marking, VAR_MARK, NULL,(yyvsp[-8]),
+				(-1)*atoi((char*)(yyvsp[-4])),INFIN);
+		    free((yyvsp[-4]));
 		  }
+#line 2914 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 158:
-/* Line 1787 of yacc.c  */
-#line 823 "gparse.y"
+#line 823 "gparse.y" /* yacc.c:1646  */
     {
 		    Enter_Mark (&initial_marking, VAR_MARK, NULL,
-				(yyvsp[(2) - (9)]),atoi((char*)(yyvsp[(5) - (9)])),
+				(yyvsp[-7]),atoi((char*)(yyvsp[-4])),
 				INFIN);
-		    free((yyvsp[(5) - (9)]));
+		    free((yyvsp[-4]));
 		  }
+#line 2925 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 162:
-/* Line 1787 of yacc.c  */
-#line 839 "gparse.y"
+#line 839 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Trate ((yyvsp[(2) - (5)]),atoi((char*)(yyvsp[(4) - (5)])),atoi((char*)(yyvsp[(4) - (5)])));
-		    free((yyvsp[(4) - (5)]));
+		    Enter_Trate ((yyvsp[-3]),atoi((char*)(yyvsp[-1])),atoi((char*)(yyvsp[-1])));
+		    free((yyvsp[-1]));
 		  }
+#line 2934 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 163:
-/* Line 1787 of yacc.c  */
-#line 844 "gparse.y"
+#line 844 "gparse.y" /* yacc.c:1646  */
     {
-		    Enter_Trate ((yyvsp[(2) - (9)]),atoi((char*)(yyvsp[(5) - (9)])),atoi((char*)(yyvsp[(7) - (9)])));
-		    free((yyvsp[(5) - (9)]));
-		    free((yyvsp[(7) - (9)]));
+		    Enter_Trate ((yyvsp[-7]),atoi((char*)(yyvsp[-4])),atoi((char*)(yyvsp[-2])));
+		    free((yyvsp[-4]));
+		    free((yyvsp[-2]));
 		  }
+#line 2944 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 167:
-/* Line 1787 of yacc.c  */
-#line 859 "gparse.y"
+#line 859 "gparse.y" /* yacc.c:1646  */
     { 
-		   string hsfs = (char*)(yyvsp[(5) - (7)]);
+		   string hsfs = (char*)(yyvsp[-2]);
 		  ineqADT ineqs = NULL;
 		  ineqADT temp;
 		  string hsf;
@@ -3287,11 +2990,11 @@ yyreduce:
 		      }
 		    }
 		  }
-		  if (!(yyvsp[(2) - (7)])->inequalities) {
-		    (yyvsp[(2) - (7)])->inequalities = ineqs;
+		  if (!(yyvsp[-5])->inequalities) {
+		    (yyvsp[-5])->inequalities = ineqs;
 		  }
 		  else {
-		    for (ineqADT step = (yyvsp[(2) - (7)])->inequalities; step;
+		    for (ineqADT step = (yyvsp[-5])->inequalities; step;
 			 step = step->next) {
 		      if (!step->next) {
 			step->next = temp;
@@ -3299,808 +3002,808 @@ yyreduce:
 		      }
 		    }
 		  }
-		  Enter_Hsl((yyvsp[(2) - (7)]),(char*)(yyvsp[(5) - (7)]));
-		  free((yyvsp[(5) - (7)]));
+		  Enter_Hsl((yyvsp[-5]),(char*)(yyvsp[-2]));
+		  free((yyvsp[-2]));
 	        }
+#line 3009 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 168:
-/* Line 1787 of yacc.c  */
-#line 922 "gparse.y"
+#line 922 "gparse.y" /* yacc.c:1646  */
     {
 		  }
+#line 3016 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 169:
-/* Line 1787 of yacc.c  */
-#line 927 "gparse.y"
+#line 927 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (yyvsp[(1) - (2)]);
-		    Enter_Pred ((yyvsp[(1) - (2)]), (yyvsp[(2) - (2)]));
-		    Enter_Succ ((yyvsp[(1) - (2)]), (yyvsp[(2) - (2)]), 0, INFIN, 0, (-1)*INFIN, INFIN, NULL,
+		    (yyval) = (yyvsp[-1]);
+		    Enter_Pred ((yyvsp[-1]), (yyvsp[0]));
+		    Enter_Succ ((yyvsp[-1]), (yyvsp[0]), 0, INFIN, 0, (-1)*INFIN, INFIN, NULL,
 				NULL,NULL,false, 1.0, 1);
 		  }
+#line 3027 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 170:
-/* Line 1787 of yacc.c  */
-#line 934 "gparse.y"
+#line 934 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (yyvsp[(1) - (2)]);
-		    Enter_Pred ((yyvsp[(1) - (2)]), (yyvsp[(2) - (2)]));
-		    Enter_Succ ((yyvsp[(1) - (2)]), (yyvsp[(2) - (2)]), 0, INFIN, 0, (-1)*INFIN, INFIN, NULL,
+		    (yyval) = (yyvsp[-1]);
+		    Enter_Pred ((yyvsp[-1]), (yyvsp[0]));
+		    Enter_Succ ((yyvsp[-1]), (yyvsp[0]), 0, INFIN, 0, (-1)*INFIN, INFIN, NULL,
 				NULL,NULL, false, 1.0, 1);
 		  }
+#line 3038 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 171:
-/* Line 1787 of yacc.c  */
-#line 941 "gparse.y"
+#line 941 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (yyvsp[(1) - (11)]);
+		    (yyval) = (yyvsp[-10]);
 		    int predtype=0;
 		    int plower=-INFIN;
-		    if ((yyvsp[(6) - (11)])) {
-		      if (strchr((char*)(yyvsp[(6) - (11)]),'\\'))
+		    if ((yyvsp[-5])) {
+		      if (strchr((char*)(yyvsp[-5]),'\\'))
 			predtype=2;
-		      *(((char*)(yyvsp[(6) - (11)]))+strlen((char*)(yyvsp[(6) - (11)]))-1)='\0';
-		      if (strcmp((char*)(yyvsp[(6) - (11)]),"-inf")!=0)
-			plower=atoi((char*)(yyvsp[(6) - (11)]));
-		      free((yyvsp[(6) - (11)]));
+		      *(((char*)(yyvsp[-5]))+strlen((char*)(yyvsp[-5]))-1)='\0';
+		      if (strcmp((char*)(yyvsp[-5]),"-inf")!=0)
+			plower=atoi((char*)(yyvsp[-5]));
+		      free((yyvsp[-5]));
 		    }
 		    int pupper=INFIN;
-		    if ((yyvsp[(7) - (11)])) { 
-		      if (strchr((char*)(yyvsp[(7) - (11)]),'/'))
+		    if ((yyvsp[-4])) { 
+		      if (strchr((char*)(yyvsp[-4]),'/'))
 			predtype=predtype+1;
-		      *(((char*)(yyvsp[(7) - (11)]))+strlen((char*)(yyvsp[(7) - (11)]))-1)='\0';
-		      if (strcmp((char*)(yyvsp[(7) - (11)]),"inf")!=0)
-			pupper=atoi((char*)(yyvsp[(7) - (11)]));
-		      free((yyvsp[(7) - (11)]));
+		      *(((char*)(yyvsp[-4]))+strlen((char*)(yyvsp[-4]))-1)='\0';
+		      if (strcmp((char*)(yyvsp[-4]),"inf")!=0)
+			pupper=atoi((char*)(yyvsp[-4]));
+		      free((yyvsp[-4]));
 		    }
 		    int lower=0;
-		    if ((yyvsp[(8) - (11)])) {
-		      lower=atoi((char*)(yyvsp[(8) - (11)]));
-		      free((yyvsp[(8) - (11)]));
+		    if ((yyvsp[-3])) {
+		      lower=atoi((char*)(yyvsp[-3]));
+		      free((yyvsp[-3]));
 		    }
 		    int upper=INFIN;
-		    if ((yyvsp[(9) - (11)])) {
-		      if (strcmp((char*)(yyvsp[(9) - (11)]),"inf")!=0)
-			upper=atoi((char*)(yyvsp[(9) - (11)]));
-		      free((yyvsp[(9) - (11)]));
+		    if ((yyvsp[-2])) {
+		      if (strcmp((char*)(yyvsp[-2]),"inf")!=0)
+			upper=atoi((char*)(yyvsp[-2]));
+		      free((yyvsp[-2]));
 		    }
 		    double rate=1.0;
-		    if ((yyvsp[(10) - (11)])) {
-		      rate=atof((char*)(yyvsp[(10) - (11)]));
-		      free((yyvsp[(10) - (11)]));
+		    if ((yyvsp[-1])) {
+		      rate=atof((char*)(yyvsp[-1]));
+		      free((yyvsp[-1]));
 		    }
 		    int weight=1;
-		    if ((yyvsp[(11) - (11)])) {
-		      weight=atoi((char*)(yyvsp[(11) - (11)]));
-		      free((yyvsp[(11) - (11)]));
+		    if ((yyvsp[0])) {
+		      weight=atoi((char*)(yyvsp[0]));
+		      free((yyvsp[0]));
 		    }
-		    Enter_Pred ((yyvsp[(1) - (11)]), (yyvsp[(2) - (11)]));
-		    Enter_Succ ((yyvsp[(1) - (11)]), (yyvsp[(2) - (11)]),lower,upper,predtype,plower,pupper,
-				(char*)(yyvsp[(5) - (11)]), NULL,(char*)(yyvsp[(4) - (11)]),false,rate,weight);
+		    Enter_Pred ((yyvsp[-10]), (yyvsp[-9]));
+		    Enter_Succ ((yyvsp[-10]), (yyvsp[-9]),lower,upper,predtype,plower,pupper,
+				(char*)(yyvsp[-6]), NULL,(char*)(yyvsp[-7]),false,rate,weight);
 		  }
+#line 3089 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 172:
-/* Line 1787 of yacc.c  */
-#line 988 "gparse.y"
+#line 988 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (yyvsp[(1) - (11)]);
+		    (yyval) = (yyvsp[-10]);
 		    int predtype=0;
 		    int plower=-INFIN;
-		    if ((yyvsp[(6) - (11)])) {
-		      if (strchr((char*)(yyvsp[(6) - (11)]),'\\'))
+		    if ((yyvsp[-5])) {
+		      if (strchr((char*)(yyvsp[-5]),'\\'))
 			predtype=2;
-		      *(((char*)(yyvsp[(6) - (11)]))+strlen((char*)(yyvsp[(6) - (11)]))-1)='\0';
-		      if (strcmp((char*)(yyvsp[(6) - (11)]),"-inf")!=0)
-			plower=atoi((char*)(yyvsp[(6) - (11)]));
-		      free((yyvsp[(6) - (11)]));
+		      *(((char*)(yyvsp[-5]))+strlen((char*)(yyvsp[-5]))-1)='\0';
+		      if (strcmp((char*)(yyvsp[-5]),"-inf")!=0)
+			plower=atoi((char*)(yyvsp[-5]));
+		      free((yyvsp[-5]));
 		    }
 		    int pupper=INFIN;
-		    if ((yyvsp[(7) - (11)])) {
-		      if (strchr((char*)(yyvsp[(7) - (11)]),'/'))
+		    if ((yyvsp[-4])) {
+		      if (strchr((char*)(yyvsp[-4]),'/'))
 			predtype=predtype+1;
-		      *(((char*)(yyvsp[(7) - (11)]))+strlen((char*)(yyvsp[(7) - (11)]))-1)='\0';
-		      if (strcmp((char*)(yyvsp[(7) - (11)]),"inf")!=0)
-			pupper=atoi((char*)(yyvsp[(7) - (11)]));
-		      free((yyvsp[(7) - (11)]));
+		      *(((char*)(yyvsp[-4]))+strlen((char*)(yyvsp[-4]))-1)='\0';
+		      if (strcmp((char*)(yyvsp[-4]),"inf")!=0)
+			pupper=atoi((char*)(yyvsp[-4]));
+		      free((yyvsp[-4]));
 		    }
 		    int lower=0;
-		    if ((yyvsp[(8) - (11)])) {
-		      lower=atoi((char*)(yyvsp[(8) - (11)]));
-		      free((yyvsp[(8) - (11)]));
+		    if ((yyvsp[-3])) {
+		      lower=atoi((char*)(yyvsp[-3]));
+		      free((yyvsp[-3]));
 		    }
 		    int upper=INFIN;
-		    if ((yyvsp[(9) - (11)])) {
-		      if (strcmp((char*)(yyvsp[(9) - (11)]),"inf")!=0)
-			upper=atoi((char*)(yyvsp[(9) - (11)]));
-		      free((yyvsp[(9) - (11)]));
+		    if ((yyvsp[-2])) {
+		      if (strcmp((char*)(yyvsp[-2]),"inf")!=0)
+			upper=atoi((char*)(yyvsp[-2]));
+		      free((yyvsp[-2]));
 		    }
 		    double rate=1.0;
-		    if ((yyvsp[(10) - (11)])) {
-		      rate=atof((char*)(yyvsp[(10) - (11)]));
-		      free((yyvsp[(10) - (11)]));
+		    if ((yyvsp[-1])) {
+		      rate=atof((char*)(yyvsp[-1]));
+		      free((yyvsp[-1]));
 		    }
 		    int weight=1;
-		    if ((yyvsp[(11) - (11)])) {
-		      weight=atoi((char*)(yyvsp[(11) - (11)]));
-		      free((yyvsp[(11) - (11)]));
+		    if ((yyvsp[0])) {
+		      weight=atoi((char*)(yyvsp[0]));
+		      free((yyvsp[0]));
 		    }
-		    Enter_Pred ((yyvsp[(1) - (11)]), (yyvsp[(2) - (11)]));
-		    Enter_Succ ((yyvsp[(1) - (11)]), (yyvsp[(2) - (11)]),lower,upper,predtype,plower,pupper,
-				(char*)(yyvsp[(5) - (11)]),NULL,(char*)(yyvsp[(4) - (11)]),true,rate,weight);
+		    Enter_Pred ((yyvsp[-10]), (yyvsp[-9]));
+		    Enter_Succ ((yyvsp[-10]), (yyvsp[-9]),lower,upper,predtype,plower,pupper,
+				(char*)(yyvsp[-6]),NULL,(char*)(yyvsp[-7]),true,rate,weight);
 		  }
+#line 3140 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 173:
-/* Line 1787 of yacc.c  */
-#line 1036 "gparse.y"
+#line 1036 "gparse.y" /* yacc.c:1646  */
     { (yyval) = NULL; }
+#line 3146 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 174:
-/* Line 1787 of yacc.c  */
-#line 1037 "gparse.y"
-    { (yyval) = (yyvsp[(2) - (3)]); }
+#line 1037 "gparse.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-1]); }
+#line 3152 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 175:
-/* Line 1787 of yacc.c  */
-#line 1039 "gparse.y"
+#line 1039 "gparse.y" /* yacc.c:1646  */
     { (yyval) = NULL; }
+#line 3158 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 176:
-/* Line 1787 of yacc.c  */
-#line 1040 "gparse.y"
-    { (yyval) = (yyvsp[(2) - (3)]); }
+#line 1040 "gparse.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-1]); }
+#line 3164 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 177:
-/* Line 1787 of yacc.c  */
-#line 1045 "gparse.y"
+#line 1045 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (3)]))+
-					  strlen((char*)(yyvsp[(3) - (3)]))+2);
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (3)]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					  strlen((char*)(yyvsp[0]))+2);
+		    strcpy((char*)(yyval),(char*)(yyvsp[-2]));
 		    strcat((char*)(yyval),"|");
-		    strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
-		    free((yyvsp[(1) - (3)]));
-		    free((yyvsp[(3) - (3)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-2]));
+		    free((yyvsp[0]));
 		  }
+#line 3178 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 178:
-/* Line 1787 of yacc.c  */
-#line 1055 "gparse.y"
+#line 1055 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (3)]))+
-					  strlen((char*)(yyvsp[(3) - (3)]))+3);
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (3)]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					  strlen((char*)(yyvsp[0]))+3);
+		    strcpy((char*)(yyval),(char*)(yyvsp[-2]));
 		    strcat((char*)(yyval),"->");
-		    strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
-		    free((yyvsp[(1) - (3)]));
-		    free((yyvsp[(3) - (3)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-2]));
+		    free((yyvsp[0]));
 		  }
+#line 3192 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 180:
-/* Line 1787 of yacc.c  */
-#line 1068 "gparse.y"
+#line 1068 "gparse.y" /* yacc.c:1646  */
     {
-		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (3)]))+
-					 strlen((char*)(yyvsp[(3) - (3)]))+2);
-		   strcpy((char*)(yyval),(char*)(yyvsp[(1) - (3)]));
+		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					 strlen((char*)(yyvsp[0]))+2);
+		   strcpy((char*)(yyval),(char*)(yyvsp[-2]));
 		   strcat((char*)(yyval),"&");
-		   strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
-		   free((yyvsp[(1) - (3)]));
-		   free((yyvsp[(3) - (3)]));
+		   strcat((char*)(yyval),(char*)(yyvsp[0]));
+		   free((yyvsp[-2]));
+		   free((yyvsp[0]));
                  }
+#line 3206 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 182:
-/* Line 1787 of yacc.c  */
-#line 1081 "gparse.y"
+#line 1081 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (2)]))+2);
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[0]))+2);
 		    strcpy((char*)(yyval),"~");
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (2)]));
-		    free((yyvsp[(2) - (2)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[0]));
 		  }
+#line 3217 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 183:
-/* Line 1787 of yacc.c  */
-#line 1088 "gparse.y"
+#line 1088 "gparse.y" /* yacc.c:1646  */
     {
-		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(3) - (6)]))+
-					 strlen((char*)(yyvsp[(5) - (6)]))+7);
+		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-3]))+
+					 strlen((char*)(yyvsp[-1]))+7);
 		   strcpy((char*)(yyval),"BIT(");
-		   strcat((char*)(yyval),(char*)(yyvsp[(3) - (6)]));
+		   strcat((char*)(yyval),(char*)(yyvsp[-3]));
 		   strcat((char*)(yyval),",");
-		   strcat((char*)(yyval),(char*)(yyvsp[(5) - (6)]));
+		   strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		   strcat((char*)(yyval),")");
-		   free((yyvsp[(3) - (6)]));
-		   free((yyvsp[(5) - (6)]));
+		   free((yyvsp[-3]));
+		   free((yyvsp[-1]));
                  }
+#line 3233 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 184:
-/* Line 1787 of yacc.c  */
-#line 1100 "gparse.y"
+#line 1100 "gparse.y" /* yacc.c:1646  */
     {
-		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (3)]))+
-					 strlen((char*)(yyvsp[(2) - (3)]))+
-					 strlen((char*)(yyvsp[(3) - (3)]))+1);
-		   strcpy((char*)(yyval),(char*)(yyvsp[(1) - (3)]));
-		   strcat((char*)(yyval),(char*)(yyvsp[(2) - (3)]));
-		   strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
-		   free((yyvsp[(1) - (3)]));
-		   free((yyvsp[(3) - (3)]));
+		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					 strlen((char*)(yyvsp[-1]))+
+					 strlen((char*)(yyvsp[0]))+1);
+		   strcpy((char*)(yyval),(char*)(yyvsp[-2]));
+		   strcat((char*)(yyval),(char*)(yyvsp[-1]));
+		   strcat((char*)(yyval),(char*)(yyvsp[0]));
+		   free((yyvsp[-2]));
+		   free((yyvsp[0]));
                  }
+#line 3248 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 186:
-/* Line 1787 of yacc.c  */
-#line 1114 "gparse.y"
+#line 1114 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (3)]))+
-					  strlen((char*)(yyvsp[(3) - (3)]))+2);
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (3)]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					  strlen((char*)(yyvsp[0]))+2);
+		    strcpy((char*)(yyval),(char*)(yyvsp[-2]));
 		    strcat((char*)(yyval),"+");
-		    strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
-		    free((yyvsp[(1) - (3)]));
-		    free((yyvsp[(3) - (3)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-2]));
+		    free((yyvsp[0]));
 		  }
+#line 3262 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 187:
-/* Line 1787 of yacc.c  */
-#line 1124 "gparse.y"
+#line 1124 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (3)]))+
-					  strlen((char*)(yyvsp[(3) - (3)]))+2);
-		    strcpy((char*)(yyval),(char*)(yyvsp[(1) - (3)]));
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					  strlen((char*)(yyvsp[0]))+2);
+		    strcpy((char*)(yyval),(char*)(yyvsp[-2]));
 		    strcat((char*)(yyval),"-");
-		    strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
-		    free((yyvsp[(1) - (3)]));
-		    free((yyvsp[(3) - (3)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[-2]));
+		    free((yyvsp[0]));
 		  }
+#line 3276 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 189:
-/* Line 1787 of yacc.c  */
-#line 1137 "gparse.y"
+#line 1137 "gparse.y" /* yacc.c:1646  */
     {
-		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (2)]))+
-					 strlen((char*)(yyvsp[(2) - (2)]))+2);
-		   strcpy((char*)(yyval),(char*)(yyvsp[(1) - (2)]));
+		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+
+					 strlen((char*)(yyvsp[0]))+2);
+		   strcpy((char*)(yyval),(char*)(yyvsp[-1]));
 		   strcat((char*)(yyval),"*");
-		   strcat((char*)(yyval),(char*)(yyvsp[(2) - (2)]));
-		   free((yyvsp[(1) - (2)]));
-		   free((yyvsp[(2) - (2)]));
+		   strcat((char*)(yyval),(char*)(yyvsp[0]));
+		   free((yyvsp[-1]));
+		   free((yyvsp[0]));
                  }
+#line 3290 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 190:
-/* Line 1787 of yacc.c  */
-#line 1147 "gparse.y"
+#line 1147 "gparse.y" /* yacc.c:1646  */
     {
-		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (3)]))+
-					 strlen((char*)(yyvsp[(3) - (3)]))+2);
-		   strcpy((char*)(yyval),(char*)(yyvsp[(1) - (3)]));
+		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					 strlen((char*)(yyvsp[0]))+2);
+		   strcpy((char*)(yyval),(char*)(yyvsp[-2]));
 		   strcat((char*)(yyval),"*");
-		   strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
-		   free((yyvsp[(1) - (3)]));
-		   free((yyvsp[(3) - (3)]));
+		   strcat((char*)(yyval),(char*)(yyvsp[0]));
+		   free((yyvsp[-2]));
+		   free((yyvsp[0]));
                  }
+#line 3304 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 191:
-/* Line 1787 of yacc.c  */
-#line 1157 "gparse.y"
+#line 1157 "gparse.y" /* yacc.c:1646  */
     {
-		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (3)]))+
-					 strlen((char*)(yyvsp[(3) - (3)]))+2);
-		   strcpy((char*)(yyval),(char*)(yyvsp[(1) - (3)]));
+		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					 strlen((char*)(yyvsp[0]))+2);
+		   strcpy((char*)(yyval),(char*)(yyvsp[-2]));
 		   strcat((char*)(yyval),"/");
-		   strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
-		   free((yyvsp[(1) - (3)]));
-		   free((yyvsp[(3) - (3)]));
+		   strcat((char*)(yyval),(char*)(yyvsp[0]));
+		   free((yyvsp[-2]));
+		   free((yyvsp[0]));
                  }
+#line 3318 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 192:
-/* Line 1787 of yacc.c  */
-#line 1167 "gparse.y"
+#line 1167 "gparse.y" /* yacc.c:1646  */
     {
-		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (3)]))+
-					 strlen((char*)(yyvsp[(3) - (3)]))+2);
-		   strcpy((char*)(yyval),(char*)(yyvsp[(1) - (3)]));
+		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					 strlen((char*)(yyvsp[0]))+2);
+		   strcpy((char*)(yyval),(char*)(yyvsp[-2]));
 		   strcat((char*)(yyval),"%");
-		   strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
-		   free((yyvsp[(1) - (3)]));
-		   free((yyvsp[(3) - (3)]));
+		   strcat((char*)(yyval),(char*)(yyvsp[0]));
+		   free((yyvsp[-2]));
+		   free((yyvsp[0]));
                  }
+#line 3332 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 193:
-/* Line 1787 of yacc.c  */
-#line 1177 "gparse.y"
+#line 1177 "gparse.y" /* yacc.c:1646  */
     {
-		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (3)]))+
-					 strlen((char*)(yyvsp[(3) - (3)]))+2);
-		   strcpy((char*)(yyval),(char*)(yyvsp[(1) - (3)]));
+		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+
+					 strlen((char*)(yyvsp[0]))+2);
+		   strcpy((char*)(yyval),(char*)(yyvsp[-2]));
 		   strcat((char*)(yyval),"^");
-		   strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
-		   free((yyvsp[(1) - (3)]));
-		   free((yyvsp[(3) - (3)]));
+		   strcat((char*)(yyval),(char*)(yyvsp[0]));
+		   free((yyvsp[-2]));
+		   free((yyvsp[0]));
                  }
+#line 3346 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 195:
-/* Line 1787 of yacc.c  */
-#line 1190 "gparse.y"
+#line 1190 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (3)]))+3);
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+3);
 		    strcpy((char*)(yyval),"(");
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (3)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),")");
-		    free((yyvsp[(2) - (3)]));
+		    free((yyvsp[-1]));
 		  }
+#line 3358 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 196:
-/* Line 1787 of yacc.c  */
-#line 1198 "gparse.y"
+#line 1198 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(3) - (4)]))+7);
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+7);
 		    strcpy((char*)(yyval),"rate(");
-		    strcat((char*)(yyval),(char*)(yyvsp[(3) - (4)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),")");
-		    free((yyvsp[(3) - (4)]));
+		    free((yyvsp[-1]));
 		  }
+#line 3370 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 197:
-/* Line 1787 of yacc.c  */
-#line 1206 "gparse.y"
+#line 1206 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(3) - (4)]))+6);
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+6);
 		    strcpy((char*)(yyval),"INT(");
-		    strcat((char*)(yyval),(char*)(yyvsp[(3) - (4)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		    strcat((char*)(yyval),")");
-		    free((yyvsp[(3) - (4)]));
+		    free((yyvsp[-1]));
 		  }
+#line 3382 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 199:
-/* Line 1787 of yacc.c  */
-#line 1215 "gparse.y"
+#line 1215 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (2)]))+2);
+		    (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[0]))+2);
 		    strcpy((char*)(yyval),"-");
-		    strcat((char*)(yyval),(char*)(yyvsp[(2) - (2)]));
-		    free((yyvsp[(2) - (2)]));
+		    strcat((char*)(yyval),(char*)(yyvsp[0]));
+		    free((yyvsp[0]));
 		  }
+#line 3393 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 200:
-/* Line 1787 of yacc.c  */
-#line 1222 "gparse.y"
+#line 1222 "gparse.y" /* yacc.c:1646  */
     {
 		    (yyval) = (Node*)GetBlock(6);
 		    strcpy((char*)(yyval),"false");
                   }
+#line 3402 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 201:
-/* Line 1787 of yacc.c  */
-#line 1227 "gparse.y"
+#line 1227 "gparse.y" /* yacc.c:1646  */
     {
 		    (yyval) = (Node*)GetBlock(5);
 		    strcpy((char*)(yyval),"true");
                   }
+#line 3411 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 202:
-/* Line 1787 of yacc.c  */
-#line 1232 "gparse.y"
+#line 1232 "gparse.y" /* yacc.c:1646  */
     {
-		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (4)]))+
-					 strlen((char*)(yyvsp[(3) - (4)]))+3);
-		   strcpy((char*)(yyval),(char*)(yyvsp[(1) - (4)]));
+		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-3]))+
+					 strlen((char*)(yyvsp[-1]))+3);
+		   strcpy((char*)(yyval),(char*)(yyvsp[-3]));
 		   strcat((char*)(yyval),"(");
-		   strcat((char*)(yyval),(char*)(yyvsp[(3) - (4)]));
+		   strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		   strcat((char*)(yyval),")");
-		   free((yyvsp[(1) - (4)]));
-		   free((yyvsp[(3) - (4)]));
+		   free((yyvsp[-3]));
+		   free((yyvsp[-1]));
                  }
+#line 3426 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 203:
-/* Line 1787 of yacc.c  */
-#line 1243 "gparse.y"
+#line 1243 "gparse.y" /* yacc.c:1646  */
     {
-		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[(1) - (6)]))+
-					 strlen((char*)(yyvsp[(3) - (6)]))+
-					 strlen((char*)(yyvsp[(5) - (6)]))+4);
-		   strcpy((char*)(yyval),(char*)(yyvsp[(1) - (6)]));
+		   (yyval) = (Node*)GetBlock (strlen((char*)(yyvsp[-5]))+
+					 strlen((char*)(yyvsp[-3]))+
+					 strlen((char*)(yyvsp[-1]))+4);
+		   strcpy((char*)(yyval),(char*)(yyvsp[-5]));
 		   strcat((char*)(yyval),"(");
-		   strcat((char*)(yyval),(char*)(yyvsp[(3) - (6)]));
+		   strcat((char*)(yyval),(char*)(yyvsp[-3]));
 		   strcat((char*)(yyval),",");
-		   strcat((char*)(yyval),(char*)(yyvsp[(5) - (6)]));
+		   strcat((char*)(yyval),(char*)(yyvsp[-1]));
 		   strcat((char*)(yyval),")");
-		   free((yyvsp[(1) - (6)]));
-		   free((yyvsp[(3) - (6)]));
-		   free((yyvsp[(5) - (6)]));
+		   free((yyvsp[-5]));
+		   free((yyvsp[-3]));
+		   free((yyvsp[-1]));
                  }
+#line 3445 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 207:
-/* Line 1787 of yacc.c  */
-#line 1263 "gparse.y"
+#line 1263 "gparse.y" /* yacc.c:1646  */
     { (yyval) = (Node*)CopyString("=");  }
+#line 3451 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 208:
-/* Line 1787 of yacc.c  */
-#line 1264 "gparse.y"
+#line 1264 "gparse.y" /* yacc.c:1646  */
     { (yyval) = (Node*)CopyString("<");  }
+#line 3457 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 209:
-/* Line 1787 of yacc.c  */
-#line 1265 "gparse.y"
+#line 1265 "gparse.y" /* yacc.c:1646  */
     { (yyval) = (Node*)CopyString("<="); }
+#line 3463 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 210:
-/* Line 1787 of yacc.c  */
-#line 1266 "gparse.y"
+#line 1266 "gparse.y" /* yacc.c:1646  */
     { (yyval) = (Node*)CopyString(">");  }
+#line 3469 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 211:
-/* Line 1787 of yacc.c  */
-#line 1267 "gparse.y"
+#line 1267 "gparse.y" /* yacc.c:1646  */
     { (yyval) = (Node*)CopyString(">="); }
+#line 3475 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 234:
-/* Line 1787 of yacc.c  */
-#line 1298 "gparse.y"
+#line 1298 "gparse.y" /* yacc.c:1646  */
     { 
-		  (yyval) = (yyvsp[(3) - (3)]);
-		  ((ineqADT)(yyvsp[(3) - (3)]))->next = (ineqADT)(yyvsp[(1) - (3)]);
+		  (yyval) = (yyvsp[0]);
+		  ((ineqADT)(yyvsp[0]))->next = (ineqADT)(yyvsp[-2]);
 		}
+#line 3484 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 235:
-/* Line 1787 of yacc.c  */
-#line 1303 "gparse.y"
-    { (yyval) = (yyvsp[(1) - (1)]); }
+#line 1303 "gparse.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[0]); }
+#line 3490 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 236:
-/* Line 1787 of yacc.c  */
-#line 1307 "gparse.y"
+#line 1307 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = (Node*)GetBlock(strlen((char*)(yyvsp[(1) - (3)]))+
-				       strlen((char*)(yyvsp[(3) - (3)]))+2);
-		  strcpy((char*)(yyval), (char*)(yyvsp[(1) - (3)]));
+		  (yyval) = (Node*)GetBlock(strlen((char*)(yyvsp[-2]))+
+				       strlen((char*)(yyvsp[0]))+2);
+		  strcpy((char*)(yyval), (char*)(yyvsp[-2]));
 		  strcat((char*)(yyval), "&");
-		  strcat((char*)(yyval), (char*)(yyvsp[(3) - (3)]));
+		  strcat((char*)(yyval), (char*)(yyvsp[0]));
 		  //free($1);
 		  //free($3);
 		}
+#line 3504 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 238:
-/* Line 1787 of yacc.c  */
-#line 1321 "gparse.y"
+#line 1321 "gparse.y" /* yacc.c:1646  */
     { 
-		  (yyval) = (yyvsp[(3) - (3)]);
-		  ((ineqADT)(yyvsp[(3) - (3)]))->next = (ineqADT)(yyvsp[(1) - (3)]);
+		  (yyval) = (yyvsp[0]);
+		  ((ineqADT)(yyvsp[0]))->next = (ineqADT)(yyvsp[-2]);
 		}
+#line 3513 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 239:
-/* Line 1787 of yacc.c  */
-#line 1326 "gparse.y"
+#line 1326 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = (yyvsp[(1) - (1)]);
+		  (yyval) = (yyvsp[0]);
 		}
+#line 3521 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 240:
-/* Line 1787 of yacc.c  */
-#line 1332 "gparse.y"
+#line 1332 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = (Node*)Enter_Inequality((yyvsp[(1) - (3)]),5,-INFIN,INFIN,(char*)(yyvsp[(3) - (3)]));
+		  (yyval) = (Node*)Enter_Inequality((yyvsp[-2]),5,-INFIN,INFIN,(char*)(yyvsp[0]));
                 }
+#line 3529 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 241:
-/* Line 1787 of yacc.c  */
-#line 1338 "gparse.y"
+#line 1338 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = (Node*)Enter_Inequality((yyvsp[(1) - (3)]),6,-INFIN,INFIN,(char*)(yyvsp[(3) - (3)]));
+		  (yyval) = (Node*)Enter_Inequality((yyvsp[-2]),6,-INFIN,INFIN,(char*)(yyvsp[0]));
                 }
+#line 3537 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 242:
-/* Line 1787 of yacc.c  */
-#line 1344 "gparse.y"
-    { (yyval) = (yyvsp[(2) - (3)]); }
+#line 1344 "gparse.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-1]); }
+#line 3543 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 243:
-/* Line 1787 of yacc.c  */
-#line 1346 "gparse.y"
+#line 1346 "gparse.y" /* yacc.c:1646  */
     { (yyval) = NULL; }
+#line 3549 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 244:
-/* Line 1787 of yacc.c  */
-#line 1348 "gparse.y"
+#line 1348 "gparse.y" /* yacc.c:1646  */
     {
-                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (2)]))+2);
-		  strcpy((char*)(yyval),(char*)(yyvsp[(2) - (2)]));
+                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[0]))+2);
+		  strcpy((char*)(yyval),(char*)(yyvsp[0]));
                   strcat((char*)(yyval),"/");
-                  free((yyvsp[(2) - (2)]));
+                  free((yyvsp[0]));
    	        }
+#line 3560 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 245:
-/* Line 1787 of yacc.c  */
-#line 1355 "gparse.y"
+#line 1355 "gparse.y" /* yacc.c:1646  */
     {
-                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (2)]))+2);
-		  strcpy((char*)(yyval),(char*)(yyvsp[(2) - (2)]));
+                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[0]))+2);
+		  strcpy((char*)(yyval),(char*)(yyvsp[0]));
                   strcat((char*)(yyval),"\\");
-                  free((yyvsp[(2) - (2)]));
+                  free((yyvsp[0]));
    	        }
+#line 3571 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 246:
-/* Line 1787 of yacc.c  */
-#line 1362 "gparse.y"
+#line 1362 "gparse.y" /* yacc.c:1646  */
     { 
-                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[(3) - (3)]))+3);
+                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[0]))+3);
                   strcpy((char*)(yyval),"-");
-		  strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
+		  strcat((char*)(yyval),(char*)(yyvsp[0]));
                   strcat((char*)(yyval),"/");
-                  free((yyvsp[(3) - (3)]));
+                  free((yyvsp[0]));
                 }
+#line 3583 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 247:
-/* Line 1787 of yacc.c  */
-#line 1370 "gparse.y"
+#line 1370 "gparse.y" /* yacc.c:1646  */
     { 
-                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[(3) - (3)]))+3);
+                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[0]))+3);
                   strcpy((char*)(yyval),"-");
-		  strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
+		  strcat((char*)(yyval),(char*)(yyvsp[0]));
                   strcat((char*)(yyval),"\\");
-                  free((yyvsp[(3) - (3)]));
+                  free((yyvsp[0]));
                 }
+#line 3595 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 248:
-/* Line 1787 of yacc.c  */
-#line 1378 "gparse.y"
+#line 1378 "gparse.y" /* yacc.c:1646  */
     { 
-                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[(3) - (3)]))+3);
+                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[0]))+3);
                   strcpy((char*)(yyval),"-");
-		  strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
+		  strcat((char*)(yyval),(char*)(yyvsp[0]));
                   strcat((char*)(yyval),"/");
-                  free((yyvsp[(3) - (3)]));
+                  free((yyvsp[0]));
                 }
+#line 3607 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 249:
-/* Line 1787 of yacc.c  */
-#line 1386 "gparse.y"
+#line 1386 "gparse.y" /* yacc.c:1646  */
     { 
-                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[(3) - (3)]))+3);
+                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[0]))+3);
                   strcpy((char*)(yyval),"-");
-		  strcat((char*)(yyval),(char*)(yyvsp[(3) - (3)]));
+		  strcat((char*)(yyval),(char*)(yyvsp[0]));
                   strcat((char*)(yyval),"\\");
-                  free((yyvsp[(3) - (3)]));
+                  free((yyvsp[0]));
                 }
+#line 3619 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 250:
-/* Line 1787 of yacc.c  */
-#line 1394 "gparse.y"
+#line 1394 "gparse.y" /* yacc.c:1646  */
     { (yyval) = NULL; }
+#line 3625 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 251:
-/* Line 1787 of yacc.c  */
-#line 1396 "gparse.y"
+#line 1396 "gparse.y" /* yacc.c:1646  */
     { 
-                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (4)]))+3);
+                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+3);
                   strcpy((char*)(yyval),"-");
-		  strcat((char*)(yyval),(char*)(yyvsp[(3) - (4)]));
+		  strcat((char*)(yyval),(char*)(yyvsp[-1]));
                   strcat((char*)(yyval),"\\");
-                  free((yyvsp[(3) - (4)]));
+                  free((yyvsp[-1]));
                 }
+#line 3637 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 252:
-/* Line 1787 of yacc.c  */
-#line 1404 "gparse.y"
+#line 1404 "gparse.y" /* yacc.c:1646  */
     { 
-                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (4)]))+3);
+                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[-2]))+3);
                   strcpy((char*)(yyval),"-");
-		  strcat((char*)(yyval),(char*)(yyvsp[(3) - (4)]));
+		  strcat((char*)(yyval),(char*)(yyvsp[-1]));
                   strcat((char*)(yyval),"/");
-                  free((yyvsp[(3) - (4)]));
+                  free((yyvsp[-1]));
                 }
+#line 3649 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 253:
-/* Line 1787 of yacc.c  */
-#line 1412 "gparse.y"
+#line 1412 "gparse.y" /* yacc.c:1646  */
     {
-                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (3)]))+2);
-		  strcpy((char*)(yyval),(char*)(yyvsp[(2) - (3)]));
+                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+2);
+		  strcpy((char*)(yyval),(char*)(yyvsp[-1]));
                   strcat((char*)(yyval),"\\");
-                  free((yyvsp[(2) - (3)]));
+                  free((yyvsp[-1]));
    	        }
+#line 3660 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 254:
-/* Line 1787 of yacc.c  */
-#line 1419 "gparse.y"
+#line 1419 "gparse.y" /* yacc.c:1646  */
     {
-                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (3)]))+2);
-		  strcpy((char*)(yyval),(char*)(yyvsp[(2) - (3)]));
+                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+2);
+		  strcpy((char*)(yyval),(char*)(yyvsp[-1]));
                   strcat((char*)(yyval),"/");
-                  free((yyvsp[(2) - (3)]));
+                  free((yyvsp[-1]));
    	        }
+#line 3671 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 255:
-/* Line 1787 of yacc.c  */
-#line 1426 "gparse.y"
+#line 1426 "gparse.y" /* yacc.c:1646  */
     {
-                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (3)]))+2);
-		  strcpy((char*)(yyval),(char*)(yyvsp[(2) - (3)]));
+                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+2);
+		  strcpy((char*)(yyval),(char*)(yyvsp[-1]));
                   strcat((char*)(yyval),"\\");
-                  free((yyvsp[(2) - (3)]));
+                  free((yyvsp[-1]));
    	        }
+#line 3682 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 256:
-/* Line 1787 of yacc.c  */
-#line 1433 "gparse.y"
+#line 1433 "gparse.y" /* yacc.c:1646  */
     {
-                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[(2) - (3)]))+2);
-		  strcpy((char*)(yyval),(char*)(yyvsp[(2) - (3)]));
+                  (yyval) =  (Node*)GetBlock (strlen((char*)(yyvsp[-1]))+2);
+		  strcpy((char*)(yyval),(char*)(yyvsp[-1]));
                   strcat((char*)(yyval),"/");
-                  free((yyvsp[(2) - (3)]));
+                  free((yyvsp[-1]));
    	        }
+#line 3693 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 257:
-/* Line 1787 of yacc.c  */
-#line 1440 "gparse.y"
+#line 1440 "gparse.y" /* yacc.c:1646  */
     { (yyval) = NULL; }
+#line 3699 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 258:
-/* Line 1787 of yacc.c  */
-#line 1441 "gparse.y"
-    { (yyval) = (yyvsp[(2) - (2)]); }
+#line 1441 "gparse.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[0]); }
+#line 3705 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 259:
-/* Line 1787 of yacc.c  */
-#line 1443 "gparse.y"
+#line 1443 "gparse.y" /* yacc.c:1646  */
     { (yyval) = NULL; }
+#line 3711 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 260:
-/* Line 1787 of yacc.c  */
-#line 1444 "gparse.y"
-    { (yyval) = (yyvsp[(2) - (3)]); }
+#line 1444 "gparse.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-1]); }
+#line 3717 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 261:
-/* Line 1787 of yacc.c  */
-#line 1445 "gparse.y"
-    { (yyval) = (yyvsp[(2) - (3)]); }
+#line 1445 "gparse.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-1]); }
+#line 3723 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 262:
-/* Line 1787 of yacc.c  */
-#line 1447 "gparse.y"
+#line 1447 "gparse.y" /* yacc.c:1646  */
     { (yyval) = NULL; }
+#line 3729 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 263:
-/* Line 1787 of yacc.c  */
-#line 1448 "gparse.y"
-    { (yyval) = (yyvsp[(1) - (1)]); }
+#line 1448 "gparse.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[0]); }
+#line 3735 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 264:
-/* Line 1787 of yacc.c  */
-#line 1450 "gparse.y"
+#line 1450 "gparse.y" /* yacc.c:1646  */
     { (yyval) = NULL; }
+#line 3741 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 265:
-/* Line 1787 of yacc.c  */
-#line 1451 "gparse.y"
-    { (yyval) = (yyvsp[(1) - (1)]); }
+#line 1451 "gparse.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[0]); }
+#line 3747 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 266:
-/* Line 1787 of yacc.c  */
-#line 1455 "gparse.y"
+#line 1455 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (yyvsp[(1) - (1)]);
+		    (yyval) = (yyvsp[0]);
 		  }
+#line 3755 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 267:
-/* Line 1787 of yacc.c  */
-#line 1459 "gparse.y"
+#line 1459 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = (yyvsp[(1) - (1)]);
+		    (yyval) = (yyvsp[0]);
 		  }
+#line 3763 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 268:
-/* Line 1787 of yacc.c  */
-#line 1466 "gparse.y"
+#line 1466 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_Trans ((char*)(yyvsp[(1) - (2)]), "", '+');
-		    free((yyvsp[(1) - (2)]));
+		    (yyval) = Enter_Trans ((char*)(yyvsp[-1]), "", '+');
+		    free((yyvsp[-1]));
 		  }
+#line 3772 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 269:
-/* Line 1787 of yacc.c  */
-#line 1471 "gparse.y"
+#line 1471 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_Trans ((char*)(yyvsp[(1) - (4)]), (char*)(yyvsp[(4) - (4)]), '+');
-		    free((yyvsp[(1) - (4)]));
-		    free((yyvsp[(4) - (4)]));
+		    (yyval) = Enter_Trans ((char*)(yyvsp[-3]), (char*)(yyvsp[0]), '+');
+		    free((yyvsp[-3]));
+		    free((yyvsp[0]));
 		  }
+#line 3782 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 270:
-/* Line 1787 of yacc.c  */
-#line 1477 "gparse.y"
+#line 1477 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_Trans ((char*)(yyvsp[(1) - (2)]), "", '-');
-		    free((yyvsp[(1) - (2)]));
+		    (yyval) = Enter_Trans ((char*)(yyvsp[-1]), "", '-');
+		    free((yyvsp[-1]));
 		  }
+#line 3791 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 271:
-/* Line 1787 of yacc.c  */
-#line 1482 "gparse.y"
+#line 1482 "gparse.y" /* yacc.c:1646  */
     {
-		    (yyval) = Enter_Trans ((char*)(yyvsp[(1) - (4)]), (char*)(yyvsp[(4) - (4)]), '-');
-		    free((yyvsp[(1) - (4)]));
-		    free((yyvsp[(4) - (4)]));
+		    (yyval) = Enter_Trans ((char*)(yyvsp[-3]), (char*)(yyvsp[0]), '-');
+		    free((yyvsp[-3]));
+		    free((yyvsp[0]));
 		  }
+#line 3801 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 275:
-/* Line 1787 of yacc.c  */
-#line 1497 "gparse.y"
+#line 1497 "gparse.y" /* yacc.c:1646  */
     {
-		  string hsfs = (char*)(yyvsp[(5) - (7)]);
+		  string hsfs = (char*)(yyvsp[-2]);
 		  ineqADT ineqs = NULL;
 		  ineqADT temp;
 		  string hsf;
@@ -4144,11 +3847,11 @@ yyreduce:
 		      }
 		    }
 		  }
-		  if (!(yyvsp[(2) - (7)])->inequalities) {
-		    (yyvsp[(2) - (7)])->inequalities = ineqs;
+		  if (!(yyvsp[-5])->inequalities) {
+		    (yyvsp[-5])->inequalities = ineqs;
 		  }
 		  else {
-		    for (ineqADT step = (yyvsp[(2) - (7)])->inequalities; step;
+		    for (ineqADT step = (yyvsp[-5])->inequalities; step;
 			 step = step->next) {
 		      if (!step->next) {
 			step->next = temp;
@@ -4156,276 +3859,276 @@ yyreduce:
 		      }
 		    }
 		  }
-		  Enter_Hsl((yyvsp[(2) - (7)]),(char*)(yyvsp[(5) - (7)]));
-		  free((yyvsp[(5) - (7)]));
+		  Enter_Hsl((yyvsp[-5]),(char*)(yyvsp[-2]));
+		  free((yyvsp[-2]));
 		}
+#line 3866 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 279:
-/* Line 1787 of yacc.c  */
-#line 1567 "gparse.y"
+#line 1567 "gparse.y" /* yacc.c:1646  */
     {
-		  if (!(yyvsp[(2) - (7)])->inequalities) {
-		    (yyvsp[(2) - (7)])->inequalities = (ineqADT)(yyvsp[(5) - (7)]);
+		  if (!(yyvsp[-5])->inequalities) {
+		    (yyvsp[-5])->inequalities = (ineqADT)(yyvsp[-2]);
 		  }
 		  else {
-		    for (ineqADT step = (yyvsp[(2) - (7)])->inequalities; step;
+		    for (ineqADT step = (yyvsp[-5])->inequalities; step;
 			 step = step->next) {
 		      if (!step->next) {
-			step->next = (ineqADT)(yyvsp[(5) - (7)]);
+			step->next = (ineqADT)(yyvsp[-2]);
 			break;
 		      }
 		    }
 		  }
 		}
+#line 3885 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 283:
-/* Line 1787 of yacc.c  */
-#line 1592 "gparse.y"
+#line 1592 "gparse.y" /* yacc.c:1646  */
     {
-		  if (!(yyvsp[(2) - (7)])->inequalities) {
-		    (yyvsp[(2) - (7)])->inequalities = (ineqADT)(yyvsp[(5) - (7)]);
+		  if (!(yyvsp[-5])->inequalities) {
+		    (yyvsp[-5])->inequalities = (ineqADT)(yyvsp[-2]);
 		  }
 		  else {
-		    for (ineqADT step = (yyvsp[(2) - (7)])->inequalities; step;
+		    for (ineqADT step = (yyvsp[-5])->inequalities; step;
 			 step = step->next) {
 		      if (!step->next) {
-			step->next = (ineqADT)(yyvsp[(5) - (7)]);
+			step->next = (ineqADT)(yyvsp[-2]);
 			break;
 		      }
 		    }
 		  }
                 }
+#line 3904 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 287:
-/* Line 1787 of yacc.c  */
-#line 1615 "gparse.y"
+#line 1615 "gparse.y" /* yacc.c:1646  */
     {
-		   Enter_Delay((yyvsp[(2) - (10)]),atoi((char*)(yyvsp[(6) - (10)])),atoi((char*)(yyvsp[(8) - (10)])));
+		   Enter_Delay((yyvsp[-8]),atoi((char*)(yyvsp[-4])),atoi((char*)(yyvsp[-2])));
 		 }
+#line 3912 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 288:
-/* Line 1787 of yacc.c  */
-#line 1619 "gparse.y"
+#line 1619 "gparse.y" /* yacc.c:1646  */
     {
-		   Enter_Delay((yyvsp[(2) - (10)]),atoi((char*)(yyvsp[(6) - (10)])),INFIN);
+		   Enter_Delay((yyvsp[-8]),atoi((char*)(yyvsp[-4])),INFIN);
 		 }
+#line 3920 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 289:
-/* Line 1787 of yacc.c  */
-#line 1623 "gparse.y"
+#line 1623 "gparse.y" /* yacc.c:1646  */
     {
-		   Enter_TransRate((yyvsp[(2) - (8)]),(char*)(yyvsp[(6) - (8)]));
-		   free((yyvsp[(5) - (8)]));
+		   Enter_TransRate((yyvsp[-6]),(char*)(yyvsp[-2]));
+		   free((yyvsp[-3]));
 		 }
+#line 3929 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 290:
-/* Line 1787 of yacc.c  */
-#line 1628 "gparse.y"
+#line 1628 "gparse.y" /* yacc.c:1646  */
     {
-		   Enter_Delay((yyvsp[(2) - (9)]),atoi((char*)(yyvsp[(5) - (9)])),atoi((char*)(yyvsp[(7) - (9)])));
+		   Enter_Delay((yyvsp[-7]),atoi((char*)(yyvsp[-4])),atoi((char*)(yyvsp[-2])));
 		 }
+#line 3937 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 291:
-/* Line 1787 of yacc.c  */
-#line 1632 "gparse.y"
+#line 1632 "gparse.y" /* yacc.c:1646  */
     {
-		   Enter_Delay((yyvsp[(2) - (9)]),atoi((char*)(yyvsp[(5) - (9)])),INFIN);
+		   Enter_Delay((yyvsp[-7]),atoi((char*)(yyvsp[-4])),INFIN);
 		 }
+#line 3945 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 292:
-/* Line 1787 of yacc.c  */
-#line 1636 "gparse.y"
+#line 1636 "gparse.y" /* yacc.c:1646  */
     {
-		   Enter_Delay((yyvsp[(2) - (5)]),atoi((char*)(yyvsp[(4) - (5)])),atoi((char*)(yyvsp[(4) - (5)])));
+		   Enter_Delay((yyvsp[-3]),atoi((char*)(yyvsp[-1])),atoi((char*)(yyvsp[-1])));
 		 }
+#line 3953 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 293:
-/* Line 1787 of yacc.c  */
-#line 1640 "gparse.y"
+#line 1640 "gparse.y" /* yacc.c:1646  */
     {
-		   Enter_DelayExpr((yyvsp[(2) - (7)]),(char*)(yyvsp[(5) - (7)]));
+		   Enter_DelayExpr((yyvsp[-5]),(char*)(yyvsp[-2]));
 		 }
+#line 3961 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 297:
-/* Line 1787 of yacc.c  */
-#line 1653 "gparse.y"
+#line 1653 "gparse.y" /* yacc.c:1646  */
     {
-		   Enter_PriorityExpr((yyvsp[(2) - (7)]),(char*)(yyvsp[(5) - (7)]));
+		   Enter_PriorityExpr((yyvsp[-5]),(char*)(yyvsp[-2]));
 		 }
+#line 3969 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 301:
-/* Line 1787 of yacc.c  */
-#line 1666 "gparse.y"
+#line 1666 "gparse.y" /* yacc.c:1646  */
     {
-		   Enter_TransRate((yyvsp[(2) - (7)]),(char*)(yyvsp[(5) - (7)]));
-		   free((yyvsp[(5) - (7)]));
+		   Enter_TransRate((yyvsp[-5]),(char*)(yyvsp[-2]));
+		   free((yyvsp[-2]));
 		 }
+#line 3978 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 305:
-/* Line 1787 of yacc.c  */
-#line 1680 "gparse.y"
+#line 1680 "gparse.y" /* yacc.c:1646  */
     {
-		  if (!(yyvsp[(2) - (7)])->inequalities) {
-		    (yyvsp[(2) - (7)])->inequalities = (ineqADT)(yyvsp[(5) - (7)]);
+		  if (!(yyvsp[-5])->inequalities) {
+		    (yyvsp[-5])->inequalities = (ineqADT)(yyvsp[-2]);
 		  }
 		  else {
-		    for (ineqADT step = (yyvsp[(2) - (7)])->inequalities; step;
+		    for (ineqADT step = (yyvsp[-5])->inequalities; step;
 			 step = step->next) {
 		      if (!step->next) {
-			step->next = (ineqADT)(yyvsp[(5) - (7)]);
+			step->next = (ineqADT)(yyvsp[-2]);
 			break;
 		      }
 		    }
 		  }
                 }
+#line 3997 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 306:
-/* Line 1787 of yacc.c  */
-#line 1696 "gparse.y"
+#line 1696 "gparse.y" /* yacc.c:1646  */
     { 
-		  (yyval) = (yyvsp[(3) - (3)]);
-		  ((ineqADT)(yyvsp[(3) - (3)]))->next = (ineqADT)(yyvsp[(1) - (3)]);
+		  (yyval) = (yyvsp[0]);
+		  ((ineqADT)(yyvsp[0]))->next = (ineqADT)(yyvsp[-2]);
 		}
+#line 4006 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 307:
-/* Line 1787 of yacc.c  */
-#line 1701 "gparse.y"
+#line 1701 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = (yyvsp[(1) - (1)]);
+		  (yyval) = (yyvsp[0]);
 		}
+#line 4014 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 308:
-/* Line 1787 of yacc.c  */
-#line 1707 "gparse.y"
+#line 1707 "gparse.y" /* yacc.c:1646  */
     {
 		  Name_Ptr nptr;
-		  nptr = Name_Find_Str((char*)(yyvsp[(1) - (3)]));
+		  nptr = Name_Find_Str((char*)(yyvsp[-2]));
 		  
 		  if ( nptr == NULL ) {
 		    printf ("Boolean %s doesn't exist in list.\n",
-			    (char*)(yyvsp[(1) - (3)]));
+			    (char*)(yyvsp[-2]));
 		    gerror("ERROR");
 		  }
 		  else {
-		    (yyval) = (Node*)Enter_Inequality(Name_Node(nptr),7,-INFIN,INFIN,(char*)(yyvsp[(3) - (3)]));
+		    (yyval) = (Node*)Enter_Inequality(Name_Node(nptr),7,-INFIN,INFIN,(char*)(yyvsp[0]));
 		  }
                 }
+#line 4032 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 311:
-/* Line 1787 of yacc.c  */
-#line 1728 "gparse.y"
+#line 1728 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = Enter_Trans ((char*)(yyvsp[(1) - (1)]), "", '$');
-		  Node_Ptr n = Enter_Place (strcat((char*)(yyvsp[(1) - (1)]),"_p"));
+		  (yyval) = Enter_Trans ((char*)(yyvsp[0]), "", '$');
+		  Node_Ptr n = Enter_Place (strcat((char*)(yyvsp[0]),"_p"));
 		  Enter_Pred (n, (yyval));
 		  Enter_Succ (n, (yyval), 0, INFIN, 0, (-1)*INFIN, INFIN, NULL, 
 			      NULL, "C", false, 1.0, 1);
 		  Enter_Mark (&initial_marking, PLACE_MARK, NULL, n, 1, 1);
 		}
+#line 4045 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 312:
-/* Line 1787 of yacc.c  */
-#line 1737 "gparse.y"
+#line 1737 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = Enter_Trans ((char*)(yyvsp[(2) - (2)]), "", '$');
-		  Node_Ptr n = Enter_Place (strcat((char*)(yyvsp[(2) - (2)]),"_p"));
+		  (yyval) = Enter_Trans ((char*)(yyvsp[0]), "", '$');
+		  Node_Ptr n = Enter_Place (strcat((char*)(yyvsp[0]),"_p"));
 		  Enter_Pred (n, (yyval));
 		  Enter_Succ (n, (yyval), 0, INFIN, 0, (-1)*INFIN, INFIN, NULL, 
 			      NULL, "C", false, 1.0, 1);
 		}
+#line 4057 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 313:
-/* Line 1787 of yacc.c  */
-#line 1745 "gparse.y"
+#line 1745 "gparse.y" /* yacc.c:1646  */
     {
-		  Node_Ptr n = Enter_Place (strcat((char*)(yyvsp[(1) - (1)]),"_p"));
+		  Node_Ptr n = Enter_Place (strcat((char*)(yyvsp[0]),"_p"));
 		  Enter_Pred (n, (yyval));
 		  Enter_Succ (n, (yyval), 0, INFIN, 0, (-1)*INFIN, INFIN, NULL, 
 			      NULL,"C", false, 1.0, 1);
 		  Enter_Mark (&initial_marking, PLACE_MARK, NULL, n, 1, 1);
 		}
+#line 4069 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 314:
-/* Line 1787 of yacc.c  */
-#line 1753 "gparse.y"
+#line 1753 "gparse.y" /* yacc.c:1646  */
     {
-		  Node_Ptr n = Enter_Place (strcat((char*)(yyvsp[(2) - (2)]),"_p"));
+		  Node_Ptr n = Enter_Place (strcat((char*)(yyvsp[0]),"_p"));
 		  Enter_Pred (n, (yyval));
 		  Enter_Succ (n, (yyval), 0, INFIN, 0, (-1)*INFIN, INFIN, NULL, 
 			      NULL,"C", false, 1.0, 1);
 		}
+#line 4080 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 317:
-/* Line 1787 of yacc.c  */
-#line 1766 "gparse.y"
+#line 1766 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = Enter_Trans ((char*)(yyvsp[(1) - (1)]), "", '$');
+		  (yyval) = Enter_Trans ((char*)(yyvsp[0]), "", '$');
 		  Node_Ptr n = Enter_Trans ("dummy", "", '$');
 		  Enter_Pred ((yyval), n);
 		  Enter_Succ (n, (yyval), 0, INFIN, 0, (-1)*INFIN, INFIN, NULL, 
 			      NULL,"C", false, 1.0, 1);
 		}
+#line 4092 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 318:
-/* Line 1787 of yacc.c  */
-#line 1774 "gparse.y"
+#line 1774 "gparse.y" /* yacc.c:1646  */
     {
-		  (yyval) = Enter_Trans ((char*)(yyvsp[(2) - (2)]), "", '$');
-		  Node_Ptr n = Enter_Place (strcat((char*)(yyvsp[(2) - (2)]),"_p"));
+		  (yyval) = Enter_Trans ((char*)(yyvsp[0]), "", '$');
+		  Node_Ptr n = Enter_Place (strcat((char*)(yyvsp[0]),"_p"));
 		  Enter_Pred (n, (yyval));
 		  Enter_Succ (n, (yyval), 0, INFIN, 0, (-1)*INFIN, INFIN, NULL, 
 			      NULL,"C", false, 1.0, 1);
 		  Enter_Mark (&initial_marking, PLACE_MARK, NULL, n, 1, 1);
 		}
+#line 4105 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 319:
-/* Line 1787 of yacc.c  */
-#line 1783 "gparse.y"
+#line 1783 "gparse.y" /* yacc.c:1646  */
     {
 		  Node_Ptr n = Enter_Trans ("dummy", "", '$');
 		  Enter_Pred ((yyval), n);
 		  Enter_Succ (n, (yyval), 0, INFIN, 0, (-1)*INFIN, INFIN, NULL, 
 			      NULL,"C", false, 1.0, 1);
 		}
+#line 4116 "gparse.c" /* yacc.c:1646  */
     break;
 
   case 320:
-/* Line 1787 of yacc.c  */
-#line 1790 "gparse.y"
+#line 1790 "gparse.y" /* yacc.c:1646  */
     {
-		  Node_Ptr n = Enter_Place (strcat((char*)(yyvsp[(2) - (2)]),"_p"));
+		  Node_Ptr n = Enter_Place (strcat((char*)(yyvsp[0]),"_p"));
 		  Enter_Pred (n, (yyval));
 		  Enter_Succ (n, (yyval), 0, INFIN, 0, (-1)*INFIN, INFIN, NULL, 
 			      NULL,"C", false, 1.0, 1);
 		  Enter_Mark (&initial_marking, PLACE_MARK, NULL, n, 1, 1);
 		}
+#line 4128 "gparse.c" /* yacc.c:1646  */
     break;
 
 
-/* Line 1787 of yacc.c  */
-#line 4429 "gparse.c"
+#line 4132 "gparse.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -4447,7 +4150,7 @@ yyreduce:
 
   *++yyvsp = yyval;
 
-  /* Now `shift' the result of the reduction.  Determine what state
+  /* Now 'shift' the result of the reduction.  Determine what state
      that goes to, based on the state we popped back to and the rule
      number reduced by.  */
 
@@ -4462,9 +4165,9 @@ yyreduce:
   goto yynewstate;
 
 
-/*------------------------------------.
-| yyerrlab -- here on detecting error |
-`------------------------------------*/
+/*--------------------------------------.
+| yyerrlab -- here on detecting error.  |
+`--------------------------------------*/
 yyerrlab:
   /* Make sure we have latest lookahead translation.  See comments at
      user semantic actions for why this is necessary.  */
@@ -4515,20 +4218,20 @@ yyerrlab:
   if (yyerrstatus == 3)
     {
       /* If just tried and failed to reuse lookahead token after an
-	 error, discard it.  */
+         error, discard it.  */
 
       if (yychar <= YYEOF)
-	{
-	  /* Return failure if at end of input.  */
-	  if (yychar == YYEOF)
-	    YYABORT;
-	}
+        {
+          /* Return failure if at end of input.  */
+          if (yychar == YYEOF)
+            YYABORT;
+        }
       else
-	{
-	  yydestruct ("Error: discarding",
-		      yytoken, &yylval);
-	  yychar = YYEMPTY;
-	}
+        {
+          yydestruct ("Error: discarding",
+                      yytoken, &yylval);
+          yychar = YYEMPTY;
+        }
     }
 
   /* Else will try to reuse lookahead token after shifting the error
@@ -4547,7 +4250,7 @@ yyerrorlab:
   if (/*CONSTCOND*/ 0)
      goto yyerrorlab;
 
-  /* Do not reclaim the symbols of the rule which action triggered
+  /* Do not reclaim the symbols of the rule whose action triggered
      this YYERROR.  */
   YYPOPSTACK (yylen);
   yylen = 0;
@@ -4560,29 +4263,29 @@ yyerrorlab:
 | yyerrlab1 -- common code for both syntax error and YYERROR.  |
 `-------------------------------------------------------------*/
 yyerrlab1:
-  yyerrstatus = 3;	/* Each real token shifted decrements this.  */
+  yyerrstatus = 3;      /* Each real token shifted decrements this.  */
 
   for (;;)
     {
       yyn = yypact[yystate];
       if (!yypact_value_is_default (yyn))
-	{
-	  yyn += YYTERROR;
-	  if (0 <= yyn && yyn <= YYLAST && yycheck[yyn] == YYTERROR)
-	    {
-	      yyn = yytable[yyn];
-	      if (0 < yyn)
-		break;
-	    }
-	}
+        {
+          yyn += YYTERROR;
+          if (0 <= yyn && yyn <= YYLAST && yycheck[yyn] == YYTERROR)
+            {
+              yyn = yytable[yyn];
+              if (0 < yyn)
+                break;
+            }
+        }
 
       /* Pop the current state because it cannot handle the error token.  */
       if (yyssp == yyss)
-	YYABORT;
+        YYABORT;
 
 
       yydestruct ("Error: popping",
-		  yystos[yystate], yyvsp);
+                  yystos[yystate], yyvsp);
       YYPOPSTACK (1);
       yystate = *yyssp;
       YY_STACK_PRINT (yyss, yyssp);
@@ -4633,14 +4336,14 @@ yyreturn:
       yydestruct ("Cleanup: discarding lookahead",
                   yytoken, &yylval);
     }
-  /* Do not reclaim the symbols of the rule which action triggered
+  /* Do not reclaim the symbols of the rule whose action triggered
      this YYABORT or YYACCEPT.  */
   YYPOPSTACK (yylen);
   YY_STACK_PRINT (yyss, yyssp);
   while (yyssp != yyss)
     {
       yydestruct ("Cleanup: popping",
-		  yystos[*yyssp], yyvsp);
+                  yystos[*yyssp], yyvsp);
       YYPOPSTACK (1);
     }
 #ifndef yyoverflow
@@ -4651,13 +4354,9 @@ yyreturn:
   if (yymsg != yymsgbuf)
     YYSTACK_FREE (yymsg);
 #endif
-  /* Make sure YYID is used.  */
-  return YYID (yyresult);
+  return yyresult;
 }
-
-
-/* Line 2050 of yacc.c  */
-#line 1798 "gparse.y"
+#line 1798 "gparse.y" /* yacc.c:1906  */
 
 		
 //Simple int to string converstion helper function

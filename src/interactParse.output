@@ -14,27 +14,27 @@ Grammar
     1 line: line promoter
     2     | line gene
     3     | line interaction
-    4     | /* empty */
+    4     | %empty
 
     5 gene: GENE TEXT
 
-    6 $@1: /* empty */
+    6 $@1: %empty
 
-    7 $@2: /* empty */
+    7 $@2: %empty
 
-    8 $@3: /* empty */
+    8 $@3: %empty
 
     9 promoter: PROMOTER TEXT $@1 LEFT_CURLY $@2 activate RIGHT_CURLY LEFT_CURLY $@3 repressed RIGHT_CURLY
 
    10 activate: activate TEXT
-   11         | /* empty */
+   11         | %empty
 
    12 repressed: repressed TEXT
-   13          | /* empty */
+   13          | %empty
 
-   14 $@4: /* empty */
+   14 $@4: %empty
 
-   15 $@5: /* empty */
+   15 $@5: %empty
 
    16 interaction: INTERACTION LEFT_CURLY $@4 activate RIGHT_CURLY LEFT_CURLY TEXT $@5 RIGHT_CURLY
 

@@ -183,7 +183,7 @@ OBJECTS = $(addsuffix .o, $(basename ${SOURCES}) gparse ctlparse tctlparse lex.y
 AllObjs = $(OBJECTS) solvecsc.o slack.o
 
 #CFLAGS = $(DEFS) $(MDBDEF) $(INC) $(MDBINC) -Wall -g
-CFLAGS = $(DEFS) $(INC) -Wall -g -s #-Wno-deprecated #-static
+CFLAGS = $(DEFS) $(INC) -Wall -g -s -static #-Wno-deprecated 
 Compile = $(CC) $(CFLAGS) $(BFLAG) -c#  Compile a source file.
 Command = ${Compile} $<# Compile the source file that is the first prerequisite
 liBase = $(PKGLIBS) $(XLIB) $(TCLTKLIBS) $(STATLIBS) -lm 
