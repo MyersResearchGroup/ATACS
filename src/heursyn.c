@@ -197,19 +197,20 @@ array_abort(int i)
 {
     switch (i) {
         case 0:
-            fail("array: array access out of bounds\n");
+          //            fail("array: array access out of bounds\n");
             /* NOTREACHED */
         case 1:
-            fail("array: object size mismatch\n");
+          //fail("array: object size mismatch\n");
             /* NOTREACHED */
         case 2:
-            fail("array: append not defined for arrays of different sizes\n");
+          //fail("array: append not defined for arrays of different sizes\n");
             /* NOTREACHED */
         case 3:
-            fail("array: join not defined for arrays of different sizes\n");
+          //fail("array: join not defined for arrays of different sizes\n");
             /* NOTREACHED */
         default:
-            fail("array: unknown error\n");
+          ;
+          //fail("array: unknown error\n");
             /* NOTREACHED */
     }
 }

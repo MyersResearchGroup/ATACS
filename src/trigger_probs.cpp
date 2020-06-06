@@ -124,36 +124,36 @@ ostream& print_trigger_profile( ostream& s,
 //
 /////////////////////////////////////////////////////////////////////////////
 bool dump_trigger_probs( designADT design ) {
-  string fname( string( design->filename ) + ".tp" );
-  ofstream out_stream;
+  // string fname( string( design->filename ) + ".tp" );
+  // ofstream out_stream;
   
-  out_stream.open( fname.c_str(), ios::out );
-  if ( !out_stream.is_open() ) {
-    cout << "Cannot open '" << fname << "', for writing" << endl;
-    return( false );
-  }
+  // out_stream.open( fname.c_str(), ios::out );
+  // if ( !out_stream.is_open() ) {
+  //   cout << "Cannot open '" << fname << "', for writing" << endl;
+  //   return( false );
+  // }
 
-  cout << "Saving transition probabilities to `" << fname << "' ... ";
-  cpu_time_tracker time;
+  // cout << "Saving transition probabilities to `" << fname << "' ... ";
+  // cpu_time_tracker time;
 
-  out_stream << "   Trigger Probabilities" << endl
-             << "----------------------------";
+  // out_stream << "   Trigger Probabilities" << endl
+  //            << "----------------------------";
 
-  for ( int j = 0 ; j < design->nevents ; j++ ) {
-    out_stream << endl;
-    for ( int i = 0 ; i < design->nevents ; i++ ) {
-      if ( design->rules[i][j]->ruletype != NORULE &&
-	   design->rules[i][j]->ruletype != REDUNDANT ) {
-	out_stream << "<" << design->events[i]->event << ","
-		   << design->events[j]->event << ">: "
-		   << (*(design->trigger_probs))[design->rules[i][j]->marking] 
-		   << endl;
-      }
-    }
-  }
-  time.mark();
-  cout << "done: " << time << endl;
-  out_stream.close();
+  // for ( int j = 0 ; j < design->nevents ; j++ ) {
+  //   out_stream << endl;
+  //   for ( int i = 0 ; i < design->nevents ; i++ ) {
+  //     if ( design->rules[i][j]->ruletype != NORULE &&
+  //          design->rules[i][j]->ruletype != REDUNDANT ) {
+  //       out_stream << "<" << design->events[i]->event << ","
+  //       	   << design->events[j]->event << ">: "
+  //       	   << (*(design->trigger_probs))[design->rules[i][j]->marking] 
+  //       	   << endl;
+  //     }
+  //   }
+  // }
+  // time.mark();
+  // cout << "done: " << time << endl;
+  // out_stream.close();
   return( true );
 }
 	
